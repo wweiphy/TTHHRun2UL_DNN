@@ -1,6 +1,6 @@
 # global imports
-import ROOT
-ROOT.PyConfig.IgnoreCommandLineOptions = True
+# import ROOT
+# ROOT.PyConfig.IgnoreCommandLineOptions = True
 import os
 import sys
 import optparse
