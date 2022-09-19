@@ -758,7 +758,7 @@ class DNN():
             self.data.get_full_labels_after_preprocessing(), self.model_prediction_vector)
         print("\nROC-AUC score: {}".format(self.roc_auc_score))
 
-    def loadDNN(inputDirectory, outputDirectory, binary=False, signal=None, binary_target=None, total_weight_expr='x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom', category_cutString=None, category_label=None):
+    def loadDNN(inputDirectory, outputDirectory, sample_save_path, binary=False, signal=None, binary_target=None, total_weight_expr='x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom'):
 
         # get net config json
         configFile = inputDirectory+"/checkpoints/net_config.json"
@@ -810,6 +810,7 @@ class DNN():
         # init DNN class
         dnn = DNN(
             save_path=outputDirectory,
+            sample_save_path=sample_save_path,
             input_samples=input_samples,
             category_name=config["JetTagCategory"],
             train_variables=config["trainVariables"],
