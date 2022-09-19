@@ -2,6 +2,7 @@ import os
 import sys
 import pandas as pd
 import numpy as np
+import json
 from sklearn.utils import shuffle
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import QuantileTransformer
@@ -167,10 +168,8 @@ class DataFrame(object):
             self.index_classes = [self.class_translation[c]
                                   for c in self.classes]
                                   
-            print("class translation: "+self.class_translation)
-            with open(self.save_path+"class_translation.txt", "w") as txt_file:
-                for line in self.class_translation:
-                    txt_file.write(" ".join(line) + "\n")
+            print("class translation: ")
+            print(self.class_translation)
 
             df["index_label"] = pd.Series(
                 [self.class_translation[c] for c in df["class_label"].values], index=df.index)
@@ -270,8 +269,11 @@ class DataFrame(object):
         with open(self.save_path+"output_classes.txt", "w") as txt_file:
             for line in self.output_classes:
                 txt_file.write(" ".join(line) + "\n")
-        
-        
+        # save this classes dictionary for later evaluation
+        json.dump(self.class_translation, open(
+            self.save_path+"class_translation.txt", 'w'))
+
+
         print("total events after cuts:  "+str(df.shape[0]))
         print("events used for training: "+str(self.df_train.shape[0]))
         print("events used for testing:  "+str(self.df_test.shape[0]))

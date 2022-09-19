@@ -282,12 +282,15 @@ class DNN():
             self.data = self._load_datasets(shuffle_seed)
             self.event_classes = self.data.output_classes
         else:
+            # get preprocessed df saved in previous training for evaluation
             with pd.HDFStore(self.sample_save_path+"/df.h5", mode="r") as store:
                 df = store.select("data")
                 samp = int(df.shape[0]*1.0)
 #                df = df.astype('float64') # added by Wei
                 df = df.head(samp)
             self.data = df
+
+            # get previously saved event classes and classes translation object
             self.event_classes = []
             with open(self.sample_save_path+"output_classes.txt") as f:
                 for line in f:
@@ -295,11 +298,10 @@ class DNN():
             print("event classes:" + self.event_classes)
             self.data.n_output_neurons = len(self.event_classes)
 
-            self.class_translation = []
-            with open(self.sample_save_path+"class_translation.txt") as f:
-                for line in f:
-                    self.class_translation.append(line)
-            print("class_translation:" + self.class_translation)
+            self.class_translation = json.load(
+                open(self.sample_save_path+"class_translation.txt"))
+            print("class_translation:")
+            print(self.class_translation)
 
         # make plotdir
         self.plot_path = self.save_path+"/plots/"
