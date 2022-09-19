@@ -768,74 +768,6 @@ class DNN():
             self.data.get_full_labels_after_preprocessing(), self.model_prediction_vector)
         print("\nROC-AUC score: {}".format(self.roc_auc_score))
 
-    def loadDNN(inputDirectory, outputDirectory, sample_save_path, binary=False, signal=None, binary_target=None, total_weight_expr='x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom', model_epoch = None):
-
-        # get net config json
-        configFile = inputDirectory+"/checkpoints/net_config.json"
-        if not os.path.exists(configFile):
-            sys.exit("config needed to load trained DNN not found\n{}".format(configFile))
-
-        with open(configFile) as f:
-            config = f.read()
-        config = json.loads(config)
-
-        # load samples
-        input_samples = data_frame.InputSamples(
-            config["inputData"], addSampleSuffix=config["addSampleSuffix"])
-
-        if binary:
-            input_samples.addBinaryLabel(signal, binary_target)
-
-        for sample in config["eventClasses"]:
-            if sample["sampleLabel"] == "ttHH":
-                total_weight_expr = total_weight_expr + '* 2'
-                input_samples.addSample(sample["samplePath"], sample["sampleLabel"],
-                                        normalization_weight=sample["sampleWeight"], train_weight=2, total_weight_expr=total_weight_expr)
-            elif sample["sampleLabel"] == "ttZH":
-                total_weight_expr = total_weight_expr + '/ 2'
-                input_samples.addSample(sample["samplePath"], sample["sampleLabel"],
-                                        normalization_weight=sample["sampleWeight"], train_weight=1, total_weight_expr=total_weight_expr)
-            elif sample["sampleLabel"] == "ttZZ":
-                total_weight_expr = total_weight_expr + '/ 2'
-                input_samples.addSample(sample["samplePath"], sample["sampleLabel"],
-                                        normalization_weight=sample["sampleWeight"], train_weight=1, total_weight_expr=total_weight_expr)
-            elif sample["sampleLabel"] == "ttZbb":
-                total_weight_expr = total_weight_expr + \
-                    '/ (0.001571054/0.00016654)'
-                input_samples.addSample(sample["samplePath"], sample["sampleLabel"],
-                                        normalization_weight=sample["sampleWeight"], train_weight=1, total_weight_expr=total_weight_expr)
-            elif sample["sampleLabel"] == "ttmb":
-                total_weight_expr = total_weight_expr + '* 6.89'
-                input_samples.addSample(sample["samplePath"], sample["sampleLabel"],
-                                        normalization_weight=sample["sampleWeight"], train_weight=1, total_weight_expr=total_weight_expr)
-            elif sample["sampleLabel"] == "ttnb":
-                total_weight_expr = total_weight_expr + '* 1.0'
-                input_samples.addSample(sample["samplePath"], sample["sampleLabel"],
-                                        normalization_weight=sample["sampleWeight"], train_weight=1, total_weight_expr=total_weight_expr)
-            else:
-                input_samples.addSample(sample["samplePath"], sample["sampleLabel"],
-                                        normalization_weight=sample["sampleWeight"], total_weight_expr=total_weight_expr)
-
-        print("shuffle seed: {}".format(config["shuffleSeed"]))
-        # init DNN class
-        dnn = DNN(
-            save_path=outputDirectory,
-            sample_save_path=sample_save_path,
-            input_samples=input_samples,
-            category_name=config["JetTagCategory"],
-            train_variables=config["trainVariables"],
-            shuffle_seed=config["shuffleSeed"],
-            addSampleSuffix=config["addSampleSuffix"],
-        )
-
-
-    #    dnn._load_datasets(shuffle_seed=config["shuffleSeed"],balanceSamples=True)
-        # load the trained model
-        dnn.load_trained_model(inputDirectory, model_epoch)
-        # dnn.predict_event_query()
-
-        return dnn
-
     def save_discriminators(self, log=False, printROC=False, privateWork=False,
                             signal_class=None, nbins=None, bin_range=None,
                             sigScale=-1):
@@ -860,3 +792,71 @@ class DNN():
 
         saveDiscrs.save(ratio=False, printROC=printROC,
                         privateWork=privateWork)
+
+def loadDNN(inputDirectory, outputDirectory, sample_save_path, binary=False, signal=None, binary_target=None, total_weight_expr='x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom', model_epoch= None):
+
+    # get net config json
+    configFile = inputDirectory+"/checkpoints/net_config.json"
+    if not os.path.exists(configFile):
+        sys.exit(
+            "config needed to load trained DNN not found\n{}".format(configFile))
+
+    with open(configFile) as f:
+        config = f.read()
+    config = json.loads(config)
+
+    # load samples
+    input_samples = data_frame.InputSamples(
+        config["inputData"], addSampleSuffix=config["addSampleSuffix"])
+
+    if binary:
+        input_samples.addBinaryLabel(signal, binary_target)
+
+    for sample in config["eventClasses"]:
+        if sample["sampleLabel"] == "ttHH":
+            total_weight_expr = total_weight_expr + '* 2'
+            input_samples.addSample(sample["samplePath"], sample["sampleLabel"],
+                                    normalization_weight=sample["sampleWeight"], train_weight=2, total_weight_expr=total_weight_expr)
+        elif sample["sampleLabel"] == "ttZH":
+            total_weight_expr = total_weight_expr + '/ 2'
+            input_samples.addSample(sample["samplePath"], sample["sampleLabel"],
+                                    normalization_weight=sample["sampleWeight"], train_weight=1, total_weight_expr=total_weight_expr)
+        elif sample["sampleLabel"] == "ttZZ":
+            total_weight_expr = total_weight_expr + '/ 2'
+            input_samples.addSample(sample["samplePath"], sample["sampleLabel"],
+                                    normalization_weight=sample["sampleWeight"], train_weight=1, total_weight_expr=total_weight_expr)
+        elif sample["sampleLabel"] == "ttZbb":
+            total_weight_expr = total_weight_expr + \
+                '/ (0.001571054/0.00016654)'
+            input_samples.addSample(sample["samplePath"], sample["sampleLabel"],
+                                    normalization_weight=sample["sampleWeight"], train_weight=1, total_weight_expr=total_weight_expr)
+        elif sample["sampleLabel"] == "ttmb":
+            total_weight_expr = total_weight_expr + '* 6.89'
+            input_samples.addSample(sample["samplePath"], sample["sampleLabel"],
+                                    normalization_weight=sample["sampleWeight"], train_weight=1, total_weight_expr=total_weight_expr)
+        elif sample["sampleLabel"] == "ttnb":
+            total_weight_expr = total_weight_expr + '* 1.0'
+            input_samples.addSample(sample["samplePath"], sample["sampleLabel"],
+                                    normalization_weight=sample["sampleWeight"], train_weight=1, total_weight_expr=total_weight_expr)
+        else:
+            input_samples.addSample(sample["samplePath"], sample["sampleLabel"],
+                                    normalization_weight=sample["sampleWeight"], total_weight_expr=total_weight_expr)
+
+    print("shuffle seed: {}".format(config["shuffleSeed"]))
+    # init DNN class
+    dnn = DNN(
+        save_path=outputDirectory,
+        sample_save_path=sample_save_path,
+        input_samples=input_samples,
+        category_name=config["JetTagCategory"],
+        train_variables=config["trainVariables"],
+        shuffle_seed=config["shuffleSeed"],
+        addSampleSuffix=config["addSampleSuffix"],
+    )
+
+#    dnn._load_datasets(shuffle_seed=config["shuffleSeed"],balanceSamples=True)
+    # load the trained model
+    dnn.load_trained_model(inputDirectory, model_epoch)
+    # dnn.predict_event_query()
+
+    return dnn
