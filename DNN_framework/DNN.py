@@ -16,10 +16,10 @@ from tensorflow import keras
 from keras import optimizers
 from keras import models
 from keras import backend
-# import tensorflow.keras as keras
-# import tensorflow.keras.optimizers as optimizers
-# import tensorflow.keras.models as models
-# import tensorflow.keras.backend as backend
+# import tf.keras as keras
+# import tf.keras.optimizers as optimizers
+# import tf.keras.models as models
+# import tf.keras.backend as backend
 
 # local imports
 filedir = os.path.dirname(os.path.realpath(__file__))
@@ -599,8 +599,8 @@ class DNN():
         rank_path = self.save_path + "/first_layer_weight_sums.csv"
         with open(rank_path, "w") as f:
             f.write("variable,weight_sum\n")
-            for key, val in sorted(self.weight_dict.iteritems(), key=lambda (k, v): (v, k)):
-                #            for key, val in sorted(self.weight_dict.iteritems(), key = lambda kv: (-kv[1], kv[0]):
+            for key, val in sorted(self.weight_dict.iteritems(), key=lambda k, v: (v, k)): # python3
+                #            for key, val in sorted(self.weight_dict.iteritems(), key=lambda (k, v): (v, k)): # for python2
                 #print("{:50s}: {}".format(key, val))
                 f.write("{},{}\n".format(key, val))
         print("wrote weight ranking to "+str(rank_path))
