@@ -758,7 +758,7 @@ class DNN():
             self.data.get_full_labels_after_preprocessing(), self.model_prediction_vector)
         print("\nROC-AUC score: {}".format(self.roc_auc_score))
 
-    def loadDNN(inputDirectory, outputDirectory, sample_save_path, binary=False, signal=None, binary_target=None, total_weight_expr='x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom'):
+    def loadDNN(inputDirectory, outputDirectory, sample_save_path, binary=False, signal=None, binary_target=None, total_weight_expr='x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom', model_epoch = None):
 
         # get net config json
         configFile = inputDirectory+"/checkpoints/net_config.json"
@@ -821,7 +821,7 @@ class DNN():
 
     #    dnn._load_datasets(shuffle_seed=config["shuffleSeed"],balanceSamples=True)
         # load the trained model
-        dnn.load_trained_model(inputDirectory)
+        dnn.load_trained_model(inputDirectory, model_epoch)
         # dnn.predict_event_query()
 
         return dnn
