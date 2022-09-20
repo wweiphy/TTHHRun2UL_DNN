@@ -12,14 +12,14 @@ import pickle
 import matplotlib as plt
 from Derivatives import Inputs, Outputs, Derivatives
 import tensorflow as tf
-from tensorflow import keras
-from keras import optimizers
-from keras import models
-from keras import backend
-# import tf.keras as keras
-# import tf.keras.optimizers as optimizers
-# import tf.keras.models as models
-# import tf.keras.backend as backend
+# from tensorflow import keras
+# from keras import optimizers
+# from keras import models
+# from keras import backend
+import tf.keras as keras
+import tf.keras.optimizers as optimizers
+import tf.keras.models as models
+import tf.keras.backend as backend
 
 # local imports
 filedir = os.path.dirname(os.path.realpath(__file__))
@@ -745,8 +745,8 @@ class DNN():
 
         print("import model from directory: {}".format(checkpoint_path))
         # get the keras model
-        # self.model = keras.models.load_model(checkpoint_path)
-        self.model = models.load_model(checkpoint_path)
+        self.model = keras.models.load_model(checkpoint_path)
+        # self.model = models.load_model(checkpoint_path)
         self.model.summary()
 
         # evaluate whole dataset with keras model
