@@ -820,7 +820,7 @@ def loadDNN(inputDirectory, outputDirectory, sample_save_path, binary=False, sig
     if binary:
         input_samples.addBinaryLabel(signal, binary_target)
 
-    # for sample in config["eventClasses"]:
+    for sample in config["eventClasses"]:
     #     if sample["sampleLabel"] == "ttHH":
     #         total_weight_expr = total_weight_expr + '* 1.831718558'
     #         sample_train_weight = 2
