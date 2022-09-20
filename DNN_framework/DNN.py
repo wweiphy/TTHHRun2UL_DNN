@@ -497,7 +497,7 @@ class DNN():
         # save confusion matrix
         from sklearn.metrics import confusion_matrix
         self.confusion_matrix = confusion_matrix(
-            self.data.get_test_labels(as_categorical=False), self.predicted_classes, normalize = 'all')
+            self.data.get_test_labels(as_categorical=False), self.predicted_classes)
 
         # print evaluations
         from sklearn.metrics import roc_auc_score
@@ -768,7 +768,7 @@ class DNN():
         # save confusion matrix
         from sklearn.metrics import confusion_matrix
         self.confusion_matrix = confusion_matrix(
-            self.data.get_full_labels_after_preprocessing(as_categorical=False), self.predicted_classes, normalize='all')
+            self.data.get_full_labels_after_preprocessing(as_categorical=False), self.predicted_classes)
 
         # print evaluations  with keras model
         from sklearn.metrics import roc_auc_score

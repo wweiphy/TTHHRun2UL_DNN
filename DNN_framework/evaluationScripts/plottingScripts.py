@@ -1,6 +1,12 @@
 import os
 import sys
 import uproot
+import numpy as np
+from sklearn.metrics import confusion_matrix
+from sklearn.metrics import roc_auc_score
+# import ROOT
+
+# local imports
 filedir = os.path.dirname(os.path.realpath(__file__))
 pyrootdir = os.path.dirname(filedir)
 basedir = os.path.dirname(pyrootdir)
@@ -8,6 +14,7 @@ sys.path.append(pyrootdir)
 sys.path.append(basedir)
 from plot_configs import setupPlots
 
+# save DNN outputs for evaluation 
 class saveDiscriminators:
     def __init__(self, data, prediction_vector, predicted_classes, event_classes, nbins, bin_range, event_category, savedir, logscale=False, sigScale=-1):
         self.data = data
@@ -95,3 +102,55 @@ class saveDiscriminators:
             f.cd()
             f.Write()
             f.Close()
+
+
+class plotConfusionMatrix:
+    def __init__(self, data, prediction_vector, event_classes, event_category, plotdir):
+        self.data = data
+        self.prediction_vector = prediction_vector
+        self.predicted_classes = np.argmax(self.prediction_vector, axis=1)
+
+        self.event_classes = event_classes
+        self.n_classes = len(self.event_classes) 
+
+        self.event_category = event_category
+        self.plotdir = plotdir
+
+        self.confusion_matrix = confusion_matrix(
+            self.data.get_test_labels(as_categorical=False), self.predicted_classes)
+        
+
+        # default settings
+        self.ROCScore = None
+
+    def plot(self, norm_matrix=True, privateWork=False, printROC=False):
+        if printROC:
+            self.ROCScore = roc_auc_score(
+                self.data.get_test_labels(), self.prediction_vector)
+
+        # norm confusion matrix if activated
+        if norm_matrix:
+            new_matrix = np.empty(
+                (self.n_classes, self.n_classes), dtype=np.float64)
+            for yit in range(self.n_classes):
+                evt_sum = float(sum(self.confusion_matrix[yit, :]))
+                for xit in range(self.n_classes):
+                    new_matrix[yit, xit] = 1e-9
+                    if self.confusion_matrix[yit, xit] != 0:
+                        new_matrix[yit, xit] = self.confusion_matrix[yit,
+                                                                     xit]/(evt_sum+1e-9)
+                    # print("y: ", yit, "x: ", xit,"matrix: ", new_matrix[yit, xit])
+
+            self.confusion_matrix = new_matrix
+
+        # initialize Histogram
+        cm = setupPlots.setupConfusionMatrix(
+            matrix=self.confusion_matrix.T,
+            ncls=self.n_classes,
+            xtitle="predicted class",
+            ytitle="true class",
+            binlabel=self.event_classes)
+
+        canvas = setupPlots.drawConfusionMatrixOnCanvas(
+            cm, "confusion matrix", self.event_category, self.ROCScore, privateWork=privateWork)
+        setupPlots.saveCanvas(canvas, self.plotdir+"/confusionMatrix.pdf")
