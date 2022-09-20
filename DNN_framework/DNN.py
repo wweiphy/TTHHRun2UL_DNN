@@ -16,10 +16,10 @@ import tensorflow as tf
 # from keras import optimizers
 # from keras import models
 # from keras import backend
-import tf.keras as keras
-import tf.keras.optimizers as optimizers
-import tf.keras.models as models
-import tf.keras.backend as backend
+import tensorflow.keras as keras
+import tensorflow.keras.optimizers as optimizers
+import tensorflow.keras.models as models
+import tensorflow.keras.backend as backend
 
 # local imports
 filedir = os.path.dirname(os.path.realpath(__file__))
