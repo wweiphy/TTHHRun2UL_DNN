@@ -738,13 +738,15 @@ class DNN():
 
     def load_trained_model(self, inputDirectory, ModelEpoch = None):
         ''' load an already trained model '''
+        print("import model from directory: {}".format(inputDirectory))
         if not ModelEpoch:
             checkpoint_path = inputDirectory+"/checkpoints/trained_model.h5py"
         else:
             checkpoint_path = inputDirectory+"/checkpoints/trained_model_{}.h5py".format(ModelEpoch)
 
         # get the keras model
-        self.model = keras.models.load_model(checkpoint_path)
+        # self.model = keras.models.load_model(checkpoint_path)
+        self.model = models.load_model(checkpoint_path)
         self.model.summary()
 
         # evaluate whole dataset with keras model
