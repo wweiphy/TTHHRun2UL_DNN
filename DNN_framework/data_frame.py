@@ -7,7 +7,7 @@ from sklearn.utils import shuffle
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import QuantileTransformer
 from sklearn.preprocessing import MinMaxScaler
-
+from tensorflow.keras.utils import to_categorical
 
 class Sample:
     def __init__(self, path, label, normalization_weight=1., train_weight=1., total_weight_expr='x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom', addSampleSuffix=""):
@@ -309,6 +309,8 @@ class DataFrame(object):
     def get_train_labels(self, as_categorical=True):
         if self.binary_classification:
             return self.df_train["binaryTarget"].values
+        if as_categorical:
+            return to_categorical(self.df_train["index_label"].values)
         else:
             return self.df_train["index_label"].values
 
@@ -334,6 +336,8 @@ class DataFrame(object):
     def get_test_labels(self, as_categorical=True):
         if self.binary_classification:
             return self.df_test["binaryTarget"].values
+        if as_categorical:
+            return to_categorical(self.df_test["index_label"].values)
         else:
             return self.df_test["index_label"].values
 
@@ -351,4 +355,7 @@ class DataFrame(object):
         return self.df_unsplit_preprocessing["lumi_weight"].values
 
     def get_full_labels_after_preprocessing(self, as_categorical=True):
-        return self.df_unsplit_preprocessing["index_label"].values
+        if as_categorical:
+            return to_categorical(self.df_unsplit_preprocessing["index_label"].values)
+        else:
+            return self.df_unsplit_preprocessing["index_label"].values

@@ -449,7 +449,7 @@ class DNN():
         if self.architecture["saveEpoch"]:
             callbacks.append(CustomSaver(cp_path=self.cp_path))
             callbacks.append(MonitorSignalToBackground(
-                                                        test_label=self.data.get_test_labels(),
+                test_label=self.data.get_test_labels(as_categorical=False),
                                                         test_data=self.data.get_test_data(as_matrix=True),
                                                         classes=self.event_classes,
                                                         cp_path=self.cp_path,
@@ -494,7 +494,7 @@ class DNN():
         # save confusion matrix
         from sklearn.metrics import confusion_matrix
         self.confusion_matrix = confusion_matrix(
-            self.data.get_test_labels(), self.predicted_classes)
+            self.data.get_test_labels(as_categorical=False), self.predicted_classes)
 
         # print evaluations
         from sklearn.metrics import roc_auc_score
