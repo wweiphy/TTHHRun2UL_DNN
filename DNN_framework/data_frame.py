@@ -273,25 +273,27 @@ class DataFrame(object):
         json.dump(self.class_translation, open(
             self.save_path+"class_translation.txt", 'w'))
 
-
-        print("total events after cuts:  "+str(df.shape[0]))
+        print("total events after cuts:  "+ \
+              str(self.df_unsplit_preprocessing.shape[0]))
         print("events used for training: "+str(self.df_train.shape[0]))
         print("events used for testing:  "+str(self.df_test.shape[0]))
         del df
 
         # save dataframe after preprocessing
+        print("save preprocessed events")
         outFile_df = self.save_path+"/"+"df.h5" 
         outFile_df_train = self.save_path+"/"+"df_train.h5" 
         outFile_df_test = self.save_path+"/"+"df_test.h5" 
 
-        self.saveDatasets(df,outFile_df)
-        self.saveDatasets(df_train, outFile_df_train)
-        self.saveDatasets(df_test, outFile_df_test)
+        self.saveDatasets(self.df_unsplit_preprocessing, outFile_df)
+        self.saveDatasets(self.df_train, outFile_df_train)
+        self.saveDatasets(self.df_test, outFile_df_test)
 
     def saveDatasets(self, df, outFile):
-            print("creating dataset after preprocessing")
+            print("save dataset after preprocessing in {}".format(outFile))
             with pd.HDFStore(outFile, "a") as store:
                 store.append("data", df, index=False)
+            print("successfully saved the dataset after preprocessing")
 
     # train data -----------------------------------
 
