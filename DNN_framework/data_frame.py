@@ -288,6 +288,7 @@ class DataFrame(object):
         self.saveDatasets(self.df_unsplit_preprocessing, outFile_df)
         self.saveDatasets(self.df_train, outFile_df_train)
         self.saveDatasets(self.df_test, outFile_df_test)
+        return self
 
     def saveDatasets(self, df, outFile):
             print("save dataset after preprocessing in {}".format(outFile))
