@@ -29,20 +29,20 @@ sys.path.append(basedir)
 
 from evaluationScripts import plottingScripts
 # Limit gpu usage
-# tf.compat.v1.disable_eager_execution()
-# config = tf.compat.v1.ConfigProto()
-# config = tf.compat.v1.ConfigProto(device_count={
-                                #   'GPU': 1, 'CPU': 4}, intra_op_parallelism_threads=4, inter_op_parallelism_threads=4)
-# config.gpu_options.allow_growth = True
-# tf.compat.v1.keras.backend.set_session(tf.compat.v1.Session(config=config))
+tf.compat.v1.disable_eager_execution()
+config = tf.compat.v1.ConfigProto()
+config = tf.compat.v1.ConfigProto(device_count={
+                                  'GPU': 1, 'CPU': 4}, intra_op_parallelism_threads=4, inter_op_parallelism_threads=4)
+config.gpu_options.allow_growth = True
+tf.compat.v1.keras.backend.set_session(tf.compat.v1.Session(config=config))
 
 # tf.config.threading.set_intra_op_parallelism_threads(4)
 # tf.config.threading.set_inter_op_parallelism_threads(4)
 
-config = tf.ConfigProto(device_count={
-                                  'GPU': 1, 'CPU': 4}, intra_op_parallelism_threads=4, inter_op_parallelism_threads=4)
-config.gpu_options.allow_growth = True
-tf.Session(config=config)
+# config = tf.ConfigProto(device_count={
+#                                   'GPU': 1, 'CPU': 4}, intra_op_parallelism_threads=4, inter_op_parallelism_threads=4)
+# config.gpu_options.allow_growth = True
+# tf.Session(config=config)
 
 class EarlyStopping(keras.callbacks.Callback):
     ''' custom implementation of early stopping
