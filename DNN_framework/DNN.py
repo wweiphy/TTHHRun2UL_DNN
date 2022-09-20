@@ -220,6 +220,7 @@ class DNN():
                  category_name,
                  train_variables,
                  Do_Evaluation = False,
+                 is_Data = False,
                  category_cutString=None,
                  category_label=None,
                  train_epochs=500,
@@ -288,21 +289,23 @@ class DNN():
 #                 samp = int(df.shape[0]*1.0)
 # #                df = df.astype('float64') # added by Wei
 #                 df = df.head(samp)
-            df = pd.read_hdf(self.sample_save_path+"/df.h5",'df')
-            self.data = df
+            if not is_Data:
+                df = pd.read_hdf(self.sample_save_path+"/df.h5",'df')
+                self.data = df
 
-            # get previously saved event classes and classes translation object
-            self.event_classes = []
-            with open(self.sample_save_path+"output_classes.txt") as f:
-                for line in f:
-                    self.event_classes.append(line)
-            print("event classes:" + self.event_classes)
-            self.data.n_output_neurons = len(self.event_classes)
+                # get previously saved event classes and classes translation object
+                self.event_classes = []
+                with open(self.sample_save_path+"/output_classes.txt") as f:
+                    for line in f:
+                        self.event_classes.append(line)
+                print("event classes:" + self.event_classes)
+                self.data.n_output_neurons = len(self.event_classes)
 
-            self.class_translation = json.load(
-                open(self.sample_save_path+"class_translation.txt"))
-            print("class_translation:")
-            print(self.class_translation)
+                self.class_translation = json.load(
+                    open(self.sample_save_path+"/class_translation.txt"))
+                print("class_translation:")
+                print(self.class_translation)
+                
 
         # make plotdir
         self.plot_path = self.save_path+"/plots/"
@@ -765,7 +768,7 @@ class DNN():
         # save confusion matrix
         from sklearn.metrics import confusion_matrix
         self.confusion_matrix = confusion_matrix(
-            self.data.get_full_labels_after_preprocessing(), self.predicted_classes)
+            self.data.get_full_labels_after_preprocessing(as_categorical=False), self.predicted_classes, normalize=True)
 
         # print evaluations  with keras model
         from sklearn.metrics import roc_auc_score

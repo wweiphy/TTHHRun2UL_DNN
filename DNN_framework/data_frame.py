@@ -266,12 +266,12 @@ class DataFrame(object):
         # save variable lists
         self.output_classes = self.classes
 
-        with open(self.save_path+"output_classes.txt", "w") as txt_file:
+        with open(self.save_path+"/output_classes.txt", "w") as txt_file:
             for line in self.output_classes:
                 txt_file.write(" ".join(line) + "\n")
         # save this classes dictionary for later evaluation
         json.dump(self.class_translation, open(
-            self.save_path+"class_translation.txt", 'w'))
+            self.save_path+"/class_translation.txt", 'w'))
 
         print("total events after cuts:  "+ \
               str(self.df_unsplit_preprocessing.shape[0]))
