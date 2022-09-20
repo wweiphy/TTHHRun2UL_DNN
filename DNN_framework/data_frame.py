@@ -291,8 +291,7 @@ class DataFrame(object):
 
     def saveDatasets(self, df, outFile):
             print("save dataset after preprocessing in {}".format(outFile))
-            with pd.HDFStore(outFile, "a") as store:
-                store.append("data", df, index=False)
+            df.to_hdf(outFile, key='df', mode='w')
             print("successfully saved the dataset after preprocessing")
 
     # train data -----------------------------------

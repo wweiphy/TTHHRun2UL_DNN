@@ -283,11 +283,12 @@ class DNN():
             self.event_classes = self.data.output_classes
         else:
             # get preprocessed df saved in previous training for evaluation
-            with pd.HDFStore(self.sample_save_path+"/df.h5", mode="r") as store:
-                df = store.select("data")
-                samp = int(df.shape[0]*1.0)
-#                df = df.astype('float64') # added by Wei
-                df = df.head(samp)
+#             with pd.HDFStore(self.sample_save_path+"/df.h5", mode="r") as store:
+#                 df = store.select("data")
+#                 samp = int(df.shape[0]*1.0)
+# #                df = df.astype('float64') # added by Wei
+#                 df = df.head(samp)
+            df = pd.read_hdf(self.sample_save_path+"/df.h5",'df')
             self.data = df
 
             # get previously saved event classes and classes translation object
