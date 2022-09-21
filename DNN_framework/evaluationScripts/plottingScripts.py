@@ -46,13 +46,15 @@ class saveDiscriminators:
             print("\nPLOTTING OUTPUT NODE '"+str(node_cls))+"'"
 
             # get index of node
-            self.class_translation = []
-            with open(self.sample_save_path+"class_translation.txt") as f:
-                for line in f:
-                    self.class_translation.append(line)
-            print("class_translation: " + self.class_translation)
+            # self.class_translation = []
+            # with open(self.sample_save_path+"class_translation.txt") as f:
+            #     for line in f:
+            #         self.class_translation.append(line)
+            # print("class_translation: " + self.class_translation)
 
-            nodeIndex = self.class_translation[node_cls]
+            # nodeIndex = self.class_translation[node_cls]
+
+            nodeIndex = self.data.class_translation[node_cls]
 
             # get output values of this node
             out_values = self.prediction_vector[:, i]
@@ -67,15 +69,16 @@ class saveDiscriminators:
             for j, truth_cls in enumerate(self.event_classes):
                 if j >= self.n_classes:
                     continue
-                classIndex = self.class_translation[truth_cls]
+                # classIndex = self.class_translation[truth_cls]
+                classIndex = self.data.class_translation[truth_cls]
 
                 # filter values per event class
                 filtered_values = [out_values[k] for k in range(len(out_values))
-                                   if self.get_full_labels_after_preprocessing()[k] == classIndex
+                                   if self.get_full_labels_after_preprocessing(as_categorical=False)[k] == classIndex
                                    and self.predicted_classes[k] == nodeIndex]
 
                 filtered_weights = [self.data.get_full_lumi_weights_after_preprocessing()[k] for k in range(len(out_values))
-                                    if self.data.get_full_labels_after_preprocessing()[k] == classIndex
+                                    if self.data.get_full_labels_after_preprocessing(as_categorical=False)[k] == classIndex
                                     and self.predicted_classes[k] == nodeIndex]
 
                 print("{} events in discriminator: {}\t(Integral: {})".format(
@@ -91,7 +94,7 @@ class saveDiscriminators:
                     #                        color     = setup.GetPlotColor(truth_cls),
                     xtitle="ljets_ge4j_ge3t_" + \
                     str(node_cls)+"_node__"+str(truth_cls),
-                    ytitle=setupPlots.GetyTitle(self.privateWork),
+                    ytitle=setupPlots.GetyTitle(),
                     filled=True)
 
                 bkgHists.append(histogram)
