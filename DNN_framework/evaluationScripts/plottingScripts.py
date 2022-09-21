@@ -36,7 +36,7 @@ class saveDiscriminators:
         # generate one plot per output node
         for i, node_cls in enumerate(self.event_classes):
 
-            f = ROOT.TFile(self.plotdir + "/" + node_cls +
+            f = ROOT.TFile(self.savedir + "/" + node_cls +
                            "_discriminator" + ".root", "RECREATE")
             print("name of the root file: ")
             print(self.savedir + "/" + node_cls + "_discriminator" + ".root")
