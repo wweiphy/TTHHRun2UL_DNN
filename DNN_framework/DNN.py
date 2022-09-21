@@ -821,37 +821,40 @@ def loadDNN(inputDirectory, outputDirectory, sample_save_path, binary=False, sig
         input_samples.addBinaryLabel(signal, binary_target)
 
     for sample in config["eventClasses"]:
-        # if sample["sampleLabel"] == "ttHH":
-        #     total_weight_expr = total_weight_expr + '* 1.831718558'
-        #     sample_train_weight = 2
-        # elif sample["sampleLabel"] == "ttZH":
-        #     total_weight_expr = total_weight_expr + '* 0.470867418'
-        #     sample_train_weight = 1
-        # elif sample["sampleLabel"] == "ttZZ":
-        #     total_weight_expr = total_weight_expr + '* 0.093231705'
-        #     sample_train_weight = 1
-        # elif sample["sampleLabel"] == "ttZbb":
-        #     total_weight_expr = total_weight_expr + '* 0.126854045'
-        #     sample_train_weight = 1
-        #         # '/ (0.001571054/0.00016654)'
-        # elif sample["sampleLabel"] == "ttmb":
-        #     total_weight_expr = total_weight_expr + '* 38.90466746'
-        #     sample_train_weight = 1
-        # elif sample["sampleLabel"] == "ttnb":
-        #     total_weight_expr = total_weight_expr + '* 1.207027837'
-        #     sample_train_weight = 1
-        # elif sample["sampleLabel"] == "ttcc":
-        #     total_weight_expr = total_weight_expr + '* 308.7360311'
-        #     sample_train_weight = 1
-        # elif sample["sampleLabel"] == "ttlf":
-        #     total_weight_expr = total_weight_expr + '* 296.8172587'
-        #     sample_train_weight = 1
-        # elif sample["sampleLabel"] == "ttH":
-        #     total_weight_expr = total_weight_expr + '* 0.377608436'
-        #     sample_train_weight = 1
-        sample_train_weight = 1
+        if sample["sampleLabel"] == "ttHH":
+            sample_train_weight = 2
+            normalization_weight = 1.831718558
+        elif sample["sampleLabel"] == "ttZH":
+            sample_train_weight = 1
+            normalization_weight = 0.471079307
+        elif sample["sampleLabel"] == "ttZZ":
+            sample_train_weight = 1
+            normalization_weight = 0.093231705
+        elif sample["sampleLabel"] == "ttZbb":
+            sample_train_weight = 1
+            normalization_weight = 0.564280316
+                # '/ (0.001571054/0.00016654)'
+        elif sample["sampleLabel"] == "ttmb":
+            sample_train_weight = 1
+            normalization_weight = 8.017481548
+        elif sample["sampleLabel"] == "ttnb":
+            sample_train_weight = 1
+            normalization_weight = 1.04147258
+        elif sample["sampleLabel"] == "ttcc":
+            sample_train_weight = 1
+            normalization_weight = 1.018177178
+        elif sample["sampleLabel"] == "ttlf":
+            sample_train_weight = 1
+            normalization_weight = 0.978804588
+        elif sample["sampleLabel"] == "ttH":
+            sample_train_weight = 1
+            normalization_weight = 0.701579688
+        else:
+            sample_train_weight = 1
+            normalization_weight = 1.
+        # sample_train_weight = 1
         input_samples.addSample(sample["samplePath"], sample["sampleLabel"],
-                        normalization_weight=sample["sampleWeight"], train_weight=sample_train_weight, total_weight_expr=total_weight_expr)
+                                normalization_weight=normalization_weight, train_weight=sample_train_weight, total_weight_expr=total_weight_expr)
     
     print("shuffle seed: {}".format(config["shuffleSeed"]))
     # init DNN class
