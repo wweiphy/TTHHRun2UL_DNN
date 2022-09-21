@@ -116,7 +116,7 @@ if options.binary:
 
 sample_save_path = basedir+"/workdir/0515_DIR_4b"
 dnn = DNN.loadDNN(inPath, outPath, sample_save_path, binary=options.binary, signal=signal,
-                  binary_target=options.binary_bkg_target, total_weight_expr='x.Weight_XS')
+                  binary_target=options.binary_bkg_target, total_weight_expr='x.Weight_XS * x.Weight_GEN_nom')
 
 # plotting
 # if options.plot:

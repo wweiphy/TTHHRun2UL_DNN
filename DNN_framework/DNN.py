@@ -821,35 +821,35 @@ def loadDNN(inputDirectory, outputDirectory, sample_save_path, binary=False, sig
         input_samples.addBinaryLabel(signal, binary_target)
 
     for sample in config["eventClasses"]:
-        if sample["sampleLabel"] == "ttHH":
-            total_weight_expr = total_weight_expr + '* 1.831718558'
-            sample_train_weight = 2
-        elif sample["sampleLabel"] == "ttZH":
-            total_weight_expr = total_weight_expr + '* 0.470867418'
-            sample_train_weight = 1
-        elif sample["sampleLabel"] == "ttZZ":
-            total_weight_expr = total_weight_expr + '* 0.093231705'
-            sample_train_weight = 1
-        elif sample["sampleLabel"] == "ttZbb":
-            total_weight_expr = total_weight_expr + '* 0.126854045'
-            sample_train_weight = 1
-                # '/ (0.001571054/0.00016654)'
-        elif sample["sampleLabel"] == "ttmb":
-            total_weight_expr = total_weight_expr + '* 38.90466746'
-            sample_train_weight = 1
-        elif sample["sampleLabel"] == "ttnb":
-            total_weight_expr = total_weight_expr + '* 1.207027837'
-            sample_train_weight = 1
-        elif sample["sampleLabel"] == "ttcc":
-            total_weight_expr = total_weight_expr + '* 308.7360311'
-            sample_train_weight = 1
-        elif sample["sampleLabel"] == "ttlf":
-            total_weight_expr = total_weight_expr + '* 296.8172587'
-            sample_train_weight = 1
-        elif sample["sampleLabel"] == "ttH":
-            total_weight_expr = total_weight_expr + '* 0.377608436'
-            sample_train_weight = 1
-        # sample_train_weight = 1
+        # if sample["sampleLabel"] == "ttHH":
+        #     total_weight_expr = total_weight_expr + '* 1.831718558'
+        #     sample_train_weight = 2
+        # elif sample["sampleLabel"] == "ttZH":
+        #     total_weight_expr = total_weight_expr + '* 0.470867418'
+        #     sample_train_weight = 1
+        # elif sample["sampleLabel"] == "ttZZ":
+        #     total_weight_expr = total_weight_expr + '* 0.093231705'
+        #     sample_train_weight = 1
+        # elif sample["sampleLabel"] == "ttZbb":
+        #     total_weight_expr = total_weight_expr + '* 0.126854045'
+        #     sample_train_weight = 1
+        #         # '/ (0.001571054/0.00016654)'
+        # elif sample["sampleLabel"] == "ttmb":
+        #     total_weight_expr = total_weight_expr + '* 38.90466746'
+        #     sample_train_weight = 1
+        # elif sample["sampleLabel"] == "ttnb":
+        #     total_weight_expr = total_weight_expr + '* 1.207027837'
+        #     sample_train_weight = 1
+        # elif sample["sampleLabel"] == "ttcc":
+        #     total_weight_expr = total_weight_expr + '* 308.7360311'
+        #     sample_train_weight = 1
+        # elif sample["sampleLabel"] == "ttlf":
+        #     total_weight_expr = total_weight_expr + '* 296.8172587'
+        #     sample_train_weight = 1
+        # elif sample["sampleLabel"] == "ttH":
+        #     total_weight_expr = total_weight_expr + '* 0.377608436'
+        #     sample_train_weight = 1
+        sample_train_weight = 1
         input_samples.addSample(sample["samplePath"], sample["sampleLabel"],
                         normalization_weight=sample["sampleWeight"], train_weight=sample_train_weight, total_weight_expr=total_weight_expr)
     
