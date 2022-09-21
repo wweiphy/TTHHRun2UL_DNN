@@ -796,8 +796,7 @@ class DNN():
             savedir=self.plot_path,
             logscale=log)
 
-        saveDiscrs.save(ratio=False, printROC=printROC,
-                        privateWork=privateWork)
+        saveDiscrs.save()
 
 def loadDNN(inputDirectory, outputDirectory, sample_save_path, binary=False, signal=None, binary_target=None, total_weight_expr='x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom', model_epoch= None):
 
