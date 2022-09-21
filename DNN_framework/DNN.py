@@ -792,11 +792,9 @@ class DNN():
             event_classes=self.event_classes,
             nbins=nbins,
             bin_range=bin_range,
-            signal_class=signal_class,
             event_category=self.category_label,
-            plotdir=self.plot_path,
-            logscale=log,
-            sigScale=sigScale)
+            savedir=self.plot_path,
+            logscale=log)
 
         saveDiscrs.save(ratio=False, printROC=printROC,
                         privateWork=privateWork)

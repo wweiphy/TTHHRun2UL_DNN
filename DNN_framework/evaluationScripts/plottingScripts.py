@@ -16,7 +16,7 @@ from plot_configs import setupPlots
 
 # save DNN outputs for evaluation 
 class saveDiscriminators:
-    def __init__(self, data, prediction_vector, predicted_classes, event_classes, nbins, bin_range, event_category, savedir, logscale=False, sigScale=-1):
+    def __init__(self, data, prediction_vector, predicted_classes, event_classes, nbins, bin_range, event_category, savedir, logscale=False):
         self.data = data
         self.prediction_vector = prediction_vector
         self.predicted_classes = predicted_classes
@@ -27,7 +27,6 @@ class saveDiscriminators:
         self.event_category = event_category
         self.savedir = savedir
         self.logscale = logscale
-        self.sigScale = sigScale
 
     def save(self):
 
