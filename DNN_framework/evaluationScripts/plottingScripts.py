@@ -74,7 +74,7 @@ class saveDiscriminators:
 
                 # filter values per event class
                 filtered_values = [out_values[k] for k in range(len(out_values))
-                                   if self.get_full_labels_after_preprocessing(as_categorical=False)[k] == classIndex
+                                   if self.data.get_full_labels_after_preprocessing(as_categorical=False)[k] == classIndex
                                    and self.predicted_classes[k] == nodeIndex]
 
                 filtered_weights = [self.data.get_full_lumi_weights_after_preprocessing()[k] for k in range(len(out_values))
