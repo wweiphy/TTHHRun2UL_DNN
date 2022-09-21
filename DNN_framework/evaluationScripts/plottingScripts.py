@@ -1,6 +1,6 @@
 import os
 import sys
-import uproot
+import ROOT
 import numpy as np
 from sklearn.metrics import confusion_matrix
 from sklearn.metrics import roc_auc_score
@@ -36,7 +36,7 @@ class saveDiscriminators:
         # generate one plot per output node
         for i, node_cls in enumerate(self.event_classes):
 
-            f = uproot.open(self.savedir + "/" + node_cls +
+            f = ROOT.TFile(self.plotdir + "/" + node_cls +
                            "_discriminator" + ".root", "RECREATE")
             print("name of the root file: ")
             print(self.savedir + "/" + node_cls + "_discriminator" + ".root")
