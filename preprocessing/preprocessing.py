@@ -341,7 +341,7 @@ class Dataset:
                     concat_df.set_index([self.varName_Run, self.varName_LumiBlock, self.varName_Event], inplace=True, drop=True)
 
                     # remove trigger variables
-                    # concat_df = self.removeTriggerVariables(concat_df)
+                    concat_df = self.removeTriggerVariables(concat_df)
 
                     # write data to file
                     self.createDatasets(concat_df, sample.categories.categories, chunkNumber)
@@ -370,9 +370,9 @@ class Dataset:
         return df
 
 
-    # def removeTriggerVariables(self, df):
-    #     df.drop(self.removedVariables, axis=1, inplace=True)
-    #     return df
+    def removeTriggerVariables(self, df):
+        df.drop(self.removedVariables, axis=1, inplace=True)
+        return df
         
     def createDatasets(self, df, categories, chunkNumber= None):
         for key in categories:
