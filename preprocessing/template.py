@@ -113,7 +113,6 @@ dataset = preprocessing.Dataset(
     naming      = options.Name,
     maxEntries  = options.maxEntries,
     ncores      = options.numCores,
-    # islocal     = options.islocal
     )
 
 # add base event selection
@@ -147,21 +146,22 @@ dataset.addSample(
 dataset.addVariables(variable_set.all_variables)
 
 # define an additional variable list
-additional_variables = [
-    "Evt_Odd",
-    #    "N_Jets",
-    #    "N_BTagsL",
-    #    "N_BTagsM",
-    #    "N_BTagsT",
-    "Weight_XS",
-    "Weight_CSV",
-    "Weight_GEN_nom",
-    "Evt_ID",
-    "Evt_Run",
-    "Evt_Lumi"]
-
+# additional_variables = [
+#     "Evt_Odd",
+#     #    "N_Jets",
+#     #    "N_BTagsL",
+#     #    "N_BTagsM",
+#     #    "N_BTagsT",
+#     "Weight_XS",
+#     "Weight_CSV",
+#     "Weight_GEN_nom",
+#     "Evt_ID",
+#     "Evt_Run",
+#     "Evt_Lumi"]
+sys.path.append(basedir+"/variable_sets/")
+import additional_variables as add_var
 # add these variables to the variable list
-dataset.addVariables(additional_variables)
+dataset.addVariables(add_var.additional_variables)
 
 # dataset.addVariables(add_var.all_additional_variables)
 
