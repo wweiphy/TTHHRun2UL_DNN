@@ -7,7 +7,7 @@ import glob
 import multiprocessing as mp
 
 # multi processing magic
-
+# TODO - add islocal in the addsample function instead of in dataset
 def processChunk(info):
     info["self"].processChunk(
         info["sample"], info["chunk"], info["islocal"], info["chunkNumber"])
@@ -282,14 +282,18 @@ class Dataset:
                         print("could not open "+str(tr)+" in ROOT file")
                         continue
 
+
+                print("OK1")
                 if tree.numentries == 0:
                    print(str(tr)+" has no entries - skipping file")
                    continue
 
+
+                print("OK2")
                 # convert to dataframe
                 df = tree.pandas.df([v for v in self.variables])
 
-                print("OK")
+                print("OK3")
                 # delete subentry index
                 try: df = df.reset_index(1, drop = True)
                 except: None
