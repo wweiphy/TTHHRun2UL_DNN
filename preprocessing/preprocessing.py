@@ -10,7 +10,7 @@ import multiprocessing as mp
 # TODO - add islocal in the addsample function instead of in dataset
 def processChunk(info):
     info["self"].processChunk(
-        info["sample"], info["chunk"], info["islocal"], info["chunkNumber"])
+        info["sample"], info["chunk"], info["chunkNumber"])
 
 class EventCategories:
     def __init__(self):
@@ -27,7 +27,7 @@ class EventCategories:
         return selections
 
 class Sample:
-    def __init__(self, sampleName, ntuples, categories, selections=None, ownVars=[], even_odd=False, lumiWeight=1.):
+    def __init__(self, sampleName, ntuples, categories, selections=None, ownVars=[], even_odd=False, lumiWeight=1., islocal = False):
         self.sampleName = sampleName
         self.ntuples = ntuples
         self.selections = selections
@@ -35,6 +35,7 @@ class Sample:
         self.ownVars = ownVars
         self.lumiWeight = lumiWeight
         self.even_odd = even_odd
+        self.islocal = islocal
         self.evenOddSplitting()
 
     def printInfo(self):
@@ -52,7 +53,7 @@ class Sample:
 
 
 class Dataset:
-    def __init__(self, outputdir, tree=['MVATree'], naming='', maxEntries=50000, varName_Run='Evt_Run', varName_LumiBlock='Evt_Lumi', varName_Event='Evt_ID',ncores=1, islocal=False):
+    def __init__(self, outputdir, tree=['MVATree'], naming='', maxEntries=50000, varName_Run='Evt_Run', varName_LumiBlock='Evt_Lumi', varName_Event='Evt_ID',ncores=1):
         # settings for paths
         self.outputdir = outputdir
         self.naming = naming
@@ -60,7 +61,6 @@ class Dataset:
         self.varName_Run = varName_Run
         self.varName_LumiBlock = varName_LumiBlock
         self.varName_Event = varName_Event
-        self.islocal = islocal
 
         # generating output dir
         if not os.path.exists(self.outputdir):
@@ -151,10 +151,10 @@ class Dataset:
 
         candidates = string.split(" ")
         for splt in splitters:
-            print("splitter is " + splt)
+            # print("splitter is " + splt)
             candidates = [item for c in candidates for item in c.split(splt)]
             # test
-            print(candidates)
+            # print(candidates)
 
         # remove some entries
         remove_entries = ["", "and", "or", "abs"]
@@ -250,13 +250,13 @@ class Dataset:
         ntuple_files = np.array(ntuple_files).reshape(self.ncores, -1)
 
         pool = mp.Pool(self.ncores)
-        chunks = [{"self": self, "chunk": c, "sample": sample, "islocal": self.islocal, "chunkNumber": i+1} for i,c in enumerate(ntuple_files)]
+        chunks = [{"self": self, "chunk": c, "sample": sample, "chunkNumber": i+1} for i,c in enumerate(ntuple_files)]
         pool.map(processChunk, chunks)
 
         # concatenate single thread files
         self.mergeFiles(sample.categories.categories)
 
-    def processChunk(self, sample, files, islocal, chunkNumber):
+    def processChunk(self, sample, files, chunkNumber):
 
         files = [f for f in files if not f == ""]
         
@@ -266,7 +266,7 @@ class Dataset:
         for iF, f in enumerate(files):
             print("chunk #{}: starting file ({}/{}): {}".format(chunkNumber, iF+1, n_files, f))
             
-            if not islocal:
+            if not sample.islocal:
                 # add full path for the files in eos space
                 f_full = "root://cmseos.fnal.gov/" + f
                 file = f.split("/")[-1]
@@ -293,12 +293,12 @@ class Dataset:
                 if tree.numentries == 0:
                    print(str(tr)+" has no entries - skipping file")
                    continue
-                
-                print(self.variables)
+                # test 
+                # print(self.variables)
+
                 # convert to dataframe
                 df = tree.pandas.df([v for v in self.variables])
 
-                print("OK3")
                 # delete subentry index
                 try: df = df.reset_index(1, drop = True)
                 except: None
@@ -358,14 +358,15 @@ class Dataset:
                     n_entries = 0
                     concat_df = pd.DataFrame()
             
-            # remove file copied in local space 
-            rmeoscommand = "rm "+file
-            print(rmeoscommand)
-            try:
-                os.system(rmeoscommand)
-                print ("successfully removed the file")
-            except:
-                print ("failed to remove file")
+            # remove file copied from eos space
+            if not sample.islocal:
+                rmeoscommand = "rm "+file
+                print(rmeoscommand)
+                try:
+                    os.system(rmeoscommand)
+                    print ("successfully removed the file")
+                except:
+                    print ("failed to remove file")
 
     # ====================================================================
 

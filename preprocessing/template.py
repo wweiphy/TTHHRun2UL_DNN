@@ -12,7 +12,7 @@ import preprocessing
 
 
 """
-USE: python template.py --outputdirectory=DIR --variableselection=variables --maxentries=20000 --islocal=True 
+USE: python template.py --outputdirectory=DIR --variableselection=variables --maxentries=20000 
 """
 
 usage="usage=%prog [options] \n"
@@ -36,8 +36,8 @@ parser.add_option("-n", "--name", dest="Name", default="dnn",
 parser.add_option("-c", "--cores", dest="numCores", default=1,
                   help="number of cores to run the preprocessing", metavar="NumCores")
 
-parser.add_option("-l", "--islocal", dest="islocal", default=False,
-                  help="True if the ntuple files are stored in the eos space, False if the ntuple files are in local space", metavar="islocal")
+# parser.add_option("-l", "--islocal", dest="islocal", default=False,
+#                   help="True if the ntuple files are stored in the eos space, False if the ntuple files are in local space", metavar="islocal")
 
 (options, args) = parser.parse_args()
 
@@ -113,7 +113,7 @@ dataset = preprocessing.Dataset(
     naming      = options.Name,
     maxEntries  = options.maxEntries,
     ncores      = options.numCores,
-    islocal     = options.islocal
+    # islocal     = options.islocal
     )
 
 # add base event selection
@@ -128,6 +128,7 @@ dataset.addSample(
 #    lumiWeight  = 41.5,
     selections  = None,#ttbar_selection,
 #    selections  = ttbar_selection,
+    islocal     = True
       ) # not finished
 
       
@@ -138,6 +139,7 @@ dataset.addSample(
 #    lumiWeight  = 41.5,
     selections  = None,#ttbar_selection,
 #    selections  = ttbar_selection,
+    islocal     = True
       )
       
       
