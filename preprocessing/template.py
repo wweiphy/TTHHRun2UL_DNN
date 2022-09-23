@@ -7,7 +7,7 @@ filedir = os.path.dirname(os.path.realpath(__file__))
 basedir = os.path.dirname(os.path.dirname(filedir))
 sys.path.append(basedir)
 import preprocessing
-import additional_variables as add_var
+# import additional_variables as add_var
 # import selections
 
 
@@ -144,8 +144,24 @@ dataset.addSample(
 # initialize variable list
 dataset.addVariables(variable_set.all_variables)
 
+# define an additional variable list
+additional_variables = [
+    "Evt_Odd",
+    #    "N_Jets",
+    #    "N_BTagsL",
+    #    "N_BTagsM",
+    #    "N_BTagsT",
+    "Weight_XS",
+    "Weight_CSV",
+    "Weight_GEN_nom",
+    "Evt_ID",
+    "Evt_Run",
+    "Evt_Lumi"]
+
 # add these variables to the variable list
-dataset.addVariables(add_var.all_additional_variables)
+dataset.addVariables(additional_variables)
+
+# dataset.addVariables(add_var.all_additional_variables)
 
 # run the preprocessing
 dataset.runPreprocessing()

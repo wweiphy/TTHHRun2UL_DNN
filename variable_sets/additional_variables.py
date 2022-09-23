@@ -1,4 +1,4 @@
-additional_variables = {}
+# additional_variables = {}
 additional_variables = [
     "Evt_Odd",
     #    "N_Jets",
@@ -13,4 +13,4 @@ additional_variables = [
     "Evt_Lumi"
     ]
 
-all_additional_variables = list(set([v for v in additional_variables]))
+# all_additional_variables = list(set([v for v in additional_variables]))
