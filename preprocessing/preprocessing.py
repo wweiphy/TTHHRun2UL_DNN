@@ -138,9 +138,9 @@ class Dataset:
             v for v in self.triggerVariables if not v in self.variables]
 
         # test 
-        print("variables to be removed: ")
-        print(self.removedVariables)
-        
+        # print("variables to be removed: ")
+        # print(self.removedVariables)
+
         # add trigger variables to variable list
         self.addVariables(self.triggerVariables)
 
@@ -152,6 +152,9 @@ class Dataset:
         candidates = string.split(" ")
         for splt in splitters:
             candidates = [item for c in candidates for item in c.split(splt)]
+            # test
+            print("trigger string after applying splitter: {}".format(splt))
+            print(candidates)
 
             # remove some entries
             remove_entries = ["", "and", "or", "abs"]
