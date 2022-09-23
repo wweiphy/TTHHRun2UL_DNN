@@ -277,7 +277,7 @@ class Dataset:
                     # get TTree
                   try:
                         tree = rf[tr]
-                        print("successfully opened" + str(tr) +"in ROOT file")
+                        print("successfully opened " + str(tr) +" in ROOT file")
                   except:
                         print("could not open "+str(tr)+" in ROOT file")
                         continue
@@ -289,6 +289,7 @@ class Dataset:
                 # convert to dataframe
                 df = tree.pandas.df([v for v in self.variables])
 
+                print("OK")
                 # delete subentry index
                 try: df = df.reset_index(1, drop = True)
                 except: None
