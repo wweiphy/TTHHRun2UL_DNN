@@ -277,6 +277,7 @@ class Dataset:
                     # get TTree
                   try:
                         tree = rf[tr]
+                        print("successfully opened" + str(tr) +"in ROOT file")
                   except:
                         print("could not open "+str(tr)+" in ROOT file")
                         continue
