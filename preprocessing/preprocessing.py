@@ -89,13 +89,13 @@ class Dataset:
         self.variables += variables
         self.variables = list(set(self.variables))
 
-    # def removeVariables(self, variables):
-    #     n_removed = 0
-    #     for v in variables:
-    #         if v in self.variables:
-    #                 self.variables.remove(v)
-    #                 n_removed += 1
-    #     print("removed {} variables from list.".format(n_removed))
+    def removeVariables(self, variables):
+        n_removed = 0
+        for v in variables:
+            if v in self.variables:
+                    self.variables.remove(v)
+                    n_removed += 1
+        print("removed {} variables from list.".format(n_removed))
 
     def gatherTriggerVariables(self):
         # search for all trigger strings
@@ -134,8 +134,8 @@ class Dataset:
         self.triggerVariables = list(set(self.triggerVariables))
 
         # select variables that only appear in triggerVariables to remove them before saving the final dataframes
-        # self.removedVariables = [
-        #     v for v in self.triggerVariables if not v in self.variables]
+        self.removedVariables = [
+            v for v in self.triggerVariables if not v in self.variables]
 
         # add trigger variables to variable list
         self.addVariables(self.triggerVariables)
@@ -216,7 +216,7 @@ class Dataset:
             )
 
             # remove the own variables
-            # self.removeVariables(self.samples[key].ownVars)
+            self.removeVariables(self.samples[key].ownVars)
             self.createSampleList(sampleList, self.samples[key])
             print("done.")
         # write file with preprocessed samples
