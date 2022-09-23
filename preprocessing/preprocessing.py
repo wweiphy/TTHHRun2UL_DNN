@@ -137,6 +137,10 @@ class Dataset:
         self.removedVariables = [
             v for v in self.triggerVariables if not v in self.variables]
 
+        # test 
+        print("variables to be removed: ")
+        print(self.removedVariables)
+        
         # add trigger variables to variable list
         self.addVariables(self.triggerVariables)
 
