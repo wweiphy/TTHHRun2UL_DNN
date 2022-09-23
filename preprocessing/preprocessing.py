@@ -244,7 +244,7 @@ class Dataset:
 
         pool = mp.Pool(self.ncores)
         chunks = [{"self": self, "chunk": c, "sample": sample, "islocal": self.islocal, "chunkNumber": i+1} for i,c in enumerate(ntuple_files)]
-        pool.map(self.processChunk, chunks)
+        pool.map(processChunk, chunks)
 
         # concatenate single thread files
         self.mergeFiles(sample.categories.categories)
