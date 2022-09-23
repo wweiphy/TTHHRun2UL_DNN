@@ -302,7 +302,7 @@ class Dataset:
                 # delete subentry index
                 try: df = df.reset_index(1, drop = True)
                 except: None
-                print(df)
+                # print(df)
                 
                 # handle vector variables, loop over them
                 for vecvar in self.vector_variables:
@@ -377,6 +377,20 @@ class Dataset:
             df = df.query(sampleSelection)
         return df
 
+    def addClassLabels(self, df, categories):
+        print("adding class labels to df ...")
+        split_dfs = []
+        for key in categories:
+            if categories[key]:
+                tmp_df = df.query(categories[key])
+            else:
+                tmp_df = df
+            tmp_df.loc[:, "class_label"] = key
+            split_dfs.append(tmp_df)
+        # concatenate the split dataframes again
+        df = pd.concat(split_dfs)
+        return df
+        
 
     def removeTriggerVariables(self, df):
         df.drop(self.removedVariables, axis=1, inplace=True)
