@@ -6,6 +6,11 @@ import re
 import glob
 import multiprocessing as mp
 
+# multi processing magic
+
+def processChunk(info):
+    info["self"].processChunk(
+        info["sample"], info["chunk"], info["islocal"], info["chunkNumber"])
 
 class EventCategories:
     def __init__(self):
@@ -47,7 +52,7 @@ class Sample:
 
 
 class Dataset:
-    def __init__(self, outputdir, tree=['MVATree'], naming='', maxEntries=50000, varName_Run='Evt_Run', varName_LumiBlock='Evt_Lumi', varName_Event='Evt_ID',ncores=1):
+    def __init__(self, outputdir, tree=['MVATree'], naming='', maxEntries=50000, varName_Run='Evt_Run', varName_LumiBlock='Evt_Lumi', varName_Event='Evt_ID',ncores=1, islocal=False):
         # settings for paths
         self.outputdir = outputdir
         self.naming = naming
@@ -55,6 +60,7 @@ class Dataset:
         self.varName_Run = varName_Run
         self.varName_LumiBlock = varName_LumiBlock
         self.varName_Event = varName_Event
+        self.islocal = islocal
 
         # generating output dir
         if not os.path.exists(self.outputdir):
@@ -83,14 +89,13 @@ class Dataset:
         self.variables += variables
         self.variables = list(set(self.variables))
 
-
-    def removeVariables(self, variables):
-        n_removed = 0
-        for v in variables:
-            if v in self.variables:
-                    self.variables.remove(v)
-                    n_removed += 1
-        print("removed {} variables from list.".format(n_removed))
+    # def removeVariables(self, variables):
+    #     n_removed = 0
+    #     for v in variables:
+    #         if v in self.variables:
+    #                 self.variables.remove(v)
+    #                 n_removed += 1
+    #     print("removed {} variables from list.".format(n_removed))
 
     def gatherTriggerVariables(self):
         # search for all trigger strings
@@ -129,8 +134,8 @@ class Dataset:
         self.triggerVariables = list(set(self.triggerVariables))
 
         # select variables that only appear in triggerVariables to remove them before saving the final dataframes
-        self.removedVariables = [
-            v for v in self.triggerVariables if not v in self.variables]
+        # self.removedVariables = [
+        #     v for v in self.triggerVariables if not v in self.variables]
 
         # add trigger variables to variable list
         self.addVariables(self.triggerVariables)
@@ -211,7 +216,7 @@ class Dataset:
             )
 
             # remove the own variables
-            self.removeVariables(self.samples[key].ownVars)
+            # self.removeVariables(self.samples[key].ownVars)
             self.createSampleList(sampleList, self.samples[key])
             print("done.")
         # write file with preprocessed samples
@@ -221,7 +226,7 @@ class Dataset:
         self.handleOldFiles()
 
 
-    def processSample(self, sample, varName_Run, varName_LumiBlock, varName_Event):
+    def processSample(self, sample):
         # print sample info
         sample.printInfo()
 
@@ -238,13 +243,13 @@ class Dataset:
         ntuple_files = np.array(ntuple_files).reshape(self.ncores, -1)
 
         pool = mp.Pool(self.ncores)
-        chunks = [{"self": self, "chunk": c, "sample": sample, "chunkNumber": i+1} for i,c in enumerate(ntuple_files)]
+        chunks = [{"self": self, "chunk": c, "sample": sample, "islocal": self.islocal, "chunkNumber": i+1} for i,c in enumerate(ntuple_files)]
         pool.map(self.processChunk, chunks)
 
         # concatenate single thread files
         self.mergeFiles(sample.categories.categories)
 
-    def processChunk(self, sample, files, chunkNumber):
+    def processChunk(self, sample, files, islocal, chunkNumber):
 
         files = [f for f in files if not f == ""]
         
@@ -254,15 +259,17 @@ class Dataset:
         for iF, f in enumerate(files):
             print("chunk #{}: starting file ({}/{}): {}".format(chunkNumber, iF+1, n_files, f))
             
-            # add full path for the files in eos space
-            f_full = "root://cmseos.fnal.gov/" + f
-            file = f.split("/")[-1]
-            print(file)
-            
-            # copy file from eos space into local 
-            copyeoscommand = "xrdcp "+f_full+" ."
-            print("copy file {} from eos space".format(copyeoscommand))
-            os.system(copyeoscommand)
+            if not islocal:
+                # add full path for the files in eos space
+                f_full = "root://cmseos.fnal.gov/" + f
+                file = f.split("/")[-1]
+                print(file)
+                # copy file from eos space into local 
+                copyeoscommand = "xrdcp "+f_full+" ."
+                print("copy file {} from eos space".format(copyeoscommand))
+                os.system(copyeoscommand)
+            else:
+                file = f
             for tr in self.tree:
                 # open root file
                 with uproot.open(file) as rf:
@@ -329,7 +336,7 @@ class Dataset:
                     concat_df.set_index([self.varName_Run, self.varName_LumiBlock, self.varName_Event], inplace=True, drop=True)
 
                     # remove trigger variables
-                    concat_df = self.removeTriggerVariables(concat_df)
+                    # concat_df = self.removeTriggerVariables(concat_df)
 
                     # write data to file
                     self.createDatasets(concat_df, sample.categories.categories, chunkNumber)
@@ -347,7 +354,7 @@ class Dataset:
                 print ("successfully removed the file")
             except:
                 print ("failed to remove file")
-                continue
+
     # ====================================================================
 
     def applySelections(self, df, sampleSelection):
@@ -358,9 +365,9 @@ class Dataset:
         return df
 
 
-    def removeTriggerVariables(self, df):
-        df.drop(self.removedVariables, axis=1, inplace=True)
-        return df
+    # def removeTriggerVariables(self, df):
+    #     df.drop(self.removedVariables, axis=1, inplace=True)
+    #     return df
         
     def createDatasets(self, df, categories, chunkNumber= None):
         for key in categories:
