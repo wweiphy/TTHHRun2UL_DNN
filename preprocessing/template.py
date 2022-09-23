@@ -8,11 +8,11 @@ basedir = os.path.dirname(os.path.dirname(filedir))
 sys.path.append(basedir)
 import preprocessing
 import additional_variables as add_var
-import selections
+# import selections
 
 
 """
-USE: python template.py --outputdirectory=DIR --variableselection=variables --maxentries=20000 
+USE: python template.py --outputdirectory=DIR --variableselection=variables --maxentries=20000 --islocal=True 
 """
 
 usage="usage=%prog [options] \n"
@@ -42,6 +42,7 @@ parser.add_option("-l", "--islocal", dest="islocal", default=False,
 (options, args) = parser.parse_args()
 
 if not os.path.isabs(options.variableSelection):
+    sys.path.append(basedir+"/variable_sets/")
     variable_set = __import__(options.variableSelection)
 elif os.path.exists(options.variableSelection):
     variable_set = __import__(options.variableSelection)

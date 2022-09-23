@@ -283,13 +283,11 @@ class Dataset:
                         continue
 
 
-                print("OK1")
                 if tree.numentries == 0:
                    print(str(tr)+" has no entries - skipping file")
                    continue
-
-
-                print("OK2")
+                
+                print(self.variables)
                 # convert to dataframe
                 df = tree.pandas.df([v for v in self.variables])
 
