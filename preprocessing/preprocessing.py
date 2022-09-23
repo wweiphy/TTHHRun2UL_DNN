@@ -151,9 +151,9 @@ class Dataset:
 
         candidates = string.split(" ")
         for splt in splitters:
+            print("splitter is " + splt)
             candidates = [item for c in candidates for item in c.split(splt)]
             # test
-            print("trigger string after applying splitter: {}".format(splt))
             print(candidates)
 
             # remove some entries
