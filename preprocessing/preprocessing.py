@@ -443,6 +443,30 @@ class Dataset:
                     print("renaming file {}".format(outFile))
                     os.rename(outFile, outFile+".old")
 
+
+    def handleOldFiles(self):
+        old = []
+        actual = []
+        rerename = []
+        remo = []
+        for filename in os.listdir(self.outputdir):
+                if filename.endswith(".old"):
+                    old.append(filename.split(".")[0])
+                else:
+                    actual.append(filename.split(".")[0])
+        for name in old:
+            if name in actual:
+                remo.append(name)
+            else:
+                rerename.append(name)
+        for filename in os.listdir(self.outputdir):
+            if filename.endswith(".old") and filename.split(".")[0] in remo:
+                print("removing file {}".format(filename))
+                os.remove(self.outputdir+"/"+filename)
+            if filename.endswith(".old") and filename.split(".")[0] in rerename:
+                print("re-renaming file {}".format(filename))
+                os.rename(self.outputdir+"/"+filename,
+                        self.outputdir+"/"+filename[:-4])
     # function to append a list with sample, label and normalization_weight to a list samples
 
     def createSampleList(self, sList, sample, label=None, nWeight=1):
