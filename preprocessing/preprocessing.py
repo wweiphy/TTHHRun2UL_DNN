@@ -263,13 +263,14 @@ class Dataset:
                 # add full path for the files in eos space
                 f_full = "root://cmseos.fnal.gov/" + f
                 file = f.split("/")[-1]
-                print(file)
+                print("file for remote: "+file)
                 # copy file from eos space into local 
                 copyeoscommand = "xrdcp "+f_full+" ."
                 print("copy file {} from eos space".format(copyeoscommand))
                 os.system(copyeoscommand)
             else:
                 file = f
+                print("file for local: "+file)
             for tr in self.tree:
                 # open root file
                 with uproot.open(file) as rf:
