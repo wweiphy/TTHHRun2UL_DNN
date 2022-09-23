@@ -156,17 +156,17 @@ class Dataset:
             # test
             print(candidates)
 
-            # remove some entries
-            remove_entries = ["", "and", "or", "abs"]
-            for entry in remove_entries:
-                candidates = [c for c in candidates if not c == entry]
+        # remove some entries
+        remove_entries = ["", "and", "or", "abs"]
+        for entry in remove_entries:
+            candidates = [c for c in candidates if not c == entry]
 
-            # remove numbers
-            candidates = [c for c in candidates if not c.replace(
-                ".", "", 1).isdigit()]
+        # remove numbers
+        candidates = [c for c in candidates if not c.replace(
+            ".", "", 1).isdigit()]
 
-            # the remaining candidates should be variables
-            return candidates
+        # the remaining candidates should be variables
+        return candidates
 
     def searchVectorVariables(self):
         # list for variables
