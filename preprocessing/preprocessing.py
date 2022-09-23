@@ -284,7 +284,7 @@ class Dataset:
                     # get TTree
                   try:
                         tree = rf[tr]
-                        print("successfully opened " + str(tr) +" in ROOT file")
+                        # print("successfully opened " + str(tr) +" in ROOT file")
                   except:
                         print("could not open "+str(tr)+" in ROOT file")
                         continue
@@ -390,7 +390,7 @@ class Dataset:
         # concatenate the split dataframes again
         df = pd.concat(split_dfs)
         return df
-        
+
 
     def removeTriggerVariables(self, df):
         df.drop(self.removedVariables, axis=1, inplace=True)
@@ -447,9 +447,9 @@ class Dataset:
 
     def createSampleList(self, sList, label=None, nWeight=1):
         """ takes a List a sample and appends a list with category, label and weight. Checks if even/odd splitting was made and therefore adjusts the normalization weight """
-        if self.sample.even_odd:
+        if self.samples.even_odd:
             nWeight *= 2.
-        for cat in self.sample.categories.categories:
+        for cat in self.samples.categories.categories:
             if label == None:
                 sList.append([cat, cat, nWeight])
             else:
