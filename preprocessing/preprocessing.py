@@ -210,9 +210,9 @@ class Dataset:
             # process the sample
             self.processSample(
                 sample=self.samples[key],
-                varName_Run=self.varName_Run,
-                varName_LumiBlock=self.varName_LumiBlock,
-                varName_Event=self.varName_Event,
+                # varName_Run=self.varName_Run,
+                # varName_LumiBlock=self.varName_LumiBlock,
+                # varName_Event=self.varName_Event,
             )
 
             # remove the own variables
