@@ -445,11 +445,11 @@ class Dataset:
 
     # function to append a list with sample, label and normalization_weight to a list samples
 
-    def createSampleList(self, sList, label=None, nWeight=1):
+    def createSampleList(self, sList, sample, label=None, nWeight=1):
         """ takes a List a sample and appends a list with category, label and weight. Checks if even/odd splitting was made and therefore adjusts the normalization weight """
-        if self.samples.even_odd:
+        if sample.even_odd:
             nWeight *= 2.
-        for cat in self.samples.categories.categories:
+        for cat in sample.categories.categories:
             if label == None:
                 sList.append([cat, cat, nWeight])
             else:
