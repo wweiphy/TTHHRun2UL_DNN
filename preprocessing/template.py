@@ -12,7 +12,7 @@ import preprocessing
 
 
 """
-USE: python template.py --outputdirectory=DIR --variableselection=variables --maxentries=20000 
+USE: python template.py --outputdirectory=DIR_0924_Evaluation --variableselection=variables --maxentries=20000 --cores=2
 """
 
 usage="usage=%prog [options] \n"
@@ -263,7 +263,7 @@ dataset2.addBaseSelection(base_selection)
 
 dataset2.addSample(
     sampleName="TTToSL",
-    ntuples=ntuplesPath2+"/TTToSemiLeptonic_TuneCP5_PSweights_13TeV-powheg-pythia8/sl_LEG_ntuple_2017_2/210914_050033/0000/*nominal*.root",
+    ntuples=ntuplesPath2+"/TTToSemiLeptonic_TuneCP5_PSweights_13TeV-powheg-pythia8/sl_LEG_ntuple_2017/220315_154526/0000/*nominal*.root",
     #    ntuples     = ntuplesPath+"/ttSL_220210.root",
     categories=ttbar_categories,
     #    lumiWeight  = 41.5,
