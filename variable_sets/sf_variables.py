@@ -9,7 +9,7 @@ scalefactor_variables = [
     'Muon_Eta[0]',
     'Muon_IdentificationSF[0]',
     'Muon_IsolationSF[0]',
-    '# Muon_Pt_BeForeRC',
+    # 'Muon_Pt_BeForeRC',
     'Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX',
     'Triggered_HLT_Ele32_WPTight_Gsf_2017SeedsX',
     'Triggered_HLT_Ele32_WPTight_Gsf_L1DoubleEG_vX',
