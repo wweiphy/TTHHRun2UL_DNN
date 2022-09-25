@@ -1,10 +1,10 @@
 import os
-from re import I
 import sys
 import optparse
 # local imports
 filedir = os.path.dirname(os.path.realpath(__file__))
-basedir = os.path.dirname(os.path.dirname(filedir))
+# basedir = os.path.dirname(os.path.dirname(filedir))
+basedir = filedir
 sys.path.append(basedir)
 import preprocessing
 # import additional_variables as add_var
