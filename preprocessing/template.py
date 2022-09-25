@@ -1,4 +1,3 @@
-import sf_variables as sf_var
 import os
 import sys
 import optparse
