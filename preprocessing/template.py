@@ -160,9 +160,10 @@ dataset.addVariables(variable_set.all_variables)
 #     "Evt_Lumi"]
 sys.path.append(basedir+"/variable_sets/")
 import additional_variables as add_var
+import sf_variables as sf_var
 # add these variables to the variable list
 dataset.addVariables(add_var.additional_variables)
-
+dataset.addVariables(sf_var.scalefactor_variables['nominal'])
 # dataset.addVariables(add_var.all_additional_variables)
 
 # run the preprocessing

@@ -7,7 +7,8 @@ import glob
 import multiprocessing as mp
 
 # multi processing magic
-# TODO - add islocal in the addsample function instead of in dataset
+# TODO - A value is trying to be set on a copy of a slice from a DataFrame. Try using .loc[row_indexer, col_indexer] = value instead. See the caveats in the documentation: http: // pandas.pydata.org/pandas-docs/stable/indexing.html; self.obj[key] = _infer_fill_value(value)
+
 def processChunk(info):
     info["self"].processChunk(
         info["sample"], info["chunk"], info["chunkNumber"])
