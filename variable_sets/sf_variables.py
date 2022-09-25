@@ -1,5 +1,5 @@
 # additional_variables = {}
-scalefactor_variables['nominal'] = [
+scalefactor_variables = [
     'Electron_IdentificationSF[0]',
     'Electron_Pt_BeforeRun2Calibration[0]',
     'Electron_Eta[0]',
