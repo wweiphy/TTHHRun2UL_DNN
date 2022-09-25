@@ -3,8 +3,8 @@ import sys
 import optparse
 # local imports
 filedir = os.path.dirname(os.path.realpath(__file__))
-basedir = os.path.dirname(os.path.dirname(filedir))
-# basedir = filedir
+# basedir = os.path.dirname(os.path.dirname(filedir))
+basedir = os.path.dirname(filedir)
 sys.path.append(basedir)
 import preprocessing
 # import additional_variables as add_var
@@ -161,10 +161,8 @@ dataset.addVariables(variable_set.all_variables)
 sys.path.append(basedir+"/variable_sets/")
 
 print (basedir)
-print (filedir)
 import additional_variables as add_var
 # import sf_variables as sf_var
-sys.path.append(basedir+"/variable_sets/")
 import sf_variables as sf_var
 # add these variables to the variable list
 dataset.addVariables(add_var.additional_variables)
