@@ -1,3 +1,4 @@
+import sf_variables as sf_var
 import os
 import sys
 import optparse
@@ -159,7 +160,10 @@ dataset.addVariables(variable_set.all_variables)
 #     "Evt_Run",
 #     "Evt_Lumi"]
 sys.path.append(basedir+"/variable_sets/")
+
+print (basedir)
 import additional_variables as add_var
+# import sf_variables as sf_var
 import sf_variables as sf_var
 # add these variables to the variable list
 dataset.addVariables(add_var.additional_variables)
