@@ -73,7 +73,21 @@ scalefactor_variables = [
     'LooseLepton_Phi[0]',
     ]
 
+ttbar_variables = [
+    'Weight_scale_variation_muR_0p5_muF_0p5',
+    'Weight_scale_variation_muR_0p5_muF_1p0',
+    'Weight_scale_variation_muR_0p5_muF_2p0',
+    'Weight_scale_variation_muR_1p0_muF_0p5',
+    'Weight_scale_variation_muR_1p0_muF_1p0',
+    'Weight_scale_variation_muR_1p0_muF_2p0',
+    'Weight_scale_variation_muR_2p0_muF_0p5',
+    'Weight_scale_variation_muR_2p0_muF_1p0',
+    'Weight_scale_variation_muR_2p0_muF_2p0',
+
+]
+
 # all_additional_variables = list(set([v for v in additional_variables]))
+ 
 
 # TODO - check calibrations below
 # if (chain -> GetBranch("Electron_Pt_BeforeRun2Calibration") & & chain -> GetBranch("Electron_Eta_Supercluster")){
