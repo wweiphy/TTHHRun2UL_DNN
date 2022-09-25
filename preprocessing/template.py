@@ -161,6 +161,7 @@ dataset.addVariables(variable_set.all_variables)
 sys.path.append(basedir+"/variable_sets/")
 
 print (basedir)
+print (filedir)
 import additional_variables as add_var
 # import sf_variables as sf_var
 sys.path.append(basedir+"/variable_sets/")
