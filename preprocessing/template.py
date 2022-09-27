@@ -12,7 +12,7 @@ import preprocessing
 
 
 """
-USE: python template.py --outputdirectory=DIR_0924_Evaluation --variableselection=variables --maxentries=20000 --cores=2
+USE: python template.py --outputdirectory=DIR_0927_Evaluation --variableselection=variables --maxentries=20000 --cores=2
 """
 
 usage="usage=%prog [options] \n"
@@ -294,10 +294,10 @@ import additional_variables as add_var
 import sf_variables as sf_var
 # add these variables to the variable list
 # dataset.addVariables(add_var.additional_variables)
-dataset2.addVariables(add_var.additional_variables)
+# dataset2.addVariables(add_var.additional_variables)
 # dataset.addVariables(sf_var.scalefactor_variables)
-dataset2.addVariables(sf_var.scalefactor_variables)
-dataset2.addVariables(sf_var.ttbar_variables)
+# dataset2.addVariables(sf_var.scalefactor_variables)
+# dataset2.addVariables(sf_var.ttbar_variables)
 
 # run the preprocessing
 # dataset.runPreprocessing()
