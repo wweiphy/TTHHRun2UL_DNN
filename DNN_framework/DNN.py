@@ -283,24 +283,24 @@ class DNN():
 
         # load data set
         # if not Do_Evaluation:
-        #     self.data = self._load_datasets(shuffle_seed)
-        #     self.event_classes = self.data.output_classes
-        # else:
-        if not is_Data:
-            df = pd.read_hdf(self.sample_save_path+"/df.h5",'df')
-            self.data = df
+        self.data = self._load_datasets(shuffle_seed)
+        self.event_classes = self.data.output_classes
+        # # else:
+        #     if not is_Data:
+        #         df = pd.read_hdf(self.sample_save_path+"/df.h5",'df')
+        #         self.data = df
 
-            # get previously saved event classes and classes translation object
-            self.event_classes = []
-            with open(self.sample_save_path+"/output_classes.txt") as f:
-                for line in f:
-                    self.event_classes.append(line)
-            self.data.n_output_neurons = len(self.event_classes)
+        #         # get previously saved event classes and classes translation object
+        #         self.event_classes = []
+        #         with open(self.sample_save_path+"/output_classes.txt") as f:
+        #             for line in f:
+        #                 self.event_classes.append(line)
+        #         self.data.n_output_neurons = len(self.event_classes)
 
-            self.class_translation = json.load(
-                open(self.sample_save_path+"/class_translation.txt"))
-            print("class_translation:")
-            print(self.class_translation)
+        #         self.class_translation = json.load(
+        #             open(self.sample_save_path+"/class_translation.txt"))
+        #         print("class_translation:")
+        #         print(self.class_translation)
                 
 
         # make plotdir
