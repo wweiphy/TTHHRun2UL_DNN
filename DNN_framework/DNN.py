@@ -36,6 +36,7 @@ config = tf.compat.v1.ConfigProto(device_count={
                                   'GPU': 1, 'CPU': 4}, intra_op_parallelism_threads=4, inter_op_parallelism_threads=4)
 config.gpu_options.allow_growth = True
 tf.compat.v1.keras.backend.set_session(tf.compat.v1.Session(config=config))
+# TODO WARNING: tensorflow: From / uscms_data/d3/wwei/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/DNN_framework/DNN.py: 38: The name tf.keras.backend.set_session is deprecated. Please use tf.compat.v1.keras.backend.set_session instead.
 
 # tf.config.threading.set_intra_op_parallelism_threads(4)
 # tf.config.threading.set_inter_op_parallelism_threads(4)
@@ -294,7 +295,6 @@ class DNN():
             with open(self.sample_save_path+"/output_classes.txt") as f:
                 for line in f:
                     self.event_classes.append(line)
-            print("event classes:" + self.event_classes)
             self.data.n_output_neurons = len(self.event_classes)
 
             self.class_translation = json.load(
