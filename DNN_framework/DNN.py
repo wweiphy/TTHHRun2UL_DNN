@@ -871,6 +871,7 @@ def loadDNN(inputDirectory, outputDirectory, sample_save_path, binary=False, sig
         input_samples=input_samples,
         category_name=config["JetTagCategory"],
         train_variables=config["trainVariables"],
+        Do_Evaluation = True,
         shuffle_seed=config["shuffleSeed"],
         addSampleSuffix=config["addSampleSuffix"],
     )
