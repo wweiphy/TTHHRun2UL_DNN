@@ -802,6 +802,8 @@ def loadDNN(inputDirectory, outputDirectory, sample_save_path, binary=False, sig
 
     # get net config json
     configFile = inputDirectory+"/checkpoints/net_config.json"
+    # TODO - modify this
+    dfDirectory = "/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/workdir/DIR_0924_Evaluation/"
     if not os.path.exists(configFile):
         sys.exit(
             "config needed to load trained DNN not found\n{}".format(configFile))
@@ -811,8 +813,10 @@ def loadDNN(inputDirectory, outputDirectory, sample_save_path, binary=False, sig
     config = json.loads(config)
 
     # load samples
+    # input_samples = data_frame.InputSamples(
+    #     config["inputData"], addSampleSuffix=config["addSampleSuffix"])
     input_samples = data_frame.InputSamples(
-        config["inputData"], addSampleSuffix=config["addSampleSuffix"])
+        dfDirectory, addSampleSuffix=config["addSampleSuffix"])
 
     # total_weight_expr = total_weight_expr + \
     #     ' * x.Weight_pu69p2 * x.Weight_L1ECALPrefire * internalCSVweight * ' + \
