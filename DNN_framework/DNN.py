@@ -816,7 +816,7 @@ def loadDNN(inputDirectory, outputDirectory, sample_save_path, binary=False, sig
     # input_samples = data_frame.InputSamples(
     #     config["inputData"], addSampleSuffix=config["addSampleSuffix"])
     input_samples = data_frame.InputSamples(
-        dfDirectory, addSampleSuffix=config["addSampleSuffix"])
+        input_path=dfDirectory, addSampleSuffix=config["addSampleSuffix"])
 
     # total_weight_expr = total_weight_expr + \
     #     ' * x.Weight_pu69p2 * x.Weight_L1ECALPrefire * internalCSVweight * ' + \
@@ -833,38 +833,49 @@ def loadDNN(inputDirectory, outputDirectory, sample_save_path, binary=False, sig
         if sample["sampleLabel"] == "ttHH":
             sample_train_weight = 2
             normalization_weight = 1.831718558
+            sample_path = dfDirectory+"ttHH_dnn.h5"
         elif sample["sampleLabel"] == "ttZH":
             sample_train_weight = 1
             normalization_weight = 0.471079307
+            sample_path = dfDirectory+"ttZH_dnn.h5"
         elif sample["sampleLabel"] == "ttZZ":
             sample_train_weight = 1
             # normalization_weight = 0.093231705
+            sample_path = dfDirectory+"ttZZ_dnn.h5"
         elif sample["sampleLabel"] == "ttZbb":
             sample_train_weight = 1
             normalization_weight = 0.564280316
                 # '/ (0.001571054/0.00016654)'
+            sample_path = dfDirectory+"ttZbb_dnn.h5"
         elif sample["sampleLabel"] == "ttmb":
             sample_train_weight = 1
             normalization_weight = 8.017481548
+            sample_path = dfDirectory+"ttmb_dnn.h5"
         elif sample["sampleLabel"] == "ttnb":
             sample_train_weight = 1
             normalization_weight = 1.04147258
+            sample_path = dfDirectory+"ttnb_dnn.h5"
         elif sample["sampleLabel"] == "ttcc":
             total_weight_expr = total_weight_expr + ' * (abs(x.Weight_scale_variation_muR_0p5_muF_0p5) <= 100 and abs(x.Weight_scale_variation_muR_0p5_muF_1p0) <= 100 and abs(x.Weight_scale_variation_muR_0p5_muF_2p0) <= 100 and abs(x.Weight_scale_variation_muR_1p0_muF_0p5) <= 100 and abs(x.Weight_scale_variation_muR_1p0_muF_1p0) <= 100 and abs(x.Weight_scale_variation_muR_1p0_muF_2p0) <= 100 and abs(x.Weight_scale_variation_muR_2p0_muF_0p5) <= 100 and abs(x.Weight_scale_variation_muR_2p0_muF_1p0) <= 100 and abs(x.Weight_scale_variation_muR_2p0_muF_2p0) <= 100)'
             sample_train_weight = 1
             normalization_weight = 1.018177178
+            sample_path = dfDirectory+"ttcc_dnn.h5"
         elif sample["sampleLabel"] == "ttlf":
             total_weight_expr = total_weight_expr + ' * (abs(x.Weight_scale_variation_muR_0p5_muF_0p5) <= 100 and abs(x.Weight_scale_variation_muR_0p5_muF_1p0) <= 100 and abs(x.Weight_scale_variation_muR_0p5_muF_2p0) <= 100 and abs(x.Weight_scale_variation_muR_1p0_muF_0p5) <= 100 and abs(x.Weight_scale_variation_muR_1p0_muF_1p0) <= 100 and abs(x.Weight_scale_variation_muR_1p0_muF_2p0) <= 100 and abs(x.Weight_scale_variation_muR_2p0_muF_0p5) <= 100 and abs(x.Weight_scale_variation_muR_2p0_muF_1p0) <= 100 and abs(x.Weight_scale_variation_muR_2p0_muF_2p0) <= 100)'
             sample_train_weight = 1
             normalization_weight = 0.978804588
+            sample_path = dfDirectory+"ttlf_dnn.h5"
         elif sample["sampleLabel"] == "ttH":
             sample_train_weight = 1
             normalization_weight = 0.701579688
-        else:
-            sample_train_weight = 1
-            normalization_weight = 1.
+            sample_path = dfDirectory+"ttH_dnn.h5"
+        # else:
+        #     sample_train_weight = 1
+        #     normalization_weight = 1.
         # sample_train_weight = 1
-        input_samples.addSample(sample["samplePath"], sample["sampleLabel"],
+        # input_samples.addSample(sample["samplePath"], sample["sampleLabel"],
+                                # normalization_weight=normalization_weight, train_weight=sample_train_weight, total_weight_expr=total_weight_expr)
+        input_samples.addSample(sample_path, sample["sampleLabel"],
                                 normalization_weight=normalization_weight, train_weight=sample_train_weight, total_weight_expr=total_weight_expr)
     
     print("shuffle seed: {}".format(config["shuffleSeed"]))
