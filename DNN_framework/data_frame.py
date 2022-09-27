@@ -153,7 +153,7 @@ class Sample:
             print (df["Electron_Pt"][0])
             ElectronTriggerSF = []
             for i in range(df.shape[0]):
-                ElectronTriggerSF.append(LeptonSF.GetElectronSF(df['Electron_Pt'][i], df['Electron_Eta'][i], syst = '', type = "Trigger"))
+                ElectronTriggerSF.append(LeptonSF.GetElectronSF(df['Electron_Pt[0]'][i], df['Electron_Eta[0]'][i], syst = '', type = "Trigger"))
             # self.ElectronTriggerSF = np.array(ElectronTriggerSF)
             print(ElectronTriggerSF)
 
