@@ -192,6 +192,7 @@ class Dataset:
             # add variable with index to vector_variables dictionary
             if var_name in vector_variables:
                 vector_variables[var_name].append(var_index)
+            else:
                 vector_variables[var_name] = [var_index]
 
         self.variables = variables
