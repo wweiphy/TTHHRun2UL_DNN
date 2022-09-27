@@ -2,6 +2,7 @@ import os
 import sys
 import pandas as pd
 import numpy as np
+import ROOT
 import json
 from sklearn.utils import shuffle
 from sklearn.model_selection import train_test_split
@@ -20,8 +21,9 @@ class Sample:
         self.max = 1.0
         self.total_weight_expr = total_weight_expr
         self.addSampleSuffix = addSampleSuffix
+        # self.Do_Evaluation = Do_Evaluation
 
-    def load_dataframe(self, event_category, lumi, evenSel=""):
+    def load_dataframe(self, event_category, lumi, evenSel="", Do_Evaluation = False):
         # loading samples from one .h5 file or mix it with one uncertainty variation (default is without mixing)
         print("-"*50)
         print("loading sample file "+str(self.path))
@@ -40,6 +42,21 @@ class Sample:
         df.query(query, inplace=True)
         print("number of events after selections:  "+str(df.shape[0]))
         self.nevents = df.shape[0]
+        
+        if Do_Evaluation:
+            LeptonSF = LeptonSF(self)
+            print("example of the df element: ")
+            print (df["Electron_Pt"][0])
+            ElectronTriggerSF = [LeptonSF.GetElectronSF(df['Electron_Pt'][i], df['Electron_Eta'][i], syst = '', type = "Trigger") for i in range(df.shape[0])
+            self.ElectronTriggerSF = np.array(ElectronTriggerSF)
+            print(self.ElectronTriggerSF)
+
+            # df['internalEleTriggerWeight'] = self.ElectronTriggerSF.tolist()
+
+            # total_weight_expr= total_weight_expr +
+            # ' * x.Weight_pu69p2 * x.Weight_L1ECALPrefire * internalCSVweight * ' +
+            # ' (((x.N_TightElectrons == 1) and (x.Electron_IdentificationSF[0] > 0.) and (x.Electron_ReconstructionSF[0] > 0.))*x.Electron_IdentificationSF[0]*x.Electron_ReconstructionSF[0]+((x.N_TightMuons == 1) and(x.Muon_IdentificationSF[0] > 0.) and (x.Muon_IsolationSF[0] > 0.))*x.Muon_IdentificationSF[0]*x.Muon_IsolationSF[0]) * ' +
+            # '(((x.N_LooseMuons == 0 and x.N_TightElectrons == 1) and (x.Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX or (x.Triggered_HLT_Ele32_WPTight_Gsf_L1DoubleEG_vX and x.Triggered_HLT_Ele32_WPTight_Gsf_2017SeedsX))) and (x.internalEleTriggerWeight > 0.))*x.internalEleTriggerWeight + ((x.N_LooseElectrons == 0 and x.N_TightMuons == 1 and (x.Triggered_HLT_IsoMu27_vX)) and (x.Weight_MuonTriggerSF > 0.)) *x.Weight_MuonTriggerSF'
 
         # add event weight
         df = df.assign(total_weight=lambda x: eval(self.total_weight_expr))
@@ -55,6 +72,7 @@ class Sample:
         if self.addSampleSuffix in self.label:
             df["class_label"] = pd.Series(
                 [c + self.addSampleSuffix for c in df["class_label"].values], index=df.index)
+                
 
         # add lumi weight
 
@@ -109,6 +127,109 @@ class InputSamples:
                 sample.isSignal = False
 
 
+class LeptonSF:
+    def __init__(self, dataera='2017', basedir='/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/'):
+
+        self.dataera = dataera
+        self.basedir = basedir
+
+        self.electronLowPtRangeCut = 20.0
+        self.electronMaxPt = 150.0
+        self.electronMinPt = 20.0
+        self.electronMinPtLowPt = 10
+        self.electronMaxPtLowPt = 19.9
+        self.electronMaxPtHigh = 201.0
+        self.electronMaxPtHigher = 499.0
+        self.electronMaxEta = 2.49
+        self.electronMaxEtaLow = 2.19
+
+        self.muonMaxPt = 119.0
+        self.muonMaxPtHigh = 1199.
+        self.muonMinPt = 20.0
+        self.muonMinPtHigh = 29.0
+        self.muonMaxEta = 2.39
+
+        self.SetElectronHistos()
+        # self.SetMuonHistos()
+
+    def GetElectronSF(self, electronPt, electronEta, syst, type="Trigger"):
+        self.electronPt = electronPt
+        self.electronEta = electronEta
+        self.syst = syst
+        self.type = type
+
+        if (self.electronPt == 0.0):
+            return 1.0
+        if (self.electronEta < 0 and self.electronEta <= -1 * self.electronMaxEta):
+            self.electronEta = -1 * self.electronMaxEta
+        if (self.electronEta > 0 and self.electronEta >= self.electronMaxEta):
+            self.electronEta = self.electronMaxEta
+        if (self.type == "Trigger"):
+            if (self.electronEta < 0 and self.electronEta <= -1 * self.electronMaxEtaLow):
+                self.electronEta = -1 * self.electronMaxEtaLow
+            if (self.electronEta > 0 and self.electronEta >= self.electronMaxEtaLow):
+                self.electronEta = self.electronMaxEtaLow
+
+        if (self.electronPt > self.electronLowPtRangeCut):
+            if (self.electronPt >= self.electronMaxPtHigher):
+                self.electronPt = self.electronMaxPtHigher
+            if (self.electronPt < self.electronMinPt):
+                self.electronPt = self.electronMinPt
+        else:
+            if (self.electronPt >= self.electronMaxPtLowPt):
+                self.electronPt = self.electronMaxPtLowPt
+            if (self.electronPt < self.electronMinPtLowPt):
+                self.electronPt = self.electronMinPtLowPt
+
+        if (self.type == "Trigger"):
+
+            thisBin = self.h_ele_TRIGGER_abseta_pt_ratio.FindBin(
+                self.electronPt, self.electronEta)
+            nomval = self.h_ele_TRIGGER_abseta_pt_ratio.GetBinContent(thisBin)
+            error = self.h_ele_TRIGGER_abseta_pt_ratio.GetBinError(thisBin)
+            # upval = nomval+error
+            # downval = nomval-error
+
+            print("electron SF: {}".format(nomval))
+
+            self.nomval = nomval
+            return self.nomval
+
+    def SetElectronHistos(self):
+
+        IDinputFileBtoF = self.basedir + \
+            "/data/LeptonSFs/egammaEffi.txt_EGM2D_runBCDEF_passingTight94X.root"
+
+        # TRIGGERinputFile = ""
+        # TRIGGERhistName  = ""
+        if (self.dataera == "2017"):
+            TRIGGERinputFile = self.basedir + \
+                "/data/triggerSFs/SingleEG_JetHT_Trigger_Scale_Factors_ttHbb2017_v3.root"
+            TRIGGERhistName = "ele28_ht150_OR_ele32_ele_pt_ele_sceta"
+        elif (self.dataera == "2018"):
+            TRIGGERinputFile = self.basedir + \
+                "/data/triggerSFs/SingleEG_JetHT_Trigger_Scale_Factors_ttHbb2018_v3.root"
+            TRIGGERhistName = "ele28_ht150_OR_ele32_ele_pt_ele_sceta"
+        elif (self.dataera == "2016"):
+            TRIGGERinputFile = self.basedir + \
+                "/data/triggerSFs/SingleEG_JetHT_Trigger_Scale_Factors_ttHbb2016_v4.root"
+            TRIGGERhistName = "ele27_ele_pt_ele_sceta"
+
+        GFSinputFile = self.basedir + \
+            "/data/LeptonSFs/egammaEffi.txt_EGM2D_runBCDEF_passingRECO.root"
+        GFSinputFile_lowEt = self.basedir + \
+            "/data/LeptonSFs/egammaEffi.txt_EGM2D_runBCDEF_passingRECO_lowEt.root"
+
+        f_IDSFBtoF = ROOT.TFile(IDinputFileBtoF, "READ")
+        f_TRIGGERSF = ROOT.TFile(TRIGGERinputFile, "READ")
+        f_GFSSF = ROOT.TFile(GFSinputFile, "READ")
+        f_GFSSF_lowEt = ROOT.TFile(GFSinputFile_lowEt, "READ")
+
+        self.h_ele_ID_abseta_pt_ratioBtoF = f_IDSFBtoF.Get("EGamma_SF2D")
+        self.h_ele_TRIGGER_abseta_pt_ratio = f_TRIGGERSF.Get(TRIGGERhistName)
+        self.h_ele_GFS_abseta_pt_ratio = f_GFSSF.Get("EGamma_SF2D")
+        self.h_ele_GFS_abseta_pt_ratio_lowEt = f_GFSSF_lowEt.Get("EGamma_SF2D")
+
 class DataFrame(object):
     ''' takes a path to a folder where one h5 per class is located
         the events are cut according to the event_category
@@ -125,7 +246,8 @@ class DataFrame(object):
                  lumi=41.5,
                  shuffleSeed=None,
                  evenSel="",
-                 addSampleSuffix=""):
+                 addSampleSuffix="",
+                 Do_Evaluation = False):
 
         self.event_category = event_category
         self.lumi = lumi
@@ -136,6 +258,7 @@ class DataFrame(object):
         self.test_percentage = test_percentage
         self.shuffleSeed = shuffleSeed
         self.addSampleSuffix = addSampleSuffix
+        self.Do_Evaluation = Do_Evaluation
 
         self.binary_classification = input_samples.binary_classification
         if self.binary_classification:
@@ -147,7 +270,7 @@ class DataFrame(object):
         train_samples = []
         for sample in self.input_samples.samples:
             sample.load_dataframe(self.event_category,
-                                  self.lumi, self.evenSel)
+                                  self.lumi, self.evenSel, self.Do_Evaluation)
             train_samples.append(sample.data)
 
         # concatenating all dataframes
@@ -285,6 +408,9 @@ class DataFrame(object):
         outFile_df_train = self.save_path+"/"+"df_train.h5" 
         outFile_df_test = self.save_path+"/"+"df_test.h5" 
 
+# TODO - deal with the warning for saving df
+# TODO - add selections for GEN_norm_weight because I will remove this in the preprocessing
+# TODO - add ttHH ODD and EVEN selections (I think it's already there)
         self.saveDatasets(self.df_unsplit_preprocessing, outFile_df)
         self.saveDatasets(self.df_train, outFile_df_train)
         self.saveDatasets(self.df_test, outFile_df_test)

@@ -2,6 +2,7 @@ import os
 import sys
 import numpy as np
 import pandas as pd
+# import ROOT
 import array
 import math
 import generateJTcut as JTcut
@@ -237,6 +238,7 @@ class DNN():
 
         # suffix of additional (ttbb) sample
         self.addSampleSuffix = addSampleSuffix
+        self.Do_Evaluation = Do_Evaluation
 
         # output directory for results
         self.save_path = save_path
@@ -322,7 +324,8 @@ class DNN():
             test_percentage=self.test_percentage,
             shuffleSeed=shuffle_seed,
             evenSel=self.evenSel,
-            addSampleSuffix=self.addSampleSuffix)
+            addSampleSuffix=self.addSampleSuffix,
+            Do_Evaluation = self.Do_Evaluation)
         
         return data.loadDatasets()
 
@@ -798,6 +801,9 @@ class DNN():
 
         saveDiscrs.save()
 
+
+# TODO - add other plot functions for DNN
+
 def loadDNN(inputDirectory, outputDirectory, sample_save_path, binary=False, signal=None, binary_target=None, total_weight_expr='x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom', model_epoch= None):
 
     # get net config json
@@ -814,38 +820,48 @@ def loadDNN(inputDirectory, outputDirectory, sample_save_path, binary=False, sig
     input_samples = data_frame.InputSamples(
         config["inputData"], addSampleSuffix=config["addSampleSuffix"])
 
+    # total_weight_expr = total_weight_expr + \
+    #     ' * x.Weight_pu69p2 * x.Weight_L1ECALPrefire * internalCSVweight * ' + \
+    #     ' (((x.N_TightElectrons == 1) and (x.Electron_IdentificationSF[0] > 0.) and (x.Electron_ReconstructionSF[0] > 0.))*x.Electron_IdentificationSF[0]*x.Electron_ReconstructionSF[0]+((x.N_TightMuons == 1) and(x.Muon_IdentificationSF[0] > 0.) and (x.Muon_IsolationSF[0] > 0.))*x.Muon_IdentificationSF[0]*x.Muon_IsolationSF[0]) * ' + \
+    #     '(((x.N_LooseMuons == 0 and x.N_TightElectrons == 1) and (x.Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX or (x.Triggered_HLT_Ele32_WPTight_Gsf_L1DoubleEG_vX and x.Triggered_HLT_Ele32_WPTight_Gsf_2017SeedsX))) and (internalEleTriggerWeight > 0.))*internalEleTriggerWeight + ((x.N_LooseElectrons == 0 and x.N_TightMuons == 1 and (x.Triggered_HLT_IsoMu27_vX)) and (x.Weight_MuonTriggerSF > 0.)) *x.Weight_MuonTriggerSF'
+
+
+
     if binary:
         input_samples.addBinaryLabel(signal, binary_target)
-
+# TODO - remove the addSample part because future DNN will save the data df
+# TODO - add the dealing with data
     for sample in config["eventClasses"]:
         if sample["sampleLabel"] == "ttHH":
             sample_train_weight = 2
-            normalization_weight = 1.831718558
+            # normalization_weight = 1.831718558
         elif sample["sampleLabel"] == "ttZH":
             sample_train_weight = 1
-            normalization_weight = 0.471079307
+            # normalization_weight = 0.471079307
         elif sample["sampleLabel"] == "ttZZ":
             sample_train_weight = 1
-            normalization_weight = 0.093231705
+            # normalization_weight = 0.093231705
         elif sample["sampleLabel"] == "ttZbb":
             sample_train_weight = 1
-            normalization_weight = 0.564280316
+            # normalization_weight = 0.564280316
                 # '/ (0.001571054/0.00016654)'
         elif sample["sampleLabel"] == "ttmb":
             sample_train_weight = 1
-            normalization_weight = 8.017481548
+            # normalization_weight = 8.017481548
         elif sample["sampleLabel"] == "ttnb":
             sample_train_weight = 1
-            normalization_weight = 1.04147258
+            # normalization_weight = 1.04147258
         elif sample["sampleLabel"] == "ttcc":
+            total_weight_expr = total_weight_expr + ' * (abs(x.Weight_scale_variation_muR_0p5_muF_0p5) <= 100 and abs(x.Weight_scale_variation_muR_0p5_muF_1p0) <= 100 and abs(x.Weight_scale_variation_muR_0p5_muF_2p0) <= 100 and abs(x.Weight_scale_variation_muR_1p0_muF_0p5) <= 100 and abs(x.Weight_scale_variation_muR_1p0_muF_1p0) <= 100 and abs(x.Weight_scale_variation_muR_1p0_muF_2p0) <= 100 and abs(x.Weight_scale_variation_muR_2p0_muF_0p5) <= 100 and abs(x.Weight_scale_variation_muR_2p0_muF_1p0) <= 100 and abs(x.Weight_scale_variation_muR_2p0_muF_2p0) <= 100)'
             sample_train_weight = 1
-            normalization_weight = 1.018177178
+            # normalization_weight = 1.018177178
         elif sample["sampleLabel"] == "ttlf":
+            total_weight_expr = total_weight_expr + ' * (abs(x.Weight_scale_variation_muR_0p5_muF_0p5) <= 100 and abs(x.Weight_scale_variation_muR_0p5_muF_1p0) <= 100 and abs(x.Weight_scale_variation_muR_0p5_muF_2p0) <= 100 and abs(x.Weight_scale_variation_muR_1p0_muF_0p5) <= 100 and abs(x.Weight_scale_variation_muR_1p0_muF_1p0) <= 100 and abs(x.Weight_scale_variation_muR_1p0_muF_2p0) <= 100 and abs(x.Weight_scale_variation_muR_2p0_muF_0p5) <= 100 and abs(x.Weight_scale_variation_muR_2p0_muF_1p0) <= 100 and abs(x.Weight_scale_variation_muR_2p0_muF_2p0) <= 100)'
             sample_train_weight = 1
-            normalization_weight = 0.978804588
+            # normalization_weight = 0.978804588
         elif sample["sampleLabel"] == "ttH":
             sample_train_weight = 1
-            normalization_weight = 0.701579688
+            # normalization_weight = 0.701579688
         else:
             sample_train_weight = 1
             normalization_weight = 1.
