@@ -818,12 +818,6 @@ def loadDNN(inputDirectory, outputDirectory, sample_save_path, binary=False, sig
     input_samples = data_frame.InputSamples(
         input_path=dfDirectory, addSampleSuffix=config["addSampleSuffix"])
 
-    # total_weight_expr = total_weight_expr + \
-    #     ' * x.Weight_pu69p2 * x.Weight_L1ECALPrefire * internalCSVweight * ' + \
-    #     ' (((x.N_TightElectrons == 1) and (x.Electron_IdentificationSF[0] > 0.) and (x.Electron_ReconstructionSF[0] > 0.))*x.Electron_IdentificationSF[0]*x.Electron_ReconstructionSF[0]+((x.N_TightMuons == 1) and(x.Muon_IdentificationSF[0] > 0.) and (x.Muon_IsolationSF[0] > 0.))*x.Muon_IdentificationSF[0]*x.Muon_IsolationSF[0]) * ' + \
-    #     '(((x.N_LooseMuons == 0 and x.N_TightElectrons == 1) and (x.Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX or (x.Triggered_HLT_Ele32_WPTight_Gsf_L1DoubleEG_vX and x.Triggered_HLT_Ele32_WPTight_Gsf_2017SeedsX))) and (internalEleTriggerWeight > 0.))*internalEleTriggerWeight + ((x.N_LooseElectrons == 0 and x.N_TightMuons == 1 and (x.Triggered_HLT_IsoMu27_vX)) and (x.Weight_MuonTriggerSF > 0.)) *x.Weight_MuonTriggerSF'
-
-
 
     if binary:
         input_samples.addBinaryLabel(signal, binary_target)
@@ -874,7 +868,7 @@ def loadDNN(inputDirectory, outputDirectory, sample_save_path, binary=False, sig
         #     normalization_weight = 1.
         # sample_train_weight = 1
         # input_samples.addSample(sample["samplePath"], sample["sampleLabel"],
-                                # normalization_weight=normalization_weight, train_weight=sample_train_weight, total_weight_expr=total_weight_expr)
+        #                         normalization_weight=normalization_weight, train_weight=sample_train_weight, total_weight_expr=total_weight_expr)
         input_samples.addSample(sample_path, sample["sampleLabel"],
                                 normalization_weight=normalization_weight, train_weight=sample_train_weight, total_weight_expr=total_weight_expr)
     

@@ -148,21 +148,24 @@ class Sample:
         self.nevents = df.shape[0]
         
         if Do_Evaluation:
-            # LeptonSF = LeptonSF(self)
-            print("example of the df element: ")
-            print(df["Jet_Pt[0]"][0])
-            ElectronTriggerSF = []
-            for i in range(df.shape[0]):
-                ElectronTriggerSF.append(LeptonSF.GetElectronSF(df['Electron_Pt[0]'][i], df['Electron_Eta[0]'][i], syst = '', type = "Trigger"))
+            # print("example of the df element: ")
+            # print(df["Jet_Pt[0]"][0])
+            # ElectronTriggerSF = []
+            # for i in range(df.shape[0]):
+            #     ElectronTriggerSF.append(LeptonSF.GetElectronSF(df['Electron_Pt[0]'][i], df['Electron_Eta[0]'][i], syst = '', type = "Trigger"))
             # self.ElectronTriggerSF = np.array(ElectronTriggerSF)
-            print(ElectronTriggerSF)
+            # print(ElectronTriggerSF)
 
             # df['internalEleTriggerWeight'] = self.ElectronTriggerSF.tolist()
 
-            # total_weight_expr= total_weight_expr +
-            # ' * x.Weight_pu69p2 * x.Weight_L1ECALPrefire * internalCSVweight * ' +
-            # ' (((x.N_TightElectrons == 1) and (x.Electron_IdentificationSF[0] > 0.) and (x.Electron_ReconstructionSF[0] > 0.))*x.Electron_IdentificationSF[0]*x.Electron_ReconstructionSF[0]+((x.N_TightMuons == 1) and(x.Muon_IdentificationSF[0] > 0.) and (x.Muon_IsolationSF[0] > 0.))*x.Muon_IdentificationSF[0]*x.Muon_IsolationSF[0]) * ' +
+            # total_weight_expr= total_weight_expr + \
+            # ' * x.Weight_pu69p2 * x.Weight_L1ECALPrefire * internalCSVweight * ' + \
+            # ' (((x.N_TightElectrons == 1) and (x.Electron_IdentificationSF[0] > 0.) and (x.Electron_ReconstructionSF[0] > 0.))*x.Electron_IdentificationSF[0]*x.Electron_ReconstructionSF[0]+((x.N_TightMuons == 1) and(x.Muon_IdentificationSF[0] > 0.) and (x.Muon_IsolationSF[0] > 0.))*x.Muon_IdentificationSF[0]*x.Muon_IsolationSF[0]) * ' + \
             # '(((x.N_LooseMuons == 0 and x.N_TightElectrons == 1) and (x.Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX or (x.Triggered_HLT_Ele32_WPTight_Gsf_L1DoubleEG_vX and x.Triggered_HLT_Ele32_WPTight_Gsf_2017SeedsX))) and (x.internalEleTriggerWeight > 0.))*x.internalEleTriggerWeight + ((x.N_LooseElectrons == 0 and x.N_TightMuons == 1 and (x.Triggered_HLT_IsoMu27_vX)) and (x.Weight_MuonTriggerSF > 0.)) *x.Weight_MuonTriggerSF'
+            total_weight_expr= total_weight_expr + \
+            ' * x.Weight_pu69p2 * x.Weight_L1ECALPrefire * ' + \
+            ' (((x.N_TightElectrons == 1) and (x.Electron_IdentificationSF[0] > 0.) and (x.Electron_ReconstructionSF[0] > 0.))*x.Electron_IdentificationSF[0]*x.Electron_ReconstructionSF[0]+((x.N_TightMuons == 1) and(x.Muon_IdentificationSF[0] > 0.) and (x.Muon_IsolationSF[0] > 0.))*x.Muon_IdentificationSF[0]*x.Muon_IsolationSF[0]) * ' + \
+            '(((x.N_LooseMuons == 0 and x.N_TightElectrons == 1) and (x.Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX or (x.Triggered_HLT_Ele32_WPTight_Gsf_L1DoubleEG_vX and x.Triggered_HLT_Ele32_WPTight_Gsf_2017SeedsX)))) + ((x.N_LooseElectrons == 0 and x.N_TightMuons == 1 and (x.Triggered_HLT_IsoMu27_vX)) and (x.Weight_MuonTriggerSF > 0.)) *x.Weight_MuonTriggerSF'
 
         # add event weight
         df = df.assign(total_weight=lambda x: eval(self.total_weight_expr))
