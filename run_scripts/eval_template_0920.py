@@ -4,7 +4,7 @@
 import os
 import sys
 import optparse
-
+import json
 # local imports
 filedir = os.path.dirname(os.path.realpath(__file__))
 basedir = os.path.dirname(filedir)
@@ -14,9 +14,8 @@ sys.path.append(basedir)
 import DNN_framework.DNN as DNN
 import DNN_framework.data_frame as df
 
-# python eval_template.py -o 220812_JABDT_50_2e5_ge4j_ge3t_test -i 220809_JABDT_50_2e5_ge4j_ge3t -c ge4j_ge3t --signalclass=ttHH --plot --printroc
 
-# python eval_template_0920.py -o 220927_JABDT_2e5_ge4j_ge3t_final_evaluation_553 -i 220727_JABDT_2e5_Z_ge4j_ge3t -c ge4j_ge3t --signalclass=ttHH --plot --printroc
+# python eval_template_0920.py -o 220927_JABDT_2e5_ge4j_ge3t_final_evaluation_553 -i 220727_JABDT_2e5_Z_ge4j_ge3t --signalclass=ttHH --plot --printroc
 
 
 
