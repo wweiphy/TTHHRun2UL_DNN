@@ -291,6 +291,7 @@ class Dataset:
                         continue
 
 
+                
                 if tree.numentries == 0:
                    print(str(tr)+" has no entries - skipping file")
                    continue
@@ -305,6 +306,9 @@ class Dataset:
                 except: None
                 # print(df)
                 
+                print("start processing vector variables")
+                print("vector variables list: ")
+                print(self.vector_variables)
                 # handle vector variables, loop over them
                 for vecvar in self.vector_variables:
 
@@ -320,6 +324,7 @@ class Dataset:
 
                         # define name for column in df
                         col_name = str(vecvar)+"["+str(idx)+"]"
+                        print("colomn name is: " + col_name)
 
                         # initialize column in original dataframe
                         df.loc[:,col_name] = 0.
