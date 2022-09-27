@@ -150,7 +150,7 @@ class Sample:
         if Do_Evaluation:
             # LeptonSF = LeptonSF(self)
             print("example of the df element: ")
-            print(df["Electron_Pt[0]"][0])
+            print(df["Jet_Pt[0]"][0])
             ElectronTriggerSF = []
             for i in range(df.shape[0]):
                 ElectronTriggerSF.append(LeptonSF.GetElectronSF(df['Electron_Pt[0]'][i], df['Electron_Eta[0]'][i], syst = '', type = "Trigger"))
