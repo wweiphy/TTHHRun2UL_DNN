@@ -148,7 +148,7 @@ class Sample:
         self.nevents = df.shape[0]
         
         if Do_Evaluation:
-            LeptonSF = LeptonSF(self)
+            # LeptonSF = LeptonSF(self)
             print("example of the df element: ")
             print (df["Electron_Pt"][0])
             ElectronTriggerSF = []
