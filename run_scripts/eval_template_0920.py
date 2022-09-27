@@ -16,7 +16,7 @@ import DNN_framework.data_frame as df
 
 # python eval_template.py -o 220812_JABDT_50_2e5_ge4j_ge3t_test -i 220809_JABDT_50_2e5_ge4j_ge3t -c ge4j_ge3t --signalclass=ttHH --plot --printroc
 
-# python eval_template_0830.py -o 220919_JABDT_2e5_ge4j_ge3t_final_evaluation -i 220727_JABDT_2e5_Z_ge4j_ge3t -c ge4j_ge3t --signalclass=ttHH --plot --printroc
+# python eval_template_0920.py -o 220927_JABDT_2e5_ge4j_ge3t_final_evaluation_553 -i 220727_JABDT_2e5_Z_ge4j_ge3t -c ge4j_ge3t --signalclass=ttHH --plot --printroc
 
 
 
@@ -55,17 +55,19 @@ parser.add_option("--binary", dest="binary", action = "store_true", default=Fals
 parser.add_option("-t", "--binaryBkgTarget", dest="binary_bkg_target", default = 0.,
         help="target value for training of background samples (default is 0, signal is always 1)")
 
-parser.add_option("--total-weight-expr", dest="total_weight_expr",default="x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom",
-        help="string containing expression of total event weight (use letter \"x\" for event-object; example: \"x.weight\")", metavar="total_weight_expr")
+# parser.add_option("--total-weight-expr", dest="total_weight_expr",default="x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom",
+#         help="string containing expression of total event weight (use letter \"x\" for event-object; example: \"x.weight\")", metavar="total_weight_expr")
 
-parser.add_option("-d", "--derivatives", dest="derivatives", action = "store_true", default=False,
-        help="activate to get first and second order derivatives", metavar="dev")
+parser.add_option("-f", "--test_percentage", dest="test_percentage", default=0.2, type=float, help="set fraction of events used for testing, rest is used for training", metavar="test_percentage")
 
-parser.add_option("-c", "--category", dest="category",default="4j_ge3t",
-                help="STR name of the category (ge/le)[nJets]j_(ge/le)[nTags]t", metavar="CATEGORY")
+# parser.add_option("-d", "--derivatives", dest="derivatives", action = "store_true", default=False,
+#         help="activate to get first and second order derivatives", metavar="dev")
+
+# parser.add_option("-c", "--category", dest="category",default="4j_ge3t",
+#                 help="STR name of the category (ge/le)[nJets]j_(ge/le)[nTags]t", metavar="CATEGORY")
                 
-parser.add_option("--evaluationEpoch", dest="evaluation_epoch_model", default = "",
-        help="model saved in this epoch used for evaluation")
+parser.add_option("--evaluationEpoch", dest="evaluation_epoch_model", default = None,
+                  help="model saved in this epoch used for evaluation", metavar="evaluation_epoch_model")
     
 (options, args) = parser.parse_args()
 
@@ -88,35 +90,106 @@ if options.signal_class:
     signal=options.signal_class.split(",")
 else:
     signal=None
-category_cutString_dict = {
-
-    '3j_'+  '2t': '(N_jets == 3) & (N_btags == 2)',
-    '3j_'+  '3t': '(N_jets == 3) & (N_btags == 3)',
-  'ge4j_'+  '2t': '(N_jets >= 4) & (N_btags == 2)',
-  'ge4j_'+  '3t': '(N_jets >= 4) & (N_btags == 3)',
-  'ge4j_'+'ge4t': '(N_jets >= 4) & (N_btags >= 4)',
-
-  'ge4j_'+'ge3t': '(N_jets >= 4) & (N_btags >= 3)',
-}
-
-category_label_dict = {
-
-    '3j_'+  '2t': 'N_jets = 3, N_btags = 2',
-    '3j_'+  '3t': 'N_jets = 3, N_btags = 3',
-  'ge4j_'+  '2t': 'N_jets \\geq 4, N_btags = 2',
-  'ge4j_'+  '3t': 'N_jets \\geq 4, N_btags = 3',
-  'ge4j_'+'ge4t': 'N_jets \\geq 4, N_btags \\geq 4',
-
-  'ge4j_'+'ge3t': 'N_jets \\geq 4, N_btags \\geq 3',
-}
 
 if options.binary:
     if not signal:
         sys.exit("ERROR: need to specify signal class if binary classification is activated")
 
-sample_save_path = basedir+"/workdir/0515_DIR_4b"
-dnn = DNN.loadDNN(inPath, outPath, sample_save_path, binary=options.binary, signal=signal,
-                  binary_target=options.binary_bkg_target, total_weight_expr='x.Weight_XS * x.Weight_GEN_nom', model_epoch=553)
+configFile = inPath+"/checkpoints/net_config.json"
+  # TODO - modify this
+dfDirectory = "/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/workdir/DIR_0924_Evaluation/"
+   
+if not os.path.exists(configFile):
+        sys.exit(
+        "config needed to load trained DNN not found\n{}".format(configFile))
+
+with open(configFile) as f:
+        config = f.read()
+        config = json.loads(config)
+
+# load samples
+# input_samples = data_frame.InputSamples(
+#     config["inputData"], addSampleSuffix=config["addSampleSuffix"], test_percentage = options.test_percentage)
+input_samples = df.InputSamples(input_path=dfDirectory, addSampleSuffix=config["addSampleSuffix"], test_percentage = options.test_percentage)
+
+if options.binary:
+        input_samples.addBinaryLabel(signal, binary_target)
+        
+# TODO - remove the addSample part because future DNN will save the data df
+# TODO - add the dealing with data
+for sample in config["eventClasses"]:
+
+        total_weight_expr = "x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom"
+
+        if sample["sampleLabel"] == "ttHH":
+                sample_train_weight = 2
+                normalization_weight = 1.831718558
+                sample_path = dfDirectory+"ttHH_dnn.h5"
+        elif sample["sampleLabel"] == "ttZH":
+                sample_train_weight = 1
+                normalization_weight = 0.471079307
+                sample_path = dfDirectory+"ttZH_dnn.h5"
+        elif sample["sampleLabel"] == "ttZZ":
+                sample_train_weight = 1
+                # normalization_weight = 0.093231705
+                sample_path = dfDirectory+"ttZZ_dnn.h5"
+        elif sample["sampleLabel"] == "ttZbb":
+                sample_train_weight = 1
+                normalization_weight = 0.564280316
+                # '/ (0.001571054/0.00016654)'
+                sample_path = dfDirectory+"ttZbb_dnn.h5"
+        elif sample["sampleLabel"] == "ttmb":
+                sample_train_weight = 1
+                normalization_weight = 8.017481548
+                sample_path = dfDirectory+"ttmb_dnn.h5"
+        elif sample["sampleLabel"] == "ttnb":
+                sample_train_weight = 1
+                normalization_weight = 1.04147258
+                sample_path = dfDirectory+"ttnb_dnn.h5"
+        elif sample["sampleLabel"] == "ttcc":
+                total_weight_expr = total_weight_expr + ' * (abs(x.Weight_scale_variation_muR_0p5_muF_0p5) <= 100 and abs(x.Weight_scale_variation_muR_0p5_muF_1p0) <= 100 and abs(x.Weight_scale_variation_muR_0p5_muF_2p0) <= 100 and abs(x.Weight_scale_variation_muR_1p0_muF_0p5) <= 100 and abs(x.Weight_scale_variation_muR_1p0_muF_1p0) <= 100 and abs(x.Weight_scale_variation_muR_1p0_muF_2p0) <= 100 and abs(x.Weight_scale_variation_muR_2p0_muF_0p5) <= 100 and abs(x.Weight_scale_variation_muR_2p0_muF_1p0) <= 100 and abs(x.Weight_scale_variation_muR_2p0_muF_2p0) <= 100)'
+                sample_train_weight = 1
+                normalization_weight = 1.018177178
+                sample_path = dfDirectory+"ttcc_dnn.h5"
+        elif sample["sampleLabel"] == "ttlf":
+                total_weight_expr = total_weight_expr + ' * (abs(x.Weight_scale_variation_muR_0p5_muF_0p5) <= 100 and abs(x.Weight_scale_variation_muR_0p5_muF_1p0) <= 100 and abs(x.Weight_scale_variation_muR_0p5_muF_2p0) <= 100 and abs(x.Weight_scale_variation_muR_1p0_muF_0p5) <= 100 and abs(x.Weight_scale_variation_muR_1p0_muF_1p0) <= 100 and abs(x.Weight_scale_variation_muR_1p0_muF_2p0) <= 100 and abs(x.Weight_scale_variation_muR_2p0_muF_0p5) <= 100 and abs(x.Weight_scale_variation_muR_2p0_muF_1p0) <= 100 and abs(x.Weight_scale_variation_muR_2p0_muF_2p0) <= 100)'
+                sample_train_weight = 1
+                normalization_weight = 0.978804588
+                sample_path = dfDirectory+"ttlf_dnn.h5"
+        elif sample["sampleLabel"] == "ttH":
+                sample_train_weight = 1
+                normalization_weight = 0.701579688
+                sample_path = dfDirectory+"ttH_dnn.h5"
+        # sample_train_weight = 1
+        # input_samples.addSample(sample["samplePath"], sample["sampleLabel"],
+        #                         normalization_weight=normalization_weight, train_weight=sample_train_weight, total_weight_expr=total_weight_expr)
+        input_samples.addSample(sample_path, sample["sampleLabel"],
+                                normalization_weight=normalization_weight, train_weight=sample_train_weight, total_weight_expr=total_weight_expr)
+
+print("shuffle seed: {}".format(config["shuffleSeed"]))
+
+#TODO-modify this
+sample_save_path = basedir+"/workdir/DIR_0924_Evaluation"
+# init DNN class
+dnn = DNN.DNN(
+save_path=outPath,
+sample_save_path=sample_save_path,
+input_samples=input_samples,
+category_name=config["JetTagCategory"],
+train_variables=config["trainVariables"],
+Do_Evaluation = True,
+shuffle_seed=config["shuffleSeed"],
+addSampleSuffix=config["addSampleSuffix"],
+)
+
+#    dnn._load_datasets(shuffle_seed=config["shuffleSeed"],balanceSamples=True)
+# load the trained model
+dnn.load_trained_model(inPath, options.evaluation_epoch_model)
+# dnn.predict_event_query()
+
+
+# dnn = DNN.loadDNN(inPath, outPath, sample_save_path, binary=options.binary, signal=signal,
+#                   binary_target=options.binary_bkg_target, total_weight_expr=options.total_weight_expr, model_epoch=options.evaluation_epoch_model)
 
 # plotting
 # if options.plot:

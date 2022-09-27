@@ -798,96 +798,96 @@ class DNN():
 
 # TODO - add other plot functions for DNN
 
-def loadDNN(inputDirectory, outputDirectory, sample_save_path, binary=False, signal=None, binary_target=None, total_weight_expr='x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom', model_epoch= None):
+# def loadDNN(inputDirectory, outputDirectory, sample_save_path, binary=False, signal=None, binary_target=None, total_weight_expr='x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom', model_epoch= None):
 
-    # get net config json
-    configFile = inputDirectory+"/checkpoints/net_config.json"
-    # TODO - modify this
-    dfDirectory = "/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/workdir/DIR_0924_Evaluation/"
-    if not os.path.exists(configFile):
-        sys.exit(
-            "config needed to load trained DNN not found\n{}".format(configFile))
+#     # # get net config json
+#     # configFile = inputDirectory+"/checkpoints/net_config.json"
+#     # # TODO - modify this
+#     # dfDirectory = "/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/workdir/DIR_0924_Evaluation/"
+#     # if not os.path.exists(configFile):
+#     #     sys.exit(
+#     #         "config needed to load trained DNN not found\n{}".format(configFile))
 
-    with open(configFile) as f:
-        config = f.read()
-    config = json.loads(config)
+#     # with open(configFile) as f:
+#     #     config = f.read()
+#     # config = json.loads(config)
 
-    # load samples
-    # input_samples = data_frame.InputSamples(
-    #     config["inputData"], addSampleSuffix=config["addSampleSuffix"])
-    input_samples = data_frame.InputSamples(
-        input_path=dfDirectory, addSampleSuffix=config["addSampleSuffix"])
+#     # # load samples
+#     # # input_samples = data_frame.InputSamples(
+#     # #     config["inputData"], addSampleSuffix=config["addSampleSuffix"])
+#     # input_samples = data_frame.InputSamples(
+#     #     input_path=dfDirectory, addSampleSuffix=config["addSampleSuffix"])
 
 
-    if binary:
-        input_samples.addBinaryLabel(signal, binary_target)
-# TODO - remove the addSample part because future DNN will save the data df
-# TODO - add the dealing with data
-    for sample in config["eventClasses"]:
-        if sample["sampleLabel"] == "ttHH":
-            sample_train_weight = 2
-            normalization_weight = 1.831718558
-            sample_path = dfDirectory+"ttHH_dnn.h5"
-        elif sample["sampleLabel"] == "ttZH":
-            sample_train_weight = 1
-            normalization_weight = 0.471079307
-            sample_path = dfDirectory+"ttZH_dnn.h5"
-        elif sample["sampleLabel"] == "ttZZ":
-            sample_train_weight = 1
-            # normalization_weight = 0.093231705
-            sample_path = dfDirectory+"ttZZ_dnn.h5"
-        elif sample["sampleLabel"] == "ttZbb":
-            sample_train_weight = 1
-            normalization_weight = 0.564280316
-                # '/ (0.001571054/0.00016654)'
-            sample_path = dfDirectory+"ttZbb_dnn.h5"
-        elif sample["sampleLabel"] == "ttmb":
-            sample_train_weight = 1
-            normalization_weight = 8.017481548
-            sample_path = dfDirectory+"ttmb_dnn.h5"
-        elif sample["sampleLabel"] == "ttnb":
-            sample_train_weight = 1
-            normalization_weight = 1.04147258
-            sample_path = dfDirectory+"ttnb_dnn.h5"
-        elif sample["sampleLabel"] == "ttcc":
-            total_weight_expr = total_weight_expr + ' * (abs(x.Weight_scale_variation_muR_0p5_muF_0p5) <= 100 and abs(x.Weight_scale_variation_muR_0p5_muF_1p0) <= 100 and abs(x.Weight_scale_variation_muR_0p5_muF_2p0) <= 100 and abs(x.Weight_scale_variation_muR_1p0_muF_0p5) <= 100 and abs(x.Weight_scale_variation_muR_1p0_muF_1p0) <= 100 and abs(x.Weight_scale_variation_muR_1p0_muF_2p0) <= 100 and abs(x.Weight_scale_variation_muR_2p0_muF_0p5) <= 100 and abs(x.Weight_scale_variation_muR_2p0_muF_1p0) <= 100 and abs(x.Weight_scale_variation_muR_2p0_muF_2p0) <= 100)'
-            sample_train_weight = 1
-            normalization_weight = 1.018177178
-            sample_path = dfDirectory+"ttcc_dnn.h5"
-        elif sample["sampleLabel"] == "ttlf":
-            total_weight_expr = total_weight_expr + ' * (abs(x.Weight_scale_variation_muR_0p5_muF_0p5) <= 100 and abs(x.Weight_scale_variation_muR_0p5_muF_1p0) <= 100 and abs(x.Weight_scale_variation_muR_0p5_muF_2p0) <= 100 and abs(x.Weight_scale_variation_muR_1p0_muF_0p5) <= 100 and abs(x.Weight_scale_variation_muR_1p0_muF_1p0) <= 100 and abs(x.Weight_scale_variation_muR_1p0_muF_2p0) <= 100 and abs(x.Weight_scale_variation_muR_2p0_muF_0p5) <= 100 and abs(x.Weight_scale_variation_muR_2p0_muF_1p0) <= 100 and abs(x.Weight_scale_variation_muR_2p0_muF_2p0) <= 100)'
-            sample_train_weight = 1
-            normalization_weight = 0.978804588
-            sample_path = dfDirectory+"ttlf_dnn.h5"
-        elif sample["sampleLabel"] == "ttH":
-            sample_train_weight = 1
-            normalization_weight = 0.701579688
-            sample_path = dfDirectory+"ttH_dnn.h5"
-        # else:
-        #     sample_train_weight = 1
-        #     normalization_weight = 1.
-        # sample_train_weight = 1
-        # input_samples.addSample(sample["samplePath"], sample["sampleLabel"],
-        #                         normalization_weight=normalization_weight, train_weight=sample_train_weight, total_weight_expr=total_weight_expr)
-        input_samples.addSample(sample_path, sample["sampleLabel"],
-                                normalization_weight=normalization_weight, train_weight=sample_train_weight, total_weight_expr=total_weight_expr)
+#     if binary:
+#         input_samples.addBinaryLabel(signal, binary_target)
+# # TODO - remove the addSample part because future DNN will save the data df
+# # TODO - add the dealing with data
+#     for sample in config["eventClasses"]:
+#         if sample["sampleLabel"] == "ttHH":
+#             sample_train_weight = 2
+#             normalization_weight = 1.831718558
+#             sample_path = dfDirectory+"ttHH_dnn.h5"
+#         elif sample["sampleLabel"] == "ttZH":
+#             sample_train_weight = 1
+#             normalization_weight = 0.471079307
+#             sample_path = dfDirectory+"ttZH_dnn.h5"
+#         elif sample["sampleLabel"] == "ttZZ":
+#             sample_train_weight = 1
+#             # normalization_weight = 0.093231705
+#             sample_path = dfDirectory+"ttZZ_dnn.h5"
+#         elif sample["sampleLabel"] == "ttZbb":
+#             sample_train_weight = 1
+#             normalization_weight = 0.564280316
+#                 # '/ (0.001571054/0.00016654)'
+#             sample_path = dfDirectory+"ttZbb_dnn.h5"
+#         elif sample["sampleLabel"] == "ttmb":
+#             sample_train_weight = 1
+#             normalization_weight = 8.017481548
+#             sample_path = dfDirectory+"ttmb_dnn.h5"
+#         elif sample["sampleLabel"] == "ttnb":
+#             sample_train_weight = 1
+#             normalization_weight = 1.04147258
+#             sample_path = dfDirectory+"ttnb_dnn.h5"
+#         elif sample["sampleLabel"] == "ttcc":
+#             total_weight_expr = total_weight_expr + ' * (abs(x.Weight_scale_variation_muR_0p5_muF_0p5) <= 100 and abs(x.Weight_scale_variation_muR_0p5_muF_1p0) <= 100 and abs(x.Weight_scale_variation_muR_0p5_muF_2p0) <= 100 and abs(x.Weight_scale_variation_muR_1p0_muF_0p5) <= 100 and abs(x.Weight_scale_variation_muR_1p0_muF_1p0) <= 100 and abs(x.Weight_scale_variation_muR_1p0_muF_2p0) <= 100 and abs(x.Weight_scale_variation_muR_2p0_muF_0p5) <= 100 and abs(x.Weight_scale_variation_muR_2p0_muF_1p0) <= 100 and abs(x.Weight_scale_variation_muR_2p0_muF_2p0) <= 100)'
+#             sample_train_weight = 1
+#             normalization_weight = 1.018177178
+#             sample_path = dfDirectory+"ttcc_dnn.h5"
+#         elif sample["sampleLabel"] == "ttlf":
+#             total_weight_expr = total_weight_expr + ' * (abs(x.Weight_scale_variation_muR_0p5_muF_0p5) <= 100 and abs(x.Weight_scale_variation_muR_0p5_muF_1p0) <= 100 and abs(x.Weight_scale_variation_muR_0p5_muF_2p0) <= 100 and abs(x.Weight_scale_variation_muR_1p0_muF_0p5) <= 100 and abs(x.Weight_scale_variation_muR_1p0_muF_1p0) <= 100 and abs(x.Weight_scale_variation_muR_1p0_muF_2p0) <= 100 and abs(x.Weight_scale_variation_muR_2p0_muF_0p5) <= 100 and abs(x.Weight_scale_variation_muR_2p0_muF_1p0) <= 100 and abs(x.Weight_scale_variation_muR_2p0_muF_2p0) <= 100)'
+#             sample_train_weight = 1
+#             normalization_weight = 0.978804588
+#             sample_path = dfDirectory+"ttlf_dnn.h5"
+#         elif sample["sampleLabel"] == "ttH":
+#             sample_train_weight = 1
+#             normalization_weight = 0.701579688
+#             sample_path = dfDirectory+"ttH_dnn.h5"
+#         # else:
+#         #     sample_train_weight = 1
+#         #     normalization_weight = 1.
+#         # sample_train_weight = 1
+#         # input_samples.addSample(sample["samplePath"], sample["sampleLabel"],
+#         #                         normalization_weight=normalization_weight, train_weight=sample_train_weight, total_weight_expr=total_weight_expr)
+#         input_samples.addSample(sample_path, sample["sampleLabel"],
+#                                 normalization_weight=normalization_weight, train_weight=sample_train_weight, total_weight_expr=total_weight_expr)
     
-    print("shuffle seed: {}".format(config["shuffleSeed"]))
-    # init DNN class
-    dnn = DNN(
-        save_path=outputDirectory,
-        sample_save_path=sample_save_path,
-        input_samples=input_samples,
-        category_name=config["JetTagCategory"],
-        train_variables=config["trainVariables"],
-        Do_Evaluation = True,
-        shuffle_seed=config["shuffleSeed"],
-        addSampleSuffix=config["addSampleSuffix"],
-    )
+#     print("shuffle seed: {}".format(config["shuffleSeed"]))
+#     # init DNN class
+#     dnn = DNN(
+#         save_path=outputDirectory,
+#         sample_save_path=sample_save_path,
+#         input_samples=input_samples,
+#         category_name=config["JetTagCategory"],
+#         train_variables=config["trainVariables"],
+#         Do_Evaluation = True,
+#         shuffle_seed=config["shuffleSeed"],
+#         addSampleSuffix=config["addSampleSuffix"],
+#     )
 
-#    dnn._load_datasets(shuffle_seed=config["shuffleSeed"],balanceSamples=True)
-    # load the trained model
-    dnn.load_trained_model(inputDirectory, model_epoch)
-    # dnn.predict_event_query()
+# #    dnn._load_datasets(shuffle_seed=config["shuffleSeed"],balanceSamples=True)
+#     # load the trained model
+#     dnn.load_trained_model(inputDirectory, model_epoch)
+#     # dnn.predict_event_query()
 
-    return dnn
+#     return dnn
