@@ -132,34 +132,34 @@ for sample in config["eventClasses"]:
                 sample_path = dfDirectory+"ttZH_dnn.h5"
         elif sample["sampleLabel"] == "ttZZ":
                 sample_train_weight = 1
-                # normalization_weight = 0.093231705
+                normalization_weight = 0.138043606
                 sample_path = dfDirectory+"ttZZ_dnn.h5"
         elif sample["sampleLabel"] == "ttZbb":
                 sample_train_weight = 1
-                # normalization_weight = 0.564280316
+                normalization_weight = 0.949341862
                 # '/ (0.001571054/0.00016654)'
                 sample_path = dfDirectory+"ttZbb_dnn.h5"
         elif sample["sampleLabel"] == "ttmb":
                 sample_train_weight = 1
-                # normalization_weight = 8.017481548
+                normalization_weight = 7.029608008
                 sample_path = dfDirectory+"ttmb_dnn.h5"
         elif sample["sampleLabel"] == "ttnb":
                 sample_train_weight = 1
-                # normalization_weight = 1.04147258
+                normalization_weight = 0.773080839
                 sample_path = dfDirectory+"ttnb_dnn.h5"
         elif sample["sampleLabel"] == "ttcc":
                 total_weight_expr = total_weight_expr + ' * (abs(x.Weight_scale_variation_muR_0p5_muF_0p5) <= 100 and abs(x.Weight_scale_variation_muR_0p5_muF_1p0) <= 100 and abs(x.Weight_scale_variation_muR_0p5_muF_2p0) <= 100 and abs(x.Weight_scale_variation_muR_1p0_muF_0p5) <= 100 and abs(x.Weight_scale_variation_muR_1p0_muF_1p0) <= 100 and abs(x.Weight_scale_variation_muR_1p0_muF_2p0) <= 100 and abs(x.Weight_scale_variation_muR_2p0_muF_0p5) <= 100 and abs(x.Weight_scale_variation_muR_2p0_muF_1p0) <= 100 and abs(x.Weight_scale_variation_muR_2p0_muF_2p0) <= 100)'
                 sample_train_weight = 1
-                # normalization_weight = 1.018177178
+                normalization_weight = 0.950200622
                 sample_path = dfDirectory+"ttcc_dnn.h5"
         elif sample["sampleLabel"] == "ttlf":
                 total_weight_expr = total_weight_expr + ' * (abs(x.Weight_scale_variation_muR_0p5_muF_0p5) <= 100 and abs(x.Weight_scale_variation_muR_0p5_muF_1p0) <= 100 and abs(x.Weight_scale_variation_muR_0p5_muF_2p0) <= 100 and abs(x.Weight_scale_variation_muR_1p0_muF_0p5) <= 100 and abs(x.Weight_scale_variation_muR_1p0_muF_1p0) <= 100 and abs(x.Weight_scale_variation_muR_1p0_muF_2p0) <= 100 and abs(x.Weight_scale_variation_muR_2p0_muF_0p5) <= 100 and abs(x.Weight_scale_variation_muR_2p0_muF_1p0) <= 100 and abs(x.Weight_scale_variation_muR_2p0_muF_2p0) <= 100)'
                 sample_train_weight = 1
-                # normalization_weight = 0.978804588
+                normalization_weight = 0.946382238
                 sample_path = dfDirectory+"ttlf_dnn.h5"
         elif sample["sampleLabel"] == "ttH":
                 sample_train_weight = 1
-                # normalization_weight = 0.701579688
+                normalization_weight = 0.805234562
                 sample_path = dfDirectory+"ttH_dnn.h5"
         # sample_train_weight = 1
         # input_samples.addSample(sample["samplePath"], sample["sampleLabel"],
