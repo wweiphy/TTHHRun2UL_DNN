@@ -97,8 +97,12 @@ class Sample:
 
         # add event weight
         # df = df.assign(total_weight=lambda x: eval(self.total_weight_expr))
-        df = df.assign(total_weight=lambda x: (self.total_weight_expr))
-        print("total weight: {}".format(df["total_weight"].values))
+        df = df.assign(total_weight=lambda x: self.total_weight_expr)
+
+
+        print("total weight: ")
+        print(df["total_weight"])
+        # print("total weight: {}".format(df["total_weight"].values))
         # assign train weight
         weight_sum = sum(df["total_weight"].values)
         print("weight sum: {}".format(weight_sum))
