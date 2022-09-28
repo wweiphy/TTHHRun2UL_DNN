@@ -2,7 +2,7 @@ import os
 import sys
 import pandas as pd
 import numpy as np
-import ROOT
+# import ROOT
 import json
 from sklearn.utils import shuffle
 from sklearn.model_selection import train_test_split
@@ -10,109 +10,8 @@ from sklearn.preprocessing import QuantileTransformer
 from sklearn.preprocessing import MinMaxScaler
 from tensorflow.keras.utils import to_categorical
 
-
-class LeptonSF:
-    def __init__(self, dataera='2017', basedir='/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/'):
-
-        self.dataera = dataera
-        self.basedir = basedir
-
-        self.electronLowPtRangeCut = 20.0
-        self.electronMaxPt = 150.0
-        self.electronMinPt = 20.0
-        self.electronMinPtLowPt = 10
-        self.electronMaxPtLowPt = 19.9
-        self.electronMaxPtHigh = 201.0
-        self.electronMaxPtHigher = 499.0
-        self.electronMaxEta = 2.49
-        self.electronMaxEtaLow = 2.19
-
-        self.muonMaxPt = 119.0
-        self.muonMaxPtHigh = 1199.
-        self.muonMinPt = 20.0
-        self.muonMinPtHigh = 29.0
-        self.muonMaxEta = 2.39
-
-        self.SetElectronHistos()
-        # self.SetMuonHistos()
-
-    def GetElectronSF(self, electronPt, electronEta, syst, type="Trigger"):
-        self.electronPt = electronPt
-        self.electronEta = electronEta
-        self.syst = syst
-        self.type = type
-
-        if (self.electronPt == 0.0):
-            return 1.0
-        if (self.electronEta < 0 and self.electronEta <= -1 * self.electronMaxEta):
-            self.electronEta = -1 * self.electronMaxEta
-        if (self.electronEta > 0 and self.electronEta >= self.electronMaxEta):
-            self.electronEta = self.electronMaxEta
-        if (self.type == "Trigger"):
-            if (self.electronEta < 0 and self.electronEta <= -1 * self.electronMaxEtaLow):
-                self.electronEta = -1 * self.electronMaxEtaLow
-            if (self.electronEta > 0 and self.electronEta >= self.electronMaxEtaLow):
-                self.electronEta = self.electronMaxEtaLow
-
-        if (self.electronPt > self.electronLowPtRangeCut):
-            if (self.electronPt >= self.electronMaxPtHigher):
-                self.electronPt = self.electronMaxPtHigher
-            if (self.electronPt < self.electronMinPt):
-                self.electronPt = self.electronMinPt
-        else:
-            if (self.electronPt >= self.electronMaxPtLowPt):
-                self.electronPt = self.electronMaxPtLowPt
-            if (self.electronPt < self.electronMinPtLowPt):
-                self.electronPt = self.electronMinPtLowPt
-
-        if (self.type == "Trigger"):
-
-            thisBin = self.h_ele_TRIGGER_abseta_pt_ratio.FindBin(
-                self.electronPt, self.electronEta)
-            nomval = self.h_ele_TRIGGER_abseta_pt_ratio.GetBinContent(thisBin)
-            error = self.h_ele_TRIGGER_abseta_pt_ratio.GetBinError(thisBin)
-            # upval = nomval+error
-            # downval = nomval-error
-
-            print("electron SF: {}".format(nomval))
-
-            self.nomval = nomval
-            return self.nomval
-
-    def SetElectronHistos(self):
-
-        IDinputFileBtoF = self.basedir + \
-            "/data/LeptonSFs/egammaEffi.txt_EGM2D_runBCDEF_passingTight94X.root"
-
-        # TRIGGERinputFile = ""
-        # TRIGGERhistName  = ""
-        if (self.dataera == "2017"):
-            TRIGGERinputFile = self.basedir + \
-                "/data/triggerSFs/SingleEG_JetHT_Trigger_Scale_Factors_ttHbb2017_v3.root"
-            TRIGGERhistName = "ele28_ht150_OR_ele32_ele_pt_ele_sceta"
-        elif (self.dataera == "2018"):
-            TRIGGERinputFile = self.basedir + \
-                "/data/triggerSFs/SingleEG_JetHT_Trigger_Scale_Factors_ttHbb2018_v3.root"
-            TRIGGERhistName = "ele28_ht150_OR_ele32_ele_pt_ele_sceta"
-        elif (self.dataera == "2016"):
-            TRIGGERinputFile = self.basedir + \
-                "/data/triggerSFs/SingleEG_JetHT_Trigger_Scale_Factors_ttHbb2016_v4.root"
-            TRIGGERhistName = "ele27_ele_pt_ele_sceta"
-
-        GFSinputFile = self.basedir + \
-            "/data/LeptonSFs/egammaEffi.txt_EGM2D_runBCDEF_passingRECO.root"
-        GFSinputFile_lowEt = self.basedir + \
-            "/data/LeptonSFs/egammaEffi.txt_EGM2D_runBCDEF_passingRECO_lowEt.root"
-
-        f_IDSFBtoF = ROOT.TFile(IDinputFileBtoF, "READ")
-        f_TRIGGERSF = ROOT.TFile(TRIGGERinputFile, "READ")
-        f_GFSSF = ROOT.TFile(GFSinputFile, "READ")
-        f_GFSSF_lowEt = ROOT.TFile(GFSinputFile_lowEt, "READ")
-
-        self.h_ele_ID_abseta_pt_ratioBtoF = f_IDSFBtoF.Get("EGamma_SF2D")
-        self.h_ele_TRIGGER_abseta_pt_ratio = f_TRIGGERSF.Get(TRIGGERhistName)
-        self.h_ele_GFS_abseta_pt_ratio = f_GFSSF.Get("EGamma_SF2D")
-        self.h_ele_GFS_abseta_pt_ratio_lowEt = f_GFSSF_lowEt.Get("EGamma_SF2D")
+# local import 
+import SFs
 
 class Sample:
     def __init__(self, path, label, normalization_weight=1., train_weight=1., total_weight_expr='x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom', addSampleSuffix=""):
@@ -148,6 +47,7 @@ class Sample:
         self.nevents = df.shape[0]
         
         if Do_Evaluation:
+            # LeptonSF = SFs.LeptonSF()
             # print("example of the df element: ")
             # print(df["Jet_Pt[0]"][0])
             # ElectronTriggerSF = []
@@ -155,8 +55,26 @@ class Sample:
             #     ElectronTriggerSF.append(LeptonSF.GetElectronSF(df['Electron_Pt[0]'][i], df['Electron_Eta[0]'][i], syst = '', type = "Trigger"))
             # self.ElectronTriggerSF = np.array(ElectronTriggerSF)
             # print(ElectronTriggerSF)
-
             # df['internalEleTriggerWeight'] = self.ElectronTriggerSF.tolist()
+
+            # BTagSFs = SFs.BTagSF()
+            # BTagSF = []
+
+            # for i in range(df.shape[0]):
+            #     jetPt = []
+            #     jetEta = []
+            #     jetCSV = []
+            #     jetFlav = []
+            #     for j in range(8):
+            #         jetPt.append(df['Jet_Pt[{}]'.format(j)][i])
+            #         jetEta.append(df['Jet_Eta[{}]'.format(j)][i])
+            #         jetCSV.append(df['Jet_CSV[{}]'.format(j)][i])
+            #         jetFlav.append(df['Jet_Flav[{}]'.format(j)][i])
+
+            #     BTagSF.append(BTagSFs.getBTagWeight(
+            #         jetPt, jetEta, jetCSV, jetFlav, index = 0))
+            # self.BTagSF = np.array(BTagSF)
+
 
             # total_weight_expr= total_weight_expr + \
             # ' * x.Weight_pu69p2 * x.Weight_L1ECALPrefire * internalCSVweight * ' + \

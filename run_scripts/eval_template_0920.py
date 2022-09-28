@@ -96,7 +96,7 @@ if options.binary:
 
 configFile = inPath+"/checkpoints/net_config.json"
   # TODO - modify this
-dfDirectory = "/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/workdir/DIR_0924_Evaluation/"
+dfDirectory = "/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/workdir/DIR_0927_Evaluation/"
    
 if not os.path.exists(configFile):
         sys.exit(
@@ -168,7 +168,7 @@ for sample in config["eventClasses"]:
 print("shuffle seed: {}".format(config["shuffleSeed"]))
 
 #TODO-modify this
-sample_save_path = basedir+"/workdir/DIR_0924_Evaluation"
+sample_save_path = basedir+"/workdir/DIR_0927_Evaluation"
 # init DNN class
 dnn = DNN.DNN(
 save_path=outPath,
