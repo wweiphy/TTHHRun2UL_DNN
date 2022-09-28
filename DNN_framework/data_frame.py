@@ -82,7 +82,7 @@ class Sample:
             # '(((x.N_LooseMuons == 0 and x.N_TightElectrons == 1) and (x.Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX or (x.Triggered_HLT_Ele32_WPTight_Gsf_L1DoubleEG_vX and x.Triggered_HLT_Ele32_WPTight_Gsf_2017SeedsX))) and (x.internalEleTriggerWeight > 0.))*x.internalEleTriggerWeight + ((x.N_LooseElectrons == 0 and x.N_TightMuons == 1 and (x.Triggered_HLT_IsoMu27_vX)) and (x.Weight_MuonTriggerSF > 0.)) *x.Weight_MuonTriggerSF'
             self.total_weight_expr= self.total_weight_expr + \
             ' * x.Weight_pu69p2 * x.Weight_L1ECALPrefire * ' + \
-            ' (((x.N_TightElectrons == 1) & (x.(Electron_IdentificationSF[0]) > 0.) & (x.Electron_ReconstructionSF[0] > 0.))*x.(Electron_IdentificationSF[0])*x.Electron_ReconstructionSF[0]+((x.N_TightMuons == 1) & (x.Muon_IdentificationSF[0] > 0.) & (x.Muon_IsolationSF[0] > 0.))*x.Muon_IdentificationSF[0]*x.Muon_IsolationSF[0]) * ' + \
+                ' (((x.N_TightElectrons == 1) & (x[{}] > 0.) & (x.Electron_ReconstructionSF[0] > 0.))*x[{}]*x.Electron_ReconstructionSF[0]+((x.N_TightMuons == 1) & (x.Muon_IdentificationSF[0] > 0.) & (x.Muon_IsolationSF[0] > 0.))*x.Muon_IdentificationSF[0]*x.Muon_IsolationSF[0]) * '.format('Electron_IdentificationSF[0]', 'Electron_IdentificationSF[0]') + \
             '(((x.N_LooseMuons == 0 & x.N_TightElectrons == 1) & (x.Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX | (x.Triggered_HLT_Ele32_WPTight_Gsf_L1DoubleEG_vX & x.Triggered_HLT_Ele32_WPTight_Gsf_2017SeedsX)))) + ((x.N_LooseElectrons == 0 & x.N_TightMuons == 1 & (x.Triggered_HLT_IsoMu27_vX)) & (x.Weight_MuonTriggerSF > 0.)) *x.Weight_MuonTriggerSF'
 
         # add event weight
