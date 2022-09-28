@@ -124,7 +124,7 @@ for sample in config["eventClasses"]:
         normalization_weight = 1
         if sample["sampleLabel"] == "ttHH":
                 sample_train_weight = 2
-                # normalization_weight = 1.831718558
+                normalization_weight = 0.945062635
                 sample_path = dfDirectory+"ttHH_dnn.h5"
         elif sample["sampleLabel"] == "ttZH":
                 sample_train_weight = 1
