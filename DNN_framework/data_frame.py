@@ -49,7 +49,7 @@ class Sample:
         if Do_Evaluation:
             # LeptonSF = SFs.LeptonSF()
             # print("example of the df element: ")
-            print(df["Electron_IdentificationSF[0]"][0])
+            # print(df["Electron_IdentificationSF[0]"][0])
             # ElectronTriggerSF = []
             # for i in range(df.shape[0]):
             #     ElectronTriggerSF.append(LeptonSF.GetElectronSF(df['Electron_Pt[0]'][i], df['Electron_Eta[0]'][i], syst = '', type = "Trigger"))
@@ -90,28 +90,19 @@ class Sample:
             # " * x['Weight_pu69p2']  * x['Weight_L1ECALPrefire']"  + \
             # " * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSF[0]'] > 0.) & (x['Electron_ReconstructionSF[0]'] > 0.))*x['Electron_IdentificationSF[0]']*x['Electron_ReconstructionSF[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'])"  + \
             # " * (((x['N_LooseMuons']  == 0 & x['N_TightElectrons']  == 1) & (x['Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX']  | (x['Triggered_HLT_Ele32_WPTight_Gsf_L1DoubleEG_vX']  & x['Triggered_HLT_Ele32_WPTight_Gsf_2017SeedsX'])))) + ((x['N_LooseElectrons']  == 0 & x['N_TightMuons']  == 1 & (x['Triggered_HLT_IsoMu27_vX'])) & (x['Weight_MuonTriggerSF'] > 0.)) * x['Weight_MuonTriggerSF'] "
-
-            # (x['Weight_XS'] * x['Weight_CSV'] * x['Weight_GEN_nom'] * x['Weight_pu69p2'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSF[0]'] > 0.) & (x['Electron_ReconstructionSF[0]'] > 0.))*1.*x['Electron_IdentificationSF[0]']*x['Electron_ReconstructionSF[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]']
-            #  * x['Muon_IsolationSF[0]']) * (((x['N_LooseMuons'] == 0 & x['N_TightElectrons'] == 1) & (x['Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX'] | (x['Triggered_HLT_Ele32_WPTight_Gsf_L1DoubleEG_vX'] & x['Triggered_HLT_Ele32_WPTight_Gsf_2017SeedsX']))) * 1.) + ((x['N_LooseElectrons'] == 0 & x['N_TightMuons'] == 1 & (x['Triggered_HLT_IsoMu27_vX'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])
-
-            # self.total_weight_expr = self.total_weight_expr + '* x['Electron_IdentificationSF[0]']'
         
 
             # print (self.total_weight_expr)
-# ((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) * 1. &
         # add event weight
         # df = df.assign(total_weight=lambda x: eval(self.total_weight_expr))
         df = df.assign(total_weight=lambda x: (x['Weight_XS'] * x['Weight_CSV'] * x['Weight_GEN_nom'] * x['Weight_pu69p2'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSF[0]'] > 0.) & (x['Electron_ReconstructionSF[0]'] > 0.))*1.*x['Electron_IdentificationSF[0]']*x['Electron_ReconstructionSF[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & ((x['Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX'] == 1) | (
             (x['Triggered_HLT_Ele32_WPTight_Gsf_L1DoubleEG_vX'] == 1) & (x['Triggered_HLT_Ele32_WPTight_Gsf_2017SeedsX'] == 1)))) * 1. + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['Triggered_HLT_IsoMu27_vX']) ) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
 
 
-# x['Weight_XS'] * x['Weight_CSV'] * x['Weight_GEN_nom'] * x['Weight_pu69p2'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSF[0]'] > 0.) & ( x['Electron_ReconstructionSF[0]'] > 0.))*1.*x['Electron_IdentificationSF[0]']*x['Electron_ReconstructionSF[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]']) *
-
-
-        print("total weight: ")
-        print(df["total_weight"])
-        # print("total weight: {}".format(df["total_weight"].values))
-        # assign train weight
+        # print("total weight: ")
+        # print(df["total_weight"])
+        print("total weight: {}".format(df["total_weight"].values))
+        assign train weight
         weight_sum = sum(df["total_weight"].values)
         print("weight sum: {}".format(weight_sum))
         print("self train weight: {}".format(self.train_weight))
