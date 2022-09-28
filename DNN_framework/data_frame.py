@@ -100,7 +100,8 @@ class Sample:
 
         # add event weight
         # df = df.assign(total_weight=lambda x: eval(self.total_weight_expr))
-        df = df.assign(total_weight=lambda x: (x['Weight_XS'] * x['Weight_CSV'] * x['Weight_GEN_nom'] * x['Weight_pu69p2'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSF[0]'] > 0.) & (x['Electron_ReconstructionSF[0]'] > 0.))*1.*x['Electron_IdentificationSF[0]']*x['Electron_ReconstructionSF[0]'] )))
+        df = df.assign(total_weight=lambda x: (x['Weight_XS'] * x['Weight_CSV'] * x['Weight_GEN_nom'] * x['Weight_pu69p2'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSF[0]'] > 0.) & (
+            x['Electron_ReconstructionSF[0]'] > 0.))*1.*x['Electron_IdentificationSF[0]']*x['Electron_ReconstructionSF[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'])))
 
 
         print("total weight: ")
