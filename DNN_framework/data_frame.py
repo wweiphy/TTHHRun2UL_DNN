@@ -101,10 +101,16 @@ class Sample:
 
         # add event weight
         # df = df.assign(total_weight=lambda x: eval(self.total_weight_expr))
-        df = df.assign(total_weight=lambda x: ( ((((x['N_LooseMuons'] == 0 & x['N_TightElectrons'] == 1)*1. & ((x['Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX'])*1 | ((x['Triggered_HLT_Ele32_WPTight_Gsf_L1DoubleEG_vX'])*1. & (x['Triggered_HLT_Ele32_WPTight_Gsf_2017SeedsX'])*1.))) * 1.) + (((x['N_LooseElectrons'] == 0)*1. & (x['N_TightMuons'] == 1)*1. & (x['Triggered_HLT_IsoMu27_vX'])*1.) & (x['Weight_MuonTriggerSF'] > 0.)*1.) * 1. * x['Weight_MuonTriggerSF'])))
+        df = df.assign(total_weight=lambda x: ( (((x['N_LooseMuons'] == 0 & x['N_TightElectrons'] == 1)*1. & ((x['Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX'])*1 | ((x['Triggered_HLT_Ele32_WPTight_Gsf_L1DoubleEG_vX'])*1. & (x['Triggered_HLT_Ele32_WPTight_Gsf_2017SeedsX'])*1.))) * 1.) ))
 
+
+# + (((x['N_LooseElectrons'] == 0)*1. & (x['N_TightMuons'] == 1)*1. & (x['Triggered_HLT_IsoMu27_vX'])
+#    * 1.) & (x['Weight_MuonTriggerSF'] > 0.)*1.) * 1. * x['Weight_MuonTriggerSF']
 
 # x['Weight_XS'] * x['Weight_CSV'] * x['Weight_GEN_nom'] * x['Weight_pu69p2'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSF[0]'] > 0.) & ( x['Electron_ReconstructionSF[0]'] > 0.))*1.*x['Electron_IdentificationSF[0]']*x['Electron_ReconstructionSF[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]']) *
+
+# ((((x['N_LooseMuons'] == 0 & x['N_TightElectrons'] == 1)*1. & ((x['Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX'])*1 | ((x['Triggered_HLT_Ele32_WPTight_Gsf_L1DoubleEG_vX'])*1. & (x['Triggered_HLT_Ele32_WPTight_Gsf_2017SeedsX'])*1.)))
+#  * 1.) + (((x['N_LooseElectrons'] == 0)*1. & (x['N_TightMuons'] == 1)*1. & (x['Triggered_HLT_IsoMu27_vX'])*1.) & (x['Weight_MuonTriggerSF'] > 0.)*1.) * 1. * x['Weight_MuonTriggerSF'])
 
         print("total weight: ")
         print(df["total_weight"])
