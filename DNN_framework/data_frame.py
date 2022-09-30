@@ -50,10 +50,12 @@ class Sample:
             LeptonSF = SFs.LeptonSF()
             # print("example of the df element: ")
             # print(df["Electron_IdentificationSF[0]"][0])
-            ElectronTriggerSF = []
-            for i in range(df.shape[0]):
-                ElectronTriggerSF.append(LeptonSF.GetElectronSF(
-                    df['Electron_Pt[0]'].iat[i], df['Electron_Eta[0]'].iat[i], syst='', type="Trigger"))
+            # ElectronTriggerSF = []
+            # for i in range(df.shape[0]):
+                # ElectronTriggerSF.append(LeptonSF.GetElectronSF(
+                #     df['Electron_Pt[0]'].iat[i], df['Electron_Eta[0]'].iat[i], syst='', type="Trigger"))
+            ElectronTriggerSF = LeptonSF.GetElectronSF(
+                    df['Electron_Pt[0]'], df['Electron_Eta[0]'], syst='', type="Trigger")
             self.ElectronTriggerSF = np.array(ElectronTriggerSF)
             print("Electron Trigger SF: ")
             print(ElectronTriggerSF)
