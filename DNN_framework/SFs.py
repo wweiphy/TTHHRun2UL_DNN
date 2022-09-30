@@ -27,35 +27,35 @@ class LeptonSF:
         # self.SetMuonHistos()
 
     def GetElectronSF(self, electronPt, electronEta, syst, type="Trigger"):
-        self.electronPt = electronPt
-        self.electronEta = electronEta
-        self.syst = syst
-        self.type = type
+        # self.electronPt = electronPt
+        # self.electronEta = electronEta
+        # self.syst = syst
+        # self.type = type
 
-        if (self.electronPt == 0.0):
+        if (electronPt == 0.0):
             return 1.0
-        if (self.electronEta < 0 and self.electronEta <= -1 * self.electronMaxEta):
-            self.electronEta = -1 * self.electronMaxEta
-        if (self.electronEta > 0 and self.electronEta >= self.electronMaxEta):
-            self.electronEta = self.electronMaxEta
-        if (self.type == "Trigger"):
-            if (self.electronEta < 0 and self.electronEta <= -1 * self.electronMaxEtaLow):
-                self.electronEta = -1 * self.electronMaxEtaLow
-            if (self.electronEta > 0 and self.electronEta >= self.electronMaxEtaLow):
-                self.electronEta = self.electronMaxEtaLow
+        if (electronEta < 0 and electronEta <= -1 * self.electronMaxEta):
+            electronEta = -1 * self.electronMaxEta
+        if (electronEta > 0 and electronEta >= self.electronMaxEta):
+            electronEta = self.electronMaxEta
+        if (type == "Trigger"):
+            if (electronEta < 0 and electronEta <= -1 * self.electronMaxEtaLow):
+                electronEta = -1 * self.electronMaxEtaLow
+            if (electronEta > 0 and electronEta >= self.electronMaxEtaLow):
+                electronEta = self.electronMaxEtaLow
 
-        if (self.electronPt > self.electronLowPtRangeCut):
-            if (self.electronPt >= self.electronMaxPtHigher):
-                self.electronPt = self.electronMaxPtHigher
-            if (self.electronPt < self.electronMinPt):
-                self.electronPt = self.electronMinPt
+        if (electronPt > self.electronLowPtRangeCut):
+            if (electronPt >= self.electronMaxPtHigher):
+                electronPt = self.electronMaxPtHigher
+            if (electronPt < self.electronMinPt):
+                electronPt = self.electronMinPt
         else:
-            if (self.electronPt >= self.electronMaxPtLowPt):
-                self.electronPt = self.electronMaxPtLowPt
-            if (self.electronPt < self.electronMinPtLowPt):
-                self.electronPt = self.electronMinPtLowPt
+            if (electronPt >= self.electronMaxPtLowPt):
+                electronPt = self.electronMaxPtLowPt
+            if (electronPt < self.electronMinPtLowPt):
+                electronPt = self.electronMinPtLowPt
 
-        if (self.type == "Trigger"):
+        if (type == "Trigger"):
 
             TRIGGERinputFile = self.basedir + \
                 "/data/triggerSFs/SingleEG_JetHT_Trigger_Scale_Factors_ttHbb2017_v3.root"
@@ -64,14 +64,15 @@ class LeptonSF:
             h_ele_TRIGGER_abseta_pt_ratio = f_TRIGGERSF.Get(
                 TRIGGERhistName)
             
-            print("pt is {}".format(self.electronPt))
-            print("eta is {}".format(self.electronEta))
-            thisBin = self.h_ele_TRIGGER_abseta_pt_ratio.FindBin(
-                self.electronPt, self.electronEta)
-            # thisBin = h_ele_TRIGGER_abseta_pt_ratio.FindBin( 98.2975082397, 0.921974480152)
+            print("pt is {}".format(electronPt))
+            print("eta is {}".format(electronEta))
+            # thisBin = self.h_ele_TRIGGER_abseta_pt_ratio.FindBin(
+                # self.electronPt, self.electronEta)
+            thisBin = h_ele_TRIGGER_abseta_pt_ratio.FindBin(
+                electronPt, electronEta)
             print("bin number is {}".format(thisBin))
-            nomval = self.h_ele_TRIGGER_abseta_pt_ratio.GetBinContent(thisBin)
-            error = self.h_ele_TRIGGER_abseta_pt_ratio.GetBinError(thisBin)
+            nomval = h_ele_TRIGGER_abseta_pt_ratio.GetBinContent(thisBin)
+            error = h_ele_TRIGGER_abseta_pt_ratio.GetBinError(thisBin)
             # upval = nomval+error
             # downval = nomval-error
 
