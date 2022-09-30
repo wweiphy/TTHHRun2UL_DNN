@@ -52,7 +52,8 @@ class Sample:
             # print(df["Electron_IdentificationSF[0]"][0])
             ElectronTriggerSF = []
             for i in range(df.shape[0]):
-                ElectronTriggerSF.append(LeptonSF.GetElectronSF(df['Electron_Pt[0]'][i], df['Electron_Eta[0]'][i], syst = '', type = "Trigger"))
+                ElectronTriggerSF.append(LeptonSF.GetElectronSF(
+                    df['Electron_Pt[0]'].iat[i], df['Electron_Eta[0]'].iat[i], syst='', type="Trigger"))
             self.ElectronTriggerSF = np.array(ElectronTriggerSF)
             print(ElectronTriggerSF)
             # df['internalEleTriggerWeight'] = self.ElectronTriggerSF.tolist()
