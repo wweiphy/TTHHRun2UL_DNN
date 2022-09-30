@@ -61,10 +61,10 @@ class LeptonSF:
         h_ele_GFS_abseta_pt_ratio_lowEt = f_GFSSF_lowEt.Get("EGamma_SF2D")
 
         self.nomval = []
-        print("length of the df {}".format(electronPt.shape[0]))
+        # print("length of the df {}".format(electronPt.shape[0]))
         for i in range(electronPt.shape[0]):
-            print("i is {}".format(i))
-            print(electronPt.iat[i])
+            # print("i is {}".format(i))
+            # print(electronPt.iat[i])
             if (electronPt.iat[i] == 0.0):
                 self.nomval.append(1.)
                 continue
@@ -95,9 +95,9 @@ class LeptonSF:
                 # print("eta is {}".format(electronEta))
                 thisBin = h_ele_TRIGGER_abseta_pt_ratio.FindBin(
                     electronPt.iat[i], electronEta.iat[i])
-                print("bin number is {}".format(thisBin))
+                # print("bin number is {}".format(thisBin))
                 nomval = h_ele_TRIGGER_abseta_pt_ratio.GetBinContent(thisBin)
-                print(nomval)
+                # print(nomval)
                 # error = h_ele_TRIGGER_abseta_pt_ratio.GetBinError(thisBin)
                 # upval = nomval+error
                 # downval = nomval-error
@@ -105,8 +105,8 @@ class LeptonSF:
                 # print("electron SF: {}".format(nomval))
 
                 self.nomval.append(nomval)
-        print("SF factors: ")
-        print(self.nomval)
+        # print("SF factors: ")
+        # print(self.nomval)
         return self.nomval
 
 
