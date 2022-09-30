@@ -24,7 +24,7 @@ class LeptonSF:
         self.muonMinPtHigh = 29.0
         self.muonMaxEta = 2.39
 
-        self.hists = self.SetElectronHistos()
+        # self.hists = self.SetElectronHistos()
         # self.SetMuonHistos()
 
 
