@@ -24,10 +24,6 @@ class LeptonSF:
         self.muonMinPtHigh = 29.0
         self.muonMaxEta = 2.39
 
-
-    def GetElectronSF(self, electronPt, electronEta, syst, type="Trigger"):
-
-
         IDinputFileBtoF = self.basedir + \
             "/data/LeptonSFs/egammaEffi.txt_EGM2D_runBCDEF_passingTight94X.root"
 
@@ -54,10 +50,45 @@ class LeptonSF:
         f_GFSSF = ROOT.TFile(GFSinputFile, "READ")
         f_GFSSF_lowEt = ROOT.TFile(GFSinputFile_lowEt, "READ")
 
-        h_ele_ID_abseta_pt_ratioBtoF = f_IDSFBtoF.Get("EGamma_SF2D")
-        h_ele_TRIGGER_abseta_pt_ratio = f_TRIGGERSF.Get(TRIGGERhistName)
-        h_ele_GFS_abseta_pt_ratio = f_GFSSF.Get("EGamma_SF2D")
-        h_ele_GFS_abseta_pt_ratio_lowEt = f_GFSSF_lowEt.Get("EGamma_SF2D")
+        self.h_ele_ID_abseta_pt_ratioBtoF = f_IDSFBtoF.Get("EGamma_SF2D")
+        self.h_ele_TRIGGER_abseta_pt_ratio = f_TRIGGERSF.Get(TRIGGERhistName)
+        self.h_ele_GFS_abseta_pt_ratio = f_GFSSF.Get("EGamma_SF2D")
+        self.h_ele_GFS_abseta_pt_ratio_lowEt = f_GFSSF_lowEt.Get("EGamma_SF2D")
+
+# TODO - can we modify the Pt and Eta from single value to df?
+    def GetElectronSF(self, electronPt, electronEta, syst, type="Trigger"):
+
+
+        # IDinputFileBtoF = self.basedir + \
+        #     "/data/LeptonSFs/egammaEffi.txt_EGM2D_runBCDEF_passingTight94X.root"
+
+        # if (self.dataera == "2017"):
+        #     TRIGGERinputFile = self.basedir + \
+        #         "/data/triggerSFs/SingleEG_JetHT_Trigger_Scale_Factors_ttHbb2017_v3.root"
+        #     TRIGGERhistName = "ele28_ht150_OR_ele32_ele_pt_ele_sceta"
+        # elif (self.dataera == "2018"):
+        #     TRIGGERinputFile = self.basedir + \
+        #         "/data/triggerSFs/SingleEG_JetHT_Trigger_Scale_Factors_ttHbb2018_v3.root"
+        #     TRIGGERhistName = "ele28_ht150_OR_ele32_ele_pt_ele_sceta"
+        # elif (self.dataera == "2016"):
+        #     TRIGGERinputFile = self.basedir + \
+        #         "/data/triggerSFs/SingleEG_JetHT_Trigger_Scale_Factors_ttHbb2016_v4.root"
+        #     TRIGGERhistName = "ele27_ele_pt_ele_sceta"
+
+        # GFSinputFile = self.basedir + \
+        #     "/data/LeptonSFs/egammaEffi.txt_EGM2D_runBCDEF_passingRECO.root"
+        # GFSinputFile_lowEt = self.basedir + \
+        #     "/data/LeptonSFs/egammaEffi.txt_EGM2D_runBCDEF_passingRECO_lowEt.root"
+
+        # f_IDSFBtoF = ROOT.TFile(IDinputFileBtoF, "READ")
+        # f_TRIGGERSF = ROOT.TFile(TRIGGERinputFile, "READ")
+        # f_GFSSF = ROOT.TFile(GFSinputFile, "READ")
+        # f_GFSSF_lowEt = ROOT.TFile(GFSinputFile_lowEt, "READ")
+
+        # h_ele_ID_abseta_pt_ratioBtoF = f_IDSFBtoF.Get("EGamma_SF2D")
+        # h_ele_TRIGGER_abseta_pt_ratio = f_TRIGGERSF.Get(TRIGGERhistName)
+        # h_ele_GFS_abseta_pt_ratio = f_GFSSF.Get("EGamma_SF2D")
+        # h_ele_GFS_abseta_pt_ratio_lowEt = f_GFSSF_lowEt.Get("EGamma_SF2D")
 
 
         if (electronPt == 0.0):
@@ -87,15 +118,15 @@ class LeptonSF:
 
             # print("pt is {}".format(electronPt))
             # print("eta is {}".format(electronEta))
-            thisBin = h_ele_TRIGGER_abseta_pt_ratio.FindBin(
+            thisBin = self.h_ele_TRIGGER_abseta_pt_ratio.FindBin(
                 electronPt, electronEta)
-            print("bin number is {}".format(thisBin))
-            nomval = h_ele_TRIGGER_abseta_pt_ratio.GetBinContent(thisBin)
+            # print("bin number is {}".format(thisBin))
+            nomval = self.h_ele_TRIGGER_abseta_pt_ratio.GetBinContent(thisBin)
             # error = h_ele_TRIGGER_abseta_pt_ratio.GetBinError(thisBin)
             # upval = nomval+error
             # downval = nomval-error
 
-            print("electron SF: {}".format(nomval))
+            # print("electron SF: {}".format(nomval))
 
             self.nomval = nomval
             return self.nomval
