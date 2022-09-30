@@ -1,3 +1,4 @@
+from re import I
 import ROOT
 
 class LeptonSF:
@@ -113,11 +114,12 @@ class LeptonSF:
         f_GFSSF = ROOT.TFile(GFSinputFile, "READ")
         f_GFSSF_lowEt = ROOT.TFile(GFSinputFile_lowEt, "READ")
 
-        self.h_ele_ID_abseta_pt_ratioBtoF = f_IDSFBtoF.Get("EGamma_SF2D")
-        self.h_ele_TRIGGER_abseta_pt_ratio = f_TRIGGERSF.Get(TRIGGERhistName)
-        self.h_ele_GFS_abseta_pt_ratio = f_GFSSF.Get("EGamma_SF2D")
-        self.h_ele_GFS_abseta_pt_ratio_lowEt = f_GFSSF_lowEt.Get("EGamma_SF2D")
+        self.hists.h_ele_ID_abseta_pt_ratioBtoF = f_IDSFBtoF.Get("EGamma_SF2D")
+        self.hists.h_ele_TRIGGER_abseta_pt_ratio = f_TRIGGERSF.Get(TRIGGERhistName)
+        self.hists.h_ele_GFS_abseta_pt_ratio = f_GFSSF.Get("EGamma_SF2D")
+        self.hists.h_ele_GFS_abseta_pt_ratio_lowEt = f_GFSSF_lowEt.Get("EGamma_SF2D")
 
+        return self.hists
 
 # TODO - modify the basedir
 #
