@@ -56,12 +56,19 @@ class LeptonSF:
                 self.electronPt = self.electronMinPtLowPt
 
         if (self.type == "Trigger"):
+
+            TRIGGERinputFile = self.basedir + \
+                "/data/triggerSFs/SingleEG_JetHT_Trigger_Scale_Factors_ttHbb2017_v3.root"
+            TRIGGERhistName = "ele28_ht150_OR_ele32_ele_pt_ele_sceta"
+            f_TRIGGERSF = ROOT.TFile(TRIGGERinputFile, "READ")
+            h_ele_TRIGGER_abseta_pt_ratio = f_TRIGGERSF.Get(
+                TRIGGERhistName)
             
             print("pt is {}".format(self.electronPt))
             print("eta is {}".format(self.electronEta))
-            # thisBin = self.h_ele_TRIGGER_abseta_pt_ratio.FindBin(
-            #     self.electronPt, self.electronEta)
-            thisBin = self.h_ele_TRIGGER_abseta_pt_ratio.FindBin( 98.2975082397, 0.921974480152)
+            thisBin = self.h_ele_TRIGGER_abseta_pt_ratio.FindBin(
+                self.electronPt, self.electronEta)
+            # thisBin = h_ele_TRIGGER_abseta_pt_ratio.FindBin( 98.2975082397, 0.921974480152)
             print("bin number is {}".format(thisBin))
             nomval = self.h_ele_TRIGGER_abseta_pt_ratio.GetBinContent(thisBin)
             error = self.h_ele_TRIGGER_abseta_pt_ratio.GetBinError(thisBin)
