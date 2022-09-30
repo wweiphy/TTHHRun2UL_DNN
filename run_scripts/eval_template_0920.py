@@ -15,7 +15,7 @@ import DNN_framework.DNN as DNN
 import DNN_framework.data_frame as df
 
 
-# python eval_template_0920.py -o 220927_JABDT_2e5_ge4j_ge3t_final_evaluation_553 -i 220727_JABDT_2e5_Z_ge4j_ge3t --signalclass=ttHH --plot --printroc --evaluationEpoch=553
+# python eval_template_0920.py -o 220929_test_evaluation_553 -i 220727_JABDT_2e5_Z_ge4j_ge3t --signalclass=ttHH --plot --printroc --evaluationEpoch=553
 
 # python eval_template_0920.py -o 220927_JABDT_2e5_ge4j_ge3t_final_evaluation -i 220727_JABDT_2e5_Z_ge4j_ge3t --signalclass=ttHH --plot --printroc 
 
@@ -148,12 +148,10 @@ for sample in config["eventClasses"]:
                 normalization_weight = 0.773080839
                 sample_path = dfDirectory+"ttnb_dnn.h5"
         elif sample["sampleLabel"] == "ttcc":
-                total_weight_expr = total_weight_expr + ' * (abs(x.Weight_scale_variation_muR_0p5_muF_0p5) <= 100 and abs(x.Weight_scale_variation_muR_0p5_muF_1p0) <= 100 and abs(x.Weight_scale_variation_muR_0p5_muF_2p0) <= 100 and abs(x.Weight_scale_variation_muR_1p0_muF_0p5) <= 100 and abs(x.Weight_scale_variation_muR_1p0_muF_1p0) <= 100 and abs(x.Weight_scale_variation_muR_1p0_muF_2p0) <= 100 and abs(x.Weight_scale_variation_muR_2p0_muF_0p5) <= 100 and abs(x.Weight_scale_variation_muR_2p0_muF_1p0) <= 100 and abs(x.Weight_scale_variation_muR_2p0_muF_2p0) <= 100)'
                 sample_train_weight = 1
                 normalization_weight = 0.950200622
                 sample_path = dfDirectory+"ttcc_dnn.h5"
         elif sample["sampleLabel"] == "ttlf":
-                total_weight_expr = total_weight_expr + ' * (abs(x.Weight_scale_variation_muR_0p5_muF_0p5) <= 100 and abs(x.Weight_scale_variation_muR_0p5_muF_1p0) <= 100 and abs(x.Weight_scale_variation_muR_0p5_muF_2p0) <= 100 and abs(x.Weight_scale_variation_muR_1p0_muF_0p5) <= 100 and abs(x.Weight_scale_variation_muR_1p0_muF_1p0) <= 100 and abs(x.Weight_scale_variation_muR_1p0_muF_2p0) <= 100 and abs(x.Weight_scale_variation_muR_2p0_muF_0p5) <= 100 and abs(x.Weight_scale_variation_muR_2p0_muF_1p0) <= 100 and abs(x.Weight_scale_variation_muR_2p0_muF_2p0) <= 100)'
                 sample_train_weight = 1
                 normalization_weight = 0.946382238
                 sample_path = dfDirectory+"ttlf_dnn.h5"
@@ -170,7 +168,7 @@ for sample in config["eventClasses"]:
 print("shuffle seed: {}".format(config["shuffleSeed"]))
 
 #TODO-modify this
-sample_save_path = basedir+"/workdir/DIR_0927_Evaluation"
+sample_save_path = basedir+"/workdir/"
 # init DNN class
 dnn = DNN.DNN(
 save_path=outPath,
