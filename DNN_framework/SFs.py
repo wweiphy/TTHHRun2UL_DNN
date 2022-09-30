@@ -56,7 +56,9 @@ class LeptonSF:
                 self.electronPt = self.electronMinPtLowPt
 
         if (self.type == "Trigger"):
-
+            
+            print("pt is {}".format(self.electronPt))
+            print("eta is {}".format(self.electronEta))
             thisBin = self.h_ele_TRIGGER_abseta_pt_ratio.FindBin(
                 self.electronPt, self.electronEta)
             nomval = self.h_ele_TRIGGER_abseta_pt_ratio.GetBinContent(thisBin)
