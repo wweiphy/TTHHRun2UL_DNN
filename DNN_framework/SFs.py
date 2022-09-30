@@ -94,7 +94,7 @@ class LeptonSF:
                 # print("pt is {}".format(electronPt))
                 # print("eta is {}".format(electronEta))
                 thisBin = h_ele_TRIGGER_abseta_pt_ratio.FindBin(
-                    electronPt, electronEta)
+                    electronPt.iat[i], electronEta.iat[i])
                 print("bin number is {}".format(thisBin))
                 nomval = h_ele_TRIGGER_abseta_pt_ratio.GetBinContent(thisBin)
                 print(nomval)
