@@ -63,6 +63,8 @@ class LeptonSF:
         self.nomval = []
         print("length of the df {}".format(electronPt.shape[0]))
         for i in range(electronPt.shape[0]):
+            print("i is {}".format(i))
+            print(electronPt.iat[i])
             if (electronPt.iat[i] == 0.0):
                 return 1.0
             if (electronEta.iat[i] < 0 and electronEta.iat[i] <= -1 * self.electronMaxEta):
