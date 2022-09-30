@@ -94,7 +94,9 @@ class Sample:
                 print("2")
                 df = df.assign(extra_weight=lambda x: 1.)
 
-            df = df.assign(xs_weight=lambda x: eval(self.total_weight_expr))
+            # df = df.assign(xs_weight=lambda x: eval(self.total_weight_expr))
+            df = df.assign(xs_weight=lambda x: x.Weight_XS *
+                           x.Weight_CSV * x.Weight_GEN_nom)
             df = df.assign(total_weight=lambda x: x.xs_weight * x.extra_weight * x.sf_weight)
 
         # print("total weight: ")
