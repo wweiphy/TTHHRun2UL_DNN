@@ -61,6 +61,7 @@ class LeptonSF:
             print("eta is {}".format(self.electronEta))
             thisBin = self.h_ele_TRIGGER_abseta_pt_ratio.FindBin(
                 self.electronPt, self.electronEta)
+            print("bin number is {}".format(thisBin))
             nomval = self.h_ele_TRIGGER_abseta_pt_ratio.GetBinContent(thisBin)
             error = self.h_ele_TRIGGER_abseta_pt_ratio.GetBinError(thisBin)
             # upval = nomval+error
