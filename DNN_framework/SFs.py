@@ -23,8 +23,10 @@ class LeptonSF:
         self.muonMinPtHigh = 29.0
         self.muonMaxEta = 2.39
 
-        self.SetElectronHistos()
+        self.hists = self.SetElectronHistos()
         # self.SetMuonHistos()
+
+
 
     def GetElectronSF(self, electronPt, electronEta, syst, type="Trigger"):
         # self.electronPt = electronPt
@@ -57,22 +59,22 @@ class LeptonSF:
 
         if (type == "Trigger"):
 
-            TRIGGERinputFile = self.basedir + \
-                "/data/triggerSFs/SingleEG_JetHT_Trigger_Scale_Factors_ttHbb2017_v3.root"
-            TRIGGERhistName = "ele28_ht150_OR_ele32_ele_pt_ele_sceta"
-            f_TRIGGERSF = ROOT.TFile(TRIGGERinputFile, "READ")
-            h_ele_TRIGGER_abseta_pt_ratio = f_TRIGGERSF.Get(
-                TRIGGERhistName)
+            # TRIGGERinputFile = self.basedir + \
+            #     "/data/triggerSFs/SingleEG_JetHT_Trigger_Scale_Factors_ttHbb2017_v3.root"
+            # TRIGGERhistName = "ele28_ht150_OR_ele32_ele_pt_ele_sceta"
+            # f_TRIGGERSF = ROOT.TFile(TRIGGERinputFile, "READ")
+            # h_ele_TRIGGER_abseta_pt_ratio = f_TRIGGERSF.Get(
+            #     TRIGGERhistName)
             
             print("pt is {}".format(electronPt))
             print("eta is {}".format(electronEta))
-            # thisBin = self.h_ele_TRIGGER_abseta_pt_ratio.FindBin(
-                # self.electronPt, self.electronEta)
-            thisBin = h_ele_TRIGGER_abseta_pt_ratio.FindBin(
-                electronPt, electronEta)
+            thisBin = self.hists.h_ele_TRIGGER_abseta_pt_ratio.FindBin(
+                self.electronPt, self.electronEta)
+            # thisBin = h_ele_TRIGGER_abseta_pt_ratio.FindBin(
+                # electronPt, electronEta)
             print("bin number is {}".format(thisBin))
-            nomval = h_ele_TRIGGER_abseta_pt_ratio.GetBinContent(thisBin)
-            error = h_ele_TRIGGER_abseta_pt_ratio.GetBinError(thisBin)
+            nomval = self.hists.h_ele_TRIGGER_abseta_pt_ratio.GetBinContent(thisBin)
+            error = self.hists.h_ele_TRIGGER_abseta_pt_ratio.GetBinError(thisBin)
             # upval = nomval+error
             # downval = nomval-error
 
