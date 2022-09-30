@@ -66,7 +66,8 @@ class LeptonSF:
             print("i is {}".format(i))
             print(electronPt.iat[i])
             if (electronPt.iat[i] == 0.0):
-                return 1.0
+                self.nomval.append(1.)
+                continue
             if (electronEta.iat[i] < 0 and electronEta.iat[i] <= -1 * self.electronMaxEta):
                 electronEta.iat[i] = -1 * self.electronMaxEta
             if (electronEta.iat[i] > 0 and electronEta.iat[i] >= self.electronMaxEta):
@@ -96,6 +97,7 @@ class LeptonSF:
                     electronPt, electronEta)
                 print("bin number is {}".format(thisBin))
                 nomval = h_ele_TRIGGER_abseta_pt_ratio.GetBinContent(thisBin)
+                print(nomval)
                 # error = h_ele_TRIGGER_abseta_pt_ratio.GetBinError(thisBin)
                 # upval = nomval+error
                 # downval = nomval-error
