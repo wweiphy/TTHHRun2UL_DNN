@@ -73,10 +73,10 @@ class LeptonSF:
             if (electronEta.iat[i] > 0 and electronEta.iat[i] >= self.electronMaxEta):
                 electronEta.iat[i] = self.electronMaxEta
             if (type == "Trigger"):
-                if (electronEta.iat[i].iat[i] < 0 and electronEta.iat[i].iat[i] <= -1 * self.electronMaxEtaLow):
-                    electronEta.iat[i].iat[i] = -1 * self.electronMaxEtaLow
-                if (electronEta.iat[i].iat[i] > 0 and electronEta.iat[i].iat[i] >= self.electronMaxEtaLow):
-                    electronEta.iat[i].iat[i] = self.electronMaxEtaLow
+                if (electronEta.iat[i] < 0 and electronEta.iat[i] <= -1 * self.electronMaxEtaLow):
+                    electronEta.iat[i] = -1 * self.electronMaxEtaLow
+                if (electronEta.iat[i] > 0 and electronEta.iat[i] >= self.electronMaxEtaLow):
+                    electronEta.iat[i] = self.electronMaxEtaLow
 
             if (electronPt.iat[i] > self.electronLowPtRangeCut):
                 if (electronPt.iat[i] >= self.electronMaxPtHigher):
