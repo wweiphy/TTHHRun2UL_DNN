@@ -122,124 +122,135 @@ class BTagSF:
         self.jecsysts = jecsysts
         
         if (dataera == "2017"):
-            HFfile = self.basedir + "/data/CSV/sfs_deepjet_2017_hf.root"
-            LFfile = self.basedir + "/data/CSV/sfs_deepjet_2017_lf.root"
+            self.HFfile = self.basedir + "/data/CSV/sfs_deepjet_2017_hf.root"
+            self.LFfile = self.basedir + "/data/CSV/sfs_deepjet_2017_lf.root"
         elif( dataera == "2018" ):
-            HFfile=self.basedir + "/data/CSV/sfs_deepjet_2018_hf.root"
-            LFfile=self.basedir + "/data/CSV/sfs_deepjet_2018_lf.root"
+            self.HFfile=self.basedir + "/data/CSV/sfs_deepjet_2018_hf.root"
+            self.LFfile=self.basedir + "/data/CSV/sfs_deepjet_2018_lf.root"
         elif( dataera == "2016" ):
-            HFfile=self.basedir + "/data/CSV/sfs_deepjet_2016_hf.root"
-            LFfile=self.basedir + "/data/CSV/sfs_deepjet_2016_lf.root"
+            self.HFfile=self.basedir + "/data/CSV/sfs_deepjet_2016_hf.root"
+            self.LFfile=self.basedir + "/data/CSV/sfs_deepjet_2016_lf.root"
         else:
             print("NO VALID DATAERA CHOSEN!!")
             
 
-        self.f_HF = ROOT.TFile(HFfile, "READ")
-        self.f_LF = ROOT.TFile(LFfile, "READ")
-        self.fillCSVHistos()
+        
+        # self.fillCSVHistos()
 
-    def fillCSVHistos(self):
+    # def fillCSVHistos(self):
+        
+
+    def getBTagWeight(self, jetPt, jetEta, jetCSV, jetFlavour, sys):
+            
+        f_HF = ROOT.TFile(self.HFfile, "READ")
+        f_LF = ROOT.TFile(self.LFfile, "READ")
+
         syst_suffix = "final"
-        for sys in enumerate(self.jecsysts):
-            sys = sys.replace("up", "Up") 
-            sys = sys.replace("down", "Down")
-            sys = sys.replace("CSV", "") 
-            sys = sys.replace("Stats", "stats")
 
-            if not sys == None:
-                sys = "_"+sys
+        if not sys == None:
+            sys = "_"+sys
 
-            self.h_wgt_hf = []
-            self.c_wgt_hf = []
-            self.h_wgt_lf = []
+        h_wgt_hf = []
+        c_wgt_hf = []
+        h_wgt_lf = []
 
-            for i in range(self.nHFptBins_):
-                name_b = "csv_ratio_Pt{}_Eta0_{}".format(i, syst_suffix+sys)
-                if (self.f_HF.GetListOfKeys().Contains(name_b)):
-                    self.h_wgt_hf.append(self.f_HF.Get(name_b))
-                name_c = "c_csv_ratio_Pt{}_Eta0_{}".format(i, syst_suffix+sys)
-                if (self.f_HF.GetListOfKeys().Contains(name_c)):
-                    self.c_wgt_hf.append(self.f_HF.Get(name_c))
+        for i in range(self.nHFptBins_):
+            name_b = "csv_ratio_Pt{}_Eta0_{}".format(i, syst_suffix+sys)
+            if (f_HF.GetListOfKeys().Contains(name_b)):
+                h_wgt_hf.append(self.f_HF.Get(name_b))
+            name_c = "c_csv_ratio_Pt{}_Eta0_{}".format(i, syst_suffix+sys)
+            if (f_HF.GetListOfKeys().Contains(name_c)):
+                c_wgt_hf.append(self.f_HF.Get(name_c))
 
-            for i in range(self.nLFptBins_):
-                for j in range(self.nLFetaBins_):
-                    name_l = "csv_ratio_Pt{}_Eta{}_{}".format(i, j, syst_suffix+sys)
-                    if (self.f_LF.GetListOfKeys().Contains(name_l)):
-                        self.h_wgt_lf.append(self.f_LF.Get(name_l))
+        for i in range(self.nLFptBins_):
+            for j in range(self.nLFetaBins_):
+                name_l = "csv_ratio_Pt{}_Eta{}_{}".format(
+                    i, j, syst_suffix+sys)
+                if (f_LF.GetListOfKeys().Contains(name_l)):
+                    h_wgt_lf.append(self.f_LF.Get(name_l))
 
-    def getBTagWeight(self, jetPt, jetEta, jetCSV, jetFlavour, index):
-        Wgthf = 1.
-        WgtC = 1.
-        Wgtlf = 1.
 
-        iPt = -1
-        iEta = -1
         # pt binning for heavy flavour jets
-        if (abs(jetFlavour) > 3):
-            if (jetPt >= 19.99 and jetPt <= 30): 
-                iPt = 0
-            elif (jetPt > 30 and jetPt <= 50):
-                iPt = 1
-            elif (jetPt > 50 and jetPt <= 70):
-                iPt = 2
-            elif (jetPt > 70 and jetPt <= 100):
-                iPt = 3
-            elif (jetPt > 100):
-                iPt = 4
-            else:
-                iPt = 5
-        # pt binning for light flavour jets
-        else:
-            if (jetPt >= 19.99 and jetPt <= 30):
-                iPt = 0;
-            elif (jetPt > 30 and jetPt <= 40):
-                iPt = 1
-            elif (jetPt > 40 and jetPt <= 60):
-                iPt = 2
-            elif (jetPt > 60):
-                iPt = 3
-            else:
-                iPt = 4
 
-    #  light flavour jets also have eta bins
-        if (abs(jetEta) >= 0 and abs(jetEta) < 0.8):
-            iEta = 0
-        elif (abs(jetEta) >= 0.8 and abs(jetEta) < 1.6):
-            iEta = 1
-        elif (abs(jetEta) >= 1.6 and abs(jetEta) < 2.5):
-        # difference between 2016/2017, nut not neccesary since | eta | <2.4 anyway
-            iEta = 2
+        self.WgtTotal = []
+        for i in range(jetFlavour.shape[0]):
+            
+            Wgthf = 1.
+            WgtC = 1.
+            Wgtlf = 1.
 
-        # b flavour jet
-        if (abs(jetFlavour) == 5):
-            # RESET iPt to maximum pt bin(only 5 bins for new SFs)
-            if (iPt >= self.nHFptBins_):
-                iPt = self.nHFptBins_-1
-                # [20-30], [30-50], [50-70], [70, 100] and [100-10000] only 5 Pt bins for hf
-            # TODO - fix the index thing for histograms
-            if (self.h_wgt_hf[index+iPt]):
-                iWgtHF = self.h_wgt_hf[index+iPt].Eval(jetCSV)
+            iPt = -1
+            iEta = -1
+
+            if (abs(jetFlavour.iat[i]) > 3):
+                if (jetPt.iat[i] >= 19.99 and jetPt.iat[i] <= 30): 
+                    iPt = 0
+                elif (jetPt.iat[i] > 30 and jetPt.iat[i] <= 50):
+                    iPt = 1
+                elif (jetPt.iat[i] > 50 and jetPt.iat[i] <= 70):
+                    iPt = 2
+                elif (jetPt.iat[i] > 70 and jetPt.iat[i] <= 100):
+                    iPt = 3
+                elif (jetPt.iat[i] > 100):
+                    iPt = 4
+                else:
+                    iPt = 5
+            # pt binning for light flavour jets
+            else:
+                if (jetPt.iat[i] >= 19.99 and jetPt.iat[i] <= 30):
+                    iPt = 0;
+                elif (jetPt.iat[i] > 30 and jetPt.iat[i] <= 40):
+                    iPt = 1
+                elif (jetPt.iat[i] > 40 and jetPt.iat[i] <= 60):
+                    iPt = 2
+                elif (jetPt.iat[i] > 60):
+                    iPt = 3
+                else:
+                    iPt = 4
+
+        #  light flavour jets also have eta bins
+            if (abs(jetEta.iat[i]) >= 0 and abs(jetEta.iat[i]) < 0.8):
+                iEta = 0
+            elif (abs(jetEta.iat[i]) >= 0.8 and abs(jetEta.iat[i]) < 1.6):
+                iEta = 1
+            elif (abs(jetEta.iat[i]) >= 1.6 and abs(jetEta.iat[i]) < 2.5):
+            # difference between 2016/2017, nut not neccesary since | eta | <2.4 anyway
+                iEta = 2
+
+            # b flavour jet
+            if (abs(jetFlavour.iat[i]) == 5):
+                # RESET iPt to maximum pt bin(only 5 bins for new SFs)
+                if (iPt >= self.nHFptBins_):
+                    iPt = self.nHFptBins_-1
+                    # [20-30], [30-50], [50-70], [70, 100] and [100-10000] only 5 Pt bins for hf
+                # if (self.h_wgt_hf[iPt]):
+                iWgtHF = h_wgt_hf[iPt].Eval(jetCSV.iat[i])
                 if (iWgtHF != 0): Wgthf *= iWgtHF
-        
-        # c flavour jet
-        elif (abs(jetFlavour) == 4):
+            
+            # c flavour jet
+            elif (abs(jetFlavour.iat[i]) == 4):
 
-            if (iPt >= self.nHFptBins_):
-                iPt = self.nHFptBins_-1
-                # [20-30], [30-50], [50-70], [70, 100] and [100-10000] only 5 Pt bins for hf
-            if (self.c_wgt_hf[index+iPt]):
-                iWgtC = self.c_wgt_hf[index+iPt].Eval(jetCSV)
-            if (iWgtC != 0): WgtC *= iWgtC
-        # light flavour jet
-        else:
-            if (iPt >= self.nLFptBins_):
-                iPt = self.nLFptBins_-1
-                # [20-30], [30-40], [40-60] and [60-10000] only 4 Pt bins for lf
-            if (self.h_wgt_lf[index+iPt+iEta]):
-                iWgtLF = self.h_wgt_lf[index+iPt+iEta].Eval(jetCSV)
-            if (iWgtLF != 0): Wgtlf *= iWgtLF
+                if (iPt >= self.nHFptBins_):
+                    iPt = self.nHFptBins_-1
+                    # [20-30], [30-50], [50-70], [70, 100] and [100-10000] only 5 Pt bins for hf
+                # if (self.c_wgt_hf[iPt]):
+                iWgtC = c_wgt_hf[iPt].Eval(jetCSV.iat[i])
+                if (iWgtC != 0): WgtC *= iWgtC
+            # light flavour jet
+            else:
+                if (iPt >= self.nLFptBins_):
+                    iPt = self.nLFptBins_-1
+                if (iEta >= self.nLFetaBins_):
+                    iEta = self.nLFetaBins_ - 1
+                    # [20-30], [30-40], [40-60] and [60-10000] only 4 Pt bins for lf
+                # if (self.h_wgt_lf[iPt+iEta]):
+                iWgtLF = h_wgt_lf[3*iPt+iEta].Eval(jetCSV.iat[i])
+                if (iWgtLF != 0): Wgtlf *= iWgtLF
         
 
-        self.WgtTotal = Wgthf * WgtC * Wgtlf
+            self.WgtTotal.append(Wgthf * WgtC * Wgtlf)
+
+        print("CSV SF factors: ")
+        print(self.WgtTotal)
 
         return self.WgtTotal

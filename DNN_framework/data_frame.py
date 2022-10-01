@@ -26,7 +26,7 @@ class Sample:
         self.addSampleSuffix = addSampleSuffix
         # self.Do_Evaluation = Do_Evaluation
 
-    def load_dataframe(self, event_category, lumi, evenSel="", Do_Evaluation = False):
+    def load_dataframe(self, event_category, lumi, evenSel="", Do_Evaluation=False, jecsysts=None):
         # loading samples from one .h5 file or mix it with one uncertainty variation (default is without mixing)
         print("-"*50)
         print("loading sample file "+str(self.path))
@@ -54,31 +54,52 @@ class Sample:
             # print("Electron Trigger SF: ")
             # print(ElectronTriggerSF)
             df['internalEleTriggerWeight'] = self.ElectronTriggerSF.tolist()
+            
+            # jetPt = []
+            # jetEta = []
+            # jetCSV = []
+            # jetFlav = []
+            
+            # for j in range(8):
+            #     jetPt.append(df['Jet_Pt[{}]'.format(j)])
+            #     jetEta.append(df['Jet_Eta[{}]'.format(j)])
+            #     jetCSV.append(df['Jet_CSV[{}]'.format(j)])
+            #     jetFlav.append(df['Jet_Flav[{}]'.format(j)])
 
-            # BTagSFs = SFs.BTagSF()
-            # BTagSF = []
+            jetPt = pd.concat([df['Jet_Pt[{}]'.format(i)]
+                               for i in range(8)], axis=0)
+            jetEta = pd.concat([df['Jet_Eta[{}]'.format(i)]
+                               for i in range(8)], axis=0)
+            jetCSV = pd.concat([df['Jet_CSV[{}]'.format(i)]
+                               for i in range(8)], axis=0)
+            jetFlav = pd.concat([df['Jet_Flav[{}]'.format(i)]
+                               for i in range(8)], axis=0)
+            
+            
+            for sys in jecsysts:
+                sys = sys.replace("up", "Up")
+                sys = sys.replace("down", "Down")
+                sys = sys.replace("CSV", "")
+                sys = sys.replace("Stats", "stats")
 
-            # for i in range(df.shape[0]):
-            #     jetPt = []
-            #     jetEta = []
-            #     jetCSV = []
-            #     jetFlav = []
-            #     for j in range(8):
-            #         jetPt.append(df['Jet_Pt[{}]'.format(j)][i])
-            #         jetEta.append(df['Jet_Eta[{}]'.format(j)][i])
-            #         jetCSV.append(df['Jet_CSV[{}]'.format(j)][i])
-            #         jetFlav.append(df['Jet_Flav[{}]'.format(j)][i])
+                BTagSF = SFs.BTagSF()
+                ThisBTagSF = BTagSF.getBTagWeight(
+                    jetPt, jetEta, jetCSV, jetFlav, syst=sys)
 
-            #     BTagSF.append(BTagSFs.getBTagWeight(
-            #         jetPt, jetEta, jetCSV, jetFlav, index = 0))
-            # self.BTagSF = np.array(BTagSF)
+                ThisBTagWeight = np.array(ThisBTagSF)
+
+                if sys == None:
+                    name = 'internalCSVweight'
+                else: 
+                    name = 'internalCSVweight' + sys
+                df[name] = ThisBTagWeight.tolist()
 
 
             # df = df.assign(sf_weight=lambda x: (x['Weight_pu69p2'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSF[0]'] > 0.) & (x['Electron_ReconstructionSF[0]'] > 0.))*1.*x['Electron_IdentificationSF[0]']*x['Electron_ReconstructionSF[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & ((x['Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX'] == 1) | (
             # (x['Triggered_HLT_Ele32_WPTight_Gsf_L1DoubleEG_vX'] == 1) & (x['Triggered_HLT_Ele32_WPTight_Gsf_2017SeedsX'] == 1)))) * 1. + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['Triggered_HLT_IsoMu27_vX'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
 
             df = df.assign(sf_weight=lambda x: (x['Weight_pu69p2'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSF[0]'] > 0.) & (x['Electron_ReconstructionSF[0]'] > 0.))*1.*x['Electron_IdentificationSF[0]']*x['Electron_ReconstructionSF[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & ((x['Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX'] == 1) | (
-                (x['Triggered_HLT_Ele32_WPTight_Gsf_L1DoubleEG_vX'] == 1) & (x['Triggered_HLT_Ele32_WPTight_Gsf_2017SeedsX'] == 1))) & (x['internalEleTriggerWeight'] > 0)) * 1. + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['Triggered_HLT_IsoMu27_vX'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
+                (x['Triggered_HLT_Ele32_WPTight_Gsf_L1DoubleEG_vX'] == 1) & (x['Triggered_HLT_Ele32_WPTight_Gsf_2017SeedsX'] == 1))) & (x['internalEleTriggerWeight'] > 0)) * 1. * x['internalEleTriggerWeight'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['Triggered_HLT_IsoMu27_vX'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
 
             
             if ("ttcc" in self.path) or ("ttlf" in self.path):
