@@ -113,7 +113,7 @@ class LeptonSF:
 # TODO - modify the basedir
 #
 class BTagSF:
-    def __init__(self, dataera, basedir="/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/", nHFptBins=5, nLFptBins=4, nLFetaBins=3, jecsysts=None):
+    def __init__(self, dataera = "2017", basedir="/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/", nHFptBins=5, nLFptBins=4, nLFetaBins=3, jecsysts=None):
         self.dataera = dataera
         self.basedir = basedir
         self.nHFptBins_ = nHFptBins
