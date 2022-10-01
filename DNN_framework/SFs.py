@@ -149,25 +149,28 @@ class BTagSF:
 
         if not sys == None:
             sys = "_"+sys
+            sysfullname = syst_suffix+sys
+        else:
+            sysfullname = syst_suffix
 
         h_wgt_hf = []
         c_wgt_hf = []
         h_wgt_lf = []
 
         for i in range(self.nHFptBins_):
-            name_b = "csv_ratio_Pt{}_Eta0_{}".format(i, syst_suffix+sys)
+            name_b = "csv_ratio_Pt{}_Eta0_{}".format(i, sysfullname)
             if (f_HF.GetListOfKeys().Contains(name_b)):
-                h_wgt_hf.append(self.f_HF.Get(name_b))
-            name_c = "c_csv_ratio_Pt{}_Eta0_{}".format(i, syst_suffix+sys)
+                h_wgt_hf.append(f_HF.Get(name_b))
+            name_c = "c_csv_ratio_Pt{}_Eta0_{}".format(i, sysfullname)
             if (f_HF.GetListOfKeys().Contains(name_c)):
-                c_wgt_hf.append(self.f_HF.Get(name_c))
+                c_wgt_hf.append(f_HF.Get(name_c))
 
         for i in range(self.nLFptBins_):
             for j in range(self.nLFetaBins_):
                 name_l = "csv_ratio_Pt{}_Eta{}_{}".format(
-                    i, j, syst_suffix+sys)
+                    i, j, sysfullname)
                 if (f_LF.GetListOfKeys().Contains(name_l)):
-                    h_wgt_lf.append(self.f_LF.Get(name_l))
+                    h_wgt_lf.append(f_LF.Get(name_l))
 
 
         # pt binning for heavy flavour jets
