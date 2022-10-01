@@ -47,6 +47,8 @@ class Sample:
         self.nevents = df.shape[0]
         
         if Do_Evaluation:
+            print("Do DNN Evaluation")
+            print("Calculate Lepton SFs")
             LeptonSF = SFs.LeptonSF()
             ElectronTriggerSF = LeptonSF.GetElectronSF(
                     df['Electron_Pt[0]'], df['Electron_Eta[0]'], syst='', type="Trigger")
@@ -65,7 +67,8 @@ class Sample:
             #     jetEta.append(df['Jet_Eta[{}]'.format(j)])
             #     jetCSV.append(df['Jet_CSV[{}]'.format(j)])
             #     jetFlav.append(df['Jet_Flav[{}]'.format(j)])
-
+            print("Done with Lepton SFs")
+            print("Calculate BTag SFs")
             jetPt = pd.concat([df['Jet_Pt[{}]'.format(i)]
                                for i in range(8)], axis=0)
             jetEta = pd.concat([df['Jet_Eta[{}]'.format(i)]
@@ -75,24 +78,29 @@ class Sample:
             jetFlav = pd.concat([df['Jet_Flav[{}]'.format(i)]
                                for i in range(8)], axis=0)
             
-            
-            for sys in jecsysts:
-                sys = sys.replace("up", "Up")
-                sys = sys.replace("down", "Down")
-                sys = sys.replace("CSV", "")
-                sys = sys.replace("Stats", "stats")
-
-                BTagSF = SFs.BTagSF()
+            BTagSF = SFs.BTagSF()
+            if jecsysts == None:
                 ThisBTagSF = BTagSF.getBTagWeight(
-                    jetPt, jetEta, jetCSV, jetFlav, syst=sys)
+                    jetPt, jetEta, jetCSV, jetFlav, syst=None)
 
                 ThisBTagWeight = np.array(ThisBTagSF)
-
-                if sys == None:
-                    name = 'internalCSVweight'
-                else: 
-                    name = 'internalCSVweight' + sys
+                name = 'internalCSVweight'
                 df[name] = ThisBTagWeight.tolist()
+            else: 
+                for sys in jecsysts:
+                    sys = sys.replace("up", "Up")
+                    sys = sys.replace("down", "Down")
+                    sys = sys.replace("CSV", "")
+                    sys = sys.replace("Stats", "stats")
+
+                    # BTagSF = SFs.BTagSF()
+                    ThisBTagSF = BTagSF.getBTagWeight(
+                        jetPt, jetEta, jetCSV, jetFlav, syst=sys)
+
+                    ThisBTagWeight = np.array(ThisBTagSF)
+
+                    name = 'internalCSVweight' + sys
+                    df[name] = ThisBTagWeight.tolist()
 
 
             # df = df.assign(sf_weight=lambda x: (x['Weight_pu69p2'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSF[0]'] > 0.) & (x['Electron_ReconstructionSF[0]'] > 0.))*1.*x['Electron_IdentificationSF[0]']*x['Electron_ReconstructionSF[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & ((x['Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX'] == 1) | (
