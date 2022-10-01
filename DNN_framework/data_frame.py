@@ -81,7 +81,7 @@ class Sample:
             BTagSF = SFs.BTagSF()
             if jecsysts == None:
                 ThisBTagSF = BTagSF.getBTagWeight(
-                    jetPt, jetEta, jetCSV, jetFlav, syst=None)
+                    jetPt, jetEta, jetCSV, jetFlav, sys=None)
 
                 ThisBTagWeight = np.array(ThisBTagSF)
                 name = 'internalCSVweight'
