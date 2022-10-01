@@ -70,13 +70,13 @@ class Sample:
             print("Done with Lepton SFs")
             print("Calculate BTag SFs")
             jetPt = pd.concat([df['Jet_Pt[{}]'.format(i)]
-                               for i in range(8)], axis=0)
+                               for i in range(8)], axis=1)
             jetEta = pd.concat([df['Jet_Eta[{}]'.format(i)]
-                               for i in range(8)], axis=0)
+                               for i in range(8)], axis=1)
             jetCSV = pd.concat([df['Jet_CSV[{}]'.format(i)]
-                               for i in range(8)], axis=0)
+                               for i in range(8)], axis=1)
             jetFlav = pd.concat([df['Jet_Flav[{}]'.format(i)]
-                               for i in range(8)], axis=0)
+                               for i in range(8)], axis=1)
             
             BTagSF = SFs.BTagSF()
             if jecsysts == None:
