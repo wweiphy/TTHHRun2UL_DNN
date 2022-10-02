@@ -254,7 +254,7 @@ class BTagSF:
 
             self.WgtTotal.append(Wgthf * WgtC * Wgtlf)
 
-        print("CSV SF factors: ")
-        print(self.WgtTotal)
+        # print("CSV SF factors: ")
+        # print(self.WgtTotal)
 
         return self.WgtTotal
