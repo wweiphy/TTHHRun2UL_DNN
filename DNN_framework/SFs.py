@@ -186,15 +186,15 @@ class BTagSF:
             iEta = -1
             for j in range(8): 
                 if (abs(jetFlavour['Jet_Flav[{}]'.format(j)].iat[i]) > 3):
-                    if (jetPt['Jet_Pt[{}]'.format(j)]['Jet_Pt[{}]'.format(j)]['Jet_Pt[{}]'.format(j)].iat[i] >= 19.99 and jetPt['Jet_Pt[{}]'.format(j)]['Jet_Pt[{}]'.format(j)].iat[i] <= 30):
+                    if (jetPt['Jet_Pt[{}]'.format(j)].iat[i] >= 19.99 and jetPt['Jet_Pt[{}]'.format(j)].iat[i] <= 30):
                         iPt = 0
-                    elif (jetPt['Jet_Pt[{}]'.format(j)]['Jet_Pt[{}]'.format(j)].iat[i] > 30 and jetPt['Jet_Pt[{}]'.format(j)]['Jet_Pt[{}]'.format(j)].iat[i] <= 50):
+                    elif (jetPt['Jet_Pt[{}]'.format(j)].iat[i] > 30 and jetPt['Jet_Pt[{}]'.format(j)].iat[i] <= 50):
                         iPt = 1
-                    elif (jetPt['Jet_Pt[{}]'.format(j)]['Jet_Pt[{}]'.format(j)].iat[i] > 50 and jetPt['Jet_Pt[{}]'.format(j)]['Jet_Pt[{}]'.format(j)].iat[i] <= 70):
+                    elif (jetPt['Jet_Pt[{}]'.format(j)].iat[i] > 50 and jetPt['Jet_Pt[{}]'.format(j)].iat[i] <= 70):
                         iPt = 2
-                    elif (jetPt['Jet_Pt[{}]'.format(j)]['Jet_Pt[{}]'.format(j)].iat[i] > 70 and jetPt['Jet_Pt[{}]'.format(j)]['Jet_Pt[{}]'.format(j)].iat[i] <= 100):
+                    elif (jetPt['Jet_Pt[{}]'.format(j)].iat[i] > 70 and jetPt['Jet_Pt[{}]'.format(j)].iat[i] <= 100):
                         iPt = 3
-                    elif (jetPt['Jet_Pt[{}]'.format(j)]['Jet_Pt[{}]'.format(j)].iat[i] > 100):
+                    elif (jetPt['Jet_Pt[{}]'.format(j)].iat[i] > 100):
                         iPt = 4
                     else:
                         iPt = 5
@@ -212,7 +212,7 @@ class BTagSF:
                         iPt = 4
 
             #  light flavour jets also have eta bins
-                if (abs(jetEta['Jet_Eta[{}]'.format(j)]['Jet_Eta[{}]'.format(j)].iat[i]) >= 0 and abs(jetEta['Jet_Eta[{}]'.format(j)].iat[i]) < 0.8):
+                if (abs(jetEta['Jet_Eta[{}]'.format(j)].iat[i]) >= 0 and abs(jetEta['Jet_Eta[{}]'.format(j)].iat[i]) < 0.8):
                     iEta = 0
                 elif (abs(jetEta['Jet_Eta[{}]'.format(j)].iat[i]) >= 0.8 and abs(jetEta['Jet_Eta[{}]'.format(j)].iat[i]) < 1.6):
                     iEta = 1
@@ -228,7 +228,7 @@ class BTagSF:
                         # [20-30], [30-50], [50-70], [70, 100] and [100-10000] only 5 Pt bins for hf
                     # if (self.h_wgt_hf[iPt]):
                     iWgtHF = h_wgt_hf[iPt].Eval(
-                        jetCSV['Jet_CSV[{}]'.format(j)]['Jet_CSV[{}]'.format(j)].iat[i])
+                        jetCSV['Jet_CSV[{}]'.format(j)].iat[i])
                     if (iWgtHF != 0): Wgthf *= iWgtHF
                 
                 # c flavour jet
