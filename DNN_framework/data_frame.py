@@ -68,45 +68,45 @@ class Sample:
             #     jetCSV.append(df['Jet_CSV[{}]'.format(j)])
             #     jetFlav.append(df['Jet_Flav[{}]'.format(j)])
             print("Done with Lepton SFs")
-            print("Calculate BTag SFs")
-            jetPt = pd.concat([df['Jet_Pt[{}]'.format(i)]
-                               for i in range(8)], axis=1)
-            jetEta = pd.concat([df['Jet_Eta[{}]'.format(i)]
-                               for i in range(8)], axis=1)
-            jetCSV = pd.concat([df['Jet_CSV[{}]'.format(i)]
-                               for i in range(8)], axis=1)
-            jetFlav = pd.concat([df['Jet_Flav[{}]'.format(i)]
-                               for i in range(8)], axis=1)
+            # print("Calculate BTag SFs")
+            # jetPt = pd.concat([df['Jet_Pt[{}]'.format(i)]
+            #                    for i in range(8)], axis=1)
+            # jetEta = pd.concat([df['Jet_Eta[{}]'.format(i)]
+            #                    for i in range(8)], axis=1)
+            # jetCSV = pd.concat([df['Jet_CSV[{}]'.format(i)]
+            #                    for i in range(8)], axis=1)
+            # jetFlav = pd.concat([df['Jet_Flav[{}]'.format(i)]
+            #                    for i in range(8)], axis=1)
             
-            BTagSF = SFs.BTagSF()
-            if jecsysts == None:
-                ThisBTagSF = BTagSF.getBTagWeight(
-                    jetPt, jetEta, jetCSV, jetFlav, sys=None)
+            # BTagSF = SFs.BTagSF()
+            # if jecsysts == None:
+            #     ThisBTagSF = BTagSF.getBTagWeight(
+            #         jetPt, jetEta, jetCSV, jetFlav, sys=None)
 
-                ThisBTagWeight = np.array(ThisBTagSF)
-                name = 'internalCSVweight'
-                df[name] = ThisBTagWeight.tolist()
-            else: 
-                for sys in jecsysts:
-                    sys = sys.replace("up", "Up")
-                    sys = sys.replace("down", "Down")
-                    sys = sys.replace("CSV", "")
-                    sys = sys.replace("Stats", "stats")
+            #     ThisBTagWeight = np.array(ThisBTagSF)
+            #     name = 'internalCSVweight'
+            #     df[name] = ThisBTagWeight.tolist()
+            # else: 
+            #     for sys in jecsysts:
+            #         sys = sys.replace("up", "Up")
+            #         sys = sys.replace("down", "Down")
+            #         sys = sys.replace("CSV", "")
+            #         sys = sys.replace("Stats", "stats")
 
-                    # BTagSF = SFs.BTagSF()
-                    ThisBTagSF = BTagSF.getBTagWeight(
-                        jetPt, jetEta, jetCSV, jetFlav, syst=sys)
+            #         # BTagSF = SFs.BTagSF()
+            #         ThisBTagSF = BTagSF.getBTagWeight(
+            #             jetPt, jetEta, jetCSV, jetFlav, syst=sys)
 
-                    ThisBTagWeight = np.array(ThisBTagSF)
+            #         ThisBTagWeight = np.array(ThisBTagSF)
 
-                    name = 'internalCSVweight' + sys
-                    df[name] = ThisBTagWeight.tolist()
-            print("Done with BTag SFs")
+            #         name = 'internalCSVweight' + sys
+            #         df[name] = ThisBTagWeight.tolist()
+            # print("Done with BTag SFs")
 
             # df = df.assign(sf_weight=lambda x: (x['Weight_pu69p2'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSF[0]'] > 0.) & (x['Electron_ReconstructionSF[0]'] > 0.))*1.*x['Electron_IdentificationSF[0]']*x['Electron_ReconstructionSF[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & ((x['Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX'] == 1) | (
             # (x['Triggered_HLT_Ele32_WPTight_Gsf_L1DoubleEG_vX'] == 1) & (x['Triggered_HLT_Ele32_WPTight_Gsf_2017SeedsX'] == 1)))) * 1. + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['Triggered_HLT_IsoMu27_vX'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
 
-            df = df.assign(sf_weight=lambda x: (x['internalCSVweight'] * x['Weight_pu69p2'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSF[0]'] > 0.) & (x['Electron_ReconstructionSF[0]'] > 0.))*1.*x['Electron_IdentificationSF[0]']*x['Electron_ReconstructionSF[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & ((x['Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX'] == 1) | (
+            df = df.assign(sf_weight=lambda x: (x['Weight_pu69p2'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSF[0]'] > 0.) & (x['Electron_ReconstructionSF[0]'] > 0.))*1.*x['Electron_IdentificationSF[0]']*x['Electron_ReconstructionSF[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & ((x['Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX'] == 1) | (
                 (x['Triggered_HLT_Ele32_WPTight_Gsf_L1DoubleEG_vX'] == 1) & (x['Triggered_HLT_Ele32_WPTight_Gsf_2017SeedsX'] == 1))) & (x['internalEleTriggerWeight'] > 0)) * 1. * x['internalEleTriggerWeight'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['Triggered_HLT_IsoMu27_vX'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
 
             
@@ -171,6 +171,7 @@ class InputSamples:
             sample_path = self.input_path + "/" + sample_path
 
         self.samples.append(Sample(sample_path, label, normalization_weight, train_weight, total_weight_expr=total_weight_expr, addSampleSuffix=self.addSampleSuffix))
+        print("sample path is ".format(sample_path))
 
     def getClassConfig(self):
         configs = []
@@ -228,6 +229,7 @@ class DataFrame(object):
         # loop over all input samples and load dataframe
         train_samples = []
         for sample in self.input_samples.samples:
+
             sample.load_dataframe(self.event_category,
                                   self.lumi, self.evenSel, self.Do_Evaluation)
             train_samples.append(sample.data)
