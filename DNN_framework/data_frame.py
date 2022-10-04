@@ -171,7 +171,7 @@ class InputSamples:
             sample_path = self.input_path + "/" + sample_path
 
         self.samples.append(Sample(sample_path, label, normalization_weight, train_weight, total_weight_expr=total_weight_expr, addSampleSuffix=self.addSampleSuffix))
-        print("sample path is "+sample_path)
+        # print("sample path is "+sample_path)
 
     def getClassConfig(self):
         configs = []
