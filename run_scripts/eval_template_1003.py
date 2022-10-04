@@ -160,11 +160,12 @@ for sample in config["eventClasses"]:
                 sample_train_weight = 1
                 # normalization_weight = 0.805234562
                 sample_path = dfDirectory+"ttH_dnn.h5"
+        input_samples.addSample(sample_path, sample["sampleLabel"],
+                                normalization_weight=normalization_weight, train_weight=sample_train_weight, total_weight_expr=total_weight_expr)
         # sample_train_weight = 1
         # input_samples.addSample(sample["samplePath"], sample["sampleLabel"],
         #                         normalization_weight=normalization_weight, train_weight=sample_train_weight, total_weight_expr=total_weight_expr)
-        input_samples.addSample(sample_path, sample["sampleLabel"],
-                                normalization_weight=normalization_weight, train_weight=sample_train_weight, total_weight_expr=total_weight_expr)
+
 
 print("shuffle seed: {}".format(config["shuffleSeed"]))
 
