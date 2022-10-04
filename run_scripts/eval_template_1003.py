@@ -120,55 +120,55 @@ if options.binary:
 
 for sample in config["eventClasses"]:
         total_weight_expr = "x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom"
-        normalization_weight = 1
+        # normalization_weight = 1
         if sample["sampleLabel"] == "ttHH":
                 sample_train_weight = 0.5
-                # normalization_weight = 0.945062635
+                normalization_weight = 0.980018126
                 sample_path = dfDirectory+"ttHH_dnn.h5"
         elif sample["sampleLabel"] == "ttZH":
                 sample_train_weight = 1
-                # normalization_weight = 0.471079307
+                normalization_weight = 0.351787523
                 sample_path = dfDirectory+"ttZH_dnn.h5"
         elif sample["sampleLabel"] == "ttZZ":
                 sample_train_weight = 1
-                # normalization_weight = 0.138043606
+                normalization_weight = 0.143181507
                 sample_path = dfDirectory+"ttZZ_dnn.h5"
         elif sample["sampleLabel"] == "ttZbb":
                 sample_train_weight = 1
-                # normalization_weight = 0.949341862
+                normalization_weight = 0.986501924
                 # '/ (0.001571054/0.00016654)'
                 sample_path = dfDirectory+"ttZbb_dnn.h5"
         elif sample["sampleLabel"] == "ttb":
                 sample_train_weight = 1
-                # normalization_weight = 7.029608008
+                normalization_weight = 8.378702582
                 sample_path = dfDirectory+"ttb_dnn.h5"
         elif sample["sampleLabel"] == "ttbb":
                 sample_train_weight = 1
-                # normalization_weight = 0.773080839
+                normalization_weight = 6.161736857
                 sample_path = dfDirectory+"ttbb_dnn.h5"
         elif sample["sampleLabel"] == "tt2b":
             sample_train_weight = 1
-            # normalization_weight = 7.029608008
+            normalization_weight = 9.736628369
             sample_path = dfDirectory+"tt2b_dnn.h5"
         elif sample["sampleLabel"] == "tt4b":
             sample_train_weight = 1
-            # normalization_weight = 0.773080839
+            normalization_weight = 0.712835418
             sample_path = dfDirectory+"tt4b_dnn.h5"
         elif sample["sampleLabel"] == "ttbbb":
             sample_train_weight = 1
-            # normalization_weight = 7.029608008
+            normalization_weight = 1.118892758
             sample_path = dfDirectory+"ttbbb_dnn.h5"
         elif sample["sampleLabel"] == "ttcc":
                 sample_train_weight = 1
-                # normalization_weight = 0.950200622
+                normalization_weight = 0.986715985
                 sample_path = dfDirectory+"ttcc_dnn.h5"
         elif sample["sampleLabel"] == "ttlf":
                 sample_train_weight = 1
-                # normalization_weight = 0.946382238
+                normalization_weight = 0.983751938
                 sample_path = dfDirectory+"ttlf_dnn.h5"
         elif sample["sampleLabel"] == "ttH":
                 sample_train_weight = 1
-                # normalization_weight = 0.805234562
+                normalization_weight = 0.835728873
                 sample_path = dfDirectory+"ttH_dnn.h5"
         input_samples.addSample(sample_path, sample["sampleLabel"],
                                 normalization_weight=normalization_weight, train_weight=sample_train_weight, total_weight_expr=total_weight_expr)
