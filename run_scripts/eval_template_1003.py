@@ -119,7 +119,8 @@ if options.binary:
 # TODO - add the dealing with data
 
 for sample in config["eventClasses"]:
-        print("sample label is ".format(sample["sampleLabel"]))
+        print("sample label is ")
+        print(sample["sampleLabel"])
         total_weight_expr = "x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom"
         normalization_weight = 1
         if sample["sampleLabel"] == "ttHH":
