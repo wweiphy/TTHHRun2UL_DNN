@@ -117,11 +117,9 @@ if options.binary:
         
 # TODO - remove the addSample part because future DNN will save the data df
 # TODO - add the dealing with data
-print("event classes: ")
-print(config["eventClasses"])
 
 for sample in config["eventClasses"]:
-        print("sample is ".format(sample))
+        print("sample label is ".format(sample["sampleLabel"]))
         total_weight_expr = "x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom"
         normalization_weight = 1
         if sample["sampleLabel"] == "ttHH":
