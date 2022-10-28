@@ -1,6 +1,6 @@
 
 # 4j3b 50
-# python train_test_JABDT_new_category.py -i 0515_DIR_4b -o 2201012_test  --plot --printroc -c ge4j_ge3t --epochs=5 --signalclass=ttHH -f 0.2 -v dnn_variables -n ge4j_ge3t_ttH 
+# python train_template.py -i 0515_DIR_4b -o 2201028_test  --plot --printroc -c ge4j_ge3t --epochs=5 --signalclass=ttHH -f 0.2 -v dnn_variables -n ge4j_ge3t_ttH 
 
 
 # global imports
@@ -25,8 +25,8 @@ basedir = os.path.dirname(filedir)
 sys.path.append(basedir)
 
 # import class for DNN training
-import DRACO_Frameworks.DNN.DNN as DNN
-import DRACO_Frameworks.DNN.data_frame as df
+import DNN_framework.DNN as DNN
+import DNN_framework.data_frame as df
 
 options.initArguments()
 
