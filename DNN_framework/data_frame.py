@@ -45,18 +45,21 @@ class Sample:
         df.query(query, inplace=True)
         print("number of events after selections:  "+str(df.shape[0]))
         self.nevents = df.shape[0]
-        
+
         # TODO - move the SF calculation into preprocessing.py 
         if Do_Evaluation:
             print("Do DNN Evaluation")
-            print("Calculate Lepton SFs")
-            LeptonSF = SFs.LeptonSF()
-            ElectronTriggerSF = LeptonSF.GetElectronSF(
-                    df['Electron_Pt[0]'], df['Electron_Eta[0]'], syst='', type="Trigger")
-            self.ElectronTriggerSF = np.array(ElectronTriggerSF)
-            # print("Electron Trigger SF: ")
-            # print(ElectronTriggerSF)
-            df['internalEleTriggerWeight'] = self.ElectronTriggerSF.tolist()
+            # already calculated in ntupling
+
+            # print("Calculate Lepton SFs")
+            # LeptonSF = SFs.LeptonSF()
+            # ElectronTriggerSF = LeptonSF.GetElectronSF(
+            #         df['Electron_Pt[0]'], df['Electron_Eta[0]'], syst='', type="Trigger")
+            # self.ElectronTriggerSF = np.array(ElectronTriggerSF)
+            # # print("Electron Trigger SF: ")
+            # # print(ElectronTriggerSF)
+            # df['internalEleTriggerWeight'] = self.ElectronTriggerSF.tolist()
+            # print("Done with Lepton SFs")
             
             # jetPt = []
             # jetEta = []
@@ -68,7 +71,7 @@ class Sample:
             #     jetEta.append(df['Jet_Eta[{}]'.format(j)])
             #     jetCSV.append(df['Jet_CSV[{}]'.format(j)])
             #     jetFlav.append(df['Jet_Flav[{}]'.format(j)])
-            print("Done with Lepton SFs")
+
             # print("Calculate BTag SFs")
             # jetPt = pd.concat([df['Jet_Pt[{}]'.format(i)]
             #                    for i in range(8)], axis=1)
@@ -107,8 +110,8 @@ class Sample:
             # df = df.assign(sf_weight=lambda x: (x['Weight_pu69p2'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSF[0]'] > 0.) & (x['Electron_ReconstructionSF[0]'] > 0.))*1.*x['Electron_IdentificationSF[0]']*x['Electron_ReconstructionSF[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & ((x['Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX'] == 1) | (
             # (x['Triggered_HLT_Ele32_WPTight_Gsf_L1DoubleEG_vX'] == 1) & (x['Triggered_HLT_Ele32_WPTight_Gsf_2017SeedsX'] == 1)))) * 1. + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['Triggered_HLT_IsoMu27_vX'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
 
-            df = df.assign(sf_weight=lambda x: (x['Weight_pu69p2'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSF[0]'] > 0.) & (x['Electron_ReconstructionSF[0]'] > 0.))*1.*x['Electron_IdentificationSF[0]']*x['Electron_ReconstructionSF[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & ((x['Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX'] == 1) | (
-                (x['Triggered_HLT_Ele32_WPTight_Gsf_L1DoubleEG_vX'] == 1) & (x['Triggered_HLT_Ele32_WPTight_Gsf_2017SeedsX'] == 1))) & (x['internalEleTriggerWeight'] > 0)) * 1. * x['internalEleTriggerWeight'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['Triggered_HLT_IsoMu27_vX'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
+            df = df.assign(sf_weight=lambda x: (x['Weight_pu69p2'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSF[0]'] > 0.) & (x['Electron_ReconstructionSF[0]'] > 0.))*1.*x['Electron_IdentificationSF[0]']*x['Electron_ReconstructionSF[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & ((x['Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX'] == 1) | (
+                (x['Triggered_HLT_Ele32_WPTight_Gsf_L1DoubleEG_vX'] == 1) & (x['Triggered_HLT_Ele32_WPTight_Gsf_2017SeedsX'] == 1))) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['Triggered_HLT_IsoMu27_vX'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
 
             
             if ("ttcc" in self.path) or ("ttlf" in self.path):

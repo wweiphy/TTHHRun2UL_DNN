@@ -12,7 +12,7 @@ import preprocessing
 
 
 """
-USE: python template.py --outputdirectory=DIR_0927_Evaluation --variableselection=variables --maxentries=20000 --cores=2
+USE: python template.py --outputdirectory=DIR_0927_Evaluation --variableselection=variables --maxentries=20000 --cores=4
 """
 
 usage="usage=%prog [options] \n"
@@ -58,6 +58,7 @@ else:
 
 # define a base event selection which is applied for all Samples
 # select only events with GEN weight > 0 because training with negative weights is weird
+
 # base = "(N_Jets >= 4 and N_BTagsM >= 3 and Evt_MET > 20. and Weight_GEN_nom > 0.)"
 base = "(N_Jets >= 4 and N_BTagsM >= 3 and Evt_MET > 20.)"
 

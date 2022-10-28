@@ -31,6 +31,7 @@ scalefactor_variables = [
     'Weight_CSVLFup',
     'Weight_L1ECALPrefire',
     'Weight_MuonTriggerSF',
+    'Weight_ElectronTriggerSF'
     'Weight_XS',
     'Weight_pu69p2',
     # 'Weight_scale_variation_muR_0p5_muF_0p5',
@@ -85,38 +86,3 @@ ttbar_variables = [
     'Weight_scale_variation_muR_2p0_muF_2p0',
 
 ]
-
-# all_additional_variables = list(set([v for v in additional_variables]))
- 
-
-# TODO - check calibrations below
-# if (chain -> GetBranch("Electron_Pt_BeforeRun2Calibration") & & chain -> GetBranch("Electron_Eta_Supercluster")){
-#                               muonEta = Muon_Eta[0]
-#                               }
-#     if (N_TightMuons == 1){muonPt = Muon_Pt[0]
-#                            muonEta = Muon_Eta[0]
-#                            }
-#     else {muonPt = 0.0
-#           muonEta = 0.0
-#           }
-#     if (N_TightElectrons == 1){electronPt = Electron_Pt[0]
-#                                electronEta = Electron_Eta_Supercluster[0]
-#                                }
-#     else {electronPt = 0.0
-#           electronEta = 0.0
-#           }
-# }
-# else {
-#     if (N_TightMuons == 1){muonPt = Muon_Pt[0]
-#                            muonEta = Muon_Eta[0]
-#                            }
-#     else {muonPt = 0.0
-#           muonEta = 0.0
-#           }
-#     if (N_TightElectrons == 1){electronPt = Electron_Pt[0]
-#                                electronEta = Electron_Eta[0]
-#                                }
-#     else {electronPt = 0.0
-#           electronEta = 0.0
-#           }
-# }

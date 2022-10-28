@@ -1,116 +1,116 @@
 from re import I
 import ROOT
 
-class LeptonSF:
-    # TODO- modify the basedir, maybe in the dataframe.py
-    def __init__(self, dataera='2017', basedir='/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/'):
+# class LeptonSF:
+#     def __init__(self, dataera='2017', basedir='/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/'):
 
-        self.dataera = dataera
-        self.basedir = basedir
+#         self.dataera = dataera
+#         self.basedir = basedir
 
-        self.electronLowPtRangeCut = 20.0
-        self.electronMaxPt = 150.0
-        self.electronMinPt = 20.0
-        self.electronMinPtLowPt = 10
-        self.electronMaxPtLowPt = 19.9
-        self.electronMaxPtHigh = 201.0
-        self.electronMaxPtHigher = 499.0
-        self.electronMaxEta = 2.49
-        self.electronMaxEtaLow = 2.19
+#         self.electronLowPtRangeCut = 20.0
+#         self.electronMaxPt = 150.0
+#         self.electronMinPt = 20.0
+#         self.electronMinPtLowPt = 10
+#         self.electronMaxPtLowPt = 19.9
+#         self.electronMaxPtHigh = 201.0
+#         self.electronMaxPtHigher = 499.0
+#         self.electronMaxEta = 2.49
+#         self.electronMaxEtaLow = 2.19
 
-        self.muonMaxPt = 119.0
-        self.muonMaxPtHigh = 1199.
-        self.muonMinPt = 20.0
-        self.muonMinPtHigh = 29.0
-        self.muonMaxEta = 2.39
-
-
-# TODO - can we modify the Pt and Eta from single value to df?
-    def GetElectronSF(self, electronPt, electronEta, syst, type="Trigger"):
+#         self.muonMaxPt = 119.0
+#         self.muonMaxPtHigh = 1199.
+#         self.muonMinPt = 20.0
+#         self.muonMinPtHigh = 29.0
+#         self.muonMaxEta = 2.39
 
 
-        IDinputFileBtoF = self.basedir + \
-            "/data/LeptonSFs/egammaEffi.txt_EGM2D_runBCDEF_passingTight94X.root"
+# TODO - electron trigger SF already included in ntupling, remove it
+    # def GetElectronSF(self, electronPt, electronEta, syst, type="Trigger"):
 
-        if (self.dataera == "2017"):
-            TRIGGERinputFile = self.basedir + \
-                "/data/triggerSFs/SingleEG_JetHT_Trigger_Scale_Factors_ttHbb2017_v3.root"
-            TRIGGERhistName = "ele28_ht150_OR_ele32_ele_pt_ele_sceta"
-        elif (self.dataera == "2018"):
-            TRIGGERinputFile = self.basedir + \
-                "/data/triggerSFs/SingleEG_JetHT_Trigger_Scale_Factors_ttHbb2018_v3.root"
-            TRIGGERhistName = "ele28_ht150_OR_ele32_ele_pt_ele_sceta"
-        elif (self.dataera == "2016"):
-            TRIGGERinputFile = self.basedir + \
-                "/data/triggerSFs/SingleEG_JetHT_Trigger_Scale_Factors_ttHbb2016_v4.root"
-            TRIGGERhistName = "ele27_ele_pt_ele_sceta"
 
-        GFSinputFile = self.basedir + \
-            "/data/LeptonSFs/egammaEffi.txt_EGM2D_runBCDEF_passingRECO.root"
-        GFSinputFile_lowEt = self.basedir + \
-            "/data/LeptonSFs/egammaEffi.txt_EGM2D_runBCDEF_passingRECO_lowEt.root"
+    #     IDinputFileBtoF = self.basedir + \
+    #         "/data/LeptonSFs/egammaEffi.txt_EGM2D_runBCDEF_passingTight94X.root"
 
-        f_IDSFBtoF = ROOT.TFile(IDinputFileBtoF, "READ")
-        f_TRIGGERSF = ROOT.TFile(TRIGGERinputFile, "READ")
-        f_GFSSF = ROOT.TFile(GFSinputFile, "READ")
-        f_GFSSF_lowEt = ROOT.TFile(GFSinputFile_lowEt, "READ")
+    #     if (self.dataera == "2017"):
+    #         TRIGGERinputFile = self.basedir + \
+    #             "/data/triggerSFs/SingleEG_JetHT_Trigger_Scale_Factors_ttHbb2017_v3.root"
+    #         TRIGGERhistName = "ele28_ht150_OR_ele32_ele_pt_ele_sceta"
+    #     elif (self.dataera == "2018"):
+    #         TRIGGERinputFile = self.basedir + \
+    #             "/data/triggerSFs/SingleEG_JetHT_Trigger_Scale_Factors_ttHbb2018_v3.root"
+    #         TRIGGERhistName = "ele28_ht150_OR_ele32_ele_pt_ele_sceta"
+    #     elif (self.dataera == "2016"):
+    #         TRIGGERinputFile = self.basedir + \
+    #             "/data/triggerSFs/SingleEG_JetHT_Trigger_Scale_Factors_ttHbb2016_v4.root"
+    #         TRIGGERhistName = "ele27_ele_pt_ele_sceta"
 
-        h_ele_ID_abseta_pt_ratioBtoF = f_IDSFBtoF.Get("EGamma_SF2D")
-        h_ele_TRIGGER_abseta_pt_ratio = f_TRIGGERSF.Get(TRIGGERhistName)
-        h_ele_GFS_abseta_pt_ratio = f_GFSSF.Get("EGamma_SF2D")
-        h_ele_GFS_abseta_pt_ratio_lowEt = f_GFSSF_lowEt.Get("EGamma_SF2D")
+    #     GFSinputFile = self.basedir + \
+    #         "/data/LeptonSFs/egammaEffi.txt_EGM2D_runBCDEF_passingRECO.root"
+    #     GFSinputFile_lowEt = self.basedir + \
+    #         "/data/LeptonSFs/egammaEffi.txt_EGM2D_runBCDEF_passingRECO_lowEt.root"
 
-        self.nomval = []
-        # print("length of the df {}".format(electronPt.shape[0]))
-        for i in range(electronPt.shape[0]):
-            # print("i is {}".format(i))
-            # print(electronPt.iat[i])
-            if (electronPt.iat[i] == 0.0):
-                self.nomval.append(1.)
-                continue
-            if (electronEta.iat[i] < 0 and electronEta.iat[i] <= -1 * self.electronMaxEta):
-                electronEta.iat[i] = -1 * self.electronMaxEta
-            if (electronEta.iat[i] > 0 and electronEta.iat[i] >= self.electronMaxEta):
-                electronEta.iat[i] = self.electronMaxEta
-            if (type == "Trigger"):
-                if (electronEta.iat[i] < 0 and electronEta.iat[i] <= -1 * self.electronMaxEtaLow):
-                    electronEta.iat[i] = -1 * self.electronMaxEtaLow
-                if (electronEta.iat[i] > 0 and electronEta.iat[i] >= self.electronMaxEtaLow):
-                    electronEta.iat[i] = self.electronMaxEtaLow
+    #     f_IDSFBtoF = ROOT.TFile(IDinputFileBtoF, "READ")
+    #     f_TRIGGERSF = ROOT.TFile(TRIGGERinputFile, "READ")
+    #     f_GFSSF = ROOT.TFile(GFSinputFile, "READ")
+    #     f_GFSSF_lowEt = ROOT.TFile(GFSinputFile_lowEt, "READ")
 
-            if (electronPt.iat[i] > self.electronLowPtRangeCut):
-                if (electronPt.iat[i] >= self.electronMaxPtHigher):
-                    electronPt.iat[i] = self.electronMaxPtHigher
-                if (electronPt.iat[i] < self.electronMinPt):
-                    electronPt.iat[i] = self.electronMinPt
-            else:
-                if (electronPt.iat[i] >= self.electronMaxPtLowPt):
-                    electronPt.iat[i] = self.electronMaxPtLowPt
-                if (electronPt.iat[i] < self.electronMinPtLowPt):
-                    electronPt.iat[i] = self.electronMinPtLowPt
+    #     h_ele_ID_abseta_pt_ratioBtoF = f_IDSFBtoF.Get("EGamma_SF2D")
+    #     h_ele_TRIGGER_abseta_pt_ratio = f_TRIGGERSF.Get(TRIGGERhistName)
+    #     h_ele_GFS_abseta_pt_ratio = f_GFSSF.Get("EGamma_SF2D")
+    #     h_ele_GFS_abseta_pt_ratio_lowEt = f_GFSSF_lowEt.Get("EGamma_SF2D")
 
-            if (type == "Trigger"):
+    #     self.nomval = []
+    #     # print("length of the df {}".format(electronPt.shape[0]))
+    #     for i in range(electronPt.shape[0]):
+    #         # print("i is {}".format(i))
+    #         # print(electronPt.iat[i])
+    #         if (electronPt.iat[i] == 0.0):
+    #             self.nomval.append(1.)
+    #             continue
+    #         if (electronEta.iat[i] < 0 and electronEta.iat[i] <= -1 * self.electronMaxEta):
+    #             electronEta.iat[i] = -1 * self.electronMaxEta
+    #         if (electronEta.iat[i] > 0 and electronEta.iat[i] >= self.electronMaxEta):
+    #             electronEta.iat[i] = self.electronMaxEta
+    #         if (type == "Trigger"):
+    #             if (electronEta.iat[i] < 0 and electronEta.iat[i] <= -1 * self.electronMaxEtaLow):
+    #                 electronEta.iat[i] = -1 * self.electronMaxEtaLow
+    #             if (electronEta.iat[i] > 0 and electronEta.iat[i] >= self.electronMaxEtaLow):
+    #                 electronEta.iat[i] = self.electronMaxEtaLow
 
-                # print("pt is {}".format(electronPt))
-                # print("eta is {}".format(electronEta))
-                thisBin = h_ele_TRIGGER_abseta_pt_ratio.FindBin(
-                    electronPt.iat[i], electronEta.iat[i])
-                # print("bin number is {}".format(thisBin))
-                nomval = h_ele_TRIGGER_abseta_pt_ratio.GetBinContent(thisBin)
-                # print(nomval)
-                # error = h_ele_TRIGGER_abseta_pt_ratio.GetBinError(thisBin)
-                # upval = nomval+error
-                # downval = nomval-error
+    #         if (electronPt.iat[i] > self.electronLowPtRangeCut):
+    #             if (electronPt.iat[i] >= self.electronMaxPtHigher):
+    #                 electronPt.iat[i] = self.electronMaxPtHigher
+    #             if (electronPt.iat[i] < self.electronMinPt):
+    #                 electronPt.iat[i] = self.electronMinPt
+    #         else:
+    #             if (electronPt.iat[i] >= self.electronMaxPtLowPt):
+    #                 electronPt.iat[i] = self.electronMaxPtLowPt
+    #             if (electronPt.iat[i] < self.electronMinPtLowPt):
+    #                 electronPt.iat[i] = self.electronMinPtLowPt
 
-                # print("electron SF: {}".format(nomval))
+    #         if (type == "Trigger"):
 
-                self.nomval.append(nomval)
-        # print("SF factors: ")
-        # print(self.nomval)
-        return self.nomval
+    #             # print("pt is {}".format(electronPt))
+    #             # print("eta is {}".format(electronEta))
+    #             thisBin = h_ele_TRIGGER_abseta_pt_ratio.FindBin(
+    #                 electronPt.iat[i], electronEta.iat[i])
+    #             # print("bin number is {}".format(thisBin))
+    #             nomval = h_ele_TRIGGER_abseta_pt_ratio.GetBinContent(thisBin)
+    #             # print(nomval)
+    #             # error = h_ele_TRIGGER_abseta_pt_ratio.GetBinError(thisBin)
+    #             # upval = nomval+error
+    #             # downval = nomval-error
+
+    #             # print("electron SF: {}".format(nomval))
+
+    #             self.nomval.append(nomval)
+    #     # print("SF factors: ")
+    #     # print(self.nomval)
+    #     return self.nomval
 
 
 # TODO - modify the basedir
+# TODO - move the SF calculation in preprocessing instead of training
 #
 class BTagSF:
     def __init__(self, dataera = "2017", basedir="/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/", nHFptBins=5, nLFptBins=4, nLFetaBins=3, jecsysts=None):
