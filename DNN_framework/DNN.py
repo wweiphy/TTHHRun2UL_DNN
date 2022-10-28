@@ -795,99 +795,142 @@ class DNN():
 
         saveDiscrs.save()
 
-
-# TODO - add other plot functions for DNN
-
-# def loadDNN(inputDirectory, outputDirectory, sample_save_path, binary=False, signal=None, binary_target=None, total_weight_expr='x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom', model_epoch= None):
-
-#     # # get net config json
-#     # configFile = inputDirectory+"/checkpoints/net_config.json"
-#     # # TODO - modify this
-#     # dfDirectory = "/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/workdir/DIR_0924_Evaluation/"
-#     # if not os.path.exists(configFile):
-#     #     sys.exit(
-#     #         "config needed to load trained DNN not found\n{}".format(configFile))
-
-#     # with open(configFile) as f:
-#     #     config = f.read()
-#     # config = json.loads(config)
-
-#     # # load samples
-#     # # input_samples = data_frame.InputSamples(
-#     # #     config["inputData"], addSampleSuffix=config["addSampleSuffix"])
-#     # input_samples = data_frame.InputSamples(
-#     #     input_path=dfDirectory, addSampleSuffix=config["addSampleSuffix"])
-
-
-#     if binary:
-#         input_samples.addBinaryLabel(signal, binary_target)
-# # TODO - remove the addSample part because future DNN will save the data df
-# # TODO - add the dealing with data
-#     for sample in config["eventClasses"]:
-#         if sample["sampleLabel"] == "ttHH":
-#             sample_train_weight = 2
-#             normalization_weight = 1.831718558
-#             sample_path = dfDirectory+"ttHH_dnn.h5"
-#         elif sample["sampleLabel"] == "ttZH":
-#             sample_train_weight = 1
-#             normalization_weight = 0.471079307
-#             sample_path = dfDirectory+"ttZH_dnn.h5"
-#         elif sample["sampleLabel"] == "ttZZ":
-#             sample_train_weight = 1
-#             # normalization_weight = 0.093231705
-#             sample_path = dfDirectory+"ttZZ_dnn.h5"
-#         elif sample["sampleLabel"] == "ttZbb":
-#             sample_train_weight = 1
-#             normalization_weight = 0.564280316
-#                 # '/ (0.001571054/0.00016654)'
-#             sample_path = dfDirectory+"ttZbb_dnn.h5"
-#         elif sample["sampleLabel"] == "ttmb":
-#             sample_train_weight = 1
-#             normalization_weight = 8.017481548
-#             sample_path = dfDirectory+"ttmb_dnn.h5"
-#         elif sample["sampleLabel"] == "ttnb":
-#             sample_train_weight = 1
-#             normalization_weight = 1.04147258
-#             sample_path = dfDirectory+"ttnb_dnn.h5"
-#         elif sample["sampleLabel"] == "ttcc":
-#             total_weight_expr = total_weight_expr + ' * (abs(x.Weight_scale_variation_muR_0p5_muF_0p5) <= 100 and abs(x.Weight_scale_variation_muR_0p5_muF_1p0) <= 100 and abs(x.Weight_scale_variation_muR_0p5_muF_2p0) <= 100 and abs(x.Weight_scale_variation_muR_1p0_muF_0p5) <= 100 and abs(x.Weight_scale_variation_muR_1p0_muF_1p0) <= 100 and abs(x.Weight_scale_variation_muR_1p0_muF_2p0) <= 100 and abs(x.Weight_scale_variation_muR_2p0_muF_0p5) <= 100 and abs(x.Weight_scale_variation_muR_2p0_muF_1p0) <= 100 and abs(x.Weight_scale_variation_muR_2p0_muF_2p0) <= 100)'
-#             sample_train_weight = 1
-#             normalization_weight = 1.018177178
-#             sample_path = dfDirectory+"ttcc_dnn.h5"
-#         elif sample["sampleLabel"] == "ttlf":
-#             total_weight_expr = total_weight_expr + ' * (abs(x.Weight_scale_variation_muR_0p5_muF_0p5) <= 100 and abs(x.Weight_scale_variation_muR_0p5_muF_1p0) <= 100 and abs(x.Weight_scale_variation_muR_0p5_muF_2p0) <= 100 and abs(x.Weight_scale_variation_muR_1p0_muF_0p5) <= 100 and abs(x.Weight_scale_variation_muR_1p0_muF_1p0) <= 100 and abs(x.Weight_scale_variation_muR_1p0_muF_2p0) <= 100 and abs(x.Weight_scale_variation_muR_2p0_muF_0p5) <= 100 and abs(x.Weight_scale_variation_muR_2p0_muF_1p0) <= 100 and abs(x.Weight_scale_variation_muR_2p0_muF_2p0) <= 100)'
-#             sample_train_weight = 1
-#             normalization_weight = 0.978804588
-#             sample_path = dfDirectory+"ttlf_dnn.h5"
-#         elif sample["sampleLabel"] == "ttH":
-#             sample_train_weight = 1
-#             normalization_weight = 0.701579688
-#             sample_path = dfDirectory+"ttH_dnn.h5"
-#         # else:
-#         #     sample_train_weight = 1
-#         #     normalization_weight = 1.
-#         # sample_train_weight = 1
-#         # input_samples.addSample(sample["samplePath"], sample["sampleLabel"],
-#         #                         normalization_weight=normalization_weight, train_weight=sample_train_weight, total_weight_expr=total_weight_expr)
-#         input_samples.addSample(sample_path, sample["sampleLabel"],
-#                                 normalization_weight=normalization_weight, train_weight=sample_train_weight, total_weight_expr=total_weight_expr)
+    # --------------------------------------------------------------------
+    # result plotting functions
+    # --------------------------------------------------------------------
     
-#     print("shuffle seed: {}".format(config["shuffleSeed"]))
-#     # init DNN class
-#     dnn = DNN(
-#         save_path=outputDirectory,
-#         sample_save_path=sample_save_path,
-#         input_samples=input_samples,
-#         category_name=config["JetTagCategory"],
-#         train_variables=config["trainVariables"],
-#         Do_Evaluation = True,
-#         shuffle_seed=config["shuffleSeed"],
-#         addSampleSuffix=config["addSampleSuffix"],
-#     )
+    def plot_metrics(self, privateWork=False):
+        plt.rc('text', usetex=True)
 
-# #    dnn._load_datasets(shuffle_seed=config["shuffleSeed"],balanceSamples=True)
-#     # load the trained model
-#     dnn.load_trained_model(inputDirectory, model_epoch)
-#     # dnn.predict_event_query()
+        ''' plot history of loss function and evaluation metrics '''
+        metrics = ["loss"]
+        if self.eval_metrics:
+            metrics += self.eval_metrics
 
-#     return dnn
+        # loop over metrics and generate matplotlib plot
+        for metric in metrics:
+            plt.clf()
+            plt.figure(figsize=(10, 8))  # added by Wei
+            # get history of train and validation scores
+            train_history = self.model_history[metric]
+            val_history = self.model_history["val_"+metric]
+
+            n_epochs = len(train_history)
+            epochs = np.arange(1, n_epochs+1, 1)
+
+            # plot histories
+            plt.plot(epochs, train_history, "b-", label="train", lw=2)
+            plt.plot(epochs, val_history, "r-", label="validation", lw=2)
+            if privateWork:
+                plt.title("CMS private work", loc="left", fontsize=16)
+
+            # add title
+            title = self.category_label
+            title = title.replace("\\geq", "$\geq$")
+            title = title.replace("\\leq", "$\leq$")
+            plt.title(title, loc="right", fontsize=16)
+
+            # make it nicer
+            plt.grid()
+            plt.xlabel("epoch", fontsize=16)
+            plt.ylabel(metric.replace("_", " "), fontsize=16)
+            # plt.ylim(ymin=0.)
+
+            # add legend
+            plt.legend()
+
+            # save
+            out_path = self.save_path + "/model_history_"+str(metric)+".pdf"
+            plt.savefig(out_path)
+            print("saved plot of "+str(metric)+" at "+str(out_path))
+
+    def plot_outputNodes(self, log=False, printROC=False, signal_class=None,
+                         privateWork=False, nbins=30, bin_range=[0., 1.],
+                         sigScale=-1):
+        ''' plot distribution in outputNodes '''
+        plotNodes = plottingScripts.plotOutputNodes(
+            data=self.data,
+            prediction_vector=self.model_prediction_vector,
+            event_classes=self.event_classes,
+            nbins=nbins,
+            bin_range=bin_range,
+            signal_class=signal_class,
+            event_category=self.category_label,
+            plotdir=self.plot_path,
+            logscale=log,
+            sigScale=sigScale)
+
+        plotNodes.plot(ratio=False, printROC=printROC, privateWork=privateWork)
+
+    def plot_discriminators(self, log=False, printROC=False, privateWork=False,
+                            signal_class=None, nbins=None, bin_range=None,
+                            sigScale=-1):
+        ''' plot all events classified as one category '''
+        if not bin_range:
+            bin_range = [round(1./self.data.n_output_neurons, 2), 1.]
+        if not nbins:
+            nbins = int(25*(1.-bin_range[0]))
+
+        plotDiscrs = plottingScripts.plotDiscriminators(
+            data=self.data,
+            prediction_vector=self.model_prediction_vector,
+            event_classes=self.event_classes,
+            nbins=nbins,
+            bin_range=bin_range,
+            signal_class=signal_class,
+            event_category=self.category_label,
+            plotdir=self.plot_path,
+            logscale=log,
+            sigScale=sigScale)
+
+        bkg_hist, sig_hist = plotDiscrs.plot(
+            ratio=False, printROC=printROC, privateWork=privateWork)
+        #print("ASIMOV: mu=0: sigma (-+): ", self.binned_likelihood(bkg_hist, sig_hist, 0))
+        #print("ASIMOV: mu=1: sigma (-+): ", self.binned_likelihood(bkg_hist, sig_hist, 1))
+
+    def plot_confusionMatrix(self, norm_matrix=True, privateWork=False, printROC=False):
+        ''' plot confusion matrix '''
+        plotCM = plottingScripts.plotConfusionMatrix(
+            data=self.data,
+            prediction_vector=self.model_prediction_vector,
+            event_classes=self.event_classes,
+            event_category=self.category_label,
+            plotdir=self.save_path)
+
+        plotCM.plot(norm_matrix=norm_matrix,
+                    privateWork=privateWork, printROC=printROC)
+
+    def plot_closureTest(self, log=False, privateWork=False,
+                         signal_class=None, nbins=None, bin_range=None):
+        ''' plot comparison between train and test samples '''
+
+        if not bin_range:
+            bin_range = [round(1./self.data.n_output_neurons, 2), 1.]
+        if not nbins:
+            nbins = int(20*(1.-bin_range[0]))
+
+        closureTest = plottingScripts.plotClosureTest(
+            data=self.data,
+            test_prediction=self.model_prediction_vector,
+            train_prediction=self.model_train_prediction,
+            event_classes=self.event_classes,
+            nbins=nbins,
+            bin_range=bin_range,
+            signal_class=signal_class,
+            event_category=self.category_label,
+            plotdir=self.plot_path,
+            logscale=log)
+
+        closureTest.plot(ratio=False, privateWork=privateWork)
+
+    def plot_eventYields(self, log= False, privateWork = False, signal_class = None, sigScale = -1):
+        eventYields = plottingScripts.plotEventYields(
+            data=self.data,
+            prediction_vector=self.model_prediction_vector,
+            event_classes=self.event_classes,
+            event_category=self.category_label,
+            signal_class=signal_class,
+            plotdir=self.save_path,
+            logscale=log)
+
+        eventYields.plot(privateWork=privateWork)

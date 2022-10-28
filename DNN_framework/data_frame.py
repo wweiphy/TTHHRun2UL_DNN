@@ -46,6 +46,7 @@ class Sample:
         print("number of events after selections:  "+str(df.shape[0]))
         self.nevents = df.shape[0]
         
+        # TODO - move the SF calculation into preprocessing.py 
         if Do_Evaluation:
             print("Do DNN Evaluation")
             print("Calculate Lepton SFs")
@@ -121,28 +122,33 @@ class Sample:
             df = df.assign(xs_weight=lambda x: eval(self.total_weight_expr))
             df = df.assign(total_weight=lambda x: x.xs_weight * x.extra_weight * x.sf_weight)
 
-        # print("total weight: ")
-        # print("total weight: {}".format(df["total_weight"].values))
-        # assign train weight
-        weight_sum = sum(df["total_weight"].values)
-        print("weight sum: {}".format(weight_sum))
-        print("self train weight: {}".format(self.train_weight))
-        df = df.assign(train_weight=self.train_weight)
-        print("sum of train weights: {}".format(
-            sum(df["train_weight"].values)))
+        else:
+            # print("total weight: ")
+            # print("total weight: {}".format(df["total_weight"].values))
+            df = df.assign(total_weight=lambda x: eval(self.total_weight_expr))
+            print("total weight: {}".format(df["total_weight"].values))
+            # assign train weight
+            weight_sum = sum(df["total_weight"].values)
+            print("weight sum: {}".format(weight_sum))
+            print("self train weight: {}".format(self.train_weight))
+            df = df.assign(train_weight=lambda x: x.total_weight /
+                        weight_sum*self.train_weight)
+            print("sum of train weights: {}".format(
+                sum(df["train_weight"].values)))
+
+            # add lumi weight
+
+        df = df.assign(lumi_weight=lambda x: x.total_weight *
+                        lumi * self.normalization_weighti / self.test_percentage)
+        print("sum of lumi weights: {}".format(
+            sum(df["lumi_weight"].values)))
+        self.data = df
+        print("-"*50)
 
         if self.addSampleSuffix in self.label:
             df["class_label"] = pd.Series(
                 [c + self.addSampleSuffix for c in df["class_label"].values], index=df.index)
                 
-
-        # add lumi weight
-
-        df = df.assign(lumi_weight=lambda x: x.total_weight *
-                       lumi * self.normalization_weight)
-        print("sum of lumi weights: {}".format(sum(df["lumi_weight"].values)))
-        self.data = df
-        print("-"*50)
 
 
     def getConfig(self):
@@ -157,7 +163,7 @@ class Sample:
 
 
 class InputSamples:
-    def __init__(self, input_path, activateSamples=None, test_percentage=0.2, addSampleSuffix=""):
+    def __init__(self, input_path, test_percentage=0.2, addSampleSuffix=""):
         self.binary_classification = False
         self.input_path = input_path
         self.samples = []
@@ -370,11 +376,10 @@ class DataFrame(object):
         outFile_df_test = self.save_path+"/"+"df_test.h5" 
 
 # TODO - deal with the warning for saving df
-# TODO - add selections for GEN_norm_weight because I will remove this in the preprocessing
 # TODO - add ttHH ODD and EVEN selections (I think it's already there)
         # self.saveDatasets(self.df_unsplit_preprocessing, outFile_df)
-        # self.saveDatasets(self.df_train, outFile_df_train)
-        # self.saveDatasets(self.df_test, outFile_df_test)
+        self.saveDatasets(self.df_train, outFile_df_train)
+        self.saveDatasets(self.df_test, outFile_df_test)
         return self
 
     def saveDatasets(self, df, outFile):
