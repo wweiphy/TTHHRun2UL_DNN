@@ -30,6 +30,9 @@ import DNN_framework.data_frame as df
 
 options.initArguments()
 
+print ("test percentage")
+print (options.getTestPercentage)
+
 # load samples
 input_samples = df.InputSamples(options.getInputDirectory(), options.getActivatedSamples(), options.getTestPercentage())
 
