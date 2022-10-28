@@ -8,9 +8,12 @@ import optparse
 
 # local imports
 filedir = os.path.dirname(os.path.realpath(__file__))
+print("filedir")
+print(filedir)
 basedir = os.path.dirname(filedir)
+print("basedir")
+print(basedir)
 sys.path.append(basedir)
-
 
 usage = ""
 parser = optparse.OptionParser(usage=usage)
