@@ -1,6 +1,5 @@
 # additional_variables = {}
 scalefactor_variables = [
-    'Electron_IdentificationSF[0]',
     'Electron_Pt_BeforeRun2Calibration[0]',
     'Electron_Eta[0]',
     'Electron_Eta_Supercluster[0]',
@@ -9,6 +8,7 @@ scalefactor_variables = [
     'Muon_Eta[0]',
     'Muon_IdentificationSF[0]',
     'Muon_IsolationSF[0]',
+    'Muon_ReconstructionSF[0]',
     # 'Muon_Pt_BeForeRC',
     'Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX',
     'Triggered_HLT_Ele32_WPTight_Gsf_2017SeedsX',

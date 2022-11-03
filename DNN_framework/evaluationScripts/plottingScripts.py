@@ -12,7 +12,8 @@ pyrootdir = os.path.dirname(filedir)
 basedir = os.path.dirname(pyrootdir)
 sys.path.append(pyrootdir)
 sys.path.append(basedir)
-from plot_configs import setupPlots
+# from plot_configs import setupPlots
+import plot_configs.setupPlots as setup
 
 # save DNN outputs for evaluation 
 class saveDiscriminators:
@@ -200,11 +201,11 @@ class plotDiscriminators:
 
         for i in range(50):
             out_values_i = self.prediction_vector[i, :]
-            print("\nout_values: '"+str(i))+"'"
+            # print("\nout_values: '"+str(i))+"'"
 #            print ("out_values: ")
-            print(out_values_i)
-            print(sum(out_values_i))
-            print(self.predicted_classes[i])
+            # print(out_values_i)
+            # print(sum(out_values_i))
+            # print(self.predicted_classes[i])
 
         # generate one plot per output node
         for i, node_cls in enumerate(self.event_classes):
