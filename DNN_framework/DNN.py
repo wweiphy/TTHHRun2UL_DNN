@@ -286,7 +286,7 @@ class DNN():
         self.cp_path = self.save_path+"/checkpoints/"
         if not os.path.exists(self.cp_path):
             os.makedirs(self.cp_path)
-            
+
         self.data = self._load_datasets(shuffle_seed)
         self.event_classes = self.data.output_classes
         # # else:
@@ -598,7 +598,7 @@ class DNN():
         '''  save configurations of variables for plotscript '''
         plot_file = self.cp_path+"/plot_config.csv"
         variable_configs = pd.read_csv(
-            basedir+"/DNN_framework/plot_configs/variableConfig.csv").set_index("variablename", drop=True)
+            basedir+"/TTHHRun2UL_DNN/DNN_framework/plot_configs/variableConfig.csv").set_index("variablename", drop=True)
         variables = variable_configs.loc[self.train_variables]
         variables.to_csv(plot_file, sep=",")
         print("wrote config of input variables to {}".format(plot_file))
