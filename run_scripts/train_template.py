@@ -91,7 +91,7 @@ dnn = DNN.DNN(
     # percentage of train set to be used for testing (i.e. evaluating/plotting after training)
     test_percentage = options.getTestPercentage(),
     # balance samples per epoch such that there amount of samples per category is roughly equal
-    balanceSamples  = options.doBalanceSamples(),
+    # balanceSamples  = options.doBalanceSamples(),
     evenSel         = options.doEvenSelection()
     )
 
