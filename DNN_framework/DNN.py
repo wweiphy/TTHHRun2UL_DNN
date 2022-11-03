@@ -308,6 +308,10 @@ class DNN():
         if not os.path.exists(self.plot_path):
             os.makedirs(self.plot_path)
 
+        # layer names for in and output (needed for c++ implementation)
+        self.inputName = "inputLayer"
+        self.outputName = "outputLayer"
+
     def _load_datasets(self, shuffle_seed):
         ''' load data set '''
         data = data_frame.DataFrame(
