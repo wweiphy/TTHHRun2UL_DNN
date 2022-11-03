@@ -624,8 +624,8 @@ class DNN():
         rank_path = self.save_path + "/first_layer_weight_sums.csv"
         with open(rank_path, "w") as f:
             f.write("variable,weight_sum\n")
-            for key, val in sorted(self.weight_dict.iteritems(), key=lambda k, v: (v, k)): # python3
-                #            for key, val in sorted(self.weight_dict.iteritems(), key=lambda (k, v): (v, k)): # for python2
+            # for key, val in sorted(self.weight_dict.iteritems(), key=lambda k, v: (v, k)): # python3
+            for key, val in sorted(self.weight_dict.iteritems(), key=lambda (k, v): (v, k)): # for python2
                 #print("{:50s}: {}".format(key, val))
                 f.write("{},{}\n".format(key, val))
         print("wrote weight ranking to "+str(rank_path))
