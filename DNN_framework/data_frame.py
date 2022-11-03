@@ -459,3 +459,6 @@ class DataFrame(object):
             return to_categorical(self.df_unsplit_preprocessing["index_label"].values)
         else:
             return self.df_unsplit_preprocessing["index_label"].values
+
+    def get_class_flag(self, class_label):
+        return pd.Series([1 if c == class_label else 0 for c in self.df_test["class_label"].values], index=self.df_test.index).values
