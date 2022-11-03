@@ -57,7 +57,7 @@ weight_expr_ttHH = 'x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom * x.lumiWeight
 # only ttH sample needs even/odd splitting for 2017 MC, not sure if ttHH needs it??
 
 #input_samples.addSample(options.getDefaultName("ttHH"),  label = "ttHH",  normalization_weight = options.getNomWeight(), train_weight = 2, total_weight_expr = weight_expr_ttHH)
-input_samples.addSample(options.getDefaultName("ttHH"),  label = "ttHH",  normalization_weight = options.getNomWeight(), train_weight = 0.5, total_weight_expr = weight_expr_ttHH)
+input_samples.addSample(options.getDefaultName("ttHH"),  label = "ttHH",  normalization_weight = options.getNomWeight(), train_weight = 1, total_weight_expr = weight_expr_ttHH)
 
 #input_samples.addSample(options.getDefaultName("ttbb"), label = "ttbb", normalization_weight = options.getNomWeight(), total_weight_expr = weight_expr)
 #input_samples.addSample(options.getDefaultName("tt2b"), label = "tt2b", normalization_weight = options.getNomWeight(), total_weight_expr = weight_expr)
