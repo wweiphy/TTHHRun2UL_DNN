@@ -180,10 +180,12 @@ class plotDiscriminators:
         self.signalFlag = []
 
         if self.signal_class:
-            #            for signal in signal_class:
+            for signal in signal_class:
+                self.signalIndex.append(self.data.class_translation[signal])
+                self.signalFlag.append(self.data.get_class_flag(signal))
 
-            self.signalIndex.append(self.data.class_translation[signal_class])
-            self.signalFlag.append(self.data.get_class_flag(signal_class))
+                # self.signalIndex.append(self.data.class_translation[signal_class])
+                # self.signalFlag.append(self.data.get_class_flag(signal_class))
 
         # default settings
         self.printROCScore = False
@@ -394,9 +396,11 @@ class plotOutputNodes:
         self.signalFlag = []
 
         if self.signal_class:
-            #            for signal in signal_class:
-            self.signalIndex.append(self.data.class_translation[signal_class])
-            self.signalFlag.append(self.data.get_class_flag(signal_class))
+            for signal in signal_class:
+                # self.signalIndex.append(self.data.class_translation[signal_class])
+                # self.signalFlag.append(self.data.get_class_flag(signal_class))
+                self.signalIndex.append(self.data.class_translation[signal])
+                self.signalFlag.append(self.data.get_class_flag(signal))
 
         # default settings
         self.printROCScore = False
@@ -561,8 +565,9 @@ class plotClosureTest:
         self.signalIndex = []
 
         if self.signal_class:
-            #            for signal in signal_class:
-            self.signalIndex.append(self.data.class_translation[signal_class])
+            for signal in signal_class:
+            # self.signalIndex.append(self.data.class_translation[signal_class])
+                self.signalIndex.append(self.data.class_translation[signal])
 
         # generate sub directory
         self.plotdir += "/ClosurePlots/"
@@ -835,8 +840,9 @@ class plotEventYields:
         self.signalIndex = []
 
         if self.signal_class:
-            #            for signal in signal_class:
-            self.signalIndex.append(self.data.class_translation[signal_class])
+            for signal in signal_class:
+            # self.signalIndex.append(self.data.class_translation[signal_class])
+                self.signalIndex.append(self.data.class_translation[signal])
         else:
             self.signalIndex = [self.data.class_translation["ttHH"]]
 
