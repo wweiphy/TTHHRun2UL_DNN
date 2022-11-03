@@ -218,7 +218,7 @@ class DNN():
     def __init__(self,
                  save_path,
                  input_samples,
-                 sample_save_path,
+                #  sample_save_path,
                  category_name,
                  train_variables,
                  Do_Evaluation = False,
@@ -235,7 +235,7 @@ class DNN():
         # save some information
         # list of samples to load into dataframe
         self.input_samples = input_samples
-        self.sample_save_path = sample_save_path
+        # self.sample_save_path = sample_save_path
 
         # suffix of additional (ttbb) sample
         self.addSampleSuffix = addSampleSuffix
@@ -312,7 +312,7 @@ class DNN():
         ''' load data set '''
         data = data_frame.DataFrame(
             input_samples=self.input_samples,
-            save_path=self.sample_save_path,
+            save_path=self.save_path,
             event_category=self.category_cutString,
             train_variables=self.train_variables,
             test_percentage=self.test_percentage,
@@ -798,7 +798,7 @@ class DNN():
     # --------------------------------------------------------------------
     # result plotting functions
     # --------------------------------------------------------------------
-    
+
     def plot_metrics(self, privateWork=False):
         plt.rc('text', usetex=True)
 
