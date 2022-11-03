@@ -371,15 +371,24 @@ class DNN():
 
         # loop over dense layers
         for iLayer, nNeurons in enumerate(number_of_neurons_per_layer):
-            X = keras.layers.Dense(
-                units               = nNeurons,
-                activation          = activation_function,
-                # kernel_regularizer  = keras.regularizers.l2(l2_regularization_beta),
-                kernel_regularizer  = keras.regularizers.l1_l2(l1 = l1_regularization_beta, l2 = l2_regularization_beta), 
-                name                = "DenseLayer_"+str(iLayer)
-                )(X)
+            if self.architecture["activation_function"] != "leakyrelu":
+                X = keras.layers.Dense(
+                    units               = nNeurons,
+                    activation          = activation_function,
+                    # kernel_regularizer  = keras.regularizers.l2(l2_regularization_beta),
+                    kernel_regularizer  = keras.regularizers.l1_l2(l1 = l1_regularization_beta, l2 = l2_regularization_beta), 
+                    name                = "DenseLayer_"+str(iLayer)
+                    )(X)
 
-            if self.architecture["activation_function"] == "leakyrelu":
+            elif self.architecture["activation_function"] == "leakyrelu":
+                X = keras.layers.Dense(
+                    units=nNeurons,
+                    # activation=activation_function,
+                    # kernel_regularizer  = keras.regularizers.l2(l2_regularization_beta),
+                    kernel_regularizer=keras.regularizers.l1_l2(
+                        l1=l1_regularization_beta, l2=l2_regularization_beta),
+                    name="DenseLayer_"+str(iLayer)
+                )(X)
                 X = keras.layers.LeakyReLU(alpha=0.3)(X)
 
             # add dropout percentage to layer if activated
