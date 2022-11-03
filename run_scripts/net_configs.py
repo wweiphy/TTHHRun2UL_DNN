@@ -16,6 +16,7 @@ config_dict["ge4j_ge4t_ttH"] = {
         "earlystopping_percentage": 1.0,
         "earlystopping_epochs":     500,
         "activation_coefficient":   0.3,
+        "saveEpoch":                False
         }
         
 config_dict["ge4j_ge3t_ttH"] = {
@@ -33,6 +34,7 @@ config_dict["ge4j_ge3t_ttH"] = {
         "earlystopping_percentage": 1.0,
         "earlystopping_epochs":     500,
         "activation_coefficient":   0.3,
+        "saveEpoch":                False
         }
         
         

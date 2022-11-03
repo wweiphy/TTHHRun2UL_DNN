@@ -95,7 +95,6 @@ dnn = DNN.DNN(
     evenSel         = options.doEvenSelection()
     )
 
-
 # build DNN model
 dnn.build_model(options.getNetConfig())
 

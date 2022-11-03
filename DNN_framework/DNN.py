@@ -283,6 +283,10 @@ class DNN():
 
         # load data set
         # if not Do_Evaluation:
+        self.cp_path = self.save_path+"/checkpoints/"
+        if not os.path.exists(self.cp_path):
+            os.makedirs(self.cp_path)
+            
         self.data = self._load_datasets(shuffle_seed)
         self.event_classes = self.data.output_classes
         # # else:
