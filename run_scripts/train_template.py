@@ -37,18 +37,18 @@ options.initArguments()
 # load samples
 input_samples = df.InputSamples(options.getInputDirectory(), options.getTestPercentage())
 
-weight_expr = 'x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom * x.lumiWeight'
+weight_expr = 'x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom'
 
-weight_expr_ttZZ_ttZH = 'x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom * x.lumiWeight / 2'
+weight_expr_ttZZ_ttZH = 'x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom / 2'
 
-weight_expr_ttZ = 'x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom * x.lumiWeight / 0.001571054 * 0.00016654'
+weight_expr_ttZ = 'x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom / 0.001571054 * 0.00016654'
 
-weight_expr_ttmb = 'x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom * x.lumiWeight *6.89'
+weight_expr_ttmb = 'x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom *6.89'
 
-weight_expr_ttnb = 'x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom * x.lumiWeight *1.09'
+weight_expr_ttnb = 'x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom *1.09'
 
 
-weight_expr_ttHH = 'x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom * x.lumiWeight * 2'
+weight_expr_ttHH = 'x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom * 2'
 
 #weight_expr = 'x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom'
 #weight_expr = '1'

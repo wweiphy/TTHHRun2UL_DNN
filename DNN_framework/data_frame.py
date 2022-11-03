@@ -143,7 +143,7 @@ class Sample:
             # add lumi weight
 
         df = df.assign(lumi_weight=lambda x: x.total_weight *
-                        lumi * self.normalization_weight / self.test_percentage)
+                        lumi * self.normalization_weight)
         print("sum of lumi weights: {}".format(
             sum(df["lumi_weight"].values)))
         self.data = df
