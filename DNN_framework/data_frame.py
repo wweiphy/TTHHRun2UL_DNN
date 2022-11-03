@@ -164,14 +164,13 @@ class Sample:
         config["max"] = self.max
         return config
 
-
 class InputSamples:
     def __init__(self, input_path, test_percentage=0.2, addSampleSuffix=""):
         self.binary_classification = False
         self.input_path = input_path
         self.samples = []
         self.addSampleSuffix = addSampleSuffix
-        print ("test percentage is {}".format(test_percentage))
+        # print ("test percentage is {}".format(test_percentage))
         self.test_percentage = float(test_percentage)
         if self.test_percentage <= 0. or self.test_percentage >= 1.:
             sys.exit("fraction of events to be used for testing (test_percentage) set to {}. this is not valid. choose something in range (0.,1.)")

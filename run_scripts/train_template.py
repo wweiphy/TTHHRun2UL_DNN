@@ -30,14 +30,12 @@ import DNN_framework.data_frame as df
 
 options.initArguments()
 
-print(options.getInputDirectory())
-
-print ("test percentage")
-print (options.getTestPercentage())
+# print ("test percentage")
+# print (options.getTestPercentage())
 
 
 # load samples
-input_samples = df.InputSamples(options.getInputDirectory(), options.getActivatedSamples(), options.getTestPercentage())
+input_samples = df.InputSamples(options.getInputDirectory(), options.getTestPercentage())
 
 weight_expr = 'x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom * x.lumiWeight'
 
