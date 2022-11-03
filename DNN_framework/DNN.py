@@ -10,9 +10,10 @@ import data_frame
 import csv
 import json
 import pickle
-import matplotlib.pyplot as plt
 import matplotlib
 matplotlib.use('Agg')
+import matplotlib.pyplot as plt
+
 from Derivatives import Inputs, Outputs, Derivatives
 import tensorflow as tf
 # from tensorflow import keras
