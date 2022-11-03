@@ -88,7 +88,7 @@ class saveDiscriminators:
 
                 weightIntegral += sum(filtered_weights)
 
-                histogram = setupPlots.setupHistogram(
+                histogram = setup.setupHistogram(
                     values=filtered_values,
                     weights=filtered_weights,
                     nbins=self.nbins,
@@ -96,7 +96,7 @@ class saveDiscriminators:
                     #                        color     = setup.GetPlotColor(truth_cls),
                     xtitle="ljets_ge4j_ge3t_" + \
                     str(node_cls)+"_node__"+str(truth_cls),
-                    ytitle=setupPlots.GetyTitle(),
+                    ytitle=setup.GetyTitle(),
                     filled=True)
 
                 bkgHists.append(histogram)
@@ -148,16 +148,16 @@ class plotConfusionMatrix:
             self.confusion_matrix = new_matrix
 
         # initialize Histogram
-        cm = setupPlots.setupConfusionMatrix(
+        cm = setup.setupConfusionMatrix(
             matrix=self.confusion_matrix.T,
             ncls=self.n_classes,
             xtitle="predicted class",
             ytitle="true class",
             binlabel=self.event_classes)
 
-        canvas = setupPlots.drawConfusionMatrixOnCanvas(
+        canvas = setup.drawConfusionMatrixOnCanvas(
             cm, "confusion matrix", self.event_category, self.ROCScore, privateWork=privateWork)
-        setupPlots.saveCanvas(canvas, self.plotdir+"/confusionMatrix.pdf")
+        setup.saveCanvas(canvas, self.plotdir+"/confusionMatrix.pdf")
 
 
 class plotDiscriminators:
