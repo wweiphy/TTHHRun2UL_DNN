@@ -14,12 +14,13 @@ from tensorflow.keras.utils import to_categorical
 import SFs
 
 class Sample:
-    def __init__(self, path, label, normalization_weight=1., train_weight=1., total_weight_expr='x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom', addSampleSuffix=""):
+    def __init__(self, path, label, normalization_weight=1., train_weight=1., test_percentage=0.2, total_weight_expr='x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom', addSampleSuffix=""):
         self.path = path
         self.label = label
         self.normalization_weight = normalization_weight
         self.isSignal = None
         self.train_weight = train_weight
+        self.test_percentage = test_percentage
         self.min = 0.0
         self.max = 1.0
         self.total_weight_expr = total_weight_expr
@@ -179,7 +180,8 @@ class InputSamples:
         if not os.path.isabs(sample_path):
             sample_path = self.input_path + "/" + sample_path
 
-        self.samples.append(Sample(sample_path, label, normalization_weight, train_weight, total_weight_expr=total_weight_expr, addSampleSuffix=self.addSampleSuffix))
+        self.samples.append(Sample(sample_path, label, normalization_weight, train_weight,
+                            self.test_percentage, total_weight_expr=total_weight_expr, addSampleSuffix=self.addSampleSuffix))
         # print("sample path is "+sample_path)
 
     def getClassConfig(self):
