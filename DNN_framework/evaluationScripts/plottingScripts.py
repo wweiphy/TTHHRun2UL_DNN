@@ -166,8 +166,9 @@ class plotDiscriminators:
         self.predicted_classes = np.argmax(self.prediction_vector, axis=1)
 
         self.event_classes = event_classes
-        self.n_classes = len(self.event_classes) - \
-            self.data.input_samples.additional_samples
+        # self.n_classes = len(self.event_classes) - \
+        #     self.data.input_samples.additional_samples
+        self.n_classes = len(self.event_classes) 
         self.nbins = nbins
         self.bin_range = bin_range
         self.signal_class = signal_class
@@ -379,8 +380,9 @@ class plotOutputNodes:
         self.data = data
         self.prediction_vector = prediction_vector
         self.event_classes = event_classes
-        self.n_classes = len(self.event_classes) - \
-            self.data.input_samples.additional_samples
+        self.n_classes = len(self.event_classes) 
+        # self.n_classes = len(self.event_classes) - \
+        #     self.data.input_samples.additional_samples
         self.nbins = nbins
         self.bin_range = bin_range
         self.signal_class = signal_class
@@ -826,8 +828,9 @@ class plotEventYields:
         self.predicted_classes = np.argmax(self.prediction_vector, axis=1)
 
         self.event_classes = event_classes
-        self.n_classes = len(self.event_classes) - \
-            self.data.input_samples.additional_samples
+        # self.n_classes = len(self.event_classes) - \
+        #     self.data.input_samples.additional_samples
+        self.n_classes = len(self.event_classes) 
         self.signal_class = signal_class
         self.signalIndex = []
 
