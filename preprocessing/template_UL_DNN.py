@@ -12,7 +12,7 @@ import preprocessing
 
 
 """
-USE: python template.py --outputdirectory=DIR_0927_Evaluation --variableselection=variables --maxentries=20000 --cores=4
+USE: python template_UL_DNN.py --outputdirectory=DIR_1104_Evaluation --variableselection=variables --maxentries=20000 --cores=4
 """
 
 usage="usage=%prog [options] \n"
@@ -90,9 +90,6 @@ ttZ_categories.addCategory("ttZ", selection = None)
 ttH_categories = preprocessing.EventCategories()
 ttH_categories.addCategory("ttH", selection = None)
 
-ttZbb_categories = preprocessing.EventCategories()
-ttZbb_categories.addCategory("ttZbb", selection = None)
-
 
 ttbar_categories = preprocessing.EventCategories()
 # ttbar_categories.addCategory("ttbb", selection = "(GenEvt_I_TTPlusBB == 3 and GenEvt_I_TTPlusCC == 0)")
@@ -156,7 +153,7 @@ dataset.addSample(
     #    lumiWeight  = 41.5,
     selections=None,  # ttbar_selection,
     #    selections  = ttbar_selection,
-    islocal=True
+    islocal=False
 )
 
 
@@ -181,7 +178,7 @@ dataset.addSample(
     #    lumiWeight  = 41.5,
     selections=None,  # ttbar_selection,
     #    selections  = ttbar_selection,
-    islocal=True
+    islocal=False
 )
 
 # dataset.addSample(
@@ -197,15 +194,15 @@ dataset.addSample(
 # )
 
 dataset.addSample(
-    sampleName="TTZbb",
+    sampleName="TTZ",
     ntuples=ntuplesPath2 +
     "/2017/ntuple/TTZToBB_TuneCP5_13TeV-amcatnlo-pythia8/sl_LEG_ntuple_2017/*/*/*nominal*.root",
     #    ntuples     = ntuplesPath+"/ttH_220208.root",
-    categories=ttZbb_categories,
+    categories=ttZ_categories,
     #    lumiWeight  = 41.5,
     selections=None,  # ttbar_selection,
     #    selections  = ttbar_selection,
-    islocal=True
+    islocal=False
 )
 
 dataset.addSample(
@@ -221,14 +218,14 @@ dataset.addSample(
 
       
 dataset.addSample(
-    sampleName  = "TTbbToSL",
+    sampleName  = "TTbbSL",
     ntuples=ntuplesPath2 +
     "/2017/ntuple/TTbb_4f_TTToSemiLeptonic_TuneCP5-Powheg-Openloops-Pythia8/sl_LEG_ntuple_2017/*/*/*nominal*.root",
     categories  = ttmb_categories,
 #    lumiWeight  = 41.5,
     selections  = None,#ttbar_selection,
 #    selections  = ttbar_selection,
-    islocal     = True
+    islocal     = False
       )
 
 # dataset.addSample(
@@ -266,7 +263,7 @@ dataset2 = preprocessing.Dataset(
 dataset2.addBaseSelection(base_selection)
 
 dataset2.addSample(
-    sampleName="TTToSL",
+    sampleName="TTSL",
     ntuples=ntuplesPath2 +
     "/2017/ntuple/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2017/*/*/*nominal*.root",
     #    ntuples     = ntuplesPath+"/ttSL_220210.root",
