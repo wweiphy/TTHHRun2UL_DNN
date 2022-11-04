@@ -4,6 +4,7 @@ import ROOT
 import numpy as np
 from sklearn.metrics import confusion_matrix
 from sklearn.metrics import roc_auc_score
+from root_numpy import hist2array
 # import ROOT
 
 # local imports
