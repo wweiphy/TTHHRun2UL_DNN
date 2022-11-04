@@ -12,7 +12,7 @@ import preprocessing
 
 
 """
-USE: python template_UL_DNN.py --outputdirectory=DIR_1104_Evaluation --variableselection=variables --maxentries=20000 --cores=4
+USE: python template_UL_DNN.py --outputdirectory=DIR_1104_DNN --variableselection=variables --maxentries=20000 --cores=4
 """
 
 usage="usage=%prog [options] \n"
@@ -299,9 +299,9 @@ import sf_variables as sf_var
 # add these variables to the variable list
 dataset.addVariables(add_var.additional_variables)
 dataset2.addVariables(add_var.additional_variables)
-dataset.addVariables(sf_var.scalefactor_variables)
-dataset2.addVariables(sf_var.scalefactor_variables)
-dataset2.addVariables(sf_var.ttbar_variables)
+# dataset.addVariables(sf_var.scalefactor_variables)
+# dataset2.addVariables(sf_var.scalefactor_variables)
+# dataset2.addVariables(sf_var.ttbar_variables)
 
 # run the preprocessing
 dataset.runPreprocessing()

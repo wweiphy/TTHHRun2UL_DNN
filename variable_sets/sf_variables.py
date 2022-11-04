@@ -31,7 +31,7 @@ scalefactor_variables = [
     'Weight_CSVLFup',
     'Weight_L1ECALPrefire',
     'Weight_MuonTriggerSF',
-    'Weight_ElectronTriggerSF'
+    'Weight_ElectronTriggerSF',
     'Weight_XS',
     'Weight_pu69p2',
     # 'Weight_scale_variation_muR_0p5_muF_0p5',
