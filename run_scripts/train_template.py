@@ -1,6 +1,6 @@
 
 # 4j3b 50
-# python train_template.py -i 0515_DIR_4b -o 2201028_test  --plot --printroc -c ge4j_ge3t --epochs=5 --signalclass=ttHH -f 0.2 -v dnn_variables -n ge4j_ge3t_ttH 
+# python train_template.py -i DNN_1105_UL -o 221106_test  --plot --printroc -c ge4j_ge3t --epochs=500 --signalclass=ttHH -f 0.2 -v dnn_variables -n ge4j_ge3t_ttH 
 
 
 # global imports
@@ -39,16 +39,16 @@ input_samples = df.InputSamples(options.getInputDirectory(), options.getTestPerc
 
 weight_expr = 'x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom'
 
-weight_expr_ttZZ_ttZH = 'x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom / 2'
+# weight_expr_ttZZ_ttZH = 'x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom / 2'
 
-weight_expr_ttZ = 'x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom / 0.001571054 * 0.00016654'
+# weight_expr_ttZ = 'x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom / 0.001571054 * 0.00016654'
 
-weight_expr_ttmb = 'x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom *6.89'
+# weight_expr_ttmb = 'x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom *6.89'
 
-weight_expr_ttnb = 'x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom *1.09'
+# weight_expr_ttnb = 'x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom *1.09'
 
 
-weight_expr_ttHH = 'x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom * 2'
+# weight_expr_ttHH = 'x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom * 2'
 
 #weight_expr = 'x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom'
 #weight_expr = '1'
@@ -57,7 +57,7 @@ weight_expr_ttHH = 'x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom * 2'
 # only ttH sample needs even/odd splitting for 2017 MC, not sure if ttHH needs it??
 
 #input_samples.addSample(options.getDefaultName("ttHH"),  label = "ttHH",  normalization_weight = options.getNomWeight(), train_weight = 2, total_weight_expr = weight_expr_ttHH)
-input_samples.addSample(options.getDefaultName("ttHH"),  label = "ttHH",  normalization_weight = options.getNomWeight(), train_weight = 1, total_weight_expr = weight_expr_ttHH)
+input_samples.addSample(options.getDefaultName("ttHH"),  label = "ttHH",  normalization_weight = options.getNomWeight(), train_weight = 1, total_weight_expr = weight_expr)
 
 #input_samples.addSample(options.getDefaultName("ttbb"), label = "ttbb", normalization_weight = options.getNomWeight(), total_weight_expr = weight_expr)
 #input_samples.addSample(options.getDefaultName("tt2b"), label = "tt2b", normalization_weight = options.getNomWeight(), total_weight_expr = weight_expr)
@@ -72,7 +72,7 @@ input_samples.addSample(options.getDefaultName("ttH"), label = "ttH", normalizat
 input_samples.addSample(options.getDefaultName("ttZH"), label = "ttZH", normalization_weight = options.getNomWeight(), total_weight_expr = weight_expr)
 input_samples.addSample(options.getDefaultName("ttZZ"), label = "ttZZ", normalization_weight = options.getNomWeight(), total_weight_expr = weight_expr)
 #input_samples.addSample(options.getDefaultName("ttZ"), label = "ttZ", normalization_weight = options.getNomWeight(), total_weight_expr = weight_expr)
-input_samples.addSample(options.getDefaultName("ttZbb"), label = "ttZbb", normalization_weight = options.getNomWeight(), total_weight_expr = weight_expr)
+input_samples.addSample(options.getDefaultName("ttZ"), label = "ttZ", normalization_weight = options.getNomWeight(), total_weight_expr = weight_expr)
 
 if options.isBinary():
     input_samples.addBinaryLabel(options.getSignal(), options.getBinaryBkgTarget())
