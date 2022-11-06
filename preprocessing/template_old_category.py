@@ -12,7 +12,7 @@ import preprocessing
 
 
 """
-USE: python template_old_category.py --outputdirectory=DIR_1002_Evaluation --variableselection=variables --maxentries=20000 --cores=4
+USE: python template_old_category.py --outputdirectory=DNN_1106_old --variableselection=variables --maxentries=20000 --cores=4
 """
 
 usage="usage=%prog [options] \n"
@@ -106,8 +106,8 @@ ttmb_categories = preprocessing.EventCategories()
 ttmb_categories.addCategory("ttmb", selection = "(GenEvt_I_TTPlusBB == 3 and GenEvt_I_TTPlusCC == 0) or (GenEvt_I_TTPlusBB == 2 and GenEvt_I_TTPlusCC == 0) or (GenEvt_I_TTPlusBB == 1 and GenEvt_I_TTPlusCC == 0)")
 ttmb_categories.addCategory("ttnb", selection = "(GenEvt_I_TTPlusBB == 4 and GenEvt_I_TTPlusCC == 0) or (GenEvt_I_TTPlusBB == 5 and GenEvt_I_TTPlusCC == 0)")
 
-ntuplesPath = "/uscms/home/wwei/nobackup/SM_TTHH/CMSSW_10_2_18/src/BoostedTTH/crab/lpcgroup/crab_ntuple"
-ntuplesPath2 = "/eos/uscms/store/group/lpctthrun2/wwei"
+ntuplesPath = "/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_10_6_29/src/BoostedTTH/crab/2017UL/ntuple/crab_ntuple"
+ntuplesPath2 = "/eos/uscms/store/group/lpctthrun2/wwei/UL"
 
 
 # initialize dataset class
@@ -208,8 +208,8 @@ dataset.addBaseSelection(base_selection)
 dataset.addSample(
     sampleName  = "TT4b",
     ntuples=ntuplesPath2 +
-    "/TT4b_TuneCP5_13TeV_madgraph_pythia8/sl_LEG_ntuple_2017_5/220222_234023/0000/*nominal*.root",
-    categories  = ttbar_categories,
+    "/2017/ntuple/TT4b_TuneCP5_13TeV_madgraph_pythia8/sl_LEG_ntuple_2017/*/*/*nominal*.root",
+    categories=ttbar_categories,
 #    lumiWeight  = 41.5,
     selections  = None,#ttbar_selection,
 #    selections  = ttbar_selection,
@@ -218,36 +218,37 @@ dataset.addSample(
 
       
 dataset.addSample(
-    sampleName  = "TTbbToSL",
-    ntuples     = ntuplesPath+"/crab_TTbb_Powheg_Openloops_SL_2017_ntuple_0_0_no_sys/results/*nominal*.root",
+    sampleName  = "TTbbSL",
+    ntuples=ntuplesPath2 +
+    "/2017/ntuple/TTbb_4f_TTToSemiLeptonic_TuneCP5-Powheg-Openloops-Pythia8/sl_LEG_ntuple_2017/*/*/*nominal*.root",
     categories  = ttbar_categories,
 #    lumiWeight  = 41.5,
     selections  = None,#ttbar_selection,
 #    selections  = ttbar_selection,
-    islocal     = True
+    islocal     = False
       )
 
-dataset.addSample(
-    sampleName="TTbbToDL",
-    ntuples=ntuplesPath2 +
-    "/TTbb_Powheg_Openloops/sl_LEG_ntuple_2017_DL/220322_040450/0000/*nominal*.root",
-    categories=ttbar_categories,
-    #    lumiWeight  = 41.5,
-    selections=None,  # ttbar_selection,
-    #    selections  = ttbar_selection,
-    islocal=False
-)
+# dataset.addSample(
+#     sampleName="TTbbToDL",
+#     ntuples=ntuplesPath2 +
+#     "/TTbb_Powheg_Openloops/sl_LEG_ntuple_2017_DL/220322_040450/0000/*nominal*.root",
+#     categories=ttbar_categories,
+#     #    lumiWeight  = 41.5,
+#     selections=None,  # ttbar_selection,
+#     #    selections  = ttbar_selection,
+#     islocal=False
+# )
 
-dataset.addSample(
-    sampleName="TTbbToDL2",
-    ntuples=ntuplesPath2 +
-    "/TTbb_Powheg_Openloops/sl_LEG_ntuple_2017_DL_Ext/220322_041515/0000/*nominal*.root",
-    categories=ttbar_categories,
-    #    lumiWeight  = 41.5,
-    selections=None,  # ttbar_selection,
-    #    selections  = ttbar_selection,
-    islocal=False
-)
+# dataset.addSample(
+#     sampleName="TTbbToDL2",
+#     ntuples=ntuplesPath2 +
+#     "/TTbb_Powheg_Openloops/sl_LEG_ntuple_2017_DL_Ext/220322_041515/0000/*nominal*.root",
+#     categories=ttbar_categories,
+#     #    lumiWeight  = 41.5,
+#     selections=None,  # ttbar_selection,
+#     #    selections  = ttbar_selection,
+#     islocal=False
+# )
       
 
 # initialize dataset class
@@ -295,7 +296,7 @@ import sf_variables as sf_var
 # add these variables to the variable list
 dataset.addVariables(add_var.additional_variables)
 # dataset2.addVariables(add_var.additional_variables)
-dataset.addVariables(sf_var.scalefactor_variables)
+# dataset.addVariables(sf_var.scalefactor_variables)
 # dataset2.addVariables(sf_var.scalefactor_variables)
 # dataset2.addVariables(sf_var.ttbar_variables)
 
