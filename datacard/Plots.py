@@ -141,6 +141,7 @@ def buildHistogramAndErrorBand(rootFile,sample,color,typ,label,systematics,nomin
 
     #moves underflow in the first and overflow in the last bin
     moveOverUnderFlow(rootHist)
+    print("    type of hist is 2: "+str(type(rootHist)))
     # replace keys to get systematic key
     print("    starting with systematics - building Errorband")
     if procIden in systematicKey:
@@ -267,7 +268,8 @@ def buildHistogramAndErrorBand(rootFile,sample,color,typ,label,systematics,nomin
             statErrorband.SetPointEYhigh(i, rootHist.GetBinError(i+1))
             statErrorband.SetPointEXlow(i, rootHist.GetBinWidth(i+1)/2.)
             statErrorband.SetPointEXhigh(i, rootHist.GetBinWidth(i+1)/2.)
-            
+    
+    print("    type of hist is 3: "+str(type(rootHist)))
     PlotObject=Plot(rootHist, sample, 
                     label = label,
                     color = color,  
