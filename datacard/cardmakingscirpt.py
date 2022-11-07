@@ -1,6 +1,9 @@
 import os
 import optparse
 
+usage = "usage=%prog [options] \n"
+usage += "USE: python cardmakingscript.py -n True "
+
 parser = optparse.OptionParser(usage=usage)
 
 parser.add_option("-n", "--new", dest="new", default=True,
