@@ -115,13 +115,13 @@ class Sample:
                 (x['Triggered_HLT_Ele32_WPTight_Gsf_L1DoubleEG_vX'] == 1) & (x['Triggered_HLT_Ele32_WPTight_Gsf_2017SeedsX'] == 1))) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['Triggered_HLT_IsoMu27_vX'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
 
             
-            if ("ttcc" in self.path) or ("ttlf" in self.path):
-                # print("1")
-                df = df.assign(extra_weight=lambda x: (((abs(x['Weight_scale_variation_muR_0p5_muF_0p5']) <= 100) & (abs(x['Weight_scale_variation_muR_0p5_muF_1p0']) <= 100) & (abs(x['Weight_scale_variation_muR_0p5_muF_2p0']) <= 100) & (abs(x['Weight_scale_variation_muR_1p0_muF_0p5']) <= 100) & (abs(x['Weight_scale_variation_muR_1p0_muF_1p0']) <= 100) & (abs(x['Weight_scale_variation_muR_1p0_muF_2p0']) <= 100) & (abs(x['Weight_scale_variation_muR_2p0_muF_0p5']) <= 100) & (abs(x['Weight_scale_variation_muR_2p0_muF_1p0']) <= 100) & (abs(x['Weight_scale_variation_muR_2p0_muF_2p0']) <= 100))*1.))
+            # if ("ttcc" in self.path) or ("ttlf" in self.path):
+            #     # print("1")
+            #     df = df.assign(extra_weight=lambda x: (((abs(x['Weight_scale_variation_muR_0p5_muF_0p5']) <= 100) & (abs(x['Weight_scale_variation_muR_0p5_muF_1p0']) <= 100) & (abs(x['Weight_scale_variation_muR_0p5_muF_2p0']) <= 100) & (abs(x['Weight_scale_variation_muR_1p0_muF_0p5']) <= 100) & (abs(x['Weight_scale_variation_muR_1p0_muF_1p0']) <= 100) & (abs(x['Weight_scale_variation_muR_1p0_muF_2p0']) <= 100) & (abs(x['Weight_scale_variation_muR_2p0_muF_0p5']) <= 100) & (abs(x['Weight_scale_variation_muR_2p0_muF_1p0']) <= 100) & (abs(x['Weight_scale_variation_muR_2p0_muF_2p0']) <= 100))*1.))
 
-            else:
+            # else:
                 # print("2")
-                df = df.assign(extra_weight=lambda x: 1.)
+            df = df.assign(extra_weight=lambda x: 1.)
 
             df = df.assign(xs_weight=lambda x: eval(self.total_weight_expr))
             df = df.assign(total_weight=lambda x: x.xs_weight * x.extra_weight * x.sf_weight)
