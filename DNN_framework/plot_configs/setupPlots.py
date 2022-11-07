@@ -45,7 +45,7 @@ def setupHistogram(
         xtitle, ytitle,
         color=ROOT.kBlack, filled=True):
     # define histogram
-    histogram = ROOT.TH1D(xtitle, "", nbins, *bin_range)
+    histogram = ROOT.TH1F(xtitle, "", nbins, *bin_range)
     histogram.Sumw2(True)
 
     for v, w in zip(values, weights):
