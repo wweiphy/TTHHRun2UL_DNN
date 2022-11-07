@@ -12,7 +12,7 @@ import preprocessing
 
 
 """
-USE: python template_UL_Eval.py --outputdirectory=Eval_1106_UL --variableselection=variables --maxentries=20000 --cores=4
+USE: python /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_ttbar.py --outputdirectory=Eval_1106_UL_ttbar --variableselection=variables --maxentries=20000 --cores=4
 """
 
 usage="usage=%prog [options] \n"
@@ -156,7 +156,7 @@ import sf_variables as sf_var
 # add these variables to the variable list
 dataset2.addVariables(add_var.additional_variables)
 dataset2.addVariables(sf_var.scalefactor_variables)
-dataset2.addVariables(sf_var.ttbar_variables)
+# dataset2.addVariables(sf_var.ttbar_variables)
 
 # run the preprocessing
 dataset2.runPreprocessing()
