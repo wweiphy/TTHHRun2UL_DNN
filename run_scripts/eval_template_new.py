@@ -15,7 +15,7 @@ import DNN_framework.DNN as DNN
 import DNN_framework.data_frame as df
 
 
-# python eval_template_1003.py -o 221003_test_evaluation_old -i 220928_JABDT_50_2e5_old_0p5_ge4j_ge3t --signalclass=ttHH --plot --printroc
+# python eval_template_new.py -o 221107_test_evaluation_new -i 221106_test_ge4j_ge3t --signalclass=ttHH --plot --printroc
 
 
 
@@ -193,7 +193,7 @@ sample_save_path = basedir+"/workdir/"
 # init DNN class
 dnn = DNN.DNN(
 save_path=outPath,
-sample_save_path=sample_save_path,
+# sample_save_path=sample_save_path,
 input_samples=input_samples,
 category_name=config["JetTagCategory"],
 train_variables=config["trainVariables"],
