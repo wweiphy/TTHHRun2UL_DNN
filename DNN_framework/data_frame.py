@@ -124,6 +124,10 @@ class Sample:
             df = df.assign(extra_weight=lambda x: 1.)
 
             df = df.assign(xs_weight=lambda x: eval(self.total_weight_expr))
+            xs_weight_sum = sum(df["xs_weight"].values)
+            print("xs weight sum: {}".format(xs_weight_sum))
+            df = df.assign(train_weight=lambda x: x.xs_weight /
+                           xs_weight_sum*self.train_weight)
             df = df.assign(total_weight=lambda x: x.xs_weight * x.extra_weight * x.sf_weight)
 
         else:
@@ -453,6 +457,9 @@ class DataFrame(object):
 
     def get_full_lumi_weights_after_preprocessing(self):
         return self.df_unsplit_preprocessing["lumi_weight"].values
+
+    def get_full_train_weights(self):
+        return self.df_unsplit_preprocessing["train_weight"].values
 
     def get_full_labels_after_preprocessing(self, as_categorical=True):
         if as_categorical:

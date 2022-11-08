@@ -770,8 +770,10 @@ class DNN():
         self.model.summary()
 
         # evaluate whole dataset with keras model
-        self.model_eval = self.model.evaluate(self.data.get_full_data_after_preprocessing(
-            as_matrix=True), self.data.get_full_labels_after_preprocessing())
+        self.model_eval = self.model.evaluate(
+            x=self.data.get_full_data_after_preprocessing(as_matrix=True), 
+            y=self.data.get_full_labels_after_preprocessing(),
+            sample_weight=self.data.get_full_train_weights())
 
         # save predictions with keras model
         self.model_prediction_vector = self.model.predict(
