@@ -15,7 +15,7 @@ import DNN_framework.DNN as DNN
 import DNN_framework.data_frame as df
 
 
-# python eval_template_new.py -o 221107_test_evaluation_new -i 221106_test_ge4j_ge3t --signalclass=ttHH --plot --printroc
+# python eval_template_new.py -o 221108_test_evaluation_new -i 221106_test_ge4j_ge3t --signalclass=ttHH --plot --printroc
 
 
 
@@ -112,9 +112,6 @@ with open(configFile) as f:
 #     config["inputData"], addSampleSuffix=config["addSampleSuffix"], test_percentage = options.test_percentage)
 input_samples = df.InputSamples(input_path=dfDirectory, addSampleSuffix=config["addSampleSuffix"], test_percentage = options.test_percentage)
 
-if options.binary:
-        input_samples.addBinaryLabel(signal, binary_target)
-        
 # TODO - remove the addSample part because future DNN will save the data df
 # TODO - add the dealing with data
 
