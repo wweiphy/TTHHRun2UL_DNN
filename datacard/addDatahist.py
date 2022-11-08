@@ -19,7 +19,7 @@ classNames = ['ttHH','ttH','ttZ','ttZH','ttZZ','ttlf','ttcc','ttmb','ttnb']
 
 # hadd -f output_limit.root 1 2 3
 
-filepath = '/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/workdir/221107_test_evaluation_new_2/plots/output_limit.root'
+filepath = '/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/workdir/221107_test_evaluation_new/plots/output_limit.root'
 
 
 print(classNames)

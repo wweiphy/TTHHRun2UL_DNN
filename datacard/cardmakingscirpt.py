@@ -22,7 +22,7 @@ if options.new:
     for node in process_new:
 
         categoryname = "ljets_ge4j_ge3t_{}_node".format(node)
-        rootfile = "/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/workdir/221107_test_evaluation_new_2/plots/output_limit.root"
+        rootfile = "/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/workdir/221107_test_evaluation_new/plots/output_limit.root"
         outputfile = "/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/datacard/new/ljets_ge4j_ge3t_{}_node_hdecay.txt".format(node)
         signaltag = "ttHH"
 
