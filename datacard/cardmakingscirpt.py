@@ -14,7 +14,7 @@ parser.add_option("-n", "--new", dest="new", default="new",
 process_new = ['ttHH', 'ttH', 'ttZ', 'ttZH',
                'ttZZ', 'ttlf', 'ttcc', 'ttmb', 'ttnb']
 process_old = ['ttHH', 'ttH', 'ttZ', 'ttZH',
-               'ttZZ', 'ttlf', 'ttcc', 'ttb', 'ttbb', 'tt2b', 'ttbbb', 'tt4b']
+               'ttZZ', 'ttlf', 'ttcc', 'ttb','ttbb','tt2b','ttbbb','tt4b']
 
 
 if options.new == "new":
