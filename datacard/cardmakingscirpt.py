@@ -38,7 +38,7 @@ else:
     for node in process_old:
 
         categoryname = "ljets_ge4j_ge3t_{}_node".format(node)
-        rootfile = ""
+        rootfile = "/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/workdir/221108_test_evaluation_old/plots/output_limit.root"
         outputfile = "/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/datacard/old/ljets_ge4j_ge3t_{}_node_hdecay.txt".format(node)
         signaltag = "ttHH"
 
