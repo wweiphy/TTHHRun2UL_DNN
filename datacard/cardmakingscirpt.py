@@ -6,7 +6,7 @@ usage += "USE: python cardmakingscript.py -n True "
 
 parser = optparse.OptionParser(usage=usage)
 
-parser.add_option("-n", "--new", dest="new", default=True,
+parser.add_option("-n", "--new", dest="new", default="new",
         help="making datacard for new categorizations, total 9", metavar="new")
 
 (options, args) = parser.parse_args()
@@ -17,7 +17,7 @@ process_old = ['ttHH', 'ttH', 'ttZ', 'ttZH',
                'ttZZ', 'ttlf', 'ttcc', 'ttb', 'ttbb', 'tt2b', 'ttbbb', 'tt4b']
 
 
-if options.new:
+if options.new == "new":
 
     for node in process_new:
 
@@ -33,7 +33,7 @@ if options.new:
 
         print("finish making datacard for process {}".format(node))
 
-else:
+elif options.new == "old":
 
     for node in process_old:
 
