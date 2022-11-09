@@ -128,7 +128,8 @@ class Sample:
             print("xs weight sum: {}".format(xs_weight_sum))
             df = df.assign(train_weight=lambda x: x.xs_weight /
                            xs_weight_sum*self.train_weight)
-            df = df.assign(total_weight=lambda x: x.xs_weight * x.extra_weight * x.sf_weight)
+            df = df.assign(total_weight=lambda x: x.xs_weight * x.extra_weight)
+            # df = df.assign(total_weight=lambda x: x.xs_weight * x.extra_weight * x.sf_weight)
 
         else:
             # print("total weight: ")
