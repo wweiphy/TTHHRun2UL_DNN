@@ -9,17 +9,17 @@ import imp
 import types
 
 
-nodeNames = ['ttHH','ttH','ttZ','ttZH','ttZZ','ttlf','ttcc','ttb','tt2b','ttbb','ttbbb','tt4b']
+# nodeNames = ['ttHH','ttH','ttZ','ttZH','ttZZ','ttlf','ttcc','ttb','tt2b','ttbb','ttbbb','tt4b']
 # nodeNames = ['ttHH']
-classNames = ['ttHH','ttH','ttZ','ttZH','ttZZ','ttlf','ttcc','ttb','tt2b','ttbb','ttbbb','tt4b']
+# classNames = ['ttHH','ttH','ttZ','ttZH','ttZZ','ttlf','ttcc','ttb','tt2b','ttbb','ttbbb','tt4b']
 
-# nodeNames = ['ttHH','ttH','ttZ','ttZH','ttZZ','ttlf','ttcc','ttmb','ttnb']
-# classNames = ['ttHH','ttH','ttZ','ttZH','ttZZ','ttlf','ttcc','ttmb','ttnb']
+nodeNames = ['ttHH','ttH','ttZ','ttZH','ttZZ','ttlf','ttcc','ttmb','ttnb']
+classNames = ['ttHH','ttH','ttZ','ttZH','ttZZ','ttlf','ttcc','ttmb','ttnb']
 
 
 # hadd -f output_limit.root 1 2 3
 
-filepath = '/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/workdir/221108_test_evaluation_old/plots/output_limit.root'
+filepath = '/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/workdir/221113_test_evaluation_new/plots/output_limit.root'
 
 
 print(classNames)
