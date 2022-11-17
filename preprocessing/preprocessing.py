@@ -6,6 +6,7 @@ import re
 import glob
 import multiprocessing as mp
 
+
 # multi processing magic
 # TODO - A value is trying to be set on a copy of a slice from a DataFrame. Try using .loc[row_indexer, col_indexer] = value instead. See the caveats in the documentation: http: // pandas.pydata.org/pandas-docs/stable/indexing.html; self.obj[key] = _infer_fill_value(value)
 
@@ -54,7 +55,7 @@ class Sample:
 
 
 class Dataset:
-    def __init__(self, outputdir, tree=['MVATree'], naming='', maxEntries=50000, varName_Run='Evt_Run', varName_LumiBlock='Evt_Lumi', varName_Event='Evt_ID',ncores=1):
+    def __init__(self, outputdir, tree=['MVATree'], naming='', maxEntries=50000, varName_Run='Evt_Run', varName_LumiBlock='Evt_Lumi', varName_Event='Evt_ID',ncores=1, dataEra = 2017, do_SFs=False):
         # settings for paths
         self.outputdir = outputdir
         self.naming = naming
@@ -62,6 +63,9 @@ class Dataset:
         self.varName_Run = varName_Run
         self.varName_LumiBlock = varName_LumiBlock
         self.varName_Event = varName_Event
+        self.dataEra = dataEra
+        self.do_SFs = do_SFs
+
 
         # generating output dir
         if not os.path.exists(self.outputdir):
@@ -272,14 +276,14 @@ class Dataset:
                 # add full path for the files in eos space
                 f_full = "root://cmseos.fnal.gov/" + f
                 file = f.split("/")[-1]
-                print("file for remote: "+file)
+                # print("file for remote: "+file)
                 # copy file from eos space into local 
                 copyeoscommand = "xrdcp "+f_full+" ."
-                print("copy file {} from eos space".format(copyeoscommand))
+                # print("copy file {} from eos space".format(copyeoscommand))
                 os.system(copyeoscommand)
             else:
                 file = f
-                print("file for local: "+file)
+                # print("file for local: "+file)
             for tr in self.tree:
                 # open root file
                 with uproot.open(file) as rf:
@@ -311,6 +315,22 @@ class Dataset:
                 # print("vector variables list: ")
                 # print(self.vector_variables)
                 # handle vector variables, loop over them
+
+                if self.do_SFs:
+                    from correctionlib import _core
+                    filedir = os.path.dirname(os.path.realpath(__file__))
+                    basedir = os.path.dirname(filedir)
+
+                    df = self.bTagSF(tree, df)
+
+                    print("df bTag SF: ")
+                    print(df["Weight_CSV_UL"])
+                # if self.do_pileup:
+                    # df = self.pileupSF(tree, df)
+
+                # if self.do_PUJetID:
+                #     PUJetID(tree)
+
                 for vecvar in self.vector_variables:
 
                     # load dataframe with vector variable
@@ -502,3 +522,92 @@ class Dataset:
                     str(sample[1])+" "+str(sample[2])+"\n"
         with open(outPath+"/sampleFile.dat", "w") as sampleFile:
             sampleFile.write(processedSamples)
+
+
+    def bTagSF(self, tree, df):
+
+        sfDir = os.path.join(basedir, "data", "BTV", "{}_UL".format(self.dataEra))
+        sfName = os.path.join(sfDir, "btagging.json.gz")
+        
+        if sfName.endswith(".gz"):
+            import gzip
+            with gzip.open(sfName, "rt") as f:
+                data = f.read().strip()
+            btvjson = _core.CorrectionSet.from_string(data)
+        else:
+            btvjson = _core.CorrectionSet.from_file(sfName)
+
+        jet_flavor = tree.pandas.df("Jet_Flav")
+        jet_eta = tree.pandas.df("Jet_Eta")
+        jet_pt = tree.pandas.df("Jet_Pt")
+        jet_bTag = tree.pandas.df("Jet_CSV")
+        njet = tree.pandas.df("N_Jets")
+
+        # https: // cms-nanoaod-integration.web.cern.ch/commonJSONSFs/BTV_btagging_Run2_UL/BTV_btagging_2016postVFP_UL.html
+
+        jet_sf = []
+        # jet_up_lf = []
+        # jet_down_lf = []
+        # jet_up_hf = []
+        # jet_down_hf = []
+        # jet_up_hfstats1 = []
+        # jet_down_hfstats1 = []
+        # jet_up_hfstats2 = []
+        # jet_down_hfstats2 = []
+        # jet_up_lfstats1 = []
+        # jet_down_lfstats1 = []
+        # jet_up_lfstats2 = []
+        # jet_down_lfstats2 = []
+        # jet_up_cferr1 = []
+        # jet_down_cferr1 = []
+        # jet_up_cferr2 = []
+        # jet_down_cferr2 = []
+        for i in range(njet.size):
+            
+            jet_sf_perevent = 1
+            for j in range(jet_pt[(i,0):i].size):
+                jet_sf_perevent *= btvjson["deepJet_shape"].evaluate("central",
+                                                                     jet_flavor[(i, j):(i, j)], jet_eta[(i, j):(i, j)], jet_pt[(i, j):(i, j)], jet_bTag[(i, j):(i, j)])
+            jet_sf.append(jet_sf_perevent)
+
+        df.loc[:, "Weight_CSV_UL"] = 0.
+        # append column to original dataframe
+        jet_sf = pd.DataFrame(jet_sf, columns="Weight_CSV_UL")
+        df.update(jet_sf)
+        return df
+        # b_jet_sf = btvjson["deepJet_shape"].evaluate("up_hfstats2",
+        #                                             5, 1.2, 60., 0.95)
+        # c_jet_sf = btvjson["deepJet_shape"].evaluate("up_cferr1",
+        #                                             4, 2.2, 100., 0.45)
+
+
+
+
+
+    # def PUJetSF(self,tree):
+
+    #     fname = "../POG/JME/2017_EOY/2017_jmar.json.gz"
+
+
+    #     if fname.endswith(".json.gz"):
+    #         import gzip
+    #         with gzip.open(fname, 'rt') as file:
+    #             data = file.read().strip()
+    #             evaluator = _core.CorrectionSet.from_string(data)
+    #     else:
+    #         evaluator = _core.CorrectionSet.from_file(fname)
+
+
+    #     ##### PU JetID
+    #     eta, pt, syst, wp = 2.0, 20., "nom", "L"
+    #     map_name = "PUJetID_eff"
+    #     valsf = evaluator[map_name].evaluate(eta, pt, syst, wp)
+    #     print("Example for "+map_name)
+    #     print("The "+syst+" SF for a Jet with pt="+str(pt) + " GeV and eta=" +
+    #         str(eta) + " for the "+wp+" working point is "+str(valsf))
+
+
+    # def pileupSF(self, tree):
+         
+
+
