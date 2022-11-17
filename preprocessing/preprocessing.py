@@ -297,7 +297,7 @@ class Dataset:
 
 
                 
-                if tree.numentries == 0:
+                if tree.num_entries == 0:
                    print(str(tr)+" has no entries - skipping file")
                    continue
                 # test 
