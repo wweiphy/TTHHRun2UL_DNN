@@ -12,7 +12,7 @@ import preprocessing
 
 
 """
-USE: python template_UL_Eval.py --outputdirectory=Eval_1106_UL --variableselection=variables --maxentries=20000 --cores=4
+USE: python3 template_UL_Eval_ttZ.py --outputdirectory=Eval_1117_ttZ_UL --variableselection=variables --maxentries=20000 --cores=4
 """
 
 usage="usage=%prog [options] \n"
