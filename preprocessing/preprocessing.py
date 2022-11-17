@@ -304,7 +304,7 @@ class Dataset:
                 # print(self.variables)
 
                 # convert to dataframe
-                df = tree[v for v in self.variables].array(library="pd")
+                df = tree[self.variables].array(library="pd")
                 # df = tree.pandas.df([v for v in self.variables])
                 print(df["Evt_CSV_avg"])
 
