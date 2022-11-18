@@ -531,6 +531,7 @@ class Dataset:
 
         sfDir = os.path.join(basedir, "data", "BTV", "{}_UL".format(self.dataEra))
         sfName = os.path.join(sfDir, "btagging.json.gz")
+        print("sfName is " + sfName)
         
         if sfName.endswith(".gz"):
             import gzip
