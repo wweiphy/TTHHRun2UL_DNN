@@ -569,7 +569,9 @@ class Dataset:
         for i in range(njet.size):
             
             jet_sf_perevent = 1
+
             for j in range(jet_pt[(i,0):i].size):
+                print(jet_flavor[(i, j):(i, j)])
                 jet_sf_perevent *= btvjson["deepJet_shape"].evaluate("central",
                                                                      jet_flavor[(i, j):(i, j)], jet_eta[(i, j):(i, j)], jet_pt[(i, j):(i, j)], jet_bTag[(i, j):(i, j)])
             jet_sf.append(jet_sf_perevent)
