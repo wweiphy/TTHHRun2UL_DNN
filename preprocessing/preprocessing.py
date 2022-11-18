@@ -568,7 +568,7 @@ class Dataset:
         # jet_down_cferr2 = []
         for i in range(njet.size):
             
-            jet_sf_perevent = 1
+            jet_sf_perevent = 1.
 
             for j in range(jet_pt["Jet_Pt"][i].size):
                 jet_sf_perevent *= btvjson["deepJet_shape"].evaluate("central",
