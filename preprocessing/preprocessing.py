@@ -304,8 +304,9 @@ class Dataset:
                 # print(self.variables)
 
                 # convert to dataframe
-                df = tree["Evt_CSV_avg"].array(library="pd")
+                # df = tree["Evt_CSV_avg"].array(library="pd")
                 # df = tree.pandas.df([v for v in self.variables])
+                df = tree.pandas.df("Evt_CSV_avg")
                 print(df["Evt_CSV_avg"])
 
                 # delete subentry index
