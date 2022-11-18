@@ -304,9 +304,9 @@ class Dataset:
                 # print(self.variables)
 
                 # convert to dataframe
-                df = tree.arrays(self.variables,library="pd")
-                # df = tree.pandas.df([v for v in self.variables])
-                print(df["Evt_CSV_avg"])
+                # df = tree.arrays(self.variables,library="pd")
+                df = tree.pandas.df([v for v in self.variables])
+                # print(df["Evt_CSV_avg"])
 
                 # delete subentry index
                 try: df = df.reset_index(1, drop = True)
@@ -336,8 +336,7 @@ class Dataset:
                 for vecvar in self.vector_variables:
 
                     # load dataframe with vector variable
-                    vec_df = tree.pd.df(vecvar)
-                    # vec_df = tree.pandas.df(vecvar)
+                    vec_df = tree.pandas.df(vecvar)
 
                     # loop over inices in vecvar list
                     for idx in self.vector_variables[vecvar]:
@@ -540,16 +539,11 @@ class Dataset:
         else:
             btvjson = _core.CorrectionSet.from_file(sfName)
 
-        jet_flavor = tree.pd.df("Jet_Flav")
-        jet_eta = tree.pd.df("Jet_Eta")
-        jet_pt = tree.pd.df("Jet_Pt")
-        jet_bTag = tree.pd.df("Jet_CSV")
-        njet = tree.pd.df("N_Jets")
-        # jet_flavor = tree.pandas.df("Jet_Flav")
-        # jet_eta = tree.pandas.df("Jet_Eta")
-        # jet_pt = tree.pandas.df("Jet_Pt")
-        # jet_bTag = tree.pandas.df("Jet_CSV")
-        # njet = tree.pandas.df("N_Jets")
+        jet_flavor = tree.pandas.df("Jet_Flav")
+        jet_eta = tree.pandas.df("Jet_Eta")
+        jet_pt = tree.pandas.df("Jet_Pt")
+        jet_bTag = tree.pandas.df("Jet_CSV")
+        njet = tree.pandas.df("N_Jets")
 
         # https: // cms-nanoaod-integration.web.cern.ch/commonJSONSFs/BTV_btagging_Run2_UL/BTV_btagging_2016postVFP_UL.html
 
