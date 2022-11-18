@@ -571,13 +571,14 @@ class Dataset:
             jet_sf_perevent = 1.
 
             for j in range(jet_pt["Jet_Pt"][i].size):
-                print(abs(jet_eta['Jet_Eta'][i][j]))
+
                 jet_sf_perevent *= btvjson["deepJet_shape"].evaluate("central", jet_flavor['Jet_Flav'][i][j], abs(float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))
             jet_sf.append(jet_sf_perevent)
 
         df.loc[:, "Weight_CSV_UL"] = 0.
         # append column to original dataframe
-        jet_sf = pd.DataFrame(jet_sf, columns="Weight_CSV_UL")
+        print(jet_sf)
+        jet_sf = pd.DataFrame(jet_sf, columns=["Weight_CSV_UL"])
         df.update(jet_sf)
         return df
         # b_jet_sf = btvjson["deepJet_shape"].evaluate("up_hfstats2",
