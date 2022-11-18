@@ -5,6 +5,7 @@ import numpy as np
 import re
 import glob
 import multiprocessing as mp
+from correctionlib import _core
 
 filedir = os.path.dirname(os.path.realpath(__file__))
 basedir = os.path.dirname(filedir)
@@ -322,7 +323,6 @@ class Dataset:
                 # handle vector variables, loop over them
 
                 if self.do_SFs:
-                    from correctionlib import _core
 
                     df = self.bTagSF(tree, df)
 
