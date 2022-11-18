@@ -6,6 +6,9 @@ import re
 import glob
 import multiprocessing as mp
 
+filedir = os.path.dirname(os.path.realpath(__file__))
+basedir = os.path.dirname(filedir)
+
 
 # multi processing magic
 # TODO - A value is trying to be set on a copy of a slice from a DataFrame. Try using .loc[row_indexer, col_indexer] = value instead. See the caveats in the documentation: http: // pandas.pydata.org/pandas-docs/stable/indexing.html; self.obj[key] = _infer_fill_value(value)
@@ -320,8 +323,6 @@ class Dataset:
 
                 if self.do_SFs:
                     from correctionlib import _core
-                    filedir = os.path.dirname(os.path.realpath(__file__))
-                    basedir = os.path.dirname(filedir)
 
                     df = self.bTagSF(tree, df)
 
