@@ -572,8 +572,7 @@ class Dataset:
 
             for j in range(jet_pt["Jet_Pt"][i].size):
                 print(abs(jet_eta['Jet_Eta'][i][j]))
-                sf = btvjson["deepJet_shape"].evaluate("central", jet_flavor['Jet_Flav'][i][j], abs(float(jet_eta['Jet_Eta'][i][j])), jet_pt['Jet_Pt'][i][j], jet_bTag['Jet_CSV'][i][j])
-                jet_sf_perevent *= btvjson["deepJet_shape"].evaluate("central", jet_flavor['Jet_Flav'][i][j], abs(float(jet_eta['Jet_Eta'][i][j])), jet_pt['Jet_Pt'][i][j], jet_bTag['Jet_CSV'][i][j])
+                jet_sf_perevent *= btvjson["deepJet_shape"].evaluate("central", jet_flavor['Jet_Flav'][i][j], abs(float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))
             jet_sf.append(jet_sf_perevent)
 
         df.loc[:, "Weight_CSV_UL"] = 0.
