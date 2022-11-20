@@ -127,7 +127,8 @@ dataset.addBaseSelection(base_selection)
 dataset.addSample(
     sampleName="TTZ",
     ntuples=ntuplesPath2 +
-    "/2017/ntuple/TTZToBB_TuneCP5_13TeV-amcatnlo-pythia8/sl_LEG_ntuple_2017/*/*/*nominal*.root",
+    "/2017/ntuple/TTZToBB_TuneCP5_13TeV-amcatnlo-pythia8/sl_LEG_ntuple_2017/221104_182957/*/*nominal*.root",
+    # 221118_234219
     #    ntuples     = ntuplesPath+"/ttH_220208.root",
     categories=ttZ_categories,
     #    lumiWeight  = 41.5,
