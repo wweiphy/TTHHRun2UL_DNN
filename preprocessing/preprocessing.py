@@ -324,10 +324,11 @@ class Dataset:
 
                 if self.do_SFs:
 
-                    df = self.bTagSF(tree, df)
+                    df = self.CalculateSFs(tree, df)
 
-                    print("df bTag SF: ")
-                    print(df["Weight_CSV_UL"])
+                    # print("df bTag SF: ")
+                    # print(df["Weight_CSV_UL"])
+                    print(df["Weight_JetPUID"])
                 # if self.do_pileup:
                     # df = self.pileupSF(tree, df)
 
@@ -527,7 +528,7 @@ class Dataset:
             sampleFile.write(processedSamples)
 
 
-    def bTagSF(self, tree, df):
+    def CalculateSFs(self, tree, df):
 
         bsfDir = os.path.join(basedir, "data", "BTV", "{}_UL".format(self.dataEra))
         bsfName = os.path.join(bsfDir, "btagging.json.gz")
@@ -605,7 +606,7 @@ class Dataset:
         df.loc[:, "Weight_JetPUID"] = 0.
         # append column to original dataframe
         # print(jet_btagsf)
-        print(jet_PUIDsf)
+        # print(jet_PUIDsf)
         jet_btagsf = pd.DataFrame(jet_btagsf, columns=["Weight_CSV_UL"])
         jet_PUIDsf = pd.DataFrame(jet_PUIDsf, columns=["Weight_JetPUID"])
         df.update(jet_btagsf)
@@ -619,28 +620,6 @@ class Dataset:
 
 
 
-
-    # def PUJetSF(self,tree):
-
-    #     fname = "../POG/JME/2017_EOY/2017_jmar.json.gz"
-
-
-    #     if fname.endswith(".json.gz"):
-    #         import gzip
-    #         with gzip.open(fname, 'rt') as file:
-    #             data = file.read().strip()
-    #             evaluator = _core.CorrectionSet.from_string(data)
-    #     else:
-    #         evaluator = _core.CorrectionSet.from_file(fname)
-
-
-    #     ##### PU JetID
-    #     eta, pt, syst, wp = 2.0, 20., "nom", "L"
-    #     map_name = "PUJetID_eff"
-    #     valsf = evaluator[map_name].evaluate(eta, pt, syst, wp)
-    #     print("Example for "+map_name)
-    #     print("The "+syst+" SF for a Jet with pt="+str(pt) + " GeV and eta=" +
-    #         str(eta) + " for the "+wp+" working point is "+str(valsf))
 
          
 
