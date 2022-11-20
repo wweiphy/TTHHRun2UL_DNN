@@ -532,7 +532,8 @@ class Dataset:
         bsfDir = os.path.join(basedir, "data", "BTV", "{}_UL".format(self.dataEra))
         bsfName = os.path.join(bsfDir, "btagging.json.gz")
 
-        PUIDsfDir = os.path.join(basedir, "data", "PUJetIDSFs", self.dataEra)
+        PUIDsfDir = os.path.join(
+            basedir, "data", "PUJetIDSFs", "{}".format(self.dataEra))
         PUIDsfName = os.path.join(PUIDsfDir, "jmar.json.gz")
         
         if bsfName.endswith(".gz"):
