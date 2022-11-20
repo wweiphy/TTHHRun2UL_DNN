@@ -529,17 +529,27 @@ class Dataset:
 
     def bTagSF(self, tree, df):
 
-        sfDir = os.path.join(basedir, "data", "BTV", "{}_UL".format(self.dataEra))
-        sfName = os.path.join(sfDir, "btagging.json.gz")
-        print("sfName is " + sfName)
+        bsfDir = os.path.join(basedir, "data", "BTV", "{}_UL".format(self.dataEra))
+        bsfName = os.path.join(bsfDir, "btagging.json.gz")
+
+        PUIDsfDir = os.path.join(basedir, "data", "PUJetIDSFs", self.dataEra)
+        PUIDsfName = os.path.join(PUIDsfDir, "jmar.json.gz")
         
-        if sfName.endswith(".gz"):
+        if bsfName.endswith(".gz"):
             import gzip
-            with gzip.open(sfName, "rt") as f:
+            with gzip.open(bsfName, "rt") as f:
                 data = f.read().strip()
             btvjson = _core.CorrectionSet.from_string(data)
         else:
-            btvjson = _core.CorrectionSet.from_file(sfName)
+            btvjson = _core.CorrectionSet.from_file(bsfName)
+
+        if PUIDsfName.endswith(".gz"):
+            import gzip
+            with gzip.open(PUIDsfName, "rt") as f:
+                data = f.read().strip()
+            PUIDjson = _core.CorrectionSet.from_string(data)
+        else:
+            PUIDjson = _core.CorrectionSet.from_file(PUIDsfName)
 
         jet_flavor = tree.pandas.df("Jet_Flav")
         jet_eta = tree.pandas.df("Jet_Eta")
@@ -549,7 +559,8 @@ class Dataset:
 
         # https: // cms-nanoaod-integration.web.cern.ch/commonJSONSFs/BTV_btagging_Run2_UL/BTV_btagging_2016postVFP_UL.html
 
-        jet_sf = []
+        jet_btagsf = []
+        jet_PUIDsf = []
         # jet_up_lf = []
         # jet_down_lf = []
         # jet_up_hf = []
@@ -568,18 +579,36 @@ class Dataset:
         # jet_down_cferr2 = []
         for i in range(njet.size):
             
-            jet_sf_perevent = 1.
+            jet_btagsf_perevent = 1.
+            jet_PUIDsf_perevent = 1.
 
             for j in range(jet_pt["Jet_Pt"][i].size):
 
-                jet_sf_perevent *= btvjson["deepJet_shape"].evaluate("central", jet_flavor['Jet_Flav'][i][j], abs(float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))
-            jet_sf.append(jet_sf_perevent)
+
+                # btagging SF
+                jet_btagsf_perevent *= btvjson["deepJet_shape"].evaluate("central", jet_flavor['Jet_Flav'][i][j], abs(float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))
+
+                # PU JetID SF
+                #     eta, pt, syst, wp = 2.0, 20., "nom", "L"
+                #     map_name = "PUJetID_eff"
+                if float(jet_pt['Jet_Pt'][i][j]) < 50.:
+                    jet_PUIDsf_perevent *= PUIDjson["PUJetID_eff"].evaluate(
+                        float(jet_eta['Jet_Eta'][i][j]), float(jet_pt['Jet_Pt'][i][j]), "nom", "L")
+                #     print("Example for "+map_name)
+                #     print("The "+syst+" SF for a Jet with pt="+str(pt) + " GeV and eta=" +
+                #         str(eta) + " for the "+wp+" working point is "+str(valsf))
+            jet_btagsf.append(jet_btagsf_perevent)
+            jet_PUIDsf.append(jet_PUIDsf_perevent)
 
         df.loc[:, "Weight_CSV_UL"] = 0.
+        df.loc[:, "Weight_JetPUID"] = 0.
         # append column to original dataframe
-        print(jet_sf)
-        jet_sf = pd.DataFrame(jet_sf, columns=["Weight_CSV_UL"])
-        df.update(jet_sf)
+        # print(jet_btagsf)
+        print(jet_PUIDsf)
+        jet_btagsf = pd.DataFrame(jet_btagsf, columns=["Weight_CSV_UL"])
+        jet_PUIDsf = pd.DataFrame(jet_PUIDsf, columns=["Weight_JetPUID"])
+        df.update(jet_btagsf)
+        df.update(jet_PUIDsf)
         return df
         # b_jet_sf = btvjson["deepJet_shape"].evaluate("up_hfstats2",
         #                                             5, 1.2, 60., 0.95)
@@ -612,8 +641,6 @@ class Dataset:
     #     print("The "+syst+" SF for a Jet with pt="+str(pt) + " GeV and eta=" +
     #         str(eta) + " for the "+wp+" working point is "+str(valsf))
 
-
-    # def pileupSF(self, tree):
          
 
 
