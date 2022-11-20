@@ -328,12 +328,7 @@ class Dataset:
 
                     # print("df bTag SF: ")
                     # print(df["Weight_CSV_UL"])
-                    print(df["Weight_JetPUID"])
-                # if self.do_pileup:
-                    # df = self.pileupSF(tree, df)
-
-                # if self.do_PUJetID:
-                #     PUJetID(tree)
+                    # print(df["Weight_JetPUID"])
 
                 for vecvar in self.vector_variables:
 
