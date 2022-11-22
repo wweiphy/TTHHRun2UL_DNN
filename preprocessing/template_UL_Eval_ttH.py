@@ -114,6 +114,7 @@ dataset = preprocessing.Dataset(
     naming      = options.Name,
     maxEntries  = options.maxEntries,
     ncores      = options.numCores,
+    do_SFs=True,
     )
 
 # add base event selection
