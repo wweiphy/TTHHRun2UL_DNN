@@ -15,7 +15,7 @@ import DNN_framework.DNN as DNN
 import DNN_framework.data_frame as df
 
 
-# python eval_template_old.py -o 221114_test_evaluation_old -i 221114_test_old_50_ge4j_ge3t --signalclass=ttHH --plot --printroc
+# python eval_template_old.py -o 221122_test_evaluation_old -i 221114_test_old_50_ge4j_ge3t --signalclass=ttHH --plot --printroc
 
 
 
@@ -118,7 +118,7 @@ input_samples = df.InputSamples(input_path=dfDirectory, addSampleSuffix=config["
 
 for sample in config["eventClasses"]:
         # total_weight_expr = "x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom"
-        total_weight_expr = "x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom * x.lumiWeight"
+        total_weight_expr = "x.Weight_XS * x.Weight_CSV_UL * x.Weight_GEN_nom * x.lumiWeight"
         # normalization_weight = 1
         if sample["sampleLabel"] == "ttHH":
                 # sample_train_weight = 0.5
