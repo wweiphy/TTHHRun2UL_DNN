@@ -9,11 +9,11 @@ import imp
 import types
 
 
-nodeNames = ['ttHH','ttH','ttZ','ttZH','ttZZ','ttlf','ttcc','ttb','tt2b','ttbb','ttbbb','tt4b']
-classNames = ['ttHH','ttH','ttZ','ttZH','ttZZ','ttlf','ttcc','ttb','tt2b','ttbb','ttbbb','tt4b']
+# nodeNames = ['ttHH','ttH','ttZ','ttZH','ttZZ','ttlf','ttcc','ttb','tt2b','ttbb','ttbbb','tt4b']
+# classNames = ['ttHH','ttH','ttZ','ttZH','ttZZ','ttlf','ttcc','ttb','tt2b','ttbb','ttbbb','tt4b']
 
-# nodeNames = ['ttHH','ttH','ttZ','ttZH','ttZZ','ttlf','ttcc','ttmb','ttnb']
-# classNames = ['ttHH','ttH','ttZ','ttZH','ttZZ','ttlf','ttcc','ttmb','ttnb']
+nodeNames = ['ttHH','ttH','ttZ','ttZH','ttZZ','ttlf','ttcc','ttmb','ttnb']
+classNames = ['ttHH','ttH','ttZ','ttZH','ttZZ','ttlf','ttcc','ttmb','ttnb']
 
 
 # hadd -f output_limit.root 1 2 3
