@@ -15,7 +15,7 @@ import DNN_framework.DNN as DNN
 import DNN_framework.data_frame as df
 
 
-# python eval_template_old.py -o 221108_test_evaluation_old -i 221107_test_old_ge4j_ge3t --signalclass=ttHH --plot --printroc
+# python eval_template_old.py -o 221114_test_evaluation_old -i 221114_test_old_50_ge4j_ge3t --signalclass=ttHH --plot --printroc
 
 
 
@@ -97,7 +97,7 @@ if options.binary:
 
 configFile = inPath+"/checkpoints/net_config.json"
   # TODO - modify this
-dfDirectory = "/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/workdir/Eval_1106_UL/"
+dfDirectory = "/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/workdir/Eval_1122_UL/"
    
 if not os.path.exists(configFile):
         sys.exit(
