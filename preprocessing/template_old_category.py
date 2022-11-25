@@ -206,27 +206,27 @@ dataset.addBaseSelection(base_selection)
 # )
 
 dataset.addSample(
-    sampleName  = "TT4b",
+    sampleName="TT4b",
     ntuples=ntuplesPath2 +
-    "/2017/ntuple/TT4b_TuneCP5_13TeV_madgraph_pythia8/sl_LEG_ntuple_2017/*/*/*nominal*.root",
-    categories=ttbar_categories,
-#    lumiWeight  = 41.5,
-    selections  = None,#ttbar_selection,
-#    selections  = ttbar_selection,
-    islocal     = False
-      ) # not finished
+    "/2017/ntuple/TT4b_TuneCP5_13TeV_madgraph_pythia8/sl_LEG_ntuple_2017/221122_212903/*/*nominal*.root",
+    categories=ttmb_categories,
+    #    lumiWeight  = 41.5,
+    selections=None,  # ttbar_selection,
+    #    selections  = ttbar_selection,
+    islocal=False
+)  # not finished
 
-      
+
 dataset.addSample(
-    sampleName  = "TTbbSL",
+    sampleName="TTbbSL",
     ntuples=ntuplesPath2 +
-    "/2017/ntuple/TTbb_4f_TTToSemiLeptonic_TuneCP5-Powheg-Openloops-Pythia8/sl_LEG_ntuple_2017/*/*/*nominal*.root",
-    categories  = ttbar_categories,
-#    lumiWeight  = 41.5,
-    selections  = None,#ttbar_selection,
-#    selections  = ttbar_selection,
-    islocal     = False
-      )
+    "/2017/ntuple/TTbb_4f_TTToSemiLeptonic_TuneCP5-Powheg-Openloops-Pythia8/sl_LEG_ntuple_2017/22112*/*/*nominal*.root",
+    categories=ttmb_categories,
+    #    lumiWeight  = 41.5,
+    selections=None,  # ttbar_selection,
+    #    selections  = ttbar_selection,
+    islocal=False
+)
 
 # dataset.addSample(
 #     sampleName="TTbbToDL",
