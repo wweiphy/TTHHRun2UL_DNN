@@ -12,7 +12,7 @@ import preprocessing
 
 
 """
-USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_ttHH.py --outputdirectory=Eval_1117_UL_ttHH --variableselection=variables --maxentries=20000 --cores=1
+USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_ttHH.py --outputdirectory=Eval_1117_UL_ttHH --variableselection=variables --maxentries=20000 --cores=4
 """
 
 usage="usage=%prog [options] \n"
@@ -124,11 +124,11 @@ dataset.addBaseSelection(base_selection)
 dataset.addSample(
     sampleName="TTHHTo4b",
     ntuples=ntuplesPath2 +
-    "/2017/ntuple/TTHHTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2017/221104_182445/*/*nominal*.root",
+    "/2017/ntuple/TTHHTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2017/221122_224553/*/*nominal*.root",
     # 221118_232702
     #    ntuples     = ntuplesPath+"/ttHH_4b.root",
     categories=ttHH_categories,
-    lumiWeight  = 1.105,
+    # lumiWeight  = 1.105,
     selections  = None,
     # selections=ttHH_selection,
     islocal=False

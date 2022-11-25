@@ -12,7 +12,7 @@ import preprocessing
 
 
 """
-USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_ttbar.py --outputdirectory=Eval_1117_UL_ttbar --variableselection=variables --maxentries=20000 --cores=1
+USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_ttbar.py --outputdirectory=Eval_1117_UL_ttbar --variableselection=variables --maxentries=20000 --cores=4
 """
 
 usage="usage=%prog [options] \n"
@@ -106,6 +106,7 @@ ttmb_categories.addCategory("ttnb", selection = "(GenEvt_I_TTPlusBB == 4 and Gen
 
 ntuplesPath = "/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_10_6_29/src/BoostedTTH/crab/2017UL/ntuple/crab_ntuple"
 ntuplesPath2 = "/eos/uscms/store/group/lpctthrun2/wwei/UL"
+ntuplesPath3 = "/store/user/wwei"
 
 
 
@@ -124,10 +125,10 @@ dataset2.addBaseSelection(base_selection)
 dataset2.addSample(
     sampleName="TTSL",
     ntuples=ntuplesPath2 +
-    "/2017/ntuple/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2017/221104_182636/*/*nominal*.root",
+    "/2017/ntuple/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2017/221122_225601/*/*nominal*.root",
     #    ntuples     = ntuplesPath+"/ttSL_220210.root",
     categories=ttbar_categories,
-    lumiWeight  = 5.0,
+    # lumiWeight  = 1.0,
     selections=None,  # ttbar_selection,
     #    selections  = ttbar_selection
     islocal=False
@@ -135,11 +136,11 @@ dataset2.addSample(
 
 dataset2.addSample(
     sampleName="TTToDL",
-    ntuples=ntuplesPath2 +
-    "/2017/ntuple/TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2017/221106_030354/*/*nominal*.root",
+    ntuples=ntuplesPath3 +
+    "/TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2017/221122_224955/*/*nominal*.root",
     #    ntuples     = ntuplesPath+"/ttSL_220210.root",
     categories=ttbar_categories,
-    lumiWeight  = 5.0,
+    # lumiWeight  = 1.0,
     selections=None,  # ttbar_selection,
     #    selections  = ttbar_selection
     islocal=False

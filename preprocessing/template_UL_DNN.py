@@ -12,7 +12,7 @@ import preprocessing
 
 
 """
-USE: python template_UL_DNN.py --outputdirectory=DNN_1105_UL --variableselection=variables --maxentries=20000 --cores=4
+USE: python template_UL_DNN.py --outputdirectory=DNN_1124_UL --variableselection=variables --maxentries=20000 --cores=4
 """
 
 usage="usage=%prog [options] \n"
@@ -166,7 +166,7 @@ dataset.addSample(
     #    lumiWeight  = 41.5,
     selections=None,  # ttbar_selection,
     #    selections  = ttbar_selection,
-    islocal=True
+    islocal=False
 )
 
 dataset.addSample(
@@ -190,13 +190,13 @@ dataset.addSample(
     #    lumiWeight  = 41.5,
     selections=None,  # ttbar_selection,
     #    selections  = ttbar_selection,
-    islocal=True
+    islocal=False
 )
 
 dataset.addSample(
     sampleName="TTZ",
     ntuples=ntuplesPath2 +
-    "/2017/ntuple/TTZToBB_TuneCP5_13TeV-amcatnlo-pythia8/sl_LEG_ntuple_2017/22112*/*/*nominal*.root",
+    "/2017/ntuple/TTZToBB_TuneCP5_13TeV-amcatnlo-pythia8/sl_LEG_ntuple_2017/221123_014220/*/*nominal*.root",
     #    ntuples     = ntuplesPath+"/ttH_220208.root",
     categories=ttZ_categories,
     #    lumiWeight  = 41.5,
@@ -220,7 +220,7 @@ dataset.addSample(
 dataset.addSample(
     sampleName  = "TTbbSL",
     ntuples=ntuplesPath2 +
-    "/2017/ntuple/TTbb_4f_TTToSemiLeptonic_TuneCP5-Powheg-Openloops-Pythia8/sl_LEG_ntuple_2017/22112*/*/*nominal*.root",
+    "/2017/ntuple/TTbb_4f_TTToSemiLeptonic_TuneCP5-Powheg-Openloops-Pythia8/sl_LEG_ntuple_2017/221123_022737/*/*nominal*.root",
     categories  = ttmb_categories,
 #    lumiWeight  = 41.5,
     selections  = None,#ttbar_selection,

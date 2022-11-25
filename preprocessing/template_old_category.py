@@ -12,7 +12,7 @@ import preprocessing
 
 
 """
-USE: python template_old_category.py --outputdirectory=DNN_1106_old --variableselection=variables --maxentries=20000 --cores=4
+USE: python template_old_category.py --outputdirectory=DNN_1124_old --variableselection=variables --maxentries=20000 --cores=4
 """
 
 usage="usage=%prog [options] \n"
@@ -220,7 +220,7 @@ dataset.addSample(
 dataset.addSample(
     sampleName="TTbbSL",
     ntuples=ntuplesPath2 +
-    "/2017/ntuple/TTbb_4f_TTToSemiLeptonic_TuneCP5-Powheg-Openloops-Pythia8/sl_LEG_ntuple_2017/22112*/*/*nominal*.root",
+    "/2017/ntuple/TTbb_4f_TTToSemiLeptonic_TuneCP5-Powheg-Openloops-Pythia8/sl_LEG_ntuple_2017/221123_022737/*/*nominal*.root",
     categories=ttmb_categories,
     #    lumiWeight  = 41.5,
     selections=None,  # ttbar_selection,
