@@ -59,7 +59,7 @@ class Sample:
 
 
 class Dataset:
-    def __init__(self, outputdir, tree=['MVATree'], naming='', maxEntries=50000, varName_Run='Evt_Run', varName_LumiBlock='Evt_Lumi', varName_Event='Evt_ID',ncores=1, dataEra = 2017, do_SFs=False):
+    def __init__(self, outputdir, tree=['MVATree'], naming='', maxEntries=50000, varName_Run='Evt_Run', varName_LumiBlock='Evt_Lumi', varName_Event='Evt_ID',ncores=1, dataEra = 2017, do_EvalSFs=False):
         # settings for paths
         self.outputdir = outputdir
         self.naming = naming
@@ -68,7 +68,7 @@ class Dataset:
         self.varName_LumiBlock = varName_LumiBlock
         self.varName_Event = varName_Event
         self.dataEra = dataEra
-        self.do_SFs = do_SFs
+        self.do_EvalSFs = do_EvalSFs
 
 
         # generating output dir
@@ -322,10 +322,15 @@ class Dataset:
                 # print(self.vector_variables)
                 # handle vector variables, loop over them
 
-                if self.do_SFs:
-
-                    df = self.CalculateSFs(tree, df)
-
+                if self.do_EvalSFs:
+                    # for DNN evaluation
+                    if "nominal" in file:
+                        df = self.CalculateSFs(tree, df)
+                    else:
+                        df = self.CalculateSFsEval(tree,df)
+                else:
+                    # for DNN, only Weight_CSV_UL is needed
+                    df = self.CalculateSFsEval(tree,df)
                     # print("df bTag SF: ")
                     # print(df["Weight_CSV_UL"])
                     # print(df["Weight_JetPUID"])
@@ -556,28 +561,52 @@ class Dataset:
 
         # https: // cms-nanoaod-integration.web.cern.ch/commonJSONSFs/BTV_btagging_Run2_UL/BTV_btagging_2016postVFP_UL.html
 
-        jet_btagsf = []
         jet_PUIDsf = []
-        # jet_up_lf = []
-        # jet_down_lf = []
-        # jet_up_hf = []
-        # jet_down_hf = []
-        # jet_up_hfstats1 = []
-        # jet_down_hfstats1 = []
-        # jet_up_hfstats2 = []
-        # jet_down_hfstats2 = []
-        # jet_up_lfstats1 = []
-        # jet_down_lfstats1 = []
-        # jet_up_lfstats2 = []
-        # jet_down_lfstats2 = []
-        # jet_up_cferr1 = []
-        # jet_down_cferr1 = []
-        # jet_up_cferr2 = []
-        # jet_down_cferr2 = []
+        # jet_PUIDsfup = []
+        # jet_PUIDsfdown = []
+
+        jet_btagsf = []
+        # jet_btagsf_uplf = []
+        # jet_btagsf_downlf = []
+        # jet_btagsf_uphf = []
+        # jet_btagsf_downhf = []
+        # jet_btagsf_uphfstats1 = []
+        # jet_btagsf_downhfstats1 = []
+        # jet_btagsf_uphfstats2 = []
+        # jet_btagsf_downhfstats2 = []
+        # jet_btagsf_uplfstats1 = []
+        # jet_btagsf_downlfstats1 = []
+        # jet_btagsf_uplfstats2 = []
+        # jet_btagsf_downlfstats2 = []
+        # jet_btagsf_upcferr1 = []
+        # jet_btagsf_downcferr1 = []
+        # jet_btagsf_upcferr2 = []
+        # jet_btagsf_downcferr2 = []
         for i in range(njet.size):
             
-            jet_btagsf_perevent = 1.
+            
             jet_PUIDsf_perevent = 1.
+            # jet_PUIDsfup_perevent = 1.
+            # jet_PUIDsfdown_perevent = 1.
+
+
+            jet_btagsf_perevent = 1.
+            # jet_btagsf_uplf_perevent = 1.
+            # jet_btagsf_downlf_perevent = 1.
+            # jet_btagsf_uphf_perevent = 1.
+            # jet_btagsf_downhf_perevent = 1.
+            # jet_btagsf_uphfstats1_perevent = 1.
+            # jet_btagsf_downhfstats1_perevent = 1.
+            # jet_btagsf_uphfstats2_perevent = 1.
+            # jet_btagsf_downhfstats2_perevent = 1.
+            # jet_btagsf_uplfstats1_perevent = 1.
+            # jet_btagsf_downlfstats1_perevent = 1.
+            # jet_btagsf_uplfstats2_perevent = 1.
+            # jet_btagsf_downlfstats2_perevent = 1.
+            # jet_btagsf_upcferr1_perevent = 1.
+            # jet_btagsf_downcferr1_perevent = 1.
+            # jet_btagsf_upcferr2_perevent = 1.
+            # jet_btagsf_downcferr2_perevent = 1.
 
             for j in range(jet_pt["Jet_Pt"][i].size):
 
@@ -585,32 +614,372 @@ class Dataset:
                 # btagging SF
                 jet_btagsf_perevent *= btvjson["deepJet_shape"].evaluate("central", jet_flavor['Jet_Flav'][i][j], abs(float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))
 
-                # PU JetID SF
-                #     eta, pt, syst, wp = 2.0, 20., "nom", "L"
-                #     map_name = "PUJetID_eff"
+                # jet_btagsf_uplf_perevent = btvjson["deepJet_shape"].evaluate("up_lf", jet_flavor['Jet_Flav'][i][j], abs(
+                #     float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))
+                # jet_btagsf_downlf_perevent = btvjson["deepJet_shape"].evaluate("down_lf", jet_flavor['Jet_Flav'][i][j], abs(
+                #     float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))
+                # jet_btagsf_uphf_perevent = btvjson["deepJet_shape"].evaluate("up_hf", jet_flavor['Jet_Flav'][i][j], abs(
+                #     float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))
+                # jet_btagsf_downhf_perevent = btvjson["deepJet_shape"].evaluate("down_hf", jet_flavor['Jet_Flav'][i][j], abs(
+                #     float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))
+                # jet_btagsf_uphfstats1_perevent = btvjson["deepJet_shape"].evaluate("up_hfstats1", jet_flavor['Jet_Flav'][i][j], abs(
+                #     float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))
+                # jet_btagsf_downhfstats1_perevent = btvjson["deepJet_shape"].evaluate("down_hfstats1", jet_flavor['Jet_Flav'][i][j], abs(
+                #     float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))
+                # jet_btagsf_uphfstats2_perevent = btvjson["deepJet_shape"].evaluate("up_hfstats2", jet_flavor['Jet_Flav'][i][j], abs(
+                #     float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))
+                # jet_btagsf_downhfstats2_perevent = btvjson["deepJet_shape"].evaluate("down_hfstats2", jet_flavor['Jet_Flav'][i][j], abs(
+                #     float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))
+                # jet_btagsf_uplfstats1_perevent = btvjson["deepJet_shape"].evaluate("up_lfstats1", jet_flavor['Jet_Flav'][i][j], abs(
+                #     float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))
+                # jet_btagsf_downlfstats1_perevent = btvjson["deepJet_shape"].evaluate("down_lfstats1", jet_flavor['Jet_Flav'][i][j], abs(
+                #     float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))
+                # jet_btagsf_uplfstats2_perevent = btvjson["deepJet_shape"].evaluate("up_lfstats2", jet_flavor['Jet_Flav'][i][j], abs(
+                #     float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))
+                # jet_btagsf_downlfstats2_perevent = btvjson["deepJet_shape"].evaluate("down_lfstats2", jet_flavor['Jet_Flav'][i][j], abs(
+                #     float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))
+                # jet_btagsf_upcferr1_perevent = btvjson["deepJet_shape"].evaluate("central", jet_flavor['Jet_Flav'][i][j], abs(float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j])) 
+                # jet_btagsf_downcferr1_perevent = btvjson["deepJet_shape"].evaluate("up_cferr1", jet_flavor['Jet_Flav'][i][j], abs(
+                #     float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))
+                # jet_btagsf_upcferr2_perevent = btvjson["deepJet_shape"].evaluate("up_cferr2", jet_flavor['Jet_Flav'][i][j], abs(
+                #     float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))
+                # jet_btagsf_downcferr2_perevent = btvjson["deepJet_shape"].evaluate("down_cferr2", jet_flavor['Jet_Flav'][i][j], abs(
+                #     float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))
+
                 if float(jet_pt['Jet_Pt'][i][j]) < 50.:
                     jet_PUIDsf_perevent *= PUIDjson["PUJetID_eff"].evaluate(
                         float(jet_eta['Jet_Eta'][i][j]), float(jet_pt['Jet_Pt'][i][j]), "nom", "L")
-                #     print("Example for "+map_name)
-                #     print("The "+syst+" SF for a Jet with pt="+str(pt) + " GeV and eta=" +
-                #         str(eta) + " for the "+wp+" working point is "+str(valsf))
-            jet_btagsf.append(jet_btagsf_perevent)
+                #     jet_PUIDsfup_perevent *= PUIDjson["PUJetID_eff"].evaluate(
+                #         float(jet_eta['Jet_Eta'][i][j]), float(jet_pt['Jet_Pt'][i][j]), "up", "L")
+                #     jet_PUIDsfdown_perevent *= PUIDjson["PUJetID_eff"].evaluate(
+                #         float(jet_eta['Jet_Eta'][i][j]), float(jet_pt['Jet_Pt'][i][j]), "down", "L")
+
             jet_PUIDsf.append(jet_PUIDsf_perevent)
+            # jet_PUIDsfup.append(jet_PUIDsfup_perevent)
+            # jet_PUIDsfdown.append(jet_PUIDsfdown_perevent)
+            jet_btagsf.append(jet_btagsf_perevent)
+            # jet_btagsf_uplf.append(jet_btagsf_uplf_perevent)
+            # jet_btagsf_downlf.append(jet_btagsf_downlf_perevent)
+            # jet_btagsf_uphf.append(jet_btagsf_uphf_perevent)
+            # jet_btagsf_downhf.append(jet_btagsf_downhf_perevent)
+            # jet_btagsf_uphfstats1.append(jet_btagsf_uphfstats1_perevent)
+            # jet_btagsf_downhfstats1.append(jet_btagsf_downhfstats1_perevent)
+            # jet_btagsf_uphfstats2.append(jet_btagsf_uphfstats2_perevent)
+            # jet_btagsf_downhfstats2.append(jet_btagsf_downhfstats2_perevent)
+            # jet_btagsf_uplfstats1.append(jet_btagsf_uplfstats1_perevent)
+            # jet_btagsf_downlfstats1.append(jet_btagsf_downlfstats1_perevent)
+            # jet_btagsf_uplfstats2.append(jet_btagsf_uplfstats2_perevent)
+            # jet_btagsf_downlfstats2.append(jet_btagsf_downlfstats2_perevent)
+            # jet_btagsf_upcferr1.append(jet_btagsf_upcferr1_perevent)
+            # jet_btagsf_downcferr1.append(jet_btagsf_downcferr1_perevent)
+            # jet_btagsf_upcferr2.append(jet_btagsf_upcferr2_perevent)
+            # jet_btagsf_downcferr2.append(jet_btagsf_downcferr2_perevent)
 
         df.loc[:, "Weight_CSV_UL"] = 0.
+        # df.loc[:, "Weight_CSV_UL_uplf"] = 0.
+        # df.loc[:, "Weight_CSV_UL_downlf"] = 0.
+        # df.loc[:, "Weight_CSV_UL_uphf"] = 0.
+        # df.loc[:, "Weight_CSV_UL_downhf"] = 0.
+        # df.loc[:, "Weight_CSV_UL_uphfstats1"] = 0.
+        # df.loc[:, "Weight_CSV_UL_downhfstats1"] = 0.
+        # df.loc[:, "Weight_CSV_UL_uphfstats2"] = 0.
+        # df.loc[:, "Weight_CSV_UL_downhfstats2"] = 0.
+        # df.loc[:, "Weight_CSV_UL_uplfstats1"] = 0.
+        # df.loc[:, "Weight_CSV_UL_downlfstats1"] = 0.
+        # df.loc[:, "Weight_CSV_UL_uplfstats2"] = 0.
+        # df.loc[:, "Weight_CSV_UL_downlfstats2"] = 0.
+        # df.loc[:, "Weight_CSV_UL_upcferr1"] = 0.
+        # df.loc[:, "Weight_CSV_UL_downcferr1"] = 0.
+        # df.loc[:, "Weight_CSV_UL_upcferr2"] = 0.
+        # df.loc[:, "Weight_CSV_UL_downcferr2"] = 0.
+
+
         df.loc[:, "Weight_JetPUID"] = 0.
+        # df.loc[:, "Weight_JetPUID_up"] = 0.
+        # df.loc[:, "Weight_JetPUID_down"] = 0.
         # append column to original dataframe
         # print(jet_btagsf)
         # print(jet_PUIDsf)
         jet_btagsf = pd.DataFrame(jet_btagsf, columns=["Weight_CSV_UL"])
+        # jet_btagsf_uplf = pd.DataFrame(jet_btagsf_uplf, columns=["Weight_CSV_UL_uplf"])
+        # jet_btagsf_downlf = pd.DataFrame(jet_btagsf_downlf, columns=["Weight_CSV_UL_downlf"])
+        # jet_btagsf_uphf = pd.DataFrame(jet_btagsf_uphf, columns=["Weight_CSV_UL_uphf"])
+        # jet_btagsf_downhf = pd.DataFrame(jet_btagsf_downhf, columns=["Weight_CSV_UL_downhf"])
+        # jet_btagsf_uplfstats1 = pd.DataFrame(jet_btagsf_uplfstats1, columns=["Weight_CSV_UL_uplfstats1"])
+        # jet_btagsf_downlfstats1 = pd.DataFrame(jet_btagsf, columns=["Weight_CSV_UL_downlfstats1"])
+        # jet_btagsf_uplfstats2 = pd.DataFrame(jet_btagsf_uplfstats2, columns=["Weight_CSV_UL_uplfstats2"])
+        # jet_btagsf_downlfstats1 = pd.DataFrame(jet_btagsf_downlfstats2, columns=["Weight_CSV_UL_downlfstats2"])
+        # jet_btagsf_uphfstats1 = pd.DataFrame(jet_btagsf_uphfstats1, columns=["Weight_CSV_UL_uphfstats1"])
+        # jet_btagsf_downhfstats1 = pd.DataFrame(jet_btagsf_downhfstats1, columns=["Weight_CSV_UL_downhfstats1"])
+        # jet_btagsf_uphfstats2 = pd.DataFrame(jet_btagsf_uphfstats2, columns=["Weight_CSV_UL_uphfstats2"])
+        # jet_btagsf_downhfstats2 = pd.DataFrame(jet_btagsf_downhfstats2, columns=["Weight_CSV_UL_downhfstats2"])
+        # jet_btagsf_upcferr1 = pd.DataFrame(jet_btagsf_upcferr1, columns=["Weight_CSV_UL_upcferr1"])
+        # jet_btagsf_downcferr1 = pd.DataFrame(jet_btagsf_downcferr1, columns=["Weight_CSV_UL_downcferr1"])
+        # jet_btagsf_upcferr2 = pd.DataFrame(jet_btagsf_upcferr2, columns=["Weight_CSV_UL_upcferr2"])
+        # jet_btagsf_downcferr2 = pd.DataFrame(jet_btagsf_downcferr2, columns=["Weight_CSV_UL_downcferr2"])
+
+
         jet_PUIDsf = pd.DataFrame(jet_PUIDsf, columns=["Weight_JetPUID"])
+        # jet_PUIDsfup = pd.DataFrame(jet_PUIDsfup, columns=["Weight_JetPUIDup"])
+        # jet_PUIDsfdown = pd.DataFrame(jet_PUIDsfdown, columns=["Weight_JetPUIDdown"])
+
         df.update(jet_btagsf)
+        # df.update(jet_btagsf_uplf)
+        # df.update(jet_btagsf_downlf)
+        # df.update(jet_btagsf_uphf)
+        # df.update(jet_btagsf_downhf)
+        # df.update(jet_btagsf_uplfstats1)
+        # df.update(jet_btagsf_downlfstats1)
+        # df.update(jet_btagsf_uplfstats2)
+        # df.update(jet_btagsf_downlfstats2)
+        # df.update(jet_btagsf_uphfstats1)
+        # df.update(jet_btagsf_downhfstats1)
+        # df.update(jet_btagsf_uphfstats2)
+        # df.update(jet_btagsf_downhfstats2)
+        # df.update(jet_btagsf_upcferr1)
+        # df.update(jet_btagsf_downcferr1)
+        # df.update(jet_btagsf_upcferr2)
+        # df.update(jet_btagsf_downcferr2)
+
         df.update(jet_PUIDsf)
+        # df.update(jet_PUIDsfup)
+        # df.update(jet_PUIDsfdown)
         return df
-        # b_jet_sf = btvjson["deepJet_shape"].evaluate("up_hfstats2",
-        #                                             5, 1.2, 60., 0.95)
-        # c_jet_sf = btvjson["deepJet_shape"].evaluate("up_cferr1",
-        #                                             4, 2.2, 100., 0.45)
+
+
+    def CalculateSFsEval(self, tree, df):
+
+        bsfDir = os.path.join(basedir, "data", "BTV",
+                              "{}_UL".format(self.dataEra))
+        bsfName = os.path.join(bsfDir, "btagging.json.gz")
+
+        PUIDsfDir = os.path.join(
+            basedir, "data", "PUJetIDSFs", "{}".format(self.dataEra))
+        PUIDsfName = os.path.join(PUIDsfDir, "jmar.json.gz")
+
+        if bsfName.endswith(".gz"):
+            import gzip
+            with gzip.open(bsfName, "rt") as f:
+                data = f.read().strip()
+            btvjson = _core.CorrectionSet.from_string(data)
+        else:
+            btvjson = _core.CorrectionSet.from_file(bsfName)
+
+        if PUIDsfName.endswith(".gz"):
+            import gzip
+            with gzip.open(PUIDsfName, "rt") as f:
+                data = f.read().strip()
+            PUIDjson = _core.CorrectionSet.from_string(data)
+        else:
+            PUIDjson = _core.CorrectionSet.from_file(PUIDsfName)
+
+        jet_flavor = tree.pandas.df("Jet_Flav")
+        jet_eta = tree.pandas.df("Jet_Eta")
+        jet_pt = tree.pandas.df("Jet_Pt")
+        jet_bTag = tree.pandas.df("Jet_CSV")
+        njet = tree.pandas.df("N_Jets")
+
+        # https: // cms-nanoaod-integration.web.cern.ch/commonJSONSFs/BTV_btagging_Run2_UL/BTV_btagging_2016postVFP_UL.html
+
+        # jet_PUIDsf = []
+        jet_PUIDsfup = []
+        jet_PUIDsfdown = []
+
+        # jet_btagsf = []
+        jet_btagsf_uplf = []
+        jet_btagsf_downlf = []
+        jet_btagsf_uphf = []
+        jet_btagsf_downhf = []
+        jet_btagsf_uphfstats1 = []
+        jet_btagsf_downhfstats1 = []
+        jet_btagsf_uphfstats2 = []
+        jet_btagsf_downhfstats2 = []
+        jet_btagsf_uplfstats1 = []
+        jet_btagsf_downlfstats1 = []
+        jet_btagsf_uplfstats2 = []
+        jet_btagsf_downlfstats2 = []
+        jet_btagsf_upcferr1 = []
+        jet_btagsf_downcferr1 = []
+        jet_btagsf_upcferr2 = []
+        jet_btagsf_downcferr2 = []
+        for i in range(njet.size):
+
+            # jet_PUIDsf_perevent = 1.
+            jet_PUIDsfup_perevent = 1.
+            jet_PUIDsfdown_perevent = 1.
+
+            # jet_btagsf_perevent = 1.
+            jet_btagsf_uplf_perevent = 1.
+            jet_btagsf_downlf_perevent = 1.
+            jet_btagsf_uphf_perevent = 1.
+            jet_btagsf_downhf_perevent = 1.
+            jet_btagsf_uphfstats1_perevent = 1.
+            jet_btagsf_downhfstats1_perevent = 1.
+            jet_btagsf_uphfstats2_perevent = 1.
+            jet_btagsf_downhfstats2_perevent = 1.
+            jet_btagsf_uplfstats1_perevent = 1.
+            jet_btagsf_downlfstats1_perevent = 1.
+            jet_btagsf_uplfstats2_perevent = 1.
+            jet_btagsf_downlfstats2_perevent = 1.
+            jet_btagsf_upcferr1_perevent = 1.
+            jet_btagsf_downcferr1_perevent = 1.
+            jet_btagsf_upcferr2_perevent = 1.
+            jet_btagsf_downcferr2_perevent = 1.
+
+            for j in range(jet_pt["Jet_Pt"][i].size):
+
+                # btagging SF
+                # jet_btagsf_perevent *= btvjson["deepJet_shape"].evaluate("central", jet_flavor['Jet_Flav'][i][j], abs(
+                #     float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))
+
+                jet_btagsf_uplf_perevent = btvjson["deepJet_shape"].evaluate("up_lf", jet_flavor['Jet_Flav'][i][j], abs(
+                    float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))
+                jet_btagsf_downlf_perevent = btvjson["deepJet_shape"].evaluate("down_lf", jet_flavor['Jet_Flav'][i][j], abs(
+                    float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))
+                jet_btagsf_uphf_perevent = btvjson["deepJet_shape"].evaluate("up_hf", jet_flavor['Jet_Flav'][i][j], abs(
+                    float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))
+                jet_btagsf_downhf_perevent = btvjson["deepJet_shape"].evaluate("down_hf", jet_flavor['Jet_Flav'][i][j], abs(
+                    float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))
+                jet_btagsf_uphfstats1_perevent = btvjson["deepJet_shape"].evaluate("up_hfstats1", jet_flavor['Jet_Flav'][i][j], abs(
+                    float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))
+                jet_btagsf_downhfstats1_perevent = btvjson["deepJet_shape"].evaluate("down_hfstats1", jet_flavor['Jet_Flav'][i][j], abs(
+                    float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))
+                jet_btagsf_uphfstats2_perevent = btvjson["deepJet_shape"].evaluate("up_hfstats2", jet_flavor['Jet_Flav'][i][j], abs(
+                    float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))
+                jet_btagsf_downhfstats2_perevent = btvjson["deepJet_shape"].evaluate("down_hfstats2", jet_flavor['Jet_Flav'][i][j], abs(
+                    float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))
+                jet_btagsf_uplfstats1_perevent = btvjson["deepJet_shape"].evaluate("up_lfstats1", jet_flavor['Jet_Flav'][i][j], abs(
+                    float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))
+                jet_btagsf_downlfstats1_perevent = btvjson["deepJet_shape"].evaluate("down_lfstats1", jet_flavor['Jet_Flav'][i][j], abs(
+                    float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))
+                jet_btagsf_uplfstats2_perevent = btvjson["deepJet_shape"].evaluate("up_lfstats2", jet_flavor['Jet_Flav'][i][j], abs(
+                    float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))
+                jet_btagsf_downlfstats2_perevent = btvjson["deepJet_shape"].evaluate("down_lfstats2", jet_flavor['Jet_Flav'][i][j], abs(
+                    float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))
+                jet_btagsf_upcferr1_perevent = btvjson["deepJet_shape"].evaluate("central", jet_flavor['Jet_Flav'][i][j], abs(
+                    float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))
+                jet_btagsf_downcferr1_perevent = btvjson["deepJet_shape"].evaluate("up_cferr1", jet_flavor['Jet_Flav'][i][j], abs(
+                    float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))
+                jet_btagsf_upcferr2_perevent = btvjson["deepJet_shape"].evaluate("up_cferr2", jet_flavor['Jet_Flav'][i][j], abs(
+                    float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))
+                jet_btagsf_downcferr2_perevent = btvjson["deepJet_shape"].evaluate("down_cferr2", jet_flavor['Jet_Flav'][i][j], abs(
+                    float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))
+
+                if float(jet_pt['Jet_Pt'][i][j]) < 50.:
+                    # jet_PUIDsf_perevent *= PUIDjson["PUJetID_eff"].evaluate(
+                    #     float(jet_eta['Jet_Eta'][i][j]), float(jet_pt['Jet_Pt'][i][j]), "nom", "L")
+                    jet_PUIDsfup_perevent *= PUIDjson["PUJetID_eff"].evaluate(
+                        float(jet_eta['Jet_Eta'][i][j]), float(jet_pt['Jet_Pt'][i][j]), "up", "L")
+                    jet_PUIDsfdown_perevent *= PUIDjson["PUJetID_eff"].evaluate(
+                        float(jet_eta['Jet_Eta'][i][j]), float(jet_pt['Jet_Pt'][i][j]), "down", "L")
+
+            # jet_PUIDsf.append(jet_PUIDsf_perevent)
+            jet_PUIDsfup.append(jet_PUIDsfup_perevent)
+            jet_PUIDsfdown.append(jet_PUIDsfdown_perevent)
+            # jet_btagsf.append(jet_btagsf_perevent)
+            jet_btagsf_uplf.append(jet_btagsf_uplf_perevent)
+            jet_btagsf_downlf.append(jet_btagsf_downlf_perevent)
+            jet_btagsf_uphf.append(jet_btagsf_uphf_perevent)
+            jet_btagsf_downhf.append(jet_btagsf_downhf_perevent)
+            jet_btagsf_uphfstats1.append(jet_btagsf_uphfstats1_perevent)
+            jet_btagsf_downhfstats1.append(jet_btagsf_downhfstats1_perevent)
+            jet_btagsf_uphfstats2.append(jet_btagsf_uphfstats2_perevent)
+            jet_btagsf_downhfstats2.append(jet_btagsf_downhfstats2_perevent)
+            jet_btagsf_uplfstats1.append(jet_btagsf_uplfstats1_perevent)
+            jet_btagsf_downlfstats1.append(jet_btagsf_downlfstats1_perevent)
+            jet_btagsf_uplfstats2.append(jet_btagsf_uplfstats2_perevent)
+            jet_btagsf_downlfstats2.append(jet_btagsf_downlfstats2_perevent)
+            jet_btagsf_upcferr1.append(jet_btagsf_upcferr1_perevent)
+            jet_btagsf_downcferr1.append(jet_btagsf_downcferr1_perevent)
+            jet_btagsf_upcferr2.append(jet_btagsf_upcferr2_perevent)
+            jet_btagsf_downcferr2.append(jet_btagsf_downcferr2_perevent)
+
+        # df.loc[:, "Weight_CSV_UL"] = 0.
+        df.loc[:, "Weight_CSV_UL_uplf"] = 0.
+        df.loc[:, "Weight_CSV_UL_downlf"] = 0.
+        df.loc[:, "Weight_CSV_UL_uphf"] = 0.
+        df.loc[:, "Weight_CSV_UL_downhf"] = 0.
+        df.loc[:, "Weight_CSV_UL_uphfstats1"] = 0.
+        df.loc[:, "Weight_CSV_UL_downhfstats1"] = 0.
+        df.loc[:, "Weight_CSV_UL_uphfstats2"] = 0.
+        df.loc[:, "Weight_CSV_UL_downhfstats2"] = 0.
+        df.loc[:, "Weight_CSV_UL_uplfstats1"] = 0.
+        df.loc[:, "Weight_CSV_UL_downlfstats1"] = 0.
+        df.loc[:, "Weight_CSV_UL_uplfstats2"] = 0.
+        df.loc[:, "Weight_CSV_UL_downlfstats2"] = 0.
+        df.loc[:, "Weight_CSV_UL_upcferr1"] = 0.
+        df.loc[:, "Weight_CSV_UL_downcferr1"] = 0.
+        df.loc[:, "Weight_CSV_UL_upcferr2"] = 0.
+        df.loc[:, "Weight_CSV_UL_downcferr2"] = 0.
+
+        # df.loc[:, "Weight_JetPUID"] = 0.
+        df.loc[:, "Weight_JetPUID_up"] = 0.
+        df.loc[:, "Weight_JetPUID_down"] = 0.
+        # append column to original dataframe
+        # print(jet_btagsf)
+        # print(jet_PUIDsf)
+        # jet_btagsf = pd.DataFrame(jet_btagsf, columns=["Weight_CSV_UL"])
+        jet_btagsf_uplf = pd.DataFrame(
+            jet_btagsf_uplf, columns=["Weight_CSV_UL_uplf"])
+        jet_btagsf_downlf = pd.DataFrame(
+            jet_btagsf_downlf, columns=["Weight_CSV_UL_downlf"])
+        jet_btagsf_uphf = pd.DataFrame(
+            jet_btagsf_uphf, columns=["Weight_CSV_UL_uphf"])
+        jet_btagsf_downhf = pd.DataFrame(
+            jet_btagsf_downhf, columns=["Weight_CSV_UL_downhf"])
+        jet_btagsf_uplfstats1 = pd.DataFrame(jet_btagsf_uplfstats1, columns=[
+                                             "Weight_CSV_UL_uplfstats1"])
+        jet_btagsf_downlfstats1 = pd.DataFrame(
+            jet_btagsf, columns=["Weight_CSV_UL_downlfstats1"])
+        jet_btagsf_uplfstats2 = pd.DataFrame(jet_btagsf_uplfstats2, columns=[
+                                             "Weight_CSV_UL_uplfstats2"])
+        jet_btagsf_downlfstats1 = pd.DataFrame(jet_btagsf_downlfstats2, columns=[
+                                               "Weight_CSV_UL_downlfstats2"])
+        jet_btagsf_uphfstats1 = pd.DataFrame(jet_btagsf_uphfstats1, columns=[
+                                             "Weight_CSV_UL_uphfstats1"])
+        jet_btagsf_downhfstats1 = pd.DataFrame(jet_btagsf_downhfstats1, columns=[
+                                               "Weight_CSV_UL_downhfstats1"])
+        jet_btagsf_uphfstats2 = pd.DataFrame(jet_btagsf_uphfstats2, columns=[
+                                             "Weight_CSV_UL_uphfstats2"])
+        jet_btagsf_downhfstats2 = pd.DataFrame(jet_btagsf_downhfstats2, columns=[
+                                               "Weight_CSV_UL_downhfstats2"])
+        jet_btagsf_upcferr1 = pd.DataFrame(jet_btagsf_upcferr1, columns=[
+                                           "Weight_CSV_UL_upcferr1"])
+        jet_btagsf_downcferr1 = pd.DataFrame(jet_btagsf_downcferr1, columns=[
+                                             "Weight_CSV_UL_downcferr1"])
+        jet_btagsf_upcferr2 = pd.DataFrame(jet_btagsf_upcferr2, columns=[
+                                           "Weight_CSV_UL_upcferr2"])
+        jet_btagsf_downcferr2 = pd.DataFrame(jet_btagsf_downcferr2, columns=[
+                                             "Weight_CSV_UL_downcferr2"])
+
+        # jet_PUIDsf = pd.DataFrame(jet_PUIDsf, columns=["Weight_JetPUID"]) 
+        jet_PUIDsfup = pd.DataFrame(jet_PUIDsfup, columns=["Weight_JetPUIDup"])
+        jet_PUIDsfdown = pd.DataFrame(
+            jet_PUIDsfdown, columns=["Weight_JetPUIDdown"])
+
+        # df.update(jet_btagsf)
+        df.update(jet_btagsf_uplf)
+        df.update(jet_btagsf_downlf)
+        df.update(jet_btagsf_uphf)
+        df.update(jet_btagsf_downhf)
+        df.update(jet_btagsf_uplfstats1)
+        df.update(jet_btagsf_downlfstats1)
+        df.update(jet_btagsf_uplfstats2)
+        df.update(jet_btagsf_downlfstats2)
+        df.update(jet_btagsf_uphfstats1)
+        df.update(jet_btagsf_downhfstats1)
+        df.update(jet_btagsf_uphfstats2)
+        df.update(jet_btagsf_downhfstats2)
+        df.update(jet_btagsf_upcferr1)
+        df.update(jet_btagsf_downcferr1)
+        df.update(jet_btagsf_upcferr2)
+        df.update(jet_btagsf_downcferr2)
+
+        # df.update(jet_PUIDsf)
+        df.update(jet_PUIDsfup)
+        df.update(jet_PUIDsfdown)
+        return df
+
 
 
 
