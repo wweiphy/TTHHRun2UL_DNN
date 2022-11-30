@@ -325,12 +325,12 @@ class Dataset:
                 if self.do_EvalSFs:
                     # for DNN evaluation
                     if "nominal" in file:
-                        df = self.CalculateSFs(tree, df)
+                        df = self.CalculateSFsEval(tree, df)
                     else:
-                        df = self.CalculateSFsEval(tree,df)
+                        df = self.CalculateSFs(tree,df)
                 else:
                     # for DNN, only Weight_CSV_UL is needed
-                    df = self.CalculateSFsEval(tree,df)
+                    df = self.CalculateSFs(tree,df)
                     # print("df bTag SF: ")
                     # print(df["Weight_CSV_UL"])
                     # print(df["Weight_JetPUID"])
