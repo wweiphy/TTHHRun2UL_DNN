@@ -1,6 +1,5 @@
 
-# 4j3b 50
-# python train_template_old.py -i DNN_1105_UL -o 221107_test_old  --plot --printroc -c ge4j_ge3t --epochs=500 --signalclass=ttHH -f 0.2 -v dnn_variables -n ge4j_ge3t_ttH 
+# python train_template_old.py -i DNN_1130_UL -o 221130_all_old  --plot --printroc -c ge4j_ge3t --epochs=500 --signalclass=ttHH -f 0.2 -v variables -n ge4j_ge3t_ttH 
 
 
 # global imports
@@ -37,7 +36,7 @@ options.initArguments()
 # load samples
 input_samples = df.InputSamples(options.getInputDirectory(), options.getTestPercentage())
 
-weight_expr = 'x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom'
+weight_expr = 'x.Weight_XS * x.Weight_CSV_UL * x.Weight_GEN_nom'
 
 # weight_expr_ttZZ_ttZH = 'x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom / 2'
 
