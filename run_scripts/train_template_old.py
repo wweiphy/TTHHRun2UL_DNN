@@ -1,5 +1,5 @@
 
-# python train_template_old.py -i DNN_1130_UL -o 221130_all_old  --plot --printroc -c ge4j_ge3t --epochs=500 --signalclass=ttHH -f 0.2 -v variables -n ge4j_ge3t_ttH 
+# python train_template_old.py -i DNN_1130_UL -o 221130_200_old  --plot --printroc -c ge4j_ge3t --epochs=500 --signalclass=ttHH -f 0.2 -v dnn_variables_old_200 -n ge4j_ge3t_ttH 
 
 
 # global imports
