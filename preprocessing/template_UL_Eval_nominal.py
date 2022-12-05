@@ -12,7 +12,7 @@ import preprocessing
 
 
 """
-USE: python template_UL_DNN.py --outputdirectory=DNN_1106_UL --variableselection=variables --maxentries=20000 --cores=4
+USE: python template_UL_Eval_nominal.py --outputdirectory=Eval_nominal_1204_UL --variableselection=variables --maxentries=20000 --cores=4
 """
 
 usage="usage=%prog [options] \n"
@@ -238,6 +238,7 @@ dataset2 = preprocessing.Dataset(
     naming=options.Name,
     maxEntries=options.maxEntries,
     ncores=options.numCores,
+    do_EvalSFs=True,
 )
 
 # add base event selection
