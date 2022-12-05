@@ -690,10 +690,10 @@ class DNN():
 
         for class_ in event_classes:
 
-            weight = array("f", [-999])
-            deriv_class = np.zeros(
-                (len(self.data.get_test_data(as_matrix=True)), len(self.train_variables)))
-            weights = np.zeros(len(self.data.get_test_data()))
+            # weight = array("f", [-999])
+            # deriv_class = np.zeros(
+            #     (len(self.data.get_test_data(as_matrix=True)), len(self.train_variables)))
+            # weights = np.zeros(len(self.data.get_test_data()))
 
             # Calculate first-order derivatives
             deriv_values = sess.run(
@@ -804,7 +804,7 @@ class DNN():
         if not nbins:
             nbins = int(25*(1.-bin_range[0]))
 
-        saveDiscrs = plottingScripts.saveDiscriminators(
+        saveDiscrs = plottingScripts.savenominalDiscriminators(
             data=self.data,
             prediction_vector=self.model_prediction_vector,
             predicted_classes=self.predicted_classes,
@@ -813,6 +813,29 @@ class DNN():
             bin_range=bin_range,
             event_category=self.category_label,
             savedir=self.plot_path,
+            logscale=log)
+
+        saveDiscrs.save()
+
+    def save_JESJERdiscriminators(self, log=False, printROC=False, syst = "JESup", privateWork=False,
+                            signal_class=None, nbins=None, bin_range=None,
+                            sigScale=-1):
+        ''' plot all events classified as one category '''
+        if not bin_range:
+            bin_range = [round(1./self.data.n_output_neurons, 2), 1.]
+        if not nbins:
+            nbins = int(25*(1.-bin_range[0]))
+
+        saveDiscrs = plottingScripts.saveJESJERDiscriminators(
+            data=self.data,
+            prediction_vector=self.model_prediction_vector,
+            predicted_classes=self.predicted_classes,
+            event_classes=self.event_classes,
+            nbins=nbins,
+            bin_range=bin_range,
+            event_category=self.category_label,
+            savedir=self.plot_path,
+            syst = syst,
             logscale=log)
 
         saveDiscrs.save()
