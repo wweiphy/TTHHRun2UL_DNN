@@ -15,7 +15,7 @@ scalefactor_variables = [
     'Muon_IdentificationSFDown[0]',
     'Muon_IsolationSF[0]',
     'Muon_IsolationSFUp[0]',
-    'Muon_IsolationSDownF[0]',
+    'Muon_IsolationSFDown[0]',
     'Muon_ReconstructionSF[0]',
     'Muon_ReconstructionSFUp[0]',
     'Muon_ReconstructionSFDown[0]',
