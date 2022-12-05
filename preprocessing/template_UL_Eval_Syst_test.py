@@ -307,7 +307,7 @@ for sys in syst:
     dataset2.addSample(
         sampleName="TTSL",
         ntuples=ntuplesPath2 +
-        "/2017/ntuple/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2017/221126_052303/*/ntuples_"+sys+"_Tree_1.root",
+        "/2017/ntuple/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2017/221126_052303/*/ntuples_"+sys+"_Tree_10.root",
         #    ntuples     = ntuplesPath+"/ttSL_220210.root",
         categories=ttbar_categories,
         process="ttSL",

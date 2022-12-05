@@ -12,7 +12,7 @@ import preprocessing
 
 
 """
-USE: python3 template_UL_Eval_nominal.py --outputdirectory=Eval_nominal_1204_UL --variableselection=variables --maxentries=20000 --cores=4
+USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_nominal_nominal.py --outputdirectory=Eval_1204_UL_test --variableselection=variables --maxentries=20000 --cores=4
 """
 
 usage="usage=%prog [options] \n"
@@ -124,7 +124,7 @@ dataset.addBaseSelection(base_selection)
 dataset.addSample(
     sampleName="TTHH",
     ntuples=ntuplesPath2 +
-    "/2017/ntuple/TTHHTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2017/221126_052019/*/ntuples_nominal_Tree_1.root",
+    "/2017/ntuple/TTHHTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2017/221126_052019/*/ntuples_nominal_Tree_10.root",
     #    ntuples     = ntuplesPath+"/ttHH_4b.root",
     categories=ttHH_categories,
     process = "ttHH",
@@ -269,7 +269,7 @@ dataset.addSample(
 dataset2.addSample(
     sampleName="TTSL",
     ntuples=ntuplesPath2 +
-    "/2017/ntuple/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2017/221126_052303/*/ntuples_nominal_Tree_1.root",
+    "/2017/ntuple/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2017/221126_052303/*/ntuples_nominal_Tree_10.root",
     #    ntuples     = ntuplesPath+"/ttSL_220210.root",
     categories=ttbar_categories,
     process="ttSL",
