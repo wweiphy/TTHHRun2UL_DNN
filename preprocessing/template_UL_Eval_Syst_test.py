@@ -115,7 +115,7 @@ ntuplesPath = "/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_10_6_29/src/Bo
 ntuplesPath2 = "/eos/uscms/store/group/lpctthrun2/wwei/UL"
 
 syst = [
-  'JESup',
+#   'JESup',
   'JESdown',
   'JERup',
   'JERdown',
@@ -269,6 +269,17 @@ for sys in syst:
         sampleName="TTbbSL2",
         ntuples=ntuplesPath2 +
         "/2017/ntuple/TTbb_4f_TTToSemiLeptonic_TuneCP5-Powheg-Openloops-Pythia8/sl_LEG_ntuple_2017/221126_053456/*/ntuples_"+sys+"_Tree_2.root",
+        categories=ttmb_categories,
+        process="ttbbSL",
+        #    lumiWeight  = 41.5,
+        selections=None,  # ttbar_selection,
+        #    selections  = ttbar_selection,
+        islocal=False
+    )
+    dataset.addSample(
+        sampleName="TTbbSL3",
+        ntuples=ntuplesPath2 +
+        "/2017/ntuple/TTbb_4f_TTToSemiLeptonic_TuneCP5-Powheg-Openloops-Pythia8/sl_LEG_ntuple_2017/221126_053456/*/ntuples_"+sys+"_Tree_10.root",
         categories=ttmb_categories,
         process="ttbbSL",
         #    lumiWeight  = 41.5,
