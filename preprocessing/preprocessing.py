@@ -33,11 +33,12 @@ class EventCategories:
         return selections
 
 class Sample:
-    def __init__(self, sampleName, ntuples, categories, selections=None, ownVars=[], even_odd=False, lumiWeight=1., islocal = False):
+    def __init__(self, sampleName, ntuples, categories, process, selections=None, ownVars=[], even_odd=False, lumiWeight=1., islocal = False):
         self.sampleName = sampleName
         self.ntuples = ntuples
         self.selections = selections
         self.categories = categories
+        self.process = process
         self.ownVars = ownVars
         self.lumiWeight = lumiWeight
         self.even_odd = even_odd
@@ -355,7 +356,8 @@ class Dataset:
                         df.loc[:,col_name] = 0.
                         # append column to original dataframe
                         df.update( idx_df[vecvar].rename(col_name) )
-
+                
+                df.loc[:, "process"] = sample.process
 
                 # apply event selection
                 df = self.applySelections(df, sample.selections)
@@ -781,11 +783,11 @@ class Dataset:
 
         # https: // cms-nanoaod-integration.web.cern.ch/commonJSONSFs/BTV_btagging_Run2_UL/BTV_btagging_2016postVFP_UL.html
 
-        # jet_PUIDsf = []
+        jet_PUIDsf = []
         jet_PUIDsfup = []
         jet_PUIDsfdown = []
 
-        # jet_btagsf = []
+        jet_btagsf = []
         jet_btagsf_uplf = []
         jet_btagsf_downlf = []
         jet_btagsf_uphf = []
@@ -804,11 +806,11 @@ class Dataset:
         jet_btagsf_downcferr2 = []
         for i in range(njet.size):
 
-            # jet_PUIDsf_perevent = 1.
+            jet_PUIDsf_perevent = 1.
             jet_PUIDsfup_perevent = 1.
             jet_PUIDsfdown_perevent = 1.
 
-            # jet_btagsf_perevent = 1.
+            jet_btagsf_perevent = 1.
             jet_btagsf_uplf_perevent = 1.
             jet_btagsf_downlf_perevent = 1.
             jet_btagsf_uphf_perevent = 1.
@@ -829,8 +831,8 @@ class Dataset:
             for j in range(jet_pt["Jet_Pt"][i].size):
 
                 # btagging SF
-                # jet_btagsf_perevent *= btvjson["deepJet_shape"].evaluate("central", jet_flavor['Jet_Flav'][i][j], abs(
-                #     float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))
+                jet_btagsf_perevent *= btvjson["deepJet_shape"].evaluate("central", jet_flavor['Jet_Flav'][i][j], abs(
+                    float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))
 
                 jet_btagsf_uplf_perevent = btvjson["deepJet_shape"].evaluate("up_lf", jet_flavor['Jet_Flav'][i][j], abs(
                     float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))
@@ -866,17 +868,17 @@ class Dataset:
                     float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))
 
                 if float(jet_pt['Jet_Pt'][i][j]) < 50.:
-                    # jet_PUIDsf_perevent *= PUIDjson["PUJetID_eff"].evaluate(
-                    #     float(jet_eta['Jet_Eta'][i][j]), float(jet_pt['Jet_Pt'][i][j]), "nom", "L")
+                    jet_PUIDsf_perevent *= PUIDjson["PUJetID_eff"].evaluate(
+                        float(jet_eta['Jet_Eta'][i][j]), float(jet_pt['Jet_Pt'][i][j]), "nom", "L")
                     jet_PUIDsfup_perevent *= PUIDjson["PUJetID_eff"].evaluate(
                         float(jet_eta['Jet_Eta'][i][j]), float(jet_pt['Jet_Pt'][i][j]), "up", "L")
                     jet_PUIDsfdown_perevent *= PUIDjson["PUJetID_eff"].evaluate(
                         float(jet_eta['Jet_Eta'][i][j]), float(jet_pt['Jet_Pt'][i][j]), "down", "L")
 
-            # jet_PUIDsf.append(jet_PUIDsf_perevent)
+            jet_PUIDsf.append(jet_PUIDsf_perevent)
             jet_PUIDsfup.append(jet_PUIDsfup_perevent)
             jet_PUIDsfdown.append(jet_PUIDsfdown_perevent)
-            # jet_btagsf.append(jet_btagsf_perevent)
+            jet_btagsf.append(jet_btagsf_perevent)
             jet_btagsf_uplf.append(jet_btagsf_uplf_perevent)
             jet_btagsf_downlf.append(jet_btagsf_downlf_perevent)
             jet_btagsf_uphf.append(jet_btagsf_uphf_perevent)
@@ -894,7 +896,7 @@ class Dataset:
             jet_btagsf_upcferr2.append(jet_btagsf_upcferr2_perevent)
             jet_btagsf_downcferr2.append(jet_btagsf_downcferr2_perevent)
 
-        # df.loc[:, "Weight_CSV_UL"] = 0.
+        df.loc[:, "Weight_CSV_UL"] = 0.
         df.loc[:, "Weight_CSV_UL_uplf"] = 0.
         df.loc[:, "Weight_CSV_UL_downlf"] = 0.
         df.loc[:, "Weight_CSV_UL_uphf"] = 0.
@@ -912,13 +914,13 @@ class Dataset:
         df.loc[:, "Weight_CSV_UL_upcferr2"] = 0.
         df.loc[:, "Weight_CSV_UL_downcferr2"] = 0.
 
-        # df.loc[:, "Weight_JetPUID"] = 0.
+        df.loc[:, "Weight_JetPUID"] = 0.
         df.loc[:, "Weight_JetPUID_up"] = 0.
         df.loc[:, "Weight_JetPUID_down"] = 0.
         # append column to original dataframe
         # print(jet_btagsf)
         # print(jet_PUIDsf)
-        # jet_btagsf = pd.DataFrame(jet_btagsf, columns=["Weight_CSV_UL"])
+        jet_btagsf = pd.DataFrame(jet_btagsf, columns=["Weight_CSV_UL"])
         jet_btagsf_uplf = pd.DataFrame(
             jet_btagsf_uplf, columns=["Weight_CSV_UL_uplf"])
         jet_btagsf_downlf = pd.DataFrame(
@@ -952,12 +954,12 @@ class Dataset:
         jet_btagsf_downcferr2 = pd.DataFrame(jet_btagsf_downcferr2, columns=[
                                              "Weight_CSV_UL_downcferr2"])
 
-        # jet_PUIDsf = pd.DataFrame(jet_PUIDsf, columns=["Weight_JetPUID"]) 
+        jet_PUIDsf = pd.DataFrame(jet_PUIDsf, columns=["Weight_JetPUID"]) 
         jet_PUIDsfup = pd.DataFrame(jet_PUIDsfup, columns=["Weight_JetPUIDup"])
         jet_PUIDsfdown = pd.DataFrame(
             jet_PUIDsfdown, columns=["Weight_JetPUIDdown"])
 
-        # df.update(jet_btagsf)
+        df.update(jet_btagsf)
         df.update(jet_btagsf_uplf)
         df.update(jet_btagsf_downlf)
         df.update(jet_btagsf_uphf)
@@ -975,7 +977,7 @@ class Dataset:
         df.update(jet_btagsf_upcferr2)
         df.update(jet_btagsf_downcferr2)
 
-        # df.update(jet_PUIDsf)
+        df.update(jet_PUIDsf)
         df.update(jet_PUIDsfup)
         df.update(jet_PUIDsfdown)
         return df
