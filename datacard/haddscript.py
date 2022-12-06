@@ -71,7 +71,7 @@ for sys in syst:
         files += " " + file
 
 
-command = "hadd output_limit.root " + files
+command = "hadd /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/workdir/{}/plots/output_limit.root ".format(options.folder) + files
 
 print ("hadd files: ")
 # print (command)
