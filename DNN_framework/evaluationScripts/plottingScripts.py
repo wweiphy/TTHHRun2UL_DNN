@@ -603,8 +603,7 @@ class savenominalDiscriminators:
                         filled=True)
                     bkgHists.append(histogram)
 
-                
-                if truth_cls == "ttlf":
+                if truth_cls == "ttlf" or truth_cls == "ttlf":
                     histogram = setup.setupHistogram(
                         values=filtered_values,
                         weights=filtered_weights_upISR_ttlf,
@@ -655,7 +654,7 @@ class savenominalDiscriminators:
                         filled=True)
                     bkgHists.append(histogram)
                 
-                if truth_cls == "ttcc":
+                # if truth_cls == "ttcc":
                     histogram = setup.setupHistogram(
                         values=filtered_values,
                         weights=filtered_weights_upISR_ttcc,
