@@ -182,7 +182,7 @@ class savenominalDiscriminators:
                 filtered_weights_downFSR_ttlf = [self.lumi * self.data.get_downFSR_weights_ttlf_after_preprocessing()[k] for k in range(len(out_values))
                                     if self.data.get_full_labels_after_preprocessing(as_categorical=False)[k] == classIndex
                                     and self.predicted_classes[k] == nodeIndex]
-                filtered_weights_upISR_ttcc = [self.lumi * self.data.get_upISR_weights_ttcc _after_preprocessing()[k] for k in range(len(out_values))
+                filtered_weights_upISR_ttcc = [self.lumi * self.data.get_upISR_weights_ttcc_after_preprocessing()[k] for k in range(len(out_values))
                                     if self.data.get_full_labels_after_preprocessing(as_categorical=False)[k] == classIndex
                                     and self.predicted_classes[k] == nodeIndex]
                 filtered_weights_downISR_ttcc = [self.lumi * self.data.get_downISR_weights_ttcc_after_preprocessing()[k] for k in range(len(out_values))
