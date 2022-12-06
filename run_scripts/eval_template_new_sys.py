@@ -136,16 +136,15 @@ syst = [
 ]
 
 
-# for sys in syst:
-
-
-# load samples
-input_samples = df.InputSamples(input_path=dfDirectory+"_"+sys+"/", addSampleSuffix=config["addSampleSuffix"], test_percentage = options.test_percentage)
-
 # TODO - remove the addSample part because future DNN will save the data df
 # TODO - add the dealing with data
 
 for sys in syst:
+
+    # load samples
+        input_samples = df.InputSamples(input_path=dfDirectory+"_"+sys+"/",
+                                        addSampleSuffix=config["addSampleSuffix"], test_percentage=options.test_percentage)
+
         for sample in config["eventClasses"]:
                 total_weight_expr = "x.Weight_XS * x.Weight_CSV_UL * x.Weight_GEN_nom * x.lumiWeight"
                 # normalization_weight = 1
