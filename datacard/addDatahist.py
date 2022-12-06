@@ -1,24 +1,34 @@
-import sys
-import os
-import subprocess
-import datetime
-import stat
 import ROOT
-import glob
-import imp 
-import types
+import optparse
 
+# python addDatahist.py -f 221204_test_evaluation_new -n new
+
+usage = "usage=%prog [options] \n"
+usage += "USE: python cardmakingscript.py -n True "
+
+parser = optparse.OptionParser(usage=usage)
+
+parser.add_option("-n", "--new", dest="new", default="new",
+                  help="making datacard for new categorizations, total 9", metavar="new")
+
+parser.add_option("-f", "--folder", dest="folder", default="221204_test_evaluation_new",
+                  help="folder name", metavar="folder")
+
+(options, args) = parser.parse_args()
 
 # nodeNames = ['ttHH','ttH','ttZ','ttZH','ttZZ','ttlf','ttcc','ttb','tt2b','ttbb','ttbbb','tt4b']
 # classNames = ['ttHH','ttH','ttZ','ttZH','ttZZ','ttlf','ttcc','ttb','tt2b','ttbb','ttbbb','tt4b']
 
-nodeNames = ['ttHH','ttH','ttZ','ttZH','ttZZ','ttlf','ttcc','ttmb','ttnb']
-classNames = ['ttHH','ttH','ttZ','ttZH','ttZZ','ttlf','ttcc','ttmb','ttnb']
+if options.new == "new":
+    nodeNames = ['ttHH','ttH','ttZ','ttZH','ttZZ','ttlf','ttcc','ttmb','ttnb']
+    classNames = ['ttHH','ttH','ttZ','ttZH','ttZZ','ttlf','ttcc','ttmb','ttnb']
 
-
+elif options.new == "old":
+    nodeNames = ['ttHH','ttH','ttZ','ttZH','ttZZ','ttlf','ttcc','ttb','tt2b','ttbb','ttbbb','tt4b']
+    classNames = ['ttHH','ttH','ttZ','ttZH','ttZZ','ttlf','ttcc','ttb','tt2b','ttbb','ttbbb','tt4b']
 # hadd -f output_limit.root 1 2 3
 
-filepath = '/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/workdir/221122_test_evaluation_new/plots/output_limit.root'
+filepath = '/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/workdir/{}/plots/output_limit.root'.format(options.folder)
 
 
 print(classNames)
