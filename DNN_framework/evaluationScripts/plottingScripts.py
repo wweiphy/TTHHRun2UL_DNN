@@ -537,7 +537,7 @@ class savenominalDiscriminators:
                         ytitle=setup.GetyTitle(),
                         filled=True)
                 
-                if truth_cls = "ttlf":
+                if truth_cls == "ttlf":
                     histogram = setup.setupHistogram(
                         values=filtered_values,
                         weights=filtered_weights_upISR_ttlf,
