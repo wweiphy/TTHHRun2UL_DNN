@@ -1,6 +1,10 @@
 import os
 import optparse
 
+
+# python cardmakingscript.py -n new -f 221204_test_evaluation_new
+
+
 usage = "usage=%prog [options] \n"
 usage += "USE: python cardmakingscript.py -n True "
 
