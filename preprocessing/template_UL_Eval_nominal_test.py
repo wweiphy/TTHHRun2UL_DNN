@@ -12,7 +12,7 @@ import preprocessing
 
 
 """
-USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_nominal_nominal.py --outputdirectory=Eval_1204_UL_test --variableselection=variables --maxentries=20000 --cores=4
+USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_nominal_test.py --outputdirectory=Eval_1204_UL_test --variableselection=variables --maxentries=20000 --cores=4
 """
 
 usage="usage=%prog [options] \n"
@@ -227,6 +227,18 @@ dataset.addSample(
     islocal     = False
       )
 
+# dataset.addSample(
+#     sampleName="TTbbSL2",
+#     ntuples=ntuplesPath2 +
+#     "/2017/ntuple/TTbb_4f_TTToSemiLeptonic_TuneCP5-Powheg-Openloops-Pythia8/sl_LEG_ntuple_2017/221126_053456/*/ntuples_"+sys+"_Tree_2.root",
+#     categories=ttmb_categories,
+#     process="ttbbSL",
+#     #    lumiWeight  = 41.5,
+#     selections=None,  # ttbar_selection,
+#     #    selections  = ttbar_selection,
+#     islocal=False
+# )
+
 dataset.addSample(
     sampleName="TTbbDL",
     ntuples=ntuplesPath2 +
@@ -253,7 +265,7 @@ dataset2 = preprocessing.Dataset(
 # add base event selection
 dataset2.addBaseSelection(base_selection)
 
-dataset.addSample(
+dataset2.addSample(
     sampleName="TTH",
     ntuples=ntuplesPath2 +
     "/2017/ntuple/ttHTobb_M125_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2017/221126_054209/*/ntuples_nominal_Tree_1.root",
