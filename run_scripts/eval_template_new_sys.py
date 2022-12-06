@@ -15,7 +15,7 @@ import DNN_framework.DNN as DNN
 import DNN_framework.data_frame as df
 
 
-# python eval_template_new.py -o 221122_test_evaluation_new -i 221114_test_new_50_ge4j_ge3t --signalclass=ttHH --plot --printroc
+# python eval_template_new_sys.py -o 221204_test_evaluation_new_JESup -i 221114_test_new_50_ge4j_ge3t --signalclass=ttHH --plot --printroc --syst=JESup
 
 
 """
@@ -140,7 +140,7 @@ syst = [
 
 
 # load samples
-input_samples = df.InputSamples(input_path=dfDirectory+"_"+sys+"/", addSampleSuffix=config["addSampleSuffix"], test_percentage = options.test_percentage)
+input_samples = df.InputSamples(input_path=dfDirectory+"_"+options.syst+"/", addSampleSuffix=config["addSampleSuffix"], test_percentage = options.test_percentage)
 
 # TODO - remove the addSample part because future DNN will save the data df
 # TODO - add the dealing with data
