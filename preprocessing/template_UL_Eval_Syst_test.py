@@ -239,19 +239,6 @@ dataset.addSample(
     #    selections  = ttbar_selection,
     islocal=False
 )
-
-dataset.addSample(
-    sampleName  = "TT4b",
-    ntuples=ntuplesPath2 +
-    "/2017/ntuple/TT4b_TuneCP5_13TeV_madgraph_pythia8/sl_LEG_ntuple_2017/221126_051927/*/ntuples_"+options.syst+"_Tree_1.root",
-    categories  = ttmb_categories,
-    process="tt4b",
-#    lumiWeight  = 41.5,
-    selections  = None,#ttbar_selection,
-#    selections  = ttbar_selection,
-    islocal     = False
-        ) # not finished
-
         
 dataset.addSample(
     sampleName  = "TTbbSL",
@@ -265,17 +252,17 @@ dataset.addSample(
     islocal     = False
         )
 
-dataset.addSample(
-    sampleName="TTbbSL2",
-    ntuples=ntuplesPath2 +
-    "/2017/ntuple/TTbb_4f_TTToSemiLeptonic_TuneCP5-Powheg-Openloops-Pythia8/sl_LEG_ntuple_2017/221126_053456/*/ntuples_"+options.syst+"_Tree_2.root",
-    categories=ttmb_categories,
-    process="ttbbSL",
-    #    lumiWeight  = 41.5,
-    selections=None,  # ttbar_selection,
-    #    selections  = ttbar_selection,
-    islocal=False
-)
+# dataset.addSample(
+#     sampleName="TTbbSL2",
+#     ntuples=ntuplesPath2 +
+#     "/2017/ntuple/TTbb_4f_TTToSemiLeptonic_TuneCP5-Powheg-Openloops-Pythia8/sl_LEG_ntuple_2017/221126_053456/*/ntuples_"+options.syst+"_Tree_2.root",
+#     categories=ttmb_categories,
+#     process="ttbbSL",
+#     #    lumiWeight  = 41.5,
+#     selections=None,  # ttbar_selection,
+#     #    selections  = ttbar_selection,
+#     islocal=False
+# )
 # dataset.addSample(
 #     sampleName="TTbbSL3",
 #     ntuples=ntuplesPath2 +
@@ -299,6 +286,19 @@ dataset.addSample(
     #    selections  = ttbar_selection,
     islocal=False
 )
+
+dataset.addSample(
+    sampleName="TT4b",
+    ntuples=ntuplesPath2 +
+    "/2017/ntuple/TT4b_TuneCP5_13TeV_madgraph_pythia8/sl_LEG_ntuple_2017/221126_051927/*/ntuples_" +
+    options.syst+"_Tree_1.root",
+    categories=ttmb_categories,
+    process="tt4b",
+    #    lumiWeight  = 41.5,
+    selections=None,  # ttbar_selection,
+    #    selections  = ttbar_selection,
+    islocal=False
+)  # not finished
 
 
     
