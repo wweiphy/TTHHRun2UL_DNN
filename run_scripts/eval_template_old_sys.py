@@ -208,7 +208,7 @@ for sample in config["eventClasses"]:
                 normalization_weight = 1.
                 # sample_path = dfDirectory+"ttH_dnn.h5"
         # normalization_weight = 1
-        input_samples.addSample(sample_path=dfDirectory+"_"+options.syst+"/"+sample["sampleLabel"]+"_dnn.h5", label=sample["sampleLabel"],
+        input_samples.addSample(sample_path=dfDirectory+"_"+options.syst+"/"+sample["sampleLabel"]+"_dnn.h5", label=sample["sampleLabel"], train_weight=1,
                                 normalization_weight=normalization_weight, total_weight_expr=total_weight_expr)
         # sample_train_weight = 1
         # input_samples.addSample(sample["samplePath"], sample["sampleLabel"],
