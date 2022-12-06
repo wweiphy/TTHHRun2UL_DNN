@@ -221,7 +221,7 @@ print("shuffle seed: {}".format(config["shuffleSeed"]))
 sample_save_path = basedir+"/workdir/"
 # init DNN class
 dnn = DNN.DNN(
-save_path=outPath,
+save_path=outPath+"_"+options.syst,
 # sample_save_path=sample_save_path,
 input_samples=input_samples,
 category_name=config["JetTagCategory"],

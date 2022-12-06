@@ -97,7 +97,7 @@ if options.binary:
 
 configFile = inPath+"/checkpoints/net_config.json"
   # TODO - modify this
-dfDirectory = "/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/workdir/Eval_1122_UL/"
+dfDirectory = "/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/workdir/Eval_1204_UL_test_nominal/"
    
 if not os.path.exists(configFile):
         sys.exit(
@@ -222,7 +222,7 @@ dnn.load_trained_model(inPath, options.evaluation_epoch_model)
 #        dnn.plot_confusionMatrix(privateWork = options.privateWork, printROC = options.printROC)
 
         # plot the output discriminators
-dnn.save_discriminators(log = options.log, privateWork = options.privateWork, printROC = options.printROC)
+dnn.save_discriminators(log = options.log, privateWork = options.privateWork, printROC = options.printROC, lumi=41.5)
 #
 #        # plot the output nodes
 #        dnn.plot_outputNodes(log = options.log, signal_class = options.signal_class, privateWork = options.privateWork, printROC = options.printROC, sigScale = -1)

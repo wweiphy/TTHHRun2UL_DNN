@@ -98,7 +98,7 @@ if options.binary:
 
 configFile = inPath+"/checkpoints/net_config.json"
   # TODO - modify this
-dfDirectory = "/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/workdir/Eval_1204_UL_test/"
+dfDirectory = "/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/workdir/Eval_1204_UL_test_nominal/"
    
 if not os.path.exists(configFile):
         sys.exit(
