@@ -117,8 +117,8 @@ ntuplesPath2 = "/eos/uscms/store/group/lpctthrun2/wwei/UL"
 syst = [
 #   'JESup',
 #   'JESdown',
-  'JERup',
-#   'JERdown',
+#   'JERup',
+  'JERdown',
 #   'JESFlavorQCDup',
 #   'JESRelativeBalup',
 #   'JESHFup',
@@ -302,17 +302,17 @@ for sys in syst:
 
 
         
-    # initialize dataset class
-    dataset2 = preprocessing.Dataset(
-        outputdir=outputdir+"_"+sys,
-        naming=options.Name,
-        maxEntries=options.maxEntries,
-        ncores=options.numCores,
-        do_EvalSFs=True,
-    )
+    # # initialize dataset class
+    # dataset2 = preprocessing.Dataset(
+    #     outputdir=outputdir+"_"+sys,
+    #     naming=options.Name,
+    #     maxEntries=options.maxEntries,
+    #     ncores=options.numCores,
+    #     do_EvalSFs=True,
+    # )
 
-    # add base event selection
-    dataset2.addBaseSelection(base_selection)
+    # # add base event selection
+    # dataset2.addBaseSelection(base_selection)
 
     dataset.addSample(
         sampleName="TTH",
@@ -327,7 +327,7 @@ for sys in syst:
         islocal=False
     )
 
-    dataset2.addSample(
+    dataset.addSample(
         sampleName="TTSL",
         ntuples=ntuplesPath2 +
         "/2017/ntuple/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2017/221126_052303/*/ntuples_"+sys+"_Tree_10.root",
@@ -340,7 +340,7 @@ for sys in syst:
         islocal=False
     )
 
-    dataset2.addSample(
+    dataset.addSample(
         sampleName="TTDL",
         ntuples="/eos/uscms/store/user/wwei/TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2017/221126_052120/*/ntuples_"+sys+"_Tree_1.root",
         #    ntuples     = ntuplesPath+"/ttSL_220210.root",
@@ -354,17 +354,17 @@ for sys in syst:
 
     # initialize variable list
     dataset.addVariables(variable_set.all_variables)
-    dataset2.addVariables(variable_set.all_variables)
+    # dataset2.addVariables(variable_set.all_variables)
 
     
     # add these variables to the variable list
     dataset.addVariables(add_var.additional_variables)
-    dataset2.addVariables(add_var.additional_variables)
+    # dataset2.addVariables(add_var.additional_variables)
     dataset.addVariables(sf_var.scalefactor_variables)
-    dataset2.addVariables(sf_var.scalefactor_variables)
+    # dataset2.addVariables(sf_var.scalefactor_variables)
     # dataset2.addVariables(sf_var.ttbar_variables)
 
     # run the preprocessing
     dataset.runPreprocessing()
-    dataset2.runPreprocessing()
+    # dataset2.runPreprocessing()
 
