@@ -1,5 +1,6 @@
 import os
 import optparse
+import glob
 
 usage = "usage=%prog [options] \n"
 usage += "USE: python cardmakingscript.py -n True "
