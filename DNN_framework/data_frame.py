@@ -181,13 +181,16 @@ class Sample:
                 df = df.assign(sf_weight=lambda x: (x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSF[0]'] > 0.) & (x['Electron_ReconstructionSF[0]'] > 0.))*1.*x['Electron_IdentificationSF[0]']*x['Electron_ReconstructionSF[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & ((x['Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX'] == 1) | (
                     (x['Triggered_HLT_Ele32_WPTight_Gsf_L1DoubleEG_vX'] == 1) & (x['Triggered_HLT_Ele32_WPTight_Gsf_2017SeedsX'] == 1))) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['Triggered_HLT_IsoMu27_vX'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
 
+
                 df = df.assign(xs_weight=lambda x: eval(
                     self.total_weight_expr))
+                xs_weight_sum = sum(df["xs_weight"].values)
+                print("xs weight sum: {}".format(xs_weight_sum))
+                df = df.assign(train_weight=lambda x: x.xs_weight /
+                               xs_weight_sum*self.train_weight)
+                # df = df.assign(total_weight=lambda x: x.xs_weight * x.extra_weight)
                 df = df.assign(
                     total_weight=lambda x: x.xs_weight * x.sf_weight)
-
-
-
                 
 
 
@@ -576,7 +579,7 @@ class DataFrame(object):
 
     def get_downFSR_weights_ttcc_after_preprocessing(self):
         return self.df_unsplit_preprocessing["total_weight_downfsr_ttcc"].values
-        
+
     def get_uplf_weights_after_preprocessing(self):
         return self.df_unsplit_preprocessing["total_weight_uplf"].values
     def get_downlf_weights_after_preprocessing(self):
