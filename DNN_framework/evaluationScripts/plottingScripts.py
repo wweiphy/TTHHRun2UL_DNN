@@ -107,7 +107,7 @@ class savenominalDiscriminators:
                 filtered_weights_uphfstats2 = [self.lumi * self.data.get_uphfstats2_weights_after_preprocessing()[k] for k in range(len(out_values))
                                     if self.data.get_full_labels_after_preprocessing(as_categorical=False)[k] == classIndex
                                     and self.predicted_classes[k] == nodeIndex]
-                filtered_weights_downhfstats2 = [self.lumi * self.data.get_downstats2_weights_after_preprocessing()[k] for k in range(len(out_values))
+                filtered_weights_downhfstats2 = [self.lumi * self.data.get_downhfstats2_weights_after_preprocessing()[k] for k in range(len(out_values))
                                     if self.data.get_full_labels_after_preprocessing(as_categorical=False)[k] == classIndex
                                     and self.predicted_classes[k] == nodeIndex]
                 filtered_weights_upcferr1 = [self.lumi * self.data.get_upcferr1_weights_after_preprocessing()[k] for k in range(len(out_values))
@@ -252,7 +252,7 @@ class savenominalDiscriminators:
                     bin_range=self.bin_range,
                     #                        color     = setup.GetPlotColor(truth_cls),
                     xtitle="ljets_ge4j_ge3t_" + \
-                    str(node_cls)+"_node__"+str(truth_cls)+"__btrag_hfDown",
+                    str(node_cls)+"_node__"+str(truth_cls)+"__btag_hfDown",
                     ytitle=setup.GetyTitle(),
                     filled=True)
                 histogram = setup.setupHistogram(
