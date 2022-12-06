@@ -73,8 +73,8 @@ for sys in syst:
 
 command = "hadd output_limit.root " + files
 
-print ("hadd command: ")
-print (command)
+print ("hadd files: ")
+# print (command)
 
-# os.system(command)
+os.system(command)
 
