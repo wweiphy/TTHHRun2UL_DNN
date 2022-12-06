@@ -15,7 +15,7 @@ import DNN_framework.DNN as DNN
 import DNN_framework.data_frame as df
 
 
-# python eval_template_new_sys.py -o 221204_test_evaluation_new_JESup -i 221114_test_new_50_ge4j_ge3t --signalclass=ttHH --plot --printroc --syst=JESup
+# python eval_template_new_sys.py -o 221204_test_evaluation_new -i 221114_test_new_50_ge4j_ge3t --signalclass=ttHH --plot --printroc --syst=JESup
 
 
 """
@@ -217,7 +217,7 @@ print("shuffle seed: {}".format(config["shuffleSeed"]))
 
 # init DNN class
 dnn = DNN.DNN(
-save_path=outPath,
+save_path=outPath+"_"+options.syst,
 # sample_save_path=sample_save_path,
 input_samples=input_samples,
 category_name=config["JetTagCategory"],
