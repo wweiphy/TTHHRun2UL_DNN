@@ -11,7 +11,7 @@ from sklearn.preprocessing import MinMaxScaler
 from tensorflow.keras.utils import to_categorical
 
 # local import 
-import SFs
+import GenNormMap
 
 class Sample:
     def __init__(self, path, label, normalization_weight=1., train_weight=1., test_percentage=0.2, total_weight_expr='x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom', addSampleSuffix=""):
@@ -49,87 +49,147 @@ class Sample:
 
         # TODO - move the SF calculation into preprocessing.py 
         if Do_Evaluation:
+
             print("Do DNN Evaluation")
-            # already calculated in ntupling
 
-            # print("Calculate Lepton SFs")
-            # LeptonSF = SFs.LeptonSF()
-            # ElectronTriggerSF = LeptonSF.GetElectronSF(
-            #         df['Electron_Pt[0]'], df['Electron_Eta[0]'], syst='', type="Trigger")
-            # self.ElectronTriggerSF = np.array(ElectronTriggerSF)
-            # # print("Electron Trigger SF: ")
-            # # print(ElectronTriggerSF)
-            # df['internalEleTriggerWeight'] = self.ElectronTriggerSF.tolist()
-            # print("Done with Lepton SFs")
-            
-            # jetPt = []
-            # jetEta = []
-            # jetCSV = []
-            # jetFlav = []
-            
-            # for j in range(8):
-            #     jetPt.append(df['Jet_Pt[{}]'.format(j)])
-            #     jetEta.append(df['Jet_Eta[{}]'.format(j)])
-            #     jetCSV.append(df['Jet_CSV[{}]'.format(j)])
-            #     jetFlav.append(df['Jet_Flav[{}]'.format(j)])
+            if "nominal" in self.path:
 
-            # print("Calculate BTag SFs")
-            # jetPt = pd.concat([df['Jet_Pt[{}]'.format(i)]
-            #                    for i in range(8)], axis=1)
-            # jetEta = pd.concat([df['Jet_Eta[{}]'.format(i)]
-            #                    for i in range(8)], axis=1)
-            # jetCSV = pd.concat([df['Jet_CSV[{}]'.format(i)]
-            #                    for i in range(8)], axis=1)
-            # jetFlav = pd.concat([df['Jet_Flav[{}]'.format(i)]
-            #                    for i in range(8)], axis=1)
-            
-            # BTagSF = SFs.BTagSF()
-            # if jecsysts == None:
-            #     ThisBTagSF = BTagSF.getBTagWeight(
-            #         jetPt, jetEta, jetCSV, jetFlav, sys=None)
+                # nominal values
+                df = df.assign(sf_weight=lambda x: (x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSF[0]'] > 0.) & (x['Electron_ReconstructionSF[0]'] > 0.))*1.*x['Electron_IdentificationSF[0]']*x['Electron_ReconstructionSF[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & ((x['Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX'] == 1) | (
+                    (x['Triggered_HLT_Ele32_WPTight_Gsf_L1DoubleEG_vX'] == 1) & (x['Triggered_HLT_Ele32_WPTight_Gsf_2017SeedsX'] == 1))) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['Triggered_HLT_IsoMu27_vX'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
+                
+                
+                # btag SF & uncertainties 
+                df = df.assign(xs_weight=lambda x: eval(self.total_weight_expr))
+                xs_weight_sum = sum(df["xs_weight"].values)
+                print("xs weight sum: {}".format(xs_weight_sum))
+                df = df.assign(train_weight=lambda x: x.xs_weight /
+                            xs_weight_sum*self.train_weight)
+                # df = df.assign(total_weight=lambda x: x.xs_weight * x.extra_weight)
+                df = df.assign(total_weight=lambda x: x.xs_weight * x.sf_weight)
+                df = df.assign(total_weight_uplf=lambda x: x.Weight_XS *
+                            x.Weight_CSV_UL_uplf * x.Weight_GEN_nom * x.sf_weight)
+                df = df.assign(total_weight_downlf=lambda x: x.Weight_XS *
+                            x.Weight_CSV_UL_downlf * x.Weight_GEN_nom * x.sf_weight)
+                df = df.assign(total_weight_uphf=lambda x: x.Weight_XS *
+                            x.Weight_CSV_UL_uphf * x.Weight_GEN_nom * x.sf_weight)
+                df = df.assign(total_weight_downhf=lambda x: x.Weight_XS *
+                            x.Weight_CSV_UL_downhf * x.Weight_GEN_nom * x.sf_weight)
+                df = df.assign(total_weight_uplfstats1=lambda x: x.Weight_XS * x.Weight_CSV_UL_uplfstats1 * x.Weight_GEN_nom * x.sf_weight)
+                df = df.assign(total_weight_downlfstats1=lambda x: x.Weight_XS * x.Weight_CSV_UL_downlfstats1 * x.Weight_GEN_nom * x.sf_weight)
+                df = df.assign(total_weight_uplfstats2=lambda x: x.Weight_XS * x.Weight_CSV_UL_uplfstats2 * x.Weight_GEN_nom * x.sf_weight)
+                df = df.assign(total_weight_downlfstats2=lambda x: x.Weight_XS * x.Weight_CSV_UL_downlfstats2 * x.Weight_GEN_nom * x.sf_weight)
+                df = df.assign(total_weight_uphfstats1=lambda x: x.Weight_XS * x.Weight_CSV_UL_uphfstats1 * x.Weight_GEN_nom * x.sf_weight)
+                df = df.assign(total_weight_downhfstats1=lambda x: x.Weight_XS * x.Weight_CSV_UL_downhfstats1 * x.Weight_GEN_nom * x.sf_weight)
+                df = df.assign(total_weight_uphfstats2=lambda x: x.Weight_XS * x.Weight_CSV_UL_uphfstats2 * x.Weight_GEN_nom * x.sf_weight)
+                df = df.assign(total_weight_downhfstats2=lambda x: x.Weight_XS * x.Weight_CSV_UL_downhfstats2 * x.Weight_GEN_nom * x.sf_weight)
+                df = df.assign(total_weight_upcferr1=lambda x: x.Weight_XS * x.Weight_CSV_UL_upcferr1 * x.Weight_GEN_nom * x.sf_weight)
+                df = df.assign(total_weight_downcferr1=lambda x: x.Weight_XS * x.Weight_CSV_UL_downcferr1 * x.Weight_GEN_nom * x.sf_weight)
+                df = df.assign(total_weight_upcferr2=lambda x: x.Weight_XS * x.Weight_CSV_UL_upcferr2 * x.Weight_GEN_nom * x.sf_weight)
+                df = df.assign(total_weight_downcferr2=lambda x: x.Weight_XS * x.Weight_CSV_UL_downcferr2 * x.Weight_GEN_nom * x.sf_weight)
 
-            #     ThisBTagWeight = np.array(ThisBTagSF)
-            #     name = 'internalCSVweight'
-            #     df[name] = ThisBTagWeight.tolist()
-            # else: 
-            #     for sys in jecsysts:
-            #         sys = sys.replace("up", "Up")
-            #         sys = sys.replace("down", "Down")
-            #         sys = sys.replace("CSV", "")
-            #         sys = sys.replace("Stats", "stats")
+                # PU weights & uncertainties
+                df = df.assign(total_weight_upPU=lambda x: (x['Weight_XS'] * x['Weight_CSV_UL'] * x['Weight_GEN_nom'] * x['Weight_pu69p2Up'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSF[0]'] > 0.) & (x['Electron_ReconstructionSF[0]'] > 0.))*1.*x['Electron_IdentificationSF[0]']*x['Electron_ReconstructionSF[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & ((x['Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX'] == 1) | (
+                    (x['Triggered_HLT_Ele32_WPTight_Gsf_L1DoubleEG_vX'] == 1) & (x['Triggered_HLT_Ele32_WPTight_Gsf_2017SeedsX'] == 1))) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['Triggered_HLT_IsoMu27_vX'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
 
-            #         # BTagSF = SFs.BTagSF()
-            #         ThisBTagSF = BTagSF.getBTagWeight(
-            #             jetPt, jetEta, jetCSV, jetFlav, syst=sys)
+                df = df.assign(total_weight_downPU=lambda x: (x['Weight_XS'] * x['Weight_CSV_UL'] * x['Weight_GEN_nom'] * x['Weight_pu69p2Down'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSF[0]'] > 0.) & (x['Electron_ReconstructionSF[0]'] > 0.))*1.*x['Electron_IdentificationSF[0]']*x['Electron_ReconstructionSF[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & ((x['Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX'] == 1) | (
+                    (x['Triggered_HLT_Ele32_WPTight_Gsf_L1DoubleEG_vX'] == 1) & (x['Triggered_HLT_Ele32_WPTight_Gsf_2017SeedsX'] == 1))) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['Triggered_HLT_IsoMu27_vX'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
 
-            #         ThisBTagWeight = np.array(ThisBTagSF)
+                # L1 prefiring
+                df = df.assign(total_weight_upL1Fire=lambda x: (x['Weight_XS'] * x['Weight_CSV_UL'] * x['Weight_GEN_nom'] * x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefireUp'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSF[0]'] > 0.) & (x['Electron_ReconstructionSF[0]'] > 0.))*1.*x['Electron_IdentificationSF[0]']*x['Electron_ReconstructionSF[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & ((x['Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX'] == 1) | (
+                    (x['Triggered_HLT_Ele32_WPTight_Gsf_L1DoubleEG_vX'] == 1) & (x['Triggered_HLT_Ele32_WPTight_Gsf_2017SeedsX'] == 1))) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['Triggered_HLT_IsoMu27_vX'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
 
-            #         name = 'internalCSVweight' + sys
-            #         df[name] = ThisBTagWeight.tolist()
-            # print("Done with BTag SFs")
+                df = df.assign(total_weight_downL1Fire=lambda x: (x['Weight_XS'] * x['Weight_CSV_UL'] * x['Weight_GEN_nom'] * x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefireDown'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSF[0]'] > 0.) & (x['Electron_ReconstructionSF[0]'] > 0.))*1.*x['Electron_IdentificationSF[0]']*x['Electron_ReconstructionSF[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & ((x['Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX'] == 1) | (
+                    (x['Triggered_HLT_Ele32_WPTight_Gsf_L1DoubleEG_vX'] == 1) & (x['Triggered_HLT_Ele32_WPTight_Gsf_2017SeedsX'] == 1))) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['Triggered_HLT_IsoMu27_vX'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
+                
+                # electron trigger SF & uncertainties
+                df = df.assign(total_weight_downEleTrigger=lambda x: (x['Weight_XS'] * x['Weight_CSV_UL'] * x['Weight_GEN_nom'] * x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSF[0]'] > 0.) & (x['Electron_ReconstructionSF[0]'] > 0.))*1.*x['Electron_IdentificationSF[0]']*x['Electron_ReconstructionSF[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & ((x['Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX'] == 1) | (
+                    (x['Triggered_HLT_Ele32_WPTight_Gsf_L1DoubleEG_vX'] == 1) & (x['Triggered_HLT_Ele32_WPTight_Gsf_2017SeedsX'] == 1))) & (x['Weight_ElectronTriggerSF_Down'] > 0)) * 1. * x['Weight_ElectronTriggerSF_Down'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['Triggered_HLT_IsoMu27_vX'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
+                
+                df = df.assign(total_weight_upEleTrigger=lambda x: (x['Weight_XS'] * x['Weight_CSV_UL'] * x['Weight_GEN_nom'] * x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSF[0]'] > 0.) & (x['Electron_ReconstructionSF[0]'] > 0.))*1.*x['Electron_IdentificationSF[0]']*x['Electron_ReconstructionSF[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & ((x['Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX'] == 1) | (
+                    (x['Triggered_HLT_Ele32_WPTight_Gsf_L1DoubleEG_vX'] == 1) & (x['Triggered_HLT_Ele32_WPTight_Gsf_2017SeedsX'] == 1))) & (x['Weight_ElectronTriggerSF_Up'] > 0)) * 1. * x['Weight_ElectronTriggerSF_Up'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['Triggered_HLT_IsoMu27_vX'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
+                
+                # muon trigger SF & uncertainties
+                df = df.assign(total_weight_downMuonTrigger=lambda x: (x['Weight_XS'] * x['Weight_CSV_UL'] * x['Weight_GEN_nom'] * x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSF[0]'] > 0.) & (x['Electron_ReconstructionSF[0]'] > 0.))*1.*x['Electron_IdentificationSF[0]']*x['Electron_ReconstructionSF[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & ((x['Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX'] == 1) | (
+                    (x['Triggered_HLT_Ele32_WPTight_Gsf_L1DoubleEG_vX'] == 1) & (x['Triggered_HLT_Ele32_WPTight_Gsf_2017SeedsX'] == 1))) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['Triggered_HLT_IsoMu27_vX'])) & (x['Weight_MuonTriggerSF_Down'] > 0.)) * 1. * x['Weight_MuonTriggerSF_Down'])))
+                
+                df = df.assign(total_weight_upMuonTrigger=lambda x: (x['Weight_XS'] * x['Weight_CSV_UL'] * x['Weight_GEN_nom'] * x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSF[0]'] > 0.) & (x['Electron_ReconstructionSF[0]'] > 0.))*1.*x['Electron_IdentificationSF[0]']*x['Electron_ReconstructionSF[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & ((x['Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX'] == 1) | (
+                    (x['Triggered_HLT_Ele32_WPTight_Gsf_L1DoubleEG_vX'] == 1) & (x['Triggered_HLT_Ele32_WPTight_Gsf_2017SeedsX'] == 1))) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['Triggered_HLT_IsoMu27_vX'])) & (x['Weight_MuonTriggerSF_Up'] > 0.)) * 1. * x['Weight_MuonTriggerSF_Up'])))
 
-            # df = df.assign(sf_weight=lambda x: (x['Weight_pu69p2'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSF[0]'] > 0.) & (x['Electron_ReconstructionSF[0]'] > 0.))*1.*x['Electron_IdentificationSF[0]']*x['Electron_ReconstructionSF[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & ((x['Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX'] == 1) | (
-            # (x['Triggered_HLT_Ele32_WPTight_Gsf_L1DoubleEG_vX'] == 1) & (x['Triggered_HLT_Ele32_WPTight_Gsf_2017SeedsX'] == 1)))) * 1. + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['Triggered_HLT_IsoMu27_vX'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
+                # Muon SF & uncertainties
+                df = df.assign(total_weight_downMuon=lambda x: (x['Weight_XS'] * x['Weight_CSV_UL'] * x['Weight_GEN_nom'] * x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSF[0]'] > 0.) & (x['Electron_ReconstructionSF[0]'] > 0.))*1.*x['Electron_IdentificationSF[0]']*x['Electron_ReconstructionSF[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSFDown[0]'] > 0.) & (x['Muon_ReconstructionSFDown[0]'] > 0.) & (x['Muon_IsolationSFDown[0]'] > 0.))*1.*x['Muon_IdentificationSFDown[0]'] * x['Muon_IsolationSFDown[0]'] * x['Muon_ReconstructionSFDown[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & ((x['Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX'] == 1) | (
+                    (x['Triggered_HLT_Ele32_WPTight_Gsf_L1DoubleEG_vX'] == 1) & (x['Triggered_HLT_Ele32_WPTight_Gsf_2017SeedsX'] == 1))) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['Triggered_HLT_IsoMu27_vX'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
 
-            df = df.assign(sf_weight=lambda x: (x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSF[0]'] > 0.) & (x['Electron_ReconstructionSF[0]'] > 0.))*1.*x['Electron_IdentificationSF[0]']*x['Electron_ReconstructionSF[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & ((x['Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX'] == 1) | (
-                (x['Triggered_HLT_Ele32_WPTight_Gsf_L1DoubleEG_vX'] == 1) & (x['Triggered_HLT_Ele32_WPTight_Gsf_2017SeedsX'] == 1))) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['Triggered_HLT_IsoMu27_vX'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
+                df = df.assign(total_weight_upMuon=lambda x: (x['Weight_XS'] * x['Weight_CSV_UL'] * x['Weight_GEN_nom'] * x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSF[0]'] > 0.) & (x['Electron_ReconstructionSF[0]'] > 0.))*1.*x['Electron_IdentificationSF[0]']*x['Electron_ReconstructionSF[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSFUp[0]'] > 0.) & (x['Muon_ReconstructionSFUp[0]'] > 0.) & (x['Muon_IsolationSFUp[0]'] > 0.))*1.*x['Muon_IdentificationSFUp[0]'] * x['Muon_IsolationSFUp[0]'] * x['Muon_ReconstructionSFUp[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & ((x['Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX'] == 1) | (
+                    (x['Triggered_HLT_Ele32_WPTight_Gsf_L1DoubleEG_vX'] == 1) & (x['Triggered_HLT_Ele32_WPTight_Gsf_2017SeedsX'] == 1))) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['Triggered_HLT_IsoMu27_vX'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
 
-            
-            # if ("ttcc" in self.path) or ("ttlf" in self.path):
-            #     # print("1")
-            #     df = df.assign(extra_weight=lambda x: (((abs(x['Weight_scale_variation_muR_0p5_muF_0p5']) <= 100) & (abs(x['Weight_scale_variation_muR_0p5_muF_1p0']) <= 100) & (abs(x['Weight_scale_variation_muR_0p5_muF_2p0']) <= 100) & (abs(x['Weight_scale_variation_muR_1p0_muF_0p5']) <= 100) & (abs(x['Weight_scale_variation_muR_1p0_muF_1p0']) <= 100) & (abs(x['Weight_scale_variation_muR_1p0_muF_2p0']) <= 100) & (abs(x['Weight_scale_variation_muR_2p0_muF_0p5']) <= 100) & (abs(x['Weight_scale_variation_muR_2p0_muF_1p0']) <= 100) & (abs(x['Weight_scale_variation_muR_2p0_muF_2p0']) <= 100))*1.))
+                # Electron SF & uncertainties
+                df = df.assign(total_weight_downEle=lambda x: (x['Weight_XS'] * x['Weight_CSV_UL'] * x['Weight_GEN_nom'] * x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSFDown[0]'] > 0.) & (x['Electron_ReconstructionSFDown[0]'] > 0.))*1.*x['Electron_IdentificationSFDown[0]']*x['Electron_ReconstructionSFDown[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & ((x['Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX'] == 1) | (
+                    (x['Triggered_HLT_Ele32_WPTight_Gsf_L1DoubleEG_vX'] == 1) & (x['Triggered_HLT_Ele32_WPTight_Gsf_2017SeedsX'] == 1))) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['Triggered_HLT_IsoMu27_vX'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
 
-            # else:
-                # print("2")
-            df = df.assign(extra_weight=lambda x: 1.)
+                df = df.assign(total_weight_upEle=lambda x: (x['Weight_XS'] * x['Weight_CSV_UL'] * x['Weight_GEN_nom'] * x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSFUp[0]'] > 0.) & (x['Electron_ReconstructionSFUp[0]'] > 0.))*1.*x['Electron_IdentificationSFUp[0]']*x['Electron_ReconstructionSFUp[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & ((x['Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX'] == 1) | (
+                    (x['Triggered_HLT_Ele32_WPTight_Gsf_L1DoubleEG_vX'] == 1) & (x['Triggered_HLT_Ele32_WPTight_Gsf_2017SeedsX'] == 1))) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['Triggered_HLT_IsoMu27_vX'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
+                
+                # isr
+                print(GenNormMap.internalNomFactors['isrUp'][4][1])
+                df = df.assign(total_weight_upisr_ttH=lambda x: ((x['process'] == "ttH")*1. * GenNormMap.internalNomFactors['isrUp'][4][1] * x['GenWeight_isr_Def_up'] * x['Weight_XS'] * x['Weight_CSV_UL'] * x['Weight_GEN_nom'] * x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSFUp[0]'] > 0.) & (x['Electron_ReconstructionSFUp[0]'] > 0.))*1.*x['Electron_IdentificationSFUp[0]']*x['Electron_ReconstructionSFUp[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & ((x['Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX'] == 1) | (
+                        (x['Triggered_HLT_Ele32_WPTight_Gsf_L1DoubleEG_vX'] == 1) & (x['Triggered_HLT_Ele32_WPTight_Gsf_2017SeedsX'] == 1))) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['Triggered_HLT_IsoMu27_vX'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
 
-            df = df.assign(xs_weight=lambda x: eval(self.total_weight_expr))
-            xs_weight_sum = sum(df["xs_weight"].values)
-            print("xs weight sum: {}".format(xs_weight_sum))
-            df = df.assign(train_weight=lambda x: x.xs_weight /
-                           xs_weight_sum*self.train_weight)
-            # df = df.assign(total_weight=lambda x: x.xs_weight * x.extra_weight)
-            df = df.assign(total_weight=lambda x: x.xs_weight * x.extra_weight * x.sf_weight)
+                df = df.assign(total_weight_upisr_ttlf=lambda x: (((x['process'] == "ttSL" & self.label == "ttlf")*1. * GenNormMap.internalNomFactors['isrUp'][0][1] * x['GenWeight_isr_Def_up'] + (x['process'] == "ttDL" & self.label == "ttlf")*1. * GenNormMap.internalNomFactors['isrUp'][1][1] * x['GenWeight_isr_Def_up'] + (x['process'] == "ttSL" & self.label == "ttcc")*1. * GenNormMap.fracRatio_ttcc['isrUp'][0][1] + (x['process'] == "ttDL" & self.label == "ttcc")*1. * GenNormMap.fracRatio_ttcc['isrUp'][1][1]) * x['Weight_XS'] * x['Weight_CSV_UL'] * x['Weight_GEN_nom'] * x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSFUp[0]'] > 0.) & (x['Electron_ReconstructionSFUp[0]'] > 0.))*1.*x['Electron_IdentificationSFUp[0]']*x['Electron_ReconstructionSFUp[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & ((x['Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX'] == 1) | (
+                    (x['Triggered_HLT_Ele32_WPTight_Gsf_L1DoubleEG_vX'] == 1) & (x['Triggered_HLT_Ele32_WPTight_Gsf_2017SeedsX'] == 1))) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['Triggered_HLT_IsoMu27_vX'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
+
+                # df = df.assign(total_weight_upisr_ttbb=lambda x: (x['GenWeight_isr_Def_up'] * x['Weight_XS'] * x['Weight_CSV_UL'] * x['Weight_GEN_nom'] * x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSFUp[0]'] > 0.) & (x['Electron_ReconstructionSFUp[0]'] > 0.))*1.*x['Electron_IdentificationSFUp[0]']*x['Electron_ReconstructionSFUp[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & ((x['Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX'] == 1) | (
+                #     (x['Triggered_HLT_Ele32_WPTight_Gsf_L1DoubleEG_vX'] == 1) & (x['Triggered_HLT_Ele32_WPTight_Gsf_2017SeedsX'] == 1))) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['Triggered_HLT_IsoMu27_vX'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
+                
+                df = df.assign(total_weight_upisr_ttcc=lambda x: (((x['process'] == "ttSL" & self.label == "ttcc")*1. * GenNormMap.internalNomFactors['isrUp'][0][1] * x['GenWeight_isr_Def_up'] + (x['process'] == "ttDL" & self.label == "ttcc")*1. * GenNormMap.internalNomFactors['isrUp'][1][1] * x['GenWeight_isr_Def_up'] + (x['process'] == "ttSL" & self.label == "ttlf")*1. * GenNormMap.fracRatio_ttlf['isrUp'][0][1] + (x['process'] == "ttDL" & self.label == "ttcc")*1. * GenNormMap.fracRatio_ttlf['isrUp'][1][1]) * x['Weight_XS'] * x['Weight_CSV_UL'] * x['Weight_GEN_nom'] * x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSFUp[0]'] > 0.) & (x['Electron_ReconstructionSFUp[0]'] > 0.))*1.*x['Electron_IdentificationSFUp[0]']*x['Electron_ReconstructionSFUp[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & ((x['Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX'] == 1) | (
+                    (x['Triggered_HLT_Ele32_WPTight_Gsf_L1DoubleEG_vX'] == 1) & (x['Triggered_HLT_Ele32_WPTight_Gsf_2017SeedsX'] == 1))) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['Triggered_HLT_IsoMu27_vX'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
+
+
+                df = df.assign(total_weight_downisr_ttH=lambda x: ((x['process'] == "ttH") * GenNormMap.internalNomFactors['isrDown'][4][1] * x['GenWeight_isr_Def_down'] * x['Weight_XS'] * x['Weight_CSV_UL'] * x['Weight_GEN_nom'] * x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSFUp[0]'] > 0.) & (x['Electron_ReconstructionSFUp[0]'] > 0.))*1.*x['Electron_IdentificationSFUp[0]']*x['Electron_ReconstructionSFUp[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & ((x['Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX'] == 1) | (
+                    (x['Triggered_HLT_Ele32_WPTight_Gsf_L1DoubleEG_vX'] == 1) & (x['Triggered_HLT_Ele32_WPTight_Gsf_2017SeedsX'] == 1))) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['Triggered_HLT_IsoMu27_vX'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
+                df = df.assign(total_weight_downisr_ttlf=lambda x: (((x['process'] == "ttSL" & self.label == "ttlf")*1. * GenNormMap.internalNomFactors['isrDown'][0][1] * x['GenWeight_isr_Def_down'] + (x['process'] == "ttDL" & self.label == "ttlf")*1. * GenNormMap.internalNomFactors['isrDown'][1][1] * x['GenWeight_isr_Def_down'] + (x['process'] == "ttSL" & self.label == "ttcc")*1. * GenNormMap.fracRatio_ttcc['isrDown'][0][1] + (x['process'] == "ttDL" & self.label == "ttcc")*1. * GenNormMap.fracRatio_ttcc['isrDown'][1][1]) * x['Weight_XS'] * x['Weight_CSV_UL'] * x['Weight_GEN_nom'] * x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSFUp[0]'] > 0.) & (x['Electron_ReconstructionSFUp[0]'] > 0.))*1.*x['Electron_IdentificationSFUp[0]']*x['Electron_ReconstructionSFUp[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & ((x['Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX'] == 1) | (
+                    (x['Triggered_HLT_Ele32_WPTight_Gsf_L1DoubleEG_vX'] == 1) & (x['Triggered_HLT_Ele32_WPTight_Gsf_2017SeedsX'] == 1))) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['Triggered_HLT_IsoMu27_vX'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
+                # df = df.assign(total_weight_downisr_ttbb=lambda x: (x['GenWeight_isr_Def_down'] * x['Weight_XS'] * x['Weight_CSV_UL'] * x['Weight_GEN_nom'] * x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSFUp[0]'] > 0.) & (x['Electron_ReconstructionSFUp[0]'] > 0.))*1.*x['Electron_IdentificationSFUp[0]']*x['Electron_ReconstructionSFUp[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & ((x['Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX'] == 1) | (
+                #     (x['Triggered_HLT_Ele32_WPTight_Gsf_L1DoubleEG_vX'] == 1) & (x['Triggered_HLT_Ele32_WPTight_Gsf_2017SeedsX'] == 1))) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['Triggered_HLT_IsoMu27_vX'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
+                df = df.assign(total_weight_downisr_ttcc=lambda x: (((x['process'] == "ttSL" & self.label == "ttcc")*1. * GenNormMap.internalNomFactors['isrDown'][0][1] * x['GenWeight_isr_Def_down'] + (x['process'] == "ttDL" & self.label == "ttcc")*1. * GenNormMap.internalNomFactors['isrDown'][1][1] * x['GenWeight_isr_Def_down'] + (x['process'] == "ttSL" & self.label == "ttlf")*1. * GenNormMap.fracRatio_ttlf['isrDown'][0][1] + (x['process'] == "ttDL" & self.label == "ttcc")*1. * GenNormMap.fracRatio_ttlf['isrDown'][1][1]) * x['Weight_XS'] * x['Weight_CSV_UL'] * x['Weight_GEN_nom'] * x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSFUp[0]'] > 0.) & (x['Electron_ReconstructionSFUp[0]'] > 0.))*1.*x['Electron_IdentificationSFUp[0]']*x['Electron_ReconstructionSFUp[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & ((x['Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX'] == 1) | (
+                    (x['Triggered_HLT_Ele32_WPTight_Gsf_L1DoubleEG_vX'] == 1) & (x['Triggered_HLT_Ele32_WPTight_Gsf_2017SeedsX'] == 1))) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['Triggered_HLT_IsoMu27_vX'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
+                
+                
+                # fsr
+
+                df = df.assign(total_weight_upfsr_ttH=lambda x: ((x['process'] == "ttH") * GenNormMap.internalNomFactors['fsrUp'][4][1] * x['GenWeight_fsr_Def_up'] * x['Weight_XS'] * x['Weight_CSV_UL'] * x['Weight_GEN_nom'] * x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSFUp[0]'] > 0.) & (x['Electron_ReconstructionSFUp[0]'] > 0.))*1.*x['Electron_IdentificationSFUp[0]']*x['Electron_ReconstructionSFUp[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & ((x['Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX'] == 1) | (
+                    (x['Triggered_HLT_Ele32_WPTight_Gsf_L1DoubleEG_vX'] == 1) & (x['Triggered_HLT_Ele32_WPTight_Gsf_2017SeedsX'] == 1))) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['Triggered_HLT_IsoMu27_vX'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
+                df = df.assign(total_weight_upfsr_ttlf=lambda x: (((x['process'] == "ttSL" & self.label == "ttlf")*1. * GenNormMap.internalNomFactors['fsrUp'][0][1] * x['GenWeight_fsr_Def_up'] + (x['process'] == "ttDL" & self.label == "ttlf")*1. * GenNormMap.internalNomFactors['fsrUp'][1][1] * x['GenWeight_fsr_Def_up'] + (x['process'] == "ttSL" & self.label == "ttcc")*1. * GenNormMap.fracRatio_ttcc['fsrUp'][0][1] + (x['process'] == "ttDL" & self.label == "ttcc")*1. * GenNormMap.fracRatio_ttcc['fsrUp'][1][1]) * x['Weight_XS'] * x['Weight_CSV_UL'] * x['Weight_GEN_nom'] * x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSFUp[0]'] > 0.) & (x['Electron_ReconstructionSFUp[0]'] > 0.))*1.*x['Electron_IdentificationSFUp[0]']*x['Electron_ReconstructionSFUp[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & ((x['Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX'] == 1) | (
+                    (x['Triggered_HLT_Ele32_WPTight_Gsf_L1DoubleEG_vX'] == 1) & (x['Triggered_HLT_Ele32_WPTight_Gsf_2017SeedsX'] == 1))) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['Triggered_HLT_IsoMu27_vX'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
+                # df = df.assign(total_weight_upfsr_ttbb=lambda x: (x['GenWeight_fsr_Def_up'] * x['Weight_XS'] * x['Weight_CSV_UL'] * x['Weight_GEN_nom'] * x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSFUp[0]'] > 0.) & (x['Electron_ReconstructionSFUp[0]'] > 0.))*1.*x['Electron_IdentificationSFUp[0]']*x['Electron_ReconstructionSFUp[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & ((x['Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX'] == 1) | (
+                #     (x['Triggered_HLT_Ele32_WPTight_Gsf_L1DoubleEG_vX'] == 1) & (x['Triggered_HLT_Ele32_WPTight_Gsf_2017SeedsX'] == 1))) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['Triggered_HLT_IsoMu27_vX'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
+                df = df.assign(total_weight_upfsr_ttcc=lambda x: (((x['process'] == "ttSL" & self.label == "ttcc")*1. * GenNormMap.internalNomFactors['fsrUp'][0][1] * x['GenWeight_fsr_Def_up'] + (x['process'] == "ttDL" & self.label == "ttcc")*1. * GenNormMap.internalNomFactors['fsrUp'][1][1] * x['GenWeight_fsr_Def_up'] + (x['process'] == "ttSL" & self.label == "ttlf")*1. * GenNormMap.fracRatio_ttlf['fsrUp'][0][1] + (x['process'] == "ttDL" & self.label == "ttcc")*1. * GenNormMap.fracRatio_ttlf['fsrUp'][1][1]) * x['Weight_XS'] * x['Weight_CSV_UL'] * x['Weight_GEN_nom'] * x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSFUp[0]'] > 0.) & (x['Electron_ReconstructionSFUp[0]'] > 0.))*1.*x['Electron_IdentificationSFUp[0]']*x['Electron_ReconstructionSFUp[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & ((x['Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX'] == 1) | (
+                    (x['Triggered_HLT_Ele32_WPTight_Gsf_L1DoubleEG_vX'] == 1) & (x['Triggered_HLT_Ele32_WPTight_Gsf_2017SeedsX'] == 1))) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['Triggered_HLT_IsoMu27_vX'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
+
+                df = df.assign(total_weight_downfsr_ttH=lambda x: ((x['process'] == "ttH") * GenNormMap.internalNomFactors['isrDown'][4][1] * x['GenWeight_fsr_Def_down'] * x['Weight_XS'] * x['Weight_CSV_UL'] * x['Weight_GEN_nom'] * x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSFUp[0]'] > 0.) & (x['Electron_ReconstructionSFUp[0]'] > 0.))*1.*x['Electron_IdentificationSFUp[0]']*x['Electron_ReconstructionSFUp[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & ((x['Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX'] == 1) | (
+                    (x['Triggered_HLT_Ele32_WPTight_Gsf_L1DoubleEG_vX'] == 1) & (x['Triggered_HLT_Ele32_WPTight_Gsf_2017SeedsX'] == 1))) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['Triggered_HLT_IsoMu27_vX'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
+                df = df.assign(total_weight_downfsr_ttlf=lambda x: (((x['process'] == "ttSL" & self.label == "ttlf")*1. * GenNormMap.internalNomFactors['fsrDown'][0][1] * x['GenWeight_fsr_Def_down'] + (x['process'] == "ttDL" & self.label == "ttlf")*1. * GenNormMap.internalNomFactors['fsrDown'][1][1] * x['GenWeight_fsr_Def_down'] + (x['process'] == "ttSL" & self.label == "ttcc")*1. * GenNormMap.fracRatio_ttcc['fsrDown'][0][1] + (x['process'] == "ttDL" & self.label == "ttcc")*1. * GenNormMap.fracRatio_ttcc['fsrDown'][1][1]) * x['Weight_XS'] * x['Weight_CSV_UL'] * x['Weight_GEN_nom'] * x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSFUp[0]'] > 0.) & (x['Electron_ReconstructionSFUp[0]'] > 0.))*1.*x['Electron_IdentificationSFUp[0]']*x['Electron_ReconstructionSFUp[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & ((x['Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX'] == 1) | (
+                    (x['Triggered_HLT_Ele32_WPTight_Gsf_L1DoubleEG_vX'] == 1) & (x['Triggered_HLT_Ele32_WPTight_Gsf_2017SeedsX'] == 1))) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['Triggered_HLT_IsoMu27_vX'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
+                # df = df.assign(total_weight_downfsr_ttbb=lambda x: (x['GenWeight_fsr_Def_down'] * x['Weight_XS'] * x['Weight_CSV_UL'] * x['Weight_GEN_nom'] * x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSFUp[0]'] > 0.) & (x['Electron_ReconstructionSFUp[0]'] > 0.))*1.*x['Electron_IdentificationSFUp[0]']*x['Electron_ReconstructionSFUp[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & ((x['Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX'] == 1) | (
+                #     (x['Triggered_HLT_Ele32_WPTight_Gsf_L1DoubleEG_vX'] == 1) & (x['Triggered_HLT_Ele32_WPTight_Gsf_2017SeedsX'] == 1))) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['Triggered_HLT_IsoMu27_vX'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
+                df = df.assign(total_weight_downfsr_ttcc=lambda x: (((x['process'] == "ttSL" & self.label == "ttcc")*1. * GenNormMap.internalNomFactors['fsrDown'][0][1] * x['GenWeight_fsr_Def_down'] + (x['process'] == "ttDL" & self.label == "ttcc")*1. * GenNormMap.internalNomFactors['fsrDown'][1][1] * x['GenWeight_fsr_Def_down'] + (x['process'] == "ttSL" & self.label == "ttlf")*1. * GenNormMap.fracRatio_ttlf['fsrDown'][0][1] + (x['process'] == "ttDL" & self.label == "ttcc")*1. * GenNormMap.fracRatio_ttlf['fsrDown'][1][1]) * x['Weight_XS'] * x['Weight_CSV_UL'] * x['Weight_GEN_nom'] * x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSFUp[0]'] > 0.) & (x['Electron_ReconstructionSFUp[0]'] > 0.))*1.*x['Electron_IdentificationSFUp[0]']*x['Electron_ReconstructionSFUp[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & ((x['Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX'] == 1) | (
+                    (x['Triggered_HLT_Ele32_WPTight_Gsf_L1DoubleEG_vX'] == 1) & (x['Triggered_HLT_Ele32_WPTight_Gsf_2017SeedsX'] == 1))) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['Triggered_HLT_IsoMu27_vX'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
+
+            else:
+
+                # nominal values
+                df = df.assign(sf_weight=lambda x: (x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSF[0]'] > 0.) & (x['Electron_ReconstructionSF[0]'] > 0.))*1.*x['Electron_IdentificationSF[0]']*x['Electron_ReconstructionSF[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & ((x['Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX'] == 1) | (
+                    (x['Triggered_HLT_Ele32_WPTight_Gsf_L1DoubleEG_vX'] == 1) & (x['Triggered_HLT_Ele32_WPTight_Gsf_2017SeedsX'] == 1))) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['Triggered_HLT_IsoMu27_vX'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
+
+                df = df.assign(xs_weight=lambda x: eval(
+                    self.total_weight_expr))
+                df = df.assign(
+                    total_weight=lambda x: x.xs_weight * x.sf_weight)
+
+
+
+                
+
 
         else:
             # print("total weight: ")
@@ -455,6 +515,101 @@ class DataFrame(object):
 
     def get_full_weights_after_preprocessing(self):
         return self.df_unsplit_preprocessing["total_weight"].values
+
+    def get_upEle_weights_after_preprocessing(self):
+        return self.df_unsplit_preprocessing["total_weight_upEle"].values
+    def get_downEle_weights_after_preprocessing(self):
+        return self.df_unsplit_preprocessing["total_weight_downEle"].values
+    def get_upMuon_weights_after_preprocessing(self):
+        return self.df_unsplit_preprocessing["total_weight_upMuon"].values
+    def get_downMuon_weights_after_preprocessing(self):
+        return self.df_unsplit_preprocessing["total_weight_downEle"].values
+    def get_upEleTrigger_weights_after_preprocessing(self):
+        return self.df_unsplit_preprocessing["total_weight_upEleTrigger"].values
+    def get_downEleTrigger_weights_after_preprocessing(self):
+        return self.df_unsplit_preprocessing["total_weight_downEleTrigger"].values
+    def get_upMuonTrigger_weights_after_preprocessing(self):
+        return self.df_unsplit_preprocessing["total_weight_upMuonTrigger"].values
+    def get_downMuonTrigger_weights_after_preprocessing(self):
+        return self.df_unsplit_preprocessing["total_weight_downMuonTrigger"].values
+    def get_upPU_weights_after_preprocessing(self):
+        return self.df_unsplit_preprocessing["total_weight_upPU"].values
+    def get_downPU_weights_after_preprocessing(self):
+        return self.df_unsplit_preprocessing["total_weight_downPU"].values
+    def get_upL1Fire_weights_after_preprocessing(self):
+        return self.df_unsplit_preprocessing["total_weight_upL1Fire"].values
+    def get_downL1Fire_weights_after_preprocessing(self):
+        return self.df_unsplit_preprocessing["total_weight_downL1Fire"].values
+
+    def get_upISR_weights_ttH_after_preprocessing(self):
+        return self.df_unsplit_preprocessing["total_weight_upisr_ttH"].values
+
+    def get_downISR_weights_ttH_after_preprocessing(self):
+        return self.df_unsplit_preprocessing["total_weight_downisr_ttH"].values
+
+    def get_upFSR_weights_ttH_after_preprocessing(self):
+        return self.df_unsplit_preprocessing["total_weight_upfsr_ttH"].values
+
+    def get_downFSR_weights_ttH_after_preprocessing(self):
+        return self.df_unsplit_preprocessing["total_weight_downfsr_ttH"].values
+
+    def get_upISR_weights_ttlf_after_preprocessing(self):
+        return self.df_unsplit_preprocessing["total_weight_upisr_ttlf"].values
+
+    def get_downISR_weights_ttlf_after_preprocessing(self):
+        return self.df_unsplit_preprocessing["total_weight_downisr_ttlf"].values
+
+    def get_upFSR_weights_ttlf_after_preprocessing(self):
+        return self.df_unsplit_preprocessing["total_weight_upfsr_ttlf"].values
+
+    def get_downFSR_weights_ttlf_after_preprocessing(self):
+        return self.df_unsplit_preprocessing["total_weight_downfsr_ttlf"].values
+
+    def get_upISR_weights_ttcc_after_preprocessing(self):
+        return self.df_unsplit_preprocessing["total_weight_upisr_ttcc"].values
+
+    def get_downISR_weights_ttcc_after_preprocessing(self):
+        return self.df_unsplit_preprocessing["total_weight_downisr_ttcc"].values
+
+    def get_upFSR_weights_ttcc_after_preprocessing(self):
+        return self.df_unsplit_preprocessing["total_weight_upfsr_ttcc"].values
+
+    def get_downFSR_weights_ttcc_after_preprocessing(self):
+        return self.df_unsplit_preprocessing["total_weight_downfsr_ttcc"].values
+        
+    def get_uplf_weights_after_preprocessing(self):
+        return self.df_unsplit_preprocessing["total_weight_uplf"].values
+    def get_downlf_weights_after_preprocessing(self):
+        return self.df_unsplit_preprocessing["total_weight_downlf"].values
+    def get_uphf_weights_after_preprocessing(self):
+        return self.df_unsplit_preprocessing["total_weight_uphf"].values
+    def get_downhf_weights_after_preprocessing(self):
+        return self.df_unsplit_preprocessing["total_weight_downhf"].values
+    def get_uplfstats1_weights_after_preprocessing(self):
+        return self.df_unsplit_preprocessing["total_weight_uplfstats1"].values
+    def get_downlfstats1_weights_after_preprocessing(self):
+        return self.df_unsplit_preprocessing["total_weight_downlfstats1"].values
+    def get_uplfstats2_weights_after_preprocessing(self):
+        return self.df_unsplit_preprocessing["total_weight_uplfstats2"].values
+    def get_downlfstats2_weights_after_preprocessing(self):
+        return self.df_unsplit_preprocessing["total_weight_downlfstats2"].values
+    def get_uphfstats1_weights_after_preprocessing(self):
+        return self.df_unsplit_preprocessing["total_weight_uphfstats1"].values
+    def get_downhfstats1_weights_after_preprocessing(self):
+        return self.df_unsplit_preprocessing["total_weight_downhfstats1"].values
+    def get_uphfstats2_weights_after_preprocessing(self):
+        return self.df_unsplit_preprocessing["total_weight_uphfstats2"].values
+    def get_downhfstats2_weights_after_preprocessing(self):
+        return self.df_unsplit_preprocessing["total_weight_downhfstats2"].values
+    def get_upcferr1_weights_after_preprocessing(self):
+        return self.df_unsplit_preprocessing["total_weight_upcferr1"].values
+    def get_downcferr1_weights_after_preprocessing(self):
+        return self.df_unsplit_preprocessing["total_weight_downcferr1"].values
+    def get_upcferr2_weights_after_preprocessing(self):
+        return self.df_unsplit_preprocessing["total_weight_upcferr2"].values
+    def get_downcferr2_weights_after_preprocessing(self):
+        return self.df_unsplit_preprocessing["total_weight_downcferr2"].values
+    
 
     def get_full_lumi_weights_after_preprocessing(self):
         return self.df_unsplit_preprocessing["lumi_weight"].values

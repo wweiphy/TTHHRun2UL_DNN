@@ -17,8 +17,8 @@ sys.path.append(basedir)
 import plot_configs.setupPlots as setup
 
 # save DNN outputs for evaluation 
-class saveDiscriminators:
-    def __init__(self, data, prediction_vector, predicted_classes, event_classes, nbins, bin_range, event_category, savedir, logscale=False):
+class savenominalDiscriminators:
+    def __init__(self, data, prediction_vector, predicted_classes, event_classes, nbins, bin_range, event_category, savedir, lumi, logscale=False):
         self.data = data
         self.prediction_vector = prediction_vector
         self.predicted_classes = predicted_classes
@@ -28,6 +28,7 @@ class saveDiscriminators:
         self.bin_range = bin_range
         self.event_category = event_category
         self.savedir = savedir
+        self.lumi = lumi
         self.logscale = logscale
 
     def save(self):
@@ -40,22 +41,628 @@ class saveDiscriminators:
 
             f = ROOT.TFile(self.savedir + "/" + node_cls +
                            "_discriminator" + ".root", "RECREATE")
-            print("name of the root file: ")
+            print("name of the nominal  root file: ")
             print(self.savedir + "/" + node_cls + "_discriminator" + ".root")
 
             if i >= self.n_classes:
                 continue
             print("\nPLOTTING OUTPUT NODE '"+str(node_cls))+"'"
 
-# TODO - add the loading of class translation in DNN.py for evaluation instead of here
-            # get index of node
-            # self.class_translation = []
-            # with open(self.sample_save_path+"class_translation.txt") as f:
-            #     for line in f:
-            #         self.class_translation.append(line)
-            # print("class_translation: " + self.class_translation)
+            nodeIndex = self.data.class_translation[node_cls]
 
-            # nodeIndex = self.class_translation[node_cls]
+            # get output values of this node
+            out_values = self.prediction_vector[:, i]
+#            out_values2 =
+
+            # fill lists according to class
+            bkgHists = []
+            bkgLabels = []
+            weightIntegral = 0
+
+            # loop over all classes to fill hists according to truth level class
+            for j, truth_cls in enumerate(self.event_classes):
+                if j >= self.n_classes:
+                    continue
+                # classIndex = self.class_translation[truth_cls]
+                classIndex = self.data.class_translation[truth_cls]
+
+                # filter values per event class
+                filtered_values = [out_values[k] for k in range(len(out_values))
+                                   if self.data.get_full_labels_after_preprocessing(as_categorical=False)[k] == classIndex
+                                   and self.predicted_classes[k] == nodeIndex]
+
+                filtered_weights = [self.data.get_full_lumi_weights_after_preprocessing()[k] for k in range(len(out_values))
+                                    if self.data.get_full_labels_after_preprocessing(as_categorical=False)[k] == classIndex
+                                    and self.predicted_classes[k] == nodeIndex]
+                filtered_weights_uplf = [self.lumi * self.data.get_uplf_weights_after_preprocessing()[k] for k in range(len(out_values))
+                                    if self.data.get_full_labels_after_preprocessing(as_categorical=False)[k] == classIndex
+                                    and self.predicted_classes[k] == nodeIndex]
+                filtered_weights_downlf = [self.lumi * self.data.get_downlf_weights_after_preprocessing()[k] for k in range(len(out_values))
+                                    if self.data.get_full_labels_after_preprocessing(as_categorical=False)[k] == classIndex
+                                    and self.predicted_classes[k] == nodeIndex]
+                filtered_weights_uphf = [self.lumi * self.data.get_uphf_weights_after_preprocessing()[k] for k in range(len(out_values))
+                                    if self.data.get_full_labels_after_preprocessing(as_categorical=False)[k] == classIndex
+                                    and self.predicted_classes[k] == nodeIndex]
+                filtered_weights_downhf = [self.lumi * self.data.get_downhf_weights_after_preprocessing()[k] for k in range(len(out_values))
+                                    if self.data.get_full_labels_after_preprocessing(as_categorical=False)[k] == classIndex
+                                    and self.predicted_classes[k] == nodeIndex]
+                filtered_weights_uplfstats1 = [self.lumi * self.data.get_uplfstats1_weights_after_preprocessing()[k] for k in range(len(out_values))
+                                    if self.data.get_full_labels_after_preprocessing(as_categorical=False)[k] == classIndex
+                                    and self.predicted_classes[k] == nodeIndex]
+                filtered_weights_downlfstats1 = [self.lumi * self.data.get_downlfstats1_weights_after_preprocessing()[k] for k in range(len(out_values))
+                                    if self.data.get_full_labels_after_preprocessing(as_categorical=False)[k] == classIndex
+                                    and self.predicted_classes[k] == nodeIndex]
+                filtered_weights_uplfstats2 = [self.lumi * self.data.get_uplfstats2_weights_after_preprocessing()[k] for k in range(len(out_values))
+                                    if self.data.get_full_labels_after_preprocessing(as_categorical=False)[k] == classIndex
+                                    and self.predicted_classes[k] == nodeIndex]
+                filtered_weights_downlfstats2 = [self.lumi * self.data.get_downlfstats2_weights_after_preprocessing()[k] for k in range(len(out_values))
+                                    if self.data.get_full_labels_after_preprocessing(as_categorical=False)[k] == classIndex
+                                    and self.predicted_classes[k] == nodeIndex]
+                filtered_weights_uphfstats1 = [self.lumi * self.data.get_uphfstats1_weights_after_preprocessing()[k] for k in range(len(out_values))
+                                    if self.data.get_full_labels_after_preprocessing(as_categorical=False)[k] == classIndex
+                                    and self.predicted_classes[k] == nodeIndex]
+                filtered_weights_downhfstats1 = [self.lumi * self.data.get_downhfstats1_weights_after_preprocessing()[k] for k in range(len(out_values))
+                                    if self.data.get_full_labels_after_preprocessing(as_categorical=False)[k] == classIndex
+                                    and self.predicted_classes[k] == nodeIndex]
+                filtered_weights_uphfstats2 = [self.lumi * self.data.get_uphfstats2_weights_after_preprocessing()[k] for k in range(len(out_values))
+                                    if self.data.get_full_labels_after_preprocessing(as_categorical=False)[k] == classIndex
+                                    and self.predicted_classes[k] == nodeIndex]
+                filtered_weights_downhfstats2 = [self.lumi * self.data.get_downstats2_weights_after_preprocessing()[k] for k in range(len(out_values))
+                                    if self.data.get_full_labels_after_preprocessing(as_categorical=False)[k] == classIndex
+                                    and self.predicted_classes[k] == nodeIndex]
+                filtered_weights_upcferr1 = [self.lumi * self.data.get_upcferr1_weights_after_preprocessing()[k] for k in range(len(out_values))
+                                    if self.data.get_full_labels_after_preprocessing(as_categorical=False)[k] == classIndex
+                                    and self.predicted_classes[k] == nodeIndex]
+                filtered_weights_downcferr1 = [self.lumi * self.data.get_downcferr1_weights_after_preprocessing()[k] for k in range(len(out_values))
+                                    if self.data.get_full_labels_after_preprocessing(as_categorical=False)[k] == classIndex
+                                    and self.predicted_classes[k] == nodeIndex]
+                filtered_weights_upcferr2 = [self.lumi * self.data.get_upcferr2_weights_after_preprocessing()[k] for k in range(len(out_values))
+                                    if self.data.get_full_labels_after_preprocessing(as_categorical=False)[k] == classIndex
+                                    and self.predicted_classes[k] == nodeIndex]
+                filtered_weights_downcferr2 = [self.lumi * self.data.get_downcferr2_weights_after_preprocessing()[k] for k in range(len(out_values))
+                                    if self.data.get_full_labels_after_preprocessing(as_categorical=False)[k] == classIndex
+                                    and self.predicted_classes[k] == nodeIndex]
+                filtered_weights_upEle = [self.lumi * self.data.get_upEle_weights_after_preprocessing()[k] for k in range(len(out_values))
+                                    if self.data.get_full_labels_after_preprocessing(as_categorical=False)[k] == classIndex
+                                    and self.predicted_classes[k] == nodeIndex]
+                filtered_weights_downEle = [self.lumi * self.data.get_downEle_weights_after_preprocessing()[k] for k in range(len(out_values))
+                                    if self.data.get_full_labels_after_preprocessing(as_categorical=False)[k] == classIndex
+                                    and self.predicted_classes[k] == nodeIndex]
+                filtered_weights_upMuon = [self.lumi * self.data.get_upMuon_weights_after_preprocessing()[k] for k in range(len(out_values))
+                                    if self.data.get_full_labels_after_preprocessing(as_categorical=False)[k] == classIndex
+                                    and self.predicted_classes[k] == nodeIndex]
+                filtered_weights_downMuon = [self.lumi * self.data.get_downMuon_weights_after_preprocessing()[k] for k in range(len(out_values))
+                                    if self.data.get_full_labels_after_preprocessing(as_categorical=False)[k] == classIndex
+                                    and self.predicted_classes[k] == nodeIndex]
+                filtered_weights_upEleTrigger = [self.lumi * self.data.get_upEleTrigger_weights_after_preprocessing()[k] for k in range(len(out_values))
+                                    if self.data.get_full_labels_after_preprocessing(as_categorical=False)[k] == classIndex
+                                    and self.predicted_classes[k] == nodeIndex]
+                filtered_weights_downEleTrigger = [self.lumi * self.data.get_downEleTrigger_weights_after_preprocessing()[k] for k in range(len(out_values))
+                                    if self.data.get_full_labels_after_preprocessing(as_categorical=False)[k] == classIndex
+                                    and self.predicted_classes[k] == nodeIndex]
+                filtered_weights_upMuonTrigger = [self.lumi * self.data.get_upMuonTrigger_weights_after_preprocessing()[k] for k in range(len(out_values))
+                                    if self.data.get_full_labels_after_preprocessing(as_categorical=False)[k] == classIndex
+                                    and self.predicted_classes[k] == nodeIndex]
+                filtered_weights_downMuonTrigger = [self.lumi * self.data.get_downMuonTrigger_weights_after_preprocessing()[k] for k in range(len(out_values))
+                                    if self.data.get_full_labels_after_preprocessing(as_categorical=False)[k] == classIndex
+                                    and self.predicted_classes[k] == nodeIndex]
+                filtered_weights_upPU = [self.lumi * self.data.get_upPU_weights_after_preprocessing()[k] for k in range(len(out_values))
+                                    if self.data.get_full_labels_after_preprocessing(as_categorical=False)[k] == classIndex
+                                    and self.predicted_classes[k] == nodeIndex]
+                filtered_weights_downPU = [self.lumi * self.data.get_downPU_weights_after_preprocessing()[k] for k in range(len(out_values))
+                                    if self.data.get_full_labels_after_preprocessing(as_categorical=False)[k] == classIndex
+                                    and self.predicted_classes[k] == nodeIndex]
+                filtered_weights_upL1Fire = [self.lumi * self.data.get_upL1Fire_weights_after_preprocessing()[k] for k in range(len(out_values))
+                                    if self.data.get_full_labels_after_preprocessing(as_categorical=False)[k] == classIndex
+                                    and self.predicted_classes[k] == nodeIndex]
+                filtered_weights_downL1Fire = [self.lumi * self.data.get_downL1Fire_weights_after_preprocessing()[k] for k in range(len(out_values))
+                                    if self.data.get_full_labels_after_preprocessing(as_categorical=False)[k] == classIndex
+                                    and self.predicted_classes[k] == nodeIndex]
+                filtered_weights_upISR_ttH = [self.lumi * self.data.get_upISR_weights_ttH_after_preprocessing()[k] for k in range(len(out_values))
+                                    if self.data.get_full_labels_after_preprocessing(as_categorical=False)[k] == classIndex
+                                    and self.predicted_classes[k] == nodeIndex]
+                filtered_weights_downISR_ttH = [self.lumi * self.data.get_downISR_weights_ttH_after_preprocessing()[k] for k in range(len(out_values))
+                                    if self.data.get_full_labels_after_preprocessing(as_categorical=False)[k] == classIndex
+                                    and self.predicted_classes[k] == nodeIndex]
+                filtered_weights_upFSR_ttH = [self.lumi * self.data.get_upFSR_weights_ttH_after_preprocessing()[k] for k in range(len(out_values))
+                                    if self.data.get_full_labels_after_preprocessing(as_categorical=False)[k] == classIndex
+                                    and self.predicted_classes[k] == nodeIndex]
+                filtered_weights_downFSR_ttH = [self.lumi * self.data.get_downFSR_weights_ttH_after_preprocessing()[k] for k in range(len(out_values))
+                                    if self.data.get_full_labels_after_preprocessing(as_categorical=False)[k] == classIndex
+                                    and self.predicted_classes[k] == nodeIndex]
+                filtered_weights_upISR_ttlf = [self.lumi * self.data.get_upISR_weights_ttlf_after_preprocessing()[k] for k in range(len(out_values))
+                                    if self.data.get_full_labels_after_preprocessing(as_categorical=False)[k] == classIndex
+                                    and self.predicted_classes[k] == nodeIndex]
+                filtered_weights_downISR_ttlf = [self.lumi * self.data.get_downISR_weights_ttlf_after_preprocessing()[k] for k in range(len(out_values))
+                                    if self.data.get_full_labels_after_preprocessing(as_categorical=False)[k] == classIndex
+                                    and self.predicted_classes[k] == nodeIndex]
+                filtered_weights_upFSR_ttlf = [self.lumi * self.data.get_upFSR_weights_ttlf_after_preprocessing()[k] for k in range(len(out_values))
+                                    if self.data.get_full_labels_after_preprocessing(as_categorical=False)[k] == classIndex
+                                    and self.predicted_classes[k] == nodeIndex]
+                filtered_weights_downFSR_ttlf = [self.lumi * self.data.get_downFSR_weights_ttlf_after_preprocessing()[k] for k in range(len(out_values))
+                                    if self.data.get_full_labels_after_preprocessing(as_categorical=False)[k] == classIndex
+                                    and self.predicted_classes[k] == nodeIndex]
+                filtered_weights_upISR_ttcc = [self.lumi * self.data.get_upISR_weights_ttcc _after_preprocessing()[k] for k in range(len(out_values))
+                                    if self.data.get_full_labels_after_preprocessing(as_categorical=False)[k] == classIndex
+                                    and self.predicted_classes[k] == nodeIndex]
+                filtered_weights_downISR_ttcc = [self.lumi * self.data.get_downISR_weights_ttcc_after_preprocessing()[k] for k in range(len(out_values))
+                                    if self.data.get_full_labels_after_preprocessing(as_categorical=False)[k] == classIndex
+                                    and self.predicted_classes[k] == nodeIndex]
+                filtered_weights_upFSR_ttcc = [self.lumi * self.data.get_upFSR_weights_ttcc_after_preprocessing()[k] for k in range(len(out_values))
+                                    if self.data.get_full_labels_after_preprocessing(as_categorical=False)[k] == classIndex
+                                    and self.predicted_classes[k] == nodeIndex]
+                filtered_weights_downFSR_ttcc = [self.lumi * self.data.get_downFSR_weights_ttcc_after_preprocessing()[k] for k in range(len(out_values))
+                                    if self.data.get_full_labels_after_preprocessing(as_categorical=False)[k] == classIndex
+                                    and self.predicted_classes[k] == nodeIndex]
+        
+                # lumi = 41.5
+                # filtered_weights = [lumi * self.data.get_full_weights_after_preprocessing()[k] for k in range(len(out_values))
+                #                     if self.data.get_full_labels_after_preprocessing(as_categorical=False)[k] == classIndex
+                #                     and self.predicted_classes[k] == nodeIndex]
+
+                print("{} events in discriminator: {}\t(Integral: {})".format(
+                    truth_cls, len(filtered_values), sum(filtered_weights)))
+
+                weightIntegral += sum(filtered_weights)
+
+                histogram = setup.setupHistogram(
+                    values=filtered_values,
+                    weights=filtered_weights,
+                    nbins=self.nbins,
+                    bin_range=self.bin_range,
+                    #                        color     = setup.GetPlotColor(truth_cls),
+                    xtitle="ljets_ge4j_ge3t_" + \
+                    str(node_cls)+"_node__"+str(truth_cls),
+                    ytitle=setup.GetyTitle(),
+                    filled=True)
+                histogram = setup.setupHistogram(
+                    values=filtered_values,
+                    weights=filtered_weights_uplf,
+                    nbins=self.nbins,
+                    bin_range=self.bin_range,
+                    #                        color     = setup.GetPlotColor(truth_cls),
+                    xtitle="ljets_ge4j_ge3t_" + \
+                    str(node_cls)+"_node__"+str(truth_cls)+"__btag_lfUp",
+                    ytitle=setup.GetyTitle(),
+                    filled=True)
+                histogram = setup.setupHistogram(
+                    values=filtered_values,
+                    weights=filtered_weights_downlf,
+                    nbins=self.nbins,
+                    bin_range=self.bin_range,
+                    #                        color     = setup.GetPlotColor(truth_cls),
+                    xtitle="ljets_ge4j_ge3t_" + \
+                    str(node_cls)+"_node__"+str(truth_cls)+"__btag_lfDown",
+                    ytitle=setup.GetyTitle(),
+                    filled=True)
+                histogram = setup.setupHistogram(
+                    values=filtered_values,
+                    weights=filtered_weights_uphf,
+                    nbins=self.nbins,
+                    bin_range=self.bin_range,
+                    #                        color     = setup.GetPlotColor(truth_cls),
+                    xtitle="ljets_ge4j_ge3t_" + \
+                    str(node_cls)+"_node__"+str(truth_cls)+"__btag_hfUp",
+                    ytitle=setup.GetyTitle(),
+                    filled=True)
+                histogram = setup.setupHistogram(
+                    values=filtered_values,
+                    weights=filtered_weights_downhf,
+                    nbins=self.nbins,
+                    bin_range=self.bin_range,
+                    #                        color     = setup.GetPlotColor(truth_cls),
+                    xtitle="ljets_ge4j_ge3t_" + \
+                    str(node_cls)+"_node__"+str(truth_cls)+"__btrag_hfDown",
+                    ytitle=setup.GetyTitle(),
+                    filled=True)
+                histogram = setup.setupHistogram(
+                    values=filtered_values,
+                    weights=filtered_weights_uplfstats1,
+                    nbins=self.nbins,
+                    bin_range=self.bin_range,
+                    #                        color     = setup.GetPlotColor(truth_cls),
+                    xtitle="ljets_ge4j_ge3t_" + \
+                    str(node_cls)+"_node__"+str(truth_cls)+"__btag_lfstats1Up",
+                    ytitle=setup.GetyTitle(),
+                    filled=True)
+                histogram = setup.setupHistogram(
+                    values=filtered_values,
+                    weights=filtered_weights_downlfstats1,
+                    nbins=self.nbins,
+                    bin_range=self.bin_range,
+                    #                        color     = setup.GetPlotColor(truth_cls),
+                    xtitle="ljets_ge4j_ge3t_" + \
+                    str(node_cls)+"_node__"+str(truth_cls)+"__btag_lfstats1Down",
+                    ytitle=setup.GetyTitle(),
+                    filled=True)
+                histogram = setup.setupHistogram(
+                    values=filtered_values,
+                    weights=filtered_weights_uplfstats2,
+                    nbins=self.nbins,
+                    bin_range=self.bin_range,
+                    #                        color     = setup.GetPlotColor(truth_cls),
+                    xtitle="ljets_ge4j_ge3t_" + \
+                    str(node_cls)+"_node__"+str(truth_cls)+"__btag_lfstats2Up",
+                    ytitle=setup.GetyTitle(),
+                    filled=True)
+                histogram = setup.setupHistogram(
+                    values=filtered_values,
+                    weights=filtered_weights_downlfstats2,
+                    nbins=self.nbins,
+                    bin_range=self.bin_range,
+                    #                        color     = setup.GetPlotColor(truth_cls),
+                    xtitle="ljets_ge4j_ge3t_" + \
+                    str(node_cls)+"_node__"+str(truth_cls)+"__btag_lfstats2Down",
+                    ytitle=setup.GetyTitle(),
+                    filled=True)
+                histogram = setup.setupHistogram(
+                    values=filtered_values,
+                    weights=filtered_weights_uphfstats1,
+                    nbins=self.nbins,
+                    bin_range=self.bin_range,
+                    #                        color     = setup.GetPlotColor(truth_cls),
+                    xtitle="ljets_ge4j_ge3t_" + \
+                    str(node_cls)+"_node__"+str(truth_cls)+"__btag_hfstats1Up",
+                    ytitle=setup.GetyTitle(),
+                    filled=True)
+                histogram = setup.setupHistogram(
+                    values=filtered_values,
+                    weights=filtered_weights_downhfstats1,
+                    nbins=self.nbins,
+                    bin_range=self.bin_range,
+                    #                        color     = setup.GetPlotColor(truth_cls),
+                    xtitle="ljets_ge4j_ge3t_" + \
+                    str(node_cls)+"_node__"+str(truth_cls)+"__btag_hfstats1Down",
+                    ytitle=setup.GetyTitle(),
+                    filled=True)
+                histogram = setup.setupHistogram(
+                    values=filtered_values,
+                    weights=filtered_weights_uphfstats2,
+                    nbins=self.nbins,
+                    bin_range=self.bin_range,
+                    #                        color     = setup.GetPlotColor(truth_cls),
+                    xtitle="ljets_ge4j_ge3t_" + \
+                    str(node_cls)+"_node__"+str(truth_cls)+"__btag_hfstats2Up",
+                    ytitle=setup.GetyTitle(),
+                    filled=True)
+                histogram = setup.setupHistogram(
+                    values=filtered_values,
+                    weights=filtered_weights_downhfstats2,
+                    nbins=self.nbins,
+                    bin_range=self.bin_range,
+                    #                        color     = setup.GetPlotColor(truth_cls),
+                    xtitle="ljets_ge4j_ge3t_" + \
+                    str(node_cls)+"_node__"+str(truth_cls)+"__btag_hfstats2Down",
+                    ytitle=setup.GetyTitle(),
+                    filled=True)
+                histogram = setup.setupHistogram(
+                    values=filtered_values,
+                    weights=filtered_weights_upcferr1,
+                    nbins=self.nbins,
+                    bin_range=self.bin_range,
+                    #                        color     = setup.GetPlotColor(truth_cls),
+                    xtitle="ljets_ge4j_ge3t_" + \
+                    str(node_cls)+"_node__"+str(truth_cls)+"__btag_cferr1Up",
+                    ytitle=setup.GetyTitle(),
+                    filled=True)
+                histogram = setup.setupHistogram(
+                    values=filtered_values,
+                    weights=filtered_weights_downcferr1,
+                    nbins=self.nbins,
+                    bin_range=self.bin_range,
+                    #                        color     = setup.GetPlotColor(truth_cls),
+                    xtitle="ljets_ge4j_ge3t_" + \
+                    str(node_cls)+"_node__"+str(truth_cls)+"__btag_cferr1Down",
+                    ytitle=setup.GetyTitle(),
+                    filled=True)
+                histogram = setup.setupHistogram(
+                    values=filtered_values,
+                    weights=filtered_weights_upcferr2,
+                    nbins=self.nbins,
+                    bin_range=self.bin_range,
+                    #                        color     = setup.GetPlotColor(truth_cls),
+                    xtitle="ljets_ge4j_ge3t_" + \
+                    str(node_cls)+"_node__"+str(truth_cls)+"__btag_cferr2Up",
+                    ytitle=setup.GetyTitle(),
+                    filled=True)
+                histogram = setup.setupHistogram(
+                    values=filtered_values,
+                    weights=filtered_weights_downcferr2,
+                    nbins=self.nbins,
+                    bin_range=self.bin_range,
+                    #                        color     = setup.GetPlotColor(truth_cls),
+                    xtitle="ljets_ge4j_ge3t_" + \
+                    str(node_cls)+"_node__"+str(truth_cls)+"__btag_cferr2Down",
+                    ytitle=setup.GetyTitle(),
+                    filled=True)
+                histogram = setup.setupHistogram(
+                    values=filtered_values,
+                    weights=filtered_weights_upEle,
+                    nbins=self.nbins,
+                    bin_range=self.bin_range,
+                    #                        color     = setup.GetPlotColor(truth_cls),
+                    xtitle="ljets_ge4j_ge3t_" + \
+                    str(node_cls)+"_node__"+str(truth_cls)+"__eff_eUp",
+                    ytitle=setup.GetyTitle(),
+                    filled=True)
+                histogram = setup.setupHistogram(
+                    values=filtered_values,
+                    weights=filtered_weights_downEle,
+                    nbins=self.nbins,
+                    bin_range=self.bin_range,
+                    #                        color     = setup.GetPlotColor(truth_cls),
+                    xtitle="ljets_ge4j_ge3t_" + \
+                    str(node_cls)+"_node__"+str(truth_cls)+"__eff_eDown",
+                    ytitle=setup.GetyTitle(),
+                    filled=True)
+                histogram = setup.setupHistogram(
+                    values=filtered_values,
+                    weights=filtered_weights_upMuon,
+                    nbins=self.nbins,
+                    bin_range=self.bin_range,
+                    #                        color     = setup.GetPlotColor(truth_cls),
+                    xtitle="ljets_ge4j_ge3t_" + \
+                    str(node_cls)+"_node__"+str(truth_cls)+"__eff_muUp",
+                    ytitle=setup.GetyTitle(),
+                    filled=True)
+                histogram = setup.setupHistogram(
+                    values=filtered_values,
+                    weights=filtered_weights_downMuon,
+                    nbins=self.nbins,
+                    bin_range=self.bin_range,
+                    #                        color     = setup.GetPlotColor(truth_cls),
+                    xtitle="ljets_ge4j_ge3t_" + \
+                    str(node_cls)+"_node__"+str(truth_cls)+"__eff_muDown",
+                    ytitle=setup.GetyTitle(),
+                    filled=True)
+                histogram = setup.setupHistogram(
+                    values=filtered_values,
+                    weights=filtered_weights_upEleTrigger,
+                    nbins=self.nbins,
+                    bin_range=self.bin_range,
+                    #                        color     = setup.GetPlotColor(truth_cls),
+                    xtitle="ljets_ge4j_ge3t_" + \
+                    str(node_cls)+"_node__"+str(truth_cls)+"__effTrigger_eUp",
+                    ytitle=setup.GetyTitle(),
+                    filled=True)
+                histogram = setup.setupHistogram(
+                    values=filtered_values,
+                    weights=filtered_weights_downEleTrigger,
+                    nbins=self.nbins,
+                    bin_range=self.bin_range,
+                    #                        color     = setup.GetPlotColor(truth_cls),
+                    xtitle="ljets_ge4j_ge3t_" + \
+                    str(node_cls)+"_node__"+str(truth_cls)+"__effTrigger_eDown",
+                    ytitle=setup.GetyTitle(),
+                    filled=True)
+                histogram = setup.setupHistogram(
+                    values=filtered_values,
+                    weights=filtered_weights_upMuonTrigger,
+                    nbins=self.nbins,
+                    bin_range=self.bin_range,
+                    #                        color     = setup.GetPlotColor(truth_cls),
+                    xtitle="ljets_ge4j_ge3t_" + \
+                    str(node_cls)+"_node__"+str(truth_cls)+"__effTrigger_muUp",
+                    ytitle=setup.GetyTitle(),
+                    filled=True)
+                histogram = setup.setupHistogram(
+                    values=filtered_values,
+                    weights=filtered_weights_downMuonTrigger,
+                    nbins=self.nbins,
+                    bin_range=self.bin_range,
+                    #                        color     = setup.GetPlotColor(truth_cls),
+                    xtitle="ljets_ge4j_ge3t_" + \
+                    str(node_cls)+"_node__"+str(truth_cls)+"__effTrigger_muDown",
+                    ytitle=setup.GetyTitle(),
+                    filled=True)
+                histogram = setup.setupHistogram(
+                    values=filtered_values,
+                    weights=filtered_weights_upPU,
+                    nbins=self.nbins,
+                    bin_range=self.bin_range,
+                    #                        color     = setup.GetPlotColor(truth_cls),
+                    xtitle="ljets_ge4j_ge3t_" + \
+                    str(node_cls)+"_node__"+str(truth_cls)+"__PU_Up",
+                    ytitle=setup.GetyTitle(),
+                    filled=True)
+                histogram = setup.setupHistogram(
+                    values=filtered_values,
+                    weights=filtered_weights_downPU,
+                    nbins=self.nbins,
+                    bin_range=self.bin_range,
+                    #                        color     = setup.GetPlotColor(truth_cls),
+                    xtitle="ljets_ge4j_ge3t_" + \
+                    str(node_cls)+"_node__"+str(truth_cls)+"__PU_Down",
+                    ytitle=setup.GetyTitle(),
+                    filled=True)
+                histogram = setup.setupHistogram(
+                    values=filtered_values,
+                    weights=filtered_weights_upL1Fire,
+                    nbins=self.nbins,
+                    bin_range=self.bin_range,
+                    #                        color     = setup.GetPlotColor(truth_cls),
+                    xtitle="ljets_ge4j_ge3t_" + \
+                    str(node_cls)+"_node__"+str(truth_cls)+"__L1Prefiring_Up",
+                    ytitle=setup.GetyTitle(),
+                    filled=True)
+                histogram = setup.setupHistogram(
+                    values=filtered_values,
+                    weights=filtered_weights_downL1Fire,
+                    nbins=self.nbins,
+                    bin_range=self.bin_range,
+                    #                        color     = setup.GetPlotColor(truth_cls),
+                    xtitle="ljets_ge4j_ge3t_" + \
+                    str(node_cls)+"_node__"+str(truth_cls)+"__L1Prefiring_Down",
+                    ytitle=setup.GetyTitle(),
+                    filled=True)
+                if truth_cls == "ttH":
+                    histogram = setup.setupHistogram(
+                        values=filtered_values,
+                        weights=filtered_weights_upISR_ttH,
+                        nbins=self.nbins,
+                        bin_range=self.bin_range,
+                        #                        color     = setup.GetPlotColor(truth_cls),
+                        xtitle="ljets_ge4j_ge3t_" + \
+                        str(node_cls)+"_node__"+str(truth_cls)+"__ISR_ttHUp",
+                        ytitle=setup.GetyTitle(),
+                        filled=True)
+                    histogram = setup.setupHistogram(
+                        values=filtered_values,
+                        weights=filtered_weights_downISR_ttH,
+                        nbins=self.nbins,
+                        bin_range=self.bin_range,
+                        #                        color     = setup.GetPlotColor(truth_cls),
+                        xtitle="ljets_ge4j_ge3t_" + \
+                        str(node_cls)+"_node__"+str(truth_cls)+"__ISR_ttHDown",
+                        ytitle=setup.GetyTitle(),
+                        filled=True)
+                    histogram = setup.setupHistogram(
+                        values=filtered_values,
+                        weights=filtered_weights_upFSR_ttH,
+                        nbins=self.nbins,
+                        bin_range=self.bin_range,
+                        #                        color     = setup.GetPlotColor(truth_cls),
+                        xtitle="ljets_ge4j_ge3t_" + \
+                        str(node_cls)+"_node__"+str(truth_cls)+"__FSR_ttHUp",
+                        ytitle=setup.GetyTitle(),
+                        filled=True)
+                    histogram = setup.setupHistogram(
+                        values=filtered_values,
+                        weights=filtered_weights_downFSR_ttH,
+                        nbins=self.nbins,
+                        bin_range=self.bin_range,
+                        #                        color     = setup.GetPlotColor(truth_cls),
+                        xtitle="ljets_ge4j_ge3t_" + \
+                        str(node_cls)+"_node__"+str(truth_cls)+"__FSR_ttHDown",
+                        ytitle=setup.GetyTitle(),
+                        filled=True)
+                
+                if truth_cls = "ttlf":
+                    histogram = setup.setupHistogram(
+                        values=filtered_values,
+                        weights=filtered_weights_upISR_ttlf,
+                        nbins=self.nbins,
+                        bin_range=self.bin_range,
+                        #                        color     = setup.GetPlotColor(truth_cls),
+                        xtitle="ljets_ge4j_ge3t_" + \
+                        str(node_cls)+"_node__"+str(truth_cls)+"__ISR_ttlfUp",
+                        ytitle=setup.GetyTitle(),
+                        filled=True)
+                    histogram = setup.setupHistogram(
+                        values=filtered_values,
+                        weights=filtered_weights_downISR_ttlf,
+                        nbins=self.nbins,
+                        bin_range=self.bin_range,
+                        #                        color     = setup.GetPlotColor(truth_cls),
+                        xtitle="ljets_ge4j_ge3t_" + \
+                        str(node_cls)+"_node__" + \
+                        str(truth_cls)+"__ISR_ttlfDown",
+                        ytitle=setup.GetyTitle(),
+                        filled=True)
+                    histogram = setup.setupHistogram(
+                        values=filtered_values,
+                        weights=filtered_weights_upFSR_ttlf,
+                        nbins=self.nbins,
+                        bin_range=self.bin_range,
+                        #                        color     = setup.GetPlotColor(truth_cls),
+                        xtitle="ljets_ge4j_ge3t_" + \
+                        str(node_cls)+"_node__"+str(truth_cls)+"__FSR_ttlfUp",
+                        ytitle=setup.GetyTitle(),
+                        filled=True)
+                    histogram = setup.setupHistogram(
+                        values=filtered_values,
+                        weights=filtered_weights_downFSR_ttlf,
+                        nbins=self.nbins,
+                        bin_range=self.bin_range,
+                        #                        color     = setup.GetPlotColor(truth_cls),
+                        xtitle="ljets_ge4j_ge3t_" + \
+                        str(node_cls)+"_node__" + \
+                        str(truth_cls)+"__FSR_ttlfDown",
+                        ytitle=setup.GetyTitle(),
+                        filled=True)
+                
+                if truth_cls == "ttcc":
+                    histogram = setup.setupHistogram(
+                        values=filtered_values,
+                        weights=filtered_weights_upISR_ttcc,
+                        nbins=self.nbins,
+                        bin_range=self.bin_range,
+                        #                        color     = setup.GetPlotColor(truth_cls),
+                        xtitle="ljets_ge4j_ge3t_" + \
+                        str(node_cls)+"_node__"+str(truth_cls)+"__ISR_ttccUp",
+                        ytitle=setup.GetyTitle(),
+                        filled=True)
+                    histogram = setup.setupHistogram(
+                        values=filtered_values,
+                        weights=filtered_weights_downISR_ttcc,
+                        nbins=self.nbins,
+                        bin_range=self.bin_range,
+                        #                        color     = setup.GetPlotColor(truth_cls),
+                        xtitle="ljets_ge4j_ge3t_" + \
+                        str(node_cls)+"_node__"+str(truth_cls)+"__ISR_ttccDown",
+                        ytitle=setup.GetyTitle(),
+                        filled=True)
+                    histogram = setup.setupHistogram(
+                        values=filtered_values,
+                        weights=filtered_weights_upFSR_ttcc,
+                        nbins=self.nbins,
+                        bin_range=self.bin_range,
+                        #                        color     = setup.GetPlotColor(truth_cls),
+                        xtitle="ljets_ge4j_ge3t_" + \
+                        str(node_cls)+"_node__"+str(truth_cls)+"__FSR_ttccUp",
+                        ytitle=setup.GetyTitle(),
+                        filled=True)
+                    histogram = setup.setupHistogram(
+                        values=filtered_values,
+                        weights=filtered_weights_downFSR_ttcc,
+                        nbins=self.nbins,
+                        bin_range=self.bin_range,
+                        #                        color     = setup.GetPlotColor(truth_cls),
+                        xtitle="ljets_ge4j_ge3t_" + \
+                        str(node_cls)+"_node__"+str(truth_cls)+"__FSR_ttccDown",
+                        ytitle=setup.GetyTitle(),
+                        filled=True)
+
+                bkgHists.append(histogram)
+                bkgLabels.append(truth_cls)
+#            allBKGhists.append( bkgHists )
+
+            f.cd()
+            f.Write()
+            f.Close()
+
+
+class saveJESJERDiscriminators:
+    def __init__(self, data, prediction_vector, predicted_classes, event_classes, nbins, bin_range, event_category, savedir, syst, logscale=False):
+        self.data = data
+        self.prediction_vector = prediction_vector
+        self.predicted_classes = predicted_classes
+        self.event_classes = event_classes
+        self.n_classes = len(self.event_classes)
+        self.nbins = nbins
+        self.bin_range = bin_range
+        self.event_category = event_category
+        self.savedir = savedir
+        self.syst = syst
+        self.logscale = logscale
+
+    def save(self):
+
+        # allBKGhists = []
+        # allSIGhists = []
+
+        # generate one plot per output node
+        for i, node_cls in enumerate(self.event_classes):
+
+            f = ROOT.TFile(self.savedir + "/" + node_cls + "_" + self.syst + 
+                           "_discriminator" + ".root", "RECREATE")
+            print("name of the syst root file: ")
+            print(self.savedir + "/" + node_cls + "_" +
+                  self.syst + "_discriminator" + ".root")
+
+            if i >= self.n_classes:
+                continue
+            print("\nPLOTTING OUTPUT NODE '"+str(node_cls))+"'"
 
             nodeIndex = self.data.class_translation[node_cls]
 
@@ -96,7 +703,7 @@ class saveDiscriminators:
                     bin_range=self.bin_range,
                     #                        color     = setup.GetPlotColor(truth_cls),
                     xtitle="ljets_ge4j_ge3t_" + \
-                    str(node_cls)+"_node__"+str(truth_cls),
+                    str(node_cls)+"_node__"+str(truth_cls) + "_" + self.syst,
                     ytitle=setup.GetyTitle(),
                     filled=True)
 
