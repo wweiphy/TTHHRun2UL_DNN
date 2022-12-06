@@ -202,18 +202,6 @@ dataset.addSample(
     islocal=False
 )
 
-dataset.addSample(
-    sampleName  = "TT4b",
-    ntuples=ntuplesPath2 +
-    "/2017/ntuple/TT4b_TuneCP5_13TeV_madgraph_pythia8/sl_LEG_ntuple_2017/221126_051927/*/*nominal*.root",
-    categories  = ttmb_categories,
-    process="tt4b",
-#    lumiWeight  = 41.5,
-    selections  = None,#ttbar_selection,
-#    selections  = ttbar_selection,
-    islocal     = False
-      ) # not finished
-
       
 dataset.addSample(
     sampleName  = "TTbbSL",
@@ -239,6 +227,18 @@ dataset.addSample(
     islocal=False
 )
 
+dataset.addSample(
+    sampleName="TT4b",
+    ntuples=ntuplesPath2 +
+    "/2017/ntuple/TT4b_TuneCP5_13TeV_madgraph_pythia8/sl_LEG_ntuple_2017/221126_051927/*/*nominal*.root",
+    categories=ttmb_categories,
+    process="tt4b",
+    #    lumiWeight  = 41.5,
+    selections=None,  # ttbar_selection,
+    #    selections  = ttbar_selection,
+    islocal=False
+)  # not finished
+
 
     
 # initialize dataset class
@@ -253,7 +253,7 @@ dataset2 = preprocessing.Dataset(
 # add base event selection
 dataset2.addBaseSelection(base_selection)
 
-dataset.addSample(
+dataset2.addSample(
     sampleName="TTH",
     ntuples=ntuplesPath2 +
     "/2017/ntuple/ttHTobb_M125_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2017/221126_054209/*/*nominal*.root",
