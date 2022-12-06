@@ -10,9 +10,15 @@ import preprocessing
 # import additional_variables as add_var
 # import selections
 
+sys.path.append(basedir+"/variable_sets/")
+# print (basedir)
+import additional_variables as add_var
+# import sf_variables as sf_var
+import sf_variables as sf_var
+
 
 """
-USE: python template_UL_Eval_Syst.py --outputdirectory=Eval_1204_UL --variableselection=variables --maxentries=20000 --cores=6
+USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_Syst.py --outputdirectory=Eval_1204_UL --variableselection=variables --maxentries=20000 --cores=6
 """
 
 usage="usage=%prog [options] \n"
@@ -325,12 +331,6 @@ for sys in syst:
     dataset.addVariables(variable_set.all_variables)
     # dataset2.addVariables(variable_set.all_variables)
 
-    sys.path.append(basedir+"/variable_sets/")
-
-    # print (basedir)
-    import additional_variables as add_var
-    # import sf_variables as sf_var
-    import sf_variables as sf_var
     # add these variables to the variable list
     dataset.addVariables(add_var.additional_variables)
     # dataset2.addVariables(add_var.additional_variables)
