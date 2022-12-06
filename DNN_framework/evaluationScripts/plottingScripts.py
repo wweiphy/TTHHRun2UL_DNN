@@ -215,6 +215,9 @@ class savenominalDiscriminators:
                     str(node_cls)+"_node__"+str(truth_cls),
                     ytitle=setup.GetyTitle(),
                     filled=True)
+                bkgHists.append(histogram)
+
+
                 histogram = setup.setupHistogram(
                     values=filtered_values,
                     weights=filtered_weights_uplf,
@@ -225,6 +228,8 @@ class savenominalDiscriminators:
                     str(node_cls)+"_node__"+str(truth_cls)+"__btag_lfUp",
                     ytitle=setup.GetyTitle(),
                     filled=True)
+                bkgHists.append(histogram)
+
                 histogram = setup.setupHistogram(
                     values=filtered_values,
                     weights=filtered_weights_downlf,
@@ -235,6 +240,8 @@ class savenominalDiscriminators:
                     str(node_cls)+"_node__"+str(truth_cls)+"__btag_lfDown",
                     ytitle=setup.GetyTitle(),
                     filled=True)
+                bkgHists.append(histogram)
+
                 histogram = setup.setupHistogram(
                     values=filtered_values,
                     weights=filtered_weights_uphf,
@@ -245,6 +252,8 @@ class savenominalDiscriminators:
                     str(node_cls)+"_node__"+str(truth_cls)+"__btag_hfUp",
                     ytitle=setup.GetyTitle(),
                     filled=True)
+                bkgHists.append(histogram)
+
                 histogram = setup.setupHistogram(
                     values=filtered_values,
                     weights=filtered_weights_downhf,
@@ -255,6 +264,8 @@ class savenominalDiscriminators:
                     str(node_cls)+"_node__"+str(truth_cls)+"__btag_hfDown",
                     ytitle=setup.GetyTitle(),
                     filled=True)
+                bkgHists.append(histogram)
+
                 histogram = setup.setupHistogram(
                     values=filtered_values,
                     weights=filtered_weights_uplfstats1,
@@ -265,6 +276,8 @@ class savenominalDiscriminators:
                     str(node_cls)+"_node__"+str(truth_cls)+"__btag_lfstats1Up",
                     ytitle=setup.GetyTitle(),
                     filled=True)
+                bkgHists.append(histogram)
+
                 histogram = setup.setupHistogram(
                     values=filtered_values,
                     weights=filtered_weights_downlfstats1,
@@ -275,6 +288,8 @@ class savenominalDiscriminators:
                     str(node_cls)+"_node__"+str(truth_cls)+"__btag_lfstats1Down",
                     ytitle=setup.GetyTitle(),
                     filled=True)
+                bkgHists.append(histogram)
+
                 histogram = setup.setupHistogram(
                     values=filtered_values,
                     weights=filtered_weights_uplfstats2,
@@ -285,6 +300,8 @@ class savenominalDiscriminators:
                     str(node_cls)+"_node__"+str(truth_cls)+"__btag_lfstats2Up",
                     ytitle=setup.GetyTitle(),
                     filled=True)
+                bkgHists.append(histogram)
+
                 histogram = setup.setupHistogram(
                     values=filtered_values,
                     weights=filtered_weights_downlfstats2,
@@ -295,6 +312,8 @@ class savenominalDiscriminators:
                     str(node_cls)+"_node__"+str(truth_cls)+"__btag_lfstats2Down",
                     ytitle=setup.GetyTitle(),
                     filled=True)
+                bkgHists.append(histogram)
+
                 histogram = setup.setupHistogram(
                     values=filtered_values,
                     weights=filtered_weights_uphfstats1,
@@ -305,6 +324,8 @@ class savenominalDiscriminators:
                     str(node_cls)+"_node__"+str(truth_cls)+"__btag_hfstats1Up",
                     ytitle=setup.GetyTitle(),
                     filled=True)
+                bkgHists.append(histogram)
+
                 histogram = setup.setupHistogram(
                     values=filtered_values,
                     weights=filtered_weights_downhfstats1,
@@ -315,6 +336,8 @@ class savenominalDiscriminators:
                     str(node_cls)+"_node__"+str(truth_cls)+"__btag_hfstats1Down",
                     ytitle=setup.GetyTitle(),
                     filled=True)
+                bkgHists.append(histogram)
+
                 histogram = setup.setupHistogram(
                     values=filtered_values,
                     weights=filtered_weights_uphfstats2,
@@ -325,6 +348,8 @@ class savenominalDiscriminators:
                     str(node_cls)+"_node__"+str(truth_cls)+"__btag_hfstats2Up",
                     ytitle=setup.GetyTitle(),
                     filled=True)
+                bkgHists.append(histogram)
+
                 histogram = setup.setupHistogram(
                     values=filtered_values,
                     weights=filtered_weights_downhfstats2,
@@ -335,6 +360,8 @@ class savenominalDiscriminators:
                     str(node_cls)+"_node__"+str(truth_cls)+"__btag_hfstats2Down",
                     ytitle=setup.GetyTitle(),
                     filled=True)
+                bkgHists.append(histogram)
+
                 histogram = setup.setupHistogram(
                     values=filtered_values,
                     weights=filtered_weights_upcferr1,
@@ -345,6 +372,8 @@ class savenominalDiscriminators:
                     str(node_cls)+"_node__"+str(truth_cls)+"__btag_cferr1Up",
                     ytitle=setup.GetyTitle(),
                     filled=True)
+                bkgHists.append(histogram)
+
                 histogram = setup.setupHistogram(
                     values=filtered_values,
                     weights=filtered_weights_downcferr1,
@@ -355,6 +384,8 @@ class savenominalDiscriminators:
                     str(node_cls)+"_node__"+str(truth_cls)+"__btag_cferr1Down",
                     ytitle=setup.GetyTitle(),
                     filled=True)
+                bkgHists.append(histogram)
+
                 histogram = setup.setupHistogram(
                     values=filtered_values,
                     weights=filtered_weights_upcferr2,
@@ -365,6 +396,8 @@ class savenominalDiscriminators:
                     str(node_cls)+"_node__"+str(truth_cls)+"__btag_cferr2Up",
                     ytitle=setup.GetyTitle(),
                     filled=True)
+                bkgHists.append(histogram)
+
                 histogram = setup.setupHistogram(
                     values=filtered_values,
                     weights=filtered_weights_downcferr2,
@@ -375,6 +408,8 @@ class savenominalDiscriminators:
                     str(node_cls)+"_node__"+str(truth_cls)+"__btag_cferr2Down",
                     ytitle=setup.GetyTitle(),
                     filled=True)
+                bkgHists.append(histogram)
+
                 histogram = setup.setupHistogram(
                     values=filtered_values,
                     weights=filtered_weights_upEle,
@@ -385,6 +420,8 @@ class savenominalDiscriminators:
                     str(node_cls)+"_node__"+str(truth_cls)+"__eff_eUp",
                     ytitle=setup.GetyTitle(),
                     filled=True)
+                bkgHists.append(histogram)
+
                 histogram = setup.setupHistogram(
                     values=filtered_values,
                     weights=filtered_weights_downEle,
@@ -395,6 +432,8 @@ class savenominalDiscriminators:
                     str(node_cls)+"_node__"+str(truth_cls)+"__eff_eDown",
                     ytitle=setup.GetyTitle(),
                     filled=True)
+                bkgHists.append(histogram)
+
                 histogram = setup.setupHistogram(
                     values=filtered_values,
                     weights=filtered_weights_upMuon,
@@ -405,6 +444,8 @@ class savenominalDiscriminators:
                     str(node_cls)+"_node__"+str(truth_cls)+"__eff_muUp",
                     ytitle=setup.GetyTitle(),
                     filled=True)
+                bkgHists.append(histogram)
+
                 histogram = setup.setupHistogram(
                     values=filtered_values,
                     weights=filtered_weights_downMuon,
@@ -415,6 +456,8 @@ class savenominalDiscriminators:
                     str(node_cls)+"_node__"+str(truth_cls)+"__eff_muDown",
                     ytitle=setup.GetyTitle(),
                     filled=True)
+                bkgHists.append(histogram)
+
                 histogram = setup.setupHistogram(
                     values=filtered_values,
                     weights=filtered_weights_upEleTrigger,
@@ -425,6 +468,8 @@ class savenominalDiscriminators:
                     str(node_cls)+"_node__"+str(truth_cls)+"__effTrigger_eUp",
                     ytitle=setup.GetyTitle(),
                     filled=True)
+                bkgHists.append(histogram)
+
                 histogram = setup.setupHistogram(
                     values=filtered_values,
                     weights=filtered_weights_downEleTrigger,
@@ -435,6 +480,8 @@ class savenominalDiscriminators:
                     str(node_cls)+"_node__"+str(truth_cls)+"__effTrigger_eDown",
                     ytitle=setup.GetyTitle(),
                     filled=True)
+                bkgHists.append(histogram)
+
                 histogram = setup.setupHistogram(
                     values=filtered_values,
                     weights=filtered_weights_upMuonTrigger,
@@ -445,6 +492,8 @@ class savenominalDiscriminators:
                     str(node_cls)+"_node__"+str(truth_cls)+"__effTrigger_muUp",
                     ytitle=setup.GetyTitle(),
                     filled=True)
+                bkgHists.append(histogram)
+
                 histogram = setup.setupHistogram(
                     values=filtered_values,
                     weights=filtered_weights_downMuonTrigger,
@@ -455,6 +504,8 @@ class savenominalDiscriminators:
                     str(node_cls)+"_node__"+str(truth_cls)+"__effTrigger_muDown",
                     ytitle=setup.GetyTitle(),
                     filled=True)
+                bkgHists.append(histogram)
+
                 histogram = setup.setupHistogram(
                     values=filtered_values,
                     weights=filtered_weights_upPU,
@@ -465,6 +516,8 @@ class savenominalDiscriminators:
                     str(node_cls)+"_node__"+str(truth_cls)+"__PU_Up",
                     ytitle=setup.GetyTitle(),
                     filled=True)
+                bkgHists.append(histogram)
+
                 histogram = setup.setupHistogram(
                     values=filtered_values,
                     weights=filtered_weights_downPU,
@@ -475,6 +528,8 @@ class savenominalDiscriminators:
                     str(node_cls)+"_node__"+str(truth_cls)+"__PU_Down",
                     ytitle=setup.GetyTitle(),
                     filled=True)
+                bkgHists.append(histogram)
+
                 histogram = setup.setupHistogram(
                     values=filtered_values,
                     weights=filtered_weights_upL1Fire,
@@ -485,6 +540,8 @@ class savenominalDiscriminators:
                     str(node_cls)+"_node__"+str(truth_cls)+"__L1Prefiring_Up",
                     ytitle=setup.GetyTitle(),
                     filled=True)
+                bkgHists.append(histogram)
+
                 histogram = setup.setupHistogram(
                     values=filtered_values,
                     weights=filtered_weights_downL1Fire,
@@ -495,6 +552,8 @@ class savenominalDiscriminators:
                     str(node_cls)+"_node__"+str(truth_cls)+"__L1Prefiring_Down",
                     ytitle=setup.GetyTitle(),
                     filled=True)
+                bkgHists.append(histogram)
+
                 if truth_cls == "ttH":
                     histogram = setup.setupHistogram(
                         values=filtered_values,
@@ -506,6 +565,8 @@ class savenominalDiscriminators:
                         str(node_cls)+"_node__"+str(truth_cls)+"__ISR_ttHUp",
                         ytitle=setup.GetyTitle(),
                         filled=True)
+                    bkgHists.append(histogram)
+
                     histogram = setup.setupHistogram(
                         values=filtered_values,
                         weights=filtered_weights_downISR_ttH,
@@ -516,6 +577,8 @@ class savenominalDiscriminators:
                         str(node_cls)+"_node__"+str(truth_cls)+"__ISR_ttHDown",
                         ytitle=setup.GetyTitle(),
                         filled=True)
+                    bkgHists.append(histogram)
+
                     histogram = setup.setupHistogram(
                         values=filtered_values,
                         weights=filtered_weights_upFSR_ttH,
@@ -526,6 +589,8 @@ class savenominalDiscriminators:
                         str(node_cls)+"_node__"+str(truth_cls)+"__FSR_ttHUp",
                         ytitle=setup.GetyTitle(),
                         filled=True)
+                    bkgHists.append(histogram)
+
                     histogram = setup.setupHistogram(
                         values=filtered_values,
                         weights=filtered_weights_downFSR_ttH,
@@ -536,6 +601,8 @@ class savenominalDiscriminators:
                         str(node_cls)+"_node__"+str(truth_cls)+"__FSR_ttHDown",
                         ytitle=setup.GetyTitle(),
                         filled=True)
+                    bkgHists.append(histogram)
+
                 
                 if truth_cls == "ttlf":
                     histogram = setup.setupHistogram(
@@ -548,6 +615,8 @@ class savenominalDiscriminators:
                         str(node_cls)+"_node__"+str(truth_cls)+"__ISR_ttlfUp",
                         ytitle=setup.GetyTitle(),
                         filled=True)
+                    bkgHists.append(histogram)
+
                     histogram = setup.setupHistogram(
                         values=filtered_values,
                         weights=filtered_weights_downISR_ttlf,
@@ -559,6 +628,8 @@ class savenominalDiscriminators:
                         str(truth_cls)+"__ISR_ttlfDown",
                         ytitle=setup.GetyTitle(),
                         filled=True)
+                    bkgHists.append(histogram)
+
                     histogram = setup.setupHistogram(
                         values=filtered_values,
                         weights=filtered_weights_upFSR_ttlf,
@@ -569,6 +640,8 @@ class savenominalDiscriminators:
                         str(node_cls)+"_node__"+str(truth_cls)+"__FSR_ttlfUp",
                         ytitle=setup.GetyTitle(),
                         filled=True)
+                    bkgHists.append(histogram)
+
                     histogram = setup.setupHistogram(
                         values=filtered_values,
                         weights=filtered_weights_downFSR_ttlf,
@@ -580,6 +653,7 @@ class savenominalDiscriminators:
                         str(truth_cls)+"__FSR_ttlfDown",
                         ytitle=setup.GetyTitle(),
                         filled=True)
+                    bkgHists.append(histogram)
                 
                 if truth_cls == "ttcc":
                     histogram = setup.setupHistogram(
@@ -592,6 +666,8 @@ class savenominalDiscriminators:
                         str(node_cls)+"_node__"+str(truth_cls)+"__ISR_ttccUp",
                         ytitle=setup.GetyTitle(),
                         filled=True)
+                    bkgHists.append(histogram)
+
                     histogram = setup.setupHistogram(
                         values=filtered_values,
                         weights=filtered_weights_downISR_ttcc,
@@ -602,6 +678,8 @@ class savenominalDiscriminators:
                         str(node_cls)+"_node__"+str(truth_cls)+"__ISR_ttccDown",
                         ytitle=setup.GetyTitle(),
                         filled=True)
+                    bkgHists.append(histogram)
+
                     histogram = setup.setupHistogram(
                         values=filtered_values,
                         weights=filtered_weights_upFSR_ttcc,
@@ -612,6 +690,8 @@ class savenominalDiscriminators:
                         str(node_cls)+"_node__"+str(truth_cls)+"__FSR_ttccUp",
                         ytitle=setup.GetyTitle(),
                         filled=True)
+                    bkgHists.append(histogram)
+
                     histogram = setup.setupHistogram(
                         values=filtered_values,
                         weights=filtered_weights_downFSR_ttcc,
@@ -622,8 +702,9 @@ class savenominalDiscriminators:
                         str(node_cls)+"_node__"+str(truth_cls)+"__FSR_ttccDown",
                         ytitle=setup.GetyTitle(),
                         filled=True)
+                    bkgHists.append(histogram)
 
-                bkgHists.append(histogram)
+                # bkgHists.append(histogram)
                 bkgLabels.append(truth_cls)
 #            allBKGhists.append( bkgHists )
 
@@ -703,7 +784,7 @@ class saveJESJERDiscriminators:
                     bin_range=self.bin_range,
                     #                        color     = setup.GetPlotColor(truth_cls),
                     xtitle="ljets_ge4j_ge3t_" + \
-                    str(node_cls)+"_node__"+str(truth_cls) + "_" + self.syst,
+                    str(node_cls)+"_node__"+str(truth_cls) + "__" + self.syst,
                     ytitle=setup.GetyTitle(),
                     filled=True)
 
