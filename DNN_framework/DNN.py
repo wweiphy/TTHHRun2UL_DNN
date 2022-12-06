@@ -796,8 +796,7 @@ class DNN():
         print("\nROC-AUC score: {}".format(self.roc_auc_score))
 
     def save_discriminators(self, log=False, printROC=False, privateWork=False,
-                            signal_class=None, nbins=None, bin_range=None,
-                            sigScale=-1):
+                            signal_class=None, nbins=None, bin_range=None, lumi=41.5, sigScale=-1):
         ''' plot all events classified as one category '''
         if not bin_range:
             bin_range = [round(1./self.data.n_output_neurons, 2), 1.]
@@ -813,6 +812,7 @@ class DNN():
             bin_range=bin_range,
             event_category=self.category_label,
             savedir=self.plot_path,
+            lumi=lumi,
             logscale=log)
 
         saveDiscrs.save()
