@@ -62,7 +62,7 @@ for file in allFiles:
 
 for sys in syst:
 
-    print ("doing {} files"+format(sys))
+    print ("doing {} files".format(sys))
     
     allFiles = sorted(
         glob.glob('/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/workdir/{}/plots/*.root'.format(options.folder + "_" + sys)))
