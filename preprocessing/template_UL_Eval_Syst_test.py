@@ -118,253 +118,253 @@ syst = [
 #   'JESup',
 #   'JESdown',
 #   'JERup',
-  'JERdown',
+#   'JERdown',
 #   'JESFlavorQCDup',
 #   'JESRelativeBalup',
 #   'JESHFup',
 #   'JESBBEC1up',
-#   'JESEC2up',
-#   'JESAbsoluteup',
-#   'JESBBEC1yearup',
+  'JESEC2up',
+  'JESAbsoluteup',
+  'JESBBEC1yearup',
 #   'JESRelativeSampleyearup',
-#   'JESEC2yearup',
-#   'JESHFyearup',
-#   'JESAbsoluteyearup',
+  'JESEC2yearup',
+  'JESHFyearup',
+  'JESAbsoluteyearup',
 #   'JESFlavorQCDdown',
 #   'JESRelativeBaldown',
 #   'JESHFdown',
 #   'JESBBEC1down',
-#   'JESEC2down',
-#   'JESAbsolutedown',
-#   'JESBBEC1yeardown',
+  'JESEC2down',
+  'JESAbsolutedown',
+  'JESBBEC1yeardown',
 #   'JESRelativeSampleyeardown',
-#   'JESEC2yeardown',
-#   'JESHFyeardown',
-#   'JESAbsoluteyeardown',
+  'JESEC2yeardown',
+  'JESHFyeardown',
+  'JESAbsoluteyeardown',
 ]
 
 
-# for sys in syst:
+for sys in syst:
 
-# initialize dataset class
-dataset = preprocessing.Dataset(
-    outputdir   = outputdir+"_"+options.syst,
-    naming      = options.Name,
-    maxEntries  = options.maxEntries,
-    ncores      = options.numCores,
-    do_EvalSFs=True,
-    )
-
-# add base event selection
-dataset.addBaseSelection(base_selection)
-
-
-dataset.addSample(
-    sampleName="TTHH",
-    ntuples=ntuplesPath2 +
-    "/2017/ntuple/TTHHTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2017/221126_052019/*/ntuples_" +options.syst+"_Tree_10.root",
-    #    ntuples     = ntuplesPath+"/ttHH_4b.root",
-    categories=ttHH_categories,
-    process = "ttHH",
-    # lumiWeight  = 1.105,
-    selections  = None,
-    # selections=ttHH_selection,
-    islocal=False
-)
-
-
-
-dataset.addSample(
-    sampleName="TTZZ",
-        ntuples=ntuplesPath2 +
-        "/2017/ntuple/TTZZTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2017/221126_052936/*/ntuples_"+options.syst+"_Tree_1.root",
-    #    ntuples     = ntuplesPath+"/ttH_220208.root",
-    categories=ttZZ_categories,
-    process="ttZZ",
-    # lumiWeight  = 6.75E-02,
-    selections=None,  # ttbar_selection,
-    #    selections  = ttbar_selection,
-    islocal=False
-)
-
-
-dataset.addSample(
-    sampleName="TTZZ2",
-    ntuples=ntuplesPath2 +
-        "/2017/ntuple/TTZZTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2017_Ext/221126_053245/*/ntuples_"+options.syst+"_Tree_1.root",
-    #    ntuples     = ntuplesPath+"/ttH_220208.root",
-    categories=ttZZ_categories,
-    process="ttZZ",
-    #    lumiWeight  = 41.5,
-    selections=None,  # ttbar_selection,
-    #    selections  = ttbar_selection,
-    islocal=True
-)
-
-dataset.addSample(
-    sampleName="TTZH",
-    ntuples=ntuplesPath2 +
-        "/2017/ntuple/TTZHTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2017/221126_052419/*/ntuples_"+options.syst+"_Tree_1.root",
-    #    ntuples     = ntuplesPath+"/ttH_220208.root",
-    categories=ttZH_categories,
-    process="ttZH",
-    # lumiWeight  = 1.1035,
-    selections=None,  # ttbar_selection,
-    #    selections  = ttbar_selection,
-    islocal=False
-)
-
-dataset.addSample(
-    sampleName="TTZH2",
-    ntuples=ntuplesPath2 +
-        "/2017/ntuple/TTZHTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2017_Ext/221126_052726/*/ntuples_"+options.syst+"_Tree_1.root",
-    #    ntuples     = ntuplesPath+"/ttH_220208.root",
-    categories=ttZH_categories,
-    process="ttZH",
-    #    lumiWeight  = 41.5,
-    selections=None,  # ttbar_selection,
-    #    selections  = ttbar_selection,
-    islocal=True
-)
-
-dataset.addSample(
-    sampleName="TTZ",
-    ntuples=ntuplesPath2 +
-    "/2017/ntuple/TTZToBB_TuneCP5_13TeV-amcatnlo-pythia8/sl_LEG_ntuple_2017/221126_052843/*/ntuples_"+options.syst+"_Tree_1.root",
-    #    ntuples     = ntuplesPath+"/ttH_220208.root",
-    categories=ttZ_categories,
-    process="ttZ",
-    #    lumiWeight  = 41.5,
-    selections=None,  # ttbar_selection,
-    #    selections  = ttbar_selection,
-    islocal=False
-)
-        
-dataset.addSample(
-    sampleName  = "TTbbSL",
-    ntuples=ntuplesPath2 +
-    "/2017/ntuple/TTbb_4f_TTToSemiLeptonic_TuneCP5-Powheg-Openloops-Pythia8/sl_LEG_ntuple_2017/221126_053456/*/ntuples_"+options.syst+"_Tree_1.root",
-    categories  = ttmb_categories,
-    process="ttbbSL",
-#    lumiWeight  = 41.5,
-    selections  = None,#ttbar_selection,
-#    selections  = ttbar_selection,
-    islocal     = False
+    # initialize dataset class
+    dataset = preprocessing.Dataset(
+        outputdir   = outputdir+"_"+sys,
+        naming      = options.Name,
+        maxEntries  = options.maxEntries,
+        ncores      = options.numCores,
+        do_EvalSFs=True,
         )
 
-# dataset.addSample(
-#     sampleName="TTbbSL2",
-#     ntuples=ntuplesPath2 +
-#     "/2017/ntuple/TTbb_4f_TTToSemiLeptonic_TuneCP5-Powheg-Openloops-Pythia8/sl_LEG_ntuple_2017/221126_053456/*/ntuples_"+options.syst+"_Tree_2.root",
-#     categories=ttmb_categories,
-#     process="ttbbSL",
-#     #    lumiWeight  = 41.5,
-#     selections=None,  # ttbar_selection,
-#     #    selections  = ttbar_selection,
-#     islocal=False
-# )
-# dataset.addSample(
-#     sampleName="TTbbSL3",
-#     ntuples=ntuplesPath2 +
-#     "/2017/ntuple/TTbb_4f_TTToSemiLeptonic_TuneCP5-Powheg-Openloops-Pythia8/sl_LEG_ntuple_2017/221126_053456/*/ntuples_"+sys+"_Tree_10.root",
-#     categories=ttmb_categories,
-#     process="ttbbSL",
-#     #    lumiWeight  = 41.5,
-#     selections=None,  # ttbar_selection,
-#     #    selections  = ttbar_selection,
-#     islocal=False
-# )
+    # add base event selection
+    dataset.addBaseSelection(base_selection)
 
-dataset.addSample(
-    sampleName="TTbbDL",
-    ntuples=ntuplesPath2 +
-    "/2017/ntuple/TTbb_4f_TTTo2L2Nu_TuneCP5-Powheg-Openloops-Pythia8/sl_LEG_ntuple_2017/221126_053436/*/ntuples_"+options.syst+"_Tree_1.root",
-    categories=ttmb_categories,
-    process="ttbbDL",
+
+    dataset.addSample(
+        sampleName="TTHH",
+        ntuples=ntuplesPath2 +
+        "/2017/ntuple/TTHHTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2017/221126_052019/*/ntuples_" +sys+"_Tree_10.root",
+        #    ntuples     = ntuplesPath+"/ttHH_4b.root",
+        categories=ttHH_categories,
+        process = "ttHH",
+        # lumiWeight  = 1.105,
+        selections  = None,
+        # selections=ttHH_selection,
+        islocal=False
+    )
+
+
+
+    dataset.addSample(
+        sampleName="TTZZ",
+            ntuples=ntuplesPath2 +
+            "/2017/ntuple/TTZZTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2017/221126_052936/*/ntuples_"+sys+"_Tree_1.root",
+        #    ntuples     = ntuplesPath+"/ttH_220208.root",
+        categories=ttZZ_categories,
+        process="ttZZ",
+        # lumiWeight  = 6.75E-02,
+        selections=None,  # ttbar_selection,
+        #    selections  = ttbar_selection,
+        islocal=False
+    )
+
+
+    dataset.addSample(
+        sampleName="TTZZ2",
+        ntuples=ntuplesPath2 +
+            "/2017/ntuple/TTZZTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2017_Ext/221126_053245/*/ntuples_"+sys+"_Tree_1.root",
+        #    ntuples     = ntuplesPath+"/ttH_220208.root",
+        categories=ttZZ_categories,
+        process="ttZZ",
+        #    lumiWeight  = 41.5,
+        selections=None,  # ttbar_selection,
+        #    selections  = ttbar_selection,
+        islocal=True
+    )
+
+    dataset.addSample(
+        sampleName="TTZH",
+        ntuples=ntuplesPath2 +
+            "/2017/ntuple/TTZHTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2017/221126_052419/*/ntuples_"+sys+"_Tree_1.root",
+        #    ntuples     = ntuplesPath+"/ttH_220208.root",
+        categories=ttZH_categories,
+        process="ttZH",
+        # lumiWeight  = 1.1035,
+        selections=None,  # ttbar_selection,
+        #    selections  = ttbar_selection,
+        islocal=False
+    )
+
+    dataset.addSample(
+        sampleName="TTZH2",
+        ntuples=ntuplesPath2 +
+            "/2017/ntuple/TTZHTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2017_Ext/221126_052726/*/ntuples_"+sys+"_Tree_1.root",
+        #    ntuples     = ntuplesPath+"/ttH_220208.root",
+        categories=ttZH_categories,
+        process="ttZH",
+        #    lumiWeight  = 41.5,
+        selections=None,  # ttbar_selection,
+        #    selections  = ttbar_selection,
+        islocal=True
+    )
+
+    dataset.addSample(
+        sampleName="TTZ",
+        ntuples=ntuplesPath2 +
+        "/2017/ntuple/TTZToBB_TuneCP5_13TeV-amcatnlo-pythia8/sl_LEG_ntuple_2017/221126_052843/*/ntuples_"+sys+"_Tree_1.root",
+        #    ntuples     = ntuplesPath+"/ttH_220208.root",
+        categories=ttZ_categories,
+        process="ttZ",
+        #    lumiWeight  = 41.5,
+        selections=None,  # ttbar_selection,
+        #    selections  = ttbar_selection,
+        islocal=False
+    )
+            
+    dataset.addSample(
+        sampleName  = "TTbbSL",
+        ntuples=ntuplesPath2 +
+        "/2017/ntuple/TTbb_4f_TTToSemiLeptonic_TuneCP5-Powheg-Openloops-Pythia8/sl_LEG_ntuple_2017/221126_053456/*/ntuples_"+sys+"_Tree_1.root",
+        categories  = ttmb_categories,
+        process="ttbbSL",
     #    lumiWeight  = 41.5,
-    selections=None,  # ttbar_selection,
+        selections  = None,#ttbar_selection,
     #    selections  = ttbar_selection,
-    islocal=False
-)
+        islocal     = False
+            )
 
-dataset.addSample(
-    sampleName="TT4b",
-    ntuples=ntuplesPath2 +
-    "/2017/ntuple/TT4b_TuneCP5_13TeV_madgraph_pythia8/sl_LEG_ntuple_2017/221126_051927/*/ntuples_" +
-    options.syst+"_Tree_1.root",
-    categories=ttmb_categories,
-    process="tt4b",
-    #    lumiWeight  = 41.5,
-    selections=None,  # ttbar_selection,
-    #    selections  = ttbar_selection,
-    islocal=False
-)  # not finished
+    # dataset.addSample(
+    #     sampleName="TTbbSL2",
+    #     ntuples=ntuplesPath2 +
+    #     "/2017/ntuple/TTbb_4f_TTToSemiLeptonic_TuneCP5-Powheg-Openloops-Pythia8/sl_LEG_ntuple_2017/221126_053456/*/ntuples_"+sys+"_Tree_2.root",
+    #     categories=ttmb_categories,
+    #     process="ttbbSL",
+    #     #    lumiWeight  = 41.5,
+    #     selections=None,  # ttbar_selection,
+    #     #    selections  = ttbar_selection,
+    #     islocal=False
+    # )
+    # dataset.addSample(
+    #     sampleName="TTbbSL3",
+    #     ntuples=ntuplesPath2 +
+    #     "/2017/ntuple/TTbb_4f_TTToSemiLeptonic_TuneCP5-Powheg-Openloops-Pythia8/sl_LEG_ntuple_2017/221126_053456/*/ntuples_"+sys+"_Tree_10.root",
+    #     categories=ttmb_categories,
+    #     process="ttbbSL",
+    #     #    lumiWeight  = 41.5,
+    #     selections=None,  # ttbar_selection,
+    #     #    selections  = ttbar_selection,
+    #     islocal=False
+    # )
 
+    dataset.addSample(
+        sampleName="TTbbDL",
+        ntuples=ntuplesPath2 +
+        "/2017/ntuple/TTbb_4f_TTTo2L2Nu_TuneCP5-Powheg-Openloops-Pythia8/sl_LEG_ntuple_2017/221126_053436/*/ntuples_"+sys+"_Tree_1.root",
+        categories=ttmb_categories,
+        process="ttbbDL",
+        #    lumiWeight  = 41.5,
+        selections=None,  # ttbar_selection,
+        #    selections  = ttbar_selection,
+        islocal=False
+    )
 
-    
-# # initialize dataset class
-# dataset2 = preprocessing.Dataset(
-#     outputdir=outputdir+"_"+sys,
-#     naming=options.Name,
-#     maxEntries=options.maxEntries,
-#     ncores=options.numCores,
-#     do_EvalSFs=True,
-# )
-
-# # add base event selection
-# dataset2.addBaseSelection(base_selection)
-
-dataset.addSample(
-    sampleName="TTH",
-    ntuples=ntuplesPath2 +
-    "/2017/ntuple/ttHTobb_M125_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2017/221126_054209/*/ntuples_"+options.syst+"_Tree_1.root",
-    #    ntuples     = ntuplesPath+"/ttH_220208.root",
-    categories=ttH_categories,
-    process="ttH",
-    #    lumiWeight  = 41.5,
-    selections=None,  # ttbar_selection,
-    #    selections  = ttH_selection,
-    islocal=False
-)
-
-dataset.addSample(
-    sampleName="TTSL",
-    ntuples=ntuplesPath2 +
-    "/2017/ntuple/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2017/221126_052303/*/ntuples_"+options.syst+"_Tree_10.root",
-    #    ntuples     = ntuplesPath+"/ttSL_220210.root",
-    categories=ttbar_categories,
-    process="ttSL",
-    # lumiWeight  = 5.0,
-    selections=None,  # ttbar_selection,
-    #    selections  = ttbar_selection
-    islocal=False
-)
-
-dataset.addSample(
-    sampleName="TTDL",
-    ntuples="/eos/uscms/store/user/wwei/TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2017/221126_052120/*/ntuples_"+options.syst+"_Tree_1.root",
-    #    ntuples     = ntuplesPath+"/ttSL_220210.root",
-    categories=ttbar_categories,
-    process="ttDL",
-    # lumiWeight  = 5.0,
-    selections=None,  # ttbar_selection,
-    #    selections  = ttbar_selection
-    islocal=False
-)
-
-# initialize variable list
-dataset.addVariables(variable_set.all_variables)
-# dataset2.addVariables(variable_set.all_variables)
+    dataset.addSample(
+        sampleName="TT4b",
+        ntuples=ntuplesPath2 +
+        "/2017/ntuple/TT4b_TuneCP5_13TeV_madgraph_pythia8/sl_LEG_ntuple_2017/221126_051927/*/ntuples_" +
+        sys+"_Tree_1.root",
+        categories=ttmb_categories,
+        process="tt4b",
+        #    lumiWeight  = 41.5,
+        selections=None,  # ttbar_selection,
+        #    selections  = ttbar_selection,
+        islocal=False
+    )  # not finished
 
 
-# add these variables to the variable list
-dataset.addVariables(add_var.additional_variables)
-# dataset2.addVariables(add_var.additional_variables)
-dataset.addVariables(sf_var.scalefactor_variables)
-# dataset2.addVariables(sf_var.scalefactor_variables)
-# dataset2.addVariables(sf_var.ttbar_variables)
+        
+    # # initialize dataset class
+    # dataset2 = preprocessing.Dataset(
+    #     outputdir=outputdir+"_"+sys,
+    #     naming=options.Name,
+    #     maxEntries=options.maxEntries,
+    #     ncores=options.numCores,
+    #     do_EvalSFs=True,
+    # )
 
-# run the preprocessing
-dataset.runPreprocessing()
-# dataset2.runPreprocessing()
+    # # add base event selection
+    # dataset2.addBaseSelection(base_selection)
+
+    dataset.addSample(
+        sampleName="TTH",
+        ntuples=ntuplesPath2 +
+        "/2017/ntuple/ttHTobb_M125_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2017/221126_054209/*/ntuples_"+sys+"_Tree_1.root",
+        #    ntuples     = ntuplesPath+"/ttH_220208.root",
+        categories=ttH_categories,
+        process="ttH",
+        #    lumiWeight  = 41.5,
+        selections=None,  # ttbar_selection,
+        #    selections  = ttH_selection,
+        islocal=False
+    )
+
+    dataset.addSample(
+        sampleName="TTSL",
+        ntuples=ntuplesPath2 +
+        "/2017/ntuple/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2017/221126_052303/*/ntuples_"+sys+"_Tree_10.root",
+        #    ntuples     = ntuplesPath+"/ttSL_220210.root",
+        categories=ttbar_categories,
+        process="ttSL",
+        # lumiWeight  = 5.0,
+        selections=None,  # ttbar_selection,
+        #    selections  = ttbar_selection
+        islocal=False
+    )
+
+    dataset.addSample(
+        sampleName="TTDL",
+        ntuples="/eos/uscms/store/user/wwei/TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2017/221126_052120/*/ntuples_"+sys+"_Tree_1.root",
+        #    ntuples     = ntuplesPath+"/ttSL_220210.root",
+        categories=ttbar_categories,
+        process="ttDL",
+        # lumiWeight  = 5.0,
+        selections=None,  # ttbar_selection,
+        #    selections  = ttbar_selection
+        islocal=False
+    )
+
+    # initialize variable list
+    dataset.addVariables(variable_set.all_variables)
+    # dataset2.addVariables(variable_set.all_variables)
+
+
+    # add these variables to the variable list
+    dataset.addVariables(add_var.additional_variables)
+    # dataset2.addVariables(add_var.additional_variables)
+    dataset.addVariables(sf_var.scalefactor_variables)
+    # dataset2.addVariables(sf_var.scalefactor_variables)
+    # dataset2.addVariables(sf_var.ttbar_variables)
+
+    # run the preprocessing
+    dataset.runPreprocessing()
+    # dataset2.runPreprocessing()
 
