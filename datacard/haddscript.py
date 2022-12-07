@@ -2,13 +2,16 @@ import os
 import optparse
 import glob
 
+# python haddscript.py -f 221204_test_evaluation_new
+
+
 usage = "usage=%prog [options] \n"
 usage += "USE: python cardmakingscript.py -n True "
 
 parser = optparse.OptionParser(usage=usage)
 
-parser.add_option("-n", "--new", dest="new", default="new",
-        help="making datacard for new categorizations, total 9", metavar="new")
+# parser.add_option("-n", "--new", dest="new", default="new",
+#         help="making datacard for new categorizations, total 9", metavar="new")
 
 parser.add_option("-f", "--folder", dest="folder", default="221204_test_evaluation_new",
                   help="folder name", metavar="folder")
@@ -51,7 +54,7 @@ syst = [
 ]
 
 allFiles = sorted(
-        glob.glob('/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/workdir/{}/plots/*.root'.format(options.folder)))
+    glob.glob('/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/workdir/{}/plots/*discriminator.root'.format(options.folder)))
 
 files = ""
 
