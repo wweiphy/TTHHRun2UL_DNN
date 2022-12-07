@@ -1,5 +1,5 @@
 Uncertainty,Type,ttHH,ttlf,ttcc,ttnb,ttmb,ttH,ttZZ,ttZH,ttZ
-L1PreFiring_,shape,1,1,1,1,1,1,1,1,1
+L1Prefiring_,shape,1,1,1,1,1,1,1,1,1
 lumi_13TeV,lnN,x,x,x,x,x,x,x,x,x
 QCDscale_ttHH,lnN,0.955/1.017,-,-,-,-,-,-,-,-
 QCDscale_ttH,lnN,-,-,-,-,-,0.908/1.060,-,-,-
