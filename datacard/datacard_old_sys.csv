@@ -35,7 +35,7 @@ JESHFyear,shape,1,1,1,1,1,1,1,1,1,1,1,1
 JESAbsoluteyear,shape,1,1,1,1,1,1,1,1,1,1,1,1
 FSR_ttH,shape,-,-,-,-,-,-,-,-,1,-,-,-
 ISR_ttH,shape,-,-,-,-,-,-,-,-,1,-,-,-
-ISR_ttcc,shape,-,1,1,-,-,1,1,1,-,-,-,-
-ISR_ttlf,shape,-,1,1,-,-,1,1,1,-,-,-,-
-FSR_ttcc,shape,-,1,1,-,-,1,1,1,-,-,-,-
-FSR_ttlf,shape,-,1,1,-,-,1,1,1,-,-,-,-
+ISR_ttcc,shape,-,1,1,-,-,-,-,-,-,-,-,-
+ISR_ttlf,shape,-,1,1,-,-,-,-,-,-,-,-,-
+FSR_ttcc,shape,-,1,1,-,-,-,-,-,-,-,-,-
+FSR_ttlf,shape,-,1,1,-,-,-,-,-,-,-,-,-
