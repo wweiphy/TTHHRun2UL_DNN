@@ -15,8 +15,7 @@ import DNN_framework.DNN as DNN
 import DNN_framework.data_frame as df
 
 
-# python eval_template_old.py -o 221122_test_evaluation_old -i 221114_test_old_50_ge4j_ge3t --signalclass=ttHH --plot --printroc
-
+# python eval_template_old.py -o 221204_evaluation_old -i 221130_50_old_ge4j_ge3t --signalclass=ttHH --plot --printroc -d Eval_1204_UL_nominal
 
 
 
@@ -30,6 +29,9 @@ parser = optparse.OptionParser(usage=usage)
 
 parser.add_option("-i", "--inputdirectory", dest="inputDir",default="test_training_ge4j_ge4t",
         help="DIR of trained net data", metavar="inputDir")
+
+parser.add_option("-d", "--dataset", dest="dataset", default="Eval_1204_UL_test_nominal",
+                  help="folder of h5 files", metavar="dataset")
 
 parser.add_option("-o", "--outputdirectory", dest="outDir",default=None,
         help="DIR of evaluation outputs, if None specified use inputDir", metavar="outDir")
@@ -97,7 +99,7 @@ if options.binary:
 
 configFile = inPath+"/checkpoints/net_config.json"
   # TODO - modify this
-dfDirectory = "/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/workdir/Eval_1204_UL_test_nominal/"
+dfDirectory = "/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/workdir/"+options.dataset+"/"
    
 if not os.path.exists(configFile):
         sys.exit(
@@ -122,63 +124,55 @@ for sample in config["eventClasses"]:
         # normalization_weight = 1
         if sample["sampleLabel"] == "ttHH":
                 # sample_train_weight = 0.5
-                normalization_weight = 1/1.105
-                sample_path = dfDirectory+"ttHH_dnn.h5"
+                normalization_weight = 1
+                # sample_path = dfDirectory+"ttHH_dnn.h5"
         elif sample["sampleLabel"] == "ttZH":
                 # sample_train_weight = 1
-                normalization_weight = 1/1.1035
-                sample_path = dfDirectory+"ttZH_dnn.h5"
+                normalization_weight = 1.
+                # sample_path = dfDirectory+"ttZH_dnn.h5"
         elif sample["sampleLabel"] == "ttZZ":
                 # sample_train_weight = 1
                 normalization_weight = 1.
-                sample_path = dfDirectory+"ttZZ_dnn.h5"
+                # sample_path = dfDirectory+"ttZZ_dnn.h5"
         elif sample["sampleLabel"] == "ttZ":
                 # sample_train_weight = 1
                 normalization_weight = 1.
                 # '/ (0.001571054/0.00016654)'
-                sample_path = dfDirectory+"ttZ_dnn.h5"
+                # sample_path = dfDirectory+"ttZ_dnn.h5"
         elif sample["sampleLabel"] == "ttb":
                 # sample_train_weight = 1
-                normalization_weight = 26.88098666
-                sample_path = dfDirectory+"ttb_dnn.h5"
+                normalization_weight = 1.
+                # sample_path = dfDirectory+"ttb_dnn.h5"
         elif sample["sampleLabel"] == "ttbb":
                 # sample_train_weight = 1
-                normalization_weight = 12.67656147
-                sample_path = dfDirectory+"ttbb_dnn.h5"
+                normalization_weight = 1.
+                # sample_path = dfDirectory+"ttbb_dnn.h5"
         elif sample["sampleLabel"] == "tt2b":
         #     sample_train_weight = 1
-            normalization_weight = 30.6963107
-            sample_path = dfDirectory+"tt2b_dnn.h5"
+            normalization_weight = 1.
+        #     sample_path = dfDirectory+"tt2b_dnn.h5"
         elif sample["sampleLabel"] == "tt4b":
         #     sample_train_weight = 1
-            normalization_weight = 0.697516991
-            sample_path = dfDirectory+"tt4b_dnn.h5"
+            normalization_weight = 1.
+        #     sample_path = dfDirectory+"tt4b_dnn.h5"
         elif sample["sampleLabel"] == "ttbbb":
         #     sample_train_weight = 1
-            normalization_weight = 1.155211394
-            sample_path = dfDirectory+"ttbbb_dnn.h5"
-        # elif sample["sampleLabel"] == "ttmb":
-        # #     sample_train_weight = 1
-        #     normalization_weight = 20.0
-        #     sample_path = dfDirectory+"ttmb_dnn.h5"
-        # elif sample["sampleLabel"] == "ttnb":
-        # #     sample_train_weight = 1
-        #     normalization_weight = 1.0
-        #     sample_path = dfDirectory+"ttnb_dnn.h5"
+            normalization_weight = 1.
+        #     sample_path = dfDirectory+"ttbbb_dnn.h5"
         elif sample["sampleLabel"] == "ttcc":
                 # sample_train_weight = 1
-                normalization_weight = 0.76
-                sample_path = dfDirectory+"ttcc_dnn.h5"
+                normalization_weight = 1.
+                # sample_path = dfDirectory+"ttcc_dnn.h5"
         elif sample["sampleLabel"] == "ttlf":
                 # sample_train_weight = 1
-                normalization_weight = 0.76
-                sample_path = dfDirectory+"ttlf_dnn.h5"
+                normalization_weight = 1.
+                # sample_path = dfDirectory+"ttlf_dnn.h5"
         elif sample["sampleLabel"] == "ttH":
                 # sample_train_weight = 1
                 normalization_weight = 1.
-                sample_path = dfDirectory+"ttH_dnn.h5"
+                # sample_path = dfDirectory+"ttH_dnn.h5"
         # normalization_weight = 1
-        input_samples.addSample(sample_path, sample["sampleLabel"],
+        input_samples.addSample(sample_path=dfDirectory+sample["sampleLabel"]+"_dnn.h5", label=sample["sampleLabel"],
                                 normalization_weight=normalization_weight, train_weight=1, total_weight_expr=total_weight_expr)
         # sample_train_weight = 1
         # input_samples.addSample(sample["samplePath"], sample["sampleLabel"],
