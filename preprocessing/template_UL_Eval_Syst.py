@@ -117,8 +117,8 @@ syst = [
 #   'JESup',
 #   'JESdown',
 #   'JERup',
-  'JERdown',
-#   'JESFlavorQCDup',
+#   'JERdown',
+  'JESFlavorQCDup',
 #   'JESRelativeBalup',
 #   'JESHFup',
 #   'JESBBEC1up',
@@ -157,18 +157,18 @@ for sys in syst:
     dataset.addBaseSelection(base_selection)
 
 
-    # dataset.addSample(
-    #     sampleName="TTHH",
-    #     ntuples=ntuplesPath2 +
-    #     "/2017/ntuple/TTHHTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2017/221126_052019/*/*"+sys+"*.root",
-    #     #    ntuples     = ntuplesPath+"/ttHH_4b.root",
-    #     categories=ttHH_categories,
-    #     process = "ttHH",
-    #     # lumiWeight  = 1.105,
-    #     selections  = None,
-    #     # selections=ttHH_selection,
-    #     islocal=False
-    # )
+    dataset.addSample(
+        sampleName="TTHH",
+        ntuples=ntuplesPath2 +
+        "/2017/ntuple/TTHHTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2017/221126_052019/*/*"+sys+"*.root",
+        #    ntuples     = ntuplesPath+"/ttHH_4b.root",
+        categories=ttHH_categories,
+        process = "ttHH",
+        # lumiWeight  = 1.105,
+        selections  = None,
+        # selections=ttHH_selection,
+        islocal=False
+    )
 
 
 
