@@ -18,8 +18,6 @@ import DNN_framework.data_frame as df
 # python eval_template_old_sys.py -o 221122_test_evaluation_old -i 221114_test_old_50_ge4j_ge3t --signalclass=ttHH --plot --printroc --syst=JERup
 
 
-
-
 """
 USE: python train_template.py -o DIR -v FILE -n STR -c STR -e INT -s INT -p -l --privatework --netconfig=STR --signalclass=STR --printroc
 """
@@ -30,6 +28,9 @@ parser = optparse.OptionParser(usage=usage)
 
 parser.add_option("-i", "--inputdirectory", dest="inputDir",default="test_training_ge4j_ge4t",
         help="DIR of trained net data", metavar="inputDir")
+
+parser.add_option("-d", "--dataset", dest="dataset", default="Eval_1204_UL_test",
+                  help="folder of h5 files", metavar="dataset")
 
 parser.add_option("-o", "--outputdirectory", dest="outDir",default=None,
         help="DIR of evaluation outputs, if None specified use inputDir", metavar="outDir")
@@ -97,7 +98,7 @@ if options.binary:
 
 configFile = inPath+"/checkpoints/net_config.json"
   # TODO - modify this
-dfDirectory = "/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/workdir/Eval_1204_UL_test"
+dfDirectory = "/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/workdir/"+options.dataset
 
    
 if not os.path.exists(configFile):
@@ -114,28 +115,28 @@ syst = [
   'JESdown',
   'JERup',
   'JERdown',
-  'JESFlavorQCDup',
-  'JESRelativeBalup',
-  'JESHFup',
-  'JESBBEC1up',
-  'JESEC2up',
-  'JESAbsoluteup',
-  'JESBBEC1yearup',
-  'JESRelativeSampleyearup',
-  'JESEC2yearup',
-  'JESHFyearup',
-  'JESAbsoluteyearup',
-  'JESFlavorQCDdown',
-  'JESRelativeBaldown',
-  'JESHFdown',
-  'JESBBEC1down',
-  'JESEC2down',
-  'JESAbsolutedown',
-  'JESBBEC1yeardown',
-  'JESRelativeSampleyeardown',
-  'JESEC2yeardown',
-  'JESHFyeardown',
-  'JESAbsoluteyeardown',
+#   'JESFlavorQCDup',
+#   'JESRelativeBalup',
+#   'JESHFup',
+#   'JESBBEC1up',
+#   'JESEC2up',
+#   'JESAbsoluteup',
+#   'JESBBEC1yearup',
+#   'JESRelativeSampleyearup',
+#   'JESEC2yearup',
+#   'JESHFyearup',
+#   'JESAbsoluteyearup',
+#   'JESFlavorQCDdown',
+#   'JESRelativeBaldown',
+#   'JESHFdown',
+#   'JESBBEC1down',
+#   'JESEC2down',
+#   'JESAbsolutedown',
+#   'JESBBEC1yeardown',
+#   'JESRelativeSampleyeardown',
+#   'JESEC2yeardown',
+#   'JESHFyeardown',
+#   'JESAbsoluteyeardown',
 ]
 
 # TODO - remove the addSample part because future DNN will save the data df
