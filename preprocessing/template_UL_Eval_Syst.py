@@ -115,31 +115,31 @@ ntuplesPath2 = "/eos/uscms/store/group/lpctthrun2/wwei/UL"
 
 syst = [
 #   'JESup',
-  'JESdown',
-  'JERup',
+#   'JESdown',
+#   'JERup',
   'JERdown',
-  'JESFlavorQCDup',
-  'JESRelativeBalup',
-  'JESHFup',
-  'JESBBEC1up',
-  'JESEC2up',
-  'JESAbsoluteup',
-  'JESBBEC1yearup',
-  'JESRelativeSampleyearup',
-  'JESEC2yearup',
-  'JESHFyearup',
-  'JESAbsoluteyearup',
-  'JESFlavorQCDdown',
-  'JESRelativeBaldown',
-  'JESHFdown',
-  'JESBBEC1down',
-  'JESEC2down',
-  'JESAbsolutedown',
-  'JESBBEC1yeardown',
-  'JESRelativeSampleyeardown',
-  'JESEC2yeardown',
-  'JESHFyeardown',
-  'JESAbsoluteyeardown',
+#   'JESFlavorQCDup',
+#   'JESRelativeBalup',
+#   'JESHFup',
+#   'JESBBEC1up',
+#   'JESEC2up',
+#   'JESAbsoluteup',
+#   'JESBBEC1yearup',
+#   'JESRelativeSampleyearup',
+#   'JESEC2yearup',
+#   'JESHFyearup',
+#   'JESAbsoluteyearup',
+#   'JESFlavorQCDdown',
+#   'JESRelativeBaldown',
+#   'JESHFdown',
+#   'JESBBEC1down',
+#   'JESEC2down',
+#   'JESAbsolutedown',
+#   'JESBBEC1yeardown',
+#   'JESRelativeSampleyeardown',
+#   'JESEC2yeardown',
+#   'JESHFyeardown',
+#   'JESAbsoluteyeardown',
 ]
 
 
@@ -157,18 +157,18 @@ for sys in syst:
     dataset.addBaseSelection(base_selection)
 
 
-    dataset.addSample(
-        sampleName="TTHH",
-        ntuples=ntuplesPath2 +
-        "/2017/ntuple/TTHHTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2017/221126_052019/*/*"+sys+"*.root",
-        #    ntuples     = ntuplesPath+"/ttHH_4b.root",
-        categories=ttHH_categories,
-        process = "ttHH",
-        # lumiWeight  = 1.105,
-        selections  = None,
-        # selections=ttHH_selection,
-        islocal=False
-    )
+    # dataset.addSample(
+    #     sampleName="TTHH",
+    #     ntuples=ntuplesPath2 +
+    #     "/2017/ntuple/TTHHTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2017/221126_052019/*/*"+sys+"*.root",
+    #     #    ntuples     = ntuplesPath+"/ttHH_4b.root",
+    #     categories=ttHH_categories,
+    #     process = "ttHH",
+    #     # lumiWeight  = 1.105,
+    #     selections  = None,
+    #     # selections=ttHH_selection,
+    #     islocal=False
+    # )
 
 
 
