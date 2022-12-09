@@ -114,7 +114,7 @@ ntuplesPath = "/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_10_6_29/src/Bo
 ntuplesPath2 = "/eos/uscms/store/group/lpctthrun2/wwei/UL"
 
 syst = [
-  'JESup',
+#   'JESup',
   'JESdown',
   'JERup',
   'JERdown',
@@ -172,32 +172,32 @@ for sys in syst:
 
 
 
-    dataset.addSample(
-        sampleName="TTZZ",
-            ntuples=ntuplesPath2 +
-            "/2017/ntuple/TTZZTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2017/221126_052936/*/*"+sys+"*.root",
-        #    ntuples     = ntuplesPath+"/ttH_220208.root",
-        categories=ttZZ_categories,
-        process="ttZZ",
-        # lumiWeight  = 6.75E-02,
-        selections=None,  # ttbar_selection,
-        #    selections  = ttbar_selection,
-        islocal=False
-    )
+    # dataset.addSample(
+    #     sampleName="TTZZ",
+    #         ntuples=ntuplesPath2 +
+    #         "/2017/ntuple/TTZZTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2017/221126_052936/*/*"+sys+"*.root",
+    #     #    ntuples     = ntuplesPath+"/ttH_220208.root",
+    #     categories=ttZZ_categories,
+    #     process="ttZZ",
+    #     # lumiWeight  = 6.75E-02,
+    #     selections=None,  # ttbar_selection,
+    #     #    selections  = ttbar_selection,
+    #     islocal=False
+    # )
 
 
-    dataset.addSample(
-        sampleName="TTZZ2",
-        ntuples=ntuplesPath2 +
-            "/2017/ntuple/TTZZTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2017_Ext/221126_053245/*/*"+sys+"*.root",
-        #    ntuples     = ntuplesPath+"/ttH_220208.root",
-        categories=ttZZ_categories,
-        process="ttZZ",
-        #    lumiWeight  = 41.5,
-        selections=None,  # ttbar_selection,
-        #    selections  = ttbar_selection,
-        islocal=True
-    )
+    # dataset.addSample(
+    #     sampleName="TTZZ2",
+    #     ntuples=ntuplesPath2 +
+    #         "/2017/ntuple/TTZZTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2017_Ext/221126_053245/*/*"+sys+"*.root",
+    #     #    ntuples     = ntuplesPath+"/ttH_220208.root",
+    #     categories=ttZZ_categories,
+    #     process="ttZZ",
+    #     #    lumiWeight  = 41.5,
+    #     selections=None,  # ttbar_selection,
+    #     #    selections  = ttbar_selection,
+    #     islocal=True
+    # )
 
     dataset.addSample(
         sampleName="TTZH",
