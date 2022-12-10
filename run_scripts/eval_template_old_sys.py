@@ -15,7 +15,7 @@ import DNN_framework.DNN as DNN
 import DNN_framework.data_frame as df
 
 
-# python eval_template_old_sys.py -o 221122_test_evaluation_old -i 221114_test_old_50_ge4j_ge3t --signalclass=ttHH --plot --printroc --syst=JERup
+# python eval_template_old_sys.py -o 221204_evaluation_old -i 221130_50_old_ge4j_ge3t  --signalclass=ttHH --plot --printroc --syst=JERup
 
 
 """
@@ -112,9 +112,9 @@ with open(configFile) as f:
 
 syst = [
   'JESup',
-  'JESdown',
-  'JERup',
-  'JERdown',
+#   'JESdown',
+#   'JERup',
+#   'JERdown',
 #   'JESFlavorQCDup',
 #   'JESRelativeBalup',
 #   'JESHFup',
