@@ -172,32 +172,32 @@ for sys in syst:
 
 
 
-    dataset.addSample(
-        sampleName="TTZZ",
-            ntuples=ntuplesPath2 +
-            "/2017/ntuple/TTZZTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2017/221126_052936/*/*"+sys+"*.root",
-        #    ntuples     = ntuplesPath+"/ttH_220208.root",
-        categories=ttZZ_categories,
-        process="ttZZ",
-        # lumiWeight  = 6.75E-02,
-        selections=None,  # ttbar_selection,
-        #    selections  = ttbar_selection,
-        islocal=False
-    )
+    # dataset.addSample(
+    #     sampleName="TTZZ",
+    #         ntuples=ntuplesPath2 +
+    #         "/2017/ntuple/TTZZTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2017/221126_052936/*/*"+sys+"*.root",
+    #     #    ntuples     = ntuplesPath+"/ttH_220208.root",
+    #     categories=ttZZ_categories,
+    #     process="ttZZ",
+    #     # lumiWeight  = 6.75E-02,
+    #     selections=None,  # ttbar_selection,
+    #     #    selections  = ttbar_selection,
+    #     islocal=False
+    # )
 
 
-    dataset.addSample(
-        sampleName="TTZZ2",
-        ntuples=ntuplesPath2 +
-            "/2017/ntuple/TTZZTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2017_Ext/221126_053245/*/*"+sys+"*.root",
-        #    ntuples     = ntuplesPath+"/ttH_220208.root",
-        categories=ttZZ_categories,
-        process="ttZZ",
-        #    lumiWeight  = 41.5,
-        selections=None,  # ttbar_selection,
-        #    selections  = ttbar_selection,
-        islocal=True
-    )
+    # dataset.addSample(
+    #     sampleName="TTZZ2",
+    #     ntuples=ntuplesPath2 +
+    #         "/2017/ntuple/TTZZTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2017_Ext/221126_053245/*/*"+sys+"*.root",
+    #     #    ntuples     = ntuplesPath+"/ttH_220208.root",
+    #     categories=ttZZ_categories,
+    #     process="ttZZ",
+    #     #    lumiWeight  = 41.5,
+    #     selections=None,  # ttbar_selection,
+    #     #    selections  = ttbar_selection,
+    #     islocal=True
+    # )
 
     # dataset.addSample(
     #     sampleName="TTZH",
@@ -225,18 +225,18 @@ for sys in syst:
     #     islocal=True
     # )
 
-    # dataset.addSample(
-    #     sampleName="TTZ",
-    #     ntuples=ntuplesPath2 +
-    #     "/2017/ntuple/TTZToBB_TuneCP5_13TeV-amcatnlo-pythia8/sl_LEG_ntuple_2017/221126_052843/*/*"+sys+"*.root",
-    #     #    ntuples     = ntuplesPath+"/ttH_220208.root",
-    #     categories=ttZ_categories,
-    #     process="ttZ",
-    #     #    lumiWeight  = 41.5,
-    #     selections=None,  # ttbar_selection,
-    #     #    selections  = ttbar_selection,
-    #     islocal=False
-    # )
+    dataset.addSample(
+        sampleName="TTZ",
+        ntuples=ntuplesPath2 +
+        "/2017/ntuple/TTZToBB_TuneCP5_13TeV-amcatnlo-pythia8/sl_LEG_ntuple_2017/221126_052843/*/*"+sys+"*.root",
+        #    ntuples     = ntuplesPath+"/ttH_220208.root",
+        categories=ttZ_categories,
+        process="ttZ",
+        #    lumiWeight  = 41.5,
+        selections=None,  # ttbar_selection,
+        #    selections  = ttbar_selection,
+        islocal=False
+    )
 
           
     # dataset.addSample(
