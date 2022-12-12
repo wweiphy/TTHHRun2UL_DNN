@@ -117,7 +117,7 @@ syst = [
 #   'JESup',
 #   'JESdown',
 #   'JERup',
-  'JERdown',
+#   'JERdown',
 #   'JESFlavorQCDup',
 #   'JESRelativeBalup',
 #   'JESHFup',
@@ -130,16 +130,16 @@ syst = [
 #   'JESHFyearup',
 #   'JESAbsoluteyearup',
 #   'JESFlavorQCDdown',
-#   'JESRelativeBaldown',
-#   'JESHFdown',
-#   'JESBBEC1down',
-#   'JESEC2down',
-#   'JESAbsolutedown',
-#   'JESBBEC1yeardown',
-#   'JESRelativeSampleyeardown',
-#   'JESEC2yeardown',
-#   'JESHFyeardown',
-#   'JESAbsoluteyeardown',
+  'JESRelativeBaldown',
+  'JESHFdown',
+  'JESBBEC1down',
+  'JESEC2down',
+  'JESAbsolutedown',
+  'JESBBEC1yeardown',
+  'JESRelativeSampleyeardown',
+  'JESEC2yeardown',
+  'JESHFyeardown',
+  'JESAbsoluteyeardown',
 ]
 
 
@@ -172,58 +172,58 @@ for sys in syst:
 
 
 
-    # dataset.addSample(
-    #     sampleName="TTZZ",
-    #         ntuples=ntuplesPath2 +
-    #         "/2017/ntuple/TTZZTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2017/221126_052936/*/*"+sys+"*.root",
-    #     #    ntuples     = ntuplesPath+"/ttH_220208.root",
-    #     categories=ttZZ_categories,
-    #     process="ttZZ",
-    #     # lumiWeight  = 6.75E-02,
-    #     selections=None,  # ttbar_selection,
-    #     #    selections  = ttbar_selection,
-    #     islocal=False
-    # )
-
-
-    # dataset.addSample(
-    #     sampleName="TTZZ2",
-    #     ntuples=ntuplesPath2 +
-    #         "/2017/ntuple/TTZZTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2017_Ext/221126_053245/*/*"+sys+"*.root",
-    #     #    ntuples     = ntuplesPath+"/ttH_220208.root",
-    #     categories=ttZZ_categories,
-    #     process="ttZZ",
-    #     #    lumiWeight  = 41.5,
-    #     selections=None,  # ttbar_selection,
-    #     #    selections  = ttbar_selection,
-    #     islocal=True
-    # )
-
     dataset.addSample(
-        sampleName="TTZH",
-        ntuples=ntuplesPath2 +
-            "/2017/ntuple/TTZHTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2017/221126_052419/*/*"+sys+"*.root",
+        sampleName="TTZZ",
+            ntuples=ntuplesPath2 +
+            "/2017/ntuple/TTZZTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2017/221126_052936/*/*"+sys+"*.root",
         #    ntuples     = ntuplesPath+"/ttH_220208.root",
-        categories=ttZH_categories,
-        process="ttZH",
-        # lumiWeight  = 1.1035,
+        categories=ttZZ_categories,
+        process="ttZZ",
+        # lumiWeight  = 6.75E-02,
         selections=None,  # ttbar_selection,
         #    selections  = ttbar_selection,
         islocal=False
     )
 
+
     dataset.addSample(
-        sampleName="TTZH2",
+        sampleName="TTZZ2",
         ntuples=ntuplesPath2 +
-            "/2017/ntuple/TTZHTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2017_Ext/221126_052726/*/*"+sys+"*.root",
+            "/2017/ntuple/TTZZTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2017_Ext/221126_053245/*/*"+sys+"*.root",
         #    ntuples     = ntuplesPath+"/ttH_220208.root",
-        categories=ttZH_categories,
-        process="ttZH",
+        categories=ttZZ_categories,
+        process="ttZZ",
         #    lumiWeight  = 41.5,
         selections=None,  # ttbar_selection,
         #    selections  = ttbar_selection,
         islocal=True
     )
+
+    # dataset.addSample(
+    #     sampleName="TTZH",
+    #     ntuples=ntuplesPath2 +
+    #         "/2017/ntuple/TTZHTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2017/221126_052419/*/*"+sys+"*.root",
+    #     #    ntuples     = ntuplesPath+"/ttH_220208.root",
+    #     categories=ttZH_categories,
+    #     process="ttZH",
+    #     # lumiWeight  = 1.1035,
+    #     selections=None,  # ttbar_selection,
+    #     #    selections  = ttbar_selection,
+    #     islocal=False
+    # )
+
+    # dataset.addSample(
+    #     sampleName="TTZH2",
+    #     ntuples=ntuplesPath2 +
+    #         "/2017/ntuple/TTZHTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2017_Ext/221126_052726/*/*"+sys+"*.root",
+    #     #    ntuples     = ntuplesPath+"/ttH_220208.root",
+    #     categories=ttZH_categories,
+    #     process="ttZH",
+    #     #    lumiWeight  = 41.5,
+    #     selections=None,  # ttbar_selection,
+    #     #    selections  = ttbar_selection,
+    #     islocal=True
+    # )
 
     # dataset.addSample(
     #     sampleName="TTZ",
