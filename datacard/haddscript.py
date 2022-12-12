@@ -2,7 +2,7 @@ import os
 import optparse
 import glob
 
-# python haddscript.py -f 221204_test_evaluation_new
+# python haddscript.py -f 221204_evaluation_new
 
 
 usage = "usage=%prog [options] \n"
@@ -29,28 +29,28 @@ syst = [
   'JESdown',
   'JERup',
   'JERdown',
-  'JESFlavorQCDup',
-  'JESRelativeBalup',
-  'JESHFup',
-  'JESBBEC1up',
-  'JESEC2up',
-  'JESAbsoluteup',
-  'JESBBEC1yearup',
-  'JESRelativeSampleyearup',
-  'JESEC2yearup',
-  'JESHFyearup',
-  'JESAbsoluteyearup',
-  'JESFlavorQCDdown',
-  'JESRelativeBaldown',
-  'JESHFdown',
-  'JESBBEC1down',
-  'JESEC2down',
-  'JESAbsolutedown',
-  'JESBBEC1yeardown',
-  'JESRelativeSampleyeardown',
-  'JESEC2yeardown',
-  'JESHFyeardown',
-  'JESAbsoluteyeardown',
+#   'JESFlavorQCDup',
+#   'JESRelativeBalup',
+#   'JESHFup',
+#   'JESBBEC1up',
+#   'JESEC2up',
+#   'JESAbsoluteup',
+#   'JESBBEC1yearup',
+#   'JESRelativeSampleyearup',
+#   'JESEC2yearup',
+#   'JESHFyearup',
+#   'JESAbsoluteyearup',
+#   'JESFlavorQCDdown',
+#   'JESRelativeBaldown',
+#   'JESHFdown',
+#   'JESBBEC1down',
+#   'JESEC2down',
+#   'JESAbsolutedown',
+#   'JESBBEC1yeardown',
+#   'JESRelativeSampleyeardown',
+#   'JESEC2yeardown',
+#   'JESHFyeardown',
+#   'JESAbsoluteyeardown',
 ]
 
 allFiles = sorted(
