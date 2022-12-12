@@ -61,6 +61,7 @@ class savenominalDiscriminators:
 
             # loop over all classes to fill hists according to truth level class
             for j, truth_cls in enumerate(self.event_classes):
+                if not truth_cls == "ttHH": continue
                 if j >= self.n_classes:
                     continue
                 # classIndex = self.class_translation[truth_cls]
