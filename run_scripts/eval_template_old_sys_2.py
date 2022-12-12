@@ -15,8 +15,7 @@ import DNN_framework.DNN as DNN
 import DNN_framework.data_frame as df
 
 
-# python eval_template_new_sys.py -o 221204_evaluation_new -i 221130_50_ge4j_ge3t --signalclass=ttHH --plot --printroc -d Eval_1204_UL --syst=JESup
-
+# python eval_template_old_sys_2.py -o 221204_evaluation_old -i 221130_50_old_ge4j_ge3t  --signalclass=ttHH --plot --printroc -d Eval_1204_UL 
 
 
 """
@@ -100,6 +99,7 @@ if options.binary:
 configFile = inPath+"/checkpoints/net_config.json"
   # TODO - modify this
 dfDirectory = "/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/workdir/"+options.dataset
+
    
 if not os.path.exists(configFile):
         sys.exit(
@@ -139,17 +139,16 @@ syst = [
 #   'JESAbsoluteyeardown',
 ]
 
-
 # TODO - remove the addSample part because future DNN will save the data df
 # TODO - add the dealing with data
 
 for sys in syst:
 
-    # load samples
         input_samples = df.InputSamples(input_path=dfDirectory+"_"+sys+"/",
                                         addSampleSuffix=config["addSampleSuffix"], test_percentage=options.test_percentage)
 
         for sample in config["eventClasses"]:
+                # total_weight_expr = "x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom"
                 total_weight_expr = "x.Weight_XS * x.Weight_CSV_UL * x.Weight_GEN_nom * x.lumiWeight"
                 # normalization_weight = 1
                 if sample["sampleLabel"] == "ttHH":
@@ -169,14 +168,26 @@ for sys in syst:
                         normalization_weight = 1.
                         # '/ (0.001571054/0.00016654)'
                         # sample_path = dfDirectory+"ttZ_dnn.h5"
-                elif sample["sampleLabel"] == "ttmb":
+                elif sample["sampleLabel"] == "ttb":
+                        # sample_train_weight = 1
+                        normalization_weight = 37.46104305
+                        # sample_path = dfDirectory+"ttb_dnn.h5"
+                elif sample["sampleLabel"] == "ttbb":
+                        # sample_train_weight = 1
+                        normalization_weight = 15.51028586
+                        # sample_path = dfDirectory+"ttbb_dnn.h5"
+                elif sample["sampleLabel"] == "tt2b":
                 #     sample_train_weight = 1
-                        normalization_weight = 26.3
-                #     sample_path = dfDirectory+"ttmb_dnn.h5"
-                elif sample["sampleLabel"] == "ttnb":
+                        normalization_weight = 43.64619793
+                #     sample_path = dfDirectory+"tt2b_dnn.h5"
+                elif sample["sampleLabel"] == "tt4b":
                 #     sample_train_weight = 1
-                        normalization_weight = 1.1
-                #     sample_path = dfDirectory+"ttnb_dnn.h5"
+                        normalization_weight = 0.705546896
+                #     sample_path = dfDirectory+"tt4b_dnn.h5"
+                elif sample["sampleLabel"] == "ttbbb":
+                #     sample_train_weight = 1
+                        normalization_weight = 1.196636219
+                #     sample_path = dfDirectory+"ttbbb_dnn.h5"
                 elif sample["sampleLabel"] == "ttcc":
                         # sample_train_weight = 1
                         normalization_weight = 1.
@@ -199,6 +210,8 @@ for sys in syst:
 
         print("shuffle seed: {}".format(config["shuffleSeed"]))
 
+        #TODO-modify this
+        sample_save_path = basedir+"/workdir/"
         # init DNN class
         dnn = DNN.DNN(
         save_path=outPath+"_"+sys,
@@ -211,10 +224,17 @@ for sys in syst:
         addSampleSuffix=config["addSampleSuffix"],
         )
 
+        #    dnn._load_datasets(shuffle_seed=config["shuffleSeed"],balanceSamples=True)
         # load the trained model
         dnn.load_trained_model(inPath, options.evaluation_epoch_model)
+        # dnn.predict_event_query()
 
 
-        # plot the output discriminators
-        dnn.save_JESJERdiscriminators(log = options.log, privateWork = options.privateWork, printROC = options.printROC, syst = sys)
-
+        dnn.save_JESJERdiscriminators(
+        log=options.log, privateWork=options.privateWork, printROC=options.printROC, syst=sys)
+        #
+        #        # plot the output nodes
+        #        dnn.plot_outputNodes(log = options.log, signal_class = options.signal_class, privateWork = options.privateWork, printROC = options.printROC, sigScale = -1)
+        #
+        #        # plot closure test
+        #        dnn.plot_closureTest(log = options.log, signal_class = options.signal_class, privateWork = options.privateWork)
