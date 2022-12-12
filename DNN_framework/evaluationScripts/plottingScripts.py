@@ -38,7 +38,8 @@ class savenominalDiscriminators:
 
         # generate one plot per output node
         for i, node_cls in enumerate(self.event_classes):
-
+            if not node_cls == "ttHH":
+                continue
             f = ROOT.TFile(self.savedir + "/" + node_cls +
                            "_discriminator" + ".root", "RECREATE")
             print("name of the nominal  root file: ")
@@ -61,7 +62,7 @@ class savenominalDiscriminators:
 
             # loop over all classes to fill hists according to truth level class
             for j, truth_cls in enumerate(self.event_classes):
-                if not truth_cls == "ttHH": continue
+                
                 if j >= self.n_classes:
                     continue
                 # classIndex = self.class_translation[truth_cls]
