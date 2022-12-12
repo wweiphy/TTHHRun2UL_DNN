@@ -38,7 +38,7 @@ class savenominalDiscriminators:
 
         # generate one plot per output node
         for i, node_cls in enumerate(self.event_classes):
-            if not node_cls == "ttnb":
+            if not (node_cls == "ttbb" or node_cls == "tt2b"):
                 continue
             f = ROOT.TFile(self.savedir + "/" + node_cls +
                            "_discriminator" + ".root", "RECREATE")
