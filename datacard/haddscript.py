@@ -2,7 +2,7 @@ import os
 import optparse
 import glob
 
-# python haddscript.py -f 221204_evaluation_old
+# python haddscript.py -f 221204_evaluation_new
 
 
 usage = "usage=%prog [options] \n"
@@ -80,5 +80,5 @@ command = "hadd /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TT
 print ("hadd files: ")
 # print (command)
 
-# os.system(command)
+os.system(command)
 
