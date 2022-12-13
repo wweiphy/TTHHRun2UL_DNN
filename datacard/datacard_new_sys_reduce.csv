@@ -14,7 +14,6 @@ eff_e,shape,1,1,1,1,1,1,1,1,1
 btag_lf,shape,1,1,1,1,1,1,1,1,1
 btag_hf,shape,1,1,1,1,1,1,1,1,1
 btag_hfstats1,shape,1,1,1,1,1,1,1,1,1
-btag_lfstats1,shape,1,1,1,1,1,1,1,1,1
 btag_hfstats2,shape,1,1,1,1,1,1,1,1,1
 btag_lfstats2,shape,1,1,1,1,1,1,1,1,1
 btag_cferr1,shape,1,1,1,1,1,1,1,1,1
@@ -22,9 +21,3 @@ btag_cferr2,shape,1,1,1,1,1,1,1,1,1
 PU_,shape,1,1,1,1,1,1,1,1,1
 JES,shape,1,1,1,1,1,1,1,1,1
 JER,shape,1,1,1,1,1,1,1,1,1
-FSR_ttH,shape,-,-,-,-,-,1,-,-,-
-ISR_ttH,shape,-,-,-,-,-,1,-,-,-
-ISR_ttcc,shape,-,1,1,-,-,-,-,-,-
-ISR_ttlf,shape,-,1,1,-,-,-,-,-,-
-FSR_ttcc,shape,-,1,1,-,-,-,-,-,-
-FSR_ttlf,shape,-,1,1,-,-,-,-,-,-
