@@ -346,6 +346,11 @@ class Dataset:
                         # append column to original dataframe
                         df.update(idx_df[vecvar].rename(col_name))
 
+                df.loc[:, "process"] = sample.process
+
+                # apply event selection
+                df = self.applySelections(df, sample.selections)
+
                 if self.do_EvalSFs:
                     # for DNN evaluation
                     if "nominal" in file:
@@ -508,10 +513,7 @@ class Dataset:
                     # print(df["Weight_CSV_UL"])
                     # print(df["Weight_JetPUID"])
                 
-                df.loc[:, "process"] = sample.process
-
-                # apply event selection
-                df = self.applySelections(df, sample.selections)
+                
 
                 if concat_df.empty: concat_df = df
                 else: concat_df = concat_df.append(df)            
