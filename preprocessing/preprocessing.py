@@ -34,7 +34,7 @@ class EventCategories:
         return selections
 
 class Sample:
-    def __init__(self, sampleName, ntuples, categories, process, label, selections=None, ownVars=[], even_odd=False, lumiWeight=1., islocal = False):
+    def __init__(self, sampleName, ntuples, categories, process, selections=None, ownVars=[], even_odd=False, lumiWeight=1., islocal = False):
         self.sampleName = sampleName
         self.ntuples = ntuples
         self.selections = selections
