@@ -117,8 +117,8 @@ ntuplesPath2 = "/eos/uscms/store/group/lpctthrun2/wwei/UL"
 
 syst = [
 #   'JESup',
-  'JESdown',
-#   'JERup',
+#   'JESdown',
+  'JERup',
 #   'JERdown',
 #   'JESFlavorQCDup',
 #   'JESRelativeBalup',
