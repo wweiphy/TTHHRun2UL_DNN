@@ -269,7 +269,7 @@ for sys in syst:
         sampleName  = "TT4b",
         ntuples=ntuplesPath2 +
         "/2017/ntuple/TT4b_TuneCP5_13TeV_madgraph_pythia8/sl_LEG_ntuple_2017/221126_051927/*/*"+sys+"*.root",
-        categories  = ttbar_categories,
+        categories  = ttbar2_categories,
         process="tt4b",
     #    lumiWeight  = 41.5,
         selections  = None,#ttbar_selection,
