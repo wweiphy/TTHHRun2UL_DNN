@@ -12,7 +12,7 @@ import preprocessing
 
 
 """
-USE: python3 template_UL_Eval_nominal_old.py --outputdirectory=Eval_1204_UL_nominal_old --variableselection=variables --maxentries=20000 --cores=6
+USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_nominal_old.py --outputdirectory=Eval_0103_UL_nominal_old --variableselection=variables --maxentries=20000 --cores=6
 """
 
 usage="usage=%prog [options] \n"
@@ -97,8 +97,10 @@ ttbar_categories.addCategory("tt2b", selection = "(GenEvt_I_TTPlusBB == 2 and Ge
 ttbar_categories.addCategory("ttb",  selection = "(GenEvt_I_TTPlusBB == 1 and GenEvt_I_TTPlusCC == 0)")
 # ttbar_categories.addCategory("ttlf", selection = "(GenEvt_I_TTPlusBB == 0 and GenEvt_I_TTPlusCC == 0)")
 # ttbar_categories.addCategory("ttcc", selection = "(GenEvt_I_TTPlusBB == 0 and GenEvt_I_TTPlusCC == 1)")
-ttbar_categories.addCategory("ttbbb", selection = "(GenEvt_I_TTPlusBB == 4 and GenEvt_I_TTPlusCC == 0)")
-ttbar_categories.addCategory("tt4b", selection = "(GenEvt_I_TTPlusBB == 5 and GenEvt_I_TTPlusCC == 0)")
+
+ttbar2_categories = preprocessing.EventCategories()
+ttbar2_categories.addCategory("ttbbb", selection = "(GenEvt_I_TTPlusBB == 4 and GenEvt_I_TTPlusCC == 0)")
+ttbar2_categories.addCategory("tt4b", selection = "(GenEvt_I_TTPlusBB == 5 and GenEvt_I_TTPlusCC == 0)")
 
 ttmb_categories = preprocessing.EventCategories()
 ttmb_categories.addCategory("ttmb", selection = "(GenEvt_I_TTPlusBB == 3 and GenEvt_I_TTPlusCC == 0) or (GenEvt_I_TTPlusBB == 2 and GenEvt_I_TTPlusCC == 0) or (GenEvt_I_TTPlusBB == 1 and GenEvt_I_TTPlusCC == 0)")
@@ -231,7 +233,7 @@ dataset.addSample(
     sampleName="TT4b",
     ntuples=ntuplesPath2 +
     "/2017/ntuple/TT4b_TuneCP5_13TeV_madgraph_pythia8/sl_LEG_ntuple_2017/221126_051927/*/*nominal*.root",
-    categories=ttbar_categories,
+    categories=ttbar2_categories,
     process="tt4b",
     #    lumiWeight  = 41.5,
     selections=None,  # ttbar_selection,
