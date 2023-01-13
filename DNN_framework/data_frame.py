@@ -193,11 +193,17 @@ class Sample:
                 # print(df['Weight_scale_variation_muR_2p0_muF_1p0'][0])
 
                 if (self.label != "ttb" or self.label != "ttbb" or self.label != "tt2b" or self.label != "ttmb" or self.label != "ttH" or self.label != "ttcc" or self.label != "ttlf"):
-
-                    df.loc[:, 'Weight_scale_variation_muR_2p0_muF_1p0'] = 0.
+                    
+                    
+                    df.loc[:, 'Weight_scale_variation_muR_0p5_muF_0p5'] = 0.
                     df.loc[:, 'Weight_scale_variation_muR_0p5_muF_1p0'] = 0.
+                    df.loc[:, 'Weight_scale_variation_muR_0p5_muF_2p0'] = 0.
                     df.loc[:, 'Weight_scale_variation_muR_1p0_muF_0p5'] = 0.
+                    df.loc[:, 'Weight_scale_variation_muR_1p0_muF_1p0'] = 0.
                     df.loc[:, 'Weight_scale_variation_muR_1p0_muF_2p0'] = 0.
+                    df.loc[:, 'Weight_scale_variation_muR_2p0_muF_0p5'] = 0.
+                    df.loc[:, 'Weight_scale_variation_muR_2p0_muF_1p0'] = 0.
+                    df.loc[:, 'Weight_scale_variation_muR_2p0_muF_2p0'] = 0.
 
 
                 df = df.assign(total_weight_scaleMuRUp=lambda x: (((x['process'] == "ttSL")*1. * float(internal['ttSL'][internal[internal['Name'] == 'Weight_scale_variation_muR_2p0_muF_1p0'].index]) * x['Weight_scale_variation_muR_2p0_muF_1p0'] + (x['process'] == "ttDL")*1. * float(internal['ttDL'][internal[internal['Name'] == 'Weight_scale_variation_muR_2p0_muF_1p0'].index]) * x['Weight_scale_variation_muR_2p0_muF_1p0'] + (x['process'] == "ttbbSL")*1. * float(internal_ttbb['ttbbSL'][internal_ttbb[internal_ttbb['Name'] == 'Weight_scale_variation_muR_2p0_muF_1p0'].index]) + (x['process'] == "ttbbDL")*1. * float(internal_ttbb['ttbbSL'][internal_ttbb[internal_ttbb['Name'] == 'Weight_scale_variation_muR_2p0_muF_1p0'].index])) * x.total_preweight))
