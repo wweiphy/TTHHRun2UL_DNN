@@ -15,7 +15,7 @@ import DNN_framework.DNN as DNN
 import DNN_framework.data_frame as df
 
 
-# python eval_template_new.py -o 221204_evaluation_new -i 221130_50_ge4j_ge3t --signalclass=ttHH --plot --printroc -d Eval_1204_UL_nominal
+# python eval_template_new.py -o 220103_evaluation_new_test -i 221130_50_ge4j_ge3t --signalclass=ttHH --plot --printroc -d Eval_0103_UL_nominal
 
 
 
@@ -141,11 +141,11 @@ for sample in config["eventClasses"]:
                 # sample_path = dfDirectory+"ttZ_dnn.h5"
         elif sample["sampleLabel"] == "ttmb":
         #     sample_train_weight = 1
-                normalization_weight = 26.3
+                normalization_weight = 10.204
         #     sample_path = dfDirectory+"ttmb_dnn.h5"
         elif sample["sampleLabel"] == "ttnb":
         #     sample_train_weight = 1
-                normalization_weight = 1.1
+                normalization_weight = 1.
         #     sample_path = dfDirectory+"ttnb_dnn.h5"
         elif sample["sampleLabel"] == "ttcc":
                 # sample_train_weight = 1
@@ -161,9 +161,9 @@ for sample in config["eventClasses"]:
                 # sample_path = dfDirectory+"ttH_dnn.h5"
         # normalization_weight = 1
 
-        if sample["sampleLabel"] == "ttH":
-                input_samples.addSample(sample_path=dfDirectory+sample["sampleLabel"]+"_dnn.h5", label=sample["sampleLabel"],
-                                        normalization_weight=normalization_weight, train_weight=1, total_weight_expr=total_weight_expr)
+        # if sample["sampleLabel"] == "ttH":
+        input_samples.addSample(sample_path=dfDirectory+sample["sampleLabel"]+"_dnn.h5", label=sample["sampleLabel"],
+                                normalization_weight=normalization_weight, train_weight=1, total_weight_expr=total_weight_expr)
         # sample_train_weight = 1
         # input_samples.addSample(sample["samplePath"], sample["sampleLabel"],
         #                         normalization_weight=normalization_weight, train_weight=sample_train_weight, total_weight_expr=total_weight_expr)
