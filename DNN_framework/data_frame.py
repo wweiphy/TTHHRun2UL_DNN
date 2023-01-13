@@ -12,6 +12,15 @@ from tensorflow.keras.utils import to_categorical
 
 # local import 
 # import GenNormMap
+internal = pd.read_csv("GenNormMap/internalNorm.csv")
+internal_ttbb = pd.read_csv(
+    "GenNormMap/internalNorm_ttbb.csv")
+ttbb = pd.read_csv("GenNormMap/fracttbb.csv")
+ttbb_ttbb = pd.read_csv("GenNormMap/fracttbb_ttbb.csv")
+ttcc = pd.read_csv("GenNormMap/fracttcc.csv")
+ttcc_ttbb = pd.read_csv("GenNormMap/fracttcc_ttbb.csv")
+ttlf = pd.read_csv("GenNormMap/fracttlf.csv")
+ttlf_ttbb = pd.read_csv("GenNormMap/fracttlf_ttbb.csv")
 
 class Sample:
     def __init__(self, path, label, normalization_weight=1., train_weight=1., test_percentage=0.2, total_weight_expr='x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom', addSampleSuffix=""):
@@ -139,16 +148,6 @@ class Sample:
 
                 df = df.assign(total_preweight=lambda x: (x['Weight_XS'] * x['Weight_CSV_UL'] * x['Weight_GEN_nom'] * x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSFUp[0]'] > 0.) & (x['Electron_ReconstructionSFUp[0]'] > 0.))*1.*x['Electron_IdentificationSFUp[0]']*x['Electron_ReconstructionSFUp[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & ((x['Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX'] == 1) | (
                     (x['Triggered_HLT_Ele32_WPTight_Gsf_L1DoubleEG_vX'] == 1) & (x['Triggered_HLT_Ele32_WPTight_Gsf_2017SeedsX'] == 1))) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['Triggered_HLT_IsoMu27_vX'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
-
-                internal = pd.read_csv("GenNormMap/internalNorm.csv")
-                internal_ttbb = pd.read_csv(
-                    "./GenNormMap/internalNorm_ttbb.csv")
-                ttbb = pd.read_csv("GenNormMap/fracttbb.csv")
-                ttbb_ttbb = pd.read_csv("GenNormMap/fracttbb_ttbb.csv")
-                ttcc = pd.read_csv("GenNormMap/fracttcc.csv")
-                ttcc_ttbb = pd.read_csv("GenNormMap/fracttcc_ttbb.csv")
-                ttlf = pd.read_csv("GenNormMap/fracttlf.csv")
-                ttlf_ttbb = pd.read_csv("GenNormMap/fracttlf_ttbb.csv")
                 
                 for x in range(306000, 306103):
 
