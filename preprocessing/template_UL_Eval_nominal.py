@@ -244,58 +244,58 @@ dataset.addSample(
 
     
 # initialize dataset class
-dataset2 = preprocessing.Dataset(
-    outputdir=outputdir,
-    naming=options.Name,
-    maxEntries=options.maxEntries,
-    ncores=options.numCores,
-    do_EvalSFs=True,
-)
+# dataset2 = preprocessing.Dataset(
+#     outputdir=outputdir,
+#     naming=options.Name,
+#     maxEntries=options.maxEntries,
+#     ncores=options.numCores,
+#     do_EvalSFs=True,
+# )
 
 # add base event selection
-dataset2.addBaseSelection(base_selection)
+# dataset2.addBaseSelection(base_selection)
 
-dataset2.addSample(
-    sampleName="TTH",
-    ntuples=ntuplesPath2 +
-    "/2017/ntuple/ttHTobb_M125_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2017/221126_054209/*/*nominal*.root",
-    #    ntuples     = ntuplesPath+"/ttH_220208.root",
-    categories=ttH_categories,
-    process="ttH",
-    #    lumiWeight  = 41.5,
-    selections=None,  # ttbar_selection,
-    #    selections  = ttH_selection,
-    islocal=False
-)
+# dataset2.addSample(
+#     sampleName="TTH",
+#     ntuples=ntuplesPath2 +
+#     "/2017/ntuple/ttHTobb_M125_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2017/221126_054209/*/*nominal*.root",
+#     #    ntuples     = ntuplesPath+"/ttH_220208.root",
+#     categories=ttH_categories,
+#     process="ttH",
+#     #    lumiWeight  = 41.5,
+#     selections=None,  # ttbar_selection,
+#     #    selections  = ttH_selection,
+#     islocal=False
+# )
 
-dataset2.addSample(
-    sampleName="TTSL",
-    ntuples=ntuplesPath2 +
-    "/2017/ntuple/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2017/221126_052303/*/*nominal*.root",
-    #    ntuples     = ntuplesPath+"/ttSL_220210.root",
-    categories=ttbar_categories,
-    process="ttSL",
-    # lumiWeight  = 5.0,
-    selections=None,  # ttbar_selection,
-    #    selections  = ttbar_selection
-    islocal=False
-)
+# dataset2.addSample(
+#     sampleName="TTSL",
+#     ntuples=ntuplesPath2 +
+#     "/2017/ntuple/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2017/221126_052303/*/*nominal*.root",
+#     #    ntuples     = ntuplesPath+"/ttSL_220210.root",
+#     categories=ttbar_categories,
+#     process="ttSL",
+#     # lumiWeight  = 5.0,
+#     selections=None,  # ttbar_selection,
+#     #    selections  = ttbar_selection
+#     islocal=False
+# )
 
-dataset2.addSample(
-    sampleName="TTDL",
-    ntuples="/eos/uscms/store/user/wwei/TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2017/221126_052120/*/*nominal*.root",
-    #    ntuples     = ntuplesPath+"/ttSL_220210.root",
-    categories=ttbar_categories,
-    process="ttDL",
-    # lumiWeight  = 5.0,
-    selections=None,  # ttbar_selection,
-    #    selections  = ttbar_selection
-    islocal=False
-)
+# dataset2.addSample(
+#     sampleName="TTDL",
+#     ntuples="/eos/uscms/store/user/wwei/TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2017/221126_052120/*/*nominal*.root",
+#     #    ntuples     = ntuplesPath+"/ttSL_220210.root",
+#     categories=ttbar_categories,
+#     process="ttDL",
+#     # lumiWeight  = 5.0,
+#     selections=None,  # ttbar_selection,
+#     #    selections  = ttbar_selection
+#     islocal=False
+# )
 
 # initialize variable list
-# dataset.addVariables(variable_set.all_variables)
-dataset2.addVariables(variable_set.all_variables)
+dataset.addVariables(variable_set.all_variables)
+# dataset2.addVariables(variable_set.all_variables)
 
 sys.path.append(basedir+"/variable_sets/")
 
@@ -304,12 +304,12 @@ import additional_variables as add_var
 # import sf_variables as sf_var
 import sf_variables as sf_var
 # add these variables to the variable list
-# dataset.addVariables(add_var.additional_variables)
-dataset2.addVariables(add_var.additional_variables)
-# dataset.addVariables(sf_var.scalefactor_variables)
-dataset2.addVariables(sf_var.scalefactor_variables)
-dataset2.addVariables(sf_var.ttbar_variables)
+dataset.addVariables(add_var.additional_variables)
+# dataset2.addVariables(add_var.additional_variables)
+dataset.addVariables(sf_var.scalefactor_variables)
+# dataset2.addVariables(sf_var.scalefactor_variables)
+# dataset2.addVariables(sf_var.ttbar_variables)
 
 # run the preprocessing
-# dataset.runPreprocessing()
-dataset2.runPreprocessing()
+dataset.runPreprocessing()
+# dataset2.runPreprocessing()
