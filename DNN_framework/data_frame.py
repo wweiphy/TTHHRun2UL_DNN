@@ -143,12 +143,12 @@ class Sample:
                 internal = pd.read_csv("./GenNormMap/internalNorm.csv")
                 internal_ttbb = pd.read_csv(
                     "./GenNormMap/internalNorm_ttbb.csv")
-                ttbb = pd.read_csv("./GenNormMap/fracttbb.csv")
-                ttbb_ttbb = pd.read_csv("./GenNormMap/fracttbb_ttbb.csv")
-                ttcc = pd.read_csv("./GenNormMap/fracttcc.csv")
-                ttcc_ttbb = pd.read_csv("./GenNormMap/fracttcc_ttbb.csv")
-                ttlf = pd.read_csv("./GenNormMap/fracttlf.csv")
-                ttlf_ttbb = pd.read_csv("./GenNormMap/fracttlf_ttbb.csv")
+                ttbb = pd.read_csv("GenNormMap/fracttbb.csv")
+                ttbb_ttbb = pd.read_csv("GenNormMap/fracttbb_ttbb.csv")
+                ttcc = pd.read_csv("GenNormMap/fracttcc.csv")
+                ttcc_ttbb = pd.read_csv("GenNormMap/fracttcc_ttbb.csv")
+                ttlf = pd.read_csv("GenNormMap/fracttlf.csv")
+                ttlf_ttbb = pd.read_csv("GenNormMap/fracttlf_ttbb.csv")
                 
                 for x in range(306000, 306103):
 
