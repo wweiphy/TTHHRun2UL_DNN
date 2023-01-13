@@ -15,7 +15,7 @@ import DNN_framework.DNN as DNN
 import DNN_framework.data_frame as df
 
 
-# python eval_template_old_sys.py -o 221204_evaluation_old -i 221130_50_old_ge4j_ge3t  --signalclass=ttHH --plot --printroc -d Eval_0103_UL --syst=JERup
+# python eval_template_old_sys.py -o 230103_evaluation_old -i 221130_50_old_ge4j_ge3t  --signalclass=ttHH --plot --printroc -d Eval_0103_UL --syst=JERup
 
 
 """
@@ -170,15 +170,15 @@ for sys in syst:
                         # sample_path = dfDirectory+"ttZ_dnn.h5"
                 elif sample["sampleLabel"] == "ttb":
                         # sample_train_weight = 1
-                        normalization_weight = 1. 
+                        normalization_weight = 10.204 
                         # sample_path = dfDirectory+"ttb_dnn.h5"
                 elif sample["sampleLabel"] == "ttbb":
                         # sample_train_weight = 1
-                        normalization_weight = 1.
+                        normalization_weight = 10.204
                         # sample_path = dfDirectory+"ttbb_dnn.h5"
                 elif sample["sampleLabel"] == "tt2b":
                 #     sample_train_weight = 1
-                        normalization_weight = 1.
+                        normalization_weight = 10.204
                 #     sample_path = dfDirectory+"tt2b_dnn.h5"
                 elif sample["sampleLabel"] == "tt4b":
                 #     sample_train_weight = 1
