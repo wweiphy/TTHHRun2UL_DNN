@@ -82,14 +82,17 @@ class savenominalDiscriminators:
                 
                 
                 # filter values per event class
-                filtered_values = [out_values[k] for k in range(len(out_values))
-                                   if self.data.get_full_labels_after_preprocessing(as_categorical=False)[k] == classIndex
-                                   and self.predicted_classes[k] == nodeIndex]
+                filtered_values = self.data.df_unsplit_preprocessing[(
+                    self.data.df_unsplit_preprocessing['index_label'] == classIndex) & (self.data.df_unsplit_preprocessing['Pred_Class'] == nodeIndex)]['DNN_OutPut_{}'.format(nodeIndex)]
+                
+                print(filtered_values[0])
+                # filtered_values = [out_values[k] for k in range(len(out_values))
+                #                    if self.data.get_full_labels_after_preprocessing(as_categorical=False)[k] == classIndex
+                #                    and self.predicted_classes[k] == nodeIndex]
                 
                 
                 filtered_data = self.data.df_unsplit_preprocessing[(
-                    self.data.df_unsplit_preprocessing['index_label'] == classIndex) & (self.data.df_unsplit_preprocessing['Pred_Class{}'.format(
-                        nodeIndex)] == nodeIndex)]
+                    self.data.df_unsplit_preprocessing['index_label'] == classIndex) & (self.data.df_unsplit_preprocessing['Pred_Class'] == nodeIndex)]
 
                 filtered_weights = [self.data.get_full_lumi_weights_after_preprocessing()[k] for k in range(len(out_values))
                                     if self.data.get_full_labels_after_preprocessing(as_categorical=False)[k] == classIndex
