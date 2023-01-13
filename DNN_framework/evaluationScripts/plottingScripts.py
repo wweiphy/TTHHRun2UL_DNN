@@ -222,7 +222,8 @@ class savenominalDiscriminators:
                 weightIntegral += sum(filtered_weights)
 
 
-                for x in range(306000,306103):
+                for x in range(306000,306001):
+                # for x in range(306000,306103):
                     weights_PDF = self.data.df_unsplit_preprocessing["total_weight_PDF_Weight_{}".format(x)].values
                     filtered_weights_PDF = [self.lumi * weights_PDF[k] for k in range(len(out_values))if self.data.get_full_labels_after_preprocessing(as_categorical=False)[k] == classIndex and self.predicted_classes[k] == nodeIndex]
 
@@ -238,7 +239,8 @@ class savenominalDiscriminators:
                         filled=True)
                     bkgHists.append(histogram)
 
-                for x in range(320900, 321001):
+                for x in range(320900, 320901):
+                # for x in range(320900, 321001):
                     weights_PDF = self.data.df_unsplit_preprocessing["total_weight_PDF_Weight_{}".format(
                         x)].values
                     filtered_weights_PDF = [self.lumi * weights_PDF[k] for k in range(len(out_values))if self.data.get_full_labels_after_preprocessing(

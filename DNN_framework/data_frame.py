@@ -151,9 +151,14 @@ class Sample:
                 # isr
                 # print(GenNormMap.internalNomFactors['isrUp'][4][1])
 
-                df = df.assign(total_preweight=lambda x: (x['Weight_XS'] * x['Weight_CSV_UL'] * x['Weight_GEN_nom'] * x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSFUp[0]'] > 0.) & (x['Electron_ReconstructionSFUp[0]'] > 0.))*1.*x['Electron_IdentificationSFUp[0]']*x['Electron_ReconstructionSFUp[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & ((x['Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX'] == 1) | (
+                df = df.assign(total_preweight=lambda x: (x['lumiWeight']* x['Weight_XS'] * x['Weight_CSV_UL'] * x['Weight_GEN_nom'] * x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSFUp[0]'] > 0.) & (x['Electron_ReconstructionSFUp[0]'] > 0.))*1.*x['Electron_IdentificationSFUp[0]']*x['Electron_ReconstructionSFUp[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & ((x['Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX'] == 1) | (
                     (x['Triggered_HLT_Ele32_WPTight_Gsf_L1DoubleEG_vX'] == 1) & (x['Triggered_HLT_Ele32_WPTight_Gsf_2017SeedsX'] == 1))) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['Triggered_HLT_IsoMu27_vX'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
                 
+                if self.label == "ttlf" or self.label == "ttcc" or self.label == "ttb" or self.label == "ttbb" or self.label == "tt2b" or self.label == "ttmb":
+                    df['total_preweight'] = df['total_preweight'] * \
+                        df['Weight_scale_variation_muR_0p5_muF_0p5'].abs().le(
+                            100.) * 1. * df['Weight_scale_variation_muR_0p5_muF_1p0'].abs().le(100.) * 1. * df['Weight_scale_variation_muR_0p5_muF_2p0'].abs().le(100.) * 1. * df['Weight_scale_variation_muR_1p0_muF_0p5'].abs().le(100.) * 1. * df['Weight_scale_variation_muR_1p0_muF_1p0'].abs().le(100.) * 1. * df['Weight_scale_variation_muR_1p0_muF_2p0'].abs().le(100.) * 1. * df['Weight_scale_variation_muR_2p0_muF_0p5'].abs().le(100.) * 1. * df['Weight_scale_variation_muR_2p0_muF_1p0'].abs().le(100.) * 1. * df['Weight_scale_variation_muR_2p0_muF_2p0'].abs().le(100.) * 1.
+            
                 for x in range(306000, 306001):
                 # for x in range(306000, 306103):
 
@@ -162,14 +167,6 @@ class Sample:
 
                     df['compare'] = df['Weight_pdf_variation_{}'.format(x)].ge(0.)
 
-                    # print ("GenNorm: ")
-                    # print(internal['ttSL'][internal[internal['Name']
-                    #       == 'Weight_pdf_variation_{}'.format(x)].index])
-                    # value = internal['ttSL'][internal[internal['Name']=='Weight_pdf_variation_{}'.format(x)].index]
-
-                    # df['total_weight_PDF_Weight_{}'.format(x)] = (df['Weight_pdf_variation_{}'.format(
-                        # x)]*((df['process'] == "ttSL")*1.* float(value) + (df['process'] == "ttDL")*1. + (df['process'] == "ttH")*1.)) * df['total_preweight']*df['compare']*1.
-                    
                     df['total_weight_PDF_Weight_{}'.format(x)] = (df['Weight_pdf_variation_{}'.format(
                         x)]*((df['process'] == "ttSL")*1. * float(internal['ttSL'][internal[internal['Name'] == 'Weight_pdf_variation_{}'.format(x)].index]) + (df['process'] == "ttDL")*1. * float(internal['ttDL'][internal[internal['Name'] == 'Weight_pdf_variation_{}'.format(x)].index]) + (df['process'] == "ttH")*1. * float(internal['ttH'][internal[internal['Name'] == 'Weight_pdf_variation_{}'.format(x)].index]))) * df['total_preweight']*df['compare']*1.
 
@@ -204,7 +201,7 @@ class Sample:
 
 
                 df = df.assign(total_weight_scaleMuRUp=lambda x: (((x['process'] == "ttSL")*1. * float(internal['ttSL'][internal[internal['Name'] == 'Weight_scale_variation_muR_2p0_muF_1p0'].index]) * x['Weight_scale_variation_muR_2p0_muF_1p0'] + (x['process'] == "ttDL")*1. * float(internal['ttDL'][internal[internal['Name'] == 'Weight_scale_variation_muR_2p0_muF_1p0'].index]) * x['Weight_scale_variation_muR_2p0_muF_1p0'] + (x['process'] == "ttbbSL")*1. * float(internal_ttbb['ttbbSL'][internal_ttbb[internal_ttbb['Name'] == 'Weight_scale_variation_muR_2p0_muF_1p0'].index]) + (x['process'] == "ttbbDL")*1. * float(internal_ttbb['ttbbSL'][internal_ttbb[internal_ttbb['Name'] == 'Weight_scale_variation_muR_2p0_muF_1p0'].index])) * x.total_preweight))
-                # df = df.assign(total_weight_scaleMuRUp=lambda x: (((x['process'] == "ttSL")*1. * float(internal['ttSL'][internal[internal['Name'] == 'Weight_scale_variation_muR_2p0_muF_1p0'].index]) * x['Weight_scale_variation_muR_2p0_muF_1p0'] + (x['process'] == "ttDL")*1. * float(internal['ttDL'][internal[internal['Name'] == 'Weight_scale_variation_muR_2p0_muF_1p0'].index]) * x['Weight_scale_variation_muR_2p0_muF_1p0'] + (x['process'] == "ttbbSL")*1. * float(internal_ttbb['ttbbSL'][internal_ttbb[internal_ttbb['Name'] == 'Weight_scale_variation_muR_2p0_muF_1p0'].index]) + (x['process'] == "ttbbDL")*1. * float(internal_ttbb['ttbbSL'][internal_ttbb[internal_ttbb['Name'] == 'Weight_scale_variation_muR_2p0_muF_1p0'].index])) * x.total_preweight))
+
 
                 df = df.assign(total_weight_scaleMuR_ttbbNLOUp=lambda x: (((x['process'] == "ttbbSL")*1. * float(internal_ttbb['ttbbSL'][internal_ttbb[internal_ttbb['Name'] == 'Weight_scale_variation_muR_2p0_muF_1p0'].index]) * x['Weight_scale_variation_muR_2p0_muF_1p0'] + (x['process'] == "ttbbDL")*1. * float(internal_ttbb['ttbbDL'][internal_ttbb[internal_ttbb['Name'] == 'Weight_scale_variation_muR_2p0_muF_1p0'].index]) * x['Weight_scale_variation_muR_2p0_muF_1p0'] + ((self.label == "ttlf") & (
                         x['process'] == "ttSL"))*1. * float(ttlf['ttSL'][ttlf[ttlf['Name'] == 'Weight_scale_variation_muR_2p0_muF_1p0'].index]) + ((self.label == "ttlf") & (x['process'] == "ttDL"))*1. * float(ttlf['ttDL'][ttlf[ttlf['Name'] == 'Weight_scale_variation_muR_2p0_muF_1p0'].index]) + ((self.label == "ttcc") & (x['process'] == "ttSL"))*1. * float(ttcc['ttSL'][ttcc[ttcc['Name'] == 'Weight_scale_variation_muR_2p0_muF_1p0'].index]) + ((self.label == "ttcc") & (x['process'] == "ttDL"))*1. * float(ttcc['ttDL'][ttcc[ttcc['Name'] == 'Weight_scale_variation_muR_2p0_muF_1p0'].index])) * x.total_preweight))
@@ -335,7 +332,7 @@ class Sample:
             # add lumi weight
 
         df = df.assign(lumi_weight=lambda x: x.total_weight *
-                        lumi * self.normalization_weight)
+                        lumi * self.normalization_weight * x.lumiWeight)
         print("sum of lumi weights: {}".format(
             sum(df["lumi_weight"].values)))
         self.data = df
