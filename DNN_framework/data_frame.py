@@ -12,7 +12,12 @@ from tensorflow.keras.utils import to_categorical
 
 # local import 
 # import GenNormMap
-internal = pd.read_csv("GenNormMap/internalNorm.csv")
+filedir = os.path.dirname(os.path.realpath(__file__))
+DRACOdir = os.path.dirname(filedir)
+basedir = os.path.dirname(DRACOdir)
+sys.path.append(basedir)
+
+internal = pd.read_csv(basedir+"/GenNormMap/internalNorm.csv")
 internal_ttbb = pd.read_csv(
     "GenNormMap/internalNorm_ttbb.csv")
 ttbb = pd.read_csv("GenNormMap/fracttbb.csv")
