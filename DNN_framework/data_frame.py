@@ -173,7 +173,8 @@ class Sample:
                     df['total_weight_PDF_Weight_{}'.format(x)] = (df['Weight_pdf_variation_{}'.format(
                         x)]*((df['process'] == "ttSL")*1. * float(internal['ttSL'][internal[internal['Name'] == 'Weight_pdf_variation_{}'.format(x)].index]) + (df['process'] == "ttDL")*1. * float(internal['ttDL'][internal[internal['Name'] == 'Weight_pdf_variation_{}'.format(x)].index]) + (df['process'] == "ttH")*1. * float(internal['ttH'][internal[internal['Name'] == 'Weight_pdf_variation_{}'.format(x)].index]))) * df['total_preweight']*df['compare']*1.
 
-                for x in range(320900, 321001):
+                for x in range(320900, 320901):
+                # for x in range(320900, 321001):
 
                     if (self.label != "ttb" or self.label != "ttbb" or self.label != "tt2b" or self.label != "ttmb"):
                         df.loc[:,'Weight_pdf_variation_{}'.format(x)] = 0.
