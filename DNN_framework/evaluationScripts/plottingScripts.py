@@ -174,6 +174,18 @@ class savenominalDiscriminators:
                 filtered_weights_downFSR_ttH = [self.lumi * self.data.get_downFSR_weights_ttH_after_preprocessing()[k] for k in range(len(out_values))
                                     if self.data.get_full_labels_after_preprocessing(as_categorical=False)[k] == classIndex
                                     and self.predicted_classes[k] == nodeIndex]
+                filtered_weights_upISR_ttbb = [self.lumi * self.data.get_upISR_weights_ttbb_after_preprocessing()[k] for k in range(len(out_values))
+                                    if self.data.get_full_labels_after_preprocessing(as_categorical=False)[k] == classIndex
+                                    and self.predicted_classes[k] == nodeIndex]
+                filtered_weights_downISR_ttbb = [self.lumi * self.data.get_downISR_weights_ttbb_after_preprocessing()[k] for k in range(len(out_values))
+                                    if self.data.get_full_labels_after_preprocessing(as_categorical=False)[k] == classIndex
+                                    and self.predicted_classes[k] == nodeIndex]
+                filtered_weights_upFSR_ttbb = [self.lumi * self.data.get_upFSR_weights_ttbb_after_preprocessing()[k] for k in range(len(out_values))
+                                    if self.data.get_full_labels_after_preprocessing(as_categorical=False)[k] == classIndex
+                                    and self.predicted_classes[k] == nodeIndex]
+                filtered_weights_downFSR_ttbb = [self.lumi * self.data.get_downFSR_weights_ttbb_after_preprocessing()[k] for k in range(len(out_values))
+                                    if self.data.get_full_labels_after_preprocessing(as_categorical=False)[k] == classIndex
+                                    and self.predicted_classes[k] == nodeIndex]
                 filtered_weights_upISR_ttlf = [self.lumi * self.data.get_upISR_weights_ttlf_after_preprocessing()[k] for k in range(len(out_values))
                                     if self.data.get_full_labels_after_preprocessing(as_categorical=False)[k] == classIndex
                                     and self.predicted_classes[k] == nodeIndex]
@@ -208,6 +220,43 @@ class savenominalDiscriminators:
                     truth_cls, len(filtered_values), sum(filtered_weights)))
 
                 weightIntegral += sum(filtered_weights)
+
+
+                for x in range(306000,306103):
+                    weights_PDF = self.data.df_unsplit_preprocessing["total_weight_PDF_Weight_{}".format(x)].values
+                    filtered_weights_PDF = [self.lumi * weights_PDF[k] for k in range(len(out_values))if self.data.get_full_labels_after_preprocessing(as_categorical=False)[k] == classIndex and self.predicted_classes[k] == nodeIndex]
+
+                    histogram = setup.setupHistogram(
+                        values=filtered_values,
+                        weights=filtered_weights_PDF,
+                        nbins=self.nbins,
+                        bin_range=self.bin_range,
+                        #                        color     = setup.GetPlotColor(truth_cls),
+                        xtitle="ljets_ge4j_ge3t_" + \
+                        str(node_cls)+"_node__"+str(truth_cls)+"__PDF_Weight_pdf_variation_{}".format(x),
+                        ytitle=setup.GetyTitle(),
+                        filled=True)
+                    bkgHists.append(histogram)
+
+                for x in range(320900, 321001):
+                    weights_PDF = self.data.df_unsplit_preprocessing["total_weight_PDF_Weight_{}".format(
+                        x)].values
+                    filtered_weights_PDF = [self.lumi * weights_PDF[k] for k in range(len(out_values))if self.data.get_full_labels_after_preprocessing(
+                        as_categorical=False)[k] == classIndex and self.predicted_classes[k] == nodeIndex]
+
+                    histogram = setup.setupHistogram(
+                        values=filtered_values,
+                        weights=filtered_weights_PDF,
+                        nbins=self.nbins,
+                        bin_range=self.bin_range,
+                        #                        color     = setup.GetPlotColor(truth_cls),
+                        xtitle="ljets_ge4j_ge3t_" + \
+                        str(node_cls)+"_node__"+str(truth_cls) + \
+                        "__PDF_Weight_pdf_variation_{}".format(x),
+                        ytitle=setup.GetyTitle(),
+                        filled=True)
+                    bkgHists.append(histogram)
+
 
                 histogram = setup.setupHistogram(
                     values=filtered_values,
@@ -603,6 +652,55 @@ class savenominalDiscriminators:
                         #                        color     = setup.GetPlotColor(truth_cls),
                         xtitle="ljets_ge4j_ge3t_" + \
                         str(node_cls)+"_node__"+str(truth_cls)+"__FSR_ttHDown",
+                        ytitle=setup.GetyTitle(),
+                        filled=True)
+                    bkgHists.append(histogram)
+
+                if truth_cls == "ttbb" or truth_cls == "ttb" or truth_cls == "tt2b" or truth_cls == "ttmb":
+                    histogram = setup.setupHistogram(
+                        values=filtered_values,
+                        weights=filtered_weights_upISR_ttbb,
+                        nbins=self.nbins,
+                        bin_range=self.bin_range,
+                        #                        color     = setup.GetPlotColor(truth_cls),
+                        xtitle="ljets_ge4j_ge3t_" + \
+                        str(node_cls)+"_node__"+str(truth_cls)+"__ISR_ttbbUp",
+                        ytitle=setup.GetyTitle(),
+                        filled=True)
+                    bkgHists.append(histogram)
+
+                    histogram = setup.setupHistogram(
+                        values=filtered_values,
+                        weights=filtered_weights_downISR_ttbb,
+                        nbins=self.nbins,
+                        bin_range=self.bin_range,
+                        #                        color     = setup.GetPlotColor(truth_cls),
+                        xtitle="ljets_ge4j_ge3t_" + \
+                        str(node_cls)+"_node__"+str(truth_cls)+"__ISR_ttbbDown",
+                        ytitle=setup.GetyTitle(),
+                        filled=True)
+                    bkgHists.append(histogram)
+
+                    histogram = setup.setupHistogram(
+                        values=filtered_values,
+                        weights=filtered_weights_upFSR_ttbb,
+                        nbins=self.nbins,
+                        bin_range=self.bin_range,
+                        #                        color     = setup.GetPlotColor(truth_cls),
+                        xtitle="ljets_ge4j_ge3t_" + \
+                        str(node_cls)+"_node__"+str(truth_cls)+"__FSR_ttbbUp",
+                        ytitle=setup.GetyTitle(),
+                        filled=True)
+                    bkgHists.append(histogram)
+
+                    histogram = setup.setupHistogram(
+                        values=filtered_values,
+                        weights=filtered_weights_downFSR_ttbb,
+                        nbins=self.nbins,
+                        bin_range=self.bin_range,
+                        #                        color     = setup.GetPlotColor(truth_cls),
+                        xtitle="ljets_ge4j_ge3t_" + \
+                        str(node_cls)+"_node__"+str(truth_cls)+"__FSR_ttbbDown",
                         ytitle=setup.GetyTitle(),
                         filled=True)
                     bkgHists.append(histogram)
