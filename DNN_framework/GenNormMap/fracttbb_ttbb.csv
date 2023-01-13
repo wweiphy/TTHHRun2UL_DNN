@@ -1,0 +1,12 @@
+Unnamed: 0,Name,ttbbSL,ttbbDL
+0,GenWeight_fsr_Def_down,0.900217884299,0.907023183324
+1,GenWeight_fsr_Def_up,1.14905064698,1.1356419248
+2,GenWeight_isr_Def_down,0.980168082174,0.979057081629
+3,GenWeight_isr_Def_up,1.02547912313,1.02703097604
+4,Weight_scale_variation_muR_0p5_muF_0p5,1.02441193472,1.02688486265
+5,Weight_scale_variation_muR_0p5_muF_1p0,1.01725287919,1.01943308007
+6,Weight_scale_variation_muR_1p0_muF_0p5,1.00466894926,1.00482174167
+7,Weight_scale_variation_muR_1p0_muF_1p0,1.0,1.0
+8,Weight_scale_variation_muR_1p0_muF_2p0,0.995197652186,0.995080849406
+9,Weight_scale_variation_muR_2p0_muF_1p0,0.987860731913,0.986314046367
+10,Weight_scale_variation_muR_2p0_muF_2p0,0.984659166704,0.983099551919
