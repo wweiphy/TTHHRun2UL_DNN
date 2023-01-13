@@ -19,13 +19,13 @@ sys.path.append(basedir)
 
 internal = pd.read_csv(filedir+"/GenNormMap/internalNorm.csv")
 internal_ttbb = pd.read_csv(
-    "GenNormMap/internalNorm_ttbb.csv")
-ttbb = pd.read_csv("GenNormMap/fracttbb.csv")
-ttbb_ttbb = pd.read_csv("GenNormMap/fracttbb_ttbb.csv")
-ttcc = pd.read_csv("GenNormMap/fracttcc.csv")
-ttcc_ttbb = pd.read_csv("GenNormMap/fracttcc_ttbb.csv")
-ttlf = pd.read_csv("GenNormMap/fracttlf.csv")
-ttlf_ttbb = pd.read_csv("GenNormMap/fracttlf_ttbb.csv")
+    filedir+"/GenNormMap/internalNorm_ttbb.csv")
+ttbb = pd.read_csv(filedir+"/GenNormMap/fracttbb.csv")
+ttbb_ttbb = pd.read_csv(filedir+"/GenNormMap/fracttbb_ttbb.csv")
+ttcc = pd.read_csv(filedir+"/GenNormMap/fracttcc.csv")
+ttcc_ttbb = pd.read_csv(filedir+"/GenNormMap/fracttcc_ttbb.csv")
+ttlf = pd.read_csv(filedir+"/GenNormMap/fracttlf.csv")
+ttlf_ttbb = pd.read_csv(filedir+"/GenNormMap/fracttlf_ttbb.csv")
 
 class Sample:
     def __init__(self, path, label, normalization_weight=1., train_weight=1., test_percentage=0.2, total_weight_expr='x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom', addSampleSuffix=""):
