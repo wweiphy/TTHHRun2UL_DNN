@@ -769,11 +769,17 @@ class DNN():
         # self.model = models.load_model(checkpoint_path)
         self.model.summary()
 
-        # evaluate whole dataset with keras model
-        self.model_eval = self.model.evaluate(
-            x=self.data.get_full_data_after_preprocessing(as_matrix=True), 
-            y=self.data.get_full_labels_after_preprocessing(),
-            sample_weight=self.data.get_full_train_weights())
+        # print(str(configs["optimizer"]))
+        # self.model.compile(
+        #     loss=configs["loss_function"],
+        #     optimizer="adam",
+        #     metrics=self.eval_metrics)
+
+        # # evaluate whole dataset with keras model
+        # self.model_eval = self.model.evaluate(
+        #     x=self.data.get_full_data_after_preprocessing(as_matrix=True), 
+        #     y=self.data.get_full_labels_after_preprocessing(),
+        #     sample_weight=self.data.get_full_train_weights())
 
         # save predictions with keras model
         self.model_prediction_vector = self.model.predict(

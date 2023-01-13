@@ -36,6 +36,8 @@ class savenominalDiscriminators:
         # allBKGhists = []
         # allSIGhists = []
 
+        self.data.df_unsplit_preprocessing['Pred_Class'] = self.predicted_classes
+
         # generate one plot per output node
         for i, node_cls in enumerate(self.event_classes):
             # if not node_cls == "ttnb":
@@ -55,6 +57,13 @@ class savenominalDiscriminators:
 
             # get output values of this node
             out_values = self.prediction_vector[:, i]
+            self.data.df_unsplit_preprocessing['DNN_OutPut_{}'.format(
+                nodeIndex)] = out_values
+            
+            print(self.data.df_unsplit_preprocessing['DNN_OutPut_{}'.format(
+                nodeIndex)][0])
+            
+
 #            out_values2 =
 
             # fill lists according to class
@@ -67,13 +76,20 @@ class savenominalDiscriminators:
                 
                 if j >= self.n_classes:
                     continue
+
                 # classIndex = self.class_translation[truth_cls]
                 classIndex = self.data.class_translation[truth_cls]
-
+                
+                
                 # filter values per event class
                 filtered_values = [out_values[k] for k in range(len(out_values))
                                    if self.data.get_full_labels_after_preprocessing(as_categorical=False)[k] == classIndex
                                    and self.predicted_classes[k] == nodeIndex]
+                
+                
+                filtered_data = self.data.df_unsplit_preprocessing[(
+                    self.data.df_unsplit_preprocessing['index_label'] == classIndex) & (self.data.df_unsplit_preprocessing['Pred_Class{}'.format(
+                        nodeIndex)] == nodeIndex)]
 
                 filtered_weights = [self.data.get_full_lumi_weights_after_preprocessing()[k] for k in range(len(out_values))
                                     if self.data.get_full_labels_after_preprocessing(as_categorical=False)[k] == classIndex
