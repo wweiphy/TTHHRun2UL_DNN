@@ -160,8 +160,12 @@ class Sample:
                         df.loc[:,'Weight_pdf_variation_{}'.format(x)] = 0.
 
                     df['compare'] = df['Weight_pdf_variation_{}'.format(x)].ge(0.)
+                    
                     df['total_weight_PDF_Weight_{}'.format(x)] = (df['Weight_pdf_variation_{}'.format(
-                        x)]*((df['process'] == "ttSL")*1. * internal['ttSL'][internal[internal['Name'] == 'Weight_pdf_variation_{}'.format(x)].index] + (df['process'] == "ttDL")*1. * internal['ttDL'][internal[internal['Name'] == 'Weight_pdf_variation_{}'.format(x)].index] + (df['process'] == "ttH")*1. * internal['ttH'][internal[internal['Name'] == 'Weight_pdf_variation_{}'.format(x)].index])) * df['total_preweight']*df['compare']*1.
+                        x)]*((df['process'] == "ttSL")*1. + (df['process'] == "ttDL")*1. + (df['process'] == "ttH")*1. )) * df['total_preweight']*df['compare']*1.
+                    
+                    # df['total_weight_PDF_Weight_{}'.format(x)] = (df['Weight_pdf_variation_{}'.format(
+                    #     x)]*((df['process'] == "ttSL")*1. * internal['ttSL'][internal[internal['Name'] == 'Weight_pdf_variation_{}'.format(x)].index] + (df['process'] == "ttDL")*1. * internal['ttDL'][internal[internal['Name'] == 'Weight_pdf_variation_{}'.format(x)].index] + (df['process'] == "ttH")*1. * internal['ttH'][internal[internal['Name'] == 'Weight_pdf_variation_{}'.format(x)].index])) * df['total_preweight']*df['compare']*1.
 
                 for x in range(320900, 321001):
 
