@@ -160,8 +160,8 @@ class Sample:
                         df.loc[:,'Weight_pdf_variation_{}'.format(x)] = 0.
 
                     df['compare'] = df['Weight_pdf_variation_{}'.format(x)].ge(0.)
-                    df['total_weight_PDF_Weight_{}'.format(x)] = df['Weight_pdf_variation_{}'.format(
-                        x)]*((df['process'] == "ttSL")*1. * internal['ttSL'][internal[internal['Name'] == 'Weight_pdf_variation_{}'.format(x)].index] + (df['process'] == "ttDL")*1. * internal['ttDL'][internal[internal['Name'] == 'Weight_pdf_variation_{}'.format(x)].index] + (df['process'] == "ttH")*1. * internal['ttH'][internal[internal['Name'] == 'Weight_pdf_variation_{}'.format(x)].index]) * df['total_preweight']*df['compare']*1.
+                    df['total_weight_PDF_Weight_{}'.format(x)] = (df['Weight_pdf_variation_{}'.format(
+                        x)]*((df['process'] == "ttSL")*1. * internal['ttSL'][internal[internal['Name'] == 'Weight_pdf_variation_{}'.format(x)].index] + (df['process'] == "ttDL")*1. * internal['ttDL'][internal[internal['Name'] == 'Weight_pdf_variation_{}'.format(x)].index] + (df['process'] == "ttH")*1. * internal['ttH'][internal[internal['Name'] == 'Weight_pdf_variation_{}'.format(x)].index])) * df['total_preweight']*df['compare']*1.
 
                 for x in range(320900, 321001):
 
@@ -170,8 +170,8 @@ class Sample:
 
                     df['compare'] = df['Weight_pdf_variation_{}'.format(x)].ge(
                         0.)
-                    df['total_weight_PDF_Weight_{}'.format(x)] = df['Weight_pdf_variation_{}'.format(
-                        x)]*((df['process'] == "ttbbSL")*1. * internal_ttbb['ttbbSL'][internal_ttbb[internal_ttbb['Name'] == 'Weight_pdf_variation_{}'.format(x)].index] + (df['process'] == "ttbbDL")*1. * internal_ttbb['ttbbDL'][internal_ttbb[internal_ttbb['Name'] == 'Weight_pdf_variation_{}'.format(x)].index]) * df['total_preweight']*df['compare']*1.
+                    df['total_weight_PDF_Weight_{}'.format(x)] = (df['Weight_pdf_variation_{}'.format(
+                        x)]*((df['process'] == "ttbbSL")*1. * internal_ttbb['ttbbSL'][internal_ttbb[internal_ttbb['Name'] == 'Weight_pdf_variation_{}'.format(x)].index] + (df['process'] == "ttbbDL")*1. * internal_ttbb['ttbbDL'][internal_ttbb[internal_ttbb['Name'] == 'Weight_pdf_variation_{}'.format(x)].index])) * df['total_preweight']*df['compare']*1.
                 
                 df = df.assign(total_weight_scaleMuRUp=lambda x: (((x['process'] == "ttSL")*1. * internal['ttSL'][internal[internal['Name'] == 'Weight_scale_variation_muR_2p0_muF_1p0'].index] * x['Weight_scale_variation_muR_2p0_muF_1p0'] + (x['process'] == "ttDL")*1. * internal['ttDL']
                                [internal[internal['Name'] == 'Weight_scale_variation_muR_2p0_muF_1p0'].index] * x['Weight_scale_variation_muR_2p0_muF_1p0'] + (x['process'] == "ttbbSL")*1. * internal_ttbb['ttbbSL'][internal_ttbb[internal_ttbb['Name'] == 'Weight_scale_variation_muR_2p0_muF_1p0'].index] + (x['process'] == "ttbbDL")*1. * internal_ttbb['ttbbSL'][internal_ttbb[internal_ttbb['Name'] == 'Weight_scale_variation_muR_2p0_muF_1p0'].index]) * x.total_preweight))
