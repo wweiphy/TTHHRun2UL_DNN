@@ -38,7 +38,7 @@ systs = {
 }
 
 
-syst_ttH = {
+systs_ttH = {
     "total_weight_upisr_ttH": ["__ISR_ttHUp"],
     "total_weight_upfsr_ttH": ["__FSR_ttHUp"],
     "total_weight_downisr_ttH": ["__ISR_ttHDown"],
@@ -51,7 +51,7 @@ syst_ttH = {
     "total_weight_scaleMuR_ttHDown": ["__scaleMuR_ttHDown"],
 }
 
-syst_tt = {
+systs_tt = {
 
     "total_weight_upisr_ttcc": ["__ISR_ttccUp"],
     "total_weight_upfsr_ttcc": ["__FSR_ttccUp"],
