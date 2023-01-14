@@ -91,8 +91,8 @@ ttH_variables = [
 ]
 
 
-PDF_tt = ["Weight_pdf_variation_{}".format(x)
-         for x in range(306000, 306103)]
+# PDF_tt = ["Weight_pdf_variation_{}".format(x)
+#          for x in range(306000, 306103)]
 
 
 # PDF_tt_ttH = ["Weight_pdf_variation_{}".format(x)

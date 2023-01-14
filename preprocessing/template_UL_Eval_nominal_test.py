@@ -12,7 +12,7 @@ import preprocessing
 
 
 """
-USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_nominal_test.py --outputdirectory=Eval_0103_UL_test --variableselection=dnn_variables_new --maxentries=20000 --cores=4
+USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_nominal_test.py --outputdirectory=Eval_0103_UL_test --variableselection=dnn_variables --maxentries=20000 --cores=4
 """
 
 usage="usage=%prog [options] \n"
@@ -102,7 +102,9 @@ ttbar_categories.addCategory("ttcc", selection = "(GenEvt_I_TTPlusBB == 0 and Ge
 
 ttmb_categories = preprocessing.EventCategories()
 ttmb_categories.addCategory("ttmb", selection = "(GenEvt_I_TTPlusBB == 3 and GenEvt_I_TTPlusCC == 0) or (GenEvt_I_TTPlusBB == 2 and GenEvt_I_TTPlusCC == 0) or (GenEvt_I_TTPlusBB == 1 and GenEvt_I_TTPlusCC == 0)")
-ttmb_categories.addCategory("ttnb", selection = "(GenEvt_I_TTPlusBB == 4 and GenEvt_I_TTPlusCC == 0) or (GenEvt_I_TTPlusBB == 5 and GenEvt_I_TTPlusCC == 0)")
+
+ttnb_categories = preprocessing.EventCategories()
+ttnb_categories.addCategory("ttnb", selection = "(GenEvt_I_TTPlusBB == 4 and GenEvt_I_TTPlusCC == 0) or (GenEvt_I_TTPlusBB == 5 and GenEvt_I_TTPlusCC == 0)")
 
 ntuplesPath = "/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_10_6_29/src/BoostedTTH/crab/2017UL/ntuple/crab_ntuple"
 ntuplesPath2 = "/eos/uscms/store/group/lpctthrun2/wwei/UL"
@@ -209,7 +211,7 @@ dataset.addSample(
     sampleName="TT4b",
     ntuples=ntuplesPath2 +
     "/2017/ntuple/TT4b_TuneCP5_13TeV_madgraph_pythia8/sl_LEG_ntuple_2017/221126_051927/*/ntuples_nominal_Tree_1.root",
-    categories=ttmb_categories,
+    categories=ttnb_categories,
     process="tt4b",
     #    lumiWeight  = 41.5,
     selections=None,  # ttbar_selection,
@@ -369,7 +371,7 @@ dataset4.addVariables(sf_var.scalefactor_variables)
 dataset2.addVariables(sf_var.ttbar_variables)
 dataset3.addVariables(sf_var.ttbar_variables)
 dataset4.addVariables(sf_var.ttH_variables)
-dataset2.addVariables(sf_var.PDF_tt)
+# dataset2.addVariables(sf_var.PDF_tt)
 dataset3.addVariables(sf_var.PDF_ttbb)
 
 # run the preprocessing
