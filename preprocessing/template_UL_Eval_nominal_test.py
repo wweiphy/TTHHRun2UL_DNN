@@ -377,3 +377,5 @@ dataset3.addVariables(sf_var.PDF_ttbb)
 # run the preprocessing
 dataset.runPreprocessing()
 dataset2.runPreprocessing()
+dataset3.runPreprocessing()
+dataset4.runPreprocessing()
