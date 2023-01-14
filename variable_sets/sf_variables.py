@@ -83,9 +83,15 @@ ttbar_variables = [
     'GenWeight_isr_Def_up',
 
 ]
+ttH_variables = [
+    'GenWeight_fsr_Def_down',
+    'GenWeight_fsr_Def_up',
+    'GenWeight_isr_Def_down',
+    'GenWeight_isr_Def_up',
+]
 
 
-PDF_tt_ttH = ["Weight_pdf_variation_{}".format(x)
+PDF_tt = ["Weight_pdf_variation_{}".format(x)
          for x in range(306000, 306103)]
 
 
