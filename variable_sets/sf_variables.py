@@ -68,15 +68,15 @@ scalefactor_variables = [
     ]
 
 ttbar_variables = [
-    # 'Weight_scale_variation_muR_0p5_muF_0p5',
-    # 'Weight_scale_variation_muR_0p5_muF_1p0',
-    # 'Weight_scale_variation_muR_0p5_muF_2p0',
-    # 'Weight_scale_variation_muR_1p0_muF_0p5',
-    # 'Weight_scale_variation_muR_1p0_muF_1p0',
-    # 'Weight_scale_variation_muR_1p0_muF_2p0',
-    # 'Weight_scale_variation_muR_2p0_muF_0p5',
-    # 'Weight_scale_variation_muR_2p0_muF_1p0',
-    # 'Weight_scale_variation_muR_2p0_muF_2p0',
+    'Weight_scale_variation_muR_0p5_muF_0p5',
+    'Weight_scale_variation_muR_0p5_muF_1p0',
+    'Weight_scale_variation_muR_0p5_muF_2p0',
+    'Weight_scale_variation_muR_1p0_muF_0p5',
+    'Weight_scale_variation_muR_1p0_muF_1p0',
+    'Weight_scale_variation_muR_1p0_muF_2p0',
+    'Weight_scale_variation_muR_2p0_muF_0p5',
+    'Weight_scale_variation_muR_2p0_muF_1p0',
+    'Weight_scale_variation_muR_2p0_muF_2p0',
     'GenWeight_fsr_Def_down',
     'GenWeight_fsr_Def_up',
     'GenWeight_isr_Def_down',
@@ -84,6 +84,15 @@ ttbar_variables = [
 ]
 
 ttH_variables = [
+    'Weight_scale_variation_muR_0p5_muF_0p5',
+    'Weight_scale_variation_muR_0p5_muF_1p0',
+    'Weight_scale_variation_muR_0p5_muF_2p0',
+    'Weight_scale_variation_muR_1p0_muF_0p5',
+    'Weight_scale_variation_muR_1p0_muF_1p0',
+    'Weight_scale_variation_muR_1p0_muF_2p0',
+    'Weight_scale_variation_muR_2p0_muF_0p5',
+    'Weight_scale_variation_muR_2p0_muF_1p0',
+    'Weight_scale_variation_muR_2p0_muF_2p0',
     'GenWeight_fsr_Def_down',
     'GenWeight_fsr_Def_up',
     'GenWeight_isr_Def_down',
@@ -91,12 +100,12 @@ ttH_variables = [
 ]
 
 
-# PDF_tt = ["Weight_pdf_variation_{}".format(x)
-#          for x in range(306000, 306103)]
+PDF_tt = ["Weight_pdf_variation_{}".format(x)
+         for x in range(306000, 306103)]
 
 
-# PDF_tt_ttH = ["Weight_pdf_variation_{}".format(x)
-#                 for x in range(306101, 306103)]
+PDF_ttH = ["Weight_pdf_variation_{}".format(x)
+                for x in range(306101, 306103)]
 
 PDF_ttbb= ["Weight_pdf_variation_{}".format(x)
                  for x in range(320900, 321001)]
