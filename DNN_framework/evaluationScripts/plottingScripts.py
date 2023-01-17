@@ -229,6 +229,9 @@ class savenominalDiscriminators:
 
                     for syst in SystMap.systs_ttbb:
 
+                        print("Syst is "+syst)
+                        print(filtered_data[syst][0])
+
                         filtered_syst_weights = self.lumi * \
                             filtered_data[syst].values
 
@@ -240,7 +243,7 @@ class savenominalDiscriminators:
                             #                        color     = setup.GetPlotColor(truth_cls),
                             xtitle="ljets_ge4j_ge3t_" + \
                             str(node_cls)+"_node__"+str(truth_cls) + \
-                            SystMap.systs_tt[syst][0],
+                            SystMap.systs_ttbb[syst][0],
                             ytitle=setup.GetyTitle(),
                             filled=True)
                         bkgHists.append(histogram)
