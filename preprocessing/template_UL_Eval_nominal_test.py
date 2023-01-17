@@ -374,7 +374,7 @@ dataset3.addVariables(sf_var.ttbar_variables)
 dataset4.addVariables(sf_var.ttH_variables)
 dataset2.addVariables(sf_var.PDF_tt)
 dataset3.addVariables(sf_var.PDF_ttbb)
-dataset3.addVariables(sf_var.PDF_ttH)
+dataset4.addVariables(sf_var.PDF_ttH)
 
 # run the preprocessing
 # dataset.runPreprocessing()
