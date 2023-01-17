@@ -403,6 +403,8 @@ class DataFrame(object):
 
         self.df_unsplit_preprocessing = pd.concat(
             [df_final_test, df_final_train])
+        
+        print(self.df_unsplit_preprocessing['total_weight_downisr_ttbb'][0])
 
         # adjust weights via 1/test_percentage for test and 1/(1 - test_percentage) for train samples such that yields in plots correspond to complete dataset
 
