@@ -96,6 +96,9 @@ class savenominalDiscriminators:
                 
                 filtered_weights = filtered_data["lumi_weight"].values
 
+                x = filtered_data["total_weight_downisr_ttbb"].values
+                print(x[0])
+
                 print("{} events in discriminator: {}\t(Integral: {})".format(
                     truth_cls, len(filtered_values), sum(filtered_weights)))
 
