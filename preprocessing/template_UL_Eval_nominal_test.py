@@ -266,7 +266,7 @@ dataset2.addSample(
     sampleName="TTDL",
     # ntuples="/eos/uscms/store/user/wwei/TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2017/230115_045248/*/ntuples_nominal_Tree_1.root",
     ntuples=ntuplesPath2 +
-    "/2017/ntuple/TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2017/230115_045248/*/ntuples_nominal_Tree_9.root",
+    "/2017/ntuple/TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2017/230115_045026/*/ntuples_nominal_Tree_9.root",
     categories=ttbar_categories,
     process="ttDL",
     # lumiWeight  = 5.0,
@@ -290,7 +290,7 @@ dataset3.addBaseSelection(base_selection)
 dataset3.addSample(
     sampleName="TTbbSL",
     ntuples=ntuplesPath2 +
-    "/2017/ntuple/TTbb_4f_TTToSemiLeptonic_TuneCP5-Powheg-Openloops-Pythia8/sl_LEG_ntuple_2017/230115_045248/*/ntuples_nominal_Tree_1.root",
+    "/2017/ntuple/TTbb_4f_TTToSemiLeptonic_TuneCP5-Powheg-Openloops-Pythia8/sl_LEG_ntuple_2017/230115_050027/*/ntuples_nominal_Tree_9.root",
     categories=ttmb_categories,
     process="ttbbSL",
     #    lumiWeight  = 41.5,
@@ -314,7 +314,7 @@ dataset3.addSample(
 dataset3.addSample(
     sampleName="TTbbDL",
     ntuples=ntuplesPath2 +
-    "/2017/ntuple/TTbb_4f_TTTo2L2Nu_TuneCP5-Powheg-Openloops-Pythia8/sl_LEG_ntuple_2017/230115_045248/*/ntuples_nominal_Tree_1.root",
+    "/2017/ntuple/TTbb_4f_TTTo2L2Nu_TuneCP5-Powheg-Openloops-Pythia8/sl_LEG_ntuple_2017/230115_050027/*/ntuples_nominal_Tree_1.root",
     categories=ttmb_categories,
     process="ttbbDL",
     #    lumiWeight  = 41.5,
@@ -338,7 +338,7 @@ dataset4.addBaseSelection(base_selection)
 dataset4.addSample(
     sampleName="TTH",
     ntuples=ntuplesPath2 +
-    "/2017/ntuple/ttHTobb_M125_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2017/230115_045248/*/ntuples_nominal_Tree_1.root",
+    "/2017/ntuple/ttHTobb_ttToSemiLep_M125_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2017/221126_054916/*/ntuples_nominal_Tree_1.root",
     #    ntuples     = ntuplesPath+"/ttH_220208.root",
     categories=ttH_categories,
     process="ttH",
