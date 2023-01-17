@@ -81,7 +81,6 @@ class savenominalDiscriminators:
                 # classIndex = self.class_translation[truth_cls]
                 classIndex = self.data.class_translation[truth_cls]
                 
-                
                 # filter values per event class
                 filtered_values = self.data.df_unsplit_preprocessing[(
                     self.data.df_unsplit_preprocessing['index_label'] == classIndex) & (self.data.df_unsplit_preprocessing['Pred_Class'] == nodeIndex)]['DNN_OutPut_{}'.format(nodeIndex)].values
@@ -117,7 +116,7 @@ class savenominalDiscriminators:
 
                 for syst in SystMap.systs:
 
-                    filtered_syst_weights = filtered_data[syst].values
+                    filtered_syst_weights = self.lumi * filtered_data[syst].values
 
                     histogram = setup.setupHistogram(
                         values=filtered_values,
@@ -135,7 +134,7 @@ class savenominalDiscriminators:
 
                     for x in range(306000, 306001):
                     # for x in range(306000,306103):
-                        weights_PDF = filtered_data["total_weight_PDF_Weight_{}".format(
+                        weights_PDF = self.lumi * filtered_data["total_weight_PDF_Weight_{}".format(
                             x)].values
 
                         histogram = setup.setupHistogram(
@@ -153,7 +152,8 @@ class savenominalDiscriminators:
 
                     for syst in SystMap.systs_ttH:
 
-                        filtered_syst_weights = filtered_data[syst].values
+                        filtered_syst_weights = self.lumi * \
+                            filtered_data[syst].values
 
                         histogram = setup.setupHistogram(
                             values=filtered_values,
@@ -170,9 +170,9 @@ class savenominalDiscriminators:
 
                 if truth_cls == "ttlf" or truth_cls == "ttcc":
 
-                    for x in range(306000, 306001):
-                        # for x in range(306000,306103):
-                        weights_PDF = filtered_data["total_weight_PDF_Weight_{}".format(
+                    # for x in range(306000, 306001):
+                    for x in range(306000,306103):
+                        weights_PDF = self.lumi * filtered_data["total_weight_PDF_Weight_{}".format(
                             x)].values
 
                         histogram = setup.setupHistogram(
@@ -190,7 +190,8 @@ class savenominalDiscriminators:
 
                     for syst in SystMap.systs_tt:
 
-                        filtered_syst_weights = filtered_data[syst].values
+                        filtered_syst_weights = self.lumi * \
+                            filtered_data[syst].values
 
                         histogram = setup.setupHistogram(
                             values=filtered_values,
@@ -207,9 +208,9 @@ class savenominalDiscriminators:
 
                 if truth_cls == "ttb" or truth_cls == "ttbb" or truth_cls == "tt2b" or truth_cls == "ttmb":
 
-                    for x in range(320900, 320901):
-                        # for x in range(320900, 321001):
-                        weights_PDF = filtered_data["total_weight_PDF_Weight_{}".format(
+                    # for x in range(320900, 320901):
+                    for x in range(320900, 321001):
+                        weights_PDF = self.lumi * filtered_data["total_weight_PDF_Weight_{}".format(
                             x)].values
                         
 
@@ -226,9 +227,10 @@ class savenominalDiscriminators:
                             filled=True)
                         bkgHists.append(histogram)
 
-                    for syst in SystMap.systs_tt:
+                    for syst in SystMap.systs_ttbb:
 
-                        filtered_syst_weights = filtered_data[syst].values
+                        filtered_syst_weights = self.lumi * \
+                            filtered_data[syst].values
 
                         histogram = setup.setupHistogram(
                             values=filtered_values,
