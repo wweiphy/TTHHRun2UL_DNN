@@ -85,7 +85,7 @@ class Sample:
                 df = df.assign(total_weight_scaleMuR_ttbbNLOUp=lambda x: (((x['process'] == "ttbbSL")*1. * float(internal_ttbb['ttbbSL'][internal_ttbb[internal_ttbb['Name'] == 'Weight_scale_variation_muR_2p0_muF_1p0'].index]) * x['Weight_scale_variation_muR_2p0_muF_1p0'] + (x['process'] == "ttbbDL")*1. * float(internal_ttbb['ttbbDL'][internal_ttbb[internal_ttbb['Name'] == 'Weight_scale_variation_muR_2p0_muF_1p0'].index]) * x['Weight_scale_variation_muR_2p0_muF_1p0'] + ((self.label == "ttlf") & (
                     x['process'] == "ttSL"))*1. * float(ttlf['ttSL'][ttlf[ttlf['Name'] == 'Weight_scale_variation_muR_2p0_muF_1p0'].index]) + ((self.label == "ttlf") & (x['process'] == "ttDL"))*1. * float(ttlf['ttDL'][ttlf[ttlf['Name'] == 'Weight_scale_variation_muR_2p0_muF_1p0'].index]) + ((self.label == "ttcc") & (x['process'] == "ttSL"))*1. * float(ttcc['ttSL'][ttcc[ttcc['Name'] == 'Weight_scale_variation_muR_2p0_muF_1p0'].index]) + ((self.label == "ttcc") & (x['process'] == "ttDL"))*1. * float(ttcc['ttDL'][ttcc[ttcc['Name'] == 'Weight_scale_variation_muR_2p0_muF_1p0'].index])) * x.total_preweight))
                 
-                print(df['total_weight_scaleMuR_ttbbNLOUp'][0])
+                # print(df['total_weight_scaleMuR_ttbbNLOUp'][0])
 
                 df = df.assign(total_weight_scaleMuR_ttHUp=lambda x: (
                     (float(internal['ttH'][internal[internal['Name'] == 'Weight_scale_variation_muR_2p0_muF_1p0'].index]) * x['Weight_scale_variation_muR_2p0_muF_1p0']) * x.total_preweight))
@@ -322,8 +322,8 @@ class DataFrame(object):
             self.index_classes = [self.class_translation[c]
                                   for c in self.classes]
                                   
-            print("class translation: ")
-            print(self.class_translation)
+            # print("class translation: ")
+            # print(self.class_translation)
 
             df["index_label"] = pd.Series(
                 [self.class_translation[c] for c in df["class_label"].values], index=df.index)
@@ -363,7 +363,7 @@ class DataFrame(object):
             bkg_df["binaryTarget"] = float(self.bkg_target)
 
             df = pd.concat([sig_df, bkg_df])
-            print("True")
+            # print("True")
 
             self.n_input_neurons = len(self.train_variables)
             self.n_output_neurons = 1
@@ -408,7 +408,7 @@ class DataFrame(object):
         self.df_unsplit_preprocessing = pd.concat(
             [df_final_test, df_final_train])
         
-        print(
+        # print(
             self.df_unsplit_preprocessing['total_weight_scaleMuR_ttbbNLOUp'][0])
 
         # adjust weights via 1/test_percentage for test and 1/(1 - test_percentage) for train samples such that yields in plots correspond to complete dataset
