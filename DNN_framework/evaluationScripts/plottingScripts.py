@@ -96,8 +96,8 @@ class savenominalDiscriminators:
                 
                 filtered_weights = filtered_data["lumi_weight"].values
 
-                x = filtered_data["total_weight_downisr_ttbb"].values
-                print(x[0])
+                # x = filtered_data["total_weight_downisr_ttbb"].values
+                # print(x[0])
 
                 print("{} events in discriminator: {}\t(Integral: {})".format(
                     truth_cls, len(filtered_values), sum(filtered_weights)))
@@ -232,8 +232,8 @@ class savenominalDiscriminators:
 
                     for syst in SystMap.systs_ttbb:
 
-                        print("Syst is "+syst)
-                        print(filtered_data[syst][0])
+                        # print("Syst is "+syst)
+                        # print(filtered_data[syst][0])
 
                         filtered_syst_weights = self.lumi * \
                             filtered_data[syst].values
