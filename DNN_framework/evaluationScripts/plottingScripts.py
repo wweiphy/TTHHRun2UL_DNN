@@ -135,7 +135,7 @@ class savenominalDiscriminators:
 
                 if truth_cls == "ttH":
 
-                    for x in range(306000, 306001):
+                    for x in range(306000, 306101):
                     # for x in range(306000,306103):
                         weights_PDF = self.lumi * filtered_data["total_weight_PDF_Weight_{}".format(
                             x)].values
@@ -149,6 +149,24 @@ class savenominalDiscriminators:
                             xtitle="ljets_ge4j_ge3t_" + \
                             str(node_cls)+"_node__"+str(truth_cls) + \
                             "__PDF_Weight_pdf_variation_{}".format(x),
+                            ytitle=setup.GetyTitle(),
+                            filled=True)
+                        bkgHists.append(histogram)
+
+                    for x in range(306101, 306103):
+                        # for x in range(306000,306103):
+                        weights_PDF = self.lumi * filtered_data["total_weight_PDF_Weight_{}".format(
+                            x)].values
+
+                        histogram = setup.setupHistogram(
+                            values=filtered_values,
+                            weights=weights_PDF,
+                            nbins=self.nbins,
+                            bin_range=self.bin_range,
+                            #                        color     = setup.GetPlotColor(truth_cls),
+                            xtitle="ljets_ge4j_ge3t_" + \
+                            str(node_cls)+"_node__"+str(truth_cls) + \
+                            "__PDF_alphaS_Weight_pdf_variation_{}".format(x),
                             ytitle=setup.GetyTitle(),
                             filled=True)
                         bkgHists.append(histogram)
@@ -174,7 +192,7 @@ class savenominalDiscriminators:
                 if truth_cls == "ttlf" or truth_cls == "ttcc":
 
                     # for x in range(306000, 306001):
-                    for x in range(306000,306103):
+                    for x in range(306000,306101):
                         weights_PDF = self.lumi * filtered_data["total_weight_PDF_Weight_{}".format(
                             x)].values
 
@@ -187,6 +205,23 @@ class savenominalDiscriminators:
                             xtitle="ljets_ge4j_ge3t_" + \
                             str(node_cls)+"_node__"+str(truth_cls) + \
                             "__PDF_Weight_pdf_variation_{}".format(x),
+                            ytitle=setup.GetyTitle(),
+                            filled=True)
+                        bkgHists.append(histogram)
+
+                    for x in range(306101, 306103):
+                        weights_PDF = self.lumi * filtered_data["total_weight_PDF_Weight_{}".format(
+                            x)].values
+
+                        histogram = setup.setupHistogram(
+                            values=filtered_values,
+                            weights=weights_PDF,
+                            nbins=self.nbins,
+                            bin_range=self.bin_range,
+                            #                        color     = setup.GetPlotColor(truth_cls),
+                            xtitle="ljets_ge4j_ge3t_" + \
+                            str(node_cls)+"_node__"+str(truth_cls) + \
+                            "__PDF_alphaS_Weight_pdf_variation_{}".format(x),
                             ytitle=setup.GetyTitle(),
                             filled=True)
                         bkgHists.append(histogram)
@@ -225,7 +260,7 @@ class savenominalDiscriminators:
                             #                        color     = setup.GetPlotColor(truth_cls),
                             xtitle="ljets_ge4j_ge3t_" + \
                             str(node_cls)+"_node__"+str(truth_cls) + \
-                            "__PDF_Weight_pdf_variation_{}".format(x),
+                            "__PDF_ttbbNLO_Weight_pdf_variation_{}".format(x),
                             ytitle=setup.GetyTitle(),
                             filled=True)
                         bkgHists.append(histogram)
