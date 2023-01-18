@@ -63,7 +63,7 @@ def load_values(key, rfile, syst_list):
     # print(keylist)
 
     for syst in syst_list:
-        wildcard = key.replace("$SYSTEMATIC", "*"+syst)
+        wildcard = key.replace("$SYSTEMATIC", syst)
         sublist = filter(keylist, wildcard)
         n = len(sublist)
         if n == 0:
