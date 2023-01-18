@@ -88,6 +88,7 @@ def combine_systs(nom_key, syst_key, rfile, systname, replace_cfg, cleanup = Tru
     if not isinstance(h_nom, ROOT.TH1):
         print("ERROR: Could not load histogram '{}' from file '{}'".format(nom_key, rfile.GetName()))
         return
+    print("nom key is "+nom_key)
     nom_vals = histo2np(h_nom)
     syst_list = ["{}_{}".format(systname, x) for x in syst_list]
     values = load_values(key = syst_key, rfile = rfile, syst_list = syst_list)
