@@ -134,6 +134,7 @@ def merge_systs(nom_key, syst_key, rfile, systname, replace_cfg, cleanup = True)
         return
     syst_list = orig_list + [systname]
     print("merging {}".format(syst_list))
+    print("nom key is "+nom_key)
     h_nom = rfile.Get(nom_key)
     name = syst_key.replace("$SYSTEMATIC", systname)
     if not isinstance(h_nom, ROOT.TH1):
