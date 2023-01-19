@@ -12,7 +12,7 @@ import preprocessing
 
 
 """
-USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_ttbar.py --outputdirectory=Eval_1117_UL_ttbar --variableselection=variables --maxentries=20000 --cores=4
+USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_ttbar.py --outputdirectory=Eval_0119_UL_nominal--variableselection=dnn_variables --maxentries=20000 --cores=6
 """
 
 usage="usage=%prog [options] \n"
@@ -125,9 +125,10 @@ dataset2.addBaseSelection(base_selection)
 dataset2.addSample(
     sampleName="TTSL",
     ntuples=ntuplesPath2 +
-    "/2017/ntuple/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2017/221122_225601/*/*nominal*.root",
+    "/2017/ntuple/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2017/230115_045248/*/*nominal*.root",
     #    ntuples     = ntuplesPath+"/ttSL_220210.root",
     categories=ttbar_categories,
+    process="ttSL",
     # lumiWeight  = 1.0,
     selections=None,  # ttbar_selection,
     #    selections  = ttbar_selection
@@ -136,10 +137,11 @@ dataset2.addSample(
 
 dataset2.addSample(
     sampleName="TTToDL",
-    ntuples=ntuplesPath3 +
-    "/TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2017/221122_224955/*/*nominal*.root",
+    ntuples=ntuplesPath2 +
+    "/2017/ntuple/TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2017/230115_045026/*/*nominal*.root",
     #    ntuples     = ntuplesPath+"/ttSL_220210.root",
     categories=ttbar_categories,
+    process="ttDL",
     # lumiWeight  = 1.0,
     selections=None,  # ttbar_selection,
     #    selections  = ttbar_selection
@@ -159,6 +161,8 @@ import sf_variables as sf_var
 dataset2.addVariables(add_var.additional_variables)
 dataset2.addVariables(sf_var.scalefactor_variables)
 # dataset2.addVariables(sf_var.ttbar_variables)
+dataset2.addVariables(sf_var.ttbar_variables)
+dataset2.addVariables(sf_var.PDF_tt)
 
 # run the preprocessing
 dataset2.runPreprocessing()

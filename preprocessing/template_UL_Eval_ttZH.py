@@ -12,7 +12,7 @@ import preprocessing
 
 
 """
-USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_ttZH.py --outputdirectory=Eval_1117_UL_ttZH --variableselection=variables --maxentries=20000 --cores=4
+USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_ttZH.py --outputdirectory=Eval_0119_UL_nominal --variableselection=dnn_variables --maxentries=20000 --cores=6
 """
 
 usage="usage=%prog [options] \n"
@@ -114,7 +114,7 @@ dataset = preprocessing.Dataset(
     naming      = options.Name,
     maxEntries  = options.maxEntries,
     ncores      = options.numCores,
-    do_SFs=True,
+    do_EvalSFs=True,
     )
 
 # add base event selection
@@ -125,10 +125,10 @@ dataset.addBaseSelection(base_selection)
 dataset.addSample(
     sampleName="TTZH",
     ntuples=ntuplesPath2 +
-    "/2017/ntuple/TTZHTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2017/221124_060802/*/*nominal*.root",
-    # 221118_234146
+        "/2017/ntuple/TTZHTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2017/221126_052419/*/*nominal*.root",
     #    ntuples     = ntuplesPath+"/ttH_220208.root",
     categories=ttZH_categories,
+    process="ttZH",
     # lumiWeight  = 1.1035,
     selections=None,  # ttbar_selection,
     #    selections  = ttbar_selection,
@@ -138,13 +138,14 @@ dataset.addSample(
 dataset.addSample(
     sampleName="TTZH2",
     ntuples=ntuplesPath2 +
-    "/2017/ntuple/TTZHTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2017_Ext/221124_061018/*/*nominal*.root",
+        "/2017/ntuple/TTZHTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2017_Ext/221126_052726/*/*nominal*.root",
     #    ntuples     = ntuplesPath+"/ttH_220208.root",
     categories=ttZH_categories,
+    process="ttZH",
     #    lumiWeight  = 41.5,
     selections=None,  # ttbar_selection,
     #    selections  = ttbar_selection,
-    islocal=False
+    islocal=True
 )
 
 

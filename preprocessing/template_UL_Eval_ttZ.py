@@ -12,7 +12,7 @@ import preprocessing
 
 
 """
-USE: python3 template_UL_Eval_ttZ.py --outputdirectory=Eval_1117_ttZ_UL --variableselection=variables --maxentries=20000 --cores=4
+USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_ttZ.py --outputdirectory=Eval_0119_UL_nominal --variableselection=dnn_variables --maxentries=20000 --cores=6
 """
 
 usage="usage=%prog [options] \n"
@@ -114,7 +114,7 @@ dataset = preprocessing.Dataset(
     naming      = options.Name,
     maxEntries  = options.maxEntries,
     ncores      = options.numCores,
-    do_SFs=True,
+    do_EvalSFs=True,
     # do_pileup=True,
     # do_PUJetID=True
     )
@@ -127,10 +127,11 @@ dataset.addBaseSelection(base_selection)
 dataset.addSample(
     sampleName="TTZ",
     ntuples=ntuplesPath2 +
-    "/2017/ntuple/TTZToBB_TuneCP5_13TeV-amcatnlo-pythia8/sl_LEG_ntuple_2017/221123_014220/*/*nominal*.root",
+    "/2017/ntuple/TTZToBB_TuneCP5_13TeV-amcatnlo-pythia8/sl_LEG_ntuple_2017/221126_052843/*/*nominal*.root",
     # 221118_234219
     #    ntuples     = ntuplesPath+"/ttH_220208.root",
     categories=ttZ_categories,
+    process="ttZ",
     #    lumiWeight  = 41.5,
     selections=None,  # ttbar_selection,
     #    selections  = ttbar_selection,
