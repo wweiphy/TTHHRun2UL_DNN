@@ -151,7 +151,6 @@ import sf_variables as sf_var
 dataset.addVariables(add_var.additional_variables)
 
 dataset.addVariables(sf_var.scalefactor_variables)
-dataset.addVariables(sf_var.scalefactor_variables)
 dataset.addVariables(sf_var.ttH_variables)
 dataset.addVariables(sf_var.PDF_ttH)
 

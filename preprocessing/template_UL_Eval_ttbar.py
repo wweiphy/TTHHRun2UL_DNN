@@ -12,7 +12,7 @@ import preprocessing
 
 
 """
-USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_ttbar.py --outputdirectory=Eval_0119_UL_nominal--variableselection=dnn_variables --maxentries=20000 --cores=6
+USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_ttbar.py --outputdirectory=Eval_0119_UL_nominal --variableselection=dnn_variables --maxentries=20000 --cores=6
 """
 
 usage="usage=%prog [options] \n"
@@ -112,12 +112,12 @@ ntuplesPath3 = "/store/user/wwei"
 
 # initialize dataset class
 dataset2 = preprocessing.Dataset(
-    outputdir=outputdir,
-    naming=options.Name,
-    maxEntries=options.maxEntries,
-    ncores=options.numCores,
-    do_SFs=True,
-)
+    outputdir   = outputdir,
+    naming      = options.Name,
+    maxEntries  = options.maxEntries,
+    ncores      = options.numCores,
+    do_EvalSFs=True,
+    )
 
 # add base event selection
 dataset2.addBaseSelection(base_selection)
