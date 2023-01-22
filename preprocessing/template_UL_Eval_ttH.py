@@ -122,10 +122,26 @@ dataset.addBaseSelection(base_selection)
 
 
 
+# dataset.addSample(
+#     sampleName="TTHSL",
+#     ntuples=ntuplesPath2 +
+#     "/2017/ntuple/ttHTobb_ttToSemiLep_M125_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2017/221126_054916/*/*nominal*.root",
+#     # 221118_235008
+#     #    ntuples     = ntuplesPath+"/ttH_220208.root",
+#     categories=ttH_categories,
+#     process="ttH",
+#     #    lumiWeight  = 41.5,
+#     selections=None,  # ttbar_selection,
+#     #    selections  = ttH_selection,
+#     islocal=False
+# )
+
+
+
 dataset.addSample(
     sampleName="TTH",
     ntuples=ntuplesPath2 +
-    "/2017/ntuple/ttHTobb_ttToSemiLep_M125_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2017/221126_054916/*/*nominal*.root",
+    "/2017/ntuple/ttHTobb_M125_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2017/230115_051203/*/*nominal*.root",
     # 221118_235008
     #    ntuples     = ntuplesPath+"/ttH_220208.root",
     categories=ttH_categories,
