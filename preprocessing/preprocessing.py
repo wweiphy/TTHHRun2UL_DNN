@@ -1112,7 +1112,7 @@ class Dataset:
         jet_btagsf_uplfstats1 = pd.DataFrame(jet_btagsf_uplfstats1, columns=[
                                              "Weight_CSV_UL_uplfstats1"])
         jet_btagsf_downlfstats1 = pd.DataFrame(
-            jet_btagsf, columns=["Weight_CSV_UL_downlfstats1"])
+            jet_btagsf_downlfstats1, columns=["Weight_CSV_UL_downlfstats1"])
         jet_btagsf_uplfstats2 = pd.DataFrame(jet_btagsf_uplfstats2, columns=[
                                              "Weight_CSV_UL_uplfstats2"])
         jet_btagsf_downlfstats2 = pd.DataFrame(jet_btagsf_downlfstats2, columns=[
