@@ -171,7 +171,7 @@ for sys in syst:
                         # sample_path = dfDirectory+"ttZ_dnn.h5"
                 elif sample["sampleLabel"] == "ttmb":
                 #     sample_train_weight = 1
-                        normalization_weight = 10.204
+                        normalization_weight = 61.0
                 #     sample_path = dfDirectory+"ttmb_dnn.h5"
                 elif sample["sampleLabel"] == "ttnb":
                 #     sample_train_weight = 1
