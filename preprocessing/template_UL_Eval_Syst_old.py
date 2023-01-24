@@ -39,8 +39,8 @@ parser.add_option("-e", "--maxentries", dest="maxEntries", default=50000,
 parser.add_option("-n", "--name", dest="Name", default="dnn",
         help="STR of the output file name", metavar="Name")
 
-parser.add_option("-s", "--syst", dest="Syst", default="JERup",
-        help="Systematics", metavar="Syst")
+parser.add_option("-s", "--syst", dest="syst", default="JERup",
+        help="Systematics", metavar="syst")
 
 parser.add_option("-c", "--cores", dest="numCores", default=1,
                   help="number of cores to run the preprocessing", metavar="NumCores")
