@@ -17,6 +17,7 @@ variables["ge4j_ge3t"] = [
     'Evt_h1',
     'Evt_HT',
     'Evt_HT_jets',
+    'Evt_HT_tags',
     'Evt_JetPt_over_JetE',
     'Evt_M_minDrLepTag',
     'Evt_M_TaggedJetsAverage',
