@@ -95,7 +95,7 @@ for i, syst in enumerate(systs):
         RUNCOMMAND = "python3 template_UL_Eval_Syst.py --outputdirectory=Eval_0119_UL --variableselection=dnn_variables --maxentries=20000 --cores={}  --syst={}".format(options.cpus, syst)
 
 
-        TRANSFEROUTFILE = "cd .. " + "\n" + "env -i X509_USER_PROXY='${X509_USER_PROXY}' xrdcp -r /workdir/Eval_0119_UL_{}".format(syst) + " " + eospath + "/store/user/wwei/Eval/230119/."
+        TRANSFEROUTFILE = "cd .. " + "\n" + "env -i X509_USER_PROXY=" + str("${X509_USER_PROXY}") + "" xrdcp -r /workdir/Eval_0119_UL_{}".format(syst) + " " + eospath + "/store/user/wwei/Eval/230119/."
 
     else:
 
