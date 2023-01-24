@@ -101,7 +101,7 @@ for i, syst in enumerate(systs):
 
         RUNCOMMAND = "python3 template_UL_Eval_Syst_old.py  --outputdirectory=Eval_0119_UL_old --variableselection=dnn_variables --maxentries=20000 --cores={}  --syst={}".format(options.cpus, syst)
 
-        TRANSFEROUTFILE = "cd .. " + "\n" + "env -i X509_USER_PROXY=${X509_USER_PROXY} xrdcp -r /workdir/Eval_0119_UL_old_{}".format(syst) + " " + eospath + "/store/user/wwei/Eval/230119/."
+        TRANSFEROUTFILE = "cd .. " + "\n" + "env -i X509_USER_PROXY='${X509_USER_PROXY}' xrdcp -r /workdir/Eval_0119_UL_old_{}".format(syst) + " " + eospath + "/store/user/wwei/Eval/230119/."
 
     scriptFileName = outPath + "/" + options.new + "_{}.sh".format(syst)
     scriptcontent = scriptTemplate.render(
