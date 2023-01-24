@@ -367,7 +367,7 @@ class Dataset:
                     if "nominal" in file:
                         df = self.CalculateSFsEval(tree, df)
 
-                        if sample.process != "ttH" or sample.process != "ttSL" or sample.process != "ttDL" or sample.process != "ttbbSL" or sample.process != "ttbbDL":
+                        if not (sample.process == "ttH" or sample.process == "ttSL" or sample.process == "ttDL" or sample.process == "ttbbSL" or sample.process == "ttbbDL"):
                             df.loc[:, "GenWeight_fsr_Def_down"] = 0.
                             df.loc[:, "GenWeight_fsr_Def_up"] = 0.
                             df.loc[:, "GenWeight_isr_Def_down"] = 0.
