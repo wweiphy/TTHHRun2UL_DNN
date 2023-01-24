@@ -15,7 +15,8 @@ import DNN_framework.DNN as DNN
 import DNN_framework.data_frame as df
 
 
-# python eval_template_old.py -o 221204_evaluation_old -i 221130_50_old_ge4j_ge3t --signalclass=ttHH --plot --printroc -d Eval_1204_UL_nominal
+# python eval_template_old.py -o 230119_evaluation_old -i 221130_50_old_ge4j_ge3t --signalclass=ttHH --plot --printroc -d Eval_0119_UL_nominal
+
 
 
 
@@ -141,23 +142,23 @@ for sample in config["eventClasses"]:
                 # sample_path = dfDirectory+"ttZ_dnn.h5"
         elif sample["sampleLabel"] == "ttb":
                 # sample_train_weight = 1
-                normalization_weight = 37.46104305
+                normalization_weight = 61.0
                 # sample_path = dfDirectory+"ttb_dnn.h5"
         elif sample["sampleLabel"] == "ttbb":
                 # sample_train_weight = 1
-                normalization_weight = 15.51028586
+                normalization_weight = 61.0
                 # sample_path = dfDirectory+"ttbb_dnn.h5"
         elif sample["sampleLabel"] == "tt2b":
         #     sample_train_weight = 1
-                normalization_weight = 43.64619793
+                normalization_weight = 61.0
         #     sample_path = dfDirectory+"tt2b_dnn.h5"
         elif sample["sampleLabel"] == "tt4b":
         #     sample_train_weight = 1
-                normalization_weight = 0.705546896
+                normalization_weight = 1.
         #     sample_path = dfDirectory+"tt4b_dnn.h5"
         elif sample["sampleLabel"] == "ttbbb":
         #     sample_train_weight = 1
-                normalization_weight = 1.196636219
+                normalization_weight = 1.
         #     sample_path = dfDirectory+"ttbbb_dnn.h5"
         elif sample["sampleLabel"] == "ttcc":
                 # sample_train_weight = 1
