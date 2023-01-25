@@ -113,8 +113,8 @@ with open(configFile) as f:
 syst = [
 #   'JESup',
 #   'JESdown',
-  'JERup',
-#   'JERdown',
+#   'JERup',
+  'JERdown',
 #   'JESFlavorQCDup',
 #   'JESRelativeBalup',
 #   'JESHFup',
