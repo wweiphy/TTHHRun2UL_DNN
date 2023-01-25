@@ -6,7 +6,7 @@ systs = {
     "total_weight_uplfstats1": ["__btag_lfstats1Up"],
     "total_weight_uplfstats2": ["__btag_lfstats2Up"],
     "total_weight_uphfstats1": ["__btag_hfstats1Up"],
-    "total_weight_uplfstats2": ["__btag_hfstats2Up"],
+    "total_weight_uphfstats2": ["__btag_hfstats2Up"],
     "total_weight_upcferr1": ["__btag_cferr1Up"],
     "total_weight_upcferr2": ["__btag_cferr2Up"],
 
@@ -15,7 +15,7 @@ systs = {
     "total_weight_downlfstats1": ["__btag_lfstats1Down"],
     "total_weight_downlfstats2": ["__btag_lfstats2Down"],
     "total_weight_downhfstats1": ["__btag_hfstats1Down"],
-    "total_weight_downlfstats2": ["__btag_hfstats2Down"],
+    "total_weight_downhfstats2": ["__btag_hfstats2Down"],
     "total_weight_downcferr1": ["__btag_cferr1Down"],
     "total_weight_downcferr2": ["__btag_cferr2Down"],
 

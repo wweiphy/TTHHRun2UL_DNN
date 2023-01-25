@@ -41,5 +41,5 @@ FSR_ttcc,shape,-,1,1,-,1,-,-,-,-
 FSR_ttlf,shape,-,1,1,-,1,-,-,-,-
 FSR_ttbb,shape,,1,1,,1,,,,
 ISR_ttbb,shape,,1,1,,1,,,,
-PDF,shape,,1,1,,1,1,,,
+PDF,shape,,1,1,,,1,,,
 PDF_ttbbNLO,shape,,,,,1,,,,
