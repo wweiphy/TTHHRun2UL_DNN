@@ -146,6 +146,8 @@ def merge_systs(nom_key, syst_key, rfile, systname, replace_cfg, cleanup = True)
         print("ERROR: Could not load histogram '{}' from file '{}'".format(nom_key, rfile.GetName()))
         return
     nom_vals = histo2np(h_nom)
+    print ("nom values for merge")
+    print (nom_vals)
 
     for var in ["Up", "Down"]:
         values = load_values(key = syst_key, rfile = rfile, syst_list = [x+var for x in syst_list])
@@ -155,6 +157,11 @@ def merge_systs(nom_key, syst_key, rfile, systname, replace_cfg, cleanup = True)
             # final values is squared sum per bin
             values = (values.sum(axis=0))**0.5
 
+            print("Up or Down")
+            print(var)
+            print("plus/minus values for for merge")
+            print(values)
+
             if debug >= 3:
                 print("nominal (nElements: {}):".format(nom_vals.size))
                 print(nom_vals)
@@ -162,6 +169,8 @@ def merge_systs(nom_key, syst_key, rfile, systname, replace_cfg, cleanup = True)
                 print(values)
             if var == "Up": values = values + nom_vals
             else: values = nom_vals - values
+
+
             # backup original systematic
             h = rfile.Get(name+var)
             bu_name = "{}_premerge{}".format(name, var)
