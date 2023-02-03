@@ -90,8 +90,7 @@ def combine_systs(nom_key, syst_key, rfile, systname, replace_cfg, cleanup = Tru
         return
     print("nom key is "+nom_key)
     nom_vals = histo2np(h_nom)
-    print ("nom values from combine syst")
-    print (nom_vals)
+    
     syst_list = ["{}_{}".format(systname, x) for x in syst_list]
     values = load_values(key = syst_key, rfile = rfile, syst_list = syst_list)
     if values.size != 0:
@@ -105,8 +104,8 @@ def combine_systs(nom_key, syst_key, rfile, systname, replace_cfg, cleanup = Tru
         elif keyword == "MCrelic":
             # values are the root mean squared values of the respective variations
             values = (np.mean(residuals**2, axis=0))**0.5
-            print ("values")
-            print (values)
+            # print ("values")
+            # print (values)
         else:
             msg = "Did not recognize keyword '{}'!".format(keyword)
             msg += "\nCurrent choices: Hessian, MCrelic"
@@ -116,6 +115,16 @@ def combine_systs(nom_key, syst_key, rfile, systname, replace_cfg, cleanup = Tru
             print(nom_vals)
             print("varied (nElements: {}):".format(values.size))
             print(values)
+
+        print ("nom values from combine syst: ")
+        print (nom_vals)
+        print ("values: ")
+        print (values)
+        print("Up values")
+        print(values + nom_vals)
+        print("Down values")
+        print(nom_vals - values)
+
         h_up = construct_new_hist(h_nom = h_nom, name = name+"Up", vals = values + nom_vals)
         print("Writing '{}'".format(h_up.GetName()))
         rfile.WriteTObject(h_up, h_up.GetName(), "Overwrite")
@@ -146,8 +155,8 @@ def merge_systs(nom_key, syst_key, rfile, systname, replace_cfg, cleanup = True)
         print("ERROR: Could not load histogram '{}' from file '{}'".format(nom_key, rfile.GetName()))
         return
     nom_vals = histo2np(h_nom)
-    print ("nom values for merge")
-    print (nom_vals)
+    # print ("nom values for merge")
+    # print (nom_vals)
 
     for var in ["Up", "Down"]:
         values = load_values(key = syst_key, rfile = rfile, syst_list = [x+var for x in syst_list])
@@ -157,10 +166,10 @@ def merge_systs(nom_key, syst_key, rfile, systname, replace_cfg, cleanup = True)
             # final values is squared sum per bin
             values = (values.sum(axis=0))**0.5
 
-            print("Up or Down")
-            print(var)
-            print("plus/minus values for for merge")
-            print(values)
+            # print("Up or Down")
+            # print(var)
+            # print("plus/minus values for for merge")
+            # print(values)
 
             if debug >= 3:
                 print("nominal (nElements: {}):".format(nom_vals.size))
@@ -324,7 +333,7 @@ def combine_intermid_syst(**kwargs):
                 continue
 
             for nom_key, syst_key in proc_keys:
-                print ("combine systs")
+                # print ("combine systs")
                 combine_systs(  nom_key = nom_key, syst_key = syst_key,
                                 systname = syst,
                                 rfile = rfile, replace_cfg = replace_cfg,
@@ -336,7 +345,7 @@ def combine_intermid_syst(**kwargs):
                 print("systematic '{}' does not belong to process '{}'".format(syst, process))
                 continue
             for nom_key, syst_key in proc_keys:
-                print ("merge systs")
+                # print ("merge systs")
                 merge_systs(  nom_key = nom_key, syst_key = syst_key,
                                 systname = syst,
                                 rfile = rfile, replace_cfg = replace_cfg,
