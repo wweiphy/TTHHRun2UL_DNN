@@ -118,6 +118,8 @@ def combine_systs(nom_key, syst_key, rfile, systname, replace_cfg, cleanup = Tru
 
         print ("nom values from combine syst: ")
         print (nom_vals)
+        print ("residuals: ")
+        print (residuals)
         print ("values: ")
         print (values)
         print("Up values")
