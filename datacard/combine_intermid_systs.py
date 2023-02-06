@@ -32,6 +32,8 @@ def histo2np(h, binlist = None):
         contents[n] = h.GetBinContent(i)
     if debug >= 10:
         print(contents)
+    print("contents: ")
+    print(contents)
     return contents
 
 def load_bins(h):
@@ -83,6 +85,7 @@ def load_values(key, rfile, syst_list):
 def combine_systs(nom_key, syst_key, rfile, systname, replace_cfg, cleanup = True):
     keyword = replace_cfg[systname].get("construction", "")
     syst_list = replace_cfg[systname].get("expand_with", [])
+
     h_nom = rfile.Get(nom_key)
     name = syst_key.replace("$SYSTEMATIC", systname)
     if not isinstance(h_nom, ROOT.TH1):
