@@ -93,12 +93,12 @@ def combine_systs(nom_key, syst_key, rfile, systname, replace_cfg, cleanup = Tru
         return
     print("nom key is "+nom_key)
     nom_vals = histo2np(h_nom)
-    
+    print ("nom values from combine syst: ")
+    print (nom_vals)
+
     syst_list = ["{}_{}".format(systname, x) for x in syst_list]
     values = load_values(key = syst_key, rfile = rfile, syst_list = syst_list)
 
-    print ("nom values from combine syst: ")
-    print (nom_vals)
     print ("values: ")
     print (values)
 
