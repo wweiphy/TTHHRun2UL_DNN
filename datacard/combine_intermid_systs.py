@@ -93,6 +93,12 @@ def combine_systs(nom_key, syst_key, rfile, systname, replace_cfg, cleanup = Tru
     
     syst_list = ["{}_{}".format(systname, x) for x in syst_list]
     values = load_values(key = syst_key, rfile = rfile, syst_list = syst_list)
+
+    print ("nom values from combine syst: ")
+    print (nom_vals)
+    print ("values: ")
+    print (values)
+
     if values.size != 0:
         residuals = values - nom_vals
         if keyword == "Hessian":
@@ -116,12 +122,9 @@ def combine_systs(nom_key, syst_key, rfile, systname, replace_cfg, cleanup = Tru
             print("varied (nElements: {}):".format(values.size))
             print(values)
 
-        print ("nom values from combine syst: ")
-        print (nom_vals)
-        print ("residuals: ")
-        print (residuals)
-        print ("values: ")
-        print (values)
+        
+        # print ("values: ")
+        # print (values)
         print("Up values")
         print(values + nom_vals)
         print("Down values")
