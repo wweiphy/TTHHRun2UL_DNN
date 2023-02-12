@@ -212,7 +212,8 @@ dataset.addSample(
     sampleName  = "TT4b",
     ntuples=ntuplesPath2 +
     "/2018/ntuple/TT4b_TuneCP5_13TeV_madgraph_pythia8/sl_LEG_ntuple_2018/230204_191447/*/*nominal*.root",
-    categories  = ttnb_categories,
+    categories  = ttbar2_categories,
+    process = "tt4b",
 #    lumiWeight  = 41.5,
     selections  = None,#ttbar_selection,
 #    selections  = ttbar_selection,
@@ -224,7 +225,8 @@ dataset.addSample(
     sampleName  = "TTbbSL",
     ntuples=ntuplesPath2 +
     "/2018/ntuple/TTbb_4f_TTToSemiLeptonic_TuneCP5-Powheg-Openloops-Pythia8/sl_LEG_ntuple_2018/230206_035052/*/*nominal*.root",
-    categories  = ttmb_categories,
+    categories  = ttbar_categories,
+    process = "ttbbSL",
 #    lumiWeight  = 41.5,
     selections  = None,#ttbar_selection,
 #    selections  = ttbar_selection,
