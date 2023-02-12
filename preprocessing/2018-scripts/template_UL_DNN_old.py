@@ -12,7 +12,7 @@ import preprocessing
 
 
 """
-USE: python template_old_category.py --outputdirectory=DNN_1124_old --variableselection=variables --maxentries=20000 --cores=4
+USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/2018-scripts/template_UL_DNN_old.py --outputdirectory=DNN_0211_old_2018 --variableselection=variables --maxentries=20000 --cores=6
 """
 
 usage="usage=%prog [options] \n"
