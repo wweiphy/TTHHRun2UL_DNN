@@ -132,7 +132,7 @@ dataset.addSample(
     process = "ttHH",
     #    lumiWeight  = 41.5,
     # selections  = None,
-    selections=ttHH_selection,
+    selections=None,
     islocal=False
 )
 

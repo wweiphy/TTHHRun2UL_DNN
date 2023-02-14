@@ -235,7 +235,7 @@ dataset.addSample(
     categories  = ttmb_categories,
     process = "ttbbSL",
 #    lumiWeight  = 41.5,
-    selections=ttHH_selection,  # ttbar_selection,
+    selections=None,  # ttbar_selection,
 #    selections  = ttbar_selection,
     islocal     = False
       )
