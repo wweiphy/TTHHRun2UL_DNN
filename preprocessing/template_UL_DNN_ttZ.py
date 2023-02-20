@@ -12,7 +12,7 @@ import preprocessing
 
 
 """
-USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_DNN_ttZ.py --outputdirectory=DNN_0213_UL_2018 --variableselection=variables --maxentries=20000 --cores=6
+USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_DNN_ttZ.py --outputdirectory=DNN_0216_UL_2018 --variableselection=variables --maxentries=20000 --cores=6
 """
 
 usage="usage=%prog [options] \n"
@@ -204,9 +204,9 @@ dataset.addBaseSelection(base_selection)
 
 dataset.addSample(
     sampleName="TTZ",
-    # ntuples=ntuplesPath2 +
-    # "/2018/ntuple/TTZToBB_TuneCP5_13TeV-amcatnlo-pythia8/sl_LEG_ntuple_2018/230212_024906/*/*nominal*.root",
-    ntuples="/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_10_6_29/src/BoostedTTH/BoostedAnalyzer/test/ntuples_nominal_Tree.root",
+    ntuples=ntuplesPath2 +
+    "/2018/ntuple/TTZToBB_TuneCP5_13TeV-amcatnlo-pythia8/sl_LEG_ntuple_2018/230212_024906/*/*nominal*.root",
+    # ntuples="/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_10_6_29/src/BoostedTTH/BoostedAnalyzer/test/ntuples_nominal_Tree.root",
     #    ntuples     = ntuplesPath+"/ttH_220208.root",
     categories=ttZ_categories,
     process = "ttZ",
