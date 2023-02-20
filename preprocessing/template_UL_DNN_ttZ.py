@@ -205,7 +205,7 @@ dataset.addBaseSelection(base_selection)
 dataset.addSample(
     sampleName="TTZ",
     ntuples=ntuplesPath2 +
-    "/2018/ntuple/TTZToBB_TuneCP5_13TeV-amcatnlo-pythia8/sl_LEG_ntuple_2018/230212_024906/*/*nominal*.root",
+    "/2018/ntuple/TTZToBB_TuneCP5_13TeV-amcatnlo-pythia8/sl_LEG_ntuple_2018/230214_161415/*/*nominal*.root",
     # ntuples="/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_10_6_29/src/BoostedTTH/BoostedAnalyzer/test/ntuples_nominal_Tree.root",
     #    ntuples     = ntuplesPath+"/ttH_220208.root",
     categories=ttZ_categories,
