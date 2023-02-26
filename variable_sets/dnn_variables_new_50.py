@@ -54,4 +54,61 @@ variables["ge4j_ge3t"] = [
 
     ]
 
+
+variables["ge5j_ge4t"] = [
+    'Reco_tHH_bestJABDToutput',
+    'Evt_Deta_JetsAverage',
+    'Evt_blr',
+    'Evt_Deta_TaggedJetsAverage',
+    'Reco_ttbar_bestJABDToutput',
+    'CSV[4]',
+    'Evt_h1',
+    'Evt_M2_closestTo91TaggedJets',
+    'Jet_Pt[4]',
+    'Evt_Dr_minDrTaggedJets',
+    'Reco_tHH_h1_m',
+    'Evt_Dr_TaggedJetsAverage',
+    'RecoHiggs_Chi2',
+    'Reco_JABDT_tHH_Jet_CSV_h2dau4',
+    'Evt_M2_minDrTaggedJets',
+    'Reco_JABDT_tHH_Jet_CSV_btophad',
+    'CSV[3]',
+    'Reco_ttbar_toplep_m',
+    'Evt_Dr_maxDrJets',
+    'Reco_JABDT_ttbar_log_toplep_m',
+    'Reco_JABDT_ttbar_Jet_CSV_btoplep',
+    'Reco_tHH_h1_pt',
+    'RecoHiggs_logChi2',
+    'Evt_Dr_closestTo91TaggedJets',
+    'CSV[2]',
+    'Reco_ttbar_tophad_m',
+    'TaggedJet_M[4]',
+    'RecoZH_2_Dr',
+    'Evt_Dr_minDrJets',
+    'Jet_M[3]',
+    'Evt_M_minDrLepTag',
+    'Evt_HT_jets',
+    'Evt_CSV_avg_tagged',
+    'N_LooseJets',
+    'Evt_M2_TaggedJetsAverage',
+    'Reco_JABDT_tHH_Jet_CSV_h1dau2',
+    'Jet_Pt[2]',
+    'Jet_Pt[3]',
+    'RecoZH_1_cosdTheta',
+    'Jet_M[7]',
+    'Evt_CSV_avg',
+    'Reco_tHH_btophad_pt',
+    'Reco_best_higgs_mass',
+    'Reco_JABDT_ttbar_tophad_pt__P__toplep_pt__DIV__Evt_HT__P__Evt_Pt_MET__P__Lep_Pt',
+    'Evt_M3',
+    'RecoZ_BJet1_Pt',
+    'LooseJet_E[1]',
+    'N_BTagsL',
+    'Evt_transverse_sphericity_jets',
+    'Evt_TaggedJetPt_over_TaggedJetE',
+
+
+
+]
+
 all_variables = list(set( [v for key in variables for v in variables[key] ] ))
