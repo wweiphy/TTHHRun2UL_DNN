@@ -120,7 +120,7 @@ class savenominalDiscriminators:
                 for syst in SystMap.systs:
                     # TODO - add the normalization function without sepcifying 61   
                     if truth_cls == "ttb" or truth_cls == "ttbb" or truth_cls == "tt2b" or truth_cls == "ttmb":
-                        filtered_syst_weights = 61.0 * self.lumi * filtered_data[syst].values
+                        filtered_syst_weights = 6.1 * self.lumi * filtered_data[syst].values
                     else:
                         filtered_syst_weights = self.lumi * \
                            filtered_data[syst].values
@@ -252,7 +252,7 @@ class savenominalDiscriminators:
 
                     # for x in range(320900, 320901):
                     for x in range(320900, 321001):
-                        weights_PDF = 61.0 * self.lumi * filtered_data["total_weight_PDF_Weight_{}".format(
+                        weights_PDF = 6.1 * self.lumi * filtered_data["total_weight_PDF_Weight_{}".format(
                             x)].values
                         
 
@@ -274,7 +274,7 @@ class savenominalDiscriminators:
                         # print("Syst is "+syst)
                         # print(filtered_data[syst][0])
 
-                        filtered_syst_weights = 61.0 * self.lumi * \
+                        filtered_syst_weights = 6.1 * self.lumi * \
                             filtered_data[syst].values
 
                         histogram = setup.setupHistogram(
