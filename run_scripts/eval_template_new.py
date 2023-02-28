@@ -15,7 +15,7 @@ import DNN_framework.DNN as DNN
 import DNN_framework.data_frame as df
 
 
-# python eval_template_new.py -o 220103_evaluation_new -i 221130_50_ge4j_ge3t --signalclass=ttHH --plot --printroc -d Eval_0103_UL_nominal
+# python eval_template_new.py -o 230119_evaluation_new_3 -i 221130_50_ge4j_ge3t --signalclass=ttHH --plot --printroc -d Eval_0119_UL_nominal
 
 
 
@@ -124,19 +124,19 @@ for sample in config["eventClasses"]:
         # normalization_weight = 1
         if sample["sampleLabel"] == "ttHH":
                 # sample_train_weight = 0.5
-                normalization_weight = 1.
+                normalization_weight = 2.
                 # sample_path = dfDirectory+"ttHH_dnn.h5"
         elif sample["sampleLabel"] == "ttZH":
                 # sample_train_weight = 1
-                normalization_weight = 1.
+                normalization_weight = 2.
                 # sample_path = dfDirectory+"ttZH_dnn.h5"
         elif sample["sampleLabel"] == "ttZZ":
                 # sample_train_weight = 1
-                normalization_weight = 1.
+                normalization_weight = 2.
                 # sample_path = dfDirectory+"ttZZ_dnn.h5"
         elif sample["sampleLabel"] == "ttZ":
                 # sample_train_weight = 1
-                normalization_weight = 1.
+                normalization_weight = 2.
                 # '/ (0.001571054/0.00016654)'
                 # sample_path = dfDirectory+"ttZ_dnn.h5"
         elif sample["sampleLabel"] == "ttmb":
@@ -145,19 +145,19 @@ for sample in config["eventClasses"]:
         #     sample_path = dfDirectory+"ttmb_dnn.h5"
         elif sample["sampleLabel"] == "ttnb":
         #     sample_train_weight = 1
-                normalization_weight = 1.
+                normalization_weight = 2.
         #     sample_path = dfDirectory+"ttnb_dnn.h5"
         elif sample["sampleLabel"] == "ttcc":
                 # sample_train_weight = 1
-                normalization_weight = 1.
+                normalization_weight = 2.
                 # sample_path = dfDirectory+"ttcc_dnn.h5"
         elif sample["sampleLabel"] == "ttlf":
                 # sample_train_weight = 1
-                normalization_weight = 1.
+                normalization_weight = 2.
                 # sample_path = dfDirectory+"ttlf_dnn.h5"
         elif sample["sampleLabel"] == "ttH":
                 # sample_train_weight = 1
-                normalization_weight = 1.
+                normalization_weight = 2.
                 # sample_path = dfDirectory+"ttH_dnn.h5"
         # normalization_weight = 1
 
@@ -206,7 +206,8 @@ dnn.load_trained_model(inPath, options.evaluation_epoch_model)
 #        dnn.plot_confusionMatrix(privateWork = options.privateWork, printROC = options.printROC)
 
         # plot the output discriminators
-dnn.save_discriminators(log = options.log, privateWork = options.privateWork, printROC = options.printROC, lumi=41.5)
+# dnn.save_discriminators(log = options.log, privateWork = options.privateWork, printROC = options.printROC, lumi=41.5)
+dnn.save_discriminators(log = options.log, privateWork = options.privateWork, printROC = options.printROC, lumi=59.7)
 #
 #        # plot the output nodes
 #        dnn.plot_outputNodes(log = options.log, signal_class = options.signal_class, privateWork = options.privateWork, printROC = options.printROC, sigScale = -1)
