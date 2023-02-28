@@ -229,6 +229,7 @@ class DNN():
                  category_cutString=None,
                  category_label=None,
                  train_epochs=500,
+                 lumi = 41.5,
                  test_percentage=0.2,
                  eval_metrics=None,
                  shuffle_seed=None,
@@ -238,6 +239,7 @@ class DNN():
         # save some information
         # list of samples to load into dataframe
         self.input_samples = input_samples
+        self.lumi = lumi
         # self.sample_save_path = sample_save_path
 
         # suffix of additional (ttbb) sample
@@ -327,6 +329,7 @@ class DNN():
             event_category=self.category_cutString,
             train_variables=self.train_variables,
             test_percentage=self.test_percentage,
+            lumi = self.lumi,
             shuffleSeed=shuffle_seed,
             evenSel=self.evenSel,
             addSampleSuffix=self.addSampleSuffix,
