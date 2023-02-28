@@ -201,6 +201,9 @@ class Sample:
 
             # add lumi weight
 
+        print ("normalization weight is {}".format(self.normalization_weight))
+        print ("lumi is {}".format(lumi))
+        print("xs weight is {}".format(df["Weight_XS"][0]))
         df = df.assign(lumi_weight=lambda x: x.total_weight *
                         lumi * self.normalization_weight * x.lumiWeight)
         print("sum of lumi weights: {}".format(
