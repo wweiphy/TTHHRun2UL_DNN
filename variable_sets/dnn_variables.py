@@ -198,6 +198,7 @@ variables["ge5j_ge4t"] = [
     'TaggedJet_M[4]',
     'TaggedJet_Pt[3]',
     'TaggedJet_Pt[4]',
+    'Evt_Dr_maxDrJets',
 
 
     ]
