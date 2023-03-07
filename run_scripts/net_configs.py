@@ -4,10 +4,10 @@ config_dict = {}
 
         
 config_dict["ge4j_ge5t_ttH"] = {
-    "layers":                   [512, 256, 128, 64],
+    "layers":                   [512, 256, 128],
     #        "layers":                   [256,128,64,32],
     "loss_function":            "categorical_crossentropy",
-    "Dropout":                  0.3,
+    "Dropout":                  0.4,
     "L2_Norm":                  0,
     "L1_Norm":                  0,
     "batch_size":               1024,
