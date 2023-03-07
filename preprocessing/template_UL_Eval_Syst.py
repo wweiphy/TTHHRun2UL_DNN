@@ -18,7 +18,7 @@ import sf_variables as sf_var
 
 
 """
-USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_Syst.py --outputdirectory=Eval_0119_UL --variableselection=dnn_variables --maxentries=20000 --cores=6  --syst=JESFlavorQCDup
+USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_Syst.py --outputdirectory=Eval_0305_UL --variableselection=variables --maxentries=20000 --cores=8  --syst=JESup
 """
 
 usage="usage=%prog [options] \n"
@@ -204,7 +204,7 @@ dataset.addSample(
     islocal=False
 ) # complete
 
-ddataset.addSample(
+dataset.addSample(
     sampleName="TTZH",
     ntuples=ntuplesPath2 +
     "/2018/ntuple/TTZHTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2018/230212_023904/*/*nominal*.root",
