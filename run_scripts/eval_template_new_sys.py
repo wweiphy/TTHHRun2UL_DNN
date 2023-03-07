@@ -15,7 +15,7 @@ import DNN_framework.DNN as DNN
 import DNN_framework.data_frame as df
 
 
-# python eval_template_new_sys.py -o 230103_evaluation_new -i 221130_50_ge4j_ge3t --signalclass=ttHH --plot --printroc -d Eval_0103_UL --syst=JESup
+# python eval_template_new_sys.py -o 230220_evaluation_new -i 230220_50_ge4j_ge3t --signalclass=ttHH --plot --printroc -d Eval_0305_UL --syst=JESup
 
 
 
@@ -143,79 +143,83 @@ syst = [
 # TODO - remove the addSample part because future DNN will save the data df
 # TODO - add the dealing with data
 
-for sys in syst:
+# for sys in syst:
 
-    # load samples
-        input_samples = df.InputSamples(input_path=dfDirectory+"_"+sys+"/",
-                                        addSampleSuffix=config["addSampleSuffix"], test_percentage=options.test_percentage)
+# load samples
+input_samples = df.InputSamples(input_path=dfDirectory+"_"+options.syst+"/",
+                                addSampleSuffix=config["addSampleSuffix"], test_percentage=options.test_percentage)
 
-        for sample in config["eventClasses"]:
-                total_weight_expr = "x.Weight_XS * x.Weight_CSV_UL * x.Weight_GEN_nom * x.lumiWeight"
-                # normalization_weight = 1
-                if sample["sampleLabel"] == "ttHH":
-                        # sample_train_weight = 0.5
-                        normalization_weight = 1.
-                        # sample_path = dfDirectory+"ttHH_dnn.h5"
-                elif sample["sampleLabel"] == "ttZH":
-                        # sample_train_weight = 1
-                        normalization_weight = 1.
-                        # sample_path = dfDirectory+"ttZH_dnn.h5"
-                elif sample["sampleLabel"] == "ttZZ":
-                        # sample_train_weight = 1
-                        normalization_weight = 1.
-                        # sample_path = dfDirectory+"ttZZ_dnn.h5"
-                elif sample["sampleLabel"] == "ttZ":
-                        # sample_train_weight = 1
-                        normalization_weight = 1.
-                        # '/ (0.001571054/0.00016654)'
-                        # sample_path = dfDirectory+"ttZ_dnn.h5"
-                elif sample["sampleLabel"] == "ttmb":
-                #     sample_train_weight = 1
-                        normalization_weight = 61.0
-                #     sample_path = dfDirectory+"ttmb_dnn.h5"
-                elif sample["sampleLabel"] == "ttnb":
-                #     sample_train_weight = 1
-                        normalization_weight = 1.
-                #     sample_path = dfDirectory+"ttnb_dnn.h5"
-                elif sample["sampleLabel"] == "ttcc":
-                        # sample_train_weight = 1
-                        normalization_weight = 1.
-                        # sample_path = dfDirectory+"ttcc_dnn.h5"
-                elif sample["sampleLabel"] == "ttlf":
-                        # sample_train_weight = 1
-                        normalization_weight = 1.
-                        # sample_path = dfDirectory+"ttlf_dnn.h5"
-                elif sample["sampleLabel"] == "ttH":
-                        # sample_train_weight = 1
-                        normalization_weight = 1.
-                        # sample_path = dfDirectory+"ttH_dnn.h5"
-                # normalization_weight = 1
-                # if sample["sampleLabel"] == "ttH":
-                input_samples.addSample(sample_path=dfDirectory+"_"+sys+"/"+sample["sampleLabel"]+"_dnn.h5", label=sample["sampleLabel"], train_weight=1,
-                                        normalization_weight=normalization_weight, total_weight_expr=total_weight_expr)
+for sample in config["eventClasses"]:
+        total_weight_expr = "x.Weight_XS * x.Weight_CSV_UL * x.Weight_GEN_nom * x.lumiWeight"
+        # normalization_weight = 1
+        if sample["sampleLabel"] == "ttHH":
+                # sample_train_weight = 0.5
+                normalization_weight = 1.
+                # sample_path = dfDirectory+"ttHH_dnn.h5"
+        elif sample["sampleLabel"] == "ttZH":
                 # sample_train_weight = 1
-                # input_samples.addSample(sample["samplePath"], sample["sampleLabel"],
-                #                         normalization_weight=normalization_weight, train_weight=sample_train_weight, total_weight_expr=total_weight_expr)
+                normalization_weight = 1.
+                # sample_path = dfDirectory+"ttZH_dnn.h5"
+        elif sample["sampleLabel"] == "ttZZ":
+                # sample_train_weight = 1
+                normalization_weight = 1.
+                # sample_path = dfDirectory+"ttZZ_dnn.h5"
+        elif sample["sampleLabel"] == "ttZ":
+                # sample_train_weight = 1
+                normalization_weight = 1.
+                # '/ (0.001571054/0.00016654)'
+                # sample_path = dfDirectory+"ttZ_dnn.h5"
+        elif sample["sampleLabel"] == "ttmb":
+        #     sample_train_weight = 1
+                normalization_weight = 6.1
+        #     sample_path = dfDirectory+"ttmb_dnn.h5"
+        elif sample["sampleLabel"] == "ttnb":
+        #     sample_train_weight = 1
+                normalization_weight = 1.
+        #     sample_path = dfDirectory+"ttnb_dnn.h5"
+        elif sample["sampleLabel"] == "ttcc":
+                # sample_train_weight = 1
+                normalization_weight = 1.
+                # sample_path = dfDirectory+"ttcc_dnn.h5"
+        elif sample["sampleLabel"] == "ttlf":
+                # sample_train_weight = 1
+                normalization_weight = 1.
+                # sample_path = dfDirectory+"ttlf_dnn.h5"
+        elif sample["sampleLabel"] == "ttH":
+                # sample_train_weight = 1
+                normalization_weight = 1.
+                # sample_path = dfDirectory+"ttH_dnn.h5"
+        # normalization_weight = 1
+        # if sample["sampleLabel"] == "ttH":
+        input_samples.addSample(sample_path=dfDirectory+"_"+options.syst+"/"+sample["sampleLabel"]+"_dnn.h5", label=sample["sampleLabel"], train_weight=1,
+                                normalization_weight=normalization_weight, total_weight_expr=total_weight_expr)
+        # sample_train_weight = 1
+        # input_samples.addSample(sample["samplePath"], sample["sampleLabel"],
+        #                         normalization_weight=normalization_weight, train_weight=sample_train_weight, total_weight_expr=total_weight_expr)
 
 
-        print("shuffle seed: {}".format(config["shuffleSeed"]))
+print("shuffle seed: {}".format(config["shuffleSeed"]))
 
-        # init DNN class
-        dnn = DNN.DNN(
-        save_path=outPath+"_"+sys,
+# init DNN class
+dnn = DNN.DNN(
+        save_path=outPath+"_"+options.syst,
         # sample_save_path=sample_save_path,
         input_samples=input_samples,
+        lumi=119.4,
+        # lumi = 41.5,
         category_name=config["JetTagCategory"],
         train_variables=config["trainVariables"],
-        Do_Evaluation = True,
+        Do_Evaluation=True,
         shuffle_seed=config["shuffleSeed"],
         addSampleSuffix=config["addSampleSuffix"],
-        )
+)
 
-        # load the trained model
-        dnn.load_trained_model(inPath, options.evaluation_epoch_model)
+# load the trained model
+dnn.load_trained_model(inPath, options.evaluation_epoch_model)
 
 
-        # plot the output discriminators
-        dnn.save_JESJERdiscriminators(log = options.log, privateWork = options.privateWork, printROC = options.printROC, syst = sys)
+# plot the output discriminators
+
+dnn.save_JESJERdiscriminators(
+        log=options.log, privateWork=options.privateWork, printROC=options.printROC, syst=options.syst)
 
