@@ -18,7 +18,7 @@ import sf_variables as sf_var
 
 
 """
-USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_Syst_old.py --outputdirectory=Eval_0103_UL_old --variableselection=variables --maxentries=20000 --cores=6
+USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_Syst_old.py --outputdirectory=Eval_0305_UL --variableselection=variables --maxentries=20000 --cores=8 --syst=JESup
 """
 
 usage="usage=%prog [options] \n"
@@ -166,7 +166,7 @@ dataset.addBaseSelection(base_selection)
 dataset.addSample(
     sampleName  = "TTbbSL",
     ntuples=ntuplesPath2 +
-    "/2018/ntuple/TTbb_4f_TTToSemiLeptonic_TuneCP5-Powheg-Openloops-Pythia8/sl_LEG_ntuple_2018/230212_040006/*/*nominal*.root",
+    "/2018/ntuple/TTbb_4f_TTToSemiLeptonic_TuneCP5-Powheg-Openloops-Pythia8/sl_LEG_ntuple_2018/230212_040006/*/*"+options.syst+"*.root",
     categories  = ttbar_categories,
     process = "ttbbSL",
 #    lumiWeight  = 41.5,
@@ -178,7 +178,7 @@ dataset.addSample(
 dataset.addSample(
     sampleName="TTbbDL",
     ntuples=ntuplesPath2 +
-    "/2018/ntuple/TTbb_4f_TTTo2L2Nu_TuneCP5-Powheg-Openloops-Pythia8/sl_LEG_ntuple_2018/230222_045920/*/*nominal*.root",
+    "/2018/ntuple/TTbb_4f_TTTo2L2Nu_TuneCP5-Powheg-Openloops-Pythia8/sl_LEG_ntuple_2018/230222_045920/*/*"+options.syst+"*.root",
     # 221118_234955
     categories=ttbar_categories,
     process="ttbbDL",
@@ -191,7 +191,8 @@ dataset.addSample(
 dataset.addSample(
     sampleName  = "TT4b",
     ntuples=ntuplesPath2 +
-    "/2018/ntuple/TT4b_TuneCP5_13TeV_madgraph_pythia8/sl_LEG_ntuple_2018/230212_022936/*/*nominal*.root",
+    "/2018/ntuple/TT4b_TuneCP5_13TeV_madgraph_pythia8/sl_LEG_ntuple_2018/230212_022936/*/*" +
+    options.syst+"*.root",
     categories  = ttbar2_categories,
     process = "tt4b",
 #    lumiWeight  = 41.5,
