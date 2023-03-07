@@ -318,6 +318,8 @@ class saveJESJERDiscriminators:
         # allBKGhists = []
         # allSIGhists = []
 
+        self.data.df_unsplit_preprocessing['Pred_Class'] = self.predicted_classes
+
         # generate one plot per output node
         for i, node_cls in enumerate(self.event_classes):
 
