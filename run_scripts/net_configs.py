@@ -12,7 +12,7 @@ config_dict["ge4j_ge5t_ttH"] = {
     "L1_Norm":                  0,
     "batch_size":               1024,
     #        "optimizer":                optimizers.Adagrad(learning_rate = 0.05),
-    "optimizer":                optimizers.Adam(learning_rate=2e-5),
+    "optimizer":                optimizers.Adam(learning_rate=1e-5),
     "activation_function":      "relu",
     # "activation_function":      "leakyrelu",
     "output_activation":        "Softmax",
