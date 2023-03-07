@@ -335,7 +335,9 @@ class saveJESJERDiscriminators:
 
             # get output values of this node
             out_values = self.prediction_vector[:, i]
-#            out_values2 =
+            self.data.df_unsplit_preprocessing['DNN_OutPut_{}'.format(
+                nodeIndex)] = out_values
+
 
             # fill lists according to class
             bkgHists = []
@@ -343,6 +345,8 @@ class saveJESJERDiscriminators:
             weightIntegral = 0
 
             # loop over all classes to fill hists according to truth level class
+
+            
             for j, truth_cls in enumerate(self.event_classes):
                 if j >= self.n_classes:
                     continue
@@ -350,14 +354,21 @@ class saveJESJERDiscriminators:
                 classIndex = self.data.class_translation[truth_cls]
 
                 # filter values per event class
-                filtered_values = [out_values[k] for k in range(len(out_values))
-                                   if self.data.get_full_labels_after_preprocessing(as_categorical=False)[k] == classIndex
-                                   and self.predicted_classes[k] == nodeIndex]
+                # filtered_values = [out_values[k] for k in range(len(out_values))
+                #                    if self.data.get_full_labels_after_preprocessing(as_categorical=False)[k] == classIndex
+                #                    and self.predicted_classes[k] == nodeIndex]
 
-                # if truth_cls == "ttb" or truth_cls == "ttbb" or truth_cls == "tt2b" or truth_cls == "ttmb":
-                filtered_weights = [self.data.get_full_lumi_weights_after_preprocessing()[k] for k in range(len(out_values))
-                                        if self.data.get_full_labels_after_preprocessing(as_categorical=False)[k] == classIndex
-                                        and self.predicted_classes[k] == nodeIndex]
+                filtered_values = self.data.df_unsplit_preprocessing[(
+                    self.data.df_unsplit_preprocessing['index_label'] == classIndex) & (self.data.df_unsplit_preprocessing['Pred_Class'] == nodeIndex)]['DNN_OutPut_{}'.format(nodeIndex)].values
+
+                filtered_data = self.data.df_unsplit_preprocessing[(
+                    self.data.df_unsplit_preprocessing['index_label'] == classIndex) & (self.data.df_unsplit_preprocessing['Pred_Class'] == nodeIndex)]
+
+                filtered_weights = filtered_data["lumi_weight"].values
+
+                # filtered_weights = [self.data.get_full_lumi_weights_after_preprocessing()[k] for k in range(len(out_values))
+                #                         if self.data.get_full_labels_after_preprocessing(as_categorical=False)[k] == classIndex
+                #                         and self.predicted_classes[k] == nodeIndex]
                 # else:
                 #     filtered_weights = [self.data.get_full_lumi_weights_after_preprocessing()[k] for k in range(len(out_values))
                 #                        if self.data.get_full_labels_after_preprocessing(as_categorical=False)[k] == classIndex
