@@ -932,6 +932,8 @@ class Dataset:
                               "{}_UL".format(self.dataEra))
         bsfName = os.path.join(bsfDir, "btagging.json.gz")
 
+        print("btv file is: "+bsfName)
+
         PUIDsfDir = os.path.join(
             basedir, "data", "PUJetIDSFs", "{}".format(self.dataEra))
         PUIDsfName = os.path.join(PUIDsfDir, "jmar.json.gz")
