@@ -153,7 +153,8 @@ class savenominalDiscriminators:
                         bin_range=self.bin_range,
                         #                        color     = setup.GetPlotColor(truth_cls),
                         xtitle="ljets_ge4j_ge3t_" + \
-                        str(node_cls)+"_node__"+str(truth_cls)+SystMap.systs[syst][0],
+                        str(node_cls)+"_node__"+str(truth_cls) + \
+                        SystMap.systs_reverse[syst][0],
                         ytitle=setup.GetyTitle(),
                         filled=True)
                     bkgHists.append(histogram)
