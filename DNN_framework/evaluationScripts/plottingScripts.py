@@ -137,6 +137,27 @@ class savenominalDiscriminators:
                         filled=True)
                     bkgHists.append(histogram)
 
+
+                for syst in SystMap.systs_reverse:
+                    # TODO - add the normalization function without sepcifying 61   
+                    if truth_cls == "ttb" or truth_cls == "ttbb" or truth_cls == "tt2b" or truth_cls == "ttmb":
+                        filtered_syst_weights = 6.1 * self.lumi * filtered_data[syst].values
+                    else:
+                        filtered_syst_weights = self.lumi * \
+                           filtered_data[syst].values
+
+                    histogram = setup.setupHistogram(
+                        values=filtered_values,
+                        weights=filtered_syst_weights,
+                        nbins=self.nbins,
+                        bin_range=self.bin_range,
+                        #                        color     = setup.GetPlotColor(truth_cls),
+                        xtitle="ljets_ge4j_ge3t_" + \
+                        str(node_cls)+"_node__"+str(truth_cls)+SystMap.systs[syst][0],
+                        ytitle=setup.GetyTitle(),
+                        filled=True)
+                    bkgHists.append(histogram)
+
                 if truth_cls == "ttH":
 
                     for x in range(306000, 306101):
