@@ -6,6 +6,8 @@
 # eval `scram runtime -sh`
 # cd - 
 export INFILE='/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/workdir/230220_evaluation_new/plots/ttnb_discriminator.root'
+# export INFILE='/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/workdir/230220_evaluation_new_5j4b/plots/ttnb_discriminator.root'
+# export INFILE='/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/workdir/230220_evaluation_new_6j5b/plots/ttnb_discriminator.root'
 export SEPARATOR='__'
 export NOMHISTKEY='$CHANNEL__$PROCESS'
 export ORIGNAME='ttnb'
