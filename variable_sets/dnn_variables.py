@@ -1,6 +1,5 @@
 variables = {}
 variables["ge4j_ge3t"] = [
-variables["ge4j_ge3t"] = [
     'CSV[2]',
     'CSV[3]',
     'CSV[4]',
@@ -81,7 +80,6 @@ variables["ge4j_ge3t"] = [
     ]
 
 
-    ]
 
 
 all_variables = list(set( [v for key in variables for v in variables[key] ] ))
