@@ -1073,13 +1073,13 @@ class Dataset:
                     downlf = btvjson["deepJet_shape"].evaluate("down_lfstats2", jet_flavor['Jet_Flav'][i][j], abs(
                         float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))
                     # tests
-                    print("nominal is {}".format(nominal))
-                    print("lf up is {}".format(uplf))
-                    print("lf down is {}".format(downlf))
-                    print("nominal SF is {}".format(jet_btagsf_perevent))
-                    print("up lf SF is {}".format(jet_btagsf_uplfstats2_perevent))
-                    print("down lf SF is {}".format(
-                        jet_btagsf_downlfstats2_perevent))
+                    # print("nominal is {}".format(nominal))
+                    # print("lf up is {}".format(uplf))
+                    # print("lf down is {}".format(downlf))
+                    # print("nominal SF is {}".format(jet_btagsf_perevent))
+                    # print("up lf SF is {}".format(jet_btagsf_uplfstats2_perevent))
+                    # print("down lf SF is {}".format(
+                    #     jet_btagsf_downlfstats2_perevent))
                     
                     jet_btagsf_uphf_perevent *= btvjson["deepJet_shape"].evaluate("central", jet_flavor['Jet_Flav'][i][j], abs(
                         float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))
