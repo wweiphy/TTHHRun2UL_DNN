@@ -12,8 +12,7 @@ import preprocessing
 
 
 """
-USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_ttbar.py --outputdirectory=Eval_0220_UL_nominal_3 --variableselection=dnn_variables --maxentries=20000 --cores=6
-
+USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_DNN_ttHSL.py --outputdirectory=DNN_1128_UL_ttH --variableselection=variables --maxentries=20000 --cores=4
 """
 
 usage="usage=%prog [options] \n"
@@ -60,8 +59,8 @@ else:
 # define a base event selection which is applied for all Samples
 # select only events with GEN weight > 0 because training with negative weights is weird
 
-# base = "(N_Jets >= 4 and N_BTagsM >= 3 and Evt_MET > 20. and Weight_GEN_nom > 0.)"
-base = "(N_Jets >= 4 and N_BTagsM >= 3 and Evt_MET > 20.)"
+base = "(N_Jets >= 4 and N_BTagsM >= 3 and Evt_MET > 20. and Weight_GEN_nom > 0.)"
+# base = "(N_Jets >= 4 and N_BTagsM >= 3 and Evt_MET > 20.)"
 
 # single lepton selections
 single_mu_sel = "(N_LooseElectrons == 0 and N_TightMuons == 1 and Muon_Pt > 29. and Triggered_HLT_IsoMu27_vX == 1)"
@@ -69,7 +68,7 @@ single_el_sel = "(N_LooseMuons == 0 and N_TightElectrons == 1 and (Triggered_HLT
 
 base_selection = "("+base+" and ("+single_mu_sel+" or "+single_el_sel+"))"
 
-ttHH_selection = "(Evt_Odd == 0)"  # Should I do this on ttHH
+ttHH_selection = "(Evt_Odd == 1)"  # Should I do this on ttHH
 
 # define output classes
 ttHH_categories = preprocessing.EventCategories()
@@ -105,52 +104,39 @@ ttmb_categories = preprocessing.EventCategories()
 ttmb_categories.addCategory("ttmb", selection = "(GenEvt_I_TTPlusBB == 3 and GenEvt_I_TTPlusCC == 0) or (GenEvt_I_TTPlusBB == 2 and GenEvt_I_TTPlusCC == 0) or (GenEvt_I_TTPlusBB == 1 and GenEvt_I_TTPlusCC == 0)")
 ttmb_categories.addCategory("ttnb", selection = "(GenEvt_I_TTPlusBB == 4 and GenEvt_I_TTPlusCC == 0) or (GenEvt_I_TTPlusBB == 5 and GenEvt_I_TTPlusCC == 0)")
 
-ntuplesPath = "/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_10_6_29/src/BoostedTTH/crab/2017UL/ntuple/crab_ntuple"
+# ntuplesPath = "/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_10_6_29/src/BoostedTTH/crab/2017UL/ntuple/crab_ntuple"
 ntuplesPath2 = "/eos/uscms/store/group/lpctthrun2/wwei/UL"
-ntuplesPath3 = "/store/user/wwei"
-
 
 
 # initialize dataset class
-dataset2 = preprocessing.Dataset(
+dataset = preprocessing.Dataset(
     outputdir   = outputdir,
     naming      = options.Name,
     maxEntries  = options.maxEntries,
     ncores      = options.numCores,
-    do_EvalSFs=True,
+    do_EvalSFs=False,
     )
 
 # add base event selection
-dataset2.addBaseSelection(base_selection)
+dataset.addBaseSelection(base_selection)
 
-# dataset2.addSample(
-#     sampleName="TTSL",
-#     ntuples=ntuplesPath2 +
-#     "/2018/ntuple/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2018/230212_023618/*/*nominal*.root",
-#     #    ntuples     = ntuplesPath+"/ttSL_220210.root",
-#     categories=ttbar_categories,
-#     process = "ttSL",
-#     #    lumiWeight  = 41.5,
-#     selections=ttHH_selection,  # ttbar_selection,
-#     #    selections  = ttbar_selection
-#     islocal=False
-# )
 
-dataset2.addSample(
-    sampleName="TTDL",
+dataset.addSample(
+    sampleName="TTHSL",
     ntuples=ntuplesPath2 +
-    "/2018/ntuple/TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2018/230222_045532/*/*nominal*.root",
-    #    ntuples     = ntuplesPath+"/ttSL_220210.root",
-    categories=ttbar_categories,
-    process="ttDL",
-    # lumiWeight  = 1.0,
-    selections=ttHH_selection,  # ttbar_selection,
-    #    selections  = ttbar_selection
+    "/2017/ntuple/ttHTobb_ttToSemiLep_M125_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2017/221126_054916/*/*nominal*.root",
+    #    ntuples     = ntuplesPath+"/ttH_220208.root",
+    categories=ttH_categories,
+    #    lumiWeight  = 41.5,
+    selections=None,  # ttbar_selection,
+    #    selections  = ttH_selection,
     islocal=False
 )
 
+
 # initialize variable list
-dataset2.addVariables(variable_set.all_variables)
+dataset.addVariables(variable_set.all_variables)
+# dataset2.addVariables(variable_set.all_variables)
 
 sys.path.append(basedir+"/variable_sets/")
 
@@ -159,11 +145,12 @@ import additional_variables as add_var
 # import sf_variables as sf_var
 import sf_variables as sf_var
 # add these variables to the variable list
-dataset2.addVariables(add_var.additional_variables)
-dataset2.addVariables(sf_var.scalefactor_variables)
+dataset.addVariables(add_var.additional_variables)
+# dataset2.addVariables(add_var.additional_variables)
+# dataset.addVariables(sf_var.scalefactor_variables)
+# dataset2.addVariables(sf_var.scalefactor_variables)
 # dataset2.addVariables(sf_var.ttbar_variables)
-dataset2.addVariables(sf_var.ttbar_variables)
-dataset2.addVariables(sf_var.PDF_tt)
 
 # run the preprocessing
-dataset2.runPreprocessing()
+dataset.runPreprocessing()
+# dataset2.runPreprocessing()
