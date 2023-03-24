@@ -1,7 +1,7 @@
 
 # 2017
 
-# python test_script.py -i Eval_0119_UL_nominal -o Control_test -c ge4j_ge3t --epochs=500 --signalclass=ttHH -f 0.2 -v variables -n ge4j_ge3t_ttH --plot --printroc
+# python test_script.py -i Eval_0119_UL_nominal -o Control_test -c ge4j_ge3t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables -n ge4j_ge3t_ttH --plot --printroc
 
 
 # global imports
@@ -36,9 +36,6 @@ input_samples = df.InputSamples(options.getInputDirectory(), options.getTestPerc
 weight_expr = "x.Weight_XS * x.Weight_CSV_UL * x.Weight_GEN_nom * x.lumiWeight"
 input_samples.addSample(options.getDefaultName("ttHH"),  label = "ttHH",  normalization_weight = options.getNomWeight(), train_weight = 1, total_weight_expr = weight_expr)
 
-
-
-print("shuffle seed: {}".format(config["shuffleSeed"]))
 
 #TODO-modify this
 sample_save_path = basedir+"/workdir/"
