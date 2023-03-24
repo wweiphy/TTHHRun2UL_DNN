@@ -15,7 +15,8 @@ import DNN_framework.DNN as DNN
 import DNN_framework.data_frame as df
 
 
-# python eval_template_old.py -o 230220_evaluation_old -i 230220_50_old_ge4j_ge3t --signalclass=ttHH --plot --printroc -d Eval_0220_UL_nominal
+# python eval_template_old.py -o 230220_evaluation_old_2 -i 230220_50_old_ge4j_ge3t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_nominal
+
 
 # python eval_template_old.py -o 230220_evaluation_old_test -i 221130_50_old_ge4j_ge3t --signalclass=ttHH --plot --printroc -d Eval_0119_UL_nominal
 
@@ -144,15 +145,18 @@ for sample in config["eventClasses"]:
                 # sample_path = dfDirectory+"ttZ_dnn.h5"
         elif sample["sampleLabel"] == "ttb":
                 # sample_train_weight = 1
-                normalization_weight = 6.1
+                normalization_weight = 61.
+                # normalization_weight = 6.1
                 # sample_path = dfDirectory+"ttb_dnn.h5"
         elif sample["sampleLabel"] == "ttbb":
                 # sample_train_weight = 1
-                normalization_weight = 6.1
+                normalization_weight = 61.
+                # normalization_weight = 6.1
                 # sample_path = dfDirectory+"ttbb_dnn.h5"
         elif sample["sampleLabel"] == "tt2b":
         #     sample_train_weight = 1
-                normalization_weight = 6.1
+                normalization_weight = 61.
+                # normalization_weight = 6.1
         #     sample_path = dfDirectory+"tt2b_dnn.h5"
         elif sample["sampleLabel"] == "tt4b":
         #     sample_train_weight = 1
@@ -190,8 +194,8 @@ sample_save_path = basedir+"/workdir/"
 dnn = DNN.DNN(
 save_path=outPath,
 # sample_save_path=sample_save_path,
-lumi=119.4,
-# lumi=41.5,
+# lumi=119.4,
+lumi=41.5,
 input_samples=input_samples,
 category_name=config["JetTagCategory"],
 train_variables=config["trainVariables"],
@@ -221,7 +225,8 @@ dnn.load_trained_model(inPath, options.evaluation_epoch_model)
 #        dnn.plot_confusionMatrix(privateWork = options.privateWork, printROC = options.printROC)
 
         # plot the output discriminators
-dnn.save_discriminators(log=options.log, privateWork=options.privateWork, printROC=options.printROC, lumi=119.4)
+dnn.save_discriminators(log=options.log, privateWork=options.privateWork, printROC=options.printROC, lumi=41.5)
+# dnn.save_discriminators(log=options.log, privateWork=options.privateWork, printROC=options.printROC, lumi=119.4)
 #
 #        # plot the output nodes
 #        dnn.plot_outputNodes(log = options.log, signal_class = options.signal_class, privateWork = options.privateWork, printROC = options.printROC, sigScale = -1)
