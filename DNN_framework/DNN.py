@@ -849,6 +849,17 @@ class DNN():
 
         saveDiscrs.save()
 
+    def save_DNNInput(self, isData=False, log=False, privateWork=False):
+
+        saveDiscrs = plottingScripts.saveDNNInput(
+            data=self.data,
+            node_cls=self.event_classes,
+            isData = isData,
+            savedir=self.plot_path,
+            logscale=log)
+
+        saveDiscrs.save()
+
     # --------------------------------------------------------------------
     # result plotting functions
     # --------------------------------------------------------------------

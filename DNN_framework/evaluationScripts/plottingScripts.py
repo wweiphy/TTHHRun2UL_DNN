@@ -16,6 +16,7 @@ sys.path.append(basedir)
 # from plot_configs import setupPlots
 import plot_configs.setupPlots as setup
 import SystMap
+import VariableMap
 
 # save DNN outputs for evaluation 
 class savenominalDiscriminators:
@@ -426,6 +427,90 @@ class saveJESJERDiscriminators:
             f.cd()
             f.Write()
             f.Close()
+
+
+class saveDNNInput:
+    def __init__(self, data, node_cls, savedir, isData = False, logscale=False):
+        self.data = data
+        # self.event_classes = event_classes
+        self.n_classes = len(self.event_classes)
+        self.savedir = savedir
+        self.logscale = logscale
+        self.node_cls = node_cls
+        self.isData = isData
+
+    def save(self):
+
+        # generate one plot per output node
+        # for i, node_cls in enumerate(self.event_classes):
+
+        f = ROOT.TFile(self.savedir + "/" + self.node_cls + "_" + "variables" + ".root", "RECREATE")
+        print("name of the root file: ")
+        print(self.savedir + "/" + self.node_cls + "_" + "variables" + ".root")
+
+        # if i >= self.n_classes:
+            # continue
+        print("\nPLOTTING variables for '"+str(self.node_cls))+"'"
+
+        # nodeIndex = self.data.class_translation[node_cls]
+
+        # fill lists according to class
+        bkgHists = []
+        bkgLabels = []
+        weightIntegral = 0
+
+        if not self.isData:
+
+            filtered_weights = self.data.df_unsplit_preprocessing["lumi_weight"].values
+            
+            for var in VariableMap.MCVariable:
+                
+                nbins = VariableMap.MCVariable[var][0]
+                bin_range = [VariableMap.MCVariable[var][1], VariableMap.MCVariable[var][2]]
+                filtered_values = self.data.df_unsplit_preprocessing[var].values
+
+                # weightIntegral += sum(filtered_weights)
+
+                histogram = setup.setupHistogram(
+                    values=filtered_values,
+                    weights=filtered_weights,
+                    nbins=nbins,
+                    bin_range=bin_range,
+                    #                        color     = setup.GetPlotColor(truth_cls),
+                    xtitle=str(self.node_cls)+"_"+var,
+                    ytitle=setup.GetyTitle(),
+                    filled=True)
+
+                bkgHists.append(histogram)
+                bkgLabels.append(self.node_cls)
+    #            allBKGhists.append( bkgHists )
+        if self.isData:
+
+            filtered_weights = self.data.df_unsplit_preprocessing["lumi_weight"].values
+            
+            for var in VariableMap.DataVariable:
+
+                filtered_values = self.data.df_unsplit_preprocessing[var].values
+
+                # weightIntegral += sum(filtered_weights)
+
+                histogram = setup.setupHistogram(
+                    values=filtered_values,
+                    weights=filtered_weights,
+                    nbins=self.nbins,
+                    bin_range=self.bin_range,
+                    #                        color     = setup.GetPlotColor(truth_cls),
+                    xtitle=str(self.node_cls)+"data_obs",
+                    ytitle=setup.GetyTitle(),
+                    filled=True)
+
+                bkgHists.append(histogram)
+                bkgLabels.append(self.node_cls)
+    #            allBKGhists.append( bkgHists )
+
+        f.cd()
+        f.Write()
+        f.Close()
 
 
 class plotConfusionMatrix:

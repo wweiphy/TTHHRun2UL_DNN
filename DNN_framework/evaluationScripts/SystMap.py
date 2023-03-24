@@ -24,14 +24,14 @@ systs = {
     "total_weight_upMuon": ["__eff_muUp"],
     "total_weight_upEleTrigger": ["__effTrigger_eUp"],
     "total_weight_upMuonTrigger": ["__effTrigger_muUp"],
-    # "total_weight_upPU": ["__PUUp"],
+    "total_weight_upPU": ["__PUUp"],
     # "total_weight_upL1Fire": ["__L1PrefiringUp"],
 
     "total_weight_downEle": ["__eff_eDown"],
     "total_weight_downMuon": ["__eff_muDown"],
     "total_weight_downEleTrigger": ["__effTrigger_eDown"],
     "total_weight_downMuonTrigger": ["__effTrigger_muDown"],
-    # "total_weight_downPU": ["__PUDown"],
+    "total_weight_downPU": ["__PUDown"],
     # "total_weight_downL1Fire": ["__L1PrefiringDown"],
 
 
@@ -63,14 +63,14 @@ systs_reverse = {
     # "total_weight_upMuon": ["__eff_muUp"],
     # "total_weight_upEleTrigger": ["__effTrigger_eUp"],
     # "total_weight_upMuonTrigger": ["__effTrigger_muUp"],
-    "total_weight_upPU": ["__PUDown"],
+    # "total_weight_upPU": ["__PUDown"],
     "total_weight_upL1Fire": ["__L1PrefiringDown"],
 
     # "total_weight_downEle": ["__eff_eDown"],
     # "total_weight_downMuon": ["__eff_muDown"],
     # "total_weight_downEleTrigger": ["__effTrigger_eDown"],
     # "total_weight_downMuonTrigger": ["__effTrigger_muDown"],
-    "total_weight_downPU": ["__PUUp"],
+    # "total_weight_downPU": ["__PUUp"],
     "total_weight_downL1Fire": ["__L1PrefiringUp"],
 
 
