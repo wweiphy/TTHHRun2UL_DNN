@@ -36,22 +36,37 @@ input_samples = df.InputSamples(options.getInputDirectory(), options.getTestPerc
 weight_expr = "x.Weight_XS * x.Weight_CSV_UL * x.Weight_GEN_nom * x.lumiWeight"
 input_samples.addSample(options.getDefaultName("ttHH"),  label = "ttHH",  normalization_weight = options.getNomWeight(), train_weight = 1, total_weight_expr = weight_expr)
 
-
-#TODO-modify this
-sample_save_path = basedir+"/workdir/"
 # init DNN class
+# dnn = DNN.DNN(
+# save_path=outPath,
+# # sample_save_path=sample_save_path,
+# input_samples=input_samples,
+# lumi = 119.4,
+# # lumi = 41.5,
+# category_name=config["JetTagCategory"],
+# train_variables=config["trainVariables"],
+# Do_Evaluation = True,
+# shuffle_seed=config["shuffleSeed"],
+# addSampleSuffix=config["addSampleSuffix"],
+# )
+
 dnn = DNN.DNN(
-save_path=outPath,
-# sample_save_path=sample_save_path,
-input_samples=input_samples,
-lumi = 119.4,
-# lumi = 41.5,
-category_name=config["JetTagCategory"],
-train_variables=config["trainVariables"],
-Do_Evaluation = True,
-shuffle_seed=config["shuffleSeed"],
-addSampleSuffix=config["addSampleSuffix"],
-)
+    save_path       = options.getOutputDir(),
+    input_samples   = input_samples,
+    category_name   = options.getCategory(),
+    train_variables = options.getTrainVariables(),
+    # number of epochs
+    lumi = 119.4,
+    train_epochs    = options.getTrainEpochs(),
+    # metrics for evaluation (c.f. KERAS metrics)
+    eval_metrics    = ["acc"],
+    Do_Evaluation   = True,
+    # percentage of train set to be used for testing (i.e. evaluating/plotting after training)
+    test_percentage = options.getTestPercentage(),
+    # balance samples per epoch such that there amount of samples per category is roughly equal
+    # balanceSamples  = options.doBalanceSamples(),
+    evenSel         = options.doEvenSelection()
+    )
 
 
 
