@@ -375,9 +375,12 @@ class DataFrame(object):
         if not self.shuffleSeed:
            self.shuffleSeed = np.random.randint(low=0, high=2**16)
 
-        print("using shuffle seed {} to shuffle input data".format(self.shuffleSeed))
-
-        df = shuffle(df, random_state=self.shuffleSeed)
+        
+        
+        if not self.Do_Evaluation:
+            print("using shuffle seed {} to shuffle input data".format(
+                self.shuffleSeed))
+            df = shuffle(df, random_state=self.shuffleSeed)
 
         self.unsplit_df = df.copy()
         
