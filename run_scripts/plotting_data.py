@@ -1,7 +1,7 @@
 
 # 2017
 
-# python plotting_ttZZ.py -i Eval_0119_UL_nominal -o ttZZ -c ge4j_ge3t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables -n ge4j_ge3t_ttH --plot --printroc
+# python plotting_data.py -i Eval_0119_UL_nominal -o data -c ge4j_ge3t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables -n ge4j_ge3t_ttH --plot --printroc
 
 
 # global imports
@@ -82,4 +82,4 @@ dnn = DNN.DNN(
 
 
 
-dnn.save_DNNInput(node_cls="ttZZ", isData=True) 
+dnn.save_DNNInput(node_cls="data", isData=True) 
