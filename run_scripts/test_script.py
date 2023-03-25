@@ -70,4 +70,4 @@ dnn = DNN.DNN(
 
 
 
-dnn.save_DNNInput(privateWork = options.privateWork, printROC = options.printROC) # 59.7 * 2 , because select only Evt_Odd = 0 
+dnn.save_DNNInput() # 59.7 * 2 , because select only Evt_Odd = 0 
