@@ -441,28 +441,21 @@ class saveDNNInput:
 
     def save(self):
 
-        # generate one plot per output node
-        # for i, node_cls in enumerate(self.event_classes):
 
-        f = ROOT.TFile(self.savedir + "/" + self.node_cls + "_" + "variables" + ".root", "RECREATE")
-        print("name of the root file: ")
-        print(self.savedir + "/" + self.node_cls + "_" + "variables" + ".root")
-
-        # if i >= self.n_classes:
-            # continue
-        print("\nPLOTTING variables for '"+str(self.node_cls))+"'"
-
-        # nodeIndex = self.data.class_translation[node_cls]
-
-        # fill lists according to class
-        bkgHists = []
-        bkgLabels = []
-        weightIntegral = 0
 
         if not self.isData:
 
+            f = ROOT.TFile(self.savedir + "/" + self.node_cls + "_" + "variables" + ".root", "RECREATE")
+            print("name of the root file: ")
+            print(self.savedir + "/" + self.node_cls + "_" + "variables" + ".root")
+
+            print("\nPLOTTING variables for '"+str(self.node_cls))+"'"
             filtered_weights = self.data.df_unsplit_preprocessing["lumi_weight"].values
             
+            bkgHists = []
+            bkgLabels = []
+            weightIntegral = 0
+
             for var in VariableMap.MCVariable:
                 
                 nbins = VariableMap.MCVariable[var][0]
@@ -477,19 +470,36 @@ class saveDNNInput:
                     nbins=nbins,
                     bin_range=bin_range,
                     #                        color     = setup.GetPlotColor(truth_cls),
-                    xtitle=str(self.node_cls)+"_"+var,
+                    xtitle=var + "__" + str(self.node_cls),
                     ytitle=setup.GetyTitle(),
                     filled=True)
 
                 bkgHists.append(histogram)
                 bkgLabels.append(self.node_cls)
     #            allBKGhists.append( bkgHists )
+            f.cd()
+            f.Write()
+            f.Close()
+
         if self.isData:
+
+            f = ROOT.TFile(self.savedir + "/" + "data_" + "variables" + ".root", "RECREATE")
+            print("name of the root file: ")
+            print(self.savedir + "/" + "data_" + "variables" + ".root")
+
+            print("\nPLOTTING variables for data ")
+            filtered_weights = self.data.df_unsplit_preprocessing["lumi_weight"].values
+            
+            bkgHists = []
+            bkgLabels = []
+            weightIntegral = 0
 
             filtered_weights = self.data.df_unsplit_preprocessing["lumi_weight"].values
             
             for var in VariableMap.DataVariable:
 
+                nbins = VariableMap.DataVariable[var][0]
+                bin_range = [VariableMap.DataVariable[var][1], VariableMap.DataVariable[var][2]]
                 filtered_values = self.data.df_unsplit_preprocessing[var].values
 
                 # weightIntegral += sum(filtered_weights)
@@ -497,10 +507,10 @@ class saveDNNInput:
                 histogram = setup.setupHistogram(
                     values=filtered_values,
                     weights=filtered_weights,
-                    nbins=self.nbins,
-                    bin_range=self.bin_range,
+                    nbins=nbins,
+                    bin_range=bin_range,
                     #                        color     = setup.GetPlotColor(truth_cls),
-                    xtitle=str(self.node_cls)+"data_obs",
+                    xtitle=var+"__data_obs",
                     ytitle=setup.GetyTitle(),
                     filled=True)
 
@@ -508,9 +518,11 @@ class saveDNNInput:
                 bkgLabels.append(self.node_cls)
     #            allBKGhists.append( bkgHists )
 
-        f.cd()
-        f.Write()
-        f.Close()
+            f.cd()
+            f.Write()
+            f.Close()
+
+
 
 
 class plotConfusionMatrix:
