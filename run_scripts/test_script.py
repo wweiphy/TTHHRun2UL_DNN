@@ -70,4 +70,4 @@ dnn = DNN.DNN(
 
 
 
-dnn.save_DNNInput() # 59.7 * 2 , because select only Evt_Odd = 0 
+dnn.save_DNNInput(node_cls="ttHH", isData=False) # 59.7 * 2 , because select only Evt_Odd = 0 
