@@ -433,7 +433,7 @@ class saveDNNInput:
     def __init__(self, data, node_cls, savedir, isData = False, logscale=False):
         self.data = data
         # self.event_classes = event_classes
-        self.n_classes = len(self.event_classes)
+        # self.n_classes = len(self.event_classes)
         self.savedir = savedir
         self.logscale = logscale
         self.node_cls = node_cls
