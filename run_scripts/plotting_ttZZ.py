@@ -1,7 +1,7 @@
 
 # 2017
 
-# python plotting_ttHH.py -i Eval_0119_UL_nominal -o ttHH -c ge4j_ge3t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables -n ge4j_ge3t_ttH --plot --printroc
+# python plotting_ttH.py -i Eval_0119_UL_nominal -o Control_test -c ge4j_ge3t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables -n ge4j_ge3t_ttH --plot --printroc
 
 
 # global imports
@@ -34,7 +34,7 @@ options.initArguments()
 input_samples = df.InputSamples(options.getInputDirectory(), options.getTestPercentage())
 
 weight_expr = "x.Weight_XS * x.Weight_CSV_UL * x.Weight_GEN_nom * x.lumiWeight"
-input_samples.addSample(options.getDefaultName("ttHH"),  label = "ttHH",  normalization_weight = options.getNomWeight(), train_weight = 1, total_weight_expr = weight_expr)
+input_samples.addSample(options.getDefaultName("ttZZ"),  label = "ttZZ",  normalization_weight = options.getNomWeight(), train_weight = 1, total_weight_expr = weight_expr)
 
 # init DNN class
 # dnn = DNN.DNN(
@@ -56,7 +56,8 @@ dnn = DNN.DNN(
     category_name   = options.getCategory(),
     train_variables = options.getTrainVariables(),
     # number of epochs
-    lumi = 119.4,
+    lumi = 41.5,
+    # lumi = 119.4,
     train_epochs    = options.getTrainEpochs(),
     # metrics for evaluation (c.f. KERAS metrics)
     eval_metrics    = ["acc"],
@@ -70,4 +71,4 @@ dnn = DNN.DNN(
 
 
 
-dnn.save_DNNInput(node_cls="ttHH", isData=False) # 59.7 * 2 , because select only Evt_Odd = 0 
+dnn.save_DNNInput(node_cls="ttZZ", isData=False) 
