@@ -14,10 +14,15 @@ sys.path.append(basedir)
 import DNN_framework.DNN as DNN
 import DNN_framework.data_frame as df
 
+#  2018
+# python eval_template_new_sys.py -o 230220_evaluation_new -i 230220_50_ge4j_ge3t --signalclass=ttHH --plot --printroc -d Eval_0308_UL --syst=JESup
 
-# python eval_template_new_sys.py -o 230220_evaluation_new -i 230220_50_ge4j_ge3t --signalclass=ttHH --plot --printroc -d Eval_0305_UL --syst=JESup
+# python eval_template_new_sys.py -o 230220_evaluation_new_5j4b -i 230220_50_ge5j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL --syst=JESup
 
+# python eval_template_new_sys.py -o 230220_evaluation_new_6j4b -i 230220_50_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL --syst=JESup
 
+# 2017
+# python eval_template_new_sys.py -o 230119_evaluation_new_2 -i 221130_50_ge4j_ge3t --signalclass=ttHH --plot --printroc -d Eval_0119_UL --syst=JESup
 
 """
 USE: python train_template.py -o DIR -v FILE -n STR -c STR -e INT -s INT -p -l --privatework --netconfig=STR --signalclass=STR --printroc
@@ -171,7 +176,8 @@ for sample in config["eventClasses"]:
                 # sample_path = dfDirectory+"ttZ_dnn.h5"
         elif sample["sampleLabel"] == "ttmb":
         #     sample_train_weight = 1
-                normalization_weight = 6.1
+                normalization_weight = 61.
+                # normalization_weight = 6.1
         #     sample_path = dfDirectory+"ttmb_dnn.h5"
         elif sample["sampleLabel"] == "ttnb":
         #     sample_train_weight = 1
@@ -205,8 +211,8 @@ dnn = DNN.DNN(
         save_path=outPath+"_"+options.syst,
         # sample_save_path=sample_save_path,
         input_samples=input_samples,
-        lumi=119.4,
-        # lumi = 41.5,
+        # lumi=119.4,
+        lumi = 41.5,
         category_name=config["JetTagCategory"],
         train_variables=config["trainVariables"],
         Do_Evaluation=True,

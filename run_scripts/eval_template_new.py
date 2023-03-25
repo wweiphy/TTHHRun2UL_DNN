@@ -14,11 +14,15 @@ sys.path.append(basedir)
 import DNN_framework.DNN as DNN
 import DNN_framework.data_frame as df
 
+# 2018 
+# python eval_template_new.py -o 230220_evaluation_new -i 230220_50_ge4j_ge3t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_nominal
 
-# python eval_template_new.py -o 230220_evaluation_new -i 230220_50_ge4j_ge3t --signalclass=ttHH --plot --printroc -d Eval_0220_UL_nominal
+# python eval_template_new.py -o 230220_evaluation_new_5j4b -i 230220_50_ge5j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_nominal
 
-# python eval_template_new.py -o 230220_evaluation_new_test -i 221130_50_ge4j_ge3t --signalclass=ttHH --plot --printroc -d Eval_0119_UL_nominal
+# python eval_template_new.py -o 230220_evaluation_new_6j4b -i 230220_50_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_nominal
 
+# 2017
+# python eval_template_new.py -o 230119_evaluation_new_2 -i 221130_50_ge4j_ge3t --signalclass=ttHH --plot --printroc -d Eval_0119_UL_nominal
 
 
 
@@ -143,7 +147,8 @@ for sample in config["eventClasses"]:
                 # sample_path = dfDirectory+"ttZ_dnn.h5"
         elif sample["sampleLabel"] == "ttmb":
         #     sample_train_weight = 1
-                normalization_weight = 6.1
+                normalization_weight = 61.
+                # normalization_weight = 6.1
         #     sample_path = dfDirectory+"ttmb_dnn.h5"
         elif sample["sampleLabel"] == "ttnb":
         #     sample_train_weight = 1
@@ -180,8 +185,8 @@ dnn = DNN.DNN(
 save_path=outPath,
 # sample_save_path=sample_save_path,
 input_samples=input_samples,
-lumi = 119.4,
-# lumi = 41.5,
+# lumi = 119.4,
+lumi = 41.5,
 category_name=config["JetTagCategory"],
 train_variables=config["trainVariables"],
 Do_Evaluation = True,
@@ -211,7 +216,8 @@ dnn.load_trained_model(inPath, options.evaluation_epoch_model)
 
         # plot the output discriminators
 # dnn.save_discriminators(log = options.log, privateWork = options.privateWork, printROC = options.printROC, lumi=41.5)
-dnn.save_discriminators(log = options.log, privateWork = options.privateWork, printROC = options.printROC, lumi=119.4) # 59.7 * 2 , because select only Evt_Odd = 0 
+dnn.save_discriminators(log = options.log, privateWork = options.privateWork, printROC = options.printROC, lumi=41.5) # 59.7 * 2 , because select only Evt_Odd = 0 
+# dnn.save_discriminators(log = options.log, privateWork = options.privateWork, printROC = options.printROC, lumi=119.4) # 59.7 * 2 , because select only Evt_Odd = 0 
 #
 #        # plot the output nodes
 #        dnn.plot_outputNodes(log = options.log, signal_class = options.signal_class, privateWork = options.privateWork, printROC = options.printROC, sigScale = -1)
