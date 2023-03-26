@@ -186,7 +186,7 @@ save_path=outPath,
 # sample_save_path=sample_save_path,
 input_samples=input_samples,
 # lumi = 119.4,
-lumi = 41.5,
+lumi = 83,
 category_name=config["JetTagCategory"],
 train_variables=config["trainVariables"],
 Do_Evaluation = True,
@@ -216,7 +216,7 @@ dnn.load_trained_model(inPath, options.evaluation_epoch_model)
 
         # plot the output discriminators
 # dnn.save_discriminators(log = options.log, privateWork = options.privateWork, printROC = options.printROC, lumi=41.5)
-dnn.save_discriminators(log = options.log, privateWork = options.privateWork, printROC = options.printROC, lumi=41.5) # 59.7 * 2 , because select only Evt_Odd = 0 
+dnn.save_discriminators(log = options.log, privateWork = options.privateWork, printROC = options.printROC, lumi=83) # 59.7 * 2 , because select only Evt_Odd = 0 
 # dnn.save_discriminators(log = options.log, privateWork = options.privateWork, printROC = options.printROC, lumi=119.4) # 59.7 * 2 , because select only Evt_Odd = 0 
 #
 #        # plot the output nodes
