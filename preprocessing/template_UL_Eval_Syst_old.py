@@ -18,9 +18,9 @@ import sf_variables as sf_var
 
 
 """
-USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_Syst_old.py --outputdirectory=Eval_0103_UL_old --variableselection=variables --maxentries=20000 --cores=6
+USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_Syst_old.py --outputdirectory=Eval_0119_UL --variableselection=dnn_variables --maxentries=20000 --cores=8 --syst=JESdown
 """
-
+#  python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_Syst.py --outputdirectory=Eval_0119_UL --variableselection=variables --maxentries=20000 --cores=8  --syst=JERdown
 usage="usage=%prog [options] \n"
 usage+="USE: python template.py --outputdirectory=DIR --variableselection=FILE --maxentries=INT --name=STR\n"
 usage+="OR: python template.py -o DIR -v FILE -e INT -n STR"
@@ -77,7 +77,7 @@ single_el_sel = "(N_LooseMuons == 0 and N_TightElectrons == 1 and (Triggered_HLT
 
 base_selection = "("+base+" and ("+single_mu_sel+" or "+single_el_sel+"))"
 
-ttHH_selection = "(Evt_Odd == 1)"  # Should I do this on ttHH
+ttHH_selection = "(Evt_Odd == 0)"  # Should I do this on ttHH
 
 # define output classes
 ttHH_categories = preprocessing.EventCategories()
@@ -252,7 +252,7 @@ dataset.addSample(
     categories  = ttbar_categories,
     process="ttbbSL",
 #    lumiWeight  = 41.5,
-    selections  = None,#ttbar_selection,
+    selections=ttHH_selection,  # ttbar_selection,
 #    selections  = ttbar_selection,
     islocal     = False
       )
@@ -264,7 +264,7 @@ dataset.addSample(
     categories=ttbar_categories,
     process="ttbbDL",
     #    lumiWeight  = 41.5,
-    selections=None,  # ttbar_selection,
+    selections=ttHH_selection,  # ttbar_selection,
     #    selections  = ttbar_selection,
     islocal=False
 )
@@ -276,7 +276,7 @@ dataset.addSample(
     categories  = ttbar2_categories,
     process="tt4b",
 #    lumiWeight  = 41.5,
-    selections  = None,#ttbar_selection,
+    selections=ttHH_selection,  # ttbar_selection,
 #    selections  = ttbar_selection,
     islocal     = False
       ) # not finished
