@@ -379,7 +379,7 @@ class DataFrame(object):
 
         
         
-        if self.Do_Evaluation==False or self.Do_plotting==False:
+        if self.Do_Evaluation==False or self.Do_plotting==True:
             print("using shuffle seed {} to shuffle input data".format(
                 self.shuffleSeed))
             df = shuffle(df, random_state=self.shuffleSeed)

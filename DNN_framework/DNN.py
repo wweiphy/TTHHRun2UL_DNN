@@ -225,6 +225,7 @@ class DNN():
                  category_name,
                  train_variables,
                  Do_Evaluation = False,
+                 Do_plotting = False,
                  is_Data = False,
                  category_cutString=None,
                  category_label=None,
@@ -245,6 +246,7 @@ class DNN():
         # suffix of additional (ttbb) sample
         self.addSampleSuffix = addSampleSuffix
         self.Do_Evaluation = Do_Evaluation
+        self.Do_plotting = Do_plotting
 
         # output directory for results
         self.save_path = save_path
@@ -333,7 +335,8 @@ class DNN():
             shuffleSeed=shuffle_seed,
             evenSel=self.evenSel,
             addSampleSuffix=self.addSampleSuffix,
-            Do_Evaluation = self.Do_Evaluation)
+            Do_Evaluation = self.Do_Evaluation,
+            Do_plotting = self.Do_plotting)
         
         return data.loadDatasets()
 
