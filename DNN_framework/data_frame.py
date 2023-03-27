@@ -280,7 +280,8 @@ class DataFrame(object):
                  shuffleSeed=None,
                  evenSel="",
                  addSampleSuffix="",
-                 Do_Evaluation = False):
+                 Do_Evaluation = False,
+                 Do_plotting = False):
 
         self.event_category = event_category
         self.lumi = lumi
@@ -292,6 +293,7 @@ class DataFrame(object):
         self.shuffleSeed = shuffleSeed
         self.addSampleSuffix = addSampleSuffix
         self.Do_Evaluation = Do_Evaluation
+        self.Do_plotting = Do_plotting
 
         self.binary_classification = input_samples.binary_classification
         if self.binary_classification:
@@ -377,7 +379,7 @@ class DataFrame(object):
 
         
         
-        if not self.Do_Evaluation:
+        if self.Do_Evaluation==False or self.Do_plotting==False:
             print("using shuffle seed {} to shuffle input data".format(
                 self.shuffleSeed))
             df = shuffle(df, random_state=self.shuffleSeed)
@@ -395,36 +397,45 @@ class DataFrame(object):
         df_test = df.head(n_test_samples)
         df_train = df.tail(df.shape[0] - n_test_samples)
 
-        print("start preprocessing")
+        if not self.Do_plotting:
+            print("start preprocessing")
 
-        QTScaler = QuantileTransformer(
-            n_quantiles=2000, output_distribution='uniform', random_state=0)
-        MScaler = MinMaxScaler(feature_range=(0, 1))
+            QTScaler = QuantileTransformer(
+                n_quantiles=2000, output_distribution='uniform', random_state=0)
+            MScaler = MinMaxScaler(feature_range=(0, 1))
 
-        df_final_train = df_train.copy(deep=True)
-        df_final_test = df_test.copy(deep=True)
+            df_final_train = df_train.copy(deep=True)
+            df_final_test = df_test.copy(deep=True)
 
-        df_final_train[self.train_variables] = MScaler.fit_transform(
-            QTScaler.fit_transform(df_train[self.train_variables]))
-        df_final_test[self.train_variables] = MScaler.transform(
-            QTScaler.transform(df_test[self.train_variables]))
+            df_final_train[self.train_variables] = MScaler.fit_transform(
+                QTScaler.fit_transform(df_train[self.train_variables]))
+            df_final_test[self.train_variables] = MScaler.transform(
+                QTScaler.transform(df_test[self.train_variables]))
 
-        print("end preprocessing")
+            print("end preprocessing")
 
-        self.df_unsplit_preprocessing = pd.concat(
-            [df_final_test, df_final_train])
-        
+            self.df_unsplit_preprocessing = pd.concat(
+                [df_final_test, df_final_train])
+            
+            # adjust weights via 1/test_percentage for test and 1/(1 - test_percentage) for train samples such that yields in plots correspond to complete dataset
+
+            df_final_train["lumi_weight"] = df_train["lumi_weight"] / \
+                (1 - self.test_percentage)
+            df_final_test["lumi_weight"] = df_test["lumi_weight"] / \
+                self.test_percentage
+
+            self.df_test = df_final_test
+            self.df_train = df_final_train
+        else:
+            self.df_unsplit_preprocessing = pd.concat(
+                [df_test, df_train])
+            
+            self.df_test = df_test
+            self.df_train = df_train
         # print(
             # self.df_unsplit_preprocessing['total_weight_scaleMuR_ttbbNLOUp'][0])
 
-        # adjust weights via 1/test_percentage for test and 1/(1 - test_percentage) for train samples such that yields in plots correspond to complete dataset
-
-        df_final_train["lumi_weight"] = df_train["lumi_weight"] / \
-            (1 - self.test_percentage)
-        df_final_test["lumi_weight"] = df_test["lumi_weight"] / self.test_percentage
-
-        self.df_test = df_final_test
-        self.df_train = df_final_train
+        
 
         # save variable lists
         self.output_classes = self.classes
