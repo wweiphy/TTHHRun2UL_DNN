@@ -185,7 +185,7 @@ lumi = 119.4,
 # lumi = 83,
 category_name=config["JetTagCategory"],
 train_variables=config["trainVariables"],
-Do_Evaluation = True,
+Do_Evaluation = False,
 shuffle_seed=config["shuffleSeed"],
 addSampleSuffix=config["addSampleSuffix"],
 )
