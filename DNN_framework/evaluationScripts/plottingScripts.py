@@ -606,7 +606,7 @@ class plotDiscriminators:
         # for later plotting
         if self.signal_class:
             # for signal in signal_class:
-            print ("signal is "+signal)
+            # print ("signal is "+signal)
             self.signalIndex.append(self.data.class_translation[signal])
             self.signalFlag.append(self.data.get_class_flag(signal))
         # if self.signal_class:
