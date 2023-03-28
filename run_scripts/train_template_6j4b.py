@@ -93,7 +93,7 @@ dnn = DNN.DNN(
     # metrics for evaluation (c.f. KERAS metrics)
     eval_metrics    = ["acc"],
     Do_Evaluation   = False,
-    lumi=59.8,
+    lumi=119.6,
     # percentage of train set to be used for testing (i.e. evaluating/plotting after training)
     test_percentage = options.getTestPercentage(),
     # balance samples per epoch such that there amount of samples per category is roughly equal
