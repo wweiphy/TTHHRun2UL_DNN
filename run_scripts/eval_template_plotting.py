@@ -19,7 +19,7 @@ import DNN_framework.data_frame as df
 
 # python eval_template_plotting.py -o 230220_plotting_new_5j4b -i 230220_50_ge5j_ge4t --signalclass=ttHH --plot --printroc -d DNN_0308_UL_2018
 
-# python eval_template_plotting.py -o 230220_plotting_new_6j4b -i 230220_50_ge6j_ge4t --signalclass=ttHH --plot --printroc -d DNN_0308_UL_2018
+# python eval_template_plotting.py -o 230220_plotting_new_6j4b -i 230220_50_ge6j_ge4t --signalclass=ttHH --plot --printroc -d DNN_0308_UL_2018 
 
 # 2017
 # python eval_template_new.py -o 230119_evaluation_new_2 -i 221130_50_ge4j_ge3t --signalclass=ttHH --plot --printroc -d Eval_0119_UL_nominal
@@ -193,5 +193,5 @@ addSampleSuffix=config["addSampleSuffix"],
 dnn.load_trained_model(inPath, options.evaluation_epoch_model)
 
 
-dnn.plot_discriminators(log = options.log, signal_class = "ttHH", privateWork = options.privateWork, printROC = options.printROC, sigScale = -1)
+dnn.plot_discriminators(log=options.log, signal_class=options.getSignal(), privateWork=options.privateWork, printROC=options.printROC, sigScale=-1)
 
