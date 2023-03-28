@@ -193,5 +193,5 @@ addSampleSuffix=config["addSampleSuffix"],
 dnn.load_trained_model(inPath, options.evaluation_epoch_model)
 
 
-dnn.plot_discriminators(log = options.log, signal_class = options.signal_class, privateWork = options.privateWork, printROC = options.printROC, sigScale = -1)
+dnn.plot_discriminators(log = options.log, signal_class = "ttHH", privateWork = options.privateWork, printROC = options.printROC, sigScale = -1)
 
