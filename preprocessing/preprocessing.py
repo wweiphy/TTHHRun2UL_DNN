@@ -1072,13 +1072,13 @@ class Dataset:
                         float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))
                     downlf2 = btvjson["deepJet_shape"].evaluate("down_lfstats2", jet_flavor['Jet_Flav'][i][j], abs(
                         float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))
-                    uplf = btvjson["deepJet_shape"].evaluate("up_lfstats1", jet_flavor['Jet_Flav'][i][j], abs(
+                    uplf = btvjson["deepJet_shape"].evaluate("up_lf", jet_flavor['Jet_Flav'][i][j], abs(
                         float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))
-                    downlf = btvjson["deepJet_shape"].evaluate("down_lfstats1", jet_flavor['Jet_Flav'][i][j], abs(
+                    downlf = btvjson["deepJet_shape"].evaluate("down_lf", jet_flavor['Jet_Flav'][i][j], abs(
                         float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))
-                    uphf = btvjson["deepJet_shape"].evaluate("up_hfstats2", jet_flavor['Jet_Flav'][i][j], abs(
+                    uphf = btvjson["deepJet_shape"].evaluate("up_hfstats1", jet_flavor['Jet_Flav'][i][j], abs(
                         float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))
-                    downhf = btvjson["deepJet_shape"].evaluate("down_hfstats2", jet_flavor['Jet_Flav'][i][j], abs(
+                    downhf = btvjson["deepJet_shape"].evaluate("down_hfstats1", jet_flavor['Jet_Flav'][i][j], abs(
                         float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))
                     # tests
                     print("nominal is {}".format(nominal))
