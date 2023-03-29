@@ -600,7 +600,7 @@ class plotDiscriminators:
         self.plotdir = plotdir
         self.logscale = logscale
         self.sigScale = sigScale
-        self.lumi=41.5
+        self.lumi=lumi
         self.signalIndex = []
         self.signalFlag = []
 
