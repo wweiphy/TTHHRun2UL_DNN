@@ -780,32 +780,54 @@ class DNN():
         #     loss=configs["loss_function"],
         #     optimizer="adam",
         #     metrics=self.eval_metrics)
+        if self.Do_Evaluation:
+            # evaluate whole dataset with keras model
+            self.model_eval = self.model.evaluate(
+                x=self.data.get_full_data_after_preprocessing(as_matrix=True), 
+                y=self.data.get_full_labels_after_preprocessing(),
+                sample_weight=self.data.get_full_train_weights())
 
-        # evaluate whole dataset with keras model
-        self.model_eval = self.model.evaluate(
-            x=self.data.get_full_data_after_preprocessing(as_matrix=True), 
-            y=self.data.get_full_labels_after_preprocessing(),
-            sample_weight=self.data.get_full_train_weights())
+            # save predictions with keras model
+            self.model_prediction_vector = self.model.predict(
+                self.data.get_full_data_after_preprocessing(as_matrix=True))
+            
+            # save confusion matrix
+            from sklearn.metrics import confusion_matrix
+            self.confusion_matrix = confusion_matrix(
+                self.data.get_full_labels_after_preprocessing(as_categorical=False), self.predicted_classes)
 
-        # save predictions with keras model
-        self.model_prediction_vector = self.model.predict(
-            self.data.get_full_data_after_preprocessing(as_matrix=True))
+            # print evaluations  with keras model
+            from sklearn.metrics import roc_auc_score
+            self.roc_auc_score = roc_auc_score(
+                self.data.get_full_labels_after_preprocessing(), self.model_prediction_vector)
+            print("\nROC-AUC score: {}".format(self.roc_auc_score))
+        
+        else:
+            # evaluate test dataset with keras model
+            self.model_eval = self.model.evaluate(self.data.get_test_data(
+                as_matrix=True), self.data.get_test_labels())
 
-        # save predicted classes with argmax with keras model
-        self.predicted_classes = np.argmax(
-            self.model_prediction_vector, axis=1)
-#        np.argmax: Returns the indices of the maximum values along an axis.
+            # save predictions  with keras model
+            self.model_prediction_vector = self.model.predict(
+                self.data.get_test_data(as_matrix=True))
+            self.model_train_prediction = self.model.predict(
+                self.data.get_train_data(as_matrix=True))
+            
+            # save predicted classes with argmax with keras model
+            self.predicted_classes = np.argmax(
+                self.model_prediction_vector, axis=1)
+    #        np.argmax: Returns the indices of the maximum values along an axis.
 
-        # save confusion matrix
-        from sklearn.metrics import confusion_matrix
-        self.confusion_matrix = confusion_matrix(
-            self.data.get_full_labels_after_preprocessing(as_categorical=False), self.predicted_classes)
+            # save confusion matrix
+            from sklearn.metrics import confusion_matrix
+            self.confusion_matrix = confusion_matrix(
+                self.data.get_test_labels(as_categorical=False), self.predicted_classes)
 
-        # print evaluations  with keras model
-        from sklearn.metrics import roc_auc_score
-        self.roc_auc_score = roc_auc_score(
-            self.data.get_full_labels_after_preprocessing(), self.model_prediction_vector)
-        print("\nROC-AUC score: {}".format(self.roc_auc_score))
+            # print evaluations  with keras model
+            from sklearn.metrics import roc_auc_score
+            self.roc_auc_score = roc_auc_score(
+                self.data.get_test_labels(), self.model_prediction_vector)
+            print("\nROC-AUC score: {}".format(self.roc_auc_score))
 
     def save_discriminators(self, log=False, printROC=False, privateWork=False,
                             signal_class=None, nbins=None, bin_range=None, lumi=41.5, sigScale=-1):
