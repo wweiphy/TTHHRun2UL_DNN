@@ -15,11 +15,11 @@ import DNN_framework.DNN as DNN
 import DNN_framework.data_frame as df
 
 # 2018 
-# python eval_template_plotting.py -o 230220_plotting_new -i 230220_50_ge4j_ge3t --signalclass=ttHH --plot --printroc -d DNN_0308_UL_2018
+# python eval_template_plotting.py -o 230220_plotting_new -i 230220_50_ge4j_ge3t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_nominal
 
-# python eval_template_plotting.py -o 230220_plotting_new_5j4b -i 230220_50_ge5j_ge4t --signalclass=ttHH --plot --printroc -d DNN_0308_UL_2018
+# python eval_template_plotting.py -o 230220_plotting_new_5j4b -i 230220_50_ge5j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_nominal
 
-# python eval_template_plotting.py -o 230220_plotting_new_6j4b -i 230220_50_ge6j_ge4t --signalclass=ttHH --plot --printroc -d DNN_0308_UL_2018 
+# python eval_template_plotting.py -o 230220_plotting_new_6j4b -i 230220_50_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_nominal
 
 # 2017
 # python eval_template_new.py -o 230119_evaluation_new_2 -i 221130_50_ge4j_ge3t --signalclass=ttHH --plot --printroc -d Eval_0119_UL_nominal
@@ -185,7 +185,7 @@ lumi = 119.5,
 # lumi = 83,
 category_name=config["JetTagCategory"],
 train_variables=config["trainVariables"],
-Do_Evaluation = True,
+Do_Evaluation = False,
 shuffle_seed=config["shuffleSeed"],
 addSampleSuffix=config["addSampleSuffix"],
 )
