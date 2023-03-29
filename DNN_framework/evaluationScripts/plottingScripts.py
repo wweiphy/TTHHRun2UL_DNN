@@ -584,7 +584,7 @@ class plotConfusionMatrix:
 
 
 class plotDiscriminators:
-    def __init__(self, data, prediction_vector, event_classes, nbins, bin_range, signal_class, event_category, plotdir, logscale=False, sigScale=-1):
+    def __init__(self, data, lumi, prediction_vector, event_classes, nbins, bin_range, signal_class, event_category, plotdir, logscale=False, sigScale=-1):
         self.data = data
         self.prediction_vector = prediction_vector
         self.predicted_classes = np.argmax(self.prediction_vector, axis=1)
@@ -600,6 +600,7 @@ class plotDiscriminators:
         self.plotdir = plotdir
         self.logscale = logscale
         self.sigScale = sigScale
+        self.lumi=41.5
         self.signalIndex = []
         self.signalFlag = []
 
@@ -778,7 +779,7 @@ class plotDiscriminators:
                 setup.printPrivateWork(
                     canvas, plotOptions["ratio"], nodePlot=True)
             else:
-                setup.printLumi(canvas, ratio=plotOptions["ratio"])
+                setup.printLumi(canvas, lumi=self.lumi, ratio=plotOptions["ratio"])
 
             # add category label
             setup.printCategoryLabel(

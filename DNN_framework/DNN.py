@@ -952,7 +952,7 @@ class DNN():
 
         plotNodes.plot(ratio=False, printROC=printROC, privateWork=privateWork)
 
-    def plot_discriminators(self, log=False, printROC=False, privateWork=False,
+    def plot_discriminators(self, log=False, printROC=False, lumi = 41.5, privateWork=False,
                             signal_class=None, nbins=None, bin_range=None,
                             sigScale=-1):
         ''' plot all events classified as one category '''
@@ -970,6 +970,7 @@ class DNN():
             signal_class=signal_class,
             event_category=self.category_label,
             plotdir=self.plot_path,
+            lumi=lumi,
             logscale=log,
             sigScale=sigScale)
 
