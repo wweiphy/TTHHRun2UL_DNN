@@ -475,6 +475,7 @@ class saveDNNInput:
                     weights=filtered_weights,
                     nbins=nbins,
                     bin_range=bin_range,
+                    title=var
                     #                        color     = setup.GetPlotColor(truth_cls),
                     xtitle=var + "__" + str(self.node_cls),
                     ytitle=setup.GetyTitle(),

@@ -41,7 +41,7 @@ def GetyTitle(privateWork=False):
 
 def setupHistogram(
         values, weights,
-        nbins, bin_range,
+        nbins, bin_range,title,
         xtitle, ytitle,
         color=ROOT.kBlack, filled=True):
     # define histogram
@@ -52,6 +52,7 @@ def setupHistogram(
         histogram.Fill(v, w)
 
     histogram.SetStats(False)
+    histogram.SetTitle(title)
     histogram.GetXaxis().SetTitle(xtitle)
     histogram.GetYaxis().SetTitle(ytitle)
 
