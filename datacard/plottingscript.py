@@ -2,11 +2,11 @@ import os
 import optparse
 
 usage = "usage=%prog [options] \n"
-usage += "USE: python plottingscript.py -n True "
+usage += "USE: python plottingscript.py -n new "
 
 parser = optparse.OptionParser(usage=usage)
 
-parser.add_option("-n", "--new", dest="new", default=True,
+parser.add_option("-n", "--new", dest="new", default="new",
         help="making datacard for new categorizations, total 9", metavar="new")
 
 (options, args) = parser.parse_args()
@@ -15,10 +15,10 @@ process_new = ['ttHH', 'ttH', 'ttZ', 'ttZH',
                'ttZZ', 'ttlf', 'ttcc', 'ttmb', 'ttnb']
 process_old = ['ttHH', 'ttH', 'ttZ', 'ttZH',
                'ttZZ', 'ttlf', 'ttcc', 'ttb', 'ttbb', 'tt2b', 'ttbbb', 'tt4b']
+variables = ['Evt_CSV_avg', 'Evt_CSV_avg_tagged', 'Evt_CSV_dev']
 
 
-
-if options.new:
+if options.new == "new":
 
     for node in process_new:
 
@@ -30,7 +30,7 @@ if options.new:
 
         print("finish plotting discriminators for process {}".format(node))
 
-else:
+elif options.new == "old":
 
     for node in process_old:
 
@@ -41,5 +41,17 @@ else:
         os.system(runcommand)
 
         print("finish plotting discriminators for process {}".format(node))
+
+else:
+
+    for var in variables:
+
+        rootfile = "/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/workdir/output_limit.root"
+        runcommand = 'python /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/datacard/PlotScript.py --plotconfig="/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/datacard/plotconfig_{}_plotting.py"  --channelname={}  --selectionlabel="2 jets, 2 b-tags" --rootfile={}  --directory="/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/datacard" --systematicfile="/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/datacard/systematics.csv" --workdir="/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/datacard/new"'.format(
+            "new", var, rootfile)
+
+        os.system(runcommand)
+
+        print("finish plotting variable: "+var)
 
 
