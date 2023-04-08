@@ -308,6 +308,7 @@ if combineflag:
         print("loading " + binKey)
         binHist = binFile.Get(binKey)
         xLabel = binHist.GetTitle()
+        print("xLabel1: "+xLabel)
         binEdges = []
         for i in range(binHist.GetNbinsX()+1):
             binEdges.append( binHist.GetBinLowEdge(i+1) )
@@ -356,6 +357,7 @@ for sample in samples:
                                                         color=color,typ=typ,label=label,
                                                         nominalKey=nominalKey,procIden=procIden,
                                                         binEdges=binEdges,newTitle=xLabel)
+            print("xLabel2: "+xLabel)
     else:
         entry = Plots.buildHistogramAndErrorBand(rootFile=rootFile,sample=sample,
                                                         color=color,typ=typ,label=label,
@@ -436,6 +438,7 @@ if combineflag:
     # from total background or total background+signal prediction histogram in mlfit file, get the error band
     if not xLabel == "":
         PlotList["total_signal"].hist.SetTitle(xLabel)
+        print("xLabel3: "+xLabel)
     background = rootFile.Get(bkgKey)
     if not binEdges is None:
         background = Plots.updateBinEdges(background, binEdges)

@@ -131,8 +131,8 @@ def buildHistogramAndErrorBand(rootFile,sample,color,typ,label,systematics,nomin
         sampleKey=nominalKey
     print(sampleKey)
     rootHist = rootFile.Get(sampleKey)
-    print("    loading key '{}'".format(sampleKey))
-    print("    type of hist is: "+str(type(rootHist)) )
+    # print("    loading key '{}'".format(sampleKey))
+    # print("    type of hist is: "+str(type(rootHist)) )
     if not isinstance(rootHist, ROOT.TH1):
         return "ERROR"
     if rootHist.Integral() <= 0:
@@ -141,7 +141,7 @@ def buildHistogramAndErrorBand(rootFile,sample,color,typ,label,systematics,nomin
 
     #moves underflow in the first and overflow in the last bin
     moveOverUnderFlow(rootHist)
-    print("    type of hist is 2: "+str(type(rootHist)))
+    # print("    type of hist is 2: "+str(type(rootHist)))
     # replace keys to get systematic key
     print("    starting with systematics - building Errorband")
     if procIden in systematicKey:
