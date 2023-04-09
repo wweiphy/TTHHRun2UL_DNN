@@ -1044,13 +1044,13 @@ class Dataset:
                     downhf1 = btvjson["deepJet_shape"].evaluate("down_hfstats1", jet_flavor['Jet_Flav'][i][j], abs(
                         float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))
                     # tests
-                    print("nominal is {}".format(nominal))
-                    print("hfstats1 up is {}".format(uphf1))
-                    print("hfstats1 down is {}".format(downhf1))
-                    print("hfstats2 up is {}".format(uphf2))
-                    print("hfstats2 down is {}".format(downhf2))
-                    print("hf up is {}".format(uphf))
-                    print("hf down is {}".format(downhf))
+                    # print("nominal is {}".format(nominal))
+                    # print("hfstats1 up is {}".format(uphf1))
+                    # print("hfstats1 down is {}".format(downhf1))
+                    # print("hfstats2 up is {}".format(uphf2))
+                    # print("hfstats2 down is {}".format(downhf2))
+                    # print("hf up is {}".format(uphf))
+                    # print("hf down is {}".format(downhf))
                     
                     jet_btagsf_uplf_perevent *= btvjson["deepJet_shape"].evaluate("central", jet_flavor['Jet_Flav'][i][j], abs(
                         float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))
@@ -1104,13 +1104,13 @@ class Dataset:
                     downlf1 = btvjson["deepJet_shape"].evaluate("down_lfstats1", jet_flavor['Jet_Flav'][i][j], abs(
                         float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))
                     # tests
-                    print("nominal is {}".format(nominal))
-                    print("lfstats1 up is {}".format(uplf1))
-                    print("lfstats1 down is {}".format(downlf1))
-                    print("lfstats2 up is {}".format(uplf2))
-                    print("lfstats2 down is {}".format(downlf2))
-                    print("lf up is {}".format(uplf))
-                    print("lf down is {}".format(downlf))
+                    # print("nominal is {}".format(nominal))
+                    # print("lfstats1 up is {}".format(uplf1))
+                    # print("lfstats1 down is {}".format(downlf1))
+                    # print("lfstats2 up is {}".format(uplf2))
+                    # print("lfstats2 down is {}".format(downlf2))
+                    # print("lf up is {}".format(uplf))
+                    # print("lf down is {}".format(downlf))
                     # print("nominal SF is {}".format(jet_btagsf_perevent))
                     # print("up lf SF is {}".format(jet_btagsf_uplfstats2_perevent))
                     # print("down lf SF is {}".format(
@@ -1160,11 +1160,11 @@ class Dataset:
                     downlf1 = btvjson["deepJet_shape"].evaluate("down_cferr1", jet_flavor['Jet_Flav'][i][j], abs(
                         float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))
                     # tests
-                    print("nominal is {}".format(nominal))
-                    print("c1 up is {}".format(uplf1))
-                    print("c1 down is {}".format(downlf1))
-                    print("c2 up is {}".format(uplf2))
-                    print("c2 down is {}".format(downlf2))
+                    # print("nominal is {}".format(nominal))
+                    # print("c1 up is {}".format(uplf1))
+                    # print("c1 down is {}".format(downlf1))
+                    # print("c2 up is {}".format(uplf2))
+                    # print("c2 down is {}".format(downlf2))
                     
                     jet_btagsf_uphf_perevent *= btvjson["deepJet_shape"].evaluate("central", jet_flavor['Jet_Flav'][i][j], abs(
                         float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))
