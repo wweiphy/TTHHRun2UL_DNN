@@ -1020,7 +1020,7 @@ def getCanvas(name, ratiopad = False):
         canvas.cd(1).SetTicks(1,1)
 
         canvas.cd(2).SetRightMargin(0.05)
-        canvas.cd(2).SetLeftMargin(0.15)
+        canvas.cd(2).SetLeftMargin(0.20)
         canvas.cd(2).SetTicks(1,1)
     else:
         canvas = ROOT.TCanvas(name, name, 1024, 768)
