@@ -973,7 +973,7 @@ class DrawHistograms:
         latex.SetNDC()
         latex.SetTextColor(ROOT.kBlack)
 
-        if self.ratio:  latex.DrawLatex(l+0.09,1.-t-0.06, channelLabel)
+        if self.ratio:  latex.DrawLatex(l+0.13,1.-t-0.06, channelLabel)
         else:           latex.DrawLatex(l+0.02,1.-t-0.06, channelLabel)
 
     def printCMSLabel(self, cmslabel):
