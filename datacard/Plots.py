@@ -1015,7 +1015,7 @@ def getCanvas(name, ratiopad = False):
         canvas.cd(2).SetBottomMargin(0.4)
 
         canvas.cd(1).SetRightMargin(0.05)
-        canvas.cd(1).SetLeftMargin(0.05)
+        canvas.cd(1).SetLeftMargin(0.20)
         # canvas.cd(1).SetLeftMargin(0.15)
         canvas.cd(1).SetTicks(1,1)
 
