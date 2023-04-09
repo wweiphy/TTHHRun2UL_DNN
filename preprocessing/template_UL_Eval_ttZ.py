@@ -12,7 +12,7 @@ import preprocessing
 
 
 """
-USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_ttZ.py --outputdirectory=Eval_0119_UL_nominal --variableselection=variables --maxentries=20000 --cores=8
+USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_ttZ.py --outputdirectory=Eval_0308_UL_nominal_2 --variableselection=variables --maxentries=20000 --cores=8 --dataEra=2018
 """
 
 usage="usage=%prog [options] \n"
@@ -36,6 +36,8 @@ parser.add_option("-n", "--name", dest="Name", default="dnn",
 parser.add_option("-c", "--cores", dest="numCores", default=1,
                   help="number of cores to run the preprocessing", metavar="NumCores")
 
+parser.add_option("-y", "--dataEra", dest="dataEra", default=2017,
+                  help="dataera", metavar="dataEra")
 # parser.add_option("-l", "--islocal", dest="islocal", default=False,
 #                   help="True if the ntuple files are stored in the eos space, False if the ntuple files are in local space", metavar="islocal")
 
@@ -114,6 +116,7 @@ dataset = preprocessing.Dataset(
     naming      = options.Name,
     maxEntries  = options.maxEntries,
     ncores      = options.numCores,
+    dataEra=options.dataEra,
     do_EvalSFs=True,
     # do_pileup=True,
     # do_PUJetID=True
@@ -127,16 +130,16 @@ dataset.addBaseSelection(base_selection)
 dataset.addSample(
     sampleName="TTZ",
     ntuples=ntuplesPath2 +
-    "/2017/ntuple/TTZToBB_TuneCP5_13TeV-amcatnlo-pythia8/sl_LEG_ntuple_2017/221126_052843/*/*nominal*.root",
-    # 221118_234219
+    "/2018/ntuple/TTZToBB_TuneCP5_13TeV-amcatnlo-pythia8/sl_LEG_ntuple_2018/230307_040245/*/*nominal*.root",
+    # ntuples="/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_10_6_29/src/BoostedTTH/BoostedAnalyzer/test/ntuples_nominal_Tree.root",
     #    ntuples     = ntuplesPath+"/ttH_220208.root",
     categories=ttZ_categories,
-    process="ttZ",
+    process = "ttZ",
     #    lumiWeight  = 41.5,
     selections=ttHH_selection,  # ttbar_selection,
     #    selections  = ttbar_selection,
-    islocal=False
-)
+    islocal=True
+)  # almost
 
 
 # initialize variable list

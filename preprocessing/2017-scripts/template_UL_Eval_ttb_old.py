@@ -12,7 +12,7 @@ import preprocessing
 
 
 """
-USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_ttb_old.py --outputdirectory=Eval_0119_UL_nominal --variableselection=dnn_variables --maxentries=20000 --cores=6
+USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_ttb_old.py --outputdirectory=Eval_0119_UL_nominal --variableselection=dnn_variables --maxentries=20000 --cores=8
 """
 
 usage="usage=%prog [options] \n"
@@ -68,7 +68,7 @@ single_el_sel = "(N_LooseMuons == 0 and N_TightElectrons == 1 and (Triggered_HLT
 
 base_selection = "("+base+" and ("+single_mu_sel+" or "+single_el_sel+"))"
 
-ttHH_selection = "(Evt_Odd == 1)"  # Should I do this on ttHH
+ttHH_selection = "(Evt_Odd == 0)"   # Should I do this on ttHH
 
 # define output classes
 ttHH_categories = preprocessing.EventCategories()
@@ -134,7 +134,7 @@ dataset.addSample(
     categories  = ttbar_categories,
     process="ttbbSL",
 #    lumiWeight  = 41.5,
-    selections  = None,#ttbar_selection,
+    selections=ttHH_selection,  # ttbar_selection,
 #    selections  = ttbar_selection,
     islocal     = False
       )
@@ -147,7 +147,7 @@ dataset.addSample(
     categories=ttbar_categories,
     process="ttbbDL",
     #    lumiWeight  = 41.5,
-    selections=None,  # ttbar_selection,
+    selections=ttHH_selection,  # ttbar_selection,
     #    selections  = ttbar_selection,
     islocal=False
 )

@@ -18,7 +18,7 @@ import sf_variables as sf_var
 
 
 """
-USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_Syst.py --outputdirectory=Eval_0119_UL --variableselection=dnn_variables --maxentries=20000 --cores=6  --syst=JESFlavorQCDup
+USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_Syst.py --outputdirectory=Eval_0119_UL --variableselection=dnn_variables --maxentries=20000 --cores=8  --syst=JESup
 """
 
 usage="usage=%prog [options] \n"
@@ -77,7 +77,7 @@ single_el_sel = "(N_LooseMuons == 0 and N_TightElectrons == 1 and (Triggered_HLT
 
 base_selection = "("+base+" and ("+single_mu_sel+" or "+single_el_sel+"))"
 
-ttHH_selection = "(Evt_Odd == 1)"  # Should I do this on ttHH
+ttHH_selection = "(Evt_Odd == 0)"  # Should I do this on ttHH
 
 # define output classes
 ttHH_categories = preprocessing.EventCategories()
@@ -172,7 +172,7 @@ dataset.addSample(
     categories=ttHH_categories,
     process = "ttHH",
     # lumiWeight  = 1.105,
-    selections  = None,
+    selections=ttHH_selection,
     # selections=ttHH_selection,
     islocal=False
 )
@@ -187,7 +187,7 @@ dataset.addSample(
     categories=ttZZ_categories,
     process="ttZZ",
     # lumiWeight  = 6.75E-02,
-    selections=None,  # ttbar_selection,
+    selections=ttHH_selection,  # ttbar_selection,
     #    selections  = ttbar_selection,
     islocal=False
 )
@@ -201,7 +201,7 @@ dataset.addSample(
     categories=ttZZ_categories,
     process="ttZZ",
     #    lumiWeight  = 41.5,
-    selections=None,  # ttbar_selection,
+    selections=ttHH_selection,  # ttbar_selection,
     #    selections  = ttbar_selection,
     islocal=False
 )
@@ -214,7 +214,7 @@ dataset.addSample(
     categories=ttZH_categories,
     process="ttZH",
     # lumiWeight  = 1.1035,
-    selections=None,  # ttbar_selection,
+    selections=ttHH_selection,  # ttbar_selection,
     #    selections  = ttbar_selection,
     islocal=False
 )
@@ -227,7 +227,7 @@ dataset.addSample(
     categories=ttZH_categories,
     process="ttZH",
     #    lumiWeight  = 41.5,
-    selections=None,  # ttbar_selection,
+    selections=ttHH_selection,  # ttbar_selection,
     #    selections  = ttbar_selection,
     islocal=False
 )
@@ -240,7 +240,7 @@ dataset.addSample(
     categories=ttZ_categories,
     process="ttZ",
     #    lumiWeight  = 41.5,
-    selections=None,  # ttbar_selection,
+    selections=ttHH_selection,  # ttbar_selection,
     #    selections  = ttbar_selection,
     islocal=False
 )
@@ -253,7 +253,7 @@ dataset.addSample(
     categories  = ttmb_categories,
     process="ttbbSL",
 #    lumiWeight  = 41.5,
-    selections  = None,#ttbar_selection,
+    selections=ttHH_selection,  # ttbar_selection,
 #    selections  = ttbar_selection,
     islocal     = False
       )
@@ -265,7 +265,7 @@ dataset.addSample(
     categories=ttmb_categories,
     process="ttbbDL",
     #    lumiWeight  = 41.5,
-    selections=None,  # ttbar_selection,
+    selections=ttHH_selection,  # ttbar_selection,
     #    selections  = ttbar_selection,
     islocal=False
 )
@@ -277,21 +277,49 @@ dataset.addSample(
     categories  = ttnb_categories,
     process="tt4b",
 #    lumiWeight  = 41.5,
-    selections  = None,#ttbar_selection,
+    selections=ttHH_selection,  # ttbar_selection,
 #    selections  = ttbar_selection,
     islocal     = False
       ) # not finished
 
 
+# dataset.addSample(
+#     sampleName="TTH",
+#     ntuples=ntuplesPath2 +
+#     "/2017/ntuple/ttHTobb_M125_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2017/230115_051203/*/*"+options.syst+"*.root",
+#     #    ntuples     = ntuplesPath+"/ttH_220208.root",
+#     categories=ttH_categories,
+#     process="ttH",
+#     #    lumiWeight  = 41.5,
+#     selections=None,  # ttbar_selection,
+#     #    selections  = ttH_selection,
+#     islocal=False
+# )
+
 dataset.addSample(
-    sampleName="TTH",
+    sampleName="TTHSL",
     ntuples=ntuplesPath2 +
-    "/2017/ntuple/ttHTobb_M125_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2017/230115_051203/*/*"+options.syst+"*.root",
+    "/2017/ntuple/ttHTobb_ttToSemiLep_M125_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2017/221126_054916/*/*"+options.syst+"*.root",
+    # 221118_235008
     #    ntuples     = ntuplesPath+"/ttH_220208.root",
     categories=ttH_categories,
     process="ttH",
     #    lumiWeight  = 41.5,
-    selections=None,  # ttbar_selection,
+    selections=ttHH_selection,  # ttbar_selection,
+    #    selections  = ttH_selection,
+    islocal=False
+)
+
+dataset.addSample(
+    sampleName="TTHDL",
+    ntuples=ntuplesPath2 +
+    "/2017/ntuple/ttHTobb_ttTo2L2Nu_M125_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2017/221126_054300/*/*"+options.syst+"*.root",
+    # 221118_235008
+    #    ntuples     = ntuplesPath+"/ttH_220208.root",
+    categories=ttH_categories,
+    process="ttH",
+    #    lumiWeight  = 41.5,
+    selections=ttHH_selection,  # ttbar_selection,
     #    selections  = ttH_selection,
     islocal=False
 )
@@ -304,7 +332,7 @@ dataset.addSample(
     categories=ttbar_categories,
     process="ttSL",
     # lumiWeight  = 5.0,
-    selections=None,  # ttbar_selection,
+    selections=ttHH_selection,  # ttbar_selection,
     #    selections  = ttbar_selection
     islocal=False
 )
@@ -317,7 +345,7 @@ dataset.addSample(
     categories=ttbar_categories,
     process="ttDL",
     # lumiWeight  = 5.0,
-    selections=None,  # ttbar_selection,
+    selections=ttHH_selection,  # ttbar_selection,
     #    selections  = ttbar_selection
     islocal=False
 )
