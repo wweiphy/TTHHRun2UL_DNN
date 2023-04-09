@@ -1004,8 +1004,7 @@ class DrawHistograms:
 # ===============================================
 def getCanvas(name, ratiopad = False):
     if ratiopad:
-        canvas = ROOT.TCanvas(name, name, 1500, 1024)
-        # canvas = ROOT.TCanvas(name, name, 1024, 1024)
+        canvas = ROOT.TCanvas(name, name, 1024, 1024)
         canvas.Divide(1,2)
         canvas.cd(1).SetPad(0.,0.3,1.0,1.0)
         canvas.cd(1).SetTopMargin(0.07)
@@ -1016,7 +1015,8 @@ def getCanvas(name, ratiopad = False):
         canvas.cd(2).SetBottomMargin(0.4)
 
         canvas.cd(1).SetRightMargin(0.05)
-        canvas.cd(1).SetLeftMargin(0.15)
+        canvas.cd(1).SetLeftMargin(0.05)
+        # canvas.cd(1).SetLeftMargin(0.15)
         canvas.cd(1).SetTicks(1,1)
 
         canvas.cd(2).SetRightMargin(0.05)
