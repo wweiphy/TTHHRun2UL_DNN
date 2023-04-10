@@ -12,7 +12,7 @@ import preprocessing
 
 
 """
-USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_ttZ.py --outputdirectory=Eval_0308_UL_nominal_2 --variableselection=variables --maxentries=20000 --cores=8 --dataEra=2018
+USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_ttH.py --outputdirectory=Control_0409 --variableselection=variables --maxentries=20000 --cores=8 --dataEra=2018
 """
 
 usage="usage=%prog [options] \n"
@@ -118,8 +118,6 @@ dataset = preprocessing.Dataset(
     ncores      = options.numCores,
     dataEra=options.dataEra,
     do_EvalSFs=True,
-    # do_pileup=True,
-    # do_PUJetID=True
     )
 
 # add base event selection
@@ -127,19 +125,48 @@ dataset.addBaseSelection(base_selection)
 
 
 
+# dataset.addSample(
+#     sampleName="TTHSL",
+#     ntuples=ntuplesPath2 +
+#     "/2017/ntuple/ttHTobb_ttToSemiLep_M125_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2017/221126_054916/*/*nominal*.root",
+#     # 221118_235008
+#     #    ntuples     = ntuplesPath+"/ttH_220208.root",
+#     categories=ttH_categories,
+#     process="ttH",
+#     #    lumiWeight  = 41.5,
+#     selections=None,  # ttbar_selection,
+#     #    selections  = ttH_selection,
+#     islocal=False
+# )
+
+
+
 dataset.addSample(
-    sampleName="TTZ",
+    sampleName="TTHSL",
     ntuples=ntuplesPath2 +
-    "/2018/ntuple/TTZToBB_TuneCP5_13TeV-amcatnlo-pythia8/sl_LEG_ntuple_2018/230307_040245/*/*nominal*.root",
-    # ntuples="/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_10_6_29/src/BoostedTTH/BoostedAnalyzer/test/ntuples_nominal_Tree.root",
+    "/2018/ntuple/ttHTobb_ttToSemiLep_M125_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2018/230307_151436/*/*nominal*.root",
     #    ntuples     = ntuplesPath+"/ttH_220208.root",
-    categories=ttZ_categories,
-    process = "ttZ",
+    categories=ttH_categories,
+    process = "ttH",
     #    lumiWeight  = 41.5,
     selections=ttHH_selection,  # ttbar_selection,
-    #    selections  = ttbar_selection,
-    islocal=True
-)  # almost
+    #    selections  = ttH_selection,
+    islocal=False
+)
+
+
+dataset.addSample(
+    sampleName="TTHDL",
+    ntuples=ntuplesPath2 +
+    "/2018/ntuple/ttHTobb_ttTo2L2Nu_M125_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2018/230307_150912/*/*nominal*.root",
+    #    ntuples     = ntuplesPath+"/ttH_220208.root",
+    categories=ttH_categories,
+    process="ttH",
+    #    lumiWeight  = 41.5,
+    selections=ttHH_selection,  # ttbar_selection,
+    #    selections  = ttH_selection,
+    islocal=False
+)
 
 
 # initialize variable list
@@ -156,6 +183,8 @@ import sf_variables as sf_var
 dataset.addVariables(add_var.additional_variables)
 
 dataset.addVariables(sf_var.scalefactor_variables)
+dataset.addVariables(sf_var.ttH_variables)
+dataset.addVariables(sf_var.PDF_ttH)
 
 
 # run the preprocessing

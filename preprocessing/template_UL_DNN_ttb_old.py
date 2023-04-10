@@ -99,6 +99,7 @@ ttbar_categories.addCategory("tt2b", selection = "(GenEvt_I_TTPlusBB == 2 and Ge
 ttbar_categories.addCategory("ttb",  selection = "(GenEvt_I_TTPlusBB == 1 and GenEvt_I_TTPlusCC == 0)")
 # ttbar_categories.addCategory("ttlf", selection = "(GenEvt_I_TTPlusBB == 0 and GenEvt_I_TTPlusCC == 0)")
 # ttbar_categories.addCategory("ttcc", selection = "(GenEvt_I_TTPlusBB == 0 and GenEvt_I_TTPlusCC == 1)")
+
 ttbar2_categories = preprocessing.EventCategories()
 ttbar2_categories.addCategory("ttbbb", selection = "(GenEvt_I_TTPlusBB == 4 and GenEvt_I_TTPlusCC == 0)")
 ttbar2_categories.addCategory("tt4b", selection = "(GenEvt_I_TTPlusBB == 5 and GenEvt_I_TTPlusCC == 0)")
@@ -209,28 +210,28 @@ dataset.addBaseSelection(base_selection)
 #     islocal=True
 # )
 
-dataset.addSample(
-    sampleName="TT4b",
-    ntuples=ntuplesPath2 +
-    "/2017/ntuple/TT4b_TuneCP5_13TeV_madgraph_pythia8/sl_LEG_ntuple_2017/221126_051927/*/*nominal*.root",
-    categories=ttnb_categories,
-    #    lumiWeight  = 41.5,
-    selections=None,  # ttbar_selection,
-    #    selections  = ttbar_selection,
-    islocal=False
-)  # not finished
-
-
 # dataset.addSample(
-#     sampleName="TTbbSL",
+#     sampleName="TT4b",
 #     ntuples=ntuplesPath2 +
-#     "/2017/ntuple/TTbb_4f_TTToSemiLeptonic_TuneCP5-Powheg-Openloops-Pythia8/sl_LEG_ntuple_2017/221126_053456/*/*nominal*.root",
+#     "/2017/ntuple/TT4b_TuneCP5_13TeV_madgraph_pythia8/sl_LEG_ntuple_2017/221126_051927/*/*nominal*.root",
 #     categories=ttbar_categories,
 #     #    lumiWeight  = 41.5,
 #     selections=None,  # ttbar_selection,
 #     #    selections  = ttbar_selection,
 #     islocal=False
-# )
+# )  # not finished
+
+
+dataset.addSample(
+    sampleName="TTbbSL",
+    ntuples=ntuplesPath2 +
+    "/2017/ntuple/TTbb_4f_TTToSemiLeptonic_TuneCP5-Powheg-Openloops-Pythia8/sl_LEG_ntuple_2017/221126_053456/*/*nominal*.root",
+    categories=ttbar_categories,
+    #    lumiWeight  = 41.5,
+    selections=ttHH_selection,  # ttbar_selection,
+    #    selections  = ttbar_selection,
+    islocal=False
+)
 
 # dataset.addSample(
 #     sampleName="TTbbToDL",

@@ -12,7 +12,7 @@ import preprocessing
 
 
 """
-USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_DNN_ttHSL.py --outputdirectory=DNN_0119_UL --variableselection=variables --maxentries=20000 --cores=4
+USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_DNN_ttZH.py --outputdirectory=DNN_0119_UL --variableselection=variables --maxentries=20000 --cores=4
 """
 
 usage="usage=%prog [options] \n"
@@ -121,17 +121,30 @@ dataset = preprocessing.Dataset(
 dataset.addBaseSelection(base_selection)
 
 
+
 dataset.addSample(
-    sampleName="TTHSL",
+    sampleName="TTZH",
     ntuples=ntuplesPath2 +
-    "/2017/ntuple/ttHTobb_ttToSemiLep_M125_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2017/221126_054916/*/*nominal*.root",
+    "/2017/ntuple/TTZHTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2017/221126_052419/*/*nominal*.root",
     #    ntuples     = ntuplesPath+"/ttH_220208.root",
-    categories=ttH_categories,
+    categories=ttZH_categories,
     #    lumiWeight  = 41.5,
-    selections=None,  # ttbar_selection,
-    #    selections  = ttH_selection,
+    selections=ttHH_selection,  # ttbar_selection,
+    #    selections  = ttbar_selection,
     islocal=False
 )
+
+dataset.addSample(
+    sampleName="TTZH2",
+    ntuples=ntuplesPath2 +
+    "/2017/ntuple/TTZHTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2017_Ext/221126_052726/*/*nominal*.root",
+    #    ntuples     = ntuplesPath+"/ttH_220208.root",
+    categories=ttZH_categories,
+    #    lumiWeight  = 41.5,
+    selections=ttHH_selection,  # ttbar_selection,
+    #    selections  = ttbar_selection,
+    islocal=False
+) # complete
 
 
 # initialize variable list

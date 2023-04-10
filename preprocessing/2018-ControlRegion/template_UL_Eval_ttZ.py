@@ -12,7 +12,7 @@ import preprocessing
 
 
 """
-USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_tt4b_new.py --outputdirectory=Eval_0308_UL_nominal_2 --variableselection=variables --maxentries=20000 --cores=8 --dataEra=2018
+USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_ttZ.py --outputdirectory=Control_0409 --variableselection=variables --maxentries=20000 --cores=8 --dataEra=2018
 """
 
 usage="usage=%prog [options] \n"
@@ -38,7 +38,6 @@ parser.add_option("-c", "--cores", dest="numCores", default=1,
 
 parser.add_option("-y", "--dataEra", dest="dataEra", default=2017,
                   help="dataera", metavar="dataEra")
-
 # parser.add_option("-l", "--islocal", dest="islocal", default=False,
 #                   help="True if the ntuple files are stored in the eos space, False if the ntuple files are in local space", metavar="islocal")
 
@@ -71,7 +70,7 @@ single_el_sel = "(N_LooseMuons == 0 and N_TightElectrons == 1 and (Triggered_HLT
 
 base_selection = "("+base+" and ("+single_mu_sel+" or "+single_el_sel+"))"
 
-ttHH_selection = "(Evt_Odd == 1)"  # Should I do this on ttHH
+ttHH_selection = "(Evt_Odd == 0)"  # Should I do this on ttHH
 
 # define output classes
 ttHH_categories = preprocessing.EventCategories()
@@ -105,10 +104,7 @@ ttbar_categories.addCategory("ttcc", selection = "(GenEvt_I_TTPlusBB == 0 and Ge
 
 ttmb_categories = preprocessing.EventCategories()
 ttmb_categories.addCategory("ttmb", selection = "(GenEvt_I_TTPlusBB == 3 and GenEvt_I_TTPlusCC == 0) or (GenEvt_I_TTPlusBB == 2 and GenEvt_I_TTPlusCC == 0) or (GenEvt_I_TTPlusBB == 1 and GenEvt_I_TTPlusCC == 0)")
-
-ttnb_categories = preprocessing.EventCategories()
-ttnb_categories.addCategory("ttnb", selection = "(GenEvt_I_TTPlusBB == 4 and GenEvt_I_TTPlusCC == 0) or (GenEvt_I_TTPlusBB == 5 and GenEvt_I_TTPlusCC == 0)")
-
+ttmb_categories.addCategory("ttnb", selection = "(GenEvt_I_TTPlusBB == 4 and GenEvt_I_TTPlusCC == 0) or (GenEvt_I_TTPlusBB == 5 and GenEvt_I_TTPlusCC == 0)")
 
 ntuplesPath = "/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_10_6_29/src/BoostedTTH/crab/2017UL/ntuple/crab_ntuple"
 ntuplesPath2 = "/eos/uscms/store/group/lpctthrun2/wwei/UL"
@@ -122,42 +118,33 @@ dataset = preprocessing.Dataset(
     ncores      = options.numCores,
     dataEra=options.dataEra,
     do_EvalSFs=True,
+    # do_pileup=True,
+    # do_PUJetID=True
     )
 
 # add base event selection
 dataset.addBaseSelection(base_selection)
 
 
-      
+
 dataset.addSample(
-    sampleName="TT4b",
+    sampleName="TTZ",
     ntuples=ntuplesPath2 +
-    "/2018/ntuple/TT4b_TuneCP5_13TeV_madgraph_pythia8/sl_LEG_ntuple_2018/230307_025553/*/*nominal*.root",
-    categories=ttnb_categories,
-    process="tt4b",
+    "/2018/ntuple/TTZToBB_TuneCP5_13TeV-amcatnlo-pythia8/sl_LEG_ntuple_2018/230307_040245/*/*nominal*.root",
+    # ntuples="/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_10_6_29/src/BoostedTTH/BoostedAnalyzer/test/ntuples_nominal_Tree.root",
+    #    ntuples     = ntuplesPath+"/ttH_220208.root",
+    categories=ttZ_categories,
+    process = "ttZ",
     #    lumiWeight  = 41.5,
     selections=ttHH_selection,  # ttbar_selection,
     #    selections  = ttbar_selection,
-    islocal=False
-)  # not finished
-
-
-
-# dataset.addSample(
-#     sampleName="TTbbToDL2",
-#     ntuples=ntuplesPath2 +
-#     "/2017/ntuple/ttHTobb_M125_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2017/*/*/*nominal*.root",
-#     categories=ttmb_categories,
-#     #    lumiWeight  = 41.5,
-#     selections=None,  # ttbar_selection,
-#     #    selections  = ttbar_selection,
-#     islocal=False
-# )
-      
+    islocal=True
+)  # almost
 
 
 # initialize variable list
 dataset.addVariables(variable_set.all_variables)
+
 
 sys.path.append(basedir+"/variable_sets/")
 
@@ -171,6 +158,6 @@ dataset.addVariables(add_var.additional_variables)
 dataset.addVariables(sf_var.scalefactor_variables)
 
 
-
 # run the preprocessing
 dataset.runPreprocessing()
+

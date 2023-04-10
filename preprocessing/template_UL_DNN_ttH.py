@@ -128,7 +128,7 @@ dataset.addSample(
     #    ntuples     = ntuplesPath+"/ttH_220208.root",
     categories=ttH_categories,
     #    lumiWeight  = 41.5,
-    selections=None,  # ttbar_selection,
+    selections=ttHH_selection,  # ttbar_selection,
     #    selections  = ttH_selection,
     islocal=False
 )
