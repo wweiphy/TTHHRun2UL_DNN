@@ -226,6 +226,7 @@ dataset.addSample(
     sampleName="TTbbSL",
     ntuples=ntuplesPath2 +
     "/2017/ntuple/TTbb_4f_TTToSemiLeptonic_TuneCP5-Powheg-Openloops-Pythia8/sl_LEG_ntuple_2017/221126_053456/*/*nominal*.root",
+    rocess="ttbb",
     categories=ttbar_categories,
     #    lumiWeight  = 41.5,
     selections=ttHH_selection,  # ttbar_selection,

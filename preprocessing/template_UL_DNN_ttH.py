@@ -126,6 +126,7 @@ dataset.addSample(
     ntuples=ntuplesPath2 +
     "/2017/ntuple/ttHTobb_ttToSemiLep_M125_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2017/221126_054916/*/*nominal*.root",
     #    ntuples     = ntuplesPath+"/ttH_220208.root",
+    rocess="ttH",
     categories=ttH_categories,
     #    lumiWeight  = 41.5,
     selections=ttHH_selection,  # ttbar_selection,
