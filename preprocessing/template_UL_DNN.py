@@ -1,4 +1,5 @@
 import sys
+import os
 import optparse
 # local imports
 filedir = os.path.dirname(os.path.realpath(__file__))
@@ -11,7 +12,7 @@ import preprocessing
 
 
 """
-USE: python /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_DNN.py --outputdirectory=DNN_0119_UL--variableselection=variables --maxentries=20000 --cores=4
+USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_DNN.py --outputdirectory=DNN_0119_UL--variableselection=variables --maxentries=20000 --cores=6
 """
 
 usage="usage=%prog [options] \n"
