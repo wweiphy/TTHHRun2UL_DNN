@@ -12,7 +12,7 @@ import preprocessing
 
 
 """
-USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_DNN_ttb_old.py --outputdirectory=DNN_0119_UL --variableselection=variables --maxentries=20000 --cores=4
+USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_DNN_tt4b_new.py --outputdirectory=DNN_0119_UL --variableselection=variables --maxentries=20000 --cores=4
 """
 
 usage="usage=%prog [options] \n"
