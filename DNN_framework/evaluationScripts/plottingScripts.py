@@ -705,6 +705,7 @@ class plotDiscriminators:
                         nbins=self.nbins,
                         bin_range=self.bin_range,
                         color=setup.GetPlotColor(truth_cls),
+                        title=str(truth_cls)+" at "+str(node_cls)+" node",
                         xtitle=str(truth_cls)+" at "+str(node_cls)+" node",
                         ytitle=setup.GetyTitle(self.privateWork),
                         filled=True)
@@ -723,6 +724,7 @@ class plotDiscriminators:
                     nbins=self.nbins,
                     bin_range=self.bin_range,
                     color=setup.GetPlotColor(sig_labels[iSig]),
+                    title=str(truth_cls)+" at "+str(node_cls)+" node",
                     xtitle=str(sig_labels[iSig])+" at "+str(node_cls)+" node",
                     ytitle=setup.GetyTitle(self.privateWork),
                     filled=False)
