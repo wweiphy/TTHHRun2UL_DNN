@@ -12,7 +12,7 @@ import preprocessing
 
 
 """
-USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_ttbar.py --outputdirectory=Control_0409_2 --variableselection=variables --maxentries=20000 --cores=6 --dataEra=2018
+USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_ttbar.py --outputdirectory=Control_0409 --variableselection=variables --maxentries=20000 --cores=6 --dataEra=2018
 
 """
 

@@ -12,7 +12,7 @@ import preprocessing
 
 
 """
-USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_DNN_ttZZ.py --outputdirectory=DNN_0119_UL --variableselection=variables --maxentries=20000 --cores=4
+USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_DNN_ttZZ.py --outputdirectory=DNN_0119_UL --variableselection=variables --maxentries=20000 --cores=8
 """
 
 usage="usage=%prog [options] \n"
@@ -128,8 +128,9 @@ dataset.addSample(
     "/2017/ntuple/TTZZTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2017/221126_052936/*/*nominal*.root",
     #    ntuples     = ntuplesPath+"/ttH_220208.root",
     categories=ttZZ_categories,
+    process="ttZZ",
     #    lumiWeight  = 41.5,
-    selections=None,  # ttbar_selection,
+    selections=ttHH_selection,  # ttbar_selection,
     #    selections  = ttbar_selection,
     islocal=False
 )
@@ -142,7 +143,9 @@ dataset.addSample(
     #    ntuples     = ntuplesPath+"/ttH_220208.root",
     categories=ttZZ_categories,
     #    lumiWeight  = 41.5,
-    selections=None,  # ttbar_selection,
+    selections=ttHH_selection,  
+    process="ttZZ",  
+    # ttbar_selection,
     #    selections  = ttbar_selection,
     islocal=False
 ) # complete

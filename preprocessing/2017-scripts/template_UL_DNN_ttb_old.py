@@ -12,7 +12,7 @@ import preprocessing
 
 
 """
-USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_DNN_ttb_old.py --outputdirectory=DNN_0119_UL --variableselection=variables --maxentries=20000 --cores=4
+USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_DNN_ttb_old.py --outputdirectory=DNN_0119_UL --variableselection=variables --maxentries=20000 --cores=8
 """
 
 usage="usage=%prog [options] \n"
@@ -226,9 +226,10 @@ dataset.addSample(
     sampleName="TTbbSL",
     ntuples=ntuplesPath2 +
     "/2017/ntuple/TTbb_4f_TTToSemiLeptonic_TuneCP5-Powheg-Openloops-Pythia8/sl_LEG_ntuple_2017/221126_053456/*/*nominal*.root",
+    process="ttbb",
     categories=ttbar_categories,
     #    lumiWeight  = 41.5,
-    selections=None,  # ttbar_selection,
+    selections=ttHH_selection,  # ttbar_selection,
     #    selections  = ttbar_selection,
     islocal=False
 )
