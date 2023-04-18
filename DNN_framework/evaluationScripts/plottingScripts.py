@@ -462,12 +462,12 @@ class saveDNNInput:
             bkgLabels = []
             weightIntegral = 0
 
-            print(self.data.df_unsplit_preprocessing["Jet_Pt[2]"])
+            # print(self.data.df_unsplit_preprocessing["Jet_Pt[2]"])
             for var in VariableMap.MCVariable:
                 
                 nbins = VariableMap.MCVariable[var][0]
                 bin_range = [VariableMap.MCVariable[var][1], VariableMap.MCVariable[var][2]]
-                print("plotting variable: "+var)
+                # print("plotting variable: "+var)
                 filtered_values = self.data.df_unsplit_preprocessing[var].values
 
                 # weightIntegral += sum(filtered_weights)
