@@ -462,6 +462,7 @@ class saveDNNInput:
             bkgLabels = []
             weightIntegral = 0
 
+            print(self.data.df_unsplit_preprocessing["Jet_Pt[2]"])
             for var in VariableMap.MCVariable:
                 
                 nbins = VariableMap.MCVariable[var][0]
