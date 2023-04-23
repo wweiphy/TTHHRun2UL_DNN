@@ -790,7 +790,8 @@ class DNN():
             # save predictions with keras model
             self.model_prediction_vector = self.model.predict(
                 self.data.get_full_data_after_preprocessing(as_matrix=True))
-            
+            self.predicted_classes = np.argmax(
+                self.model_prediction_vector, axis=1)
             # save confusion matrix
             from sklearn.metrics import confusion_matrix
             self.confusion_matrix = confusion_matrix(
