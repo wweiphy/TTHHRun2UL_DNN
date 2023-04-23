@@ -110,6 +110,7 @@ class savenominalDiscriminators:
                         weights=filtered_weights,
                         nbins=self.nbins,
                         bin_range=self.bin_range,
+                        title = str(node_cls)+"_node__"+str(truth_cls), 
                         #                        color     = setup.GetPlotColor(truth_cls),
                         xtitle="ljets_ge4j_ge3t_" + \
                         str(node_cls)+"_node__"+str(truth_cls),
@@ -132,6 +133,7 @@ class savenominalDiscriminators:
                         weights=filtered_syst_weights,
                         nbins=self.nbins,
                         bin_range=self.bin_range,
+                        title=str(node_cls)+"_node__"+str(truth_cls),
                         #                        color     = setup.GetPlotColor(truth_cls),
                         xtitle="ljets_ge4j_ge3t_" + \
                         str(node_cls)+"_node__"+str(truth_cls)+SystMap.systs[syst][0],
@@ -154,6 +156,7 @@ class savenominalDiscriminators:
                         weights=filtered_syst_weights,
                         nbins=self.nbins,
                         bin_range=self.bin_range,
+                        title = str(node_cls)+"_node__"+str(truth_cls),
                         #                        color     = setup.GetPlotColor(truth_cls),
                         xtitle="ljets_ge4j_ge3t_" + \
                         str(node_cls)+"_node__"+str(truth_cls) + \
@@ -174,6 +177,7 @@ class savenominalDiscriminators:
                             weights=weights_PDF,
                             nbins=self.nbins,
                             bin_range=self.bin_range,
+                            title=str(node_cls)+"_node__"+str(truth_cls),
                             #                        color     = setup.GetPlotColor(truth_cls),
                             xtitle="ljets_ge4j_ge3t_" + \
                             str(node_cls)+"_node__"+str(truth_cls) + \
@@ -192,6 +196,7 @@ class savenominalDiscriminators:
                             weights=weights_PDF,
                             nbins=self.nbins,
                             bin_range=self.bin_range,
+                            title=str(node_cls)+"_node__"+str(truth_cls),
                             #                        color     = setup.GetPlotColor(truth_cls),
                             xtitle="ljets_ge4j_ge3t_" + \
                             str(node_cls)+"_node__"+str(truth_cls) + \
@@ -210,6 +215,7 @@ class savenominalDiscriminators:
                             weights=filtered_syst_weights,
                             nbins=self.nbins,
                             bin_range=self.bin_range,
+                            title=str(node_cls)+"_node__"+str(truth_cls),
                             #                        color     = setup.GetPlotColor(truth_cls),
                             xtitle="ljets_ge4j_ge3t_" + \
                             str(node_cls)+"_node__"+str(truth_cls) + \
@@ -230,6 +236,7 @@ class savenominalDiscriminators:
                             weights=weights_PDF,
                             nbins=self.nbins,
                             bin_range=self.bin_range,
+                            title=str(node_cls)+"_node__"+str(truth_cls),
                             #                        color     = setup.GetPlotColor(truth_cls),
                             xtitle="ljets_ge4j_ge3t_" + \
                             str(node_cls)+"_node__"+str(truth_cls) + \
@@ -247,6 +254,7 @@ class savenominalDiscriminators:
                             weights=weights_PDF,
                             nbins=self.nbins,
                             bin_range=self.bin_range,
+                            title=str(node_cls)+"_node__"+str(truth_cls),
                             #                        color     = setup.GetPlotColor(truth_cls),
                             xtitle="ljets_ge4j_ge3t_" + \
                             str(node_cls)+"_node__"+str(truth_cls) + \
@@ -265,6 +273,7 @@ class savenominalDiscriminators:
                             weights=filtered_syst_weights,
                             nbins=self.nbins,
                             bin_range=self.bin_range,
+                            title=str(node_cls)+"_node__"+str(truth_cls),
                             #                        color     = setup.GetPlotColor(truth_cls),
                             xtitle="ljets_ge4j_ge3t_" + \
                             str(node_cls)+"_node__"+str(truth_cls) + \
@@ -288,6 +297,7 @@ class savenominalDiscriminators:
                             weights=weights_PDF,
                             nbins=self.nbins,
                             bin_range=self.bin_range,
+                            title=str(node_cls)+"_node__"+str(truth_cls),
                             #                        color     = setup.GetPlotColor(truth_cls),
                             xtitle="ljets_ge4j_ge3t_" + \
                             str(node_cls)+"_node__"+str(truth_cls) + \
@@ -311,6 +321,7 @@ class savenominalDiscriminators:
                             weights=filtered_syst_weights,
                             nbins=self.nbins,
                             bin_range=self.bin_range,
+                            title=str(node_cls)+"_node__"+str(truth_cls),
                             #                        color     = setup.GetPlotColor(truth_cls),
                             xtitle="ljets_ge4j_ge3t_" + \
                             str(node_cls)+"_node__"+str(truth_cls) + \
