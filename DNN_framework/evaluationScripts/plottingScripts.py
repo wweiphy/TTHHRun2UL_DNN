@@ -431,6 +431,7 @@ class saveJESJERDiscriminators:
                     weights=filtered_weights,
                     nbins=self.nbins,
                     bin_range=self.bin_range,
+                    title=str(node_cls)+"_node__"+str(truth_cls),
                     #                        color     = setup.GetPlotColor(truth_cls),
                     xtitle="ljets_ge4j_ge3t_" + \
                     str(node_cls)+"_node__"+str(truth_cls) + "__" + sys2,
