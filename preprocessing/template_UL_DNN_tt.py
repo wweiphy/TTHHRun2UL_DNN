@@ -12,7 +12,7 @@ import preprocessing
 
 
 """
-USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_DNN_tt.py --outputdirectory=DNN_0308_UL_2018 --variableselection=variables --maxentries=20000 --cores=8  --dataEra=2018
+USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_DNN_tt.py --outputdirectory=DNN_0509_UL_2016pre --variableselection=variables --maxentries=20000 --cores=8  --dataEra=2016preVFP
 """
 
 usage="usage=%prog [options] \n"
@@ -121,6 +121,8 @@ dataset = preprocessing.Dataset(
     dataEra=options.dataEra,
     do_EvalSFs=False,
     )
+
+
 
 # add base event selection
 dataset.addBaseSelection(base_selection)
@@ -246,11 +248,20 @@ dataset.addBaseSelection(base_selection)
       
 
 # initialize dataset class
+# dataset2 = preprocessing.Dataset(
+#     outputdir=outputdir,
+#     naming=options.Name,
+#     maxEntries=options.maxEntries,
+#     ncores=options.numCores,
+#     do_EvalSFs=False,
+# )
+
 dataset2 = preprocessing.Dataset(
     outputdir=outputdir,
     naming=options.Name,
     maxEntries=options.maxEntries,
     ncores=options.numCores,
+    dataEra=options.dataEra,
     do_EvalSFs=False,
 )
 
