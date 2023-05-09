@@ -12,7 +12,7 @@ import preprocessing
 
 
 """
-USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_DNN_ttZH.py --outputdirectory=DNN_0308_UL_2018 --variableselection=variables --maxentries=20000 --cores=8  --dataEra=2018
+USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_DNN_ttZH.py --outputdirectory=DNN_0508_UL_2016 --variableselection=variables --maxentries=20000 --cores=8  --dataEra=2016postVFP
 """
 
 usage="usage=%prog [options] \n"
@@ -195,7 +195,7 @@ dataset.addBaseSelection(base_selection)
 dataset.addSample(
     sampleName="TTZH2",
     ntuples=ntuplesPath2 +
-    "/2016pre/ntuple/TTZHTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2016preVFP_Ext/230501_204707/*/*nominal*.root",
+    "/2016post/ntuple/TTZHTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2016postVFP_Ext/230501_193609/*/*nominal*.root",
     #    ntuples     = ntuplesPath+"/ttH_220208.root",
     categories=ttZH_categories,
     process = "ttZH",

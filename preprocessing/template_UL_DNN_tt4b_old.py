@@ -215,7 +215,7 @@ dataset.addBaseSelection(base_selection)
 dataset.addSample(
     sampleName  = "TT4b",
     ntuples=ntuplesPath2 +
-    "/2016pre/ntuple/TT4b_TuneCP5_13TeV_madgraph_pythia8/sl_LEG_ntuple_2016preVFP/230501_201059/*/*nominal*.root",
+    "/2016post/ntuple/TT4b_TuneCP5_13TeV_madgraph_pythia8/sl_LEG_ntuple_2016postVFP/230501_151230/*/*nominal*.root",
     categories  = ttbar2_categories,
     process = "tt4b",
 #    lumiWeight  = 41.5,
