@@ -260,7 +260,7 @@ dataset2.addBaseSelection(base_selection)
 dataset2.addSample(
     sampleName="TTSL",
     ntuples=ntuplesPath2 +
-    "/2016post/ntuple/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2016postVFP/230501_164800/*/*nominal*.root",
+    "/2016pre/ntuple/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2016preVFP/230501_203935/*/*nominal*.root",
     #    ntuples     = ntuplesPath+"/ttSL_220210.root",
     categories=ttbar_categories,
     process = "ttSL",
