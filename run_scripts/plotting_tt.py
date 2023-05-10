@@ -1,7 +1,8 @@
 
 # 2017
 
-# python plotting_ttH.py -i Eval_0119_UL_nominal -o Control_test -c ge4j_ge3t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables -n ge4j_ge3t_ttH --plot --printroc
+# python plotting_tt.py -i Eval_0119_UL_nominal -o tt_test -c ge4j_ge3t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables -n ge4j_ge3t_ttH --plot --printroc
+# python plotting_tt.py -i DNN_0119_UL -o tt_test -c ge4j_ge3t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables -n ge4j_ge3t_ttH --plot --printroc
 
 
 # global imports
@@ -34,8 +35,8 @@ options.initArguments()
 input_samples = df.InputSamples(options.getInputDirectory(), options.getTestPercentage())
 
 weight_expr = "x.Weight_XS * x.Weight_CSV_UL * x.Weight_GEN_nom * x.lumiWeight"
-input_samples.addSample(options.getDefaultName("ttlf"),  label = "ttlf",  normalization_weight = options.getNomWeight(), train_weight = 1, total_weight_expr = weight_expr)
-input_samples.addSample(options.getDefaultName("ttcc"),  label = "ttcc",  normalization_weight = options.getNomWeight(), train_weight = 1, total_weight_expr = weight_expr)
+input_samples.addSample(options.getDefaultName("ttlf"),  label = "ttlf",  normalization_weight = 6., train_weight = 1, total_weight_expr = weight_expr)
+input_samples.addSample(options.getDefaultName("ttcc"),  label = "ttcc",  normalization_weight = 6., train_weight = 1, total_weight_expr = weight_expr)
 
 # init DNN class
 # dnn = DNN.DNN(
