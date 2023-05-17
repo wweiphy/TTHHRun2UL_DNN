@@ -12,7 +12,7 @@ import preprocessing
 
 
 """
-USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_DNN_tt.py --outputdirectory=DNN_0509_UL_2016pre --variableselection=variables --maxentries=20000 --cores=8  --dataEra=2016preVFP
+USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_DNN_tt.py --outputdirectory=DNN_0509_UL_2016pre_2 --variableselection=variables --maxentries=20000 --cores=8  --dataEra=2016preVFP
 """
 
 usage="usage=%prog [options] \n"
@@ -276,7 +276,8 @@ dataset2.addSample(
     categories=ttbar_categories,
     process = "ttSL",
     #    lumiWeight  = 41.5,
-    selections=ttHH_selection,  # ttbar_selection,
+    selections=None,  # ttbar_selection,
+    # selections=ttHH_selection,  # ttbar_selection,
     #    selections  = ttbar_selection
     islocal=False
 )
