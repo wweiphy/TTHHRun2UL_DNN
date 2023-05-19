@@ -12,7 +12,7 @@ import preprocessing
 
 
 """
-USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_DNN_tt4b.py --outputdirectory=DNN_0509_UL_2016pre --variableselection=variables --maxentries=20000 --cores=8  --dataEra=2016preVFP
+USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_DNN_tt4b.py --outputdirectory=DNN_0509_UL_2016pre_2 --variableselection=variables --maxentries=20000 --cores=8  --dataEra=2016preVFP
 """
 
 usage="usage=%prog [options] \n"
@@ -221,7 +221,7 @@ dataset.addBaseSelection(base_selection)
 dataset.addSample(
     sampleName  = "TT4b",
     ntuples=ntuplesPath2 +
-    "/2016pre/ntuple/TT4b_TuneCP5_13TeV_madgraph_pythia8/sl_LEG_ntuple_2016preVFP/230510_170916/*/*nominal*.root",
+    "/2016pre/ntuple/TT4b_TuneCP5_13TeV_madgraph_pythia8/sl_LEG_ntuple_2016preVFP/230518_165532/*/*nominal*.root",
     categories  = ttnb_categories,
     process = "tt4b",
 #    lumiWeight  = 41.5,
