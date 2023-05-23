@@ -129,7 +129,7 @@ dataset.addBaseSelection(base_selection)
 dataset.addSample(
     sampleName="TTHHTo4b",
     ntuples=ntuplesPath2 +
-    "/2016pre/ntuple/TTHHTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2016preVFP/230501_202506/*/*nominal*.root",
+    "/2016post/ntuple/TTHHTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2016postVFP/230518_170305/*/*nominal*.root",
     #    ntuples     = ntuplesPath+"/ttHH_4b.root",
     categories=ttHH_categories,
     process = "ttHH",

@@ -221,12 +221,12 @@ dataset.addBaseSelection(base_selection)
 dataset.addSample(
     sampleName  = "TT4b",
     ntuples=ntuplesPath2 +
-    "/2016pre/ntuple/TT4b_TuneCP5_13TeV_madgraph_pythia8/sl_LEG_ntuple_2016preVFP/230518_165532/*/*nominal*.root",
+    "/2016post/ntuple/TT4b_TuneCP5_13TeV_madgraph_pythia8/sl_LEG_ntuple_2016postVFP/230510_165334/*/*nominal*.root",
     categories  = ttnb_categories,
     process = "tt4b",
 #    lumiWeight  = 41.5,
-    selections=None,  # ttbar_selection,
-    # selections=ttHH_selection,  # ttbar_selection,
+    # selections=None,  # ttbar_selection,
+    selections=ttHH_selection,  # ttbar_selection,
 #    selections  = ttbar_selection,
     islocal     = False
       ) 

@@ -142,7 +142,7 @@ dataset.addBaseSelection(base_selection)
 dataset.addSample(
     sampleName="TTHSL",
     ntuples=ntuplesPath2 +
-    "/2016pre/ntuple/ttHTobb_ttToSemiLep_M125_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2016preVFP/230502_021518/*/*nominal*.root",
+    "/2016postVFP/ntuple/ttHTobb_ttToSemiLep_M125_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2016postVFP/230501_195718/*/*nominal*.root",
     #    ntuples     = ntuplesPath+"/ttH_220208.root",
     categories=ttH_categories,
     process = "ttH",
