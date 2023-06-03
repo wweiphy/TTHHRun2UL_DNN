@@ -12,7 +12,7 @@ import preprocessing
 
 
 """
-USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_ttbar.py --outputdirectory=Eval_0515_UL_nominal_test2 --variableselection=variables --maxentries=20000 --cores=8 --dataEra=2016preVFP
+USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_ttbar.py --outputdirectory=Eval_0523_UL_nominal --variableselection=variables --maxentries=20000 --cores=8 --dataEra=2016postVFP
 
 """
 
@@ -128,10 +128,8 @@ dataset2.addBaseSelection(base_selection)
 
 dataset2.addSample(
     sampleName="TTSL",
-    # ntuples=ntuplesPath2 +
-    # "/2016pre/ntuple/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2016preVFP/230518_165550/*/ntuples_nominal_Tree_994.root",
     ntuples=ntuplesPath2 +
-    "/2016pre/ntuple/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2016preVFP/230518_165550/*/*nominal*.root",
+    "/2016post/ntuple/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2016postVFP/230518_170714/*/*nominal*.root",
     #    ntuples     = ntuplesPath+"/ttSL_220210.root",
     categories=ttbar_categories,
     process = "ttSL",
@@ -143,10 +141,8 @@ dataset2.addSample(
 
 dataset2.addSample(
     sampleName="TTDL",
-    # ntuples=ntuplesPath2 +
-    # "/2016pre/ntuple/TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2016preVFP/230501_203418/*/ntuples_nominal_Tree_99.root",
     ntuples=ntuplesPath2 +
-    "/2016pre/ntuple/TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2016preVFP/230501_203418/*/*nominal*.root",
+    "/2016post/ntuple/TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2016postVFP/230501_172101/*/*nominal*.root",
     #    ntuples     = ntuplesPath+"/ttSL_220210.root",
     categories=ttbar_categories,
     process="ttDL",
