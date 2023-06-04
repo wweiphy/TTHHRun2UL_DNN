@@ -170,7 +170,7 @@ dataset.addBaseSelection(base_selection)
 dataset.addSample(
     sampleName  = "TTbbSL",
     ntuples=ntuplesPath2 +
-    "/2016post/ntuple/TTbb_4f_TTToSemiLeptonic_TuneCP5-Powheg-Openloops-Pythia8/sl_LEG_ntuple_2016postVFP/230518_170459/*/*"+options.syst+"*.root",
+    "/2016pre/ntuple/TTbb_4f_TTToSemiLeptonic_TuneCP5-Powheg-Openloops-Pythia8/sl_LEG_ntuple_2016preVFP/230501_213507/*/*"+options.syst+"*.root",
     categories  = ttbar_categories,
     process = "ttbbSL",
 #    lumiWeight  = 41.5,
@@ -182,7 +182,7 @@ dataset.addSample(
 dataset.addSample(
     sampleName="TTbbDL",
     ntuples=ntuplesPath2 +
-    "/2016post/ntuple/TTbb_4f_TTTo2L2Nu_TuneCP5-Powheg-Openloops-Pythia8/sl_LEG_ntuple_2016postVFP/230518_170648/*/*"+options.syst+"*.root",
+    "/2016pre/ntuple/TTbb_4f_TTTo2L2Nu_TuneCP5-Powheg-Openloops-Pythia8/sl_LEG_ntuple_2016preVFP/230501_210459/*/*"+options.syst+"*.root",
     # 221118_234955
     categories=ttbar_categories,
     process="ttbbDL",
@@ -195,7 +195,7 @@ dataset.addSample(
 dataset.addSample(
     sampleName  = "TT4b",
     ntuples=ntuplesPath2 +
-    "/2016post/ntuple/TT4b_TuneCP5_13TeV_madgraph_pythia8/sl_LEG_ntuple_2016postVFP/230510_165334/*/*" +
+    "/2016pre/ntuple/TT4b_TuneCP5_13TeV_madgraph_pythia8/sl_LEG_ntuple_2016preVFP/230518_165532/*/*" +
     options.syst+"*.root",
     categories  = ttbar2_categories,
     process = "tt4b",
