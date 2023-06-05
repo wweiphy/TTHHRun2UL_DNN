@@ -32,9 +32,9 @@ import DNN_framework.data_frame as df
 # 2016post
 # python eval_template_new_sys.py -o 230523_evaluation_new -i 230523_50_ge4j_ge3t --signalclass=ttHH --plot --printroc -d Eval_0523_UL --syst=JESup
 
-# python eval_template_new_sys.py -o 230119_evaluation_new_6j4b -i 230119_50_ge6j_ge4t  --signalclass=ttHH --plot --printroc -d Eval_0119_UL  --syst=JESup
+# python eval_template_new_sys.py -o 230523_evaluation_new_6j4b -i 230523_50_ge6j_ge4t  --signalclass=ttHH --plot --printroc -d Eval_0523_UL  --syst=JESup
 
-# python eval_template_new_sys.py -o 230119_evaluation_new_5j4b -i 230119_50_ge5j_ge4t  --signalclass=ttHH --plot --printroc -d Eval_0119_UL  --syst=JESup
+# python eval_template_new_sys.py -o 230523_evaluation_new_5j4b -i 230523_50_ge5j_ge4t  --signalclass=ttHH --plot --printroc -d Eval_0523_UL  --syst=JESup
 
 """
 USE: python train_template.py -o DIR -v FILE -n STR -c STR -e INT -s INT -p -l --privatework --netconfig=STR --signalclass=STR --printroc
@@ -224,8 +224,8 @@ dnn = DNN.DNN(
         # sample_save_path=sample_save_path,
         input_samples=input_samples,
         # lumi = 119.4,
-        lumi=33.62,  # 2016post
-        # lumi = 39.04 # 2016pre
+        # lumi=33.62,  # 2016post
+        lumi = 39.04 # 2016pre
         # lumi = 83,
         category_name=config["JetTagCategory"],
         train_variables=config["trainVariables"],
