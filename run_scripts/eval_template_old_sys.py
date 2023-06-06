@@ -20,6 +20,9 @@ import DNN_framework.data_frame as df
 # 2017
 # python eval_template_old_sys.py -o 230119_evaluation_old_2 -i 221130_50_old_ge4j_ge3t --signalclass=ttHH --plot --printroc -d Eval_0119_UL --syst=JESup
 
+# 2016pre
+# python eval_template_old_sys.py -o 230515_evaluation_old -i 230516_50_old_ge4j_ge3t --signalclass=ttHH --plot --printroc -d Eval_0515_UL --syst=JESup
+
 
 """
 USE: python train_template.py -o DIR -v FILE -n STR -c STR -e INT -s INT -p -l --privatework --netconfig=STR --signalclass=STR --printroc
@@ -222,8 +225,8 @@ dnn = DNN.DNN(
         # sample_save_path=sample_save_path,
         input_samples=input_samples,
         # lumi = 119.4,
-        # lumi = 33.62, # 2016post
-        lumi=39.04,  # 2016pre
+        lumi = 33.62, # 2016post
+        # lumi=39.04,  # 2016pre
         # lumi = 83,
         category_name=config["JetTagCategory"],
         train_variables=config["trainVariables"],
