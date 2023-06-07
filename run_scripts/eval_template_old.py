@@ -23,6 +23,9 @@ import DNN_framework.data_frame as df
 #  2016pre
 # python eval_template_old.py -o 230515_evaluation_old -i 230515_50_old_ge4j_ge3t --signalclass=ttHH --plot --printroc -d Eval_0515_UL_nominal
 
+# 2016post
+# python eval_template_old.py -o 230523_evaluation_old -i 230523_50_old_ge4j_ge3t --signalclass=ttHH --plot --printroc -d Eval_0523_UL_nominal
+
 
 
 
@@ -148,18 +151,18 @@ for sample in config["eventClasses"]:
                 # sample_path = dfDirectory+"ttZ_dnn.h5"
         elif sample["sampleLabel"] == "ttb":
                 # sample_train_weight = 1
-                normalization_weight = 61.
-                # normalization_weight = 6.1
+                # normalization_weight = 61. # 2017
+                normalization_weight = 6.1 # 2018
                 # sample_path = dfDirectory+"ttb_dnn.h5"
         elif sample["sampleLabel"] == "ttbb":
                 # sample_train_weight = 1
-                normalization_weight = 61.
-                # normalization_weight = 6.1
+                # normalization_weight = 61.
+                normalization_weight = 6.1
                 # sample_path = dfDirectory+"ttbb_dnn.h5"
         elif sample["sampleLabel"] == "tt2b":
         #     sample_train_weight = 1
-                normalization_weight = 61.
-                # normalization_weight = 6.1
+                # normalization_weight = 61.
+                normalization_weight = 6.1
         #     sample_path = dfDirectory+"tt2b_dnn.h5"
         elif sample["sampleLabel"] == "tt4b":
         #     sample_train_weight = 1

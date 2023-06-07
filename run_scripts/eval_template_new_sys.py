@@ -36,6 +36,13 @@ import DNN_framework.data_frame as df
 
 # python eval_template_new_sys.py -o 230523_evaluation_new_5j4b -i 230523_50_ge5j_ge4t  --signalclass=ttHH --plot --printroc -d Eval_0523_UL  --syst=JESup
 
+# 2016pre
+# python eval_template_new_sys.py -o 230515_evaluation_new -i 230515_50_ge4j_ge3t --signalclass=ttHH --plot --printroc -d Eval_0515_UL --syst=JESup
+
+# python eval_template_new_sys.py -o 230515_evaluation_new_6j4b -i 230515_50_ge6j_ge4t  --signalclass=ttHH --plot --printroc -d Eval_0515_UL  --syst=JESup
+
+# python eval_template_new_sys.py -o 230515_evaluation_new_5j4b -i 230515_50_ge5j_ge4t  --signalclass=ttHH --plot --printroc -d Eval_0515_UL  --syst=JESup
+
 """
 USE: python train_template.py -o DIR -v FILE -n STR -c STR -e INT -s INT -p -l --privatework --netconfig=STR --signalclass=STR --printroc
 """
@@ -188,8 +195,8 @@ for sample in config["eventClasses"]:
                 # sample_path = dfDirectory+"ttZ_dnn.h5"
         elif sample["sampleLabel"] == "ttmb":
         #     sample_train_weight = 1
-                normalization_weight = 61.
-                # normalization_weight = 6.1
+                # normalization_weight = 61.
+                normalization_weight = 6.1
         #     sample_path = dfDirectory+"ttmb_dnn.h5"
         elif sample["sampleLabel"] == "ttnb":
         #     sample_train_weight = 1
