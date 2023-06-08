@@ -12,7 +12,7 @@ import preprocessing
 
 
 """
-USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_ttHH.py --outputdirectory=Eval_0515_UL_nominal --variableselection=variables --maxentries=20000 --cores=8 --dataEra=2016preVFP
+USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_singlemuon.py --outputdirectory=Control_0409 --variableselection=variables --maxentries=20000 --cores=8 --dataEra=2018
 """
 
 usage="usage=%prog [options] \n"
@@ -62,7 +62,7 @@ else:
 # select only events with GEN weight > 0 because training with negative weights is weird
 
 # base = "(N_Jets >= 4 and N_BTagsM >= 3 and Evt_MET > 20. and Weight_GEN_nom > 0.)"
-base = "(N_Jets >= 4 and N_BTagsM >= 3 and Evt_MET > 20.)"
+base = "(N_Jets >= 4 and N_BTagsM == 2 and Evt_MET > 20.)"
 
 # single lepton selections
 single_mu_sel = "(N_LooseElectrons == 0 and N_TightMuons == 1 and Muon_Pt > 29. and Triggered_HLT_IsoMu27_vX == 1)"
@@ -82,6 +82,12 @@ ttHH_categories.addCategory("ttHH", selection = None)
 
 ttZH_categories = preprocessing.EventCategories()
 ttZH_categories.addCategory("ttZH", selection = None)
+
+mudata_categories = preprocessing.EventCategories()
+mudata_categories.addCategory("mudata", selection = None)
+
+eledata_categories = preprocessing.EventCategories()
+eledata_categories.addCategory("eledata", selection = None)
 
 ttZZ_categories = preprocessing.EventCategories()
 ttZZ_categories.addCategory("ttZZ", selection = None)
@@ -124,18 +130,63 @@ dataset = preprocessing.Dataset(
 dataset.addBaseSelection(base_selection)
 
 
+
 dataset.addSample(
-    sampleName="TTHHTo4b",
+    sampleName="SingleMuonB",
     ntuples=ntuplesPath2 +
-    "/2016pre/ntuple/TTHHTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2016preVFP/230501_202506/*/*nominal*.root",
-    #    ntuples     = ntuplesPath+"/ttHH_4b.root",
-    categories=ttHH_categories,
-    process = "ttHH",
+    "/2018/ntuple/SingleMuon/sl_LEG_ntuple_2018/230606_031317/*/*nominal*.root",
+    #    ntuples     = ntuplesPath+"/ttH_220208.root",
+    categories=mudata_categories,
+    process = "data",
     #    lumiWeight  = 41.5,
-    # selections  = None,
-    selections=ttHH_selection,
+    selections=None,  # ttbar_selection,
+    #    selections  = ttbar_selection,
     islocal=False
 )
+
+
+# dataset.addSample(
+#     sampleName="SingleMuon2",
+#     ntuples=ntuplesPath2 +
+#     "/2018/ntuple/SingleMuon/sl_LEG_ntuple_2018/230414_204020/*/*nominal*.root",
+#     #    ntuples     = ntuplesPath+"/ttH_220208.root",
+#     categories=mudata_categories,
+#     process = "data",
+#     #    lumiWeight  = 41.5,
+#     selections=None,  # ttbar_selection,
+#     #    selections  = ttbar_selection,
+#     islocal=False
+# )
+
+
+# dataset.addSample(
+#     sampleName="SingleMuon3",
+#     ntuples=ntuplesPath2 +
+#     "/2018/ntuple/SingleMuon/sl_LEG_ntuple_2018/230414_204247/*/*nominal*.root",
+#     #    ntuples     = ntuplesPath+"/ttH_220208.root",
+#     categories=mudata_categories,
+#     process = "data",
+#     #    lumiWeight  = 41.5,
+#     selections=None,  # ttbar_selection,
+#     #    selections  = ttbar_selection,
+#     islocal=False
+# )
+
+
+# dataset.addSample(
+#     sampleName="SingleMuon4",
+#     ntuples=ntuplesPath2 +
+#     "/2018/ntuple/SingleMuon/sl_LEG_ntuple_2018/230414_204846/*/*nominal*.root",
+#     #    ntuples     = ntuplesPath+"/ttH_220208.root",
+#     categories=mudata_categories,
+#     process = "data",
+#     #    lumiWeight  = 41.5,
+#     selections=None,  # ttbar_selection,
+#     #    selections  = ttbar_selection,
+#     islocal=False
+# )
+
+
 
 
 # initialize variable list
@@ -152,6 +203,7 @@ import sf_variables as sf_var
 dataset.addVariables(add_var.additional_variables)
 
 dataset.addVariables(sf_var.scalefactor_variables)
+
 
 # run the preprocessing
 dataset.runPreprocessing()
