@@ -12,7 +12,7 @@ import preprocessing
 
 
 """
-USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_singlemuon.py --outputdirectory=Control_0409 --variableselection=variables --maxentries=20000 --cores=8 --dataEra=2018
+USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_singlemuonB.py --outputdirectory=Control_0409_data --variableselection=variables_data --maxentries=20000 --cores=8 --dataEra=2018
 """
 
 usage="usage=%prog [options] \n"
@@ -196,13 +196,13 @@ dataset.addVariables(variable_set.all_variables)
 sys.path.append(basedir+"/variable_sets/")
 
 # print (basedir)
-import additional_variables as add_var
+import additional_variables_data as add_var
 # import sf_variables as sf_var
-import sf_variables as sf_var
+# import sf_variables as sf_var
 # add these variables to the variable list
 dataset.addVariables(add_var.additional_variables)
 
-dataset.addVariables(sf_var.scalefactor_variables)
+# dataset.addVariables(sf_var.scalefactor_variables)
 
 
 # run the preprocessing
