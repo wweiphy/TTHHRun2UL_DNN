@@ -12,7 +12,7 @@ import preprocessing
 
 
 """
-USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_singlemuonB.py --outputdirectory=Control_0409_data --variableselection=variables_data --maxentries=20000 --cores=8 --dataEra=2018
+USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_singlemuon.py --outputdirectory=Control_0409_data --variableselection=variables_data --maxentries=20000 --cores=8 --dataEra=2018
 """
 
 usage="usage=%prog [options] \n"
@@ -84,7 +84,7 @@ ttZH_categories = preprocessing.EventCategories()
 ttZH_categories.addCategory("ttZH", selection = None)
 
 mudata_categories = preprocessing.EventCategories()
-mudata_categories.addCategory("SingleMuonA", selection = None)
+mudata_categories.addCategory("singlemuon", selection = None)
 
 eledata_categories = preprocessing.EventCategories()
 eledata_categories.addCategory("eledata", selection = None)
@@ -156,6 +156,48 @@ dataset.addSample(
     #    selections  = ttbar_selection,
     islocal=False
 )
+
+
+dataset.addSample(
+    sampleName="SingleMuonB",
+    ntuples=ntuplesPath2 +
+    "/2018/ntuple/SingleMuon/sl_LEG_ntuple_2018/230606_031317/*/*nominal*.root",
+    #    ntuples     = ntuplesPath+"/ttH_220208.root",
+    categories=mudata_categories,
+    process="data",
+    #    lumiWeight  = 41.5,
+    selections=None,  # ttbar_selection,
+    #    selections  = ttbar_selection,
+    islocal=False
+)
+
+dataset.addSample(
+    sampleName="SingleMuonC",
+    ntuples=ntuplesPath2 +
+    "/2018/ntuple/SingleMuon/sl_LEG_ntuple_2018/230607_205114/*/*nominal*.root",
+    #    ntuples     = ntuplesPath+"/ttH_220208.root",
+    categories=mudata_categories,
+    process="data",
+    #    lumiWeight  = 41.5,
+    selections=None,  # ttbar_selection,
+    #    selections  = ttbar_selection,
+    islocal=False
+)
+
+dataset.addSample(
+    sampleName="SingleMuonD",
+    ntuples=ntuplesPath2 +
+    "/2018/ntuple/SingleMuon/sl_LEG_ntuple_2018/230607_205114/*/*nominal*.root",
+    #    ntuples     = ntuplesPath+"/ttH_220208.root",
+    categories=mudata_categories,
+    process="data",
+    #    lumiWeight  = 41.5,
+    selections=None,  # ttbar_selection,
+    #    selections  = ttbar_selection,
+    islocal=False
+)
+
+
 
 
 # dataset.addSample(
