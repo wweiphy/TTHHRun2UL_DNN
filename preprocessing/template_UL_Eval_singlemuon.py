@@ -184,18 +184,18 @@ dataset.addSample(
     islocal=False
 )
 
-dataset.addSample(
-    sampleName="SingleMuonD",
-    ntuples=ntuplesPath2 +
-    "/2018/ntuple/SingleMuon/sl_LEG_ntuple_2018/230607_205114/*/*nominal*.root",
-    #    ntuples     = ntuplesPath+"/ttH_220208.root",
-    categories=mudata_categories,
-    process="data",
-    #    lumiWeight  = 41.5,
-    selections=None,  # ttbar_selection,
-    #    selections  = ttbar_selection,
-    islocal=False
-)
+# dataset.addSample(
+#     sampleName="SingleMuonD",
+#     ntuples=ntuplesPath2 +
+#     "/2018/ntuple/SingleMuon/sl_LEG_ntuple_2018/230607_205114/*/*nominal*.root",
+#     #    ntuples     = ntuplesPath+"/ttH_220208.root",
+#     categories=mudata_categories,
+#     process="data",
+#     #    lumiWeight  = 41.5,
+#     selections=None,  # ttbar_selection,
+#     #    selections  = ttbar_selection,
+#     islocal=False
+# )
 
 
 
