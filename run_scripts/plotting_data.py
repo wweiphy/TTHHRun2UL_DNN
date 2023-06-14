@@ -35,7 +35,7 @@ options.initArguments()
 
 input_samples = df.InputSamples(options.getInputDirectory(), options.getTestPercentage())
 
-weight_expr = "x.Weight_XS * x.Weight_CSV_UL * x.Weight_GEN_nom * x.lumiWeight"
+weight_expr = "x.Weight_XS * x.lumiWeight"
 
 # input_samples.addSample(options.getDefaultName("ttHH"),  label = "ttHH",  normalization_weight = options.getNomWeight(), train_weight = 1, total_weight_expr = weight_expr)
 
