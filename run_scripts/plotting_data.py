@@ -2,6 +2,7 @@
 # 2017
 
 # python plotting_data.py -i Eval_0119_UL_nominal -o data -c ge4j_ge3t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables -n ge4j_ge3t_ttH --plot --printroc
+# python plotting_data.py -i DNN_0119_UL -o data_test -c ge4j_ge3t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables -n ge4j_ge3t_ttH --plot --printroc
 
 
 # global imports
@@ -35,16 +36,21 @@ input_samples = df.InputSamples(options.getInputDirectory(), options.getTestPerc
 
 weight_expr = "x.Weight_XS * x.Weight_CSV_UL * x.Weight_GEN_nom * x.lumiWeight"
 
-input_samples.addSample(options.getDefaultName("ttHH"),  label = "ttHH",  normalization_weight = options.getNomWeight(), train_weight = 1, total_weight_expr = weight_expr)
+# input_samples.addSample(options.getDefaultName("ttHH"),  label = "ttHH",  normalization_weight = options.getNomWeight(), train_weight = 1, total_weight_expr = weight_expr)
 
-input_samples.addSample(options.getDefaultName("ttmb"),  label = "ttmb",  normalization_weight = 61., total_weight_expr = weight_expr)
-input_samples.addSample(options.getDefaultName("ttcc"), label = "ttcc", normalization_weight = options.getNomWeight(), total_weight_expr = weight_expr)
-input_samples.addSample(options.getDefaultName("ttlf"), label = "ttlf", normalization_weight = options.getNomWeight(), total_weight_expr = weight_expr)
-input_samples.addSample(options.getDefaultName("ttnb"), label = "ttnb", normalization_weight = options.getNomWeight(), total_weight_expr = weight_expr)
-input_samples.addSample(options.getDefaultName("ttH"), label = "ttH", normalization_weight = options.getNomWeight(), total_weight_expr = weight_expr)
-input_samples.addSample(options.getDefaultName("ttZH"), label = "ttZH", normalization_weight = options.getNomWeight(), total_weight_expr = weight_expr)
-input_samples.addSample(options.getDefaultName("ttZZ"), label = "ttZZ", normalization_weight = options.getNomWeight(), total_weight_expr = weight_expr)
-input_samples.addSample(options.getDefaultName("ttZ"), label = "ttZ", normalization_weight = options.getNomWeight(), total_weight_expr = weight_expr)
+# input_samples.addSample(options.getDefaultName("ttmb"),  label = "ttmb",  normalization_weight = 61., total_weight_expr = weight_expr)
+# input_samples.addSample(options.getDefaultName("ttcc"), label = "ttcc", normalization_weight = options.getNomWeight(), total_weight_expr = weight_expr)
+# input_samples.addSample(options.getDefaultName("ttlf"), label = "ttlf", normalization_weight = options.getNomWeight(), total_weight_expr = weight_expr)
+# input_samples.addSample(options.getDefaultName("ttnb"), label = "ttnb", normalization_weight = options.getNomWeight(), total_weight_expr = weight_expr)
+# input_samples.addSample(options.getDefaultName("ttH"), label = "ttH", normalization_weight = options.getNomWeight(), total_weight_expr = weight_expr)
+# input_samples.addSample(options.getDefaultName("ttZH"), label = "ttZH", normalization_weight = options.getNomWeight(), total_weight_expr = weight_expr)
+# input_samples.addSample(options.getDefaultName("ttZZ"), label = "ttZZ", normalization_weight = options.getNomWeight(), total_weight_expr = weight_expr)
+# input_samples.addSample(options.getDefaultName("ttZ"), label = "ttZ", normalization_weight = options.getNomWeight(), total_weight_expr = weight_expr)
+
+input_samples.addSample(options.getDefaultName("singlemuon"), label="SingleMuon",
+                        normalization_weight=1., total_weight_expr=1.)
+input_samples.addSample(options.getDefaultName("singlemuond"), label="SingleMuon",
+                        normalization_weight=1., total_weight_expr=1.)
 
 
 # init DNN class
