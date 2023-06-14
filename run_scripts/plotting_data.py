@@ -74,8 +74,8 @@ dnn = DNN.DNN(
     category_name   = options.getCategory(),
     train_variables = options.getTrainVariables(),
     # number of epochs
-    lumi = 83,
-    # lumi = 119.4,
+    # lumi = 83,
+    lumi = 119.4,
     train_epochs    = options.getTrainEpochs(),
     # metrics for evaluation (c.f. KERAS metrics)
     eval_metrics    = ["acc"],
