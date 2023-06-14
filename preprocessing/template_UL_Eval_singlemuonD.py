@@ -12,7 +12,7 @@ import preprocessing
 
 
 """
-USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_singlemuon.py --outputdirectory=Control_0409_data --variableselection=variables_data --maxentries=20000 --cores=8 --dataEra=2018
+USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_singlemuonD.py --outputdirectory=Control_0409_data --variableselection=variables_data --maxentries=20000 --cores=8 --dataEra=2018
 """
 
 usage="usage=%prog [options] \n"
@@ -84,7 +84,7 @@ ttZH_categories = preprocessing.EventCategories()
 ttZH_categories.addCategory("ttZH", selection = None)
 
 mudata_categories = preprocessing.EventCategories()
-mudata_categories.addCategory("singlemuon", selection = None)
+mudata_categories.addCategory("singlemuond", selection = None)
 
 eledata_categories = preprocessing.EventCategories()
 eledata_categories.addCategory("eledata", selection = None)
