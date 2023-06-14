@@ -327,14 +327,16 @@ class DataFrame(object):
                 self.class_translation[sample.label] = index
                 self.classes.append(sample.label)
                 index += 1
-            self.index_classes = [self.class_translation[c]
-                                  for c in self.classes]
-                                  
-            # print("class translation: ")
-            # print(self.class_translation)
 
-            df["index_label"] = pd.Series(
-                [self.class_translation[c] for c in df["class_label"].values], index=df.index)
+            if not self.Do_plotting:
+                self.index_classes = [self.class_translation[c]
+                                    for c in self.classes]
+                                    
+                # print("class translation: ")
+                # print(self.class_translation)
+
+                df["index_label"] = pd.Series(
+                    [self.class_translation[c] for c in df["class_label"].values], index=df.index)
 
             # save some meta data about network
             self.n_input_neurons = len(self.train_variables)
