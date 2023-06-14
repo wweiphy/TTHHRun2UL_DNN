@@ -205,7 +205,7 @@ class Sample:
         print ("lumi is {}".format(lumi))
         print("xs weight is {}".format(df["Weight_XS"][0]))
         if self.label == "SingleMuon" or self.label == "SingleElectron":
-            df = df.assign(lumi_weight=lambda x: x.total_weight * self.normalization_weight * x.lumiWeight)
+            df = df.assign(lumi_weight=lambda x: self.normalization_weight * x.lumiWeight)
         else:
             df = df.assign(lumi_weight=lambda x: x.total_weight *
                             lumi * self.normalization_weight * x.lumiWeight)
