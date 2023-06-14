@@ -204,8 +204,11 @@ class Sample:
         print ("normalization weight is {}".format(self.normalization_weight))
         print ("lumi is {}".format(lumi))
         print("xs weight is {}".format(df["Weight_XS"][0]))
-        df = df.assign(lumi_weight=lambda x: x.total_weight *
-                        lumi * self.normalization_weight * x.lumiWeight)
+        if self.label == "SingleMuon" or self.label == "SingleElectron":
+            df = df.assign(lumi_weight=lambda x: x.total_weight * self.normalization_weight * x.lumiWeight)
+        else:
+            df = df.assign(lumi_weight=lambda x: x.total_weight *
+                            lumi * self.normalization_weight * x.lumiWeight)
         print("sum of lumi weights: {}".format(
             sum(df["lumi_weight"].values)))
         self.data = df
