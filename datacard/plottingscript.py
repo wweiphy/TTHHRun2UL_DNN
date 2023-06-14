@@ -15,7 +15,7 @@ process_new = ['ttHH', 'ttH', 'ttZ', 'ttZH',
                'ttZZ', 'ttlf', 'ttcc', 'ttmb', 'ttnb']
 process_old = ['ttHH', 'ttH', 'ttZ', 'ttZH',
                'ttZZ', 'ttlf', 'ttcc', 'ttb', 'ttbb', 'tt2b', 'ttbbb', 'tt4b']
-variables = ['Evt_CSV_avg', 'Evt_CSV_avg_tagged', 'Evt_CSV_dev']
+variables = ['N_BTagsM', 'Electron_E[0]', 'Jet_CSV[5]']
 
 
 if options.new == "new":
