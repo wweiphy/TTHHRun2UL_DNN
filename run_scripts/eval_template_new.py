@@ -164,8 +164,8 @@ for sample in config["eventClasses"]:
                 # sample_path = dfDirectory+"ttZ_dnn.h5"
         elif sample["sampleLabel"] == "ttmb":
         #     sample_train_weight = 1
-                # normalization_weight = 61.
-                normalization_weight = 6.1
+                # normalization_weight = 61.  # for 2017
+                normalization_weight = 6.1  # for 2018
         #     sample_path = dfDirectory+"ttmb_dnn.h5"
         elif sample["sampleLabel"] == "ttnb":
         #     sample_train_weight = 1
@@ -202,9 +202,9 @@ dnn = DNN.DNN(
 save_path=outPath,
 # sample_save_path=sample_save_path,
 input_samples=input_samples,
-# lumi = 119.4,
+lumi = 119.4,
 # lumi = 33.62, # 2016post
-lumi = 39.04, # 2016pre
+# lumi = 39.04, # 2016pre
 # lumi = 83,
 category_name=config["JetTagCategory"],
 train_variables=config["trainVariables"],
