@@ -35,8 +35,8 @@ options.initArguments()
 input_samples = df.InputSamples(options.getInputDirectory(), options.getTestPercentage())
 
 weight_expr = "x.Weight_XS * x.Weight_CSV_UL * x.Weight_GEN_nom * x.lumiWeight"
-input_samples.addSample(options.getDefaultName("ttlf"),  label = "ttlf",  normalization_weight = 6., train_weight = 1, total_weight_expr = weight_expr)
-input_samples.addSample(options.getDefaultName("ttcc"),  label = "ttcc",  normalization_weight = 6., train_weight = 1, total_weight_expr = weight_expr)
+input_samples.addSample(options.getDefaultName("ttlf"),  label = "ttlf",  normalization_weight = 5., train_weight = 1, total_weight_expr = weight_expr)
+input_samples.addSample(options.getDefaultName("ttcc"),  label = "ttcc",  normalization_weight = 3.1, train_weight = 1, total_weight_expr = weight_expr)
 
 # init DNN class
 # dnn = DNN.DNN(
