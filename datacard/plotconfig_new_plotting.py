@@ -33,7 +33,9 @@ samples = {   'tt4b': {   'info': {   'color': 636L,
                 'plot': True},}
 
 #combined samples
-plottingsamples = { 'tt4b': {   'addSamples': [   'tt4b'],
+plottingsamples = { 
+    
+    'tt4b': {   'addSamples': [   'tt4b'],
                 'color': 636L,
                 'label': 't#bar{t}4b',
                 'typ': 'bkg'},
@@ -64,7 +66,8 @@ plottingsamples = { 'tt4b': {   'addSamples': [   'tt4b'],
     'tt': {   'addSamples': [   'tt'],
                 'color': 633L,
                 'label': 't#bar{t}',
-                'typ': 'bkg'},}
+                'typ': 'bkg'},
+                }
 
 #systematics to be plotted
 systematics = [   ]
@@ -84,7 +87,7 @@ plotoptions = {   'cmslabel': 'private Work',
     'data': 'data_obs',
     'datalabel': 'data',
     'logarithmic': False,
-    'lumiLabel': '41.5',
+    'lumiLabel': '59.8',
     'nominalKey': '$CHANNEL__$PROCESS',
     'normalize': False,
     'ratio': '#frac{S+B}{B}',
