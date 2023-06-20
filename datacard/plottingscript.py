@@ -4,6 +4,8 @@ import optparse
 usage = "usage=%prog [options] \n"
 usage += "USE: python plottingscript.py -n new_plotting "
 
+# python plottingscript.py -n new_plotting -f 230220_evaluation_new -c new_230119_new_sys
+
 parser = optparse.OptionParser(usage=usage)
 
 parser.add_option("-n", "--new", dest="new", default="new",
