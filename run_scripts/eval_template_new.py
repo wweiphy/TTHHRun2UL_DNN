@@ -22,13 +22,13 @@ import DNN_framework.data_frame as df
 # python eval_template_new.py -o 230220_evaluation_new_6j4b -i 230220_50_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_nominal
 
 # 2017
-# python eval_template_new.py -o 230119_evaluation_new_2 -i 221130_50_ge4j_ge3t --signalclass=ttHH --plot --printroc -d Eval_0119_UL_nominal
+# python eval_template_new.py -o 230119_evaluation_new_test -i 221130_50_ge4j_ge3t --signalclass=ttHH --plot --printroc -d Eval_0119_UL_nominal
 
 # python eval_template_new.py -o 230119_evaluation_new_6j4b -i 230119_50_ge6j_ge4t  --signalclass=ttHH --plot --printroc -d Eval_0119_UL_nominal
 # python eval_template_new.py -o 230119_evaluation_new_5j4b -i 230119_50_ge5j_ge4t  --signalclass=ttHH --plot --printroc -d Eval_0119_UL_nominal
 
 # 2016post
-# python eval_template_new.py -o 230523_evaluation_new_test -i 230523_50_ge4j_ge3t --signalclass=ttHH --plot --printroc -d Eval_0523_UL_nominal
+# python eval_template_new.py -o 230523_evaluation_new_2 -i 230523_50_ge4j_ge3t --signalclass=ttHH --plot --printroc -d Eval_0523_UL_nominal
 
 # python eval_template_new.py -o 230523_evaluation_new_6j4b -i 230523_50_ge6j_ge4t  --signalclass=ttHH --plot --printroc -d Eval_0523_UL_nominal
 # python eval_template_new.py -o 230523_evaluation_new_5j4b -i 230523_50_ge5j_ge4t  --signalclass=ttHH --plot --printroc -d Eval_0523_UL_nominal
@@ -164,8 +164,8 @@ for sample in config["eventClasses"]:
                 # sample_path = dfDirectory+"ttZ_dnn.h5"
         elif sample["sampleLabel"] == "ttmb":
         #     sample_train_weight = 1
-                normalization_weight = 61.  # for 2017
-                # normalization_weight = 6.1  # for 2018
+                # normalization_weight = 61.  # for 2017
+                normalization_weight = 6.1  # for 2018
         #     sample_path = dfDirectory+"ttmb_dnn.h5"
         elif sample["sampleLabel"] == "ttnb":
         #     sample_train_weight = 1
@@ -203,9 +203,9 @@ save_path=outPath,
 # sample_save_path=sample_save_path,
 input_samples=input_samples,
 # lumi = 119.4,
-# lumi = 33.62, # 2016post
+lumi = 67.24, # 2016post
 # lumi = 39.04, # 2016pre
-lumi = 83,
+# lumi = 83,
 category_name=config["JetTagCategory"],
 train_variables=config["trainVariables"],
 Do_Evaluation = True,
