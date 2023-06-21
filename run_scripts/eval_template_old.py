@@ -24,7 +24,7 @@ import DNN_framework.data_frame as df
 # python eval_template_old.py -o 230515_evaluation_old -i 230516_50_old_ge4j_ge3t --signalclass=ttHH --plot --printroc -d Eval_0515_UL_nominal
 
 # 2016post
-# python eval_template_old.py -o 230523_evaluation_old -i 230523_50_old_ge4j_ge3t --signalclass=ttHH --plot --printroc -d Eval_0523_UL_nominal
+# python eval_template_old.py -o 230523_evaluation_old_2 -i 230523_50_old_ge4j_ge3t --signalclass=ttHH --plot --printroc -d Eval_0523_UL_nominal
 
 
 
@@ -201,8 +201,8 @@ dnn = DNN.DNN(
 save_path=outPath,
 # sample_save_path=sample_save_path,
 # lumi = 119.4,
-lumi = 67.24, # 2016post
-# lumi=39.04,  # 2016pre
+# lumi = 67.24, # 2016post
+lumi=78.08,  # 2016pre
 # lumi = 83,
 input_samples=input_samples,
 category_name=config["JetTagCategory"],

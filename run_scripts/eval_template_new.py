@@ -30,8 +30,8 @@ import DNN_framework.data_frame as df
 # 2016post
 # python eval_template_new.py -o 230523_evaluation_new_2 -i 230523_50_ge4j_ge3t --signalclass=ttHH --plot --printroc -d Eval_0523_UL_nominal
 
-# python eval_template_new.py -o 230523_evaluation_new_6j4b -i 230523_50_ge6j_ge4t  --signalclass=ttHH --plot --printroc -d Eval_0523_UL_nominal
-# python eval_template_new.py -o 230523_evaluation_new_5j4b -i 230523_50_ge5j_ge4t  --signalclass=ttHH --plot --printroc -d Eval_0523_UL_nominal
+# python eval_template_new.py -o 230523_evaluation_new_6j4b_2 -i 230523_50_ge6j_ge4t  --signalclass=ttHH --plot --printroc -d Eval_0523_UL_nominal
+# python eval_template_new.py -o 230523_evaluation_new_5j4b_2 -i 230523_50_ge5j_ge4t  --signalclass=ttHH --plot --printroc -d Eval_0523_UL_nominal
 
 
 # 2016pre
@@ -203,8 +203,8 @@ save_path=outPath,
 # sample_save_path=sample_save_path,
 input_samples=input_samples,
 # lumi = 119.4,
-lumi = 67.24, # 2016post
-# lumi = 39.04, # 2016pre
+# lumi = 67.24, # 2016post
+lumi = 78.08, # 2016pre
 # lumi = 83,
 category_name=config["JetTagCategory"],
 train_variables=config["trainVariables"],
