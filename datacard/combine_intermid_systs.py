@@ -113,6 +113,8 @@ def combine_systs(nom_key, syst_key, rfile, systname, replace_cfg, cleanup = Tru
         elif keyword == "MCrelic":
             # values are the root mean squared values of the respective variations
             values = (np.mean(residuals**2, axis=0))**0.5
+            print("residuals: ")
+            print(residuals)
             # print ("values")
             # print (values)
         else:
@@ -126,16 +128,16 @@ def combine_systs(nom_key, syst_key, rfile, systname, replace_cfg, cleanup = Tru
             print(values)
 
         
-        print ("values: ")
-        print (values)
+        # print ("values: ")
+        # print (values)
 
-        print("nom values: ")
-        print (nom_vals)
+        # print("nom values: ")
+        # print (nom_vals)
 
-        print("Up values")
-        print(values + nom_vals)
-        print("Down values")
-        print(nom_vals - values)
+        # print("Up values")
+        # print(values + nom_vals)
+        # print("Down values")
+        # print(nom_vals - values)
 
         h_up = construct_new_hist(h_nom = h_nom, name = name+"Up", vals = values + nom_vals)
         print("Writing '{}'".format(h_up.GetName()))
