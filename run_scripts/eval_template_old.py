@@ -201,8 +201,8 @@ dnn = DNN.DNN(
 save_path=outPath,
 # sample_save_path=sample_save_path,
 # lumi = 119.4,
-# lumi = 67.24, # 2016post
-lumi=78.08,  # 2016pre
+lumi = 67.24, # 2016post
+# lumi=78.08,  # 2016pre
 # lumi = 83,
 input_samples=input_samples,
 category_name=config["JetTagCategory"],
@@ -233,7 +233,8 @@ dnn.load_trained_model(inPath, options.evaluation_epoch_model)
 #        dnn.plot_confusionMatrix(privateWork = options.privateWork, printROC = options.printROC)
 
         # plot the output discriminators
-dnn.save_discriminators(log=options.log, privateWork=options.privateWork, printROC=options.printROC, lumi=78.08)
+dnn.save_discriminators(log=options.log, privateWork=options.privateWork, printROC=options.printROC, lumi=67.24)
+# dnn.save_discriminators(log=options.log, privateWork=options.privateWork, printROC=options.printROC, lumi=78.08)
 # dnn.save_discriminators(log=options.log, privateWork=options.privateWork, printROC=options.printROC, lumi=83)
 # dnn.save_discriminators(log=options.log, privateWork=options.privateWork, printROC=options.printROC, lumi=119.4)
 #
