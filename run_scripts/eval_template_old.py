@@ -21,7 +21,7 @@ import DNN_framework.data_frame as df
 # python eval_template_old.py -o 230119_evaluation_old_2 -i 221130_50_old_ge4j_ge3t --signalclass=ttHH --plot --printroc -d Eval_0119_UL_nominal
 
 #  2016pre
-# python eval_template_old.py -o 230515_evaluation_old -i 230516_50_old_ge4j_ge3t --signalclass=ttHH --plot --printroc -d Eval_0515_UL_nominal
+# python eval_template_old.py -o 230515_evaluation_old_2 -i 230516_50_old_ge4j_ge3t --signalclass=ttHH --plot --printroc -d Eval_0515_UL_nominal
 
 # 2016post
 # python eval_template_old.py -o 230523_evaluation_old_2 -i 230523_50_old_ge4j_ge3t --signalclass=ttHH --plot --printroc -d Eval_0523_UL_nominal
@@ -233,7 +233,8 @@ dnn.load_trained_model(inPath, options.evaluation_epoch_model)
 #        dnn.plot_confusionMatrix(privateWork = options.privateWork, printROC = options.printROC)
 
         # plot the output discriminators
-dnn.save_discriminators(log=options.log, privateWork=options.privateWork, printROC=options.printROC, lumi=83)
+dnn.save_discriminators(log=options.log, privateWork=options.privateWork, printROC=options.printROC, lumi=78.08)
+# dnn.save_discriminators(log=options.log, privateWork=options.privateWork, printROC=options.printROC, lumi=83)
 # dnn.save_discriminators(log=options.log, privateWork=options.privateWork, printROC=options.printROC, lumi=119.4)
 #
 #        # plot the output nodes
