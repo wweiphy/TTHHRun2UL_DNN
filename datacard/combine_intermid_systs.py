@@ -141,7 +141,7 @@ def combine_systs(nom_key, syst_key, rfile, systname, replace_cfg, cleanup = Tru
         print("Writing '{}'".format(h_up.GetName()))
         rfile.WriteTObject(h_up, h_up.GetName(), "Overwrite")
 
-        h_down = construct_new_hist(h_nom = h_nom, name = name+"Down", vals = nom_vals - values)
+        h_down = construct_new_hist(h_nom = h_nom, name = name+"Down", vals = abs(nom_vals - values))
         print("Writing '{}'".format(h_down.GetName()))
         rfile.WriteTObject(h_down, h_down.GetName(), "Overwrite")
         if cleanup:
@@ -189,7 +189,7 @@ def merge_systs(nom_key, syst_key, rfile, systname, replace_cfg, cleanup = True)
                 print("varied (nElements: {}):".format(values.size))
                 print(values)
             if var == "Up": values = values + nom_vals
-            else: values = nom_vals - values
+            else: values = abs(nom_vals - values)
 
 
             # backup original systematic
