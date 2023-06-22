@@ -126,8 +126,12 @@ def combine_systs(nom_key, syst_key, rfile, systname, replace_cfg, cleanup = Tru
             print(values)
 
         
-        # print ("values: ")
-        # print (values)
+        print ("values: ")
+        print (values)
+
+        print("nom values: ")
+        print (nom_vals)
+
         print("Up values")
         print(values + nom_vals)
         print("Down values")
