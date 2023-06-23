@@ -567,6 +567,7 @@ class DrawHistograms:
         firstHist.GetYaxis().SetTitle(self.GetyTitle())
         firstHist.GetYaxis().SetTitleSize(firstHist.GetYaxis().GetTitleSize()*1.2)
         canvaslabel=firstHist.GetTitle()
+        print("canvas label is: "+canvaslabel)
 
 
 #        print("1 bin: {}".format(firstHist.GetBinContent(1)))
@@ -591,8 +592,8 @@ class DrawHistograms:
             firstHist.GetXaxis().SetTitle("")
             firstHist.SetTitle("")
         else:
-            print("x title is: ")
-            print(canvaslabel)
+            # print("x title is: ")
+            # print(canvaslabel)
             firstHist.GetXaxis().SetTitle(canvaslabel)
             firstHist.SetTitle("")
 
