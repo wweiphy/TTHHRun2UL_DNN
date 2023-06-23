@@ -566,7 +566,9 @@ class DrawHistograms:
         """
         firstHist.GetYaxis().SetTitle(self.GetyTitle())
         firstHist.GetYaxis().SetTitleSize(firstHist.GetYaxis().GetTitleSize()*1.2)
-        canvaslabel=firstHist.GetTitle()
+        # firstHist.GetTitle().split('_', 1)[0]
+        canvaslabel = firstHist.GetTitle().split('_', 1)[0] + " final discriminator"
+        # canvaslabel=firstHist.GetTitle()
         print("canvas label is: "+canvaslabel)
 
 
