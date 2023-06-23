@@ -455,7 +455,7 @@ class DrawHistograms:
     def __init__(self, PlotList, canvasName, data=None, ratio=False, signalscaling=1, 
                     errorband=None, background=None, displayname=None, logoption=False, shape=False,
                     normalize=False, combineflag=False, splitlegend=False, datalabel="data",
-                    sortedProcesses=False, yLabel="Events expected"):
+                    sortedProcesses=False, yLabel="Events expected", evaluation = True):
         self.PlotList       = PlotList
         self.canvasName     = canvasName
         self.data           = data 
@@ -480,6 +480,7 @@ class DrawHistograms:
             self.sortedProcesses = ["total_signal"]
 
         self.yLabel          = yLabel
+        self.evaluation      = evaluation
     # ===============================================
     # DRAW HISTOGRAMS ON CANVAS
     # ===============================================
@@ -566,9 +567,13 @@ class DrawHistograms:
         """
         firstHist.GetYaxis().SetTitle(self.GetyTitle())
         firstHist.GetYaxis().SetTitleSize(firstHist.GetYaxis().GetTitleSize()*1.2)
+
+        if self.evaluation:
         # firstHist.GetTitle().split('_', 1)[0]
-        canvaslabel = firstHist.GetTitle().split('_', 1)[0] + " final discriminator"
-        # canvaslabel=firstHist.GetTitle()
+            canvaslabel = firstHist.GetTitle().split('_', 1)[0] + " final discriminator"
+        else:
+            canvaslabel=firstHist.GetTitle()
+            
         print("canvas label is: "+canvaslabel)
 
 

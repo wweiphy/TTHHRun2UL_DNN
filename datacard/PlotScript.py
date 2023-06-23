@@ -115,6 +115,9 @@ plotOptions.add_option("--combineDatacard", dest = "datacard", default=None,
 
 plotOptions.add_option("--statErr", dest="addStatErrorband", default = None,
         help="add statistics errorband")
+plotOptions.add_option("--evaluation", dest="plot for evaluation", default = True,
+        help="plot for evaluation")
+
 parser.add_option_group(plotOptions)
 
 """
@@ -508,6 +511,9 @@ normalize       = getParserConfigDefaultBool(parser=options.normalize,config="no
                                             plotoptions=plotoptions,defaultbool=False)
 shape           = getParserConfigDefaultBool(parser=options.shape,config="shape",
                                             plotoptions=plotoptions,defaultbool=False)
+evaluation      = getParserConfigDefaultBool(parser=options.evaluation,config="evaluation",
+                                            plotoptions=plotoptions,defaultbool=True)
+
 
 if shape:
     dataHist        = None
@@ -531,7 +537,7 @@ DrawHistogramObject = Plots.DrawHistograms(PlotList,options.channelName,
                                 normalize=normalize,splitlegend=splitlegend,
                                 combineflag=combineflag,shape=shape,
                                 sortedProcesses=sortedProcesses,
-                                yLabel=yLabel)
+                                yLabel=yLabel,evaluation = evaluation)
 
 DrawHistogramObject.drawHistsOnCanvas()
 
