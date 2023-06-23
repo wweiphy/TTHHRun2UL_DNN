@@ -5,7 +5,8 @@ usage = "usage=%prog [options] \n"
 usage += "USE: python plottingscript.py -n new_plotting "
 
 # evaluation - discriminators
-# python plottingscript.py -n new -f 230119_evaluation_new_5j4b -c new_230119_5j4b_sys
+# python plottingscript.py -n new -f 230119_evaluation_new_5j4b -c new_230119_5j4b_sys -j 5 -b 4
+# python plottingscript.py -n new -f 230119_evaluation_new_6j4b -c new_230119_6j4b_sys
 
 
 # kinematics
@@ -21,9 +22,9 @@ parser.add_option("-f", "--filefolder", dest="filefolder", default="230220_evalu
 
 parser.add_option("-c", "--cardfolder", dest="cardfolder", default="new_230119_new_sys",
                   help="file folder name", metavar="filefolder")
-parser.add_option("-j", "--njets", dest="njets", default=4,
+parser.add_option("-j", "--njets", dest="njets", default="4",
                   help="number of jets selection", metavar="bjets")
-parser.add_option("-b", "--nbjets", dest="nbjets", default=3,
+parser.add_option("-b", "--nbjets", dest="nbjets", default="3",
                   help="number of bjets selection", metavar="nbjets")
 
 (options, args) = parser.parse_args()
