@@ -115,7 +115,7 @@ plotOptions.add_option("--combineDatacard", dest = "datacard", default=None,
 
 plotOptions.add_option("--statErr", dest="addStatErrorband", default = None,
         help="add statistics errorband")
-plotOptions.add_option("--evaluation", dest="plot for evaluation", default = True,
+plotOptions.add_option("--evaluation", dest="evaluation", default = True,
         help="plot for evaluation")
 
 parser.add_option_group(plotOptions)
