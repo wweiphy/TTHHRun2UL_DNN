@@ -591,6 +591,8 @@ class DrawHistograms:
             firstHist.GetXaxis().SetTitle("")
             firstHist.SetTitle("")
         else:
+            print("x title is: ")
+            print(canvaslabel)
             firstHist.GetXaxis().SetTitle(canvaslabel)
             firstHist.SetTitle("")
 
