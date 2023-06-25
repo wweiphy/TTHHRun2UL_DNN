@@ -6,24 +6,24 @@ usage += "USE: python plottingscript.py -n new_plotting "
 
 # evaluation - discriminators
 # 2017
-# python plottingscript.py -n new -f 230119_evaluation_new_5j4b -c new_230119_5j4b_sys 
-# python plottingscript.py -n new -f 230119_evaluation_new_6j4b -c new_230119_6j4b_sys
+# python plottingscript.py -n new -f 230119_evaluation_new_5j4b -c new_230119_5j4b_sys -j 5 -b 4
+# python plottingscript.py -n new -f 230119_evaluation_new_6j4b -c new_230119_6j4b_sys -j 6 -b 4
 
 # 2016pre
-# python plottingscript.py -n new -f 230515_evaluation_new_5j4b -c new_230515_5j4b_sys 
-# python plottingscript.py -n new -f 230515_evaluation_new_6j4b -c new_230515_6j4b_sys
-# python plottingscript.py -n new -f 230515_evaluation_new -c new_230515_sys
-# python plottingscript.py -n new -f 230515_evaluation_old -c old_230515_sys
+# python plottingscript.py -n new -f 230515_evaluation_new_5j4b_2 -c new_230515_5j4b_sys -j 5 -b 4
+# python plottingscript.py -n new -f 230515_evaluation_new_6j4b_2 -c new_230515_6j4b_sys -j 6 -b 4
+# python plottingscript.py -n new -f 230515_evaluation_new_2 -c new_230515_sys -j 4 -b 3
+# python plottingscript.py -n old -f 230515_evaluation_old_2 -c old_230515_sys -j 4 -b 3
 
 # 2016
-# python plottingscript.py -n new -f 230523_evaluation_new_5j4b -c new_230523_5j4b_sys
-# python plottingscript.py -n new -f 230523_evaluation_new_6j4b -c new_230523_6j4b_sys
-# python plottingscript.py -n new -f 230523_evaluation_new -c new_230523_sys
-# python plottingscript.py -n new -f 230523_evaluation_old -c old_230523_sys
+# python plottingscript.py -n new -f 230523_evaluation_new_5j4b_2 -c new_230523_5j4b_sys -j 5 -b 4
+# python plottingscript.py -n new -f 230523_evaluation_new_6j4b_2 -c new_230523_6j4b_sys -j 6 -b 4
+# python plottingscript.py -n new -f 230523_evaluation_new_2 -c new_230523_sys -j 4 -b 3
+# python plottingscript.py -n old -f 230523_evaluation_old_2 -c old_230523_sys -j 4 -b 3
 
 
 # kinematics
-# python plottingscript.py -n new_plotting -f 230119_evaluation_new_5j4b -c new_230119_5j4b_sys
+# python plottingscript.py -n new_plotting -f 2016post 
 
 parser = optparse.OptionParser(usage=usage)
 
@@ -185,7 +185,7 @@ else:
     for var in variables:
 
         rootfile = "/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/workdir/output_limit.root"
-        runcommand = 'python /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/datacard/PlotScript.py --plotconfig="/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/datacard/plotconfig_{}_plotting.py"  --channelname={}  --selectionlabel="\geq 4 jets, 2 b-tags" --rootfile={}  --directory="/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/datacard" --systematicfile="/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/datacard/systematics.csv" --workdir="/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/datacard/newplotting" --evaluation={}'.format(
+        runcommand = 'python /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/datacard/PlotScript.py --plotconfig="/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/datacard/plotconfig_{}_plotting.py"  --channelname={}  --selectionlabel="\geq 4 jets, \geq 3 b-tags" --rootfile={}  --directory="/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/datacard" --systematicfile="/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/datacard/systematics.csv" --workdir="/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/datacard/newplotting" --evaluation={}'.format(
             "new", var, rootfile,evaluation)
 
         os.system(runcommand)
