@@ -56,7 +56,7 @@ def setupHistogram(
     # print(bin_range)
 
     for v, w in zip(values, weights):
-        if values < bin_range[0] or values > bin_range[1]:
+        if v < bin_range[0] or v > bin_range[1]:
             continue
         else:
             histogram.Fill(v, w)
