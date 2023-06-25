@@ -48,10 +48,10 @@ def setupHistogram(
     histogram = ROOT.TH1F(xtitle, "", nbins, *bin_range)
     histogram.Sumw2(True)
 
-    print("bin upper limit is: ")
-    print(bin_range[1])
-    print("bin lower limit is: ")
-    print(bin_range[0])
+    # print("bin upper limit is: ")
+    # print(bin_range[1])
+    # print("bin lower limit is: ")
+    # print(bin_range[0])
     
     # print(bin_range)
 
