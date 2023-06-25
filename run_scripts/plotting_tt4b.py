@@ -2,7 +2,7 @@
 # 2017
 
 # python plotting_tt4b.py -i Eval_0119_UL_nominal -o tt4b -c ge4j_ge3t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables -n ge4j_ge3t_ttH --plot --printroc
-# python plotting_tt4b.py -i Control_0409  -o tt4b -c ge4j_2t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables --plot --printroc
+# python plotting_tt4b.py -i Control_0409  -o tt4b_2 -c ge4j_2t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables --plot --printroc
 
 
 # global imports
@@ -57,8 +57,10 @@ dnn = DNN.DNN(
     category_name   = options.getCategory(),
     train_variables = options.getTrainVariables(),
     # number of epochs
+    # lumi = 119.4,
+    lumi=67.24,  # 2016post
+    # lumi = 78.08, # 2016pre
     # lumi = 83,
-    lumi = 119.4,
     train_epochs    = options.getTrainEpochs(),
     # metrics for evaluation (c.f. KERAS metrics)
     eval_metrics    = ["acc"],
