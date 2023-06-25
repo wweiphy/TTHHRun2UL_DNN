@@ -70,8 +70,8 @@ dnn = DNN.DNN(
     train_variables = options.getTrainVariables(),
     # number of epochs
     # lumi = 119.4,
-    # lumi=67.24,  # 2016post
-    lumi = 78.08, # 2016pre
+    lumi=67.24,  # 2016post
+    # lumi = 78.08, # 2016pre
     # lumi = 83,
     train_epochs    = options.getTrainEpochs(),
     # metrics for evaluation (c.f. KERAS metrics)
