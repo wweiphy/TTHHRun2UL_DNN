@@ -49,12 +49,14 @@ def setupHistogram(
     histogram.Sumw2(True)
 
     print("bin upper limit is: ")
-    print(bin_range[2])
-    print("bin lower limit is: ")
     print(bin_range[1])
+    print("bin lower limit is: ")
+    print(bin_range[0])
     
+    # print(bin_range)
+
     for v, w in zip(values, weights):
-        if values < bin_range[1] or values > bin_range[2]:
+        if values < bin_range[0] or values > bin_range[1]:
             continue
         else:
             histogram.Fill(v, w)
