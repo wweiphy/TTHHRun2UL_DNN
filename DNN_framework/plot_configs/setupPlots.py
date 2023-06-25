@@ -48,8 +48,16 @@ def setupHistogram(
     histogram = ROOT.TH1F(xtitle, "", nbins, *bin_range)
     histogram.Sumw2(True)
 
+    print("bin upper limit is: ")
+    print(bin_range[2])
+    print("bin lower limit is: ")
+    print(bin_range[1])
+    
     for v, w in zip(values, weights):
-        histogram.Fill(v, w)
+        if values < bin_range[1] or values > bin_range[2]:
+            continue
+        else:
+            histogram.Fill(v, w)
 
     histogram.SetStats(False)
     histogram.SetTitle(title)
