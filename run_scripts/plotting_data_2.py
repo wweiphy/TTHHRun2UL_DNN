@@ -19,7 +19,9 @@
 
 # hadd
 
-# hadd output_limit.root data_2016pre_ge4j_ge3t/plots/data_variables.root tt_2016pre_ge4j_ge3t/plots/tt_variables.root tt4b_2016pre_ge4j_ge3t/plots/tt4b_variables.root ttbb_2016pre_ge4j_ge3t/plots/ttbb_variables.root ttH_2016pre_ge4j_ge3t/plots/ttH_variables.root ttHH_2016pre_ge4j_ge3t/plots/ttHH_variables.root ttZ_2016pre_ge4j_ge3t/plots/ttZ_variables.root ttZH_2016pre_ge4j_ge3t/plots/ttZH_variables.root ttZZ_2016pre_ge4j_ge3t/plots/ttZZ_variables.root
+# hadd output_limit.root data_2_2016pre_ge4j_ge3t/plots/data_variables.root ttHH_2016pre_ge4j_ge3t/plots/ttHH_variables.root ttZH_2016pre_ge4j_ge3t/plots/ttZH_variables.root ttZZ_2016pre_ge4j_ge3t/plots/ttZZ_variables.root
+
+# hadd output_limit.root data_2_2016post_ge4j_ge3t/plots/data_variables.root ttHH_2016post_ge4j_ge3t/plots/ttHH_variables.root ttZH_2016post_ge4j_ge3t/plots/ttZH_variables.root ttZZ_2016post_ge4j_ge3t/plots/ttZZ_variables.root
 
 # global imports
 # import ROOT
@@ -91,8 +93,8 @@ dnn = DNN.DNN(
     train_variables = options.getTrainVariables(),
     # number of epochs
     # lumi = 119.4,
-    lumi=67.24,  # 2016post
-    # lumi = 78.08, # 2016pre
+    # lumi=67.24,  # 2016post
+    lumi = 78.08, # 2016pre
     # lumi = 83,
     train_epochs    = options.getTrainEpochs(),
     # metrics for evaluation (c.f. KERAS metrics)
