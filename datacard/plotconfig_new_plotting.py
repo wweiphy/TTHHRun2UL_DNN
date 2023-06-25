@@ -69,7 +69,7 @@ plottingsamples = {
     #             'color': 633L,
     #             'label': 't#bar{t}',
     #             'typ': 'bkg'},
-    #             }
+    }
 
 #systematics to be plotted
 systematics = [   ]
