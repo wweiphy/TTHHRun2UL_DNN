@@ -3,6 +3,8 @@
 
 # python plotting_ttH.py -i Eval_0119_UL_nominal -o ttH -c ge4j_ge3t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables -n ge4j_ge3t_ttH --plot --printroc
 
+# python plotting_ttH.py -i Eval_0523_UL_nominal -o ttH_2016post -c ge4j_ge3t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables -n ge4j_ge3t_ttH --plot --printroc
+
 # python plotting_ttH.py -i Eval_0515_UL_nominal -o ttH_2016pre -c ge4j_ge3t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables -n ge4j_ge3t_ttH --plot --printroc
 
 # python plotting_ttH.py -i Control_0409 -o ttH_2 -c ge4j_2t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables --plot --printroc
