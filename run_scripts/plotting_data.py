@@ -8,6 +8,8 @@
 
 # python plotting_data.py -i Eval_0119_UL_nominal -o data_2017 -c ge4j_ge3t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables -n ge4j_ge3t_ttH --plot --printroc
 
+# python plotting_data.py -i Eval_0308_UL_nominal -o data_2018 -c ge4j_ge3t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables -n ge4j_ge3t_ttH --plot --printroc
+
 # python plotting_data.py -i Control_0409_data -o data_test_2 -c ge4j_2t --epochs=500 --signalclass=ttHH -f 0.2 -v variables -n ge4j_ge3t_ttH --plot --printroc
 
 
@@ -18,6 +20,10 @@
 # hadd output_limit.root data_2016pre_ge4j_ge3t/plots/data_variables.root tt_2016pre_ge4j_ge3t/plots/tt_variables.root tt4b_2016pre_ge4j_ge3t/plots/tt4b_variables.root ttbb_2016pre_ge4j_ge3t/plots/ttbb_variables.root ttH_2016pre_ge4j_ge3t/plots/ttH_variables.root ttHH_2016pre_ge4j_ge3t/plots/ttHH_variables.root ttZ_2016pre_ge4j_ge3t/plots/ttZ_variables.root ttZH_2016pre_ge4j_ge3t/plots/ttZH_variables.root ttZZ_2016pre_ge4j_ge3t/plots/ttZZ_variables.root
 
 # hadd output_limit.root data_2016post_ge4j_ge3t/plots/data_variables.root tt_2016post_ge4j_ge3t/plots/tt_variables.root tt4b_2016post_ge4j_ge3t/plots/tt4b_variables.root ttbb_2016post_ge4j_ge3t/plots/ttbb_variables.root ttH_2016post_ge4j_ge3t/plots/ttH_variables.root ttHH_2016post_ge4j_ge3t/plots/ttHH_variables.root ttZ_2016post_ge4j_ge3t/plots/ttZ_variables.root ttZH_2016post_ge4j_ge3t/plots/ttZH_variables.root ttZZ_2016post_ge4j_ge3t/plots/ttZZ_variables.root
+
+# 2018
+# hadd output_limit.root data_2018_ge4j_ge3t/plots/data_variables.root tt_2018_ge4j_ge3t/plots/tt_variables.root tt4b_2018_ge4j_ge3t/plots/tt4b_variables.root ttbb_2018_ge4j_ge3t/plots/ttbb_variables.root ttH_2018_ge4j_ge3t/plots/ttH_variables.root ttHH_2018_ge4j_ge3t/plots/ttHH_variables.root ttZ_2018_ge4j_ge3t/plots/ttZ_variables.root ttZH_2018_ge4j_ge3t/plots/ttZH_variables.root ttZZ_2018_ge4j_ge3t/plots/ttZZ_variables.root
+
 
 # global imports
 # import ROOT
@@ -88,10 +94,10 @@ dnn = DNN.DNN(
     category_name   = options.getCategory(),
     train_variables = options.getTrainVariables(),
     # number of epochs
-    lumi = 119.4,
+    # lumi = 119.4,
     # lumi=67.24,  # 2016post
     # lumi = 78.08, # 2016pre
-    # lumi = 83,
+    lumi = 83,
     train_epochs    = options.getTrainEpochs(),
     # metrics for evaluation (c.f. KERAS metrics)
     eval_metrics    = ["acc"],

@@ -3,6 +3,8 @@
 
 # python plotting_ttbb.py -i Eval_0119_UL_nominal -o ttbb -c ge4j_ge3t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables -n ge4j_ge3t_ttH --plot --printroc
 
+# python plotting_ttbb.py -i Eval_0308_UL_nominal -o ttbb_2018 -c ge4j_ge3t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables -n ge4j_ge3t_ttH --plot --printroc
+
 # python plotting_ttbb.py -i Eval_0523_UL_nominal -o ttbb_2016post -c ge4j_ge3t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables -n ge4j_ge3t_ttH --plot --printroc
 # python plotting_ttbb.py -i Eval_0515_UL_nominal -o ttbb_2016pre -c ge4j_ge3t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables -n ge4j_ge3t_ttH --plot --printroc
 
@@ -63,10 +65,10 @@ dnn = DNN.DNN(
     category_name   = options.getCategory(),
     train_variables = options.getTrainVariables(),
     # number of epochs
-    lumi = 119.4,
+    # lumi = 119.4,
     # lumi=67.24,  # 2016post
     # lumi = 78.08, # 2016pre
-    # lumi = 83,
+    lumi = 83,
     train_epochs    = options.getTrainEpochs(),
     # metrics for evaluation (c.f. KERAS metrics)
     eval_metrics    = ["acc"],
