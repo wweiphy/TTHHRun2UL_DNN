@@ -24,6 +24,9 @@
 # 2018
 # hadd output_limit.root data_2018_ge4j_ge3t/plots/data_variables.root tt_2018_ge4j_ge3t/plots/tt_variables.root tt4b_2018_ge4j_ge3t/plots/tt4b_variables.root ttbb_2018_ge4j_ge3t/plots/ttbb_variables.root ttH_2018_ge4j_ge3t/plots/ttH_variables.root ttHH_2018_ge4j_ge3t/plots/ttHH_variables.root ttZ_2018_ge4j_ge3t/plots/ttZ_variables.root ttZH_2018_ge4j_ge3t/plots/ttZH_variables.root ttZZ_2018_ge4j_ge3t/plots/ttZZ_variables.root
 
+# 2017
+# hadd output_limit.root data_2017_ge4j_ge3t/plots/data_variables.root tt_2017_ge4j_ge3t/plots/tt_variables.root tt4b_2017_ge4j_ge3t/plots/tt4b_variables.root ttbb_2017_ge4j_ge3t/plots/ttbb_variables.root ttH_2017_ge4j_ge3t/plots/ttH_variables.root ttHH_2017_ge4j_ge3t/plots/ttHH_variables.root ttZ_2017_ge4j_ge3t/plots/ttZ_variables.root ttZH_2017_ge4j_ge3t/plots/ttZH_variables.root ttZZ_2017_ge4j_ge3t/plots/ttZZ_variables.root
+
 
 # global imports
 # import ROOT
@@ -57,8 +60,7 @@ input_samples = df.InputSamples(options.getInputDirectory(), options.getTestPerc
 # weight_expr = "x.Weight_XS * x.lumiWeight"
 weight_expr = "x.Weight_XS * x.Weight_CSV_UL * x.Weight_GEN_nom * x.lumiWeight"
 
-# input_samples.addSample(options.getDefaultName("ttHH"),  label = "ttHH",  normalization_weight = options.getNomWeight(), train_weight = 1, total_weight_expr = weight_expr)
-
+input_samples.addSample(options.getDefaultName("ttHH"),  label = "ttHH",  normalization_weight = options.getNomWeight(), train_weight = 1, total_weight_expr = weight_expr)
 input_samples.addSample(options.getDefaultName("ttmb"),  label = "ttmb",  normalization_weight = 61., total_weight_expr = weight_expr)
 # input_samples.addSample(options.getDefaultName("ttmb"),  label = "ttmb",  normalization_weight = 6.1, total_weight_expr = weight_expr)
 input_samples.addSample(options.getDefaultName("ttcc"), label = "ttcc", normalization_weight = options.getNomWeight(), total_weight_expr = weight_expr)
