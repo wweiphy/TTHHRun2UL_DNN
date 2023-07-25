@@ -1,7 +1,7 @@
 
 # 2017
 
-# python plotting_ttbb.py -i Eval_0119_UL_nominal -o ttbb -c ge4j_ge3t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables -n ge4j_ge3t_ttH --plot --printroc
+# python plotting_ttbb.py -i Eval_0119_UL_nominal -o ttbb_2017 -c ge4j_ge3t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables -n ge4j_ge3t_ttH --plot --printroc
 
 # python plotting_ttbb.py -i Eval_0308_UL_nominal -o ttbb_2018 -c ge4j_ge3t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables -n ge4j_ge3t_ttH --plot --printroc
 
@@ -9,7 +9,7 @@
 # python plotting_ttbb.py -i Eval_0515_UL_nominal -o ttbb_2016pre -c ge4j_ge3t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables -n ge4j_ge3t_ttH --plot --printroc
 
 
-# python plotting_ttbb.py -i Control_0409  -o ttbb_2 -c ge4j_2t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables --plot --printroc
+# python plotting_ttbb.py -i Control_0409  -o ttbb_3 -c ge4j_2t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables --plot --printroc
 
 
 # global imports
@@ -42,8 +42,8 @@ options.initArguments()
 input_samples = df.InputSamples(options.getInputDirectory(), options.getTestPercentage())
 
 weight_expr = "x.Weight_XS * x.Weight_CSV_UL * x.Weight_GEN_nom * x.lumiWeight"
-input_samples.addSample(options.getDefaultName("ttmb"),  label = "ttmb",  normalization_weight = 61., train_weight = 1, total_weight_expr = weight_expr)
-# input_samples.addSample(options.getDefaultName("ttmb"),  label = "ttmb",  normalization_weight = 6.1, train_weight = 1, total_weight_expr = weight_expr)
+# input_samples.addSample(options.getDefaultName("ttmb"),  label = "ttmb",  normalization_weight = 61., train_weight = 1, total_weight_expr = weight_expr)
+input_samples.addSample(options.getDefaultName("ttmb"),  label = "ttmb",  normalization_weight = 6.1, train_weight = 1, total_weight_expr = weight_expr)
 # input_samples.addSample(options.getDefaultName("ttHH"),  label = "ttHH",  normalization_weight = options.getNomWeight(), train_weight = 1, total_weight_expr = weight_expr)
 
 # init DNN class
