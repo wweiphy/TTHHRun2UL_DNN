@@ -97,7 +97,7 @@ plotoptions = {   'cmslabel': 'private Work',
     # 'lumiLabel': '19.52',  # pre
     'nominalKey': '$CHANNEL__$PROCESS',
     'normalize': False,
-    'ratio': '#frac{S+B}{B}',
+    'ratio': '#frac{data}{MC Background}',
     'shape': False,
     'signalScaling': -1,
     'splitLegend': True,
