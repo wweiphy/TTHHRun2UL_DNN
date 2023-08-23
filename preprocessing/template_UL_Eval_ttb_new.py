@@ -12,7 +12,7 @@ import preprocessing
 
 
 """
-USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_singlemuon.py --outputdirectory=Control_0409_data --variableselection=variables_data --maxentries=20000 --cores=8 --dataEra=2018
+USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_ttb_new.py --outputdirectory=Control_0822_2017 --variableselection=variables --maxentries=20000 --cores=8 --dataEra=2017
 """
 
 usage="usage=%prog [options] \n"
@@ -83,12 +83,6 @@ ttHH_categories.addCategory("ttHH", selection = None)
 ttZH_categories = preprocessing.EventCategories()
 ttZH_categories.addCategory("ttZH", selection = None)
 
-mudata_categories = preprocessing.EventCategories()
-mudata_categories.addCategory("singlemuon", selection = None)
-
-eledata_categories = preprocessing.EventCategories()
-eledata_categories.addCategory("eledata", selection = None)
-
 ttZZ_categories = preprocessing.EventCategories()
 ttZZ_categories.addCategory("ttZZ", selection = None)
 
@@ -110,7 +104,10 @@ ttbar_categories.addCategory("ttcc", selection = "(GenEvt_I_TTPlusBB == 0 and Ge
 
 ttmb_categories = preprocessing.EventCategories()
 ttmb_categories.addCategory("ttmb", selection = "(GenEvt_I_TTPlusBB == 3 and GenEvt_I_TTPlusCC == 0) or (GenEvt_I_TTPlusBB == 2 and GenEvt_I_TTPlusCC == 0) or (GenEvt_I_TTPlusBB == 1 and GenEvt_I_TTPlusCC == 0)")
-ttmb_categories.addCategory("ttnb", selection = "(GenEvt_I_TTPlusBB == 4 and GenEvt_I_TTPlusCC == 0) or (GenEvt_I_TTPlusBB == 5 and GenEvt_I_TTPlusCC == 0)")
+
+ttnb_categories = preprocessing.EventCategories()
+ttnb_categories.addCategory("ttnb", selection = "(GenEvt_I_TTPlusBB == 4 and GenEvt_I_TTPlusCC == 0) or (GenEvt_I_TTPlusBB == 5 and GenEvt_I_TTPlusCC == 0)")
+
 
 ntuplesPath = "/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_10_6_29/src/BoostedTTH/crab/2017UL/ntuple/crab_ntuple"
 ntuplesPath2 = "/eos/uscms/store/group/lpctthrun2/wwei/UL"
@@ -130,106 +127,62 @@ dataset = preprocessing.Dataset(
 dataset.addBaseSelection(base_selection)
 
 
+      
+dataset.addSample(
+    sampleName  = "TTbbSL",
+    ntuples=ntuplesPath2 +
+    "/2017/ntuple/TTbb_4f_TTToSemiLeptonic_TuneCP5-Powheg-Openloops-Pythia8/sl_LEG_ntuple_2017/230723_225938/*/*nominal*.root",
+    categories  = ttmb_categories,
+    process = "ttbbSL",
+#    lumiWeight  = 41.5,
+    selections=ttHH_selection,  # ttbar_selection,
+#    selections  = ttbar_selection,
+    islocal     = False
+      )
+
+dataset.addSample(
+    sampleName="TTbbDL",
+    ntuples=ntuplesPath2 +
+    "/2017/ntuple/TTbb_4f_TTTo2L2Nu_TuneCP5-Powheg-Openloops-Pythia8/sl_LEG_ntuple_2017/230723_225402/*/*nominal*.root",
+    # 221118_234955
+    categories=ttmb_categories,
+    process="ttbbDL",
+    #    lumiWeight  = 41.5,
+    selections=ttHH_selection,  # ttbar_selection,
+    #    selections  = ttbar_selection,
+    islocal=False
+)
 
 # dataset.addSample(
-#     sampleName="SingleMuonB",
+#     sampleName="TTbbToDL2",
 #     ntuples=ntuplesPath2 +
-#     "/2018/ntuple/SingleMuon/sl_LEG_ntuple_2018/230606_031317/*/*nominal*.root",
-#     #    ntuples     = ntuplesPath+"/ttH_220208.root",
-#     categories=mudata_categories,
-#     process = "data",
+#     "/2017/ntuple/ttHTobb_M125_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2017/*/*/*nominal*.root",
+#     categories=ttmb_categories,
 #     #    lumiWeight  = 41.5,
 #     selections=None,  # ttbar_selection,
 #     #    selections  = ttbar_selection,
 #     islocal=False
 # )
-
-dataset.addSample(
-    sampleName="SingleMuonB",
-    ntuples=ntuplesPath2 +
-    "/2017/ntuple/SingleMuon/sl_LEG_ntuple_2017/230814_191030/*/*nominal*.root",
-    #    ntuples     = ntuplesPath+"/ttH_220208.root",
-    categories=mudata_categories,
-    process = "data",
-    #    lumiWeight  = 41.5,
-    selections=None,  # ttbar_selection,
-    #    selections  = ttbar_selection,
-    islocal=False
-)
-
-dataset.addSample(
-    sampleName="SingleMuonC",
-    ntuples=ntuplesPath2 +
-    "/2017/ntuple/SingleMuon/sl_LEG_ntuple_2017/230814_192719/*/*nominal*.root",
-    #    ntuples     = ntuplesPath+"/ttH_220208.root",
-    categories=mudata_categories,
-    process = "data",
-    #    lumiWeight  = 41.5,
-    selections=None,  # ttbar_selection,
-    #    selections  = ttbar_selection,
-    islocal=False
-)
-
-dataset.addSample(
-    sampleName="SingleMuonD",
-    ntuples=ntuplesPath2 +
-    "/2017/ntuple/SingleMuon/sl_LEG_ntuple_2017/230814_200336/*/*nominal*.root",
-    #    ntuples     = ntuplesPath+"/ttH_220208.root",
-    categories=mudata_categories,
-    process = "data",
-    #    lumiWeight  = 41.5,
-    selections=None,  # ttbar_selection,
-    #    selections  = ttbar_selection,
-    islocal=False
-)
-
-dataset.addSample(
-    sampleName="SingleMuonE",
-    ntuples=ntuplesPath2 +
-    "/2017/ntuple/SingleMuon/sl_LEG_ntuple_2017/230814_210821/*/*nominal*.root",
-    #    ntuples     = ntuplesPath+"/ttH_220208.root",
-    categories=mudata_categories,
-    process = "data",
-    #    lumiWeight  = 41.5,
-    selections=None,  # ttbar_selection,
-    #    selections  = ttbar_selection,
-    islocal=False
-)
-
-dataset.addSample(
-    sampleName="SingleMuonF",
-    ntuples=ntuplesPath2 +
-    "/2017/ntuple/SingleMuon/sl_LEG_ntuple_2017/230814_211420/*/*nominal*.root",
-    #    ntuples     = ntuplesPath+"/ttH_220208.root",
-    categories=mudata_categories,
-    process = "data",
-    #    lumiWeight  = 41.5,
-    selections=None,  # ttbar_selection,
-    #    selections  = ttbar_selection,
-    islocal=False
-)
-
-
-
-
+      
 
 
 # initialize variable list
 dataset.addVariables(variable_set.all_variables)
 
-
 sys.path.append(basedir+"/variable_sets/")
 
 # print (basedir)
-import additional_variables_data as add_var
+import additional_variables as add_var
 # import sf_variables as sf_var
-# import sf_variables as sf_var
+import sf_variables as sf_var
 # add these variables to the variable list
 dataset.addVariables(add_var.additional_variables)
 
-# dataset.addVariables(sf_var.scalefactor_variables)
+dataset.addVariables(sf_var.scalefactor_variables)
+
+dataset.addVariables(sf_var.ttbar_variables)
+dataset.addVariables(sf_var.PDF_ttbb)
 
 
 # run the preprocessing
 dataset.runPreprocessing()
-

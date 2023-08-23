@@ -12,7 +12,7 @@ import preprocessing
 
 
 """
-USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_singleele.py --outputdirectory=Control_0409_data --variableselection=variables --maxentries=20000 --cores=8 --dataEra=2018
+USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_singleele.py --outputdirectory=Control_0822_2017 --variableselection=variables --maxentries=20000 --cores=8 --dataEra=2017
 """
 
 usage="usage=%prog [options] \n"
@@ -132,9 +132,9 @@ dataset.addBaseSelection(base_selection)
 
 
 dataset.addSample(
-    sampleName="SingleElectronA",
+    sampleName="SingleElectron1",
     ntuples=ntuplesPath2 +
-    "/2018/ntuple/EGamma/sl_LEG_ntuple_2018/230710_153859/*/*nominal*.root",
+    "/2017/ntuple/EGamma/sl_LEG_ntuple_2017/230814_181711/*/*nominal*.root",
     #    ntuples     = ntuplesPath+"/ttH_220208.root",
     categories=eledata_categories,
     process = "data",
@@ -145,9 +145,9 @@ dataset.addSample(
 )
 
 dataset.addSample(
-    sampleName="SingleElectronB",
+    sampleName="SingleElectron2",
     ntuples=ntuplesPath2 +
-    "/2018/ntuple/EGamma/sl_LEG_ntuple_2018/230711_175839/*/*nominal*.root",
+    "/2017/ntuple/EGamma/sl_LEG_ntuple_2017/230814_182028/*/*nominal*.root",
     #    ntuples     = ntuplesPath+"/ttH_220208.root",
     categories=eledata_categories,
     process = "data",
@@ -158,9 +158,9 @@ dataset.addSample(
 )
 
 dataset.addSample(
-    sampleName="SingleElectronC",
+    sampleName="SingleElectron3",
     ntuples=ntuplesPath2 +
-    "/2018/ntuple/EGamma/sl_LEG_ntuple_2018/230714_234335/*/*nominal*.root",
+    "/2017/ntuple/EGamma/sl_LEG_ntuple_2017/230814_182814/*/*nominal*.root",
     #    ntuples     = ntuplesPath+"/ttH_220208.root",
     categories=eledata_categories,
     process = "data",
@@ -171,9 +171,9 @@ dataset.addSample(
 )
 
 dataset.addSample(
-    sampleName="SingleElectronD",
+    sampleName="SingleElectron4",
     ntuples=ntuplesPath2 +
-    "/2018/ntuple/EGamma/sl_LEG_ntuple_2018/230710_070946/*/*nominal*.root",
+    "/2017/ntuple/EGamma/sl_LEG_ntuple_2017/230814_185009/*/*nominal*.root",
     #    ntuples     = ntuplesPath+"/ttH_220208.root",
     categories=eledata_categories,
     process = "data",
@@ -182,6 +182,22 @@ dataset.addSample(
     #    selections  = ttbar_selection,
     islocal=False
 )
+
+
+dataset.addSample(
+    sampleName="SingleElectron5",
+    ntuples=ntuplesPath2 +
+    "/2017/ntuple/EGamma/sl_LEG_ntuple_2017/230814_190052/*/*nominal*.root",
+    #    ntuples     = ntuplesPath+"/ttH_220208.root",
+    categories=eledata_categories,
+    process = "data",
+    #    lumiWeight  = 41.5,
+    selections=None,  # ttbar_selection,
+    #    selections  = ttbar_selection,
+    islocal=False
+)
+
+
 
 
 
