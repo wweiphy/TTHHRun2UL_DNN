@@ -132,7 +132,7 @@ dataset.addBaseSelection(base_selection)
 
 
 dataset.addSample(
-    sampleName="SingleElectron1",
+    sampleName="SingleElectronB",
     ntuples=ntuplesPath2 +
     "/2017/ntuple/EGamma/sl_LEG_ntuple_2017/230814_181711/*/*nominal*.root",
     #    ntuples     = ntuplesPath+"/ttH_220208.root",
@@ -145,7 +145,7 @@ dataset.addSample(
 )
 
 dataset.addSample(
-    sampleName="SingleElectron2",
+    sampleName="SingleElectronC",
     ntuples=ntuplesPath2 +
     "/2017/ntuple/EGamma/sl_LEG_ntuple_2017/230814_182028/*/*nominal*.root",
     #    ntuples     = ntuplesPath+"/ttH_220208.root",
@@ -158,7 +158,7 @@ dataset.addSample(
 )
 
 dataset.addSample(
-    sampleName="SingleElectron3",
+    sampleName="SingleElectronD",
     ntuples=ntuplesPath2 +
     "/2017/ntuple/EGamma/sl_LEG_ntuple_2017/230814_182814/*/*nominal*.root",
     #    ntuples     = ntuplesPath+"/ttH_220208.root",
@@ -171,7 +171,7 @@ dataset.addSample(
 )
 
 dataset.addSample(
-    sampleName="SingleElectron4",
+    sampleName="SingleElectronE",
     ntuples=ntuplesPath2 +
     "/2017/ntuple/EGamma/sl_LEG_ntuple_2017/230814_185009/*/*nominal*.root",
     #    ntuples     = ntuplesPath+"/ttH_220208.root",
@@ -185,7 +185,7 @@ dataset.addSample(
 
 
 dataset.addSample(
-    sampleName="SingleElectron5",
+    sampleName="SingleElectronF",
     ntuples=ntuplesPath2 +
     "/2017/ntuple/EGamma/sl_LEG_ntuple_2017/230814_190052/*/*nominal*.root",
     #    ntuples     = ntuplesPath+"/ttH_220208.root",
