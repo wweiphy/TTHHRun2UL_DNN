@@ -10,7 +10,9 @@
 
 # python plotting_data.py -i Eval_0308_UL_nominal -o data_2018 -c ge4j_ge3t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables -n ge4j_ge3t_ttH --plot --printroc
 
-# python plotting_data.py -i Control_0409_data -o data_test_2 -c ge4j_2t --epochs=500 --signalclass=ttHH -f 0.2 -v variables -n ge4j_ge3t_ttH --plot --printroc
+# python plotting_data.py -i Control_0409_data -o data -c ge4j_2t --epochs=500 --signalclass=ttHH -f 0.2 -v variables -n ge4j_ge3t_ttH --plot --printroc
+
+# python plotting_data.py -i Control_0822_2017_data -o data_2017 -c ge4j_2t --epochs=500 --signalclass=ttHH -f 0.2 -v variables -n ge4j_ge3t_ttH --plot --printroc
 
 
 
@@ -28,6 +30,9 @@
 # hadd output_limit.root data_2017_ge4j_ge3t/plots/data_variables.root tt_2017_ge4j_ge3t/plots/tt_variables.root tt4b_2017_ge4j_ge3t/plots/tt4b_variables.root ttbb_2017_ge4j_ge3t/plots/ttbb_variables.root ttH_2017_ge4j_ge3t/plots/ttH_variables.root ttHH_2017_ge4j_ge3t/plots/ttHH_variables.root ttZ_2017_ge4j_ge3t/plots/ttZ_variables.root ttZH_2017_ge4j_ge3t/plots/ttZH_variables.root ttZZ_2017_ge4j_ge3t/plots/ttZZ_variables.root
 
 # hadd output_limit.root data_2017_allMC_ge4j_ge3t/plots/data_variables.root tt_2017_ge4j_ge3t/plots/tt_variables.root tt4b_2017_2_ge4j_ge3t/plots/tt4b_variables.root ttbb_2017_ge4j_ge3t/plots/ttbb_variables.root ttH_2017_ge4j_ge3t/plots/ttH_variables.root ttHH_2017_ge4j_ge3t/plots/ttHH_variables.root ttZ_2017_ge4j_ge3t/plots/ttZ_variables.root ttZH_2017_ge4j_ge3t/plots/ttZH_variables.root ttZZ_2017_ge4j_ge3t/plots/ttZZ_variables.root
+
+
+# hadd output_limit.root data_ge4j_2t/plots/data_variables.root tt_3_ge4j_2t/plots/tt_variables.root tt4b_3_ge4j_2t/plots/tt4b_variables.root ttbb_3_ge4j_2t/plots/ttbb_variables.root ttH_3_ge4j_2t/plots/ttH_variables.root ttHH_3_ge4j_2t/plots/ttHH_variables.root ttZ_3_ge4j_2t/plots/ttZ_variables.root ttZH_3_ge4j_2t/plots/ttZH_variables.root ttZZ_3_ge4j_2t/plots/ttZZ_variables.root
 
 
 # global imports
