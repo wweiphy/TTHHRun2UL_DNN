@@ -173,7 +173,7 @@ dataset.addSample(
 dataset.addSample(
     sampleName="SingleElectronE",
     ntuples=ntuplesPath2 +
-    "/2017/ntuple/SingleElectron/sl_LEG_ntuple_2017/230814_185009/*/*nominal*.root",
+    "/2017/ntuple/SingleElectron/sl_LEG_ntuple_2017/230905_202647/*/*nominal*.root",
     #    ntuples     = ntuplesPath+"/ttH_220208.root",
     categories=eledata_categories,
     process = "data",
@@ -187,7 +187,7 @@ dataset.addSample(
 dataset.addSample(
     sampleName="SingleElectronF",
     ntuples=ntuplesPath2 +
-    "/2017/ntuple/SingleElectron/sl_LEG_ntuple_2017/230814_190052/*/*nominal*.root",
+    "/2017/ntuple/SingleElectron/sl_LEG_ntuple_2017/230905_202633/*/*nominal*.root",
     #    ntuples     = ntuplesPath+"/ttH_220208.root",
     categories=eledata_categories,
     process = "data",
