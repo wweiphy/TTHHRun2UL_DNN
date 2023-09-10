@@ -12,7 +12,7 @@ import preprocessing
 
 
 """
-USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_ttbar_ttB.py --outputdirectory=Control_0822_2017 --variableselection=variables --maxentries=20000 --cores=8 --dataEra=2017
+USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_ttbar_5FS.py --outputdirectory=Eval_0308_UL_nominal_5FS_2 --variableselection=variables --maxentries=20000 --cores=8 --dataEra=2018
 
 """
 
@@ -63,7 +63,7 @@ else:
 # select only events with GEN weight > 0 because training with negative weights is weird
 
 # base = "(N_Jets >= 4 and N_BTagsM >= 3 and Evt_MET > 20. and Weight_GEN_nom > 0.)"
-base = "(N_Jets >= 4 and N_BTagsM == 2 and Evt_MET > 20.)"
+base = "(N_Jets >= 4 and N_BTagsM >= 3 and Evt_MET > 20.)"
 
 # single lepton selections
 single_mu_sel = "(N_LooseElectrons == 0 and N_TightMuons == 1 and Muon_Pt > 29. and Triggered_HLT_IsoMu27_vX == 1)"
@@ -103,6 +103,11 @@ ttbar_categories.addCategory("ttcc", selection = "(GenEvt_I_TTPlusBB == 0 and Ge
 # ttbar_categories.addCategory("ttbbb", selection = "(GenEvt_I_TTPlusBB == 4 and GenEvt_I_TTPlusCC == 0)")
 # ttbar_categories.addCategory("tt4b", selection = "(GenEvt_I_TTPlusBB == 5 and GenEvt_I_TTPlusCC == 0)")
 
+ttbar5FS_categories = preprocessing.EventCategories()
+ttbar5FS_categories.addCategory("ttmb", selection = "(GenEvt_I_TTPlusBB == 3 and GenEvt_I_TTPlusCC == 0) or (GenEvt_I_TTPlusBB == 2 and GenEvt_I_TTPlusCC == 0) or (GenEvt_I_TTPlusBB == 1 and GenEvt_I_TTPlusCC == 0)")
+ttbar5FS_categories.addCategory("ttnb", selection = "(GenEvt_I_TTPlusBB == 4 and GenEvt_I_TTPlusCC == 0) or (GenEvt_I_TTPlusBB == 5 and GenEvt_I_TTPlusCC == 0)")
+
+
 ttmb_categories = preprocessing.EventCategories()
 ttmb_categories.addCategory("ttmb", selection = "(GenEvt_I_TTPlusBB == 3 and GenEvt_I_TTPlusCC == 0) or (GenEvt_I_TTPlusBB == 2 and GenEvt_I_TTPlusCC == 0) or (GenEvt_I_TTPlusBB == 1 and GenEvt_I_TTPlusCC == 0)")
 ttmb_categories.addCategory("ttnb", selection = "(GenEvt_I_TTPlusBB == 4 and GenEvt_I_TTPlusCC == 0) or (GenEvt_I_TTPlusBB == 5 and GenEvt_I_TTPlusCC == 0)")
@@ -129,9 +134,9 @@ dataset2.addBaseSelection(base_selection)
 dataset2.addSample(
     sampleName="TTSL",
     ntuples=ntuplesPath2 +
-    "/2017/ntuple/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2017/230723_224608/*/*nominal*.root",
+    "/2018/ntuple/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2018/230212_023618/*/*nominal*.root",
     #    ntuples     = ntuplesPath+"/ttSL_220210.root",
-    categories=ttmb_categories,
+    categories=ttbar5FS_categories,
     process = "ttSL",
     #    lumiWeight  = 41.5,
     selections=ttHH_selection,  # ttbar_selection,
@@ -142,9 +147,9 @@ dataset2.addSample(
 dataset2.addSample(
     sampleName="TTDL",
     ntuples=ntuplesPath2 +
-    "/2017/ntuple/TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2017/230723_224528/*/*nominal*.root",
+    "/2018/ntuple/TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2018/230222_045532/*/*nominal*.root",
     #    ntuples     = ntuplesPath+"/ttSL_220210.root",
-    categories=ttmb_categories,
+    categories=ttbar5FS_categories,
     process="ttDL",
     # lumiWeight  = 1.0,
     selections=ttHH_selection,  # ttbar_selection,
