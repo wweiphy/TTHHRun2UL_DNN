@@ -10,7 +10,9 @@
 # python plotting_ttH.py -i Eval_0515_UL_nominal -o ttH_2016pre -c ge4j_ge3t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables -n ge4j_ge3t_ttH --plot --printroc
 
 # python plotting_ttH.py -i Control_0409 -o ttH_3 -c ge4j_2t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables --plot --printroc
-# python plotting_ttH.py -i Control_0822_2017_data -o ttH_2017 -c ge4j_2t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables --plot --printroc
+
+# python plotting_ttH.py -i Control_0822_2017 -o ttH_2017 -c ge4j_2t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables --plot --printroc
+
 
 
 # global imports
@@ -43,8 +45,10 @@ options.initArguments()
 input_samples = df.InputSamples(options.getInputDirectory(), options.getTestPercentage())
 
 weight_expr = "x.Weight_XS * x.Weight_CSV_UL * x.Weight_GEN_nom * x.lumiWeight"
-input_samples.addSample(options.getDefaultName("ttH"),  label="ttH",
-                        normalization_weight=options.getNomWeight(), train_weight=1, total_weight_expr=weight_expr)
+input_samples.addSample(options.getDefaultName("ttH_2017"),  label="ttH",
+                        normalization_weight=83., train_weight=1, total_weight_expr=weight_expr)
+input_samples.addSample(options.getDefaultName("ttH_2018"),  label="ttH",
+                        normalization_weight=119.4, train_weight=1, total_weight_expr=weight_expr)
 
 # init DNN class
 # dnn = DNN.DNN(
@@ -69,7 +73,8 @@ dnn = DNN.DNN(
     # lumi = 119.4,
     # lumi=67.24,  # 2016post
     # lumi = 78.08, # 2016pre
-    lumi = 83,
+    # lumi = 83,
+    lumi = 1.,
     train_epochs    = options.getTrainEpochs(),
     # metrics for evaluation (c.f. KERAS metrics)
     eval_metrics    = ["acc"],

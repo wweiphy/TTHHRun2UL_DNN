@@ -35,6 +35,9 @@
 # hadd output_limit.root data_ge4j_2t/plots/data_variables.root tt_3_ge4j_2t/plots/tt_variables.root tt4b_3_ge4j_2t/plots/tt4b_variables.root ttbb_3_ge4j_2t/plots/ttbb_variables.root ttH_3_ge4j_2t/plots/ttH_variables.root ttHH_3_ge4j_2t/plots/ttHH_variables.root ttZ_3_ge4j_2t/plots/ttZ_variables.root ttZH_3_ge4j_2t/plots/ttZH_variables.root ttZZ_3_ge4j_2t/plots/ttZZ_variables.root
 
 
+# hadd output_limit.root data_2017_ge4j_2t/plots/data_variables.root tt_2017_ge4j_2t/plots/tt_variables.root tt4b_2017_ge4j_2t/plots/tt4b_variables.root ttbb_2017_ge4j_2t/plots/ttbb_variables.root ttH_2017_ge4j_2t/plots/ttH_variables.root ttHH_2017_ge4j_2t/plots/ttHH_variables.root ttZ_2017_ge4j_2t/plots/ttZ_variables.root ttZH_2017_ge4j_2t/plots/ttZH_variables.root ttZZ_2017_ge4j_2t/plots/ttZZ_variables.root
+
+
 # global imports
 # import ROOT
 # ROOT.PyConfig.IgnoreCommandLineOptions = True
@@ -78,10 +81,14 @@ weight_expr = "x.Weight_XS * x.lumiWeight"
 # input_samples.addSample(options.getDefaultName("ttZZ"), label = "ttZZ", normalization_weight = options.getNomWeight(), total_weight_expr = weight_expr)
 # input_samples.addSample(options.getDefaultName("ttZ"), label = "ttZ", normalization_weight = options.getNomWeight(), total_weight_expr = weight_expr)
 
-input_samples.addSample(options.getDefaultName("singlemuon"), label="SingleMuon",
-                        normalization_weight=1., total_weight_expr=weight_expr)
-input_samples.addSample(options.getDefaultName("eledata"), label="SingleElectron",
-                        normalization_weight=1., total_weight_expr=weight_expr)
+input_samples.addSample(options.getDefaultName("singlemuon_2017"), label="SingleMuon",
+                        normalization_weight=83., total_weight_expr=weight_expr)
+input_samples.addSample(options.getDefaultName("eledata_2017"), label="SingleElectron",
+                        normalization_weight=83., total_weight_expr=weight_expr)
+input_samples.addSample(options.getDefaultName("singlemuon_2018"), label="SingleMuon",
+                        normalization_weight=119.4, total_weight_expr=weight_expr)
+input_samples.addSample(options.getDefaultName("eledata_2018"), label="SingleElectron",
+                        normalization_weight=119.4, total_weight_expr=weight_expr)
 
 
 # init DNN class
@@ -107,7 +114,8 @@ dnn = DNN.DNN(
     # lumi = 119.4,
     # lumi=67.24,  # 2016post
     # lumi = 78.08, # 2016pre
-    lumi = 83,
+    # lumi = 83, # 2017
+    lumi = 1., # 17&18
     train_epochs    = options.getTrainEpochs(),
     # metrics for evaluation (c.f. KERAS metrics)
     eval_metrics    = ["acc"],
