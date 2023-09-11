@@ -14,6 +14,9 @@
 
 # python plotting_data.py -i Control_0822_2017_data -o data_2017 -c ge4j_2t --epochs=500 --signalclass=ttHH -f 0.2 -v variables -n ge4j_ge3t_ttH --plot --printroc
 
+# 17&18
+# python plotting_data.py -i Control_1718_data -o data_1718 -c ge4j_2t --epochs=500 --signalclass=ttHH -f 0.2 -v variables -n ge4j_ge3t_ttH --plot --printroc
+
 
 
 
@@ -82,13 +85,13 @@ weight_expr = "x.Weight_XS * x.lumiWeight"
 # input_samples.addSample(options.getDefaultName("ttZ"), label = "ttZ", normalization_weight = options.getNomWeight(), total_weight_expr = weight_expr)
 
 input_samples.addSample(options.getDefaultName("singlemuon_2017"), label="SingleMuon",
-                        normalization_weight=83., total_weight_expr=weight_expr)
+                        normalization_weight=1., total_weight_expr=weight_expr)
 input_samples.addSample(options.getDefaultName("eledata_2017"), label="SingleElectron",
-                        normalization_weight=83., total_weight_expr=weight_expr)
+                        normalization_weight=1., total_weight_expr=weight_expr)
 input_samples.addSample(options.getDefaultName("singlemuon_2018"), label="SingleMuon",
-                        normalization_weight=119.4, total_weight_expr=weight_expr)
+                        normalization_weight=1., total_weight_expr=weight_expr)
 input_samples.addSample(options.getDefaultName("eledata_2018"), label="SingleElectron",
-                        normalization_weight=119.4, total_weight_expr=weight_expr)
+                        normalization_weight=1., total_weight_expr=weight_expr)
 
 
 # init DNN class
@@ -115,7 +118,7 @@ dnn = DNN.DNN(
     # lumi=67.24,  # 2016post
     # lumi = 78.08, # 2016pre
     # lumi = 83, # 2017
-    lumi = 1., # 17&18
+    lumi = 202.4, # 17&18
     train_epochs    = options.getTrainEpochs(),
     # metrics for evaluation (c.f. KERAS metrics)
     eval_metrics    = ["acc"],
