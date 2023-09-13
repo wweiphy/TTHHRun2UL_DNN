@@ -12,6 +12,7 @@
 # python plotting_ttbb.py -i Control_0409  -o ttbb_3 -c ge4j_2t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables --plot --printroc
 
 # python plotting_ttbb.py -i Control_0822_2017  -o ttbb_2017 -c ge4j_2t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables --plot --printroc
+# python plotting_ttbb.py -i Control_1718  -o ttbb_1718 -c ge4j_2t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables --plot --printroc
 
 
 # global imports
@@ -45,8 +46,9 @@ input_samples = df.InputSamples(options.getInputDirectory(), options.getTestPerc
 
 weight_expr = "x.Weight_XS * x.Weight_CSV_UL * x.Weight_GEN_nom * x.lumiWeight"
 # input_samples.addSample(options.getDefaultName("ttmb"),  label = "ttmb",  normalization_weight = 61., train_weight = 1, total_weight_expr = weight_expr)
-input_samples.addSample(options.getDefaultName("ttmb_2017"),  label = "ttmb",  normalization_weight = 6.1 * 83., train_weight = 1, total_weight_expr = weight_expr)
-input_samples.addSample(options.getDefaultName("ttmb_2018"),  label = "ttmb",  normalization_weight = 6.1 * 119.4, train_weight = 1, total_weight_expr = weight_expr)
+input_samples.addSample(options.getDefaultName("ttmb_2017"),  label = "ttmb",  normalization_weight = 6.1, train_weight = 1, total_weight_expr = weight_expr)
+# input_samples.addSample(options.getDefaultName("ttmb_2017"),  label = "ttmb",  normalization_weight = 6.1 * 83., train_weight = 1, total_weight_expr = weight_expr)
+# input_samples.addSample(options.getDefaultName("ttmb_2018"),  label = "ttmb",  normalization_weight = 6.1 * 119.4, train_weight = 1, total_weight_expr = weight_expr)
 # input_samples.addSample(options.getDefaultName("ttHH"),  label = "ttHH",  normalization_weight = options.getNomWeight(), train_weight = 1, total_weight_expr = weight_expr)
 
 # init DNN class
@@ -72,8 +74,8 @@ dnn = DNN.DNN(
     # lumi = 119.4,
     # lumi=67.24,  # 2016post
     # lumi = 78.08, # 2016pre
-    # lumi = 83,
-    lumi = 1.,
+    lumi = 83,
+    # lumi = 1.,
     train_epochs    = options.getTrainEpochs(),
     # metrics for evaluation (c.f. KERAS metrics)
     eval_metrics    = ["acc"],
