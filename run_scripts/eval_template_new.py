@@ -166,6 +166,7 @@ for sample in config["eventClasses"]:
         #     sample_train_weight = 1
                 # normalization_weight = 61.  # for 2017
                 # normalization_weight = 6.1  # for 2018
+                normalization_weight = 1.  # for 2018
         #     sample_path = dfDirectory+"ttmb_dnn.h5"
         elif sample["sampleLabel"] == "ttnb":
         #     sample_train_weight = 1
