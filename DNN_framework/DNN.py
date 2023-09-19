@@ -799,6 +799,8 @@ class DNN():
 
             # print evaluations  with keras model
             from sklearn.metrics import roc_auc_score
+            print(self.data.get_full_labels_after_preprocessing()[:10])
+            print(self.model_prediction_vector[:10])
             self.roc_auc_score = roc_auc_score(
                 self.data.get_full_labels_after_preprocessing(), self.model_prediction_vector)
             print("\nROC-AUC score: {}".format(self.roc_auc_score))
