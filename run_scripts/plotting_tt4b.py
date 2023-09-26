@@ -45,7 +45,8 @@ input_samples = df.InputSamples(options.getInputDirectory(), options.getTestPerc
 
 weight_expr = "x.Weight_XS * x.Weight_CSV_UL * x.Weight_GEN_nom * x.lumiWeight"
 # input_samples.addSample(options.getDefaultName("ttnb_2017"),  label = "ttnb",  normalization_weight = 83*0.92, train_weight = 1, total_weight_expr = weight_expr)
-input_samples.addSample(options.getDefaultName("ttnb_2018"),  label = "ttnb",  normalization_weight = 119.4*1.35, train_weight = 1, total_weight_expr = weight_expr)
+input_samples.addSample(options.getDefaultName("ttnb_2018"),  label = "ttnb",  normalization_weight = 1.35, train_weight = 1, total_weight_expr = weight_expr)
+# input_samples.addSample(options.getDefaultName("ttnb_2018"),  label = "ttnb",  normalization_weight = 119.4*1.35, train_weight = 1, total_weight_expr = weight_expr)
 
 # init DNN class
 # dnn = DNN.DNN(
