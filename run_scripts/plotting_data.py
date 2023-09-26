@@ -17,6 +17,8 @@
 # 17&18
 # python plotting_data.py -i Control_1718_data -o data_1718 -c ge4j_2t --epochs=500 --signalclass=ttHH -f 0.2 -v variables -n ge4j_ge3t_ttH --plot --printroc
 
+# python plotting_data.py -i Control_1718_data -o data_2018_test -c ge4j_2t --epochs=500 --signalclass=ttHH -f 0.2 -v variables -n ge4j_ge3t_ttH --plot --printroc
+
 
 
 
@@ -97,7 +99,7 @@ weight_expr = "x.Weight_XS * x.lumiWeight"
                         # normalization_weight=1., total_weight_expr=weight_expr)
 # input_samples.addSample(options.getDefaultName("eledata_2017"), label="SingleElectron",
                         # normalization_weight=1., total_weight_expr=weight_expr)
-input_samples.addSample(options.getDefaultName("singlemuon_2018_2"), label="SingleMuon",
+input_samples.addSample(options.getDefaultName("singlemuon_2018"), label="SingleMuon",
                         normalization_weight=1., total_weight_expr=weight_expr)
 input_samples.addSample(options.getDefaultName("eledata_2018"), label="SingleElectron",
                         normalization_weight=1., total_weight_expr=weight_expr)
