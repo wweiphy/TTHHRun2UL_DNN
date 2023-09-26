@@ -41,7 +41,7 @@ class Sample:
         self.addSampleSuffix = addSampleSuffix
         # self.Do_Evaluation = Do_Evaluation
 
-    def load_dataframe(self, event_category, lumi, evenSel="", Do_Evaluation=False, jecsysts=None):
+    def load_dataframe(self, event_category, lumi, evenSel="", Do_Evaluation=False, Do_plotting = False, jecsysts=None):
         # loading samples from one .h5 file or mix it with one uncertainty variation (default is without mixing)
         print("-"*50)
         print("loading sample file "+str(self.path))
@@ -66,7 +66,7 @@ class Sample:
 
 
 
-        if Do_Evaluation and not self.Do_plotting:
+        if Do_Evaluation and not Do_plotting:
 
             print("Do DNN Evaluation")
 
@@ -183,7 +183,7 @@ class Sample:
             df = df.assign(
                 total_weight=lambda x: x.xs_weight * x.sf_weight)
                 
-        if (not self.Do_evaluation) and (self.Do_plotting):
+        if (not Do_Evaluation) and (Do_plotting):
 
             print("Do control region plots")
 
@@ -325,7 +325,7 @@ class DataFrame(object):
         for sample in self.input_samples.samples:
 
             sample.load_dataframe(self.event_category,
-                                  self.lumi, self.evenSel, self.Do_Evaluation)
+                                  self.lumi, self.evenSel, self.Do_Evaluation, self.Do_plotting)
             train_samples.append(sample.data)
 
         # concatenating all dataframes
