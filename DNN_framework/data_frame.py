@@ -66,9 +66,9 @@ class Sample:
 
 
 
-        if Do_Evaluation:
+        if Do_Evaluation and not self.Do_plotting:
 
-            # print("Do DNN Evaluation")
+            print("Do DNN Evaluation")
 
             if "nominal" in self.path: 
                 
@@ -184,6 +184,8 @@ class Sample:
                 total_weight=lambda x: x.xs_weight * x.sf_weight)
                 
         if (not self.Do_evaluation) and (self.Do_plotting):
+
+            print("Do control region plots")
 
             df = df.assign(xs_weight=lambda x: eval(
                 self.total_weight_expr))
