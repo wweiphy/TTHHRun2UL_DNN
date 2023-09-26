@@ -185,6 +185,9 @@ class Sample:
                 
         if (not self.Do_evaluation) and (self.Do_plotting):
 
+            df = df.assign(xs_weight=lambda x: eval(
+                self.total_weight_expr))
+
             if not (self.label == "SingleMuon" or self.label == "SingleElectron"):
 
                 df = df.assign(total_preweight=lambda x: (x['lumiWeight'] * x['Weight_XS'] * x['Weight_CSV_UL'] * x['Weight_GEN_nom'] * x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSFUp[0]'] > 0.) & (x['Electron_ReconstructionSFUp[0]'] > 0.))*1.*x['Electron_IdentificationSFUp[0]']*x['Electron_ReconstructionSFUp[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & ((x['Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX'] == 1) | (
@@ -194,8 +197,7 @@ class Sample:
                     total_weight=lambda x: x.xs_weight * x.sf_weight)
                 
             else:
-                df = df.assign(total_weight=lambda x: eval(
-                    self.total_weight_expr))
+                df = df.assign(total_weight=lambda x: x.xs_weight)
 
         else:
             # print("total weight: ")
