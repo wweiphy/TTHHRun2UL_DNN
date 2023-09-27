@@ -131,7 +131,7 @@ dataset2.addSample(
     ntuples=ntuplesPath2 +
     "/2017/ntuple/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2017/230723_224608/*/*nominal*.root",
     #    ntuples     = ntuplesPath+"/ttSL_220210.root",
-    categories=ttbar_categories,
+    categories=ttmb_categories,
     process = "ttSL",
     #    lumiWeight  = 41.5,
     selections=ttHH_selection,  # ttbar_selection,
@@ -144,7 +144,7 @@ dataset2.addSample(
     ntuples=ntuplesPath2 +
     "/2017/ntuple/TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2017/230723_224528/*/*nominal*.root",
     #    ntuples     = ntuplesPath+"/ttSL_220210.root",
-    categories=ttbar_categories,
+    categories=ttmb_categories,
     process="ttDL",
     # lumiWeight  = 1.0,
     selections=ttHH_selection,  # ttbar_selection,
