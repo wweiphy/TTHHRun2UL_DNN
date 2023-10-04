@@ -56,7 +56,10 @@ options.initArguments()
 input_samples = df.InputSamples(options.getInputDirectory(), options.getTestPercentage())
 
 weight_expr = "x.Weight_XS * x.Weight_CSV_UL * x.Weight_GEN_nom * x.lumiWeight"
-input_samples.addSample(options.getDefaultName("ttmb"),  label = "ttmb",  normalization_weight = 5.65, train_weight = 1, total_weight_expr = weight_expr)
+input_samples.addSample(options.getDefaultName("ttmb"),  label = "ttmb",  normalization_weight = 1, train_weight = 1, total_weight_expr = weight_expr) # 2018
+# input_samples.addSample(options.getDefaultName("ttmb"),  label = "ttmb",  normalization_weight = 5.65, train_weight = 1, total_weight_expr = weight_expr) # 2018
+# input_samples.addSample(options.getDefaultName("ttmb"),  label = "ttmb",  normalization_weight = 61.34, train_weight = 1, total_weight_expr = weight_expr) # 2017
+
 # input_samples.addSample(options.getDefaultName("ttmb_2017"),  label = "ttmb",  normalization_weight = 4.26, train_weight = 1, total_weight_expr = weight_expr)
 # input_samples.addSample(options.getDefaultName("ttmb_2017"),  label = "ttmb",  normalization_weight = 4.26 * 82.96, train_weight = 1, total_weight_expr = weight_expr)
 # input_samples.addSample(options.getDefaultName("ttmb_2018"),  label = "ttmb",  normalization_weight = 5.65, train_weight = 1, total_weight_expr = weight_expr)
@@ -102,4 +105,4 @@ dnn = DNN.DNN(
 
 
 
-dnn.save_DNNInput(node_cls="ttbb", isData=False) 
+dnn.save_DNNInput(node_cls="ttbb_5FS", isData=False) 
