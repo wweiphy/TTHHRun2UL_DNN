@@ -42,7 +42,7 @@ samples = {
 #combined samples
 plottingsamples = { 
     
-    'tt4b 4FS': {   'addSamples': [   'tt4b_4FS'],
+    'tt4b_4FS': {   'addSamples': [   'tt4b_4FS'],
                 'color': 636L,
                 'label': 't#bar{t}4b',
                 'typ': 'signal'},
@@ -90,7 +90,7 @@ sortedprocesses = [
     # 'ttHH',
     # 'tt',
     # 'ttbb',
-    'tt4b 4FS',
+    'tt4b_4FS',
     'tt4b',
     # 'ttH',
     # 'ttZZ',
