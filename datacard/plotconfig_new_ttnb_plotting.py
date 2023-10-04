@@ -1,7 +1,7 @@
 #samples named in the rootfile
 samples = {  
-    'tt4b_4FS': {   'info': {   'color': 636L,
-                            'label': 't#bar{t}+4b 4FS',
+    'tt4b_5FS': {   'info': {   'color': 636L,
+                            'label': 't#bar{t}+4b 5FS',
                             'typ': 'signal'},
                 'plot': True},
 
@@ -42,9 +42,9 @@ samples = {
 #combined samples
 plottingsamples = { 
     
-    'tt4b_4FS': {   'addSamples': [   'tt4b_4FS'],
+    'tt4b_5FS': {   'addSamples': [   'tt4b_5FS'],
                 'color': 636L,
-                'label': 't#bar{t}4b',
+                'label': 't#bar{t}4b 5FS',
                 'typ': 'signal'},
 
     'tt4b': {   'addSamples': [   'tt4b'],
@@ -90,7 +90,7 @@ sortedprocesses = [
     # 'ttHH',
     # 'tt',
     # 'ttbb',
-    'tt4b_4FS',
+    'tt4b_5FS',
     'tt4b',
     # 'ttH',
     # 'ttZZ',
