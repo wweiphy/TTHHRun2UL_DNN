@@ -10,6 +10,8 @@ from sklearn.preprocessing import QuantileTransformer
 from sklearn.preprocessing import MinMaxScaler
 from tensorflow.keras.utils import to_categorical
 
+import SystMap
+
 # local import 
 # import GenNormMap
 filedir = os.path.dirname(os.path.realpath(__file__))
@@ -75,7 +77,7 @@ class Sample:
                 # isr
                 # print(GenNormMap.internalNomFactors['isrUp'][4][1])
 
-                df = df.assign(total_preweight=lambda x: (x['lumiWeight']* x['Weight_XS'] * x['Weight_CSV_UL'] * x['Weight_GEN_nom'] * x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSFUp[0]'] > 0.) & (x['Electron_ReconstructionSFUp[0]'] > 0.))*1.*x['Electron_IdentificationSFUp[0]']*x['Electron_ReconstructionSFUp[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & ((x['Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX'] == 1) | (
+                df = df.assign(total_preweight=lambda x: (self.normalization_weight * x['lumiWeight'] * x['Weight_XS'] * x['Weight_CSV_UL'] * x['Weight_GEN_nom'] * x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSFUp[0]'] > 0.) & (x['Electron_ReconstructionSFUp[0]'] > 0.))*1.*x['Electron_IdentificationSFUp[0]']*x['Electron_ReconstructionSFUp[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & ((x['Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX'] == 1) | (
                     (x['Triggered_HLT_Ele32_WPTight_Gsf_L1DoubleEG_vX'] == 1) & (x['Triggered_HLT_Ele32_WPTight_Gsf_2017SeedsX'] == 1))) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['Triggered_HLT_IsoMu27_vX'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
 
                 df = df.assign(total_weight_scaleMuRUp=lambda x: (((x['process'] == "ttSL")*1. * float(internal['ttSL'][internal[internal['Name'] == 'Weight_scale_variation_muR_2p0_muF_1p0'].index]) * x['Weight_scale_variation_muR_2p0_muF_1p0'] + (x['process'] == "ttDL")*1. * float(internal['ttDL'][internal[internal['Name'] == 'Weight_scale_variation_muR_2p0_muF_1p0'].index]) * \
@@ -171,6 +173,23 @@ class Sample:
 
                 df = df.assign(total_weight_downfsr_ttcc=lambda x: ((((x['process'] == "ttSL") & (self.label == "ttcc"))*1. * float(internal['ttSL'][internal[internal['Name'] == 'GenWeight_fsr_Def_down'].index]) * x['GenWeight_fsr_Def_down'] + ((x['process'] == "ttDL") & (self.label == "ttcc"))*1. * float(internal['ttDL'][internal[internal['Name'] == 'GenWeight_fsr_Def_down'].index]) * x['GenWeight_fsr_Def_down'] + (
                     (x['process'] == "ttSL") & (self.label == "ttlf"))*1. * float(ttlf['ttSL'][ttlf[ttlf['Name'] == 'GenWeight_fsr_Def_down'].index]) + ((x['process'] == "ttDL") & (self.label == "ttlf"))*1. * float(ttlf['ttDL'][ttlf[ttlf['Name'] == 'GenWeight_fsr_Def_down'].index]) + (x['process'] == "ttbbSL")*1. * float(internal_ttbb['ttbbSL'][internal_ttbb[internal_ttbb['Name'] == 'GenWeight_fsr_Def_down'].index]) + (x['process'] == "ttbbDL")*1. * float(internal_ttbb['ttbbDL'][internal_ttbb[internal_ttbb['Name'] == 'GenWeight_fsr_Def_down'].index])) * x.total_preweight))
+                
+                for syst in SystMap.systs:
+
+                    df[syst] = df[syst] * self.normalization_weight
+
+                for syst in SystMap.systs_reverse:
+
+                    df[syst] = df[syst] * self.normalization_weight
+
+                for x in range(306000, 306103):
+                    # for x in range(306000,306103):
+                    df["total_weight_PDF_Weight_{}".format(
+                        x)] = df["total_weight_PDF_Weight_{}".format(x)] * self.normalization_weight
+                    
+                for x in range(320900, 321001):
+                    df["total_weight_PDF_Weight_{}".format(
+                        x)] = df["total_weight_PDF_Weight_{}".format(x)] * self.normalization_weight
 
 
             df = df.assign(xs_weight=lambda x: eval(
