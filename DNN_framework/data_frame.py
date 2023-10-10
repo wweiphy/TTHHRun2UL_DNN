@@ -206,7 +206,7 @@ class Sample:
             print("total weight")
             print(df["total_weight"].values)
                 
-        if Do_Control:
+        elif Do_Control:
 
             # if Do_plotting:
 
