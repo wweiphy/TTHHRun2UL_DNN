@@ -216,6 +216,7 @@ train_variables=config["trainVariables"],
 Do_Evaluation = True,
 shuffle_seed=config["shuffleSeed"],
 addSampleSuffix=config["addSampleSuffix"],
+Do_Control = False,
 )
 
 #    dnn._load_datasets(shuffle_seed=config["shuffleSeed"],balanceSamples=True)
