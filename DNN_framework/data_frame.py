@@ -43,7 +43,7 @@ class Sample:
         self.addSampleSuffix = addSampleSuffix
         # self.Do_Evaluation = Do_Evaluation
 
-    def load_dataframe(self, event_category, lumi, evenSel="", Do_Evaluation=False, Do_plotting = False, jecsysts=None):
+    def load_dataframe(self, event_category, lumi, evenSel="", Do_Evaluation=False, Do_Control = False, jecsysts=None):
         # loading samples from one .h5 file or mix it with one uncertainty variation (default is without mixing)
         print("-"*50)
         print("loading sample file "+str(self.path))
@@ -68,10 +68,11 @@ class Sample:
 
 
 
-        if Do_Evaluation and not Do_plotting:
+        if Do_Evaluation:
 
             print("Do DNN Evaluation")
 
+            # calculate uncertainties for nominal events
             if "nominal" in self.path: 
                 
                 # isr
@@ -191,7 +192,7 @@ class Sample:
                     df["total_weight_PDF_Weight_{}".format(
                         x)] = df["total_weight_PDF_Weight_{}".format(x)] * self.normalization_weight
 
-
+            # for other JES&JER events and nominal events
             df = df.assign(xs_weight=lambda x: eval(
                 self.total_weight_expr))
             xs_weight_sum = sum(df["xs_weight"].values)
@@ -205,7 +206,9 @@ class Sample:
             print("total weight")
             print(df["total_weight"].values)
                 
-        if (not Do_Evaluation) and (Do_plotting):
+        if Do_Control:
+
+            # if Do_plotting:
 
             print("Do control region plots")
 
@@ -226,6 +229,7 @@ class Sample:
                 df = df.assign(total_weight=lambda x: x.xs_weight)
 
         else:
+            print("Do training")
             # print("total weight: ")
             # print("total weight: {}".format(df["total_weight"].values))
             df = df.assign(total_weight=lambda x: eval(self.total_weight_expr))
