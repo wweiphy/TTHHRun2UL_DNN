@@ -16,7 +16,8 @@ import DNN_framework.data_frame as df
 
 # 2018 
 # python eval_template_new.py -o 230220_evaluation_new_5FS -i 230220_50_ge4j_ge3t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_nominal
-# python eval_template_new.py -o 230220_evaluation_new_4FS -i 230220_50_ge4j_ge3t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_nominal
+
+# python eval_template_new.py -o 230220_evaluation_new_4FS_3 -i 230220_50_ge4j_ge3t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_nominal
 
 # python eval_template_new.py -o 230220_evaluation_new_5j4b -i 230220_50_ge5j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_nominal
 
@@ -206,7 +207,7 @@ dnn = DNN.DNN(
 save_path=outPath,
 # sample_save_path=sample_save_path,
 input_samples=input_samples,
-lumi = 119.4,
+lumi = 119.66,
 # lumi = 67.24, # 2016post
 # lumi = 78.08, # 2016pre
 # lumi = 83,
@@ -242,7 +243,7 @@ dnn.load_trained_model(inPath, options.evaluation_epoch_model)
 # dnn.save_discriminators(log = options.log, privateWork = options.privateWork, printROC = options.printROC, lumi=67.24) # 59.7 * 2 , because select only Evt_Odd = 0 
 # dnn.save_discriminators(log = options.log, privateWork = options.privateWork, printROC = options.printROC, lumi=78.08) # 59.7 * 2 , because select only Evt_Odd = 0 
 # dnn.save_discriminators(log = options.log, privateWork = options.privateWork, printROC = options.printROC, lumi=83) # 59.7 * 2 , because select only Evt_Odd = 0 
-dnn.save_discriminators(log = options.log, privateWork = options.privateWork, printROC = options.printROC, lumi=119.4) # 59.7 * 2 , because select only Evt_Odd = 0 
+dnn.save_discriminators(log = options.log, privateWork = options.privateWork, printROC = options.printROC, lumi=119.66) # 59.7 * 2 , because select only Evt_Odd = 0 
 #
 #        # plot the output nodes
 #        dnn.plot_outputNodes(log = options.log, signal_class = options.signal_class, privateWork = options.privateWork, printROC = options.printROC, sigScale = -1)
