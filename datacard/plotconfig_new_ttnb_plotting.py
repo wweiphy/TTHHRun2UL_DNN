@@ -102,7 +102,7 @@ sortedprocesses = [
 plotoptions = {   'cmslabel': 'private Work',
     # 'data': 'data_obs',
     # 'datalabel': 'data',
-    'logarithmic': True,
+    'logarithmic': False,
     'lumiLabel': '59.8',
     # 'lumiLabel': '41.5',
     # 'lumiLabel': '16.81', # post
