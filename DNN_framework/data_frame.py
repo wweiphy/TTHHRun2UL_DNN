@@ -201,6 +201,9 @@ class Sample:
             # df = df.assign(total_weight=lambda x: x.xs_weight * x.extra_weight)
             df = df.assign(
                 total_weight=lambda x: x.xs_weight * x.sf_weight)
+            
+            print("total weight")
+            print(df["total_weight"].values)
                 
         if (not Do_Evaluation) and (Do_plotting):
 
@@ -216,6 +219,8 @@ class Sample:
                 
                 df = df.assign(
                     total_weight=lambda x: x.xs_weight * x.sf_weight)
+                print("total weight")
+                print(df["total_weight"].values)    
                 
             else:
                 df = df.assign(total_weight=lambda x: x.xs_weight)
