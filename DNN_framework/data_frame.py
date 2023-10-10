@@ -43,7 +43,7 @@ class Sample:
         self.addSampleSuffix = addSampleSuffix
         # self.Do_Evaluation = Do_Evaluation
 
-    def load_dataframe(self, event_category, lumi, evenSel="", Do_Evaluation=False, Do_Control = False, jecsysts=None):
+    def load_dataframe(self, event_category, lumi, evenSel="", Do_Evaluation=False, Do_Control=False, jecsysts=None):
         # loading samples from one .h5 file or mix it with one uncertainty variation (default is without mixing)
         print("-"*50)
         print("loading sample file "+str(self.path))
@@ -328,7 +328,7 @@ class DataFrame(object):
                  evenSel="",
                  addSampleSuffix="",
                  Do_Evaluation = False,
-                 Do_plotting = False):
+                 Do_Control=False):
 
         self.event_category = event_category
         self.lumi = lumi
@@ -340,7 +340,7 @@ class DataFrame(object):
         self.shuffleSeed = shuffleSeed
         self.addSampleSuffix = addSampleSuffix
         self.Do_Evaluation = Do_Evaluation
-        self.Do_plotting = Do_plotting
+        self.Do_Control = Do_Control
 
         self.binary_classification = input_samples.binary_classification
         if self.binary_classification:
@@ -353,7 +353,7 @@ class DataFrame(object):
         for sample in self.input_samples.samples:
 
             sample.load_dataframe(self.event_category,
-                                  self.lumi, self.evenSel, self.Do_Evaluation, self.Do_plotting)
+                                  self.lumi, self.evenSel, self.Do_Evaluation, self.Do_Control)
             train_samples.append(sample.data)
 
         # concatenating all dataframes
@@ -372,7 +372,7 @@ class DataFrame(object):
                 self.classes.append(sample.label)
                 index += 1
 
-            if not self.Do_plotting:
+            if not self.Do_Control:
                 self.index_classes = [self.class_translation[c]
                                     for c in self.classes]
                                     
@@ -428,7 +428,7 @@ class DataFrame(object):
 
         
         
-        if self.Do_Evaluation==False or self.Do_plotting==True:
+        if self.Do_Evaluation==False and self.Do_Control==False:
             print("using shuffle seed {} to shuffle input data".format(
                 self.shuffleSeed))
             df = shuffle(df, random_state=self.shuffleSeed)
@@ -446,7 +446,7 @@ class DataFrame(object):
         df_test = df.head(n_test_samples)
         df_train = df.tail(df.shape[0] - n_test_samples)
 
-        if not self.Do_plotting:
+        if not self.Do_Control:
             print("start preprocessing")
 
             QTScaler = QuantileTransformer(

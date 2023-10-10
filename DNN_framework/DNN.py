@@ -225,7 +225,7 @@ class DNN():
                  category_name,
                  train_variables,
                  Do_Evaluation = False,
-                 Do_Control = False,
+                 Do_Control=False,
                  is_Data = False,
                  category_cutString=None,
                  category_label=None,
@@ -336,7 +336,7 @@ class DNN():
             evenSel=self.evenSel,
             addSampleSuffix=self.addSampleSuffix,
             Do_Evaluation = self.Do_Evaluation,
-            Do_Control = self.Do_Control)
+            Do_Control=self.Do_Control)
         
         return data.loadDatasets()
 
