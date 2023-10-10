@@ -21,7 +21,15 @@ import DNN_framework.data_frame as df
 
 # python eval_template_new.py -o 230220_evaluation_new_5j4b -i 230220_50_ge5j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_nominal
 
+# python eval_template_new.py -o 230220_evaluation_new_5j4b_5FS -i 230220_50_ge5j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_nominal_5FS
+
+# python eval_template_new.py -o 230220_evaluation_new_5j4b_4FS -i 230220_50_ge5j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_nominal_4FS
+
 # python eval_template_new.py -o 230220_evaluation_new_6j4b -i 230220_50_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_nominal
+
+# python eval_template_new.py -o 230220_evaluation_new_6j4b_5FS -i 230220_50_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_nominal_5FS
+
+# python eval_template_new.py -o 230220_evaluation_new_6j4b_4FS -i 230220_50_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_nominal_4FS
 
 # 2017
 # python eval_template_new.py -o 230119_evaluation_new_4FS -i 221130_50_ge4j_ge3t --signalclass=ttHH --plot --printroc -d Eval_0119_UL_nominal
@@ -89,11 +97,6 @@ parser.add_option("-t", "--binaryBkgTarget", dest="binary_bkg_target", default =
 
 parser.add_option("-f", "--test_percentage", dest="test_percentage", default=0.2, type=float, help="set fraction of events used for testing, rest is used for training", metavar="test_percentage")
 
-# parser.add_option("-d", "--derivatives", dest="derivatives", action = "store_true", default=False,
-#         help="activate to get first and second order derivatives", metavar="dev")
-
-# parser.add_option("-c", "--category", dest="category",default="4j_ge3t",
-#                 help="STR name of the category (ge/le)[nJets]j_(ge/le)[nTags]t", metavar="CATEGORY")
                 
 parser.add_option("--evaluationEpoch", dest="evaluation_epoch_model", default = None,
                   help="model saved in this epoch used for evaluation", metavar="evaluation_epoch_model")
@@ -167,14 +170,14 @@ for sample in config["eventClasses"]:
         elif sample["sampleLabel"] == "ttmb":
         #     sample_train_weight = 1
                 # normalization_weight = 61.  # for 2017
-                # normalization_weight = 5.65  # for 2018 ttbb 4j3b
-                normalization_weight = 1.  # for 2018
+                normalization_weight = 5.505191209  # for 2018 ttbb 5j4b
+                # normalization_weight = 1.  # for 2018
         #     sample_path = dfDirectory+"ttmb_dnn.h5"
         elif sample["sampleLabel"] == "ttnb":
         #     sample_train_weight = 1
-                normalization_weight = 1.
+                # normalization_weight = 1.
                 # normalization_weight = 1.35 # for 2018 tt4b
-                # normalization_weight = 3.61 # for 2018 ttbb 4j3b
+                normalization_weight = 3.538023785  # for 2018 ttbb 5j4b
         #     sample_path = dfDirectory+"ttnb_dnn.h5"
         elif sample["sampleLabel"] == "ttcc":
                 # sample_train_weight = 1
