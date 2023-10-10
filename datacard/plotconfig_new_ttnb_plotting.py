@@ -109,7 +109,7 @@ plotoptions = {   'cmslabel': 'private Work',
     # 'lumiLabel': '19.52',  # pre
     'nominalKey': '$CHANNEL__$PROCESS',
     'normalize': False,
-    # 'ratio': '#frac{S+B}{B}',
+    'ratio': False,
     'shape': False,
     'signalScaling': -1,
     'splitLegend': True,
@@ -118,4 +118,5 @@ plotoptions = {   'cmslabel': 'private Work',
     # "combineflag" : "shapes_prefit"/"shapes_fit_s",
     # "signallabel" : "Signal"
 }
+
     #
