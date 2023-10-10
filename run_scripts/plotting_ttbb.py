@@ -7,7 +7,7 @@
 # python plotting_ttbb.py -i Eval_0119_UL_nominal_5FS -o ttbb_2017_5FS -c ge4j_ge3t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables -n ge4j_ge3t_ttH --plot --printroc
 
 # 2018
-# python plotting_ttbb.py -i Eval_0308_UL_nominal -o ttbb_2018 -c ge4j_ge3t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables -n ge4j_ge3t_ttH --plot --printroc
+# python plotting_ttbb.py -i Eval_0308_UL_nominal -o ttbb_2018_test -c ge4j_ge3t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables -n ge4j_ge3t_ttH --plot --printroc
 
 # 2018 5FS ttmb
 # python plotting_ttbb.py -i Eval_0308_UL_nominal_5FS -o ttbb_2018_5FS -c ge4j_ge3t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables -n ge4j_ge3t_ttH --plot --printroc
@@ -56,7 +56,7 @@ options.initArguments()
 input_samples = df.InputSamples(options.getInputDirectory(), options.getTestPercentage())
 
 weight_expr = "x.Weight_XS * x.Weight_CSV_UL * x.Weight_GEN_nom * x.lumiWeight"
-input_samples.addSample(options.getDefaultName("ttmb"),  label = "ttmb",  normalization_weight = 1, train_weight = 1, total_weight_expr = weight_expr) # 2018
+input_samples.addSample(options.getDefaultName("ttmb"),  label = "ttmb",  normalization_weight = 5.65, train_weight = 1, total_weight_expr = weight_expr) # 2018
 # input_samples.addSample(options.getDefaultName("ttmb"),  label = "ttmb",  normalization_weight = 5.65, train_weight = 1, total_weight_expr = weight_expr) # 2018
 # input_samples.addSample(options.getDefaultName("ttmb"),  label = "ttmb",  normalization_weight = 61.34, train_weight = 1, total_weight_expr = weight_expr) # 2017
 

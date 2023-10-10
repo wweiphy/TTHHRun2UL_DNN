@@ -16,6 +16,7 @@ sys.path.append(basedir)
 # from plot_configs import setupPlots
 import plot_configs.setupPlots as setup
 import SystMap
+import VariableMap
 
 # save DNN outputs for evaluation 
 class savenominalDiscriminators:
