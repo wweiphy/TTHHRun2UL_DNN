@@ -19,13 +19,13 @@ import DNN_framework.data_frame as df
 
 # python eval_template_new.py -o 230220_evaluation_new_4FS_3 -i 230220_50_ge4j_ge3t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_nominal
 
-# python eval_template_new.py -o 230220_evaluation_new_5j4b -i 230220_50_ge5j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_nominal
+# python eval_template_new.py -o 230220_evaluation_new_5j4b_test -i 230220_50_ge5j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_nominal
 
 # python eval_template_new.py -o 230220_evaluation_new_5j4b_5FS -i 230220_50_ge5j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_nominal_5FS
 
 # python eval_template_new.py -o 230220_evaluation_new_5j4b_4FS -i 230220_50_ge5j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_nominal_4FS
 
-# python eval_template_new.py -o 230220_evaluation_new_6j4b -i 230220_50_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_nominal
+# python eval_template_new.py -o 230220_evaluation_new_6j4b_test -i 230220_50_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_nominal
 
 # python eval_template_new.py -o 230220_evaluation_new_6j4b_5FS -i 230220_50_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_nominal_5FS
 
@@ -170,9 +170,9 @@ for sample in config["eventClasses"]:
         elif sample["sampleLabel"] == "ttmb":
         #     sample_train_weight = 1
                 # normalization_weight = 61.  # for 2017
-                # normalization_weight = 5.505191209  # for 2018 ttbb 5j4b
+                normalization_weight = 5.505191209  # for 2018 ttbb 5j4b
                 # normalization_weight = 5.467833742  # for 2018 ttbb 6j4b
-                normalization_weight = 1.  # for 2018
+                # normalization_weight = 1.  # for 2018
         #     sample_path = dfDirectory+"ttmb_dnn.h5"
         elif sample["sampleLabel"] == "ttnb":
         #     sample_train_weight = 1
@@ -180,6 +180,8 @@ for sample in config["eventClasses"]:
                 # normalization_weight = 1.35 # for 2018 tt4b
                 # normalization_weight = 3.538023785  # for 2018 ttbb 5j4b
                 # normalization_weight = 3.363282228  # for 2018 ttbb 6j4b
+                normalization_weight = 1.240415029  # for 2018 tt4b 5j4b
+                # normalization_weight = 1.212174627  # for 2018 tt4b 6j4b
         #     sample_path = dfDirectory+"ttnb_dnn.h5"
         elif sample["sampleLabel"] == "ttcc":
                 # sample_train_weight = 1
