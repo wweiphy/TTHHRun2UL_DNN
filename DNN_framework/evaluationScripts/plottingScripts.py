@@ -230,7 +230,7 @@ class savenominalDiscriminators:
                             filled=True)
                         bkgHists.append(histogram)
 
-                if truth_cls == "ttlf" or truth_cls == "ttcc":
+                if truth_cls == "ttlf" or truth_cls == "ttcc" or truth_cls == "ttmb":
 
                     # for x in range(306000, 306001):
                     for x in range(306000,306101):
@@ -288,57 +288,53 @@ class savenominalDiscriminators:
                             filled=True)
                         bkgHists.append(histogram)
 
-                if truth_cls == "ttb" or truth_cls == "ttbb" or truth_cls == "tt2b" or truth_cls == "ttmb":
+                # if truth_cls == "ttb" or truth_cls == "ttbb" or truth_cls == "tt2b" or truth_cls == "ttmb":
 
-                    # for x in range(320900, 320901):
-                    for x in range(320900, 321001):
-                        weights_PDF = self.lumi * filtered_data["total_weight_PDF_Weight_{}".format(
-                            x)].values
-                        # weights_PDF = 6.1 * self.lumi * filtered_data["total_weight_PDF_Weight_{}".format(
-                        #     x)].values
-                        # weights_PDF = 61. * self.lumi * filtered_data["total_weight_PDF_Weight_{}".format(
-                        #     x)].values
+                #     # for x in range(320900, 320901):
+                #     for x in range(320900, 321001):
+                #         weights_PDF = self.lumi * filtered_data["total_weight_PDF_Weight_{}".format(
+                #             x)].values
                         
 
-                        histogram = setup.setupHistogram(
-                            values=filtered_values,
-                            weights=weights_PDF,
-                            nbins=self.nbins,
-                            bin_range=self.bin_range,
-                            title=str(node_cls)+"_node__"+str(truth_cls),
-                            #                        color     = setup.GetPlotColor(truth_cls),
-                            xtitle="ljets_ge4j_ge3t_" + \
-                            str(node_cls)+"_node__"+str(truth_cls) + \
-                            "__PDF_ttbbNLO_Weight_pdf_variation_{}".format(x),
-                            ytitle=setup.GetyTitle(),
-                            filled=True)
-                        bkgHists.append(histogram)
+                #         histogram = setup.setupHistogram(
+                #             values=filtered_values,
+                #             weights=weights_PDF,
+                #             nbins=self.nbins,
+                #             bin_range=self.bin_range,
+                #             title=str(node_cls)+"_node__"+str(truth_cls),
+                #             #                        color     = setup.GetPlotColor(truth_cls),
+                #             xtitle="ljets_ge4j_ge3t_" + \
+                #             str(node_cls)+"_node__"+str(truth_cls) + \
+                #             "__PDF_ttbbNLO_Weight_pdf_variation_{}".format(x),
+                #             ytitle=setup.GetyTitle(),
+                #             filled=True)
+                #         bkgHists.append(histogram)
 
-                    for syst in SystMap.systs_ttbb:
+                #     for syst in SystMap.systs_ttbb:
 
-                        # print("Syst is "+syst)
-                        # print(filtered_data[syst][0])
+                #         # print("Syst is "+syst)
+                #         # print(filtered_data[syst][0])
 
-                        filtered_syst_weights = self.lumi * \
-                            filtered_data[syst].values
-                        # filtered_syst_weights = 6.1 * self.lumi * \
-                        #     filtered_data[syst].values
-                        # filtered_syst_weights = 61. * self.lumi * \
-                        #     filtered_data[syst].values
+                #         filtered_syst_weights = self.lumi * \
+                #             filtered_data[syst].values
+                #         # filtered_syst_weights = 6.1 * self.lumi * \
+                #         #     filtered_data[syst].values
+                #         # filtered_syst_weights = 61. * self.lumi * \
+                #         #     filtered_data[syst].values
 
-                        histogram = setup.setupHistogram(
-                            values=filtered_values,
-                            weights=filtered_syst_weights,
-                            nbins=self.nbins,
-                            bin_range=self.bin_range,
-                            title=str(node_cls)+"_node__"+str(truth_cls),
-                            #                        color     = setup.GetPlotColor(truth_cls),
-                            xtitle="ljets_ge4j_ge3t_" + \
-                            str(node_cls)+"_node__"+str(truth_cls) + \
-                            SystMap.systs_ttbb[syst][0],
-                            ytitle=setup.GetyTitle(),
-                            filled=True)
-                        bkgHists.append(histogram)
+                #         histogram = setup.setupHistogram(
+                #             values=filtered_values,
+                #             weights=filtered_syst_weights,
+                #             nbins=self.nbins,
+                #             bin_range=self.bin_range,
+                #             title=str(node_cls)+"_node__"+str(truth_cls),
+                #             #                        color     = setup.GetPlotColor(truth_cls),
+                #             xtitle="ljets_ge4j_ge3t_" + \
+                #             str(node_cls)+"_node__"+str(truth_cls) + \
+                #             SystMap.systs_ttbb[syst][0],
+                #             ytitle=setup.GetyTitle(),
+                #             filled=True)
+                #         bkgHists.append(histogram)
 
                 # bkgHists.append(histogram)
                 bkgLabels.append(truth_cls)
@@ -508,6 +504,43 @@ class saveDNNInput:
                 bkgHists.append(histogram)
                 bkgLabels.append(self.node_cls)
     #            allBKGhists.append( bkgHists )
+
+                # TODO - include systematic uncertainties
+
+                # for syst in SystMap.systs:
+
+                #     filtered_syst_weights = self.lumi * self.data.df_unsplit_preprocessing[syst].values
+
+                #     histogram = setup.setupHistogram(
+                #         values=filtered_values,
+                #         weights=filtered_syst_weights,
+                #         nbins=nbins,
+                #         bin_range=bin_range,
+                #         title=var+"__"+str(self.node_cls),
+                #         xtitle=var+"__"+str(self.node_cls) + SystMap.systs[syst][0],
+                #         ytitle=setup.GetyTitle(),
+                #         filled=True)
+                    
+                #     bkgHists.append(histogram)
+
+                # for syst in SystMap.systs_reverse:
+
+                #     filtered_syst_weights = self.lumi * \
+                #         self.data.df_unsplit_preprocessing[syst].values
+
+                #     histogram = setup.setupHistogram(
+                #         values=filtered_values,
+                #         weights=filtered_syst_weights,
+                #         nbins=nbins,
+                #         bin_range=bin_range,
+                #         title=var+"__"+str(self.node_cls),
+                #         xtitle=var+"__"+str(self.node_cls) + SystMap.systs_reverse[syst][0],
+                #         ytitle=setup.GetyTitle(),
+                #         filled=True)
+                #     bkgHists.append(histogram)
+
+
+
             f.cd()
             f.Write()
             f.Close()
