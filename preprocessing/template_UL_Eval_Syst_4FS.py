@@ -45,6 +45,9 @@ parser.add_option("-s", "--syst", dest="syst", default="JERup",
 parser.add_option("-c", "--cores", dest="numCores", default=1,
                   help="number of cores to run the preprocessing", metavar="NumCores")
 
+parser.add_option("-y", "--dataEra", dest="dataEra", default=2017,
+                  help="dataera", metavar="dataEra")
+
 # parser.add_option("-l", "--islocal", dest="islocal", default=False,
 #                   help="True if the ntuple files are stored in the eos space, False if the ntuple files are in local space", metavar="islocal")
 
@@ -156,6 +159,7 @@ dataset = preprocessing.Dataset(
     naming      = options.Name,
     maxEntries  = options.maxEntries,
     ncores      = options.numCores,
+    dataEra=options.dataEra,
     do_EvalSFs=True,
     )
 
