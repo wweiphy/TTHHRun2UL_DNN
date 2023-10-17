@@ -17,9 +17,9 @@ import DNN_framework.data_frame as df
 #  2018
 # python eval_template_new_sys.py -o 230220_evaluation_new -i 230220_50_ge4j_ge3t --signalclass=ttHH --plot --printroc -d Eval_0308_UL --syst=JESup
 
-# python eval_template_new_sys.py -o 230220_evaluation_new_5j4b -i 230220_50_ge5j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL --syst=JESup
+# python eval_template_new_sys.py -o 230220_evaluation_new_5j4b_5FS -i 230220_50_ge5j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_5FS --syst=JESup
 
-# python eval_template_new_sys.py -o 230220_evaluation_new_6j4b -i 230220_50_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL --syst=JESup
+# python eval_template_new_sys.py -o 230220_evaluation_new_6j4b_5FS -i 230220_50_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_5FS --syst=JESup
 
 # 2017
 # python eval_template_new_sys.py -o 230119_evaluation_new_2 -i 221130_50_ge4j_ge3t --signalclass=ttHH --plot --printroc -d Eval_0119_UL --syst=JESup
@@ -237,8 +237,8 @@ dnn = DNN.DNN(
         save_path=outPath+"_"+options.syst,
         # sample_save_path=sample_save_path,
         input_samples=input_samples,
-        # lumi = 119.4,
-        lumi=67.24,  # 2016post
+        lumi = 119.66,
+        # lumi=67.24,  # 2016post
         # lumi = 78.08, # 2016pre
         # lumi = 83,
         category_name=config["JetTagCategory"],
