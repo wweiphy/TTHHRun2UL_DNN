@@ -209,9 +209,9 @@ for sample in config["eventClasses"]:
                 #     sample_train_weight = 1
                 # normalization_weight = 1.
                 # normalization_weight = 1.35 # for 2018 tt4b
-                # normalization_weight = 3.538023785  # for 2018 ttbb 5j4b
+                normalization_weight = 3.538023785  # for 2018 ttbb 5j4b
                 # normalization_weight = 3.363282228  # for 2018 ttbb 6j4b
-                normalization_weight = 1.240415029  # for 2018 tt4b 5j4b
+                # normalization_weight = 1.240415029  # for 2018 tt4b 5j4b
                 # normalization_weight = 1.212174627  # for 2018 tt4b 6j4b
         elif sample["sampleLabel"] == "ttcc":
                 # sample_train_weight = 1
