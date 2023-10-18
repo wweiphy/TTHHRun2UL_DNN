@@ -120,32 +120,32 @@ systs_tt = {
 }
 
 
-systs_ttbb = {
+# systs_ttbb = {
 
-    "total_weight_upisr_ttcc": ["__ISR_ttccUp"],
-    "total_weight_upfsr_ttcc": ["__FSR_ttccUp"],
-    "total_weight_downisr_ttcc": ["__ISR_ttccDown"],
-    "total_weight_downfsr_ttcc": ["__FSR_ttccDown"],
+#     "total_weight_upisr_ttcc": ["__ISR_ttccUp"],
+#     "total_weight_upfsr_ttcc": ["__FSR_ttccUp"],
+#     "total_weight_downisr_ttcc": ["__ISR_ttccDown"],
+#     "total_weight_downfsr_ttcc": ["__FSR_ttccDown"],
 
-    "total_weight_upisr_ttlf": ["__ISR_ttlfUp"],
-    "total_weight_upfsr_ttlf": ["__FSR_ttlfUp"],
-    "total_weight_downisr_ttlf": ["__ISR_ttlfDown"],
-    "total_weight_downfsr_ttlf": ["__FSR_ttlfDown"],
+#     "total_weight_upisr_ttlf": ["__ISR_ttlfUp"],
+#     "total_weight_upfsr_ttlf": ["__FSR_ttlfUp"],
+#     "total_weight_downisr_ttlf": ["__ISR_ttlfDown"],
+#     "total_weight_downfsr_ttlf": ["__FSR_ttlfDown"],
 
-    "total_weight_upisr_ttbb": ["__ISR_ttbbUp"],
-    "total_weight_upfsr_ttbb": ["__FSR_ttbbUp"],
-    "total_weight_downisr_ttbb": ["__ISR_ttbbDown"],
-    "total_weight_downfsr_ttbb": ["__FSR_ttbbDown"],
+#     "total_weight_upisr_ttbb": ["__ISR_ttbbUp"],
+#     "total_weight_upfsr_ttbb": ["__FSR_ttbbUp"],
+#     "total_weight_downisr_ttbb": ["__ISR_ttbbDown"],
+#     "total_weight_downfsr_ttbb": ["__FSR_ttbbDown"],
 
-    "total_weight_scaleMuF_ttbbNLOUp": ["__scaleMuF_ttbbNLOUp"],
-    "total_weight_scaleMuR_ttbbNLOUp": ["__scaleMuR_ttbbNLOUp"],
-    "total_weight_scaleMuF_ttbbNLODown": ["__scaleMuF_ttbbNLODown"],
-    "total_weight_scaleMuR_ttbbNLODown": ["__scaleMuR_ttbbNLODown"],
+#     "total_weight_scaleMuF_ttbbNLOUp": ["__scaleMuF_ttbbNLOUp"],
+#     "total_weight_scaleMuR_ttbbNLOUp": ["__scaleMuR_ttbbNLOUp"],
+#     "total_weight_scaleMuF_ttbbNLODown": ["__scaleMuF_ttbbNLODown"],
+#     "total_weight_scaleMuR_ttbbNLODown": ["__scaleMuR_ttbbNLODown"],
 
-    "total_weight_scaleMuFUp": ["__scaleMuFUp"],
-    "total_weight_scaleMuRUp": ["__scaleMuRUp"],
-    "total_weight_scaleMuFDown": ["__scaleMuFDown"],
-    "total_weight_scaleMuRDown": ["__scaleMuRDown"],
+#     "total_weight_scaleMuFUp": ["__scaleMuFUp"],
+#     "total_weight_scaleMuRUp": ["__scaleMuRUp"],
+#     "total_weight_scaleMuFDown": ["__scaleMuFDown"],
+#     "total_weight_scaleMuRDown": ["__scaleMuRDown"],
 
-}
+# }
 
