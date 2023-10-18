@@ -182,15 +182,15 @@ for sample in config["eventClasses"]:
         # normalization_weight = 1
         if sample["sampleLabel"] == "ttHH":
                 # sample_train_weight = 0.5
-                normalization_weight = 1.
+                normalization_weight = 2.
                 # sample_path = dfDirectory+"ttHH_dnn.h5"
         elif sample["sampleLabel"] == "ttZH":
                 # sample_train_weight = 1
-                normalization_weight = 1.
+                normalization_weight = 2. # JERdown 2018
                 # sample_path = dfDirectory+"ttZH_dnn.h5"
         elif sample["sampleLabel"] == "ttZZ":
                 # sample_train_weight = 1
-                normalization_weight = 1.
+                normalization_weight = 2. # JERdown 2018
                 # sample_path = dfDirectory+"ttZZ_dnn.h5"
         elif sample["sampleLabel"] == "ttZ":
                 # sample_train_weight = 1
