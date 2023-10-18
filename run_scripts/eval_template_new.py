@@ -31,6 +31,8 @@ import DNN_framework.data_frame as df
 
 # python eval_template_new.py -o 230220_evaluation_new_6j4b_4FS -i 230220_50_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_nominal_4FS
 
+# python eval_template_new.py -o 230220_evaluation_new_6j4b_4FS_2 -i 231011_50_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_nominal_4FS
+
 # 2017
 # python eval_template_new.py -o 230119_evaluation_new_4FS -i 221130_50_ge4j_ge3t --signalclass=ttHH --plot --printroc -d Eval_0119_UL_nominal
 
@@ -176,7 +178,7 @@ for sample in config["eventClasses"]:
         #     sample_path = dfDirectory+"ttmb_dnn.h5"
         elif sample["sampleLabel"] == "ttnb":
         #     sample_train_weight = 1
-                normalization_weight = 1.
+                # normalization_weight = 1.
                 # normalization_weight = 1.35 # for 2018 tt4b
                 # normalization_weight = 3.538023785  # for 2018 ttbb 5j4b
                 # normalization_weight = 3.363282228  # for 2018 ttbb 6j4b
