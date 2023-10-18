@@ -67,7 +67,7 @@ weight_expr = "x.Weight_XS * x.Weight_CSV_UL * x.Weight_GEN_nom * x.lumiWeight"
                         # normalization_weight=82.96*0.92, train_weight=1, total_weight_expr=weight_expr)
 # input_samples.addSample(options.getDefaultName("ttnb_2018"),  label = "ttnb",  normalization_weight = 1.35, train_weight = 1, total_weight_expr = weight_expr)
 # input_samples.addSample(options.getDefaultName("ttnb_2018"),  label = "ttnb",  normalization_weight = 119.66*1.35, train_weight = 1, total_weight_expr = weight_expr)
-input_samples.addSample(options.getDefaultName("ttnb"),  label = "ttnb",  normalization_weight = 1, train_weight = 1, total_weight_expr = weight_expr) # 4FS 2018
+input_samples.addSample(options.getDefaultName("ttnb_5FS"),  label = "ttnb",  normalization_weight = 1, train_weight = 1, total_weight_expr = weight_expr) # 4FS 2018
 # input_samples.addSample(options.getDefaultName("ttnb"),  label = "ttnb",  normalization_weight = 3.61, train_weight = 1, total_weight_expr = weight_expr) # 4FS 2018
 # input_samples.addSample(options.getDefaultName("ttnb"),  label = "ttnb",  normalization_weight = 1.35, train_weight = 1, total_weight_expr = weight_expr) # tt4b 2018
 

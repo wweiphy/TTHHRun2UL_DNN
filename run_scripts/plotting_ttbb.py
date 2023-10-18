@@ -56,7 +56,7 @@ options.initArguments()
 input_samples = df.InputSamples(options.getInputDirectory(), options.getTestPercentage())
 
 weight_expr = "x.Weight_XS * x.Weight_CSV_UL * x.Weight_GEN_nom * x.lumiWeight"
-input_samples.addSample(options.getDefaultName("ttmb"),  label = "ttmb",  normalization_weight = 1, train_weight = 1, total_weight_expr = weight_expr) # 2018
+input_samples.addSample(options.getDefaultName("ttmb_5FS"),  label = "ttmb",  normalization_weight = 1, train_weight = 1, total_weight_expr = weight_expr) # 2018
 # input_samples.addSample(options.getDefaultName("ttmb"),  label = "ttmb",  normalization_weight = 5.65, train_weight = 1, total_weight_expr = weight_expr) # 2018
 # input_samples.addSample(options.getDefaultName("ttmb"),  label = "ttmb",  normalization_weight = 61.34, train_weight = 1, total_weight_expr = weight_expr) # 2017
 
