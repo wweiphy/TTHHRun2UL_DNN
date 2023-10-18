@@ -103,7 +103,8 @@ parser.add_option("-t", "--binaryBkgTarget", dest="binary_bkg_target", default =
 
 parser.add_option("-f", "--test_percentage", dest="test_percentage", default=0.2, type=float, help="set fraction of events used for testing, rest is used for training", metavar="test_percentage")
 
-parser.add_option("--ttmb", dest="ttmb", default=1.0, type=float, help="factor for ttmb events", metavar="ttmb")
+parser.add_option("--ttmb", dest="ttmb", default=1.0, type=float,
+                  help="factor for ttmb events", metavar="ttmb")
 
 parser.add_option("--ttnb", dest="ttnb", default=1.0, type=float,
                   help="factor for ttnb events", metavar="ttnb")
@@ -186,7 +187,6 @@ for sample in config["eventClasses"]:
                 # normalization_weight = 1.  # for 2018
                 # normalization_weight = 59.00761686  # for 2017 5j4b
                 # normalization_weight = 58.90519929  # for 2017 6j4b
-
                 normalization_weight = options.ttmb
         #     sample_path = dfDirectory+"ttmb_dnn.h5"
         elif sample["sampleLabel"] == "ttnb":
@@ -199,9 +199,9 @@ for sample in config["eventClasses"]:
                 # normalization_weight = 1.212174627  # for 2018 tt4b 6j4b
                 # normalization_weight = 39.87166406   # for 2017 ttbb 5j4b
                 # normalization_weight = 38.92963248   # for 2017 ttbb 6j4b
-                normalization_weight = options.ttnb  
                 # normalization_weight = 1.206068632   # for 2017 tt4b 5j4b
                 # normalization_weight = 1.201014393   # for 2017 tt4b 6j4b
+                normalization_weight = options.ttnb
         #     sample_path = dfDirectory+"ttnb_dnn.h5"
         elif sample["sampleLabel"] == "ttcc":
                 # sample_train_weight = 1
