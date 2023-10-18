@@ -180,6 +180,7 @@ for sample in config["eventClasses"]:
                 # normalization_weight = 5.467833742  # for 2018 ttbb 6j4b
                 # normalization_weight = 1.  # for 2018
                 normalization_weight = 59.00761686  # for 2017 5j4b
+                # normalization_weight = 58.90519929  # for 2017 6j4b
         #     sample_path = dfDirectory+"ttmb_dnn.h5"
         elif sample["sampleLabel"] == "ttnb":
 
@@ -189,7 +190,10 @@ for sample in config["eventClasses"]:
                 # normalization_weight = 3.363282228  # for 2018 ttbb 6j4b
                 # normalization_weight = 1.240415029  # for 2018 tt4b 5j4b
                 # normalization_weight = 1.212174627  # for 2018 tt4b 6j4b
-                normalization_weight = 39.87166406   # for 2017 tt4b 5j4b
+                # normalization_weight = 39.87166406   # for 2017 ttbb 5j4b
+                # normalization_weight = 38.92963248   # for 2017 ttbb 6j4b
+                normalization_weight = 1.206068632   # for 2017 tt4b 5j4b
+                # normalization_weight = 1.201014393   # for 2017 tt4b 6j4b
         #     sample_path = dfDirectory+"ttnb_dnn.h5"
         elif sample["sampleLabel"] == "ttcc":
                 # sample_train_weight = 1
