@@ -311,31 +311,33 @@ class savenominalDiscriminators:
                             filled=True)
                         bkgHists.append(histogram)
 
-                    for syst in SystMap.systs_ttbb:
+                    # for syst in SystMap.systs_tt:
 
-                        # print("Syst is "+syst)
-                        # print(filtered_data[syst][0])
+                    #     # print("Syst is "+syst)
+                    #     # print(filtered_data[syst][0])
 
-                        filtered_syst_weights = self.lumi * \
-                            filtered_data[syst].values
-                        # filtered_syst_weights = 6.1 * self.lumi * \
-                        #     filtered_data[syst].values
-                        # filtered_syst_weights = 61. * self.lumi * \
-                        #     filtered_data[syst].values
+                    #     filtered_syst_weights = self.lumi * \
+                    #         filtered_data[syst].values
+                    #     # filtered_syst_weights = 6.1 * self.lumi * \
+                    #     #     filtered_data[syst].values
+                    #     # filtered_syst_weights = 61. * self.lumi * \
+                    #     #     filtered_data[syst].values
 
-                        histogram = setup.setupHistogram(
-                            values=filtered_values,
-                            weights=filtered_syst_weights,
-                            nbins=self.nbins,
-                            bin_range=self.bin_range,
-                            title=str(node_cls)+"_node__"+str(truth_cls),
-                            #                        color     = setup.GetPlotColor(truth_cls),
-                            xtitle="ljets_ge4j_ge3t_" + \
-                            str(node_cls)+"_node__"+str(truth_cls) + \
-                            SystMap.systs_ttbb[syst][0],
-                            ytitle=setup.GetyTitle(),
-                            filled=True)
-                        bkgHists.append(histogram)
+                    #     histogram = setup.setupHistogram(
+                    #         values=filtered_values,
+                    #         weights=filtered_syst_weights,
+                    #         nbins=self.nbins,
+                    #         bin_range=self.bin_range,
+                    #         title=str(node_cls)+"_node__"+str(truth_cls),
+                    #         #                        color     = setup.GetPlotColor(truth_cls),
+                    #         xtitle="ljets_ge4j_ge3t_" + \
+                    #         str(node_cls)+"_node__"+str(truth_cls) + \
+                    #         SystMap.systs_tt[syst][0],
+                    #         # str(node_cls)+"_node__"+str(truth_cls) + \
+                    #         # SystMap.systs_ttbb[syst][0],
+                    #         ytitle=setup.GetyTitle(),
+                    #         filled=True)
+                    #     bkgHists.append(histogram)
 
                 # bkgHists.append(histogram)
                 bkgLabels.append(truth_cls)
