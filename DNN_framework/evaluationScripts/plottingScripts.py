@@ -230,7 +230,8 @@ class savenominalDiscriminators:
                             filled=True)
                         bkgHists.append(histogram)
 
-                if truth_cls == "ttlf" or truth_cls == "ttcc":
+                # if truth_cls == "ttlf" or truth_cls == "ttcc":
+                if truth_cls == "ttb" or truth_cls == "ttbb" or truth_cls == "tt2b" or truth_cls == "ttmb" or truth_cls == "ttlf" or truth_cls == "ttcc":
 
                     # for x in range(306000, 306001):
                     for x in range(306000,306101):
@@ -288,7 +289,7 @@ class savenominalDiscriminators:
                             filled=True)
                         bkgHists.append(histogram)
 
-                if truth_cls == "ttb" or truth_cls == "ttbb" or truth_cls == "tt2b" or truth_cls == "ttmb":
+                # if truth_cls == "ttb" or truth_cls == "ttbb" or truth_cls == "tt2b" or truth_cls == "ttmb":
 
                     # for x in range(320900, 320901):
                     for x in range(320900, 321001):
