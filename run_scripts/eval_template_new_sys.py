@@ -17,20 +17,24 @@ import DNN_framework.data_frame as df
 #  2018
 # python eval_template_new_sys.py -o 230220_evaluation_new -i 230220_50_ge4j_ge3t --signalclass=ttHH --plot --printroc -d Eval_0308_UL --syst=JESup
 
-# python eval_template_new_sys.py -o 230220_evaluation_new_5j4b_test -i 230220_50_ge5j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL --syst=JESup
-# python eval_template_new_sys.py -o 230220_evaluation_new_5j4b_5FS -i 230220_50_ge5j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_5FS --syst=JESdown
-# python eval_template_new_sys.py -o 230220_evaluation_new_5j4b_4FS -i 230220_50_ge5j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL --syst=JESdown
+# python eval_template_new_sys.py -o 230220_evaluation_new_5j4b_test -i 230220_50_ge5j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL --ttmb=5.505191209 --ttnb=1.240415029 --syst=JESup
+# python eval_template_new_sys.py -o 230220_evaluation_new_5j4b_5FS -i 230220_50_ge5j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_5FS --ttmb=1.0 --ttnb=1.0 --syst=JESdown
+# python eval_template_new_sys.py -o 230220_evaluation_new_5j4b_4FS -i 230220_50_ge5j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL --ttmb=5.505191209 --ttnb=3.538023785 --syst=JESdown
 
-# python eval_template_new_sys.py -o 230220_evaluation_new_6j4b_test -i 230220_50_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL --syst=JESup
-# python eval_template_new_sys.py -o 230220_evaluation_new_6j4b_5FS -i 230220_50_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_5FS --syst=JESdown
-# python eval_template_new_sys.py -o 230220_evaluation_new_6j4b_4FS -i 230220_50_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL --syst=JESdown
+# python eval_template_new_sys.py -o 230220_evaluation_new_6j4b_test -i 230220_50_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL --ttmb=5.467833742 --ttnb=1.212174627 --syst=JESup
+# python eval_template_new_sys.py -o 230220_evaluation_new_6j4b_5FS -i 230220_50_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_5FS --ttmb=1.0 --ttnb=1.0 --syst=JESdown
+# python eval_template_new_sys.py -o 230220_evaluation_new_6j4b_4FS -i 230220_50_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL --ttmb=5.467833742 --ttnb=3.363282228 --syst=JESdown
 
 # 2017
 # python eval_template_new_sys.py -o 230119_evaluation_new_2 -i 221130_50_ge4j_ge3t --signalclass=ttHH --plot --printroc -d Eval_0119_UL --syst=JESup
 
-# python eval_template_new_sys.py -o 230119_evaluation_new_6j4b -i 230119_50_ge6j_ge4t  --signalclass=ttHH --plot --printroc -d Eval_0119_UL  --syst=JESup
+# python eval_template_new_sys.py -o 230119_evaluation_new_6j4b -i 230119_50_ge6j_ge4t  --signalclass=ttHH --plot --printroc -d Eval_0119_UL --ttmb=58.90519929 --ttnb=1.201014393 --syst=JESup
+# python eval_template_new_sys.py -o 230119_evaluation_new_6j4b_4FS -i 230119_50_ge6j_ge4t  --signalclass=ttHH --plot --printroc -d Eval_0119_UL --ttmb=58.90519929 --ttnb=38.92963248 --syst=JESup
+# python eval_template_new_sys.py -o 230119_evaluation_new_6j4b_5FS -i 230119_50_ge6j_ge4t  --signalclass=ttHH --plot --printroc -d Eval_0119_UL --ttmb=1.0 --ttnb=1.0 --syst=JESup
 
-# python eval_template_new_sys.py -o 230119_evaluation_new_5j4b -i 230119_50_ge5j_ge4t  --signalclass=ttHH --plot --printroc -d Eval_0119_UL  --syst=JESup
+# python eval_template_new_sys.py -o 230119_evaluation_new_5j4b -i 230119_50_ge5j_ge4t  --signalclass=ttHH --plot --printroc -d Eval_0119_UL --ttmb=59.00761686 --ttnb=1.206068632 --syst=JESup
+# python eval_template_new_sys.py -o 230119_evaluation_new_5j4b_4FS -i 230119_50_ge5j_ge4t  --signalclass=ttHH --plot --printroc -d Eval_0119_UL --ttmb=59.00761686 --ttnb=39.87166406 --syst=JESup
+# python eval_template_new_sys.py -o 230119_evaluation_new_5j4b_5FS -i 230119_50_ge5j_ge4t  --signalclass=ttHH --plot --printroc -d Eval_0119_UL --ttmb=1.0 --ttnb=1.0 --syst=JESup
 
 
 # 2016post
@@ -251,11 +255,11 @@ dnn = DNN.DNN(
         save_path=outPath+"_"+options.syst,
         # sample_save_path=sample_save_path,
         input_samples=input_samples,
-        # lumi = 119.66,
+        lumi = 119.66,
         # lumi = 59.83,
         # lumi=67.24,  # 2016post
         # lumi = 78.08, # 2016pre
-        lumi = 83,
+        # lumi = 83,
         category_name=config["JetTagCategory"],
         train_variables=config["trainVariables"],
         Do_Evaluation=True,

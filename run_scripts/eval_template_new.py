@@ -17,19 +17,19 @@ import DNN_framework.data_frame as df
 # 2018 
 # python eval_template_new.py -o 230220_evaluation_new_5FS -i 230220_50_ge4j_ge3t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_nominal
 
-# python eval_template_new.py -o 230220_evaluation_new_4FS_3 -i 230220_50_ge4j_ge3t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_nominal
+# python eval_template_new.py -o 230220_evaluation_new_4FS -i 230220_50_ge4j_ge3t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_nominal
 
-# python eval_template_new.py -o 230220_evaluation_new_5j4b_test -i 230220_50_ge5j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_nominal
+# python eval_template_new.py -o 230220_evaluation_new_5j4b_test -i 230220_50_ge5j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_nominal --ttmb=5.505191209 --ttnb=1.240415029
 
-# python eval_template_new.py -o 230220_evaluation_new_5j4b_5FS -i 230220_50_ge5j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_nominal_5FS
+# python eval_template_new.py -o 230220_evaluation_new_5j4b_5FS -i 230220_50_ge5j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_nominal_5FS --ttmb=1.0 --ttnb=1.0
 
-# python eval_template_new.py -o 230220_evaluation_new_5j4b_4FS -i 230220_50_ge5j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_nominal_4FS
+# python eval_template_new.py -o 230220_evaluation_new_5j4b_4FS -i 230220_50_ge5j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_nominal --ttmb=5.505191209 --ttnb=3.538023785
 
-# python eval_template_new.py -o 230220_evaluation_new_6j4b_test -i 230220_50_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_nominal
+# python eval_template_new.py -o 230220_evaluation_new_6j4b_test -i 230220_50_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_nominal --ttmb=5.467833742 --ttnb=1.212174627
 
-# python eval_template_new.py -o 230220_evaluation_new_6j4b_5FS -i 230220_50_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_nominal_5FS
+# python eval_template_new.py -o 230220_evaluation_new_6j4b_5FS -i 230220_50_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_nominal_5FS --ttmb=1.0 --ttnb=1.0
 
-# python eval_template_new.py -o 230220_evaluation_new_6j4b_4FS -i 230220_50_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_nominal_4FS
+# python eval_template_new.py -o 230220_evaluation_new_6j4b_4FS -i 230220_50_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_nominal_4FS --ttmb=5.467833742 --ttnb=3.363282228
 
 # python eval_template_new.py -o 230220_evaluation_new_6j4b_4FS_2 -i 231011_50_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_nominal_4FS
 
@@ -98,6 +98,12 @@ parser.add_option("-t", "--binaryBkgTarget", dest="binary_bkg_target", default =
 #         help="string containing expression of total event weight (use letter \"x\" for event-object; example: \"x.weight\")", metavar="total_weight_expr")
 
 parser.add_option("-f", "--test_percentage", dest="test_percentage", default=0.2, type=float, help="set fraction of events used for testing, rest is used for training", metavar="test_percentage")
+
+parser.add_option("--ttmb", dest="ttmb", default=1.0, type=float,
+                  help="factor for ttmb events", metavar="ttmb")
+
+parser.add_option("--ttnb", dest="ttnb", default=1.0, type=float,
+                  help="factor for ttnb events", metavar="ttnb")
 
                 
 parser.add_option("--evaluationEpoch", dest="evaluation_epoch_model", default = None,
@@ -171,16 +177,18 @@ for sample in config["eventClasses"]:
                 # sample_path = dfDirectory+"ttZ_dnn.h5"
         elif sample["sampleLabel"] == "ttmb":
         #     sample_train_weight = 1
+                normalization_weight = options.ttmb
                 # normalization_weight = 61.  # for 2017
-                normalization_weight = 5.505191209  # for 2018 ttbb 5j4b
+                # normalization_weight = 5.505191209  # for 2018 ttbb 5j4b
                 # normalization_weight = 5.467833742  # for 2018 ttbb 6j4b
                 # normalization_weight = 1.  # for 2018
         #     sample_path = dfDirectory+"ttmb_dnn.h5"
         elif sample["sampleLabel"] == "ttnb":
         #     sample_train_weight = 1
                 # normalization_weight = 1.
+                normalization_weight = options.ttnb
                 # normalization_weight = 1.35 # for 2018 tt4b
-                normalization_weight = 3.538023785  # for 2018 ttbb 5j4b
+                # normalization_weight = 3.538023785  # for 2018 ttbb 5j4b
                 # normalization_weight = 3.363282228  # for 2018 ttbb 6j4b
                 # normalization_weight = 1.240415029  # for 2018 tt4b 5j4b
                 # normalization_weight = 1.212174627  # for 2018 tt4b 6j4b
