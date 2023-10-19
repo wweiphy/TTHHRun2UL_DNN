@@ -90,6 +90,12 @@ parser.add_option("-t", "--binaryBkgTarget", dest="binary_bkg_target", default =
 
 parser.add_option("-f", "--test_percentage", dest="test_percentage", default=0.2, type=float, help="set fraction of events used for testing, rest is used for training", metavar="test_percentage")
 
+parser.add_option("--ttmb", dest="ttmb", default=1.0, type=float,
+                  help="factor for ttmb events", metavar="ttmb")
+
+parser.add_option("--ttnb", dest="ttnb", default=1.0, type=float,
+                  help="factor for ttnb events", metavar="ttnb")
+
 parser.add_option("-s", "--syst", dest="syst", default="JESup",
                   help="JER JES uncertainties", metavar="syst")
 
@@ -182,16 +188,16 @@ for sample in config["eventClasses"]:
         # normalization_weight = 1
         if sample["sampleLabel"] == "ttHH":
                 # sample_train_weight = 0.5
-                normalization_weight = 2.
-                # normalization_weight = 1.
+                # normalization_weight = 2.
+                normalization_weight = 1.
                 # sample_path = dfDirectory+"ttHH_dnn.h5"
         elif sample["sampleLabel"] == "ttZH":
-                # sample_train_weight = 1
-                normalization_weight = 2. # JERdown 2018
+                sample_train_weight = 1
+                # normalization_weight = 2. # JERdown 2018
                 # sample_path = dfDirectory+"ttZH_dnn.h5"
         elif sample["sampleLabel"] == "ttZZ":
-                # sample_train_weight = 1
-                normalization_weight = 2. # JERdown 2018
+                sample_train_weight = 1
+                # normalization_weight = 2. # JERdown 2018
                 # sample_path = dfDirectory+"ttZZ_dnn.h5"
         elif sample["sampleLabel"] == "ttZ":
                 # sample_train_weight = 1
@@ -202,19 +208,21 @@ for sample in config["eventClasses"]:
         elif sample["sampleLabel"] == "ttmb":
                 #     sample_train_weight = 1
                 # normalization_weight = 61.  # for 2017
-                normalization_weight = 5.505191209  # for 2018 ttbb 5j4b
+                # normalization_weight = 5.505191209  # for 2018 ttbb 5j4b
                 # normalization_weight = 5.467833742  # for 2018 ttbb 6j4b
                 # normalization_weight = 1.  # for 2018 tt
+                normalization_weight = options.ttmb
         #     sample_path = dfDirectory+"ttmb_dnn.h5"
         elif sample["sampleLabel"] == "ttnb":
                 #     sample_train_weight = 1
                 # normalization_weight = 1.
                 # normalization_weight = 1.35 # for 2018 tt4b
                 # normalization_weight = 3.538023785  # for 2018 ttbb 5j4b
-                normalization_weight = 3.538023785 * 2  # for 2018 ttbb 5j4b JER down
+                # normalization_weight = 3.538023785 * 2  # for 2018 ttbb 5j4b JER down
                 # normalization_weight = 3.363282228  # for 2018 ttbb 6j4b
                 # normalization_weight = 1.240415029  # for 2018 tt4b 5j4b
                 # normalization_weight = 1.212174627  # for 2018 tt4b 6j4b
+                normalization_weight = options.ttnb
         elif sample["sampleLabel"] == "ttcc":
                 # sample_train_weight = 1
                 normalization_weight = 1.
@@ -244,10 +252,10 @@ dnn = DNN.DNN(
         # sample_save_path=sample_save_path,
         input_samples=input_samples,
         # lumi = 119.66,
-        lumi = 59.83,
+        # lumi = 59.83,
         # lumi=67.24,  # 2016post
         # lumi = 78.08, # 2016pre
-        # lumi = 83,
+        lumi = 83,
         category_name=config["JetTagCategory"],
         train_variables=config["trainVariables"],
         Do_Evaluation=True,
