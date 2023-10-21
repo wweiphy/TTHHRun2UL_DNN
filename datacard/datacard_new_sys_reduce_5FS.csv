@@ -30,9 +30,9 @@ FSR_ttlf,shape,-,1,1,1,1,-,-,-,-
 FSR_ttbb,shape,-,1,1,1,1,-,-,-,-
 ISR_ttbb,shape,-,1,1,1,1,-,-,-,-
 PDF,shape,-,1,1,1,1,1,-,-,-
-scaleMuR,shape,,1,1,1,1,,,,
-scaleMuR_ttbbNLO,shape,,1,1,,,,,,
-scaleMuR_ttH,shape,,,,,,1,,,
-scaleMuF,shape,,1,1,1,1,,,,
-scaleMuF_ttbbNLO,shape,,1,1,,,,,,
-scaleMuF_ttH,shape,,,,,,1,,,
+scaleMuR,shape,-,1,1,1,1,-,-,-,-
+scaleMuR_ttbbNLO,shape,-,1,1,-,-,-,-,-,-
+scaleMuR_ttH,shape,-,-,-,-,-,1,-,-,-
+scaleMuF,shape,-,1,1,1,1,-,-,-,-
+scaleMuF_ttbbNLO,shape,-,1,1,-,-,-,-,-,-
+scaleMuF_ttH,shape,-,-,-,-,-,1,-,-,-
