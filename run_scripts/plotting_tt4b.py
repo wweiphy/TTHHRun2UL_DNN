@@ -23,6 +23,8 @@
 
 # python plotting_tt4b.py -i Control_0409  -o tt4b_4_rescale -c ge4j_2t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables --plot --printroc
 
+# python plotting_tt4b.py -i Control_2018_4FS  -o tt4b_4FS -c ge4j_2t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables --plot --printroc
+
 # python plotting_tt4b.py -i Control_0822_2017  -o tt4b_2017 -c ge4j_2t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables --plot --printroc
 
 # python plotting_tt4b.py -i Control_1718  -o tt4b_2017 -c ge4j_2t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables --plot --printroc
@@ -67,7 +69,8 @@ weight_expr = "x.Weight_XS * x.Weight_CSV_UL * x.Weight_GEN_nom * x.lumiWeight"
                         # normalization_weight=82.96*0.92, train_weight=1, total_weight_expr=weight_expr)
 # input_samples.addSample(options.getDefaultName("ttnb_2018"),  label = "ttnb",  normalization_weight = 1.35, train_weight = 1, total_weight_expr = weight_expr)
 # input_samples.addSample(options.getDefaultName("ttnb_2018"),  label = "ttnb",  normalization_weight = 119.66*1.35, train_weight = 1, total_weight_expr = weight_expr)
-input_samples.addSample(options.getDefaultName("ttnb_5FS"),  label = "ttnb",  normalization_weight = 1, train_weight = 1, total_weight_expr = weight_expr) # 4FS 2018
+input_samples.addSample(options.getDefaultName("ttnb"),  label="ttnb",
+                        normalization_weight=3.538023785, train_weight=1, total_weight_expr=weight_expr)  # 4FS 2018
 # input_samples.addSample(options.getDefaultName("ttnb"),  label = "ttnb",  normalization_weight = 3.61, train_weight = 1, total_weight_expr = weight_expr) # 4FS 2018
 # input_samples.addSample(options.getDefaultName("ttnb"),  label = "ttnb",  normalization_weight = 1.35, train_weight = 1, total_weight_expr = weight_expr) # tt4b 2018
 
@@ -114,4 +117,4 @@ dnn = DNN.DNN(
 
 
 
-dnn.save_DNNInput(node_cls="tt4b_5FS", isData=False) 
+dnn.save_DNNInput(node_cls="tt4b", isData=False) 
