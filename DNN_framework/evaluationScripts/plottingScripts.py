@@ -109,7 +109,8 @@ class savenominalDiscriminators:
                         values=filtered_values,
                         weights=filtered_weights,
                         nbins=self.nbins,
-                        bin_range=self.bin_range,
+                        # bin_range=self.bin_range,
+                        bin_range=[filtered_values.min(), filtered_values.max()],
                         title = str(node_cls)+"_node__"+str(truth_cls), 
                         #                        color     = setup.GetPlotColor(truth_cls),
                         xtitle="ljets_ge4j_ge3t_" + \
@@ -135,7 +136,8 @@ class savenominalDiscriminators:
                         values=filtered_values,
                         weights=filtered_syst_weights,
                         nbins=self.nbins,
-                        bin_range=self.bin_range,
+                        # bin_range=self.bin_range,
+                        bin_range=[filtered_values.min(), filtered_values.max()],
                         title=str(node_cls)+"_node__"+str(truth_cls),
                         #                        color     = setup.GetPlotColor(truth_cls),
                         xtitle="ljets_ge4j_ge3t_" + \
@@ -161,7 +163,9 @@ class savenominalDiscriminators:
                         values=filtered_values,
                         weights=filtered_syst_weights,
                         nbins=self.nbins,
-                        bin_range=self.bin_range,
+                        # bin_range=self.bin_range,
+                        bin_range=[
+                            filtered_values.min(), filtered_values.max()],
                         title = str(node_cls)+"_node__"+str(truth_cls),
                         #                        color     = setup.GetPlotColor(truth_cls),
                         xtitle="ljets_ge4j_ge3t_" + \
@@ -182,7 +186,9 @@ class savenominalDiscriminators:
                             values=filtered_values,
                             weights=weights_PDF,
                             nbins=self.nbins,
-                            bin_range=self.bin_range,
+                            # bin_range=self.bin_range,
+                            bin_range=[
+                                filtered_values.min(), filtered_values.max()],
                             title=str(node_cls)+"_node__"+str(truth_cls),
                             #                        color     = setup.GetPlotColor(truth_cls),
                             xtitle="ljets_ge4j_ge3t_" + \
@@ -201,7 +207,9 @@ class savenominalDiscriminators:
                             values=filtered_values,
                             weights=weights_PDF,
                             nbins=self.nbins,
-                            bin_range=self.bin_range,
+                            # bin_range=self.bin_range,
+                            bin_range=[
+                                filtered_values.min(), filtered_values.max()],
                             title=str(node_cls)+"_node__"+str(truth_cls),
                             #                        color     = setup.GetPlotColor(truth_cls),
                             xtitle="ljets_ge4j_ge3t_" + \
@@ -220,7 +228,9 @@ class savenominalDiscriminators:
                             values=filtered_values,
                             weights=filtered_syst_weights,
                             nbins=self.nbins,
-                            bin_range=self.bin_range,
+                            # bin_range=self.bin_range,
+                            bin_range=[
+                                filtered_values.min(), filtered_values.max()],
                             title=str(node_cls)+"_node__"+str(truth_cls),
                             #                        color     = setup.GetPlotColor(truth_cls),
                             xtitle="ljets_ge4j_ge3t_" + \
@@ -242,7 +252,9 @@ class savenominalDiscriminators:
                             values=filtered_values,
                             weights=weights_PDF,
                             nbins=self.nbins,
-                            bin_range=self.bin_range,
+                            # bin_range=self.bin_range,
+                            bin_range=[
+                                filtered_values.min(), filtered_values.max()],
                             title=str(node_cls)+"_node__"+str(truth_cls),
                             #                        color     = setup.GetPlotColor(truth_cls),
                             xtitle="ljets_ge4j_ge3t_" + \
@@ -260,7 +272,9 @@ class savenominalDiscriminators:
                             values=filtered_values,
                             weights=weights_PDF,
                             nbins=self.nbins,
-                            bin_range=self.bin_range,
+                            # bin_range=self.bin_range,
+                            bin_range=[
+                                filtered_values.min(), filtered_values.max()],
                             title=str(node_cls)+"_node__"+str(truth_cls),
                             #                        color     = setup.GetPlotColor(truth_cls),
                             xtitle="ljets_ge4j_ge3t_" + \
@@ -279,7 +293,9 @@ class savenominalDiscriminators:
                             values=filtered_values,
                             weights=filtered_syst_weights,
                             nbins=self.nbins,
-                            bin_range=self.bin_range,
+                            # bin_range=self.bin_range,
+                            bin_range=[
+                                filtered_values.min(), filtered_values.max()],
                             title=str(node_cls)+"_node__"+str(truth_cls),
                             #                        color     = setup.GetPlotColor(truth_cls),
                             xtitle="ljets_ge4j_ge3t_" + \
@@ -301,7 +317,9 @@ class savenominalDiscriminators:
                             values=filtered_values,
                             weights=weights_PDF,
                             nbins=self.nbins,
-                            bin_range=self.bin_range,
+                            # bin_range=self.bin_range,
+                            bin_range=[
+                                filtered_values.min(), filtered_values.max()],
                             title=str(node_cls)+"_node__"+str(truth_cls),
                             #                        color     = setup.GetPlotColor(truth_cls),
                             xtitle="ljets_ge4j_ge3t_" + \
@@ -439,7 +457,8 @@ class saveJESJERDiscriminators:
                     values=filtered_values,
                     weights=filtered_weights,
                     nbins=self.nbins,
-                    bin_range=self.bin_range,
+                    # bin_range=self.bin_range,
+                    bin_range=[filtered_values.min(), filtered_values.max()],
                     title=str(node_cls)+"_node__"+str(truth_cls),
                     #                        color     = setup.GetPlotColor(truth_cls),
                     xtitle="ljets_ge4j_ge3t_" + \
