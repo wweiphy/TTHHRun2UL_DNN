@@ -1,5 +1,6 @@
 import ROOT
 import numpy as np
+from array import array
 
 
 def GetPlotColor(cls):
@@ -45,7 +46,9 @@ def setupHistogram(
         xtitle, ytitle,
         color=ROOT.kBlack, filled=True):
     # define histogram
-    histogram = ROOT.TH1F(xtitle, "", nbins, *bin_range)
+    new_bin_range = array('d', bin_range)
+    histogram = ROOT.TH1F(xtitle, "", nbins, new_bin_range)
+    # histogram = ROOT.TH1F(xtitle, "", nbins, *bin_range)
     histogram.Sumw2(True)
 
     # print("bin upper limit is: ")
