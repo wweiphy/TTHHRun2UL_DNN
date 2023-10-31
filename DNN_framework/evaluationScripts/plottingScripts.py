@@ -67,23 +67,23 @@ class savenominalDiscriminators:
             
             current_binrange = [0,1]
             if node_cls == "ttHH":
-                current_binrange = [0, 0.15, 0.2, 0.25, 0.3, 0.35, 0.5]
+                current_binrange = [0, 0.2, 0.25, 0.3, 0.35, 0.5]
             if node_cls == "ttH":
-                current_binrange = [0, 0.1, 0.15, 0.2, 0.25, 0.3, 0.4]
+                current_binrange = [0, 0.15, 0.2, 0.25, 0.3, 0.4]
             if node_cls == "ttZH":
-                current_binrange = [0, 0.1, 0.15, 0.2, 0.25, 0.3, 0.4]
+                current_binrange = [0, 0.15, 0.2, 0.25, 0.3, 0.4]
             if node_cls == "ttZ":
-                current_binrange = [0, 0.1, 0.15, 0.2, 0.25, 0.3, 0.4]
+                current_binrange = [0, 0.15, 0.2, 0.25, 0.3, 0.4]
             if node_cls == "ttZZ":
                 current_binrange = [0, 0.1, 0.15, 0.2, 0.25, 0.35]
             if node_cls == "ttlf":
-                current_binrange = [0, 0.15, 0.25, 0.3, 0.35, 0.4, 0.5, 0.65]
+                current_binrange = [0, 0.2, 0.25, 0.3, 0.35, 0.45, 0.65]
             if node_cls == "ttcc":
-                current_binrange = [0, 0.15, 0.2, 0.25, 0.3, 0.45]
+                current_binrange = [0, 0.17, 0.25, 0.3, 0.45]
             if node_cls == "ttmb":
-                current_binrange = [0, 0.1, 0.15, 0.2, 0.25, 0.35]
+                current_binrange = [0, 0.2, 0.24, 0.27, 0.35]
             if node_cls == "ttnb":
-                current_binrange = [0, 0.15, 0.2, 0.25, 0.3, 0.35, 0.5]
+                current_binrange = [0, 0.2, 0.25, 0.3, 0.35, 0.5]
             
             # print(self.data.df_unsplit_preprocessing['DNN_OutPut_{}'.format(
                 # nodeIndex)][0])
@@ -440,23 +440,23 @@ class saveJESJERDiscriminators:
 
             current_binrange = [0, 1]
             if node_cls == "ttHH":
-                current_binrange = [0, 0.15, 0.2, 0.25, 0.3, 0.35, 0.5]
+                current_binrange = [0, 0.2, 0.25, 0.3, 0.35, 0.5]
             if node_cls == "ttH":
-                current_binrange = [0, 0.1, 0.15, 0.2, 0.25, 0.3, 0.4]
+                current_binrange = [0, 0.15, 0.2, 0.25, 0.3, 0.4]
             if node_cls == "ttZH":
-                current_binrange = [0, 0.1, 0.15, 0.2, 0.25, 0.3, 0.4]
+                current_binrange = [0, 0.15, 0.2, 0.25, 0.3, 0.4]
             if node_cls == "ttZ":
-                current_binrange = [0, 0.1, 0.15, 0.2, 0.25, 0.3, 0.4]
+                current_binrange = [0, 0.15, 0.2, 0.25, 0.3, 0.4]
             if node_cls == "ttZZ":
                 current_binrange = [0, 0.1, 0.15, 0.2, 0.25, 0.35]
             if node_cls == "ttlf":
-                current_binrange = [0, 0.15, 0.25, 0.3, 0.35, 0.4, 0.5, 0.65]
+                current_binrange = [0, 0.2, 0.25, 0.3, 0.35, 0.45, 0.65]
             if node_cls == "ttcc":
-                current_binrange = [0, 0.15, 0.2, 0.25, 0.3, 0.45]
+                current_binrange = [0, 0.17, 0.25, 0.3, 0.45]
             if node_cls == "ttmb":
-                current_binrange = [0, 0.1, 0.15, 0.2, 0.25, 0.35]
+                current_binrange = [0, 0.2, 0.24, 0.27, 0.35]
             if node_cls == "ttnb":
-                current_binrange = [0, 0.15, 0.2, 0.25, 0.3, 0.35, 0.5]
+                current_binrange = [0, 0.2, 0.25, 0.3, 0.35, 0.5]
 
             # loop over all classes to fill hists according to truth level class
 
