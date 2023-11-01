@@ -44,11 +44,13 @@ def setupHistogram(
         values, weights,
         nbins, bin_range,title,
         xtitle, ytitle,
-        color=ROOT.kBlack, filled=True):
+        color=ROOT.kBlack, new_bin=True, filled=True):
     # define histogram
-    new_bin_range = array('d', bin_range)
-    histogram = ROOT.TH1F(xtitle, "", nbins, new_bin_range)
-    # histogram = ROOT.TH1F(xtitle, "", nbins, *bin_range)
+    if new_bin:
+        new_bin_range = array('d', bin_range)
+        histogram = ROOT.TH1F(xtitle, "", nbins, new_bin_range)
+    else:
+        histogram = ROOT.TH1F(xtitle, "", nbins, *bin_range)
     histogram.Sumw2(True)
 
     # print("bin upper limit is: ")

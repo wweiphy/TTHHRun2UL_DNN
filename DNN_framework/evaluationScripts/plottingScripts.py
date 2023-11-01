@@ -569,6 +569,7 @@ class saveDNNInput:
                     #                        color     = setup.GetPlotColor(truth_cls),
                     xtitle=var + "__" + str(self.node_cls),
                     ytitle=setup.GetyTitle(),
+                    new_bin=False,
                     filled=True)
 
                 bkgHists.append(histogram)
@@ -647,6 +648,7 @@ class saveDNNInput:
                     #                        color     = setup.GetPlotColor(truth_cls),
                     xtitle=var+"__data_obs",
                     ytitle=setup.GetyTitle(),
+                    new_bin=False,
                     filled=True)
 
                 bkgHists.append(histogram)
