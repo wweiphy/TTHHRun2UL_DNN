@@ -33,7 +33,7 @@
 
 # python plotting_tt4b.py -i Control_1718_4FS  -o tt4b_1718_4FS -c ge4j_2t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables --plot --printroc
 
-# python plotting_tt4b.py -i Control_1718  -o tt4b_2018 -c ge4j_2t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables --plot --printroc
+# python plotting_tt4b.py -i Control_1718  -o tt4b_2018_new -c ge4j_ge3t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables --plot --printroc
 
 # python plotting_tt4b.py -i Control_1718  -o tt4b_1718 -c ge4j_2t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables --plot --printroc
 
@@ -71,7 +71,7 @@ weight_expr = "x.Weight_XS * x.Weight_CSV_UL * x.Weight_GEN_nom * x.lumiWeight"
 # input_samples.addSample(options.getDefaultName("ttnb_2017"),  label = "ttnb",  normalization_weight = 0.92, train_weight = 1, total_weight_expr = weight_expr)
 # input_samples.addSample(options.getDefaultName("ttnb_2017"),  label="ttnb",
                         # normalization_weight=82.96*0.92, train_weight=1, total_weight_expr=weight_expr)
-input_samples.addSample(options.getDefaultName("ttnb_2018"),  label = "ttnb",  normalization_weight = 1, train_weight = 1, total_weight_expr = weight_expr)
+input_samples.addSample(options.getDefaultName("ttnb"),  label = "ttnb",  normalization_weight = 1, train_weight = 1, total_weight_expr = weight_expr)
 # input_samples.addSample(options.getDefaultName("ttnb_2018"),  label = "ttnb",  normalization_weight = 119.66*1.35, train_weight = 1, total_weight_expr = weight_expr)
 
 # 2018 4FS
