@@ -36,12 +36,14 @@ import DNN_framework.data_frame as df
 # 2017
 # python eval_template_new.py -o 230119_evaluation_new_4FS -i 221130_50_ge4j_ge3t --signalclass=ttHH --plot --printroc -d Eval_0119_UL_nominal
 
-# python eval_template_new_2017.py -o 230119_evaluation_new_6j4b_test -i 230119_50_ge6j_ge4t  --signalclass=ttHH --plot --printroc -d Eval_0119_UL_nominal
-# python eval_template_new_2017.py -o 230119_evaluation_new_6j4b_5FS -i 230119_50_ge6j_ge4t  --signalclass=ttHH --plot --printroc -d Eval_0119_UL_nominal
-# python eval_template_new_2017.py -o 230119_evaluation_new_6j4b_4FS -i 230119_50_ge6j_ge4t  --signalclass=ttHH --plot --printroc -d Eval_0119_UL_nominal
-# python eval_template_new_2017.py -o 230119_evaluation_new_5j4b_test -i 230119_50_ge5j_ge4t  --signalclass=ttHH --plot --printroc -d Eval_0119_UL_nominal
-# python eval_template_new_2017.py -o 230119_evaluation_new_5j4b_5FS -i 230119_50_ge5j_ge4t  --signalclass=ttHH --plot --printroc -d Eval_0119_UL_nominal
-# python eval_template_new_2017.py -o 230119_evaluation_new_5j4b_4FS -i 230119_50_ge5j_ge4t  --signalclass=ttHH --plot --printroc -d Eval_0119_UL_nominal
+# python eval_template_new_2017.py -o 230119_evaluation_new_6j4b_2 -i 230119_50_ge6j_ge4t  --signalclass=ttHH --plot --printroc -d Eval_0119_UL_nominal --ttmb=58.90519929 --ttnb=1.201014393
+
+# python eval_template_new_2017.py -o 230119_evaluation_new_6j4b_5FS -i 230119_50_ge6j_ge4t  --signalclass=ttHH --plot --printroc -d Eval_0119_UL_nominal --ttmb=1.0 --ttnb=1.0
+# python eval_template_new_2017.py -o 230119_evaluation_new_6j4b_4FS -i 230119_50_ge6j_ge4t  --signalclass=ttHH --plot --printroc -d Eval_0119_UL_nominal --ttmb=58.90519929 --ttnb=38.92963248
+
+# python eval_template_new_2017.py -o 230119_evaluation_new_5j4b_2 -i 230119_50_ge5j_ge4t  --signalclass=ttHH --plot --printroc -d Eval_0119_UL_nominal --ttmb=59.00761686 --ttnb=1.206068632
+# python eval_template_new_2017.py -o 230119_evaluation_new_5j4b_5FS -i 230119_50_ge5j_ge4t  --signalclass=ttHH --plot --printroc -d Eval_0119_UL_nominal --ttmb=1.0 --ttnb=1.0
+# python eval_template_new_2017.py -o 230119_evaluation_new_5j4b_4FS -i 230119_50_ge5j_ge4t  --signalclass=ttHH --plot --printroc -d Eval_0119_UL_nominal --ttmb=59.00761686 --ttnb=39.87166406
 
 # 2016post
 # python eval_template_new.py -o 230523_evaluation_new_2 -i 230523_50_ge4j_ge3t --signalclass=ttHH --plot --printroc -d Eval_0523_UL_nominal
@@ -270,7 +272,7 @@ dnn.load_trained_model(inPath, options.evaluation_epoch_model)
 # dnn.save_discriminators(log = options.log, privateWork = options.privateWork, printROC = options.printROC, lumi=41.5)
 # dnn.save_discriminators(log = options.log, privateWork = options.privateWork, printROC = options.printROC, lumi=67.24) # 59.7 * 2 , because select only Evt_Odd = 0 
 # dnn.save_discriminators(log = options.log, privateWork = options.privateWork, printROC = options.printROC, lumi=78.08) # 59.7 * 2 , because select only Evt_Odd = 0 
-dnn.save_discriminators(log = options.log, privateWork = options.privateWork, printROC = options.printROC, lumi=83) # 59.7 * 2 , because select only Evt_Odd = 0 
+dnn.save_discriminators(log = options.log, privateWork = options.privateWork, printROC = options.printROC, lumi=83, equalbin=True) # 59.7 * 2 , because select only Evt_Odd = 0 
 # dnn.save_discriminators(log = options.log, privateWork = options.privateWork, printROC = options.printROC, lumi=119.66) # 59.7 * 2 , because select only Evt_Odd = 0 
 #
 #        # plot the output nodes

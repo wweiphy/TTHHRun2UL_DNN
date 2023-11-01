@@ -833,7 +833,7 @@ class DNN():
             print("\nROC-AUC score: {}".format(self.roc_auc_score))
 
     def save_discriminators(self, log=False, printROC=False, privateWork=False,
-                            signal_class=None, nbins=None, bin_range=None, lumi=41.5, sigScale=-1):
+                            signal_class=None, nbins=None, bin_range=None, lumi=41.5, sigScale=-1, equalbin=True):
         ''' plot all events classified as one category '''
         if not bin_range:
             bin_range = [round(1./self.data.n_output_neurons, 2), 1.]
@@ -850,13 +850,13 @@ class DNN():
             event_category=self.category_label,
             savedir=self.plot_path,
             lumi=lumi,
+            equalbin=equalbin,
             logscale=log)
 
         saveDiscrs.save()
 
     def save_JESJERdiscriminators(self, log=False, printROC=False, syst = "JESup", privateWork=False,
-                            signal_class=None, nbins=None, bin_range=None,
-                            sigScale=-1):
+                            signal_class=None, nbins=None, bin_range=None,equalbin=True, sigScale=-1):
         ''' plot all events classified as one category '''
         if not bin_range:
             bin_range = [round(1./self.data.n_output_neurons, 2), 1.]
@@ -873,6 +873,7 @@ class DNN():
             event_category=self.category_label,
             savedir=self.plot_path,
             syst = syst,
+            equalbin=equalbin,
             logscale=log)
 
         saveDiscrs.save()

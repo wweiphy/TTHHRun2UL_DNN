@@ -20,7 +20,7 @@ import VariableMap
 
 # save DNN outputs for evaluation 
 class savenominalDiscriminators:
-    def __init__(self, data, prediction_vector, predicted_classes, event_classes, nbins, bin_range, event_category, savedir, lumi, logscale=False):
+    def __init__(self, data, prediction_vector, predicted_classes, event_classes, nbins, bin_range, event_category, savedir, lumi, equalbin=True, logscale=False):
         self.data = data
         self.prediction_vector = prediction_vector
         self.predicted_classes = predicted_classes
@@ -32,6 +32,7 @@ class savenominalDiscriminators:
         self.savedir = savedir
         self.lumi = lumi
         self.logscale = logscale
+        self.equalbin=equalbin
 
     def save(self):
 
@@ -65,25 +66,39 @@ class savenominalDiscriminators:
             values_per_node = self.data.df_unsplit_preprocessing[self.data.df_unsplit_preprocessing['Pred_Class'] == nodeIndex]['DNN_OutPut_{}'.format(
                 nodeIndex)].values
             
-            current_binrange = [0,1]
-            if node_cls == "ttHH":
-                current_binrange = [0, 0.23, 0.27, 0.3, 0.33, 0.35, 0.55]
-            if node_cls == "ttH":
-                current_binrange = [0, 0.18, 0.20, 0.22, 0.24, 0.28, 0.45]
-            if node_cls == "ttZH":
-                current_binrange = [0, 0.2, 0.23, 0.25, 0.28, 0.45]
-            if node_cls == "ttZ":
-                current_binrange = [0, 0.19, 0.22, 0.25, 0.27, 0.45]
-            if node_cls == "ttZZ":
-                current_binrange = [0, 0.18, 0.20, 0.22, 0.25, 0.27, 0.5]
-            if node_cls == "ttlf":
-                current_binrange = [0, 0.22, 0.28, 0.34, 0.4, 0.7]
-            if node_cls == "ttcc":
-                current_binrange = [0, 0.17, 0.2, 0.24, 0.28, 0.32, 0.5]
-            if node_cls == "ttmb":
-                current_binrange = [0, 0.18, 0.2, 0.23, 0.26, 0.28, 0.4]
-            if node_cls == "ttnb":
-                current_binrange = [0, 0.21, 0.22, 0.26, 0.34, 0.55]
+            # current_binrange = [0,1]
+            if not self.equalbin:
+                if node_cls == "ttHH":
+                    current_binrange = [0, 0.23, 0.27, 0.3, 0.33, 0.35, 0.55]
+                    nbins = len(current_binrange) - 1
+                if node_cls == "ttH":
+                    current_binrange = [0, 0.18, 0.20, 0.22, 0.24, 0.28, 0.45]
+                    nbins = len(current_binrange) - 1
+                if node_cls == "ttZH":
+                    current_binrange = [0, 0.2, 0.23, 0.25, 0.28, 0.45]
+                    nbins = len(current_binrange) - 1
+                if node_cls == "ttZ":
+                    current_binrange = [0, 0.19, 0.22, 0.25, 0.27, 0.45]
+                    nbins = len(current_binrange) - 1
+                if node_cls == "ttZZ":
+                    current_binrange = [0, 0.18, 0.20, 0.22, 0.25, 0.27, 0.5]
+                    nbins = len(current_binrange) - 1
+                if node_cls == "ttlf":
+                    current_binrange = [0, 0.22, 0.28, 0.34, 0.4, 0.7]
+                    nbins = len(current_binrange) - 1
+                if node_cls == "ttcc":
+                    current_binrange = [0, 0.17, 0.2, 0.24, 0.28, 0.32, 0.5]
+                    nbins = len(current_binrange) - 1
+                if node_cls == "ttmb":
+                    current_binrange = [0, 0.18, 0.2, 0.23, 0.26, 0.28, 0.4]
+                    nbins = len(current_binrange) - 1
+                if node_cls == "ttnb":
+                    current_binrange = [0, 0.21, 0.22, 0.26, 0.34, 0.55]
+                    nbins = len(current_binrange) - 1
+
+            else:
+                current_binrange = [out_values.min(),out_values.max()]
+                nbins = 5
             
             # print(self.data.df_unsplit_preprocessing['DNN_OutPut_{}'.format(
                 # nodeIndex)][0])
@@ -131,7 +146,8 @@ class savenominalDiscriminators:
                 histogram = setup.setupHistogram(
                         values=filtered_values,
                         weights=filtered_weights,
-                        nbins=len(current_binrange) - 1,
+                        # nbins=len(current_binrange) - 1,
+                        nbins=nbins,
                         # nbins=self.nbins,
                         # bin_range=self.bin_range,
                         bin_range=current_binrange,
@@ -159,7 +175,8 @@ class savenominalDiscriminators:
                     histogram = setup.setupHistogram(
                         values=filtered_values,
                         weights=filtered_syst_weights,
-                        nbins=len(current_binrange) - 1,
+                        # nbins=len(current_binrange) - 1,
+                        nbins=nbins,
                         # nbins=self.nbins,
                         # bin_range=self.bin_range,
                         bin_range=current_binrange,
@@ -187,7 +204,8 @@ class savenominalDiscriminators:
                     histogram = setup.setupHistogram(
                         values=filtered_values,
                         weights=filtered_syst_weights,
-                        nbins=len(current_binrange) - 1,
+                        # nbins=len(current_binrange) - 1,
+                        nbins=nbins,
                         # nbins=self.nbins,
                         # bin_range=self.bin_range,
                         bin_range=current_binrange,
@@ -210,7 +228,8 @@ class savenominalDiscriminators:
                         histogram = setup.setupHistogram(
                             values=filtered_values,
                             weights=weights_PDF,
-                            nbins=len(current_binrange) - 1,
+                            # nbins=len(current_binrange) - 1,
+                            nbins=nbins,
                             # nbins=self.nbins,
                             # bin_range=self.bin_range,
                             bin_range=current_binrange,
@@ -231,7 +250,8 @@ class savenominalDiscriminators:
                         histogram = setup.setupHistogram(
                             values=filtered_values,
                             weights=weights_PDF,
-                            nbins=len(current_binrange) - 1,
+                            # nbins=len(current_binrange) - 1,
+                            nbins=nbins,
                             # nbins=self.nbins,
                             # bin_range=self.bin_range,
                             bin_range=current_binrange,
@@ -252,7 +272,8 @@ class savenominalDiscriminators:
                         histogram = setup.setupHistogram(
                             values=filtered_values,
                             weights=filtered_syst_weights,
-                            nbins=len(current_binrange) - 1,
+                            # nbins=len(current_binrange) - 1,
+                            nbins=nbins,
                             # nbins=self.nbins,
                             # bin_range=self.bin_range,
                             bin_range=current_binrange,
@@ -276,7 +297,8 @@ class savenominalDiscriminators:
                         histogram = setup.setupHistogram(
                             values=filtered_values,
                             weights=weights_PDF,
-                            nbins=len(current_binrange) - 1,
+                            # nbins=len(current_binrange) - 1,
+                            nbins=nbins,
                             # nbins=self.nbins,
                             # bin_range=self.bin_range,
                             bin_range=current_binrange,
@@ -296,7 +318,8 @@ class savenominalDiscriminators:
                         histogram = setup.setupHistogram(
                             values=filtered_values,
                             weights=weights_PDF,
-                            nbins=len(current_binrange) - 1,
+                            # nbins=len(current_binrange) - 1,
+                            nbins=nbins,
                             # nbins=self.nbins,
                             # bin_range=self.bin_range,
                             bin_range=current_binrange,
@@ -317,7 +340,8 @@ class savenominalDiscriminators:
                         histogram = setup.setupHistogram(
                             values=filtered_values,
                             weights=filtered_syst_weights,
-                            nbins=len(current_binrange) - 1,
+                            # nbins=len(current_binrange) - 1,
+                            nbins=nbins,
                             # nbins=self.nbins,
                             # bin_range=self.bin_range,
                             bin_range=current_binrange,
@@ -341,7 +365,8 @@ class savenominalDiscriminators:
                         histogram = setup.setupHistogram(
                             values=filtered_values,
                             weights=weights_PDF,
-                            nbins=len(current_binrange) - 1,
+                            # nbins=len(current_binrange) - 1,
+                            nbins=nbins,
                             # nbins=self.nbins,
                             # bin_range=self.bin_range,
                             bin_range=current_binrange,
@@ -392,7 +417,7 @@ class savenominalDiscriminators:
 
 
 class saveJESJERDiscriminators:
-    def __init__(self, data, prediction_vector, predicted_classes, event_classes, nbins, bin_range, event_category, savedir, syst, logscale=False):
+    def __init__(self, data, prediction_vector, predicted_classes, event_classes, nbins, bin_range, event_category, savedir, syst, equalbin=True, logscale=False):
         self.data = data
         self.prediction_vector = prediction_vector
         self.predicted_classes = predicted_classes
@@ -404,6 +429,7 @@ class saveJESJERDiscriminators:
         self.savedir = savedir
         self.syst = syst
         self.logscale = logscale
+        self.equalbin=equalbin
 
     def save(self):
 
@@ -438,26 +464,40 @@ class saveJESJERDiscriminators:
             bkgLabels = []
             weightIntegral = 0
 
-            current_binrange = [0, 1]
-            if node_cls == "ttHH":
-                current_binrange = [0, 0.23, 0.27, 0.3, 0.33, 0.30, 0.55]
-            if node_cls == "ttH":
-                current_binrange = [0, 0.18, 0.20, 0.23, 0.25, 0.28, 0.45]
-            if node_cls == "ttZH":
-                current_binrange = [0, 0.2, 0.23, 0.25, 0.27, 0.28, 0.45]
-            if node_cls == "ttZ":
-                current_binrange = [0, 0.19, 0.21, 0.23, 0.25, 0.28, 0.45]
-            if node_cls == "ttZZ":
-                current_binrange = [0, 0.18, 0.21, 0.23, 0.26, 0.27, 0.5]
-            if node_cls == "ttlf":
-                current_binrange = [0, 0.23, 0.27, 0.3, 0.35, 0.4, 0.7]
-            if node_cls == "ttcc":
-                current_binrange = [0, 0.17, 0.2, 0.25, 0.27, 0.32, 0.5]
-            if node_cls == "ttmb":
-                current_binrange = [0, 0.18, 0.2,
-                                    0.23, 0.235, 0.265, 0.28, 0.4]
-            if node_cls == "ttnb":
-                current_binrange = [0, 0.2, 0.23, 0.26, 0.3, 0.36, 0.55]
+            # bin_range = [filtered_values.min(), filtered_values.max()]
+            # current_binrange = [0, 1]
+            if not self.equalbin:
+                if node_cls == "ttHH":
+                    current_binrange = [0, 0.23, 0.27, 0.3, 0.33, 0.30, 0.55]
+                    nbins = len(current_binrange) - 1
+                if node_cls == "ttH":
+                    current_binrange = [0, 0.18, 0.20, 0.23, 0.25, 0.28, 0.45]
+                    nbins = len(current_binrange) - 1
+                if node_cls == "ttZH":
+                    current_binrange = [0, 0.2, 0.23, 0.25, 0.27, 0.28, 0.45]
+                    nbins = len(current_binrange) - 1
+                if node_cls == "ttZ":
+                    current_binrange = [0, 0.19, 0.21, 0.23, 0.25, 0.28, 0.45]
+                    nbins = len(current_binrange) - 1
+                if node_cls == "ttZZ":
+                    current_binrange = [0, 0.18, 0.21, 0.23, 0.26, 0.27, 0.5]
+                    nbins = len(current_binrange) - 1
+                if node_cls == "ttlf":
+                    current_binrange = [0, 0.23, 0.27, 0.3, 0.35, 0.4, 0.7]
+                    nbins = len(current_binrange) - 1
+                if node_cls == "ttcc":
+                    current_binrange = [0, 0.17, 0.2, 0.25, 0.27, 0.32, 0.5]
+                    nbins = len(current_binrange) - 1
+                if node_cls == "ttmb":
+                    current_binrange = [0, 0.18, 0.2,
+                                        0.23, 0.235, 0.265, 0.28, 0.4]
+                    nbins = len(current_binrange) - 1
+                if node_cls == "ttnb":
+                    current_binrange = [0, 0.2, 0.23, 0.26, 0.3, 0.36, 0.55]
+                    nbins = len(current_binrange) - 1
+            else:
+                current_binrange = [out_values.min(), out_values.max()]
+                nbins = 5
 
             # loop over all classes to fill hists according to truth level class
 
@@ -502,7 +542,8 @@ class saveJESJERDiscriminators:
                 histogram = setup.setupHistogram(
                     values=filtered_values,
                     weights=filtered_weights,
-                    nbins=len(current_binrange) - 1,
+                    # nbins=len(current_binrange) - 1,
+                    nbins=nbins,
                     # nbins=self.nbins,
                     # bin_range=self.bin_range,
                     bin_range=current_binrange,
