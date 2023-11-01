@@ -111,7 +111,7 @@ parser.add_option("--ttmb", dest="ttmb", default=1.0, type=float, help="factor f
 parser.add_option("--ttnb", dest="ttnb", default=1.0, type=float,
                   help="factor for ttnb events", metavar="ttnb")
 
-parser.add_option("--isequalbin", dest="isequalbin", action="store_true", default=True, help="set up equal bin or not", metavar="isequalbin")
+parser.add_option("--isequalbin", dest="isequalbin", action="store_false", default=True, help="set up equal bin or not", metavar="isequalbin")
 
                 
 parser.add_option("--evaluationEpoch", dest="evaluation_epoch_model", default = None,
