@@ -54,12 +54,12 @@ def setupHistogram(
 
     histogram.Sumw2(True)
 
-    print("is new bin: "+str(new_bin))
+    # print("is new bin: "+str(new_bin))
     # print("bin upper limit is: ")
     # print(bin_range[-1])
     # print("bin lower limit is: ")
     # print(bin_range[0])
-    print("number of bins: {}".format(nbins))
+    # print("number of bins: {}".format(nbins))
     
     print(bin_range)
 
