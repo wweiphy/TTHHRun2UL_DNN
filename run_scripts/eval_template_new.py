@@ -17,19 +17,20 @@ import DNN_framework.data_frame as df
 # 2018 
 # python eval_template_new.py -o 230220_evaluation_new_5FS -i 230220_50_ge4j_ge3t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_nominal
 
-# python eval_template_new.py -o 230220_evaluation_new_4FS -i 230220_50_ge4j_ge3t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_nominal
+# python eval_template_new.py -o 230220_evaluation_new_4FS_test -i 230220_50_ge4j_ge3t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_nominal
 
-# python eval_template_new.py -o 230220_evaluation_new_5j4b_test -i 230220_50_ge5j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_nominal --ttmb=5.505191209 --ttnb=1.240415029
+# python eval_template_new.py -o 230220_evaluation_new_5j4b -i 230220_50_ge5j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_nominal --ttmb=5.505191209 --ttnb=1.0 --notequalbin
 
-# python eval_template_new.py -o 230220_evaluation_new_5j4b_5FS -i 230220_50_ge5j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_nominal_5FS --ttmb=1.0 --ttnb=1.0
+# --ttnb=1.240415029
+# python eval_template_new.py -o 230220_evaluation_new_5j4b_5FS_test -i 230220_50_ge5j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_nominal --ttmb=1.0 --ttnb=1.0
 
-# python eval_template_new.py -o 230220_evaluation_new_5j4b_4FS -i 230220_50_ge5j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_nominal --ttmb=5.505191209 --ttnb=3.538023785
+# python eval_template_new.py -o 230220_evaluation_new_5j4b_4FS_test -i 230220_50_ge5j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_nominal --ttmb=5.505191209 --ttnb=3.538023785
 
 # python eval_template_new.py -o 230220_evaluation_new_6j4b_test -i 230220_50_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_nominal --ttmb=5.467833742 --ttnb=1.212174627
 
-# python eval_template_new.py -o 230220_evaluation_new_6j4b_5FS -i 230220_50_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_nominal_5FS --ttmb=1.0 --ttnb=1.0
+# python eval_template_new.py -o 230220_evaluation_new_6j4b_5FS_test -i 230220_50_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_nominal --ttmb=1.0 --ttnb=1.0
 
-# python eval_template_new.py -o 230220_evaluation_new_6j4b_4FS -i 230220_50_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_nominal_4FS --ttmb=5.467833742 --ttnb=3.363282228
+# python eval_template_new.py -o 230220_evaluation_new_6j4b_4FS_test -i 230220_50_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_nominal --ttmb=5.467833742 --ttnb=3.363282228
 
 # python eval_template_new.py -o 230220_evaluation_new_6j4b_4FS_2 -i 231011_50_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_nominal_4FS
 
@@ -105,7 +106,9 @@ parser.add_option("--ttmb", dest="ttmb", default=1.0, type=float,
 parser.add_option("--ttnb", dest="ttnb", default=1.0, type=float,
                   help="factor for ttnb events", metavar="ttnb")
 
-                
+parser.add_option("--notequalbin", dest="notequalbin", action="store_false",
+                  default=True, help="set up equal bin or not", metavar="notequalbin")
+
 parser.add_option("--evaluationEpoch", dest="evaluation_epoch_model", default = None,
                   help="model saved in this epoch used for evaluation", metavar="evaluation_epoch_model")
     
@@ -261,7 +264,8 @@ dnn.load_trained_model(inPath, options.evaluation_epoch_model)
 # dnn.save_discriminators(log = options.log, privateWork = options.privateWork, printROC = options.printROC, lumi=67.24) # 59.7 * 2 , because select only Evt_Odd = 0 
 # dnn.save_discriminators(log = options.log, privateWork = options.privateWork, printROC = options.printROC, lumi=78.08) # 59.7 * 2 , because select only Evt_Odd = 0 
 # dnn.save_discriminators(log = options.log, privateWork = options.privateWork, printROC = options.printROC, lumi=83) # 59.7 * 2 , because select only Evt_Odd = 0 
-dnn.save_discriminators(log = options.log, privateWork = options.privateWork, printROC = options.printROC, lumi=119.66) # 59.7 * 2 , because select only Evt_Odd = 0 
+dnn.save_discriminators(log=options.log, privateWork=options.privateWork, printROC=options.printROC,
+                        lumi=119.66, equalbin=options.notequalbin)  # 59.7 * 2 , because select only Evt_Odd = 0
 #
 #        # plot the output nodes
 #        dnn.plot_outputNodes(log = options.log, signal_class = options.signal_class, privateWork = options.privateWork, printROC = options.printROC, sigScale = -1)
