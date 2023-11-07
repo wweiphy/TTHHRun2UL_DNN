@@ -18,17 +18,18 @@ import DNN_framework.data_frame as df
 # python eval_template_new_sys.py -o 230220_evaluation_new -i 230220_50_ge4j_ge3t --signalclass=ttHH --plot --printroc -d Eval_0308_UL --syst=JESup
 
 # python eval_template_new_sys.py -o 230220_evaluation_new_5j4b_test -i 230220_50_ge5j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL --ttmb=5.505191209 --ttnb=1.240415029 --syst=JESup
-# python eval_template_new_sys.py -o 230220_evaluation_new_5j4b_5FS -i 230220_50_ge5j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_5FS --ttmb=1.0 --ttnb=1.0 --syst=JESdown
-# python eval_template_new_sys.py -o 230220_evaluation_new_5j4b_4FS -i 230220_50_ge5j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL --ttmb=5.505191209 --ttnb=3.538023785 --syst=JESdown
+# python eval_template_new_sys.py -o 230220_evaluation_new_5j4b_5FS_test -i 230220_50_ge5j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL --ttmb=1.0 --ttnb=1.0 --syst=JESdown
+# python eval_template_new_sys.py -o 230220_evaluation_new_5j4b_4FS_test -i 230220_50_ge5j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL --ttmb=5.505191209 --ttnb=3.538023785 --syst=JESdown
 
 # python eval_template_new_sys.py -o 230220_evaluation_new_6j4b_test -i 230220_50_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL --ttmb=5.467833742 --ttnb=1.212174627 --syst=JESup
-# python eval_template_new_sys.py -o 230220_evaluation_new_6j4b_5FS -i 230220_50_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_5FS --ttmb=1.0 --ttnb=1.0 --syst=JESdown
-# python eval_template_new_sys.py -o 230220_evaluation_new_6j4b_4FS -i 230220_50_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL --ttmb=5.467833742 --ttnb=3.363282228 --syst=JESdown
+# python eval_template_new_sys.py -o 230220_evaluation_new_6j4b_5FS_test -i 230220_50_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL --ttmb=1.0 --ttnb=1.0 --syst=JESdown
+# python eval_template_new_sys.py -o 230220_evaluation_new_6j4b_4FS_test -i 230220_50_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL --ttmb=5.467833742 --ttnb=3.363282228 --syst=JESdown
 
 # 2017
-# python eval_template_new_sys.py -o 230119_evaluation_new_2 -i 221130_50_ge4j_ge3t --signalclass=ttHH --plot --printroc -d Eval_0119_UL --syst=JESup
+# python eval_template_new_sys.py -o 230119_evaluation_new_2 -i 221130_50_ge4j_ge3t --signalclass=ttHH --plot --printroc -d Eval_0119_UL --syst=JESup --lumi=83 --notequalbin
 
-# python eval_template_new_sys.py -o 230119_evaluation_new_6j4b -i 230119_50_ge6j_ge4t  --signalclass=ttHH --plot --printroc -d Eval_0119_UL --ttmb=58.90519929 --ttnb=1.201014393 --syst=JESup
+# python eval_template_new_sys.py -o 230119_evaluation_new_6j4b -i 230119_50_ge6j_ge4t  --signalclass=ttHH --plot --printroc -d Eval_0119_UL --ttmb=58.90519929 --ttnb=1.0 --syst=JESup --lumi=83 --notequalbin
+# --ttnb = 1.201014393
 # python eval_template_new_sys.py -o 230119_evaluation_new_6j4b_4FS -i 230119_50_ge6j_ge4t  --signalclass=ttHH --plot --printroc -d Eval_0119_UL --ttmb=58.90519929 --ttnb=38.92963248 --syst=JESup
 # python eval_template_new_sys.py -o 230119_evaluation_new_6j4b_5FS -i 230119_50_ge6j_ge4t  --signalclass=ttHH --plot --printroc -d Eval_0119_UL --ttmb=1.0 --ttnb=1.0 --syst=JESup
 
@@ -93,6 +94,12 @@ parser.add_option("-t", "--binaryBkgTarget", dest="binary_bkg_target", default =
 #         help="string containing expression of total event weight (use letter \"x\" for event-object; example: \"x.weight\")", metavar="total_weight_expr")
 
 parser.add_option("-f", "--test_percentage", dest="test_percentage", default=0.2, type=float, help="set fraction of events used for testing, rest is used for training", metavar="test_percentage")
+
+parser.add_option("--lumi", dest="lumi", default=83, type=float,
+                  help="luminosity", metavar="lumi")
+
+parser.add_option("--notequalbin", dest="notequalbin", action="store_false",
+                  default=True, help="set up equal bin or not", metavar="notequalbin")
 
 parser.add_option("--ttmb", dest="ttmb", default=1.0, type=float,
                   help="factor for ttmb events", metavar="ttmb")
@@ -255,7 +262,7 @@ dnn = DNN.DNN(
         save_path=outPath+"_"+options.syst,
         # sample_save_path=sample_save_path,
         input_samples=input_samples,
-        lumi = 119.66,
+        lumi = options.lumi,
         # lumi = 59.83,
         # lumi=67.24,  # 2016post
         # lumi = 78.08, # 2016pre
@@ -274,5 +281,5 @@ dnn.load_trained_model(inPath, options.evaluation_epoch_model)
 # plot the output discriminators
 
 dnn.save_JESJERdiscriminators(
-        log=options.log, privateWork=options.privateWork, printROC=options.printROC, syst=options.syst)
+    log=options.log, privateWork=options.privateWork, printROC=options.printROC, syst=options.syst, equalbin=options.notequalbin)
 

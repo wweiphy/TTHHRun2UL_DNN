@@ -36,7 +36,8 @@ import DNN_framework.data_frame as df
 # 2017
 # python eval_template_new.py -o 230119_evaluation_new_4FS -i 221130_50_ge4j_ge3t --signalclass=ttHH --plot --printroc -d Eval_0119_UL_nominal
 
-# python eval_template_new_2017.py -o 230119_evaluation_new_6j4b_2 -i 230119_50_ge6j_ge4t  --signalclass=ttHH --plot --printroc -d Eval_0119_UL_nominal --ttmb=58.90519929 --ttnb=1.201014393
+# python eval_template_new_2017.py -o 230119_evaluation_new_6j4b -i 230119_50_ge6j_ge4t  --signalclass=ttHH --plot --printroc -d Eval_0119_UL_nominal --ttmb=58.90519929 -ttnb=1.0 --notequalbin
+# --ttnb=1.201014393
 
 # python eval_template_new_2017.py -o 230119_evaluation_new_6j4b_5FS -i 230119_50_ge6j_ge4t  --signalclass=ttHH --plot --printroc -d Eval_0119_UL_nominal --ttmb=1.0 --ttnb=1.0
 # python eval_template_new_2017.py -o 230119_evaluation_new_6j4b_4FS -i 230119_50_ge6j_ge4t  --signalclass=ttHH --plot --printroc -d Eval_0119_UL_nominal --ttmb=58.90519929 --ttnb=38.92963248
@@ -111,7 +112,7 @@ parser.add_option("--ttmb", dest="ttmb", default=1.0, type=float, help="factor f
 parser.add_option("--ttnb", dest="ttnb", default=1.0, type=float,
                   help="factor for ttnb events", metavar="ttnb")
 
-parser.add_option("--isequalbin", dest="isequalbin", action="store_false", default=True, help="set up equal bin or not", metavar="isequalbin")
+parser.add_option("--notequalbin", dest="notequalbin", action="store_false", default=True, help="set up equal bin or not", metavar="notequalbin")
 
                 
 parser.add_option("--evaluationEpoch", dest="evaluation_epoch_model", default = None,
@@ -275,7 +276,7 @@ dnn.load_trained_model(inPath, options.evaluation_epoch_model)
 # dnn.save_discriminators(log = options.log, privateWork = options.privateWork, printROC = options.printROC, lumi=41.5)
 # dnn.save_discriminators(log = options.log, privateWork = options.privateWork, printROC = options.printROC, lumi=67.24) # 59.7 * 2 , because select only Evt_Odd = 0 
 # dnn.save_discriminators(log = options.log, privateWork = options.privateWork, printROC = options.printROC, lumi=78.08) # 59.7 * 2 , because select only Evt_Odd = 0 
-dnn.save_discriminators(log = options.log, privateWork = options.privateWork, printROC = options.printROC, lumi=83, equalbin=options.isequalbin) # 59.7 * 2 , because select only Evt_Odd = 0 
+dnn.save_discriminators(log = options.log, privateWork = options.privateWork, printROC = options.printROC, lumi=83, equalbin=options.notequalbin) # 59.7 * 2 , because select only Evt_Odd = 0 
 # dnn.save_discriminators(log = options.log, privateWork = options.privateWork, printROC = options.printROC, lumi=119.66) # 59.7 * 2 , because select only Evt_Odd = 0 
 #
 #        # plot the output nodes
