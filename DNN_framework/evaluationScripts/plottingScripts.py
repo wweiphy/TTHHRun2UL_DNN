@@ -468,7 +468,7 @@ class saveJESJERDiscriminators:
             # current_binrange = [0, 1]
             if not self.equalbin:
                 if node_cls == "ttHH":
-                    current_binrange = [0, 0.23, 0.27, 0.3, 0.33, 0.30, 0.55]
+                    current_binrange = [0, 0.23, 0.27, 0.3, 0.33, 0.35, 0.55]
                     nbins = len(current_binrange) - 1
                 if node_cls == "ttH":
                     current_binrange = [0, 0.18, 0.20, 0.23, 0.25, 0.28, 0.45]
@@ -520,14 +520,6 @@ class saveJESJERDiscriminators:
                     self.data.df_unsplit_preprocessing['index_label'] == classIndex) & (self.data.df_unsplit_preprocessing['Pred_Class'] == nodeIndex)]
 
                 filtered_weights = filtered_data["lumi_weight"].values
-
-                # filtered_weights = [self.data.get_full_lumi_weights_after_preprocessing()[k] for k in range(len(out_values))
-                #                         if self.data.get_full_labels_after_preprocessing(as_categorical=False)[k] == classIndex
-                #                         and self.predicted_classes[k] == nodeIndex]
-                # else:
-                #     filtered_weights = [self.data.get_full_lumi_weights_after_preprocessing()[k] for k in range(len(out_values))
-                #                        if self.data.get_full_labels_after_preprocessing(as_categorical=False)[k] == classIndex
-                #                        and self.predicted_classes[k] == nodeIndex]
 
                 print("{} events in discriminator: {}\t(Integral: {})".format(
                     truth_cls, len(filtered_values), sum(filtered_weights)))
