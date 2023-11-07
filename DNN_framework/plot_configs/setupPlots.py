@@ -61,7 +61,7 @@ def setupHistogram(
     # print(bin_range[0])
     # print("number of bins: {}".format(nbins))
     
-    print(bin_range)
+    # print(bin_range)
 
     for v, w in zip(values, weights):
         if v < bin_range[0] or v > bin_range[-1]:
