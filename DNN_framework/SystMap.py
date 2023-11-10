@@ -40,7 +40,7 @@ systs = {
 
 systs_reverse = {
 
-    "total_weight_uplf": ["__btag_lfUp"],
+    "total_weight_uplf": ["__btag_lfDown"],
     # "total_weight_uphf": ["__btag_hfUp"],
     "total_weight_uplfstats1": ["__btag_lfstats1Down"],
     "total_weight_uplfstats2": ["__btag_lfstats2Down"],
@@ -49,7 +49,7 @@ systs_reverse = {
     # "total_weight_upcferr1": ["__btag_cferr1Up"],
     # "total_weight_upcferr2": ["__btag_cferr2Up"],
 
-    "total_weight_downlf": ["__btag_lfDown"],
+    "total_weight_downlf": ["__btag_lfUp"],
     # "total_weight_downhf": ["__btag_hfDown"],
     "total_weight_downlfstats1": ["__btag_lfstats1Up"],
     "total_weight_downlfstats2": ["__btag_lfstats2Up"],
@@ -97,16 +97,18 @@ systs_tt = {
     "total_weight_downisr_ttcc": ["__ISR_ttccDown"],
     "total_weight_downfsr_ttcc": ["__FSR_ttccDown"],
 
-    "total_weight_upisr_ttlf": ["__ISR_ttlfDown"],
-    # "total_weight_upisr_ttlf": ["__ISR_ttlfUp"],
+    # "total_weight_upisr_ttlf": ["__ISR_ttlfDown"],
+    "total_weight_upisr_ttlf": ["__ISR_ttlfUp"],
     "total_weight_upfsr_ttlf": ["__FSR_ttlfUp"],
-    "total_weight_downisr_ttlf": ["__ISR_ttlfUp"],
-    # "total_weight_downisr_ttlf": ["__ISR_ttlfDown"],
+    # "total_weight_downisr_ttlf": ["__ISR_ttlfUp"],
+    "total_weight_downisr_ttlf": ["__ISR_ttlfDown"],
     "total_weight_downfsr_ttlf": ["__FSR_ttlfDown"],
 
-    "total_weight_upisr_ttbb": ["__ISR_ttbbUp"],
+    "total_weight_upisr_ttbb": ["__ISR_ttbbDown"],
+    # "total_weight_upisr_ttbb": ["__ISR_ttbbUp"],
     "total_weight_upfsr_ttbb": ["__FSR_ttbbUp"],
-    "total_weight_downisr_ttbb": ["__ISR_ttbbDown"],
+    "total_weight_downisr_ttbb": ["__ISR_ttbbUp"],
+    # "total_weight_downisr_ttbb": ["__ISR_ttbbDown"],
     "total_weight_downfsr_ttbb": ["__FSR_ttbbDown"],
 
     "total_weight_scaleMuF_ttbbNLOUp": ["__scaleMuF_ttbbNLODown"],
