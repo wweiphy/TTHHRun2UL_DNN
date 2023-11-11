@@ -203,8 +203,10 @@ class Sample:
             df = df.assign(
                 total_weight=lambda x: x.xs_weight * x.sf_weight)
             
-            print("total weight")
-            print(df["total_weight"].values)
+            print("ttbb isr up:")
+            print(df["total_weight_upisr_ttbb"].values)
+            print("ttbb isr down:")
+            print(df["total_weight_downisr_ttbb"].values)
                 
         elif Do_Control:
 
