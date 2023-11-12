@@ -207,6 +207,11 @@ class Sample:
             print(df["total_weight_upisr_ttbb"].values)
             print("ttbb isr down:")
             print(df["total_weight_downisr_ttbb"].values)
+
+            print("isr_down: ")
+            print(df['GenWeight_isr_Def_down'])
+            print("isr up: ")
+            print(df['GenWeight_isr_Def_up'])
                 
         elif Do_Control:
 
