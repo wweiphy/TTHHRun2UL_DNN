@@ -104,11 +104,11 @@ systs_tt = {
     "total_weight_downisr_ttlf": ["__ISR_ttlfDown"],
     "total_weight_downfsr_ttlf": ["__FSR_ttlfDown"],
 
-    "total_weight_upisr_ttbb": ["__ISR_ttbbDown"],
-    # "total_weight_upisr_ttbb": ["__ISR_ttbbUp"],
+    # "total_weight_upisr_ttbb": ["__ISR_ttbbDown"],
+    "total_weight_upisr_ttbb": ["__ISR_ttbbUp"],
     "total_weight_upfsr_ttbb": ["__FSR_ttbbUp"],
-    "total_weight_downisr_ttbb": ["__ISR_ttbbUp"],
-    # "total_weight_downisr_ttbb": ["__ISR_ttbbDown"],
+    # "total_weight_downisr_ttbb": ["__ISR_ttbbUp"],
+    "total_weight_downisr_ttbb": ["__ISR_ttbbDown"],
     "total_weight_downfsr_ttbb": ["__FSR_ttbbDown"],
 
     "total_weight_scaleMuF_ttbbNLOUp": ["__scaleMuF_ttbbNLODown"],
