@@ -5,8 +5,16 @@ usage = "usage=%prog [options] \n"
 usage += "USE: python plottingscript.py -n new_plotting "
 
 # evaluation - discriminators
+
+# 2018
+
+# python plottingscript.py -n new -f 230220_evaluation_new_5j4b -c new_230220_5j4b_sys -j 5 -b 4
+# python plottingscript.py -n new -f 230220_evaluation_new_6j4b -c new_230220_6j4b_sys -j 6 -b 4
+
+
+
 # 2017
-# python plottingscript.py -n new -f 230119_evaluation_new_5j4b_2 -c new_230119_5j4b_nosys_2 -j 5 -b 4
+# python plottingscript.py -n new -f 230119_evaluation_new_5j4b -c new_230119_5j4b_sys -j 5 -b 4
 # python plottingscript.py -n new -f 230119_evaluation_new_6j4b -c new_230119_6j4b_sys -j 6 -b 4
 
 # 2016pre
@@ -462,8 +470,8 @@ if options.new == "new":
         rootfile = "/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/workdir/{}/plots/output_limit.root".format(options.filefolder)
         workdir = "/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/datacard/{}".format(options.cardfolder)
         # selectionlabel = "\geq {} jets, \geq {} b-tags".format(options.njets, options.nbjets)
-        runcommand = 'python /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/datacard/PlotScript.py --plotconfig="/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/datacard/plotconfig_{}.py"  --channelname="ljets_ge4j_ge3t_{}_node"  --selectionlabel="\geq {} jets, \geq {} b-tags" --rootfile={}  --directory="/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/datacard" --systematicfile="/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/datacard/systematics_full.csv" --workdir={} --evaluation={}'.format("new", node, options.njets,options.nbjets,rootfile, workdir, evaluation)
-        # runcommand = 'python /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/datacard/PlotScript.py --plotconfig="/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/datacard/plotconfig_{}.py"  --channelname="ljets_ge4j_ge3t_{}_node"  --selectionlabel="\geq {} jets, \geq {} b-tags" --rootfile={}  --directory="/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/datacard" --systematicfile="/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/datacard/systematics.csv" --workdir={} --evaluation={}'.format("new", node, options.njets,options.nbjets,rootfile, workdir, evaluation)
+        # runcommand = 'python /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/datacard/PlotScript.py --plotconfig="/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/datacard/plotconfig_{}.py"  --channelname="ljets_ge4j_ge3t_{}_node"  --selectionlabel="\geq {} jets, \geq {} b-tags" --rootfile={}  --directory="/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/datacard" --systematicfile="/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/datacard/systematics_full.csv" --workdir={} --evaluation={}'.format("new", node, options.njets,options.nbjets,rootfile, workdir, evaluation)
+        runcommand = 'python /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/datacard/PlotScript.py --plotconfig="/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/datacard/plotconfig_{}.py"  --channelname="ljets_ge4j_ge3t_{}_node"  --selectionlabel="\geq {} jets, \geq {} b-tags" --rootfile={}  --directory="/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/datacard" --systematicfile="/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/datacard/systematics.csv" --workdir={} --evaluation={}'.format("new", node, options.njets,options.nbjets,rootfile, workdir, evaluation)
 
 
         os.system(runcommand)
