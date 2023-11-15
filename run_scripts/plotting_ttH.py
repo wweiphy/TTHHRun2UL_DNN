@@ -50,12 +50,14 @@ input_samples = df.InputSamples(options.getInputDirectory(), options.getTestPerc
 weight_expr = "x.Weight_XS * x.Weight_CSV_UL * x.Weight_GEN_nom * x.lumiWeight"
 # input_samples.addSample(options.getDefaultName("ttH_2017"),  label="ttH",
                         # normalization_weight=1., train_weight=1, total_weight_expr=weight_expr)
-input_samples.addSample(options.getDefaultName("ttH_2017"),  label="ttH",
-                        normalization_weight=82.96, train_weight=1, total_weight_expr=weight_expr)
+# input_samples.addSample(options.getDefaultName("ttH_2017"),  label="ttH",
+                        # normalization_weight=82.96, train_weight=1, total_weight_expr=weight_expr)
 # input_samples.addSample(options.getDefaultName("ttH_2018"),  label="ttH",
                         # normalization_weight=1., train_weight=1, total_weight_expr=weight_expr)
-input_samples.addSample(options.getDefaultName("ttH_2018"),  label="ttH",
-                        normalization_weight=119.66, train_weight=1, total_weight_expr=weight_expr)
+input_samples.addSample(options.getDefaultName("ttH"),  label="ttH",
+normalization_weight=1., train_weight=1, total_weight_expr=weight_expr)
+# input_samples.addSample(options.getDefaultName("ttH_2018"),  label="ttH",
+#                         normalization_weight=119.66, train_weight=1, total_weight_expr=weight_expr)
 
 # init DNN class
 # dnn = DNN.DNN(
@@ -77,16 +79,17 @@ dnn = DNN.DNN(
     category_name   = options.getCategory(),
     train_variables = options.getTrainVariables(),
     # number of epochs
-    # lumi = 119.66,
+    lumi = 119.66,
     # lumi=67.24,  # 2016post
     # lumi = 78.08, # 2016pre
     # lumi=82.96,
-    lumi = 1.,
+    # lumi = 1.,
     train_epochs    = options.getTrainEpochs(),
     # metrics for evaluation (c.f. KERAS metrics)
     eval_metrics    = ["acc"],
-    Do_Evaluation=False,
-    Do_plotting=True,
+    # Do_Evaluation=False,
+    # Do_plotting=True,
+    Do_Control=True,
     # percentage of train set to be used for testing (i.e. evaluating/plotting after training)
     test_percentage = options.getTestPercentage(),
     # balance samples per epoch such that there amount of samples per category is roughly equal
