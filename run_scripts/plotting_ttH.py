@@ -9,7 +9,7 @@
 
 # python plotting_ttH.py -i Eval_0515_UL_nominal -o ttH_2016pre -c ge4j_ge3t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables -n ge4j_ge3t_ttH --plot --printroc
 
-# python plotting_ttH.py -i Control_0409 -o ttH_3 -c ge4j_2t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables --plot --printroc
+# python plotting_ttH.py -i Control_0409_new -o ttH -c ge4j_2t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables --plot --printroc
 
 # python plotting_ttH.py -i Control_0822_2017 -o ttH_2017 -c ge4j_2t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables --plot --printroc
 # python plotting_ttH.py -i Control_1718 -o ttH_2018 -c ge4j_2t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables --plot --printroc
@@ -52,10 +52,10 @@ weight_expr = "x.Weight_XS * x.Weight_CSV_UL * x.Weight_GEN_nom * x.lumiWeight"
                         # normalization_weight=1., train_weight=1, total_weight_expr=weight_expr)
 # input_samples.addSample(options.getDefaultName("ttH_2017"),  label="ttH",
                         # normalization_weight=82.96, train_weight=1, total_weight_expr=weight_expr)
-# input_samples.addSample(options.getDefaultName("ttH_2018"),  label="ttH",
-                        # normalization_weight=1., train_weight=1, total_weight_expr=weight_expr)
-input_samples.addSample(options.getDefaultName("ttH"),  label="ttH",
-normalization_weight=1., train_weight=1, total_weight_expr=weight_expr)
+input_samples.addSample(options.getDefaultName("ttH_2018"),  label="ttH",
+                        normalization_weight=1., train_weight=1, total_weight_expr=weight_expr)
+# input_samples.addSample(options.getDefaultName("ttH"),  label="ttH",
+# normalization_weight=1., train_weight=1, total_weight_expr=weight_expr)
 # input_samples.addSample(options.getDefaultName("ttH_2018"),  label="ttH",
 #                         normalization_weight=119.66, train_weight=1, total_weight_expr=weight_expr)
 
