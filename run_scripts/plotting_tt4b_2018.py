@@ -122,7 +122,7 @@ dnn = DNN.DNN(
     train_epochs    = options.getTrainEpochs(),
     # metrics for evaluation (c.f. KERAS metrics)
     eval_metrics    = ["acc"],
-    Do_Control=False,
+    Do_Control=True,
     # Do_plotting=True,
     # percentage of train set to be used for testing (i.e. evaluating/plotting after training)
     test_percentage = options.getTestPercentage(),

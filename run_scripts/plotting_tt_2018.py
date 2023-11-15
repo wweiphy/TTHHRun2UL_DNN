@@ -10,7 +10,7 @@
 # python plotting_tt.py -i Eval_0515_UL_nominal -o tt_2016pre -c ge4j_ge3t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables -n ge4j_ge3t_ttH --plot --printroc
 
 
-# python plotting_tt.py -i Control_0409 -o tt_3 -c ge4j_2t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables --plot --printroc
+# python plotting_tt_2018.py -i Control_0409 -o tt -c ge4j_2t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables --plot --printroc
 
 # python plotting_tt.py -i Control_0822_2017 -o tt_2017 -c ge4j_2t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables --plot --printroc
 
@@ -101,8 +101,9 @@ dnn = DNN.DNN(
     train_epochs    = options.getTrainEpochs(),
     # metrics for evaluation (c.f. KERAS metrics)
     eval_metrics    = ["acc"],
-    Do_Evaluation=False,
-    Do_plotting=True,
+    # Do_Evaluation=False,
+    # Do_plotting=True,
+    Do_Control=True
     # percentage of train set to be used for testing (i.e. evaluating/plotting after training)
     test_percentage = options.getTestPercentage(),
     # balance samples per epoch such that there amount of samples per category is roughly equal
