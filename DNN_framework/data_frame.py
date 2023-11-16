@@ -237,6 +237,9 @@ class Sample:
                     total_weight=lambda x: x.xs_weight * x.total_preweight)
                 print("total weight")
                 print(df["total_weight"].values)
+
+                print("ECAL prefiring: ")
+                print(df["Weight_L1ECALPrefire"].values)
                     
                 
             else:
