@@ -10,7 +10,7 @@
 # python plotting_tt.py -i Eval_0515_UL_nominal -o tt_2016pre -c ge4j_ge3t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables -n ge4j_ge3t_ttH --plot --printroc
 
 
-# python plotting_tt_2018.py -i Control_0409 -o tt -c ge4j_2t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables --plot --printroc
+# python plotting_tt_2018.py -i Control_0409_new -o tt -c ge4j_2t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables --plot --printroc
 
 # python plotting_tt.py -i Control_0822_2017 -o tt_2017 -c ge4j_2t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables --plot --printroc
 
@@ -63,9 +63,9 @@ input_samples.addSample(options.getDefaultName("ttlfSL"),  label="ttlf",
 normalization_weight=3.333, train_weight=1, total_weight_expr=weight_expr)
 input_samples.addSample(options.getDefaultName("ttccSL"),  label="ttcc",  normalization_weight=3.333, train_weight=1, total_weight_expr=weight_expr)
 
-input_samples.addSample(options.getDefaultName("ttlfDL"),  label="ttlf",
-                        normalization_weight=1, train_weight=1, total_weight_expr=weight_expr)
-input_samples.addSample(options.getDefaultName("ttccDL"),  label="ttcc",  normalization_weight=1, train_weight=1, total_weight_expr=weight_expr)
+# input_samples.addSample(options.getDefaultName("ttlfDL"),  label="ttlf",
+                        # normalization_weight=1, train_weight=1, total_weight_expr=weight_expr)
+# input_samples.addSample(options.getDefaultName("ttccDL"),  label="ttcc",  normalization_weight=1, train_weight=1, total_weight_expr=weight_expr)
 
 
 # input_samples.addSample(options.getDefaultName("ttlf"),  label="ttlf",
