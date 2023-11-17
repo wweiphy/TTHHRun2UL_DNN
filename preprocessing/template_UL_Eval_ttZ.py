@@ -12,7 +12,7 @@ import preprocessing
 
 
 """
-USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_ttHH.py --outputdirectory=Control_0409 --variableselection=variables --maxentries=20000 --cores=6 --dataEra=2018
+USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_ttZ.py --outputdirectory=Control_0409 --variableselection=variables --maxentries=20000 --cores=8 --dataEra=2018
 """
 
 usage="usage=%prog [options] \n"
@@ -118,24 +118,28 @@ dataset = preprocessing.Dataset(
     ncores      = options.numCores,
     dataEra=options.dataEra,
     do_EvalSFs=True,
+    # do_pileup=True,
+    # do_PUJetID=True
     )
 
 # add base event selection
 dataset.addBaseSelection(base_selection)
 
 
+
 dataset.addSample(
-    sampleName="TTHHTo4b",
+    sampleName="TTZ",
     ntuples=ntuplesPath2 +
-    "/2018/ntuple/TTHHTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2018/231117_032124/*/*nominal*.root",
-    #    ntuples     = ntuplesPath+"/ttHH_4b.root",
-    categories=ttHH_categories,
-    process = "ttHH",
+    "/2018/ntuple/TTZToBB_TuneCP5_13TeV-amcatnlo-pythia8/sl_LEG_ntuple_2018/231116_174450/*/*nominal*.root",
+    # ntuples="/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_10_6_29/src/BoostedTTH/BoostedAnalyzer/test/ntuples_nominal_Tree.root",
+    #    ntuples     = ntuplesPath+"/ttH_220208.root",
+    categories=ttZ_categories,
+    process = "ttZ",
     #    lumiWeight  = 41.5,
-    # selections  = None,
-    selections=ttHH_selection,
-    islocal=False
-)
+    selections=ttHH_selection,  # ttbar_selection,
+    #    selections  = ttbar_selection,
+    islocal=True
+)  # almost
 
 
 # initialize variable list
@@ -152,6 +156,7 @@ import sf_variables as sf_var
 dataset.addVariables(add_var.additional_variables)
 
 dataset.addVariables(sf_var.scalefactor_variables)
+
 
 # run the preprocessing
 dataset.runPreprocessing()
