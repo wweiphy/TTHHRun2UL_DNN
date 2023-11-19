@@ -60,8 +60,11 @@ weight_expr = "x.Weight_XS * x.Weight_CSV_UL * x.Weight_GEN_nom * x.lumiWeight"
 # input_samples.addSample(options.getDefaultName("ttcc_2018"),  label="ttcc",  normalization_weight=1., train_weight=1, total_weight_expr=weight_expr)
 
 input_samples.addSample(options.getDefaultName("ttlfSL"),  label="ttlf",
-normalization_weight=3.333, train_weight=1, total_weight_expr=weight_expr)
-input_samples.addSample(options.getDefaultName("ttccSL"),  label="ttcc",  normalization_weight=3.333, train_weight=1, total_weight_expr=weight_expr)
+normalization_weight=1, train_weight=1, total_weight_expr=weight_expr)
+input_samples.addSample(options.getDefaultName("ttccSL"),  label="ttcc",  normalization_weight=1, train_weight=1, total_weight_expr=weight_expr)
+input_samples.addSample(options.getDefaultName("ttlfDL"),  label="ttlf",
+normalization_weight=1, train_weight=1, total_weight_expr=weight_expr)
+input_samples.addSample(options.getDefaultName("ttccDL"),  label="ttcc",  normalization_weight=1, train_weight=1, total_weight_expr=weight_expr)
 
 # input_samples.addSample(options.getDefaultName("ttlfDL"),  label="ttlf",
                         # normalization_weight=1, train_weight=1, total_weight_expr=weight_expr)
