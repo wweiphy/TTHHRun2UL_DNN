@@ -38,16 +38,22 @@
 
 # 2018 control region
 
-# hadd output_limit.root data_2018_ge4j_2t/plots/data_variables.root tt_2018_ge4j_2t/plots/tt_variables.root tt4b_2018_ge4j_2t/plots/tt4b_variables.root ttbb_2018_ge4j_2t/plots/ttbb_variables.root ttH_2018_ge4j_2t/plots/ttH_variables.root ttHH_2018_ge4j_2t/plots/ttHH_variables.root ttZ_2018_ge4j_2t/plots/ttZ_variables.root ttZH_2018_ge4j_2t/plots/ttZH_variables.root ttZZ_2018_ge4j_2t/plots/ttZZ_variables.root
+# hadd output_limit.root /CRStudy/data_2018_ge4j_2t/plots/data_variables.root /CRStudy/tt_2018_ge4j_2t/plots/tt_variables.root /CRStudy/tt4b_2018_ge4j_2t/plots/tt4b_variables.root /CRStudy/ttbb_2018_ge4j_2t/plots/ttbb_variables.root /CRStudy/ttH_2018_ge4j_2t/plots/ttH_variables.root ttHH_2018_ge4j_2t/plots/ttHH_variables.root /CRStudy/ttZ_2018_ge4j_2t/plots/ttZ_variables.root /CRStudy/ttZH_2018_ge4j_2t/plots/ttZH_variables.root /CRStudy/ttZZ_2018_ge4j_2t/plots/ttZZ_variables.root
+
+# 2018 4FS
+# hadd output_limit.root CRStudy/data_2018_ge4j_2t/plots/data_variables.root CRStudy/tt_2018_ge4j_2t/plots/tt_variables.root tt4b_4FS_ge4j_2t/plots/tt4b_variables.root CRStudy/ttbb_2018_ge4j_2t/plots/ttbb_variables.root CRStudy/ttH_2018_ge4j_2t/plots/ttH_variables.root CRStudy/ttHH_2018_ge4j_2t/plots/ttHH_variables.root CRStudy/ttZ_2018_ge4j_2t/plots/ttZ_variables.root CRStudy/ttZH_2018_ge4j_2t/plots/ttZH_variables.root CRStudy/ttZZ_2018_ge4j_2t/plots/ttZZ_variables.root
 
 # 2017 control region
 # hadd output_limit.root data_2017_ge4j_2t/plots/data_variables.root tt_2017_ge4j_2t/plots/tt_variables.root tt4b_2017_ge4j_2t/plots/tt4b_variables.root ttbb_2017_ge4j_2t/plots/ttbb_variables.root ttH_2017_ge4j_2t/plots/ttH_variables.root ttHH_2017_ge4j_2t/plots/ttHH_variables.root ttZ_2017_ge4j_2t/plots/ttZ_variables.root ttZH_2017_ge4j_2t/plots/ttZH_variables.root ttZZ_2017_ge4j_2t/plots/ttZZ_variables.root
 
+# 2017 4FS
+# hadd output_limit.root /CRStudy/data_2017_ge4j_2t/plots/data_variables.root /CRStudy/tt_2017_ge4j_2t/plots/tt_variables.root tt4b_4FS_2017_ge4j_2t/plots/tt4b_variables.root /CRStudy/ttbb_2017_ge4j_2t/plots/ttbb_variables.root /CRStudy/ttH_2017_ge4j_2t/plots/ttH_variables.root /CRStudy/ttHH_2017_ge4j_2t/plots/ttHH_variables.root /CRStudy/ttZ_2017_ge4j_2t/plots/ttZ_variables.root /CRStudy/ttZH_2017_ge4j_2t/plots/ttZH_variables.root /CRStudy/ttZZ_2017_ge4j_2t/plots/ttZZ_variables.root
+
 
 # 17&18
-# hadd output_limit.root data_1718_ge4j_2t/plots/data_variables.root tt_1718_ge4j_2t/plots/tt_variables.root tt4b_1718_ge4j_2t/plots/tt4b_variables.root ttbb_1718_test_ge4j_2t/plots/ttbb_variables.root ttH_1718_ge4j_2t/plots/ttH_variables.root ttHH_1718_ge4j_2t/plots/ttHH_variables.root ttZ_1718_ge4j_2t/plots/ttZ_variables.root ttZH_1718_ge4j_2t/plots/ttZH_variables.root ttZZ_1718_ge4j_2t/plots/ttZZ_variables.root
+# hadd output_limit.root data_1718_ge4j_2t/plots/data_variables.root tt_1718_ge4j_2t/plots/tt_variables.root tt4b_1718_ge4j_2t/plots/tt4b_variables.root ttbb_1718_ge4j_2t/plots/ttbb_variables.root ttH_1718_ge4j_2t/plots/ttH_variables.root ttHH_1718_ge4j_2t/plots/ttHH_variables.root ttZ_1718_ge4j_2t/plots/ttZ_variables.root ttZH_1718_ge4j_2t/plots/ttZH_variables.root ttZZ_1718_ge4j_2t/plots/ttZZ_variables.root
 
-# hadd output_limit.root data_1718_ge4j_2t/plots/data_variables.root tt_1718_ge4j_2t/plots/tt_variables.root tt4b_1718_rescale_ge4j_2t/plots/tt4b_variables.root ttbb_1718_rescale_ge4j_2t/plots/ttbb_variables.root ttH_1718_ge4j_2t/plots/ttH_variables.root ttHH_1718_ge4j_2t/plots/ttHH_variables.root ttZ_1718_ge4j_2t/plots/ttZ_variables.root ttZH_1718_ge4j_2t/plots/ttZH_variables.root ttZZ_1718_ge4j_2t/plots/ttZZ_variables.root
+# hadd output_limit.root /CRStudy/data_1718_ge4j_2t/plots/data_variables.root /CRStudy/tt_1718_ge4j_2t/plots/tt_variables.root tt4b_1718_4FS_ge4j_2t/plots/tt4b_variables.root /CRStudy/ttbb_1718_rescale_ge4j_2t/plots/ttbb_variables.root /CRStudy/ttH_1718_ge4j_2t/plots/ttH_variables.root /CRStudy/ttHH_1718_ge4j_2t/plots/ttHH_variables.root /CRStudy/ttZ_1718_ge4j_2t/plots/ttZ_variables.root /CRStudy/ttZH_1718_ge4j_2t/plots/ttZH_variables.root /CRStudy/ttZZ_1718_ge4j_2t/plots/ttZZ_variables.root
 
 
 # global imports
@@ -93,13 +99,17 @@ weight_expr = "x.Weight_XS * x.lumiWeight"
 # input_samples.addSample(options.getDefaultName("ttZZ"), label = "ttZZ", normalization_weight = options.getNomWeight(), total_weight_expr = weight_expr)
 # input_samples.addSample(options.getDefaultName("ttZ"), label = "ttZ", normalization_weight = options.getNomWeight(), total_weight_expr = weight_expr)
 
-input_samples.addSample(options.getDefaultName("singlemuon_2017"), label="SingleMuon",
+# input_samples.addSample(options.getDefaultName("singlemuon_2017"), label="SingleMuon",
+#                         normalization_weight=1., total_weight_expr=weight_expr)
+# input_samples.addSample(options.getDefaultName("eledata_2017"), label="SingleElectron",
+#                         normalization_weight=1., total_weight_expr=weight_expr)
+# input_samples.addSample(options.getDefaultName("singlemuon_2018"), label="SingleMuon",
+#                         normalization_weight=1., total_weight_expr=weight_expr)
+# input_samples.addSample(options.getDefaultName("eledata_2018"), label="SingleElectron",
+#                         normalization_weight=1., total_weight_expr=weight_expr)
+input_samples.addSample(options.getDefaultName("singlemuon"), label="SingleMuon",
                         normalization_weight=1., total_weight_expr=weight_expr)
-input_samples.addSample(options.getDefaultName("eledata_2017"), label="SingleElectron",
-                        normalization_weight=1., total_weight_expr=weight_expr)
-input_samples.addSample(options.getDefaultName("singlemuon_2018"), label="SingleMuon",
-                        normalization_weight=1., total_weight_expr=weight_expr)
-input_samples.addSample(options.getDefaultName("eledata_2018"), label="SingleElectron",
+input_samples.addSample(options.getDefaultName("eledata"), label="SingleElectron",
                         normalization_weight=1., total_weight_expr=weight_expr)
 
 
@@ -123,11 +133,11 @@ dnn = DNN.DNN(
     category_name   = options.getCategory(),
     train_variables = options.getTrainVariables(),
     # number of epochs
-    # lumi = 119.66,
+    lumi = 119.66,
     # lumi=67.24,  # 2016post
     # lumi = 78.08, # 2016pre
     # lumi=82.96, # 2017
-    lumi = 202.62, # 17&18
+    # lumi = 202.62, # 17&18
     train_epochs    = options.getTrainEpochs(),
     # metrics for evaluation (c.f. KERAS metrics)
     eval_metrics    = ["acc"],
