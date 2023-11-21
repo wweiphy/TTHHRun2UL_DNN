@@ -103,9 +103,10 @@ for node in processlist:
     datacombined_hist.Add(datahist2)
 
     if not datahist1 or not datahist2:
-        print("Error: Unable to load histograms for 17 or 18.")
+        print("Error: Unable to load data histograms for 17 or 18.")
         exit(1)
-
+        
+    print(datahistname)
     if options.threeyear:
 
         datahist3 = file3.Get(datahistname)
