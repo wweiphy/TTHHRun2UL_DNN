@@ -12,7 +12,7 @@ import preprocessing
 
 
 """
-USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_singleele.py --outputdirectory=Control_0409_data --variableselection=variables --maxentries=20000 --cores=8 --dataEra=2018
+USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_ttH.py --outputdirectory=Eval_0523_UL_nominal --variableselection=variables --maxentries=20000 --cores=8 --dataEra=2016postVFP
 """
 
 usage="usage=%prog [options] \n"
@@ -83,12 +83,6 @@ ttHH_categories.addCategory("ttHH", selection = None)
 ttZH_categories = preprocessing.EventCategories()
 ttZH_categories.addCategory("ttZH", selection = None)
 
-mudata_categories = preprocessing.EventCategories()
-mudata_categories.addCategory("mudata", selection = None)
-
-eledata_categories = preprocessing.EventCategories()
-eledata_categories.addCategory("eledata", selection = None)
-
 ttZZ_categories = preprocessing.EventCategories()
 ttZZ_categories.addCategory("ttZZ", selection = None)
 
@@ -131,62 +125,48 @@ dataset.addBaseSelection(base_selection)
 
 
 
-dataset.addSample(
-    sampleName="SingleElectronA",
-    ntuples=ntuplesPath2 +
-    "/2018/ntuple/EGamma/sl_LEG_ntuple_2018/230710_153859/*/*nominal*.root",
-    #    ntuples     = ntuplesPath+"/ttH_220208.root",
-    categories=eledata_categories,
-    process = "data",
-    #    lumiWeight  = 41.5,
-    selections=None,  # ttbar_selection,
-    #    selections  = ttbar_selection,
-    islocal=False
-)
+# dataset.addSample(
+#     sampleName="TTHSL",
+#     ntuples=ntuplesPath2 +
+#     "/2017/ntuple/ttHTobb_ttToSemiLep_M125_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2017/221126_054916/*/*nominal*.root",
+#     # 221118_235008
+#     #    ntuples     = ntuplesPath+"/ttH_220208.root",
+#     categories=ttH_categories,
+#     process="ttH",
+#     #    lumiWeight  = 41.5,
+#     selections=None,  # ttbar_selection,
+#     #    selections  = ttH_selection,
+#     islocal=False
+# )
+
+
 
 dataset.addSample(
-    sampleName="SingleElectronB",
+    sampleName="TTHSL",
     ntuples=ntuplesPath2 +
-    "/2018/ntuple/EGamma/sl_LEG_ntuple_2018/230711_175839/*/*nominal*.root",
+    "/2016postVFP/ntuple/ttHTobb_ttToSemiLep_M125_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2016postVFP/231119_023943/*/*nominal*.root",
     #    ntuples     = ntuplesPath+"/ttH_220208.root",
-    categories=eledata_categories,
-    process = "data",
+    categories=ttH_categories,
+    process = "ttH",
     #    lumiWeight  = 41.5,
-    selections=None,  # ttbar_selection,
-    #    selections  = ttbar_selection,
-    islocal=False
-)
-
-dataset.addSample(
-    sampleName="SingleElectronC",
-    ntuples=ntuplesPath2 +
-    "/2018/ntuple/EGamma/sl_LEG_ntuple_2018/230714_234335/*/*nominal*.root",
-    #    ntuples     = ntuplesPath+"/ttH_220208.root",
-    categories=eledata_categories,
-    process = "data",
-    #    lumiWeight  = 41.5,
-    selections=None,  # ttbar_selection,
-    #    selections  = ttbar_selection,
-    islocal=False
-)
-
-dataset.addSample(
-    sampleName="SingleElectronD",
-    ntuples=ntuplesPath2 +
-    "/2018/ntuple/EGamma/sl_LEG_ntuple_2018/230710_070946/*/*nominal*.root",
-    #    ntuples     = ntuplesPath+"/ttH_220208.root",
-    categories=eledata_categories,
-    process = "data",
-    #    lumiWeight  = 41.5,
-    selections=None,  # ttbar_selection,
-    #    selections  = ttbar_selection,
+    selections=ttHH_selection,  # ttbar_selection,
+    #    selections  = ttH_selection,
     islocal=False
 )
 
 
-
-
-
+dataset.addSample(
+    sampleName="TTHDL",
+    ntuples=ntuplesPath2 +
+    "/2016postVFP/ntuple/ttHTobb_ttTo2L2Nu_M125_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2016postVFP/231119_023753/*/*nominal*.root",
+    #    ntuples     = ntuplesPath+"/ttH_220208.root",
+    categories=ttH_categories,
+    process="ttH",
+    #    lumiWeight  = 41.5,
+    selections=ttHH_selection,  # ttbar_selection,
+    #    selections  = ttH_selection,
+    islocal=False
+)
 
 
 # initialize variable list
@@ -196,13 +176,15 @@ dataset.addVariables(variable_set.all_variables)
 sys.path.append(basedir+"/variable_sets/")
 
 # print (basedir)
-import additional_variables_data as add_var
+import additional_variables as add_var
 # import sf_variables as sf_var
-# import sf_variables as sf_var
+import sf_variables as sf_var
 # add these variables to the variable list
 dataset.addVariables(add_var.additional_variables)
 
-# dataset.addVariables(sf_var.scalefactor_variables)
+dataset.addVariables(sf_var.scalefactor_variables)
+dataset.addVariables(sf_var.ttH_variables)
+dataset.addVariables(sf_var.PDF_ttH)
 
 
 # run the preprocessing

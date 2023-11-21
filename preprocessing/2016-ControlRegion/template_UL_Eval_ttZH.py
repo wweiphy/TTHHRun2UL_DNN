@@ -12,8 +12,7 @@ import preprocessing
 
 
 """
-USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_ttDL.py --outputdirectory=Control_0409 --variableselection=variables --maxentries=20000 --cores=8 --dataEra=2018
-
+USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_ttZH.py --outputdirectory=Eval_0523_UL_nominal --variableselection=variables --maxentries=20000 --cores=8 --dataEra=2016postVFP
 """
 
 usage="usage=%prog [options] \n"
@@ -98,8 +97,8 @@ ttbar_categories = preprocessing.EventCategories()
 # ttbar_categories.addCategory("ttbb", selection = "(GenEvt_I_TTPlusBB == 3 and GenEvt_I_TTPlusCC == 0)")
 # ttbar_categories.addCategory("tt2b", selection = "(GenEvt_I_TTPlusBB == 2 and GenEvt_I_TTPlusCC == 0)")
 # ttbar_categories.addCategory("ttb",  selection = "(GenEvt_I_TTPlusBB == 1 and GenEvt_I_TTPlusCC == 0)")
-ttbar_categories.addCategory("ttlfDL", selection = "(GenEvt_I_TTPlusBB == 0 and GenEvt_I_TTPlusCC == 0)")
-ttbar_categories.addCategory("ttccDL", selection = "(GenEvt_I_TTPlusBB == 0 and GenEvt_I_TTPlusCC == 1)")
+ttbar_categories.addCategory("ttlf", selection = "(GenEvt_I_TTPlusBB == 0 and GenEvt_I_TTPlusCC == 0)")
+ttbar_categories.addCategory("ttcc", selection = "(GenEvt_I_TTPlusBB == 0 and GenEvt_I_TTPlusCC == 1)")
 # ttbar_categories.addCategory("ttbbb", selection = "(GenEvt_I_TTPlusBB == 4 and GenEvt_I_TTPlusCC == 0)")
 # ttbar_categories.addCategory("tt4b", selection = "(GenEvt_I_TTPlusBB == 5 and GenEvt_I_TTPlusCC == 0)")
 
@@ -109,12 +108,10 @@ ttmb_categories.addCategory("ttnb", selection = "(GenEvt_I_TTPlusBB == 4 and Gen
 
 ntuplesPath = "/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_10_6_29/src/BoostedTTH/crab/2017UL/ntuple/crab_ntuple"
 ntuplesPath2 = "/eos/uscms/store/group/lpctthrun2/wwei/UL"
-ntuplesPath3 = "/store/user/wwei"
-
 
 
 # initialize dataset class
-dataset2 = preprocessing.Dataset(
+dataset = preprocessing.Dataset(
     outputdir   = outputdir,
     naming      = options.Name,
     maxEntries  = options.maxEntries,
@@ -124,36 +121,41 @@ dataset2 = preprocessing.Dataset(
     )
 
 # add base event selection
-dataset2.addBaseSelection(base_selection)
+dataset.addBaseSelection(base_selection)
 
-# dataset2.addSample(
-#     sampleName="TTSL",
-#     ntuples=ntuplesPath2 +
-#     "/2018/ntuple/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2018/230721_223937/*/*nominal*.root",
-#     #    ntuples     = ntuplesPath+"/ttSL_220210.root",
-#     categories=ttbar_categories,
-#     process = "ttSL",
-#     #    lumiWeight  = 41.5,
-#     selections=ttHH_selection,  # ttbar_selection,
-#     #    selections  = ttbar_selection
-#     islocal=False
-# )
 
-dataset2.addSample(
-    sampleName="TTDL",
+
+dataset.addSample(
+    sampleName="TTZH",
     ntuples=ntuplesPath2 +
-    "/2018/ntuple/TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2018/231115_224711/*/*nominal*.root",
-    #    ntuples     = ntuplesPath+"/ttSL_220210.root",
-    categories=ttbar_categories,
-    process="ttDL",
-    # lumiWeight  = 1.0,
+    "/2016post/ntuple/TTZHTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2016postVFP/231119_162109/*/*nominal*.root",
+    #    ntuples     = ntuplesPath+"/ttH_220208.root",
+    categories=ttZH_categories,
+    process = "ttZH",
+    #    lumiWeight  = 41.5,
     selections=ttHH_selection,  # ttbar_selection,
-    #    selections  = ttbar_selection
+    #    selections  = ttbar_selection,
     islocal=False
 )
 
+dataset.addSample(
+    sampleName="TTZH2",
+    ntuples=ntuplesPath2 +
+    "/2016post/ntuple/TTZHTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2016postVFP_Ext/231020_140605/*/*nominal*.root",
+    #    ntuples     = ntuplesPath+"/ttH_220208.root",
+    categories=ttZH_categories,
+    process = "ttZH",
+    #    lumiWeight  = 41.5,
+    selections=ttHH_selection,  # ttbar_selection,
+    #    selections  = ttbar_selection,
+    islocal=False
+) # complete
+
+
+
 # initialize variable list
-dataset2.addVariables(variable_set.all_variables)
+dataset.addVariables(variable_set.all_variables)
+
 
 sys.path.append(basedir+"/variable_sets/")
 
@@ -162,11 +164,11 @@ import additional_variables as add_var
 # import sf_variables as sf_var
 import sf_variables as sf_var
 # add these variables to the variable list
-dataset2.addVariables(add_var.additional_variables)
-dataset2.addVariables(sf_var.scalefactor_variables)
-# dataset2.addVariables(sf_var.ttbar_variables)
-dataset2.addVariables(sf_var.ttbar_variables)
-dataset2.addVariables(sf_var.PDF_tt)
+dataset.addVariables(add_var.additional_variables)
+
+dataset.addVariables(sf_var.scalefactor_variables)
+
 
 # run the preprocessing
-dataset2.runPreprocessing()
+dataset.runPreprocessing()
+

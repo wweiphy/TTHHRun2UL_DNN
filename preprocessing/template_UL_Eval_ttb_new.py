@@ -12,7 +12,7 @@ import preprocessing
 
 
 """
-USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_ttb_new.py --outputdirectory=Control_0409 --variableselection=variables --maxentries=20000 --cores=8 --dataEra=2018
+USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_ttb_new.py --outputdirectory=Eval_0523_UL_nominal --variableselection=variables --maxentries=20000 --cores=8 --dataEra=2016postVFP
 """
 
 usage="usage=%prog [options] \n"
@@ -104,7 +104,6 @@ ttbar_categories.addCategory("ttcc", selection = "(GenEvt_I_TTPlusBB == 0 and Ge
 
 ttmb_categories = preprocessing.EventCategories()
 ttmb_categories.addCategory("ttmb", selection = "(GenEvt_I_TTPlusBB == 3 and GenEvt_I_TTPlusCC == 0) or (GenEvt_I_TTPlusBB == 2 and GenEvt_I_TTPlusCC == 0) or (GenEvt_I_TTPlusBB == 1 and GenEvt_I_TTPlusCC == 0)")
-ttmb_categories.addCategory("ttnb", selection = "(GenEvt_I_TTPlusBB == 4 and GenEvt_I_TTPlusCC == 0) or (GenEvt_I_TTPlusBB == 5 and GenEvt_I_TTPlusCC == 0)")
 
 ttnb_categories = preprocessing.EventCategories()
 ttnb_categories.addCategory("ttnb", selection = "(GenEvt_I_TTPlusBB == 4 and GenEvt_I_TTPlusCC == 0) or (GenEvt_I_TTPlusBB == 5 and GenEvt_I_TTPlusCC == 0)")
@@ -132,7 +131,7 @@ dataset.addBaseSelection(base_selection)
 dataset.addSample(
     sampleName  = "TTbbSL",
     ntuples=ntuplesPath2 +
-    "/2018/ntuple/TTbb_4f_TTToSemiLeptonic_TuneCP5-Powheg-Openloops-Pythia8/sl_LEG_ntuple_2018/231117_174033/*/*nominal*.root",
+    "/2016post/ntuple/TTbb_4f_TTToSemiLeptonic_TuneCP5-Powheg-Openloops-Pythia8/sl_LEG_ntuple_2016postVFP/231118_161738/*/*nominal*.root",
     categories  = ttmb_categories,
     process = "ttbbSL",
 #    lumiWeight  = 41.5,
@@ -144,7 +143,7 @@ dataset.addSample(
 dataset.addSample(
     sampleName="TTbbDL",
     ntuples=ntuplesPath2 +
-    "/2018/ntuple/TTbb_4f_TTTo2L2Nu_TuneCP5-Powheg-Openloops-Pythia8/sl_LEG_ntuple_2018/231113_162510/*/*nominal*.root",
+    "/2016post/ntuple/TTbb_4f_TTTo2L2Nu_TuneCP5-Powheg-Openloops-Pythia8/sl_LEG_ntuple_2016postVFP/231118_061932/*/*nominal*.root",
     # 221118_234955
     categories=ttmb_categories,
     process="ttbbDL",

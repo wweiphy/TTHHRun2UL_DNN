@@ -10,16 +10,9 @@ import preprocessing
 # import additional_variables as add_var
 # import selections
 
-sys.path.append(basedir+"/variable_sets/")
-# print (basedir)
-import additional_variables as add_var
-# import sf_variables as sf_var
-import sf_variables as sf_var
-
 
 """
-USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_Syst.py --outputdirectory=Eval_0308_UL --variableselection=variables --maxentries=20000 --cores=8  --syst=JERdown --dataEra=2018
-
+USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_ttb_new.py --outputdirectory=Eval_0523_UL_nominal --variableselection=variables --maxentries=20000 --cores=8 --dataEra=2016postVFP
 """
 
 usage="usage=%prog [options] \n"
@@ -39,9 +32,6 @@ parser.add_option("-e", "--maxentries", dest="maxEntries", default=50000,
 
 parser.add_option("-n", "--name", dest="Name", default="dnn",
         help="STR of the output file name", metavar="Name")
-
-parser.add_option("-s", "--syst", dest="syst", default="JERup",
-        help="Systematics", metavar="syst")
 
 parser.add_option("-c", "--cores", dest="numCores", default=1,
                   help="number of cores to run the preprocessing", metavar="NumCores")
@@ -72,7 +62,7 @@ else:
 # select only events with GEN weight > 0 because training with negative weights is weird
 
 # base = "(N_Jets >= 4 and N_BTagsM >= 3 and Evt_MET > 20. and Weight_GEN_nom > 0.)"
-base = "(N_Jets >= 4 and N_BTagsM >= 3 and Evt_MET > 20.)"
+base = "(N_Jets >= 4 and N_BTagsM == 2 and Evt_MET > 20.)"
 
 # single lepton selections
 single_mu_sel = "(N_LooseElectrons == 0 and N_TightMuons == 1 and Muon_Pt > 29. and Triggered_HLT_IsoMu27_vX == 1)"
@@ -118,44 +108,14 @@ ttmb_categories.addCategory("ttmb", selection = "(GenEvt_I_TTPlusBB == 3 and Gen
 ttnb_categories = preprocessing.EventCategories()
 ttnb_categories.addCategory("ttnb", selection = "(GenEvt_I_TTPlusBB == 4 and GenEvt_I_TTPlusCC == 0) or (GenEvt_I_TTPlusBB == 5 and GenEvt_I_TTPlusCC == 0)")
 
+
 ntuplesPath = "/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_10_6_29/src/BoostedTTH/crab/2017UL/ntuple/crab_ntuple"
 ntuplesPath2 = "/eos/uscms/store/group/lpctthrun2/wwei/UL"
 
-# syst = [
-# #   'JESup',
-# #   'JESdown',
-# #   'JERup',
-#   'JERdown',
-# #   'JESFlavorQCDup',
-# #   'JESRelativeBalup',
-# #   'JESHFup',
-# #   'JESBBEC1up', 
-# #   'JESEC2up',
-# #   'JESAbsoluteup',
-# #   'JESBBEC1yearup',
-# #   'JESRelativeSampleyearup',
-# #   'JESEC2yearup',
-# #   'JESHFyearup',
-# #   'JESAbsoluteyearup',
-# #   'JESFlavorQCDdown',
-# #   'JESRelativeBaldown',
-# #   'JESHFdown',
-# #   'JESBBEC1down',
-# #   'JESEC2down',
-# #   'JESAbsolutedown',
-# #   'JESBBEC1yeardown',
-# #   'JESRelativeSampleyeardown',
-# #   'JESEC2yeardown',
-# #   'JESHFyeardown',
-# #   'JESAbsoluteyeardown',
-# ]
-
-
-# for sys in syst:
 
 # initialize dataset class
 dataset = preprocessing.Dataset(
-    outputdir   = outputdir+"_"+options.syst,
+    outputdir   = outputdir,
     naming      = options.Name,
     maxEntries  = options.maxEntries,
     ncores      = options.numCores,
@@ -167,98 +127,11 @@ dataset = preprocessing.Dataset(
 dataset.addBaseSelection(base_selection)
 
 
-dataset.addSample(
-    sampleName="TTHHTo4b",
-    ntuples=ntuplesPath2 +
-    "/2018/ntuple/TTHHTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2018/230212_023330/*/*" +
-    options.syst+"*.root",
-    #    ntuples     = ntuplesPath+"/ttHH_4b.root",
-    categories=ttHH_categories,
-    process = "ttHH",
-    #    lumiWeight  = 41.5,
-    # selections  = None,
-    selections=ttHH_selection,
-    islocal=False
-)
-
-
-dataset.addSample(
-    sampleName="TTZZ",
-    ntuples=ntuplesPath2 +
-    "/2018/ntuple/TTZZTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2018/230212_025453/*/*" +
-    options.syst+"*.root",
-    #    ntuples     = ntuplesPath+"/ttH_220208.root",
-    categories=ttZZ_categories,
-    process = "ttZZ",
-    #    lumiWeight  = 41.5,
-    selections=ttHH_selection,  # ttbar_selection,
-    #    selections  = ttbar_selection,
-    islocal=False
-)
-
-
-dataset.addSample(
-    sampleName="TTZZ2",
-    ntuples=ntuplesPath2 +
-    "/2018/ntuple/TTZZTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2018_Ext/230212_035148/*/*" +
-    options.syst+"*.root",
-    #    ntuples     = ntuplesPath+"/ttH_220208.root",
-    categories=ttZZ_categories,
-    process = "ttZZ",
-    #    lumiWeight  = 41.5,
-    selections=ttHH_selection,  # ttbar_selection,
-    #    selections  = ttbar_selection,
-    islocal=False
-) # complete
-
-dataset.addSample(
-    sampleName="TTZH",
-    ntuples=ntuplesPath2 +
-    "/2018/ntuple/TTZHTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2018/230212_023904/*/*" +
-    options.syst+"*.root",
-    #    ntuples     = ntuplesPath+"/ttH_220208.root",
-    categories=ttZH_categories,
-    process = "ttZH",
-    #    lumiWeight  = 41.5,
-    selections=ttHH_selection,  # ttbar_selection,
-    #    selections  = ttbar_selection,
-    islocal=False
-)
-
-dataset.addSample(
-    sampleName="TTZH2",
-    ntuples=ntuplesPath2 +
-    "/2018/ntuple/TTZHTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2018_Ext/230212_024123/*/*" +
-    options.syst+"*.root",
-    #    ntuples     = ntuplesPath+"/ttH_220208.root",
-    categories=ttZH_categories,
-    process = "ttZH",
-    #    lumiWeight  = 41.5,
-    selections=ttHH_selection,  # ttbar_selection,
-    #    selections  = ttbar_selection,
-    islocal=False
-) # complete
-
-dataset.addSample(
-    sampleName="TTZ",
-    ntuples=ntuplesPath2 +
-    "/2018/ntuple/TTZToBB_TuneCP5_13TeV-amcatnlo-pythia8/sl_LEG_ntuple_2018/230214_161415/*/*" +
-    options.syst+"*.root",
-    # ntuples="/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_10_6_29/src/BoostedTTH/BoostedAnalyzer/test/ntuples_nominal_Tree.root",
-    #    ntuples     = ntuplesPath+"/ttH_220208.root",
-    categories=ttZ_categories,
-    process = "ttZ",
-    #    lumiWeight  = 41.5,
-    selections=ttHH_selection,  # ttbar_selection,
-    #    selections  = ttbar_selection,
-    islocal=True
-)  # almost
-
       
 dataset.addSample(
     sampleName  = "TTbbSL",
     ntuples=ntuplesPath2 +
-    "/2018/ntuple/TTbb_4f_TTToSemiLeptonic_TuneCP5-Powheg-Openloops-Pythia8/sl_LEG_ntuple_2018/230212_040006/*/*"+options.syst+"*.root",
+    "/2016post/ntuple/TTbb_4f_TTToSemiLeptonic_TuneCP5-Powheg-Openloops-Pythia8/sl_LEG_ntuple_2016postVFP/231118_161738/*/*nominal*.root",
     categories  = ttmb_categories,
     process = "ttbbSL",
 #    lumiWeight  = 41.5,
@@ -270,7 +143,7 @@ dataset.addSample(
 dataset.addSample(
     sampleName="TTbbDL",
     ntuples=ntuplesPath2 +
-    "/2018/ntuple/TTbb_4f_TTTo2L2Nu_TuneCP5-Powheg-Openloops-Pythia8/sl_LEG_ntuple_2018/230222_045920/*/*"+options.syst+"*.root",
+    "/2016post/ntuple/TTbb_4f_TTTo2L2Nu_TuneCP5-Powheg-Openloops-Pythia8/sl_LEG_ntuple_2016postVFP/231118_061932/*/*nominal*.root",
     # 221118_234955
     categories=ttmb_categories,
     process="ttbbDL",
@@ -280,73 +153,36 @@ dataset.addSample(
     islocal=False
 )
 
-dataset.addSample(
-    sampleName="TT4b",
-    ntuples=ntuplesPath2 +
-    "/2018/ntuple/TT4b_TuneCP5_13TeV_madgraph_pythia8/sl_LEG_ntuple_2018/230212_022936/*/*" +
-    options.syst+"*.root",
-    categories=ttnb_categories,
-    process="tt4b",
-    #    lumiWeight  = 41.5,
-    selections=ttHH_selection,  # ttbar_selection,
-    #    selections  = ttbar_selection,
-    islocal=False
-)  # not finished
+# dataset.addSample(
+#     sampleName="TTbbToDL2",
+#     ntuples=ntuplesPath2 +
+#     "/2017/ntuple/ttHTobb_M125_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2017/*/*/*nominal*.root",
+#     categories=ttmb_categories,
+#     #    lumiWeight  = 41.5,
+#     selections=None,  # ttbar_selection,
+#     #    selections  = ttbar_selection,
+#     islocal=False
+# )
+      
 
-
-dataset.addSample(
-    sampleName="TTHSL",
-    ntuples=ntuplesPath2 +
-    "/2018/ntuple/ttHTobb_ttToSemiLep_M125_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2018/230212_040515/*/*"+options.syst+"*.root",
-    #    ntuples     = ntuplesPath+"/ttH_220208.root",
-    categories=ttH_categories,
-    process = "ttH",
-    #    lumiWeight  = 41.5,
-    selections=ttHH_selection,  # ttbar_selection,
-    #    selections  = ttH_selection,
-    islocal=False
-)
-
-dataset.addSample(
-    sampleName="TTSL",
-    ntuples=ntuplesPath2 +
-    "/2018/ntuple/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2018/230212_023618/*/*" +
-    options.syst+"*.root",
-    #    ntuples     = ntuplesPath+"/ttSL_220210.root",
-    categories=ttbar_categories,
-    process = "ttSL",
-    #    lumiWeight  = 41.5,
-    selections=ttHH_selection,  # ttbar_selection,
-    #    selections  = ttbar_selection
-    islocal=False
-)
-
-dataset.addSample(
-    sampleName="TTDL",
-    ntuples=ntuplesPath2 +
-    "/2018/ntuple/TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2018/230222_045532/*/*" +
-    options.syst+"*.root",
-    #    ntuples     = ntuplesPath+"/ttSL_220210.root",
-    categories=ttbar_categories,
-    process="ttDL",
-    # lumiWeight  = 1.0,
-    selections=ttHH_selection,  # ttbar_selection,
-    #    selections  = ttbar_selection
-    islocal=False
-)
 
 # initialize variable list
 dataset.addVariables(variable_set.all_variables)
-# dataset2.addVariables(variable_set.all_variables)
 
+sys.path.append(basedir+"/variable_sets/")
+
+# print (basedir)
+import additional_variables as add_var
+# import sf_variables as sf_var
+import sf_variables as sf_var
 # add these variables to the variable list
 dataset.addVariables(add_var.additional_variables)
-# dataset2.addVariables(add_var.additional_variables)
+
 dataset.addVariables(sf_var.scalefactor_variables)
-# dataset2.addVariables(sf_var.scalefactor_variables)
-# dataset2.addVariables(sf_var.ttbar_variables)
+
+dataset.addVariables(sf_var.ttbar_variables)
+dataset.addVariables(sf_var.PDF_ttbb)
+
 
 # run the preprocessing
 dataset.runPreprocessing()
-# dataset2.runPreprocessing()
-
