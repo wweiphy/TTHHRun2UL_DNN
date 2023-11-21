@@ -124,7 +124,7 @@ for node in processlist:
         
         for sys in systlist:
 
-            if df[(df['Uncertainty']==sys)][process] == '1':
+            if df[(df['Uncertainty']==sys)][process].item() == '1':
 
                 uphistoname = 'ljets_ge4j_ge3t_'+node+"_node__"+process+"__"+sys+"Up"
                 downhistoname = 'ljets_ge4j_ge3t_'+node+"_node__"+process+"__"+sys+"Down"
