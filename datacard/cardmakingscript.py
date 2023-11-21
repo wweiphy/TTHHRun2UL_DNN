@@ -1,5 +1,6 @@
 import os
 import optparse
+import sys
 
 # 2017
 # python cardmakingscript.py -n old -f 230119_evaluation_old_2
@@ -51,26 +52,44 @@ process_new = ['ttHH', 'ttH', 'ttZ', 'ttZH',
 process_old = ['ttHH', 'ttH', 'ttZ', 'ttZH',
                'ttZZ', 'ttlf', 'ttcc', 'ttb','ttbb','tt2b','ttbbb','tt4b']
 
+filedir = os.path.dirname(os.path.realpath(__file__))
+# datacarddir = os.path.dirname(filedir)
+basedir = os.path.dirname(filedir)
+sys.path.append(basedir)
+
 
 if options.new == "new":
+
+    if not os.path.exists("new"):
+        os.mkdir("new")
+    if not os.path.exists("new_nosys"):
+        os.mkdir("new_nosys")
+
+    if "4FS" in options.folder:
+        systfile = "datacard_new_sys_reduce_4FS.csv"
+    else:
+        systfile = "datacard_new_sys_reduce.csv"
 
     for node in process_new:
 
         categoryname = "ljets_ge4j_ge3t_{}_node".format(node)
-        rootfile = "/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/workdir/{}/plots/output_limit.root".format(options.folder)
-        # outputfile = "/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/datacard/new_{}/ljets_ge4j_ge3t_{}_node_hdecay.txt".format(str(node), options.folder)
-        # signaltag = "ttHH"
 
-        # runcommand = "python /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/datacard/DatacardScript.py --categoryname={} --rootfile=/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/workdir/{}/plots/output_limit.root --outputfile=/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/datacard/new/ljets_ge4j_ge3t_{}_node_hdecay.txt --directory=/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/datacard/datacardMaker --signaltag=ttHH --csvfile=/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/datacard/datacard_new_sys_test.csv --nominal_key='$CHANNEL__$PROCESS' --syst_key='$CHANNEL__$PROCESS__$SYSTEMATIC'".format(
-        #     categoryname, options.folder, node)
+        if "TwoYear" in options.folder or "ThreeYear" in options.folder:
+            rootfile = filedir + "/combineRun2/output_limit.root"
 
-        runcommand = "python /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/datacard/DatacardScript.py --categoryname={} --rootfile={} --outputfile=/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/datacard/new/ljets_ge4j_ge3t_{}_node_hdecay.txt --directory=/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/datacard/datacardMaker --signaltag=ttHH --csvfile=/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/datacard/datacard_new.csv --nominal_key='$CHANNEL__$PROCESS' --syst_key='$CHANNEL__$PROCESS__$SYSTEMATIC'".format(
+        else:
+            rootfile = basedir + "/workdir/{}/plots/output_limit.root".format(options.folder)
+
+
+        runcommand1 = "python DatacardScript.py --categoryname={} --rootfile={} --outputfile=/new_nosys/ljets_ge4j_ge3t_{}_node_hdecay.txt --directory=/datacardMaker --signaltag=ttHH --csvfile=datacard_new.csv --nominal_key='$CHANNEL__$PROCESS' --syst_key='$CHANNEL__$PROCESS__$SYSTEMATIC'".format(
             categoryname, rootfile, node)
-        # runcommand = "python /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/datacard/DatacardScript.py --categoryname={} --rootfile={} --outputfile=/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/datacard/new/ljets_ge4j_ge3t_{}_node_hdecay.txt --directory=/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/datacard/datacardMaker --signaltag=ttHH --csvfile=/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/datacard/datacard_new_sys_reduce_4FS.csv --nominal_key='$CHANNEL__$PROCESS' --syst_key='$CHANNEL__$PROCESS__$SYSTEMATIC'".format(
-        #     categoryname, rootfile, node)
+        
+        runcommand2 = "python DatacardScript.py --categoryname={} --rootfile={} --outputfile=/new/ljets_ge4j_ge3t_{}_node_hdecay.txt --directory=/datacardMaker --signaltag=ttHH --csvfile={} --nominal_key='$CHANNEL__$PROCESS' --syst_key='$CHANNEL__$PROCESS__$SYSTEMATIC'".format(
+            categoryname, rootfile, node, systfile)
 
 
-        os.system(runcommand)
+        os.system(runcommand1)
+        os.system(runcommand2)
 
         print("finish making datacard for process {}".format(node))
 
