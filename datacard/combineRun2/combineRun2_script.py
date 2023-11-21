@@ -45,7 +45,7 @@ if options.flavor:
 
     file1path = "230220_evaluation_new_"+options.category+"_4FS/plots/output_limit.root"
     file2path = "230119_evaluation_new_"+options.category+"_4FS/plots/output_limit.root"
-    outFolder = 'TwoYear-4FS'
+    outFolder = 'TwoYear-4FS'+options.category
 
 
 else:
@@ -54,7 +54,7 @@ else:
 
     file1path = "230220_evaluation_new_"+options.category+"/plots/output_limit.root"
     file2path = "230119_evaluation_new_"+options.category+"/plots/output_limit.root"
-    outFolder = 'TwoYear'
+    outFolder = 'TwoYear'+options.category
 
 
 file1 = ROOT.TFile.Open(folder_path+file1path)
@@ -66,14 +66,14 @@ if options.threeyear:
 
         file3path = "230515_evaluation_new_"+options.category+"_4FS/plots/output_limit.root"
         file4path = "230523_evaluation_new_"+options.category+"_4FS/plots/output_limit.root"
-        outFolder = 'ThreeYear-4FS'
+        outFolder = 'ThreeYear-4FS'+options.category
 
 
     else:
 
         file3path = "230515_evaluation_new_"+options.category+"/plots/output_limit.root"
         file4path = "230523_evaluation_new_"+options.category+"/plots/output_limit.root"
-        outFolder = 'ThreeYear'
+        outFolder = 'ThreeYear'+options.category
 
     file3 = ROOT.TFile.Open(folder_path+file3path)
     file4 = ROOT.TFile.Open(folder_path+file4path)
