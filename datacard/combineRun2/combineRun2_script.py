@@ -15,7 +15,7 @@ parser = optparse.OptionParser(usage=usage)
 # parser.add_option("-twoyear", "--twoyear", dest="twoyear", action = "store_true", default=False,
 #         help="combine 18 with 17", metavar="twoyear")
 
-parser.add_option("-threeyear", "--threeyear", dest="threeyear", action = "store_true", default=False,
+parser.add_option("--threeyear", dest="threeyear", action = "store_true", default=False,
         help="combine 18 with 17 and 16", metavar="threeyear")
 
 parser.add_option("-f", "--flavor", dest="flavor", action = "store_true", default=False, help="use 4FS on ttnb or not", metavar="flavor")
