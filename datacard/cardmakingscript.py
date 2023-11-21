@@ -87,12 +87,17 @@ if options.new == "new":
         else:
             rootfile = basedir + "/workdir/{}/plots/output_limit.root".format(options.folder)
 
-
-        runcommand1 = "python DatacardScript.py --categoryname={} --rootfile={} --outputfile=/new_nosys/ljets_ge4j_ge3t_{}_node_hdecay.txt --directory=/datacardMaker --signaltag=ttHH --csvfile=datacard_new.csv --nominal_key='$CHANNEL__$PROCESS' --syst_key='$CHANNEL__$PROCESS__$SYSTEMATIC'".format(
-            categoryname, rootfile, node)
+        scriptfile = filedir+"/DatacardScript.py"
+        outfile = filedir+"/new_nosys/ljets_ge4j_ge3t_{}_node_hdecay.txt".format(node)
+        cardmaker = filedir+"/datacardMaker"
+        csvfile_nosys = filedir+"/datacard_new.csv"
         
-        runcommand2 = "python DatacardScript.py --categoryname={} --rootfile={} --outputfile=/new/ljets_ge4j_ge3t_{}_node_hdecay.txt --directory=/datacardMaker --signaltag=ttHH --csvfile={} --nominal_key='$CHANNEL__$PROCESS' --syst_key='$CHANNEL__$PROCESS__$SYSTEMATIC'".format(
-            categoryname, rootfile, node, systfile)
+        runcommand1 = "python {} --categoryname={} --rootfile={} --outputfile={} --directory={} --signaltag=ttHH --csvfile={} --nominal_key='$CHANNEL__$PROCESS' --syst_key='$CHANNEL__$PROCESS__$SYSTEMATIC'".format(
+            scriptfile, categoryname, rootfile, outfile, cardmaker, csvfile_nosys)
+
+        csvfile_sys = filedir+"/"+systfile
+        runcommand2 = "python {} --categoryname={} --rootfile={} --outputfile={} --directory={} --signaltag=ttHH --csvfile={} --nominal_key='$CHANNEL__$PROCESS' --syst_key='$CHANNEL__$PROCESS__$SYSTEMATIC'".format(
+            scriptfile, categoryname, rootfile, outfile, cardmaker, csvfile_sys)
 
 
         os.system(runcommand1)
