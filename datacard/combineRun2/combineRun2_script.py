@@ -88,7 +88,7 @@ df = pd.read_csv(histofile, index_col=None)
 
 systlist = df['Uncertainty'].tolist()
 
-output_file = ROOT.TFile(outFolder+"/output_limist.root", "RECREATE")
+output_file = ROOT.TFile(outFolder+"/output_limit.root", "RECREATE")
 
 for node in processlist:
 
