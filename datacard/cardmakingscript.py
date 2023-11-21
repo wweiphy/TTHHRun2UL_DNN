@@ -82,6 +82,7 @@ if options.new == "new":
 
         if "TwoYear" in options.folder or "ThreeYear" in options.folder:
             rootfile = filedir + "/combineRun2/"+options.folder+"/output_limit.root"
+            print(rootfile)
 
         else:
             rootfile = basedir + "/workdir/{}/plots/output_limit.root".format(options.folder)
