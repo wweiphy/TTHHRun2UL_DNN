@@ -86,7 +86,7 @@ if not os.path.exists(outFolder):
 
 df = pd.read_csv(histofile, index_col=None)
 
-systlist = systlist = df['Uncertainty'].to_list()
+systlist = df['Uncertainty'].to_list()
 
 output_file = ROOT.TFile(outFolder+"output_limist.root", "RECREATE")
 
