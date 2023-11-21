@@ -2,6 +2,12 @@ import os
 import optparse
 import sys
 
+# 17&18
+# python cardmakingscript.py -n new -f TwoYear-4FS5j4b
+# python cardmakingscript.py -n new -f TwoYear-4FS6j4b
+# python cardmakingscript.py -n new -f TwoYear-5j4b
+# python cardmakingscript.py -n new -f TwoYear-5j4b
+
 # 2017
 # python cardmakingscript.py -n old -f 230119_evaluation_old_2
 # python cardmakingscript.py -n new -f 230119_evaluation_new_2
@@ -75,7 +81,7 @@ if options.new == "new":
         categoryname = "ljets_ge4j_ge3t_{}_node".format(node)
 
         if "TwoYear" in options.folder or "ThreeYear" in options.folder:
-            rootfile = filedir + "/combineRun2/output_limit.root"
+            rootfile = filedir + "/combineRun2/"+options.folder+"/output_limit.root"
 
         else:
             rootfile = basedir + "/workdir/{}/plots/output_limit.root".format(options.folder)
