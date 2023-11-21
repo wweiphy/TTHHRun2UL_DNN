@@ -94,6 +94,31 @@ for node in processlist:
 
     print("start combining node "+node)
 
+    datahistname = 'ljets_ge4j_ge3t_'+node+"_node__data_obs"
+
+    datahist1 = file1.Get(datahistname)
+    datahist2 = file2.Get(datahistname)
+
+    datacombined_hist = datahist1.Clone()
+    datacombined_hist.Add(datahist2)
+
+    if not datahist1 or not datahist2:
+        print("Error: Unable to load histograms for 17 or 18.")
+        exit(1)
+
+    if options.threeyear:
+
+        datahist3 = file3.Get(datahistname)
+        datahist4 = file4.Get(datahistname)
+
+        if not datahist3 or not datahist4:
+            print("Error: Unable to load histograms for 16APV or 16.")
+            exit(1)
+        datacombined_hist.Add(datahist3)
+        datacombined_hist.Add(datahist4)
+
+    datacombined_hist.Write(datahistname) 
+
     for process in processlist:
 
         histoname = 'ljets_ge4j_ge3t_'+node+"_node__"+process
