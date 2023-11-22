@@ -1,4 +1,5 @@
 import os
+import sys
 import optparse
 
 usage = "usage=%prog [options] \n"
@@ -60,6 +61,13 @@ process_new = ['ttHH', 'ttH', 'ttZ', 'ttZH',
 process_old = ['ttHH', 'ttH', 'ttZ', 'ttZH',
                'ttZZ', 'ttlf', 'ttcc', 'ttb', 'ttbb', 'tt2b', 'ttbbb', 'tt4b']
 # variables = ['N_BTagsM', 'Electron_E[0]', 'Jet_CSV[5]']
+
+filedir = os.path.dirname(os.path.realpath(__file__))
+# datacarddir = os.path.dirname(filedir)
+basedir = os.path.dirname(filedir)
+sys.path.append(basedir)
+
+
 variables = [
     # 'Evt_CSV_avg',
     # 'Evt_CSV_avg_tagged',
@@ -475,13 +483,20 @@ if options.new == "new":
 
     evaluation = True
 
-    for node in process_new:
+    workdir = filedir + "/" + options.cardfolder
 
-        rootfile = "/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/workdir/{}/plots/output_limit.root".format(options.filefolder)
-        workdir = "/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/datacard/{}".format(options.cardfolder)
+    for node in process_new:
+        
+        if "TwoYear" in options.filefolder or "ThreeYear" in options.filefolder:
+            rootfile = filedir + "/combineRun2/"+options.filefolder+"/output_limit.root"
+        else:
+            rootfile = basedir + "/workdir/{}/plots/output_limit.root".format(options.filefolder)
+        script = filedir + "/PlotScript.py"
+        plotconfig = filedir + "/plotconfig_new.py"
+        systematic = filedir + "/systematics.csv"
         # selectionlabel = "\geq {} jets, \geq {} b-tags".format(options.njets, options.nbjets)
         # runcommand = 'python /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/datacard/PlotScript.py --plotconfig="/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/datacard/plotconfig_{}.py"  --channelname="ljets_ge4j_ge3t_{}_node"  --selectionlabel="\geq {} jets, \geq {} b-tags" --rootfile={}  --directory="/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/datacard" --systematicfile="/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/datacard/systematics_full.csv" --workdir={} --evaluation={}'.format("new", node, options.njets,options.nbjets,rootfile, workdir, evaluation)
-        runcommand = 'python /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/datacard/PlotScript.py --plotconfig="/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/datacard/plotconfig_{}.py"  --channelname="ljets_ge4j_ge3t_{}_node"  --selectionlabel="\geq {} jets, \geq {} b-tags" --rootfile={}  --directory="/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/datacard" --systematicfile="/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/datacard/systematics.csv" --workdir={} --evaluation={}'.format("new", node, options.njets,options.nbjets,rootfile, workdir, evaluation)
+        runcommand = 'python {} --plotconfig={}  --channelname="ljets_ge4j_ge3t_{}_node"  --selectionlabel="\geq {} jets, \geq {} b-tags" --rootfile={}  --directory={} --systematicfile={} --workdir={} --evaluation={}'.format(script, plotconfig, node, options.njets,options.nbjets,rootfile, filedir, systematic, workdir, evaluation)
 
 
         os.system(runcommand)
