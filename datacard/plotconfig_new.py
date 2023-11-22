@@ -93,10 +93,11 @@ plotoptions = {   'cmslabel': 'private Work',
     'data': 'data_obs',
     'datalabel': 'data',
     'logarithmic': False,
-    'lumiLabel': '59.8',
+    # 'lumiLabel': '59.8',
     # 'lumiLabel': '41.5',
     # 'lumiLabel': '16.81', # post
     # 'lumiLabel': '19.52', # pre
+    'lumiLabel': '101.3',
     'nominalKey': '$CHANNEL__$PROCESS',
     'normalize': False,
     'ratio': '#frac{S+B}{B}',
