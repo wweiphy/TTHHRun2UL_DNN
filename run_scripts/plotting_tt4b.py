@@ -21,7 +21,7 @@
 # python plotting_tt4b.py -i Eval_0523_UL_nominal -o tt4b_2016post -c ge4j_ge3t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables -n ge4j_ge3t_ttH --plot --printroc
 # python plotting_tt4b.py -i Eval_0515_UL_nominal -o tt4b_2016pre -c ge4j_ge3t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables -n ge4j_ge3t_ttH --plot --printroc
 
-# python plotting_tt4b.py -i Control_0409  -o tt4b_4_rescale -c ge4j_2t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables --plot --printroc
+# python plotting_tt4b.py -i Control_0409  -o tt4b -c ge4j_2t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables --plot --printroc
 
 # python plotting_tt4b.py -i Control_2018_4FS  -o tt4b_4FS -c ge4j_2t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables --plot --printroc
 
@@ -68,10 +68,10 @@ options.initArguments()
 input_samples = df.InputSamples(options.getInputDirectory(), options.getTestPercentage())
 
 weight_expr = "x.Weight_XS * x.Weight_CSV_UL * x.Weight_GEN_nom * x.lumiWeight"
-# input_samples.addSample(options.getDefaultName("ttnb_2017"),  label = "ttnb",  normalization_weight = 0.92, train_weight = 1, total_weight_expr = weight_expr)
+input_samples.addSample(options.getDefaultName("ttnb_2017"),  label = "ttnb",  normalization_weight = 1, train_weight = 1, total_weight_expr = weight_expr)
 # input_samples.addSample(options.getDefaultName("ttnb_2017"),  label="ttnb",
                         # normalization_weight=82.96*0.92, train_weight=1, total_weight_expr=weight_expr)
-input_samples.addSample(options.getDefaultName("ttnb_2018"),  label = "ttnb",  normalization_weight = 1, train_weight = 1, total_weight_expr = weight_expr)
+# input_samples.addSample(options.getDefaultName("ttnb_2018"),  label = "ttnb",  normalization_weight = 1, train_weight = 1, total_weight_expr = weight_expr)
 # input_samples.addSample(options.getDefaultName("ttnb_2018"),  label = "ttnb",  normalization_weight = 119.66*1.35, train_weight = 1, total_weight_expr = weight_expr)
 
 # 2018 4FS
@@ -114,10 +114,10 @@ dnn = DNN.DNN(
     category_name   = options.getCategory(),
     train_variables = options.getTrainVariables(),
     # number of epochs
-    lumi = 119.66,
+    # lumi = 119.66,
     # lumi=67.24,  # 2016post
     # lumi = 78.08, # 2016pre
-    # lumi = 82.96,
+    lumi = 82.96,
     # lumi = 1.,
     train_epochs    = options.getTrainEpochs(),
     # metrics for evaluation (c.f. KERAS metrics)

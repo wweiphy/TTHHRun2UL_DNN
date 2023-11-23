@@ -9,7 +9,7 @@
 # python plotting_ttZ.py -i Eval_0523_UL_nominal -o ttZ_2016post -c ge4j_ge3t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables -n ge4j_ge3t_ttH --plot --printroc
 # python plotting_ttZ.py -i Eval_0515_UL_nominal -o ttZ_2016pre -c ge4j_ge3t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables -n ge4j_ge3t_ttH --plot --printroc
 
-# python plotting_ttZ.py -i Control_0409 -o ttZ -c ge4j_2t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables --plot --printroc
+# python plotting_ttZ.py -i Control_0409_2 -o ttZ_2 -c ge4j_2t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables --plot --printroc
 
 # python plotting_ttZ.py -i Control_0822_2017 -o ttZ_2017 -c ge4j_2t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables --plot --printroc
 
@@ -49,9 +49,9 @@ options.initArguments()
 input_samples = df.InputSamples(options.getInputDirectory(), options.getTestPercentage())
 
 weight_expr = "x.Weight_XS * x.Weight_CSV_UL * x.Weight_GEN_nom * x.lumiWeight"
-# input_samples.addSample(options.getDefaultName("ttZ_2017"),  label = "ttZ",  normalization_weight = 1., train_weight = 1, total_weight_expr = weight_expr)
+input_samples.addSample(options.getDefaultName("ttZ_2017"),  label = "ttZ",  normalization_weight = 1., train_weight = 1, total_weight_expr = weight_expr)
 # input_samples.addSample(options.getDefaultName("ttZ_2017"),  label = "ttZ",  normalization_weight = 82.96, train_weight = 1, total_weight_expr = weight_expr)
-input_samples.addSample(options.getDefaultName("ttZ"),  label = "ttZ",  normalization_weight = 1., train_weight = 1, total_weight_expr = weight_expr)
+# input_samples.addSample(options.getDefaultName("ttZ"),  label = "ttZ",  normalization_weight = 1., train_weight = 1, total_weight_expr = weight_expr)
 # input_samples.addSample(options.getDefaultName("ttZ_2018"),  label = "ttZ",  normalization_weight = 1., train_weight = 1, total_weight_expr = weight_expr)
 # input_samples.addSample(options.getDefaultName("ttZ_2018"),  label = "ttZ",  normalization_weight = 119.66, train_weight = 1, total_weight_expr = weight_expr)
 
@@ -75,10 +75,10 @@ dnn = DNN.DNN(
     category_name   = options.getCategory(),
     train_variables = options.getTrainVariables(),
     # number of epochs
-    lumi = 119.66,
+    # lumi = 119.66,
     # lumi=67.24,  # 2016post
     # lumi = 78.08, # 2016pre
-    # lumi=82.96,
+    lumi=82.96,
     # lumi = 1.,
     train_epochs    = options.getTrainEpochs(),
     # metrics for evaluation (c.f. KERAS metrics)

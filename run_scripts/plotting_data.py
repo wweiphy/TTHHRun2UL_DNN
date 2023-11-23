@@ -99,18 +99,18 @@ weight_expr = "x.Weight_XS * x.lumiWeight"
 # input_samples.addSample(options.getDefaultName("ttZZ"), label = "ttZZ", normalization_weight = options.getNomWeight(), total_weight_expr = weight_expr)
 # input_samples.addSample(options.getDefaultName("ttZ"), label = "ttZ", normalization_weight = options.getNomWeight(), total_weight_expr = weight_expr)
 
-# input_samples.addSample(options.getDefaultName("singlemuon_2017"), label="SingleMuon",
-#                         normalization_weight=1., total_weight_expr=weight_expr)
-# input_samples.addSample(options.getDefaultName("eledata_2017"), label="SingleElectron",
-#                         normalization_weight=1., total_weight_expr=weight_expr)
+input_samples.addSample(options.getDefaultName("singlemuon_2017"), label="SingleMuon",
+                        normalization_weight=1., total_weight_expr=weight_expr)
+input_samples.addSample(options.getDefaultName("eledata_2017"), label="SingleElectron",
+                        normalization_weight=1., total_weight_expr=weight_expr)
 # input_samples.addSample(options.getDefaultName("singlemuon_2018"), label="SingleMuon",
 #                         normalization_weight=1., total_weight_expr=weight_expr)
 # input_samples.addSample(options.getDefaultName("eledata_2018"), label="SingleElectron",
 #                         normalization_weight=1., total_weight_expr=weight_expr)
-input_samples.addSample(options.getDefaultName("singlemuon"), label="SingleMuon",
-                        normalization_weight=1., total_weight_expr=weight_expr)
-input_samples.addSample(options.getDefaultName("eledata"), label="SingleElectron",
-                        normalization_weight=1., total_weight_expr=weight_expr)
+# input_samples.addSample(options.getDefaultName("singlemuon"), label="SingleMuon",
+                        # normalization_weight=1., total_weight_expr=weight_expr)
+# input_samples.addSample(options.getDefaultName("eledata"), label="SingleElectron",
+                        # normalization_weight=1., total_weight_expr=weight_expr)
 
 
 # init DNN class
@@ -133,10 +133,10 @@ dnn = DNN.DNN(
     category_name   = options.getCategory(),
     train_variables = options.getTrainVariables(),
     # number of epochs
-    lumi = 119.66,
+    # lumi = 119.66,
     # lumi=67.24,  # 2016post
     # lumi = 78.08, # 2016pre
-    # lumi=82.96, # 2017
+    lumi=82.96, # 2017
     # lumi = 202.62, # 17&18
     train_epochs    = options.getTrainEpochs(),
     # metrics for evaluation (c.f. KERAS metrics)
