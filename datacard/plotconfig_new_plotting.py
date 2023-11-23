@@ -1,5 +1,11 @@
 #samples named in the rootfile
 samples = {  
+
+    'tt': {'info': {'color': 633L,
+                    'label': 't#bar{t}',
+                    'typ': 'bkg'},
+           'plot': True},
+           
     'tt4b': {   'info': {   'color': 636L,
                             'label': 't#bar{t}+4b',
                             'typ': 'bkg'},
@@ -28,14 +34,16 @@ samples = {
                             'label': 't#bar{t}+b#bar{b}',
                             'typ': 'bkg'},
                 'plot': True},
-    'tt': {   'info': {   'color': 633L,
-                            'label': 't#bar{t}',
-                            'typ': 'bkg'},
-                'plot': True},
+
     }
 
 #combined samples
 plottingsamples = { 
+
+    'tt': {'addSamples': ['tt'],
+           'color': 633L,
+           'label': 't#bar{t}',
+           'typ': 'bkg'},
     
     'tt4b': {   'addSamples': [   'tt4b'],
                 'color': 636L,
@@ -65,10 +73,7 @@ plottingsamples = {
                 'color': 634L,
                 'label': 't#bar{t}bb',
                 'typ': 'bkg'},
-    'tt': {   'addSamples': [   'tt'],
-                'color': 633L,
-                'label': 't#bar{t}',
-                'typ': 'bkg'},
+
     }
 
 #systematics to be plotted
