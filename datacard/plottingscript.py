@@ -7,6 +7,11 @@ usage += "USE: python plottingscript.py -n new_plotting "
 
 # evaluation - discriminators
 
+# 1718
+
+# python plottingscript.py -n new -f TwoYear5j4b -c new_5j4b_sys -j 5 -b 4
+# python plottingscript.py -n new -f TwoYear6j4b -c new_6j4b_sys -j 6 -b 4
+
 # 2018
 
 # python plottingscript.py -n new -f 230220_evaluation_new_5j4b -c new_230220_5j4b_sys -j 5 -b 4
@@ -332,14 +337,14 @@ variables = [
     'CSV[1]',
     'CSV[2]',
     'CSV[3]',
-    # 'CSV[4]',
-    # 'CSV[5]',
-    # 'CSV[6]',
-    # 'CSV[7]',
+    'CSV[4]',
+    'CSV[5]',
+    'CSV[6]',
+    'CSV[7]',
     'Electron_E[0]',
-    'Electron_Eta[0]',
+    # 'Electron_Eta[0]',
     'Electron_M[0]',
-    'Electron_Phi[0]',
+    # 'Electron_Phi[0]',
     'Electron_Pt[0]',
     'Jet_CSV[0]',
     'Jet_CSV[1]',
@@ -399,9 +404,9 @@ variables = [
     # 'LooseMuon_M[0]',
     # 'LooseMuon_Pt[0]',
     'Muon_E[0]',
-    'Muon_Eta[0]',
+    # 'Muon_Eta[0]',
     'Muon_M[0]',
-    'Muon_Phi[0]',
+    # 'Muon_Phi[0]',
     'Muon_Pt[0]',
     'TaggedJet_CSV[0]',
     'TaggedJet_CSV[1]',
@@ -411,18 +416,18 @@ variables = [
     'TaggedJet_M[1]',
     'TaggedJet_Pt[0]',
     'TaggedJet_Pt[1]',
-    'TaggedJet_CSV[2]',
-    'TaggedJet_CSV[3]',
-    'TaggedJet_E[2]',
-    'TaggedJet_E[3]',
-    'TaggedJet_M[2]',
-    'TaggedJet_M[3]',
-    'TaggedJet_Pt[2]',
-    'TaggedJet_Pt[3]',
+    # 'TaggedJet_CSV[2]',
+    # 'TaggedJet_CSV[3]',
+    # 'TaggedJet_E[0]',
+    # 'TaggedJet_E[1]',
+    # 'TaggedJet_M[0]',
+    # 'TaggedJet_M[1]',
+    # 'TaggedJet_Pt[0]',
+    # 'TaggedJet_Pt[1]',
     'TightLepton_E[0]',
-    'TigntLepton_Eta[0]',
+    # 'TigntLepton_Eta[0]',
     'TightLepton_M[0]',
-    'TigntLeoton_Phi[0]',
+    # 'TigntLeoton_Phi[0]',
     'TightLepton_Pt[0]',
     # 'Reco_tHH_bestJABDToutput',
     # #    'Reco_tHH_btophad_eta',
