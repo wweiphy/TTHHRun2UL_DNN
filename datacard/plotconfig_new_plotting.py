@@ -5,7 +5,7 @@ samples = {
                     'label': 't#bar{t}',
                     'typ': 'bkg'},
            'plot': True},
-           
+
     'tt4b': {   'info': {   'color': 636L,
                             'label': 't#bar{t}+4b',
                             'typ': 'bkg'},
@@ -96,8 +96,8 @@ plotoptions = {   'cmslabel': 'private Work',
     'data': 'data_obs',
     'datalabel': 'data',
     'logarithmic': False,
-    'lumiLabel': '59.8',
-    # 'lumiLabel': '41.5',
+    # 'lumiLabel': '59.8',
+    'lumiLabel': '41.5',
     # 'lumiLabel': '101.3',
     # 'lumiLabel': '16.81', # post
     # 'lumiLabel': '19.52',  # pre
