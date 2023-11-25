@@ -259,7 +259,7 @@ dataset.addSample(
     sampleName  = "TTbbSL",
     ntuples=ntuplesPath2 +
     "/2016post/ntuple/TTbb_4f_TTToSemiLeptonic_TuneCP5-Powheg-Openloops-Pythia8/sl_LEG_ntuple_2016postVFP/230518_170459/*/*"+options.syst+"*.root",
-    categories  = ttmb_categories,
+    categories  = ttnb_categories,
     process = "ttbbSL",
 #    lumiWeight  = 41.5,
     selections=ttHH_selection,  # ttbar_selection,
@@ -272,7 +272,7 @@ dataset.addSample(
     ntuples=ntuplesPath2 +
     "/2016post/ntuple/TTbb_4f_TTTo2L2Nu_TuneCP5-Powheg-Openloops-Pythia8/sl_LEG_ntuple_2016postVFP/230518_170648/*/*"+options.syst+"*.root",
     # 221118_234955
-    categories=ttmb_categories,
+    categories=ttnb_categories,
     process="ttbbDL",
     #    lumiWeight  = 41.5,
     selections=ttHH_selection,  # ttbar_selection,
