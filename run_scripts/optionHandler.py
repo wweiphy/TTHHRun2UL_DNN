@@ -30,6 +30,10 @@ sampleopts.add_option("--even",dest="even_sel",action="store_true",default=None,
         help="only select events with Evt_Odd==0")
 sampleopts.add_option("--odd",dest="even_sel",action="store_false",default=None,
         help="only select events with Evt_Odd==1")
+sampleopts.add_option("-l", "--lumi", dest="lumi", default=82.96, type=float, metavar="lumi",
+                    help="specify luminosity")
+sampleopts.add_option("--normweight", dest="normweight", default=1.0, type=float,
+                  help="normalization weight", metavar="normweight")
 parser.add_option_group(sampleopts)
 
 trainopts = optparse.OptionGroup(parser, "Train Configurations")

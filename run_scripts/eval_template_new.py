@@ -19,18 +19,19 @@ import DNN_framework.data_frame as df
 
 # python eval_template_new.py -o 230220_evaluation_new_4FS_test -i 230220_50_ge4j_ge3t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_nominal
 
-# python eval_template_new.py -o 230220_evaluation_new_5j4b -i 230220_50_ge5j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_nominal --ttmb=5.505191209 --ttnb=1.0 --notequalbin
+# python eval_template_new.py -o 230220_evaluation_new_5j4b -i 230220_50_ge5j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_nominal --ttmb=5.654803199 --ttnb=1.0 --notequalbin
 
 # --ttnb=1.240415029
 # python eval_template_new.py -o 230220_evaluation_new_5j4b_5FS_test -i 230220_50_ge5j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_nominal --ttmb=1.0 --ttnb=1.0
 
-# python eval_template_new.py -o 230220_evaluation_new_5j4b_4FS_test -i 230220_50_ge5j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_nominal --ttmb=5.505191209 --ttnb=3.538023785
+# python eval_template_new.py -o 230220_evaluation_new_5j4b_4FS -i 230220_50_ge5j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_nominal --ttmb=5.654803199 --ttnb=3.611169031 --notequalbin
 
-# python eval_template_new.py -o 230220_evaluation_new_6j4b_test -i 230220_50_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_nominal --ttmb=5.467833742 --ttnb=1.212174627
+# python eval_template_new.py -o 230220_evaluation_new_6j4b -i 230220_50_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_nominal --ttmb=5.654803199 --ttnb=1.0 --notequalbin
+# --ttnb=1.212174627
 
 # python eval_template_new.py -o 230220_evaluation_new_6j4b_5FS_test -i 230220_50_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_nominal --ttmb=1.0 --ttnb=1.0
 
-# python eval_template_new.py -o 230220_evaluation_new_6j4b_4FS_test -i 230220_50_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_nominal --ttmb=5.467833742 --ttnb=3.363282228
+# python eval_template_new.py -o 230220_evaluation_new_6j4b_4FS -i 230220_50_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_nominal --ttmb=5.654803199 --ttnb=3.611169031 --notequalbin
 
 # python eval_template_new.py -o 230220_evaluation_new_6j4b_4FS_2 -i 231011_50_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_nominal_4FS
 
@@ -105,6 +106,9 @@ parser.add_option("--ttmb", dest="ttmb", default=1.0, type=float,
 
 parser.add_option("--ttnb", dest="ttnb", default=1.0, type=float,
                   help="factor for ttnb events", metavar="ttnb")
+
+parser.add_option("--lumi", dest="lumi", default=83, type=float,
+                  help="luminosity", metavar="lumi")
 
 parser.add_option("--notequalbin", dest="notequalbin", action="store_false",
                   default=True, help="set up equal bin or not", metavar="notequalbin")
@@ -227,7 +231,8 @@ dnn = DNN.DNN(
 save_path=outPath,
 # sample_save_path=sample_save_path,
 input_samples=input_samples,
-lumi = 119.66,
+# lumi = 119.66,
+lumi=options.lumi,
 # lumi = 67.24, # 2016post
 # lumi = 78.08, # 2016pre
 # lumi = 83,
