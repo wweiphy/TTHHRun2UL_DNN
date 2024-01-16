@@ -10,7 +10,7 @@
 # python plotting_tt4b.py -i Eval_0119_UL_nominal_5FS -o tt4b_2017_5FS -c ge4j_ge3t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables -n ge4j_ge3t_ttH --plot --printroc
 
 # 2018
-# python plotting_tt4b.py -i Eval_0308_UL_nominal -o tt4b_2018_normal_2 -c ge4j_ge3t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables -n ge4j_ge3t_ttH --plot --printroc
+# python plotting_tt4b.py -i Eval_0308_UL_nominal -o tt4b_2018_normal_2 -c ge4j_ge3t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables -n ge4j_ge3t_ttH --plot --printroc --lumi=119.66 --ttnb=1.351130313 
 
 # 2018 4FS tt4b
 # python plotting_tt4b.py -i Eval_0308_UL_nominal_4FS -o tt4b_2018_4FS -c ge4j_ge3t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables -n ge4j_ge3t_ttH --plot --printroc
@@ -68,7 +68,7 @@ options.initArguments()
 input_samples = df.InputSamples(options.getInputDirectory(), options.getTestPercentage())
 
 weight_expr = "x.Weight_XS * x.Weight_CSV_UL * x.Weight_GEN_nom * x.lumiWeight"
-input_samples.addSample(options.getDefaultName("ttnb_2017"),  label = "ttnb",  normalization_weight = 1, train_weight = 1, total_weight_expr = weight_expr)
+input_samples.addSample(options.getDefaultName("ttnb"),  label = "ttnb",  normalization_weight = options.getNormttnb(), train_weight = 1, total_weight_expr = weight_expr)
 # input_samples.addSample(options.getDefaultName("ttnb_2017"),  label="ttnb",
                         # normalization_weight=82.96*0.92, train_weight=1, total_weight_expr=weight_expr)
 # input_samples.addSample(options.getDefaultName("ttnb_2018"),  label = "ttnb",  normalization_weight = 1, train_weight = 1, total_weight_expr = weight_expr)
@@ -117,7 +117,8 @@ dnn = DNN.DNN(
     # lumi = 119.66,
     # lumi=67.24,  # 2016post
     # lumi = 78.08, # 2016pre
-    lumi = 82.96,
+    # lumi = 82.96,
+    lumi=options.getLumi(),
     # lumi = 1.,
     train_epochs    = options.getTrainEpochs(),
     # metrics for evaluation (c.f. KERAS metrics)
