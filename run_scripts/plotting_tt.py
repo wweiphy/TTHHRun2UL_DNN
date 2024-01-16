@@ -48,6 +48,24 @@ import DNN_framework.data_frame as df
 options.initArguments()
 
 
+"""
+USE: python train_template.py -o DIR -v FILE -n STR -c STR -e INT -s INT -p -l --privatework --netconfig=STR --signalclass=STR --printroc
+"""
+usage="usage=%prog [options] \n"
+usage+="USE: python train_template.py -o DIR -v FILE -n STR -c STR -e INT -s INT -p -l --privatework --netconfig=STR --signalclass=STR --printroc "
+
+parser = optparse.OptionParser(usage=usage)
+parser.add_option("-l", "--lumi", dest="lumi", default=82.96, type=float, metavar="lumi",
+                    help="specify luminosity")
+parser.add_option("--ttmb", dest="ttmb", default=1.0, type=float,
+                  help="factor for ttmb events", metavar="ttmb")
+
+parser.add_option("--ttnb", dest="ttnb", default=1.0, type=float,
+                  help="factor for ttnb events", metavar="ttnb")
+    
+(options, args) = parser.parse_args()
+
+
 input_samples = df.InputSamples(options.getInputDirectory(), options.getTestPercentage())
 
 weight_expr = "x.Weight_XS * x.Weight_CSV_UL * x.Weight_GEN_nom * x.lumiWeight"
