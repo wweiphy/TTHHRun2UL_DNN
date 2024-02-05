@@ -68,11 +68,7 @@ options.initArguments()
 input_samples = df.InputSamples(options.getInputDirectory(), options.getTestPercentage())
 
 weight_expr = "x.Weight_XS * x.Weight_CSV_UL * x.Weight_GEN_nom * x.lumiWeight"
-<<<<<<< HEAD
-input_samples.addSample(options.getDefaultName("ttnb"),  label = "ttnb",  normalization_weight = options.ttnb, train_weight = 1, total_weight_expr = weight_expr)
-=======
 input_samples.addSample(options.getDefaultName("ttnb"),  label = "ttnb",  normalization_weight = options.getNormttnb(), train_weight = 1, total_weight_expr = weight_expr)
->>>>>>> a596b06474b6acf6d992db913f8155b2333b0470
 # input_samples.addSample(options.getDefaultName("ttnb_2017"),  label="ttnb",
                         # normalization_weight=82.96*0.92, train_weight=1, total_weight_expr=weight_expr)
 # input_samples.addSample(options.getDefaultName("ttnb_2018"),  label = "ttnb",  normalization_weight = 1, train_weight = 1, total_weight_expr = weight_expr)

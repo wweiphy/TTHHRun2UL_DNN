@@ -78,11 +78,7 @@ dnn = DNN.DNN(
     # lumi=67.24,  # 2016post
     # lumi = 78.08, # 2016pre
     # lumi=82.96,
-<<<<<<< HEAD
-    lumi=options.lumi,
-=======
     lumi=options.getLumi(),
->>>>>>> a596b06474b6acf6d992db913f8155b2333b0470
     # lumi = 1.,
     train_epochs    = options.getTrainEpochs(),
     # metrics for evaluation (c.f. KERAS metrics)
