@@ -32,6 +32,11 @@ sampleopts.add_option("--odd",dest="even_sel",action="store_false",default=None,
         help="only select events with Evt_Odd==1")
 sampleopts.add_option("-l", "--lumi", dest="lumi", default=82.96, type=float, metavar="lumi",
                     help="specify luminosity")
+sampleopts.add_option("--ttmb", dest="ttmb", default=1.0, type=float,
+                  help="factor for ttmb events", metavar="ttmb")
+
+sampleopts.add_option("--ttnb", dest="ttnb", default=1.0, type=float,
+                  help="factor for ttnb events", metavar="ttnb")
 sampleopts.add_option("--normweight", dest="normweight", default=1.0, type=float,
                   help="normalization weight", metavar="normweight")
 parser.add_option_group(sampleopts)
@@ -282,3 +287,12 @@ class optionHandler:
 
     def getAddSampleSuffix(self):
         return self.__options.AddSampleNaming.replace("_dnn", "", 1)[:-3]
+    
+    def getLumi(self):
+        return self.__options.lumi
+    
+    def getNormttmb(self):
+        return self.__options.ttmb
+    
+    def getNormttnb(self):
+        return self.__options.ttnb

@@ -60,7 +60,11 @@ weight_expr = "x.Weight_XS * x.Weight_CSV_UL * x.Weight_GEN_nom * x.lumiWeight"
 # input_samples.addSample(options.getDefaultName("ttmb_5FS"),  label = "ttmb",  normalization_weight = 1, train_weight = 1, total_weight_expr = weight_expr) # 2018
 # input_samples.addSample(options.getDefaultName("ttmb_2018"),  label="ttmb",
                         # normalization_weight=5.654803199, train_weight=1, total_weight_expr=weight_expr)  # 2018
+<<<<<<< HEAD
 input_samples.addSample(options.getDefaultName("ttmb"),  label = "ttmb",  normalization_weight = options.ttmb, train_weight = 1, total_weight_expr = weight_expr) # 2017
+=======
+input_samples.addSample(options.getDefaultName("ttmb"),  label = "ttmb",  normalization_weight = options.getNormttmb(), train_weight = 1, total_weight_expr = weight_expr) # 2017
+>>>>>>> a596b06474b6acf6d992db913f8155b2333b0470
 
 # input_samples.addSample(options.getDefaultName("ttmb_2017"),  label="ttmb",
 #                         normalization_weight=1, train_weight=1, total_weight_expr=weight_expr)
@@ -95,7 +99,11 @@ dnn = DNN.DNN(
     # lumi=67.24,  # 2016post
     # lumi = 78.08, # 2016pre
     # lumi=82.96,
+<<<<<<< HEAD
     lumi=options.lumi,
+=======
+    lumi=options.getLumi(),
+>>>>>>> a596b06474b6acf6d992db913f8155b2333b0470
     # lumi = 1.,
     train_epochs    = options.getTrainEpochs(),
     # metrics for evaluation (c.f. KERAS metrics)
