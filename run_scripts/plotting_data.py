@@ -133,11 +133,7 @@ dnn = DNN.DNN(
     category_name   = options.getCategory(),
     train_variables = options.getTrainVariables(),
     # number of epochs
-<<<<<<< HEAD
-    lumi = options.lumi,
-=======
     lumi = options.getLumi(),
->>>>>>> a596b06474b6acf6d992db913f8155b2333b0470
     # lumi=67.24,  # 2016post
     # lumi = 78.08, # 2016pre
     # lumi=82.96, # 2017
