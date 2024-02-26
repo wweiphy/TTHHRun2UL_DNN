@@ -12,8 +12,8 @@ usage += "USE: python cardmakingscript.py -n True "
 
 parser = optparse.OptionParser(usage=usage)
 
-# parser.add_option("-twoyear", "--twoyear", dest="twoyear", action = "store_true", default=False,
-#         help="combine 18 with 17", metavar="twoyear")
+parser.add_option("--twoyear", dest="twoyear", action = "store_true", default=False,
+        help="combine 18 with 17", metavar="twoyear")
 
 parser.add_option("--threeyear", dest="threeyear", action = "store_true", default=False,
         help="combine 18 with 17 and 16", metavar="threeyear")
@@ -38,24 +38,42 @@ sys.path.append(basedir)
 
 folder_path = basedir + "/workdir/"
 
+if options.twoyear:
 
-if options.flavor:
+    if options.flavor:
 
-    histofile = "histo-name-4FS.csv"
+        histofile = "histo-name-4FS.csv"
 
-    file1path = "230220_evaluation_new_"+options.category+"_4FS/plots/output_limit.root"
-    file2path = "230119_evaluation_new_"+options.category+"_4FS/plots/output_limit.root"
-    outFolder = 'TwoYear-4FS'+options.category
+        file1path = "230220_evaluation_new_"+options.category+"_4FS/plots/output_limit.root"
+        file2path = "230119_evaluation_new_"+options.category+"_4FS/plots/output_limit.root"
+        outFolder = 'TwoYear-4FS'+options.category
 
 
+    else:
+
+        histofile = "histo-name.csv"
+
+        file1path = "230220_evaluation_new_"+options.category+"/plots/output_limit.root"
+        file2path = "230119_evaluation_new_"+options.category+"/plots/output_limit.root"
+        outFolder = 'TwoYear'+options.category
 else:
+    
+    if options.flavor:
 
-    histofile = "histo-name.csv"
+        histofile = "histo-name-4FS.csv"
 
-    file1path = "230220_evaluation_new_"+options.category+"/plots/output_limit.root"
-    file2path = "230119_evaluation_new_"+options.category+"/plots/output_limit.root"
-    outFolder = 'TwoYear'+options.category
+        file1path = "230523_evaluation_new_"+options.category+"_4FS/plots/output_limit.root"
+        file2path = "230515_evaluation_new_"+options.category+"_4FS/plots/output_limit.root"
+        outFolder = '2016-4FS'+options.category
 
+
+    else:
+
+        histofile = "histo-name.csv"
+
+        file1path = "230523_evaluation_new_"+options.category+"/plots/output_limit.root"
+        file2path = "230515_evaluation_new_"+options.category+"/plots/output_limit.root"
+        outFolder = '2016'+options.category 
 
 file1 = ROOT.TFile.Open(folder_path+file1path)
 file2 = ROOT.TFile.Open(folder_path+file2path)
