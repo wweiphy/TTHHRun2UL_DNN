@@ -29,6 +29,8 @@ import sys
 # python cardmakingscript.py -n new -f 230220_evaluation_new_6j4b_4FS
 # python cardmakingscript.py -n new -f 231011_evaluation_new_6j4b_4FS
 
+# 2016
+
 # python cardmakingscript.py -n old -f 230515_evaluation_old_2
 # python cardmakingscript.py -n new -f 230515_evaluation_new_2
 # python cardmakingscript.py -n new -f 230515_evaluation_new_5j4b_2
@@ -80,7 +82,7 @@ if options.new == "new":
 
         categoryname = "ljets_ge4j_ge3t_{}_node".format(node)
 
-        if "TwoYear" in options.folder or "ThreeYear" in options.folder:
+        if "TwoYear" in options.folder or "ThreeYear" or "2016" in options.folder:
             rootfile = filedir + "/combineRun2/"+options.folder+"/output_limit.root"
             print(rootfile)
 
