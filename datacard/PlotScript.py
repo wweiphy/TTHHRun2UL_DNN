@@ -472,6 +472,10 @@ if data:
         dataHist.SetStats(False)
         Plots.moveOverUnderFlow(dataHist)
         print "using data: %s" % (dataKey)
+    if isinstance(dataHist, ROOT.TObject):
+        dataHist.SetStats(False)
+        Plots.moveOverUnderFlow(dataHist)
+        print "using data: %s" % (dataKey)
     # data in combine in TGraphAsymmErrors, get TH1 out of it
     elif isinstance(dataHist, ROOT.TGraphAsymmErrors):
         n_bins   = Plots.FindNewBinNumber(background)
