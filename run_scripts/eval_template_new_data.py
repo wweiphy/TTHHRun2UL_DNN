@@ -17,7 +17,7 @@ import DNN_framework.data_frame as df
 # 2018 
 
 
-# python eval_template_new_data.py -o 230220_evaluation_new_6j4b -i 230220_50_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_nominal_data --notequalbin
+# python eval_template_new_data.py -o 230220_evaluation_new_6j4b -i 230220_50_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_data --notequalbin
 
 
 
@@ -134,6 +134,7 @@ print("shuffle seed: {}".format(config["shuffleSeed"]))
 sample_save_path = basedir+"/workdir/"
 # init DNN class
 dnn = DNN.DNN(
+is_Data=True,
 save_path=outPath,
 input_samples=input_samples,
 lumi=options.lumi,

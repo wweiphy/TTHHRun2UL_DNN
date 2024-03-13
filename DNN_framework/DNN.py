@@ -247,6 +247,7 @@ class DNN():
         self.addSampleSuffix = addSampleSuffix
         self.Do_Evaluation = Do_Evaluation
         self.Do_Control = Do_Control
+        self.isData = is_Data
 
         # output directory for results
         self.save_path = save_path
@@ -326,6 +327,7 @@ class DNN():
     def _load_datasets(self, shuffle_seed):
         ''' load data set '''
         data = data_frame.DataFrame(
+            isData = self.isData,
             input_samples=self.input_samples,
             save_path=self.save_path,
             event_category=self.category_cutString,

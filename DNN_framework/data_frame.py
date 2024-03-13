@@ -339,6 +339,7 @@ class DataFrame(object):
         for better training '''
 
     def __init__(self,
+                 isData,
                  input_samples,
                  save_path,
                  event_category,
@@ -362,6 +363,7 @@ class DataFrame(object):
         self.addSampleSuffix = addSampleSuffix
         self.Do_Evaluation = Do_Evaluation
         self.Do_Control = Do_Control
+        self.isData = isData
 
         self.binary_classification = input_samples.binary_classification
         if self.binary_classification:
@@ -399,7 +401,7 @@ class DataFrame(object):
                                     
                 # print("class translation: ")
                 # print(self.class_translation)
-                if not 'data' in self.path:
+                if not self.isData:
                     df["index_label"] = pd.Series(
                         [self.class_translation[c] for c in df["class_label"].values], index=df.index)
 
