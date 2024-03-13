@@ -399,9 +399,9 @@ class DataFrame(object):
                                     
                 # print("class translation: ")
                 # print(self.class_translation)
-
-                df["index_label"] = pd.Series(
-                    [self.class_translation[c] for c in df["class_label"].values], index=df.index)
+                if not 'data' in self.path:
+                    df["index_label"] = pd.Series(
+                        [self.class_translation[c] for c in df["class_label"].values], index=df.index)
 
             # save some meta data about network
             self.n_input_neurons = len(self.train_variables)
