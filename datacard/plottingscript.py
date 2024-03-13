@@ -58,6 +58,8 @@ parser.add_option("-j", "--njets", dest="njets", default=4,
                   help="number of jets selection", metavar="bjets")
 parser.add_option("-b", "--nbjets", dest="nbjets", default=3,
                   help="number of bjets selection", metavar="nbjets")
+parser.add_option("--realdata", dest="realdata", action = "store_true", default=False,
+        help="use real data", metavar="realdata")
 
 (options, args) = parser.parse_args()
 
@@ -650,7 +652,11 @@ if options.new == "new":
         systematic = filedir + "/systematics.csv"
         # selectionlabel = "\geq {} jets, \geq {} b-tags".format(options.njets, options.nbjets)
         # runcommand = 'python /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/datacard/PlotScript.py --plotconfig="/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/datacard/plotconfig_{}.py"  --channelname="ljets_ge4j_ge3t_{}_node"  --selectionlabel="\geq {} jets, \geq {} b-tags" --rootfile={}  --directory="/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/datacard" --systematicfile="/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/datacard/systematics_full.csv" --workdir={} --evaluation={}'.format("new", node, options.njets,options.nbjets,rootfile, workdir, evaluation)
-        runcommand = 'python {} --plotconfig={}  --channelname="ljets_ge4j_ge3t_{}_node"  --selectionlabel="\geq {} jets, \geq {} b-tags" --rootfile={}  --directory={} --systematicfile={} --workdir={} --evaluation={}'.format(script, plotconfig, node, options.njets,options.nbjets,rootfile, filedir, systematic, workdir, evaluation)
+        if options.realdata:
+
+            runcommand = 'python {} --plotconfig={}  --channelname="ljets_ge4j_ge3t_{}_node"  --selectionlabel="\geq {} jets, \geq {} b-tags" --rootfile={}  --directory={} --systematicfile={} --workdir={} --evaluation={} --data'.format(script, plotconfig, node, options.njets,options.nbjets,rootfile, filedir, systematic, workdir, evaluation)
+        else:   
+            runcommand = 'python {} --plotconfig={}  --channelname="ljets_ge4j_ge3t_{}_node"  --selectionlabel="\geq {} jets, \geq {} b-tags" --rootfile={}  --directory={} --systematicfile={} --workdir={} --evaluation={}'.format(script, plotconfig, node, options.njets,options.nbjets,rootfile, filedir, systematic, workdir, evaluation)
 
 
         os.system(runcommand)
