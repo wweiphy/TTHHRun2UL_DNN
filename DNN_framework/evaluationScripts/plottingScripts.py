@@ -448,7 +448,9 @@ class saveDataDiscriminators:
         f = ROOT.TFile(self.savedir + "/" + "data_discriminator" + ".root", "RECREATE")
         print("name of the nominal  root file: ")
         print(self.savedir + "/" + "data_discriminator" + ".root")
-
+        bkgHists = []
+        bkgLabels = []
+        
         for i, node_cls in enumerate(self.event_classes):
             nodeIndex = i
 
@@ -503,8 +505,7 @@ class saveDataDiscriminators:
                 current_binrange = [out_values.min(),out_values.max()]
                 nbins = 5
             
-            bkgHists = []
-            bkgLabels = []
+
 
             filtered_data = self.data.df_unsplit_preprocessing[self.data.df_unsplit_preprocessing['Pred_Class'] == nodeIndex]
 
