@@ -783,11 +783,7 @@ class DNN():
         #     optimizer="adam",
         #     metrics=self.eval_metrics)
         if self.Do_Evaluation:
-            # evaluate whole dataset with keras model
-            self.model_eval = self.model.evaluate(
-                x=self.data.get_full_data_after_preprocessing(as_matrix=True), 
-                y=self.data.get_full_labels_after_preprocessing(),
-                sample_weight=self.data.get_full_train_weights())
+
 
             # save predictions with keras model
             self.model_prediction_vector = self.model.predict(
@@ -795,17 +791,25 @@ class DNN():
             self.predicted_classes = np.argmax(
                 self.model_prediction_vector, axis=1)
             # save confusion matrix
-            from sklearn.metrics import confusion_matrix
-            self.confusion_matrix = confusion_matrix(
-                self.data.get_full_labels_after_preprocessing(as_categorical=False), self.predicted_classes)
 
-            # print evaluations  with keras model
-            from sklearn.metrics import roc_auc_score
-            print(self.data.get_full_labels_after_preprocessing()[:10])
-            print(self.model_prediction_vector[:10])
-            self.roc_auc_score = roc_auc_score(
-                self.data.get_full_labels_after_preprocessing(), self.model_prediction_vector)
-            print("\nROC-AUC score: {}".format(self.roc_auc_score))
+            if not self.isData:
+                self.model_eval = self.model.evaluate(
+                    x=self.data.get_full_data_after_preprocessing(as_matrix=True), 
+                    y=self.data.get_full_labels_after_preprocessing(),
+                    sample_weight=self.data.get_full_train_weights())
+
+
+                from sklearn.metrics import confusion_matrix
+                self.confusion_matrix = confusion_matrix(
+                    self.data.get_full_labels_after_preprocessing(as_categorical=False), self.predicted_classes)
+
+                # print evaluations  with keras model
+                from sklearn.metrics import roc_auc_score
+                print(self.data.get_full_labels_after_preprocessing()[:10])
+                print(self.model_prediction_vector[:10])
+                self.roc_auc_score = roc_auc_score(
+                    self.data.get_full_labels_after_preprocessing(), self.model_prediction_vector)
+                print("\nROC-AUC score: {}".format(self.roc_auc_score))
         
         else:
             # evaluate test dataset with keras model
