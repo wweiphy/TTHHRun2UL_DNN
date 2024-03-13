@@ -473,7 +473,7 @@ if data:
         Plots.moveOverUnderFlow(dataHist)
         print "using data: %s" % (dataKey)
     if isinstance(dataHist, ROOT.TObject):
-        dataHist.SetStats(False)
+        # dataHist.SetStats(False)
         Plots.moveOverUnderFlow(dataHist)
         print "using data: %s" % (dataKey)
     # data in combine in TGraphAsymmErrors, get TH1 out of it
