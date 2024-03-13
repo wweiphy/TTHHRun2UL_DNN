@@ -467,6 +467,7 @@ datalabel   = getParserConfigDefaultValue(parser=options.datalabel,config="datal
 if data:
     dataKey     = nominalKey.replace(procIden, data)
     dataHist    = rootFile.Get(dataKey)
+    print("dataKey")
     print("    type of data hist is: "+str(type(dataHist)) )
     if isinstance(dataHist, ROOT.TH1):
         dataHist.SetStats(False)
