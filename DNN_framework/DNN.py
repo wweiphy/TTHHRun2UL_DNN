@@ -855,6 +855,29 @@ class DNN():
 
         saveDiscrs.save()
 
+    def saveData_discriminators(self, event_classes, log=False, printROC=False, privateWork=False,
+                            signal_class=None, nbins=None, bin_range=None, lumi=41.5, sigScale=-1, equalbin=True):
+        ''' plot all events classified as one category '''
+        if not bin_range:
+            bin_range = [round(1./self.data.n_output_neurons, 2), 1.]
+        if not nbins:
+            nbins = int(25*(1.-bin_range[0]))
+
+        saveDiscrs = plottingScripts.saveDataDiscriminators(
+            data=self.data,
+            prediction_vector=self.model_prediction_vector,
+            predicted_classes=self.predicted_classes,
+            event_classes=event_classes,
+            nbins=nbins,
+            bin_range=bin_range,
+            event_category=self.category_label,
+            savedir=self.plot_path,
+            lumi=lumi,
+            equalbin=equalbin,
+            logscale=log)
+
+        saveDiscrs.save()
+
     def save_JESJERdiscriminators(self, log=False, printROC=False, syst = "JESup", privateWork=False,
                             signal_class=None, nbins=None, bin_range=None,equalbin=True, sigScale=-1):
         ''' plot all events classified as one category '''

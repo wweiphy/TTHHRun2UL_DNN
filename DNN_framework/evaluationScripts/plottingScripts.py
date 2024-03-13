@@ -424,6 +424,119 @@ class savenominalDiscriminators:
             f.Write()
             f.Close()
 
+class saveDataDiscriminators:
+    def __init__(self, data, prediction_vector, predicted_classes, event_classes, nbins, bin_range, event_category, savedir, lumi, equalbin=True, logscale=False):
+        self.data = data
+        self.prediction_vector = prediction_vector
+        self.predicted_classes = predicted_classes
+        self.event_classes = event_classes
+        self.n_classes = len(self.event_classes) 
+        self.nbins = nbins
+        self.bin_range = bin_range
+        self.event_category = event_category
+        self.savedir = savedir
+        self.lumi = lumi
+        self.logscale = logscale
+        self.equalbin=equalbin
+
+    def save(self):
+
+        self.data.df_unsplit_preprocessing['Pred_Class'] = self.predicted_classes
+
+        # for i, node_cls in enumerate(self.event_classes):
+
+        f = ROOT.TFile(self.savedir + "/" + "data_discriminator" + ".root", "RECREATE")
+        print("name of the nominal  root file: ")
+        print(self.savedir + "/" + "data_discriminator" + ".root")
+
+        for i, node_cls in enumerate(self.event_classes):
+            nodeIndex = i
+
+            # get output values of this node
+            out_values = self.prediction_vector[:, i]
+            self.data.df_unsplit_preprocessing['DNN_OutPut_{}'.format(
+                nodeIndex)] = out_values
+
+            values_per_node = self.data.df_unsplit_preprocessing[self.data.df_unsplit_preprocessing['Pred_Class'] == nodeIndex]['DNN_OutPut_{}'.format(
+                nodeIndex)].values
+            
+            # current_binrange = [0,1]
+            if not self.equalbin:
+                if node_cls == "ttHH":
+                    current_binrange = [0, 0.19, 0.23, 0.25,
+                                        0.27, 0.285, 0.3, 0.33, 0.35, 0.55]
+                    nbins = len(current_binrange) - 1
+                if node_cls == "ttH":
+                    current_binrange = [0, 0.18, 0.20, 0.22, 0.24,
+                                        0.255, 0.265, 0.28, 0.30, 0.32, 0.36, 0.45]
+                    nbins = len(current_binrange) - 1
+                if node_cls == "ttZH":
+                    current_binrange = [0, 0.16, 0.18, 0.2,
+                                        0.21, 0.23, 0.24, 0.25, 0.26, 0.27, 0.45]
+                    nbins = len(current_binrange) - 1
+                if node_cls == "ttZ":
+                    current_binrange = [0, 0.19, 0.205, 0.22,
+                                        0.23, 0.245, 0.255, 0.27, 0.29, 0.45]
+                    nbins = len(current_binrange) - 1
+                if node_cls == "ttZZ":
+                    current_binrange = [0, 0.16, 0.18, 0.19,
+                                        0.20, 0.21, 0.22, 0.235, 0.25, 0.28, 0.5]
+                    nbins = len(current_binrange) - 1
+                if node_cls == "ttlf":
+                    current_binrange = [0, 0.22, 0.25, 0.28,
+                                        0.30, 0.34, 0.36, 0.4, 0.5, 0.55, 0.7]
+                    nbins = len(current_binrange) - 1
+                if node_cls == "ttcc":
+                    current_binrange = [0, 0.17, 0.2, 0.22,
+                                        0.24, 0.26, 0.28, 0.30, 0.32, 0.35, 0.5]
+                    nbins = len(current_binrange) - 1
+                if node_cls == "ttmb":
+                    current_binrange = [0, 0.18, 0.2, 0.215, 0.23,
+                                        0.24, 0.25, 0.26, 0.28, 0.30, 0.32, 0.4]
+                    nbins = len(current_binrange) - 1
+                if node_cls == "ttnb":
+                    current_binrange = [0, 0.19, 0.22, 0.24,
+                                        0.25, 0.26, 0.28, 0.30, 0.34, 0.36, 0.55]
+                    nbins = len(current_binrange) - 1
+
+            else:
+                current_binrange = [out_values.min(),out_values.max()]
+                nbins = 5
+            
+            bkgHists = []
+            bkgLabels = []
+
+            filtered_data = self.data.df_unsplit_preprocessing[self.data.df_unsplit_preprocessing['Pred_Class'] == nodeIndex]
+
+            filtered_values = self.data.df_unsplit_preprocessing[self.data.df_unsplit_preprocessing['Pred_Class'] == nodeIndex]['DNN_OutPut_{}'.format(nodeIndex)].values
+
+            filtered_weights = filtered_data["lumi_weight"].values
+
+
+            print("{} events in discriminator: {})".format(
+                   sum(filtered_weights),  node_cls))
+            
+            histogram = setup.setupHistogram(
+                values=filtered_values,
+                weights=filtered_weights,
+                # nbins=len(current_binrange) - 1,
+                nbins=nbins,
+                # nbins=self.nbins,
+                # bin_range=self.bin_range,
+                bin_range=current_binrange,
+                title = str(node_cls)+"_node", 
+                #                        color     = setup.GetPlotColor(truth_cls),
+                xtitle="ljets_ge4j_ge3t_" + \
+                str(node_cls)+"_node__data_obs",
+                ytitle=setup.GetyTitle(),
+                filled=True)
+            
+            bkgHists.append(histogram)
+            bkgLabels.append(node_cls)
+
+        f.cd()
+        f.Write()
+        f.Close()
 
 class saveJESJERDiscriminators:
     def __init__(self, data, prediction_vector, predicted_classes, event_classes, nbins, bin_range, event_category, savedir, syst, equalbin=True, logscale=False):
