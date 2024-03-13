@@ -200,8 +200,12 @@ class Sample:
             df = df.assign(train_weight=lambda x: x.xs_weight /
                             xs_weight_sum*self.train_weight)
             # df = df.assign(total_weight=lambda x: x.xs_weight * x.extra_weight)
-            df = df.assign(
-                total_weight=lambda x: x.xs_weight * x.sf_weight)
+            if 'data' in self.path:
+                df = df.assign(
+                total_weight=lambda x: x.xs_weight)
+            else:
+                df = df.assign(
+                    total_weight=lambda x: x.xs_weight * x.sf_weight)
             
             # print("ttbb isr up:")
             # print(df["total_weight_upisr_ttbb"].values)
