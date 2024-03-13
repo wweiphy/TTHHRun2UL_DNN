@@ -478,6 +478,15 @@ if data:
         dataHist = Plots.GetHistoFromTGraphAE(dataHist, data, n_bins, binEdges)
         #Plots.moveOverUnderFlow(dataHist)
         dataHist.SetStats(False)
+    elif isinstance(dataHist, ROOT.TObject):
+
+        hist = None
+        if dataHist.InheritsFrom("TH1"):
+            hist = ROOT.TH1.Clone(dataHist)
+            print("Successfully converted to TH1 histogram.")
+            dataHist = hist
+        else:
+            print("Object is not a TH1 histogram.")   
     else:
         print "ATTENTION: Not using data!"
         dataHist=None
