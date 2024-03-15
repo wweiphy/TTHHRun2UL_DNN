@@ -17,8 +17,9 @@ import DNN_framework.data_frame as df
 # 2018 
 
 
-# python eval_template_new_data.py -o 230220_evaluation_new_6j4b -i 230220_50_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_data --notequalbin
+# python eval_template_new_data.py -o 230220_evaluation_new_6j4b -i 230220_50_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_data --notequalbin --lumi=1
 
+# python eval_template_new_data.py -o 230220_evaluation_new_5j4b -i 230220_50_ge5j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_data --notequalbin --lumi=1
 
 
 
@@ -121,7 +122,8 @@ with open(configFile) as f:
 #     config["inputData"], addSampleSuffix=config["addSampleSuffix"], test_percentage = options.test_percentage)
 input_samples = df.InputSamples(input_path=dfDirectory, addSampleSuffix=config["addSampleSuffix"], test_percentage = options.test_percentage)
 
-total_weight_expr = "x.Weight_XS"
+total_weight_expr = "x.Weight_XS * x.lumiWeight"
+# "x.Weight_XS * x.Weight_CSV_UL * x.Weight_GEN_nom * x.lumiWeight"
 
 input_samples.addSample(sample_path=dfDirectory+"eledata_dnn.h5", label="data",normalization_weight=1., train_weight=1, total_weight_expr=total_weight_expr)
 
