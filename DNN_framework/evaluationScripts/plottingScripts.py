@@ -514,7 +514,7 @@ class saveDataDiscriminators:
             filtered_weights = filtered_data["lumi_weight"].values
 
 
-            print("{} events in discriminator: {}, index is{}".format(
+            print("{} events in discriminator: {}, index is {}".format(
                    sum(filtered_weights),  node_cls, nodeIndex))
             
             histogram = setup.setupHistogram(
