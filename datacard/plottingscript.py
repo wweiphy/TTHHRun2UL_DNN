@@ -6,7 +6,8 @@ usage = "usage=%prog [options] \n"
 usage += "USE: python plottingscript.py -n new_plotting "
 
 # evaluation - discriminators
-
+# python plottingscript.py -n new -f ThreeYear5j4b -c new_5j4b_sys -j 5 -b 4 
+# python plottingscript.py -n new -f ThreeYear6j4b -c new_6j4b_sys -j 6 -b 4 
 # 1718
 
 # python plottingscript.py -n new -f TwoYear5j4b -c new_5j4b_sys -j 5 -b 4
@@ -35,7 +36,7 @@ usage += "USE: python plottingscript.py -n new_plotting "
 
 # 2016
 # python plottingscript.py -n new -f 230523_evaluation_new_5j4b_2 -c new_230523_5j4b_sys -j 5 -b 4
-# python plottingscript.py -n new -f 230523_evaluation_new_6j4b_2 -c new_230523_6j4b_sys -j 6 -b 4
+# python plottingscript.py -n new -f 230523_evaluation_new_6j4b -c new_230523_6j4b_sys -j 6 -b 4
 # python plottingscript.py -n new -f 230523_evaluation_new_2 -c new_230523_sys -j 4 -b 3
 # python plottingscript.py -n old -f 230523_evaluation_old_2 -c old_230523_sys -j 4 -b 3
 
@@ -641,18 +642,31 @@ if options.new == "new":
     workdir = filedir + "/" + options.cardfolder
 
     for node in process_new:
-        
-        if "TwoYear" in options.filefolder or "ThreeYear" in options.filefolder:
-            rootfile = filedir + "/combineRun2/"+options.filefolder+"/output_limit.root"
-        else:
-            rootfile = basedir + "/workdir/{}/plots/output_limit.root".format(options.filefolder)
+
         script = filedir + "/PlotScript.py"
         plotconfig = filedir + "/plotconfig_new.py"
         systematic = filedir + "/systematics.csv"
-        # selectionlabel = "\geq {} jets, \geq {} b-tags".format(options.njets, options.nbjets)
-        # runcommand = 'python /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/datacard/PlotScript.py --plotconfig="/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/datacard/plotconfig_{}.py"  --channelname="ljets_ge4j_ge3t_{}_node"  --selectionlabel="\geq {} jets, \geq {} b-tags" --rootfile={}  --directory="/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/datacard" --systematicfile="/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/datacard/systematics_full.csv" --workdir={} --evaluation={}'.format("new", node, options.njets,options.nbjets,rootfile, workdir, evaluation)
- 
-        runcommand = 'python {} --plotconfig={}  --channelname="ljets_ge4j_ge3t_{}_node"  --selectionlabel="\geq {} jets, \geq {} b-tags" --rootfile={}  --directory={} --systematicfile={} --workdir={} --evaluation={}'.format(script, plotconfig, node, options.njets,options.nbjets,rootfile, filedir, systematic, workdir, evaluation)
+        
+        if "TwoYear" in options.filefolder:
+            rootfile = filedir + "/combineRun2/"+options.filefolder+"/output_limit.root"
+            lumi = "101.3"
+        elif "ThreeYear" in options.filefolder:
+            rootfile = filedir + "/combineRun2/"+options.filefolder+"/output_limit.root"
+            lumi = "137.6"
+        elif "230220" in options.filefolder:
+            rootfile = basedir + "/workdir/{}/plots/output_limit.root".format(options.filefolder)
+            lumi = "59.8"
+        elif "230119" in options.filefolder:
+            rootfile = basedir + "/workdir/{}/plots/output_limit.root".format(options.filefolder)
+            lumi = "41.5"
+        elif "230523" in options.filefolder:
+            rootfile = basedir + "/workdir/{}/plots/output_limit.root".format(options.filefolder)
+            lumi = "16.8"
+        elif "230515" in options.filefolder:
+            rootfile = basedir + "/workdir/{}/plots/output_limit.root".format(options.filefolder)
+            lumi = "19.5"
+        
+        runcommand = 'python {} --plotconfig={}  --lumiLabel={} --channelname="ljets_ge4j_ge3t_{}_node"  --selectionlabel="\geq {} jets, \geq {} b-tags" --rootfile={}  --directory={} --systematicfile={} --workdir={} --evaluation={}'.format(script, plotconfig, lumi, node, options.njets,options.nbjets,rootfile, filedir, systematic, workdir, evaluation)
 
 
         os.system(runcommand)
