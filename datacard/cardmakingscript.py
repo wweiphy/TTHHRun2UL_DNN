@@ -91,7 +91,7 @@ for node in process_new:
 
     categoryname = "ljets_ge4j_ge3t_{}_node".format(node)
 
-    if "TwoYear" in options.folder or "ThreeYear" or "2016" in options.folder:
+    if "TwoYear" in options.folder or "ThreeYear" in options.folder:
         rootfile = filedir + "/combineRun2/"+options.folder+"/output_limit.root"
         print(rootfile)
 
