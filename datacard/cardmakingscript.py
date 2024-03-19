@@ -72,8 +72,12 @@ sys.path.append(basedir)
 
 if not os.path.exists("new"):
     os.mkdir("new")
+else:
+    os.rmdir("new")
 if not os.path.exists("new_nosys"):
     os.mkdir("new_nosys")
+else:
+    os.rmdir("new_nosys")
 
 if "4FS" in options.folder:
     systfile = "datacard_new_sys_reduce_4FS.csv"
