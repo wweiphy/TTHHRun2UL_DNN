@@ -666,7 +666,7 @@ if options.new == "new":
             rootfile = basedir + "/workdir/{}/plots/output_limit.root".format(options.filefolder)
             lumi = "19.5"
         
-        runcommand = 'python {} --plotconfig={}  --lumiLabel={} --channelname="ljets_ge4j_ge3t_{}_node"  --selectionlabel="\geq {} jets, \geq {} b-tags" --rootfile={}  --directory={} --systematicfile={} --workdir={} --evaluation={}'.format(script, plotconfig, lumi, node, options.njets,options.nbjets,rootfile, filedir, systematic, workdir, evaluation)
+        runcommand = 'python {} --plotconfig={}  --lumilabel={} --channelname="ljets_ge4j_ge3t_{}_node"  --selectionlabel="\geq {} jets, \geq {} b-tags" --rootfile={}  --directory={} --systematicfile={} --workdir={} --evaluation={}'.format(script, plotconfig, lumi, node, options.njets,options.nbjets,rootfile, filedir, systematic, workdir, evaluation)
 
 
         os.system(runcommand)
