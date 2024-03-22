@@ -12,7 +12,7 @@ import preprocessing
 
 
 """
-USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_ttZZ.py --outputdirectory=Eval_0523_UL_nominal --variableselection=variables --maxentries=20000 --cores=8 --dataEra=2016postVFP
+USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_ttZZ.py --outputdirectory=Eval_0308_UL_nominal_2 --variableselection=variables --maxentries=20000 --cores=8 --dataEra=2018
 """
 
 usage="usage=%prog [options] \n"
@@ -62,7 +62,7 @@ else:
 # select only events with GEN weight > 0 because training with negative weights is weird
 
 # base = "(N_Jets >= 4 and N_BTagsM >= 3 and Evt_MET > 20. and Weight_GEN_nom > 0.)"
-base = "(N_Jets >= 4 and N_BTagsM == 2 and Evt_MET > 20.)"
+base = "(N_Jets >= 4 and N_BTagsM >= 3 and Evt_MET > 20.)"
 
 # single lepton selections
 single_mu_sel = "(N_LooseElectrons == 0 and N_TightMuons == 1 and Muon_Pt > 29. and Triggered_HLT_IsoMu27_vX == 1)"
@@ -128,7 +128,7 @@ dataset.addBaseSelection(base_selection)
 dataset.addSample(
     sampleName="TTZZ",
     ntuples=ntuplesPath2 +
-    "/2016post/ntuple/TTZZTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2016postVFP/231120_154842/*/*nominal*.root",
+    "/2018/ntuple/TTZZTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2018/240318_192331/*/*nominal*.root",
     #    ntuples     = ntuplesPath+"/ttH_220208.root",
     categories=ttZZ_categories,
     process = "ttZZ",
@@ -142,7 +142,7 @@ dataset.addSample(
 dataset.addSample(
     sampleName="TTZZ2",
     ntuples=ntuplesPath2 +
-    "/2016post/ntuple/TTZZTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2016postVFP_Ext/231120_154836/*/*nominal*.root",
+    "/2018/ntuple/TTZZTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2018_Ext/240318_192520/*/*nominal*.root",
     #    ntuples     = ntuplesPath+"/ttH_220208.root",
     categories=ttZZ_categories,
     process = "ttZZ",
