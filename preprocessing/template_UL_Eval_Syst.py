@@ -264,21 +264,21 @@ dataset.addSample(
 # #    lumiWeight  = 41.5,
 #     selections=ttHH_selection,  # ttbar_selection,
 # #    selections  = ttbar_selection,
-#     islocal     = False
-#       )
+# #     islocal     = False
+# #       )
 
-dataset.addSample(
-    sampleName="TTbbDL",
-    ntuples=ntuplesPath2 +
-    "/2018/ntuple/TTbb_4f_TTTo2L2Nu_TuneCP5-Powheg-Openloops-Pythia8/sl_LEG_ntuple_2018/240321_053846/*/*"+options.syst+"*.root",
-    # 221118_234955
-    categories=ttmb_categories,
-    process="ttbbDL",
-    #    lumiWeight  = 41.5,
-    selections=ttHH_selection,  # ttbar_selection,
-    #    selections  = ttbar_selection,
-    islocal=False
-)
+# dataset.addSample(
+#     sampleName="TTbbDL",
+#     ntuples=ntuplesPath2 +
+#     "/2018/ntuple/TTbb_4f_TTTo2L2Nu_TuneCP5-Powheg-Openloops-Pythia8/sl_LEG_ntuple_2018/240321_053846/*/*"+options.syst+"*.root",
+#     # 221118_234955
+#     categories=ttmb_categories,
+#     process="ttbbDL",
+#     #    lumiWeight  = 41.5,
+#     selections=ttHH_selection,  # ttbar_selection,
+#     #    selections  = ttbar_selection,
+#     islocal=False
+# )
 
 dataset.addSample(
     sampleName="TT4b",
