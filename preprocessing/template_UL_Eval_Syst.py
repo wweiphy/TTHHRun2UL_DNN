@@ -214,7 +214,7 @@ dataset.addSample(
 dataset.addSample(
     sampleName="TTZH",
     ntuples=ntuplesPath2 +
-    "/2018/ntuple/TTZHTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2018/240321_052529 /*/*" +
+    "/2018/ntuple/TTZHTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2018/240321_052529/*/*" +
     options.syst+"*.root",
     #    ntuples     = ntuplesPath+"/ttH_220208.root",
     categories=ttZH_categories,
@@ -238,6 +238,8 @@ dataset.addSample(
     #    selections  = ttbar_selection,
     islocal=False
 ) # complete
+
+
 
 dataset.addSample(
     sampleName="TTZ",
