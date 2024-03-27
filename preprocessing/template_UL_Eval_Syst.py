@@ -18,7 +18,7 @@ import sf_variables as sf_var
 
 
 """
-USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_Syst.py --outputdirectory=Eval_0308_UL_2 --variableselection=variables --maxentries=20000 --cores=8  --syst=JESup --dataEra=2018
+USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_Syst.py --outputdirectory=Eval_0308_UL_test --variableselection=variables --maxentries=20000 --cores=8  --syst=JERdown --dataEra=2018
 
 """
 
@@ -257,30 +257,30 @@ dataset.addSample(
 )  # almost
 
       
-# dataset.addSample(
-#     sampleName  = "TTbbSL",
-#     ntuples=ntuplesPath2 +
-#     "/2018/ntuple/TTbb_4f_TTToSemiLeptonic_TuneCP5-Powheg-Openloops-Pythia8/sl_LEG_ntuple_2018/240321_053846/*/*"+options.syst+"*.root",
-#     categories  = ttmb_categories,
-#     process = "ttbbSL",
-# #    lumiWeight  = 41.5,
-#     selections=ttHH_selection,  # ttbar_selection,
-# #    selections  = ttbar_selection,
-# #     islocal     = False
-# #       )
+dataset.addSample(
+    sampleName  = "TTbbSL",
+    ntuples=ntuplesPath2 +
+    "/2018/ntuple/TTbb_4f_TTToSemiLeptonic_TuneCP5-Powheg-Openloops-Pythia8/sl_LEG_ntuple_2018/240325_145203/*/*"+options.syst+"*.root",
+    categories  = ttmb_categories,
+    process = "ttbbSL",
+#    lumiWeight  = 41.5,
+    selections=ttHH_selection,  # ttbar_selection,
+#    selections  = ttbar_selection,
+    islocal     = False
+      )
 
-# dataset.addSample(
-#     sampleName="TTbbDL",
-#     ntuples=ntuplesPath2 +
-#     "/2018/ntuple/TTbb_4f_TTTo2L2Nu_TuneCP5-Powheg-Openloops-Pythia8/sl_LEG_ntuple_2018/240321_053846/*/*"+options.syst+"*.root",
-#     # 221118_234955
-#     categories=ttmb_categories,
-#     process="ttbbDL",
-#     #    lumiWeight  = 41.5,
-#     selections=ttHH_selection,  # ttbar_selection,
-#     #    selections  = ttbar_selection,
-#     islocal=False
-# )
+dataset.addSample(
+    sampleName="TTbbDL",
+    ntuples=ntuplesPath2 +
+    "/2018/ntuple/TTbb_4f_TTTo2L2Nu_TuneCP5-Powheg-Openloops-Pythia8/sl_LEG_ntuple_2018/240321_053846/*/*"+options.syst+"*.root",
+    # 221118_234955
+    categories=ttmb_categories,
+    process="ttbbDL",
+    #    lumiWeight  = 41.5,
+    selections=ttHH_selection,  # ttbar_selection,
+    #    selections  = ttbar_selection,
+    islocal=False
+)
 
 dataset.addSample(
     sampleName="TT4b",
