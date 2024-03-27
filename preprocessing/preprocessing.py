@@ -769,9 +769,12 @@ class Dataset:
             
             pt_below50_idx = np.where(jet_pt_perevent < 50.)
             jet_PUIDsf_perevent = 1.
+            print("index list")
+            print(pt_below50_idx)
             for idx in pt_below50_idx:
-                print(jet_eta_perevent)
+                print("index")
                 print(idx)
+                print("eta")
                 print(jet_eta_perevent[idx])
                 jet_PUIDsf_perevent *= PUIDjson["PUJetID_eff"].evaluate(
                     float(jet_eta_perevent[idx]), float(jet_pt_perevent[idx]), "nom", "L")
