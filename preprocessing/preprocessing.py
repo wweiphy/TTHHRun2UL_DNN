@@ -769,12 +769,13 @@ class Dataset:
             
             pt_below50_idx = np.where(jet_pt_perevent < 50.)
             jet_PUIDsf_perevent = 1.
-            # print("index list")
-            # print(pt_below50_idx[0])
+            print("index list")
+            print(jet_pt_perevent[0])
             if pt_below50_idx[0]:
                 for idx in pt_below50_idx[0]:
+                    
                     jet_PUIDsf_perevent *= PUIDjson["PUJetID_eff"].evaluate(
-                        float(jet_eta_perevent[idx]), float(jet_pt_perevent[idx]), "nom", "L")
+                        float(jet_eta_perevent[0][idx]), float(jet_pt_perevent[0][idx]), "nom", "L")
 
             jet_btagsf_perevent = np.prod(btvjson["deepJet_shape"].evaluate("central",jet_flavor_perevent, abs(
                     float(jet_eta_perevent)), float(jet_pt_perevent), float(jet_btag_perevent)))
