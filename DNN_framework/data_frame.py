@@ -195,6 +195,7 @@ class Sample:
             # for other JES&JER events and nominal events
             df = df.assign(xs_weight=lambda x: eval(
                 self.total_weight_expr))
+            # "x.Weight_XS * x.Weight_CSV_UL * x.Weight_GEN_nom * x.lumiWeight"
             xs_weight_sum = sum(df["xs_weight"].values)
             print("xs weight sum: {}".format(xs_weight_sum))
             df = df.assign(train_weight=lambda x: x.xs_weight /
@@ -207,16 +208,6 @@ class Sample:
                 df = df.assign(
                     total_weight=lambda x: x.xs_weight * x.sf_weight)
             
-            # print("ttbb isr up:")
-            # print(df["total_weight_upisr_ttbb"].values)
-            # print("ttbb isr down:")
-            # print(df["total_weight_downisr_ttbb"].values)
-
-            # print("isr_down: ")
-            # print(df['GenWeight_isr_Def_down'])
-            # print("isr up: ")
-            # print(df['GenWeight_isr_Def_up'])
-                
         elif Do_Control:
 
             # if Do_plotting:
@@ -239,11 +230,11 @@ class Sample:
                 
                 df = df.assign(
                     total_weight=lambda x: x.xs_weight * x.total_preweight)
-                print("total weight")
-                print(df["total_weight"].values)
+                # print("total weight")
+                # print(df["total_weight"].values)
 
-                print("ECAL prefiring: ")
-                print(df["Weight_L1ECALPrefire"].values)
+                # print("ECAL prefiring: ")
+                # print(df["Weight_L1ECALPrefire"].values)
                     
                 
             else:
@@ -273,7 +264,7 @@ class Sample:
             df = df.assign(lumi_weight=lambda x: self.normalization_weight * x.lumiWeight)
         else:
             df = df.assign(lumi_weight=lambda x: x.total_weight *
-                            lumi * self.normalization_weight * x.lumiWeight)
+                            lumi * self.normalization_weight)
         print("sum of lumi weights: {}".format(
             sum(df["lumi_weight"].values)))
         self.data = df
@@ -506,8 +497,7 @@ class DataFrame(object):
             self.df_train = df_train
         # print(
             # self.df_unsplit_preprocessing['total_weight_scaleMuR_ttbbNLOUp'][0])
-
-        
+ 
 
         # save variable lists
         self.output_classes = self.classes
