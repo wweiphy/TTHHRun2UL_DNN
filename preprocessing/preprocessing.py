@@ -473,7 +473,7 @@ class Dataset:
                                     df['compare'] = df['Weight_pdf_variation_{}'.format(x)].ge(
                                         0.)
                                     df['total_weight_PDF_Weight_{}'.format(x)] = df['Weight_pdf_variation_{}'.format(
-                                        x)] * df['compare']*x[' total_weight'] 
+                                        x)] * df['compare']*1.*x[' total_weight'] 
                                 else:
 
                                     df.loc[:, 'Weight_pdf_variation_{}'.format(
