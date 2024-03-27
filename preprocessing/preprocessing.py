@@ -770,7 +770,7 @@ class Dataset:
             pt_below50_idx = np.where(jet_pt_perevent < 50.)
             jet_PUIDsf_perevent = 1.
             print("index list")
-            print(jet_pt_perevent[0])
+            print(pt_below50_idx[0])
             for idx in pt_below50_idx:
                 print("index")
                 print(idx)
