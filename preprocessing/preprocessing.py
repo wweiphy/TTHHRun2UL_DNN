@@ -400,38 +400,22 @@ class Dataset:
 
                             df = df.assign(
                                 total_weight=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL)
-                            df = df.assign(total_weight_uplf=lambda x: x.Weight_XS *
-                                        x.Weight_CSV_UL_uplf * x.Weight_GEN_nom * x.sf_weight)
-                            df = df.assign(total_weight_downlf=lambda x: x.Weight_XS *
-                                        x.Weight_CSV_UL_downlf * x.Weight_GEN_nom * x.sf_weight)
-                            df = df.assign(total_weight_uphf=lambda x: x.Weight_XS *
-                                        x.Weight_CSV_UL_uphf * x.Weight_GEN_nom * x.sf_weight)
-                            df = df.assign(total_weight_downhf=lambda x: x.Weight_XS *
-                                        x.Weight_CSV_UL_downhf * x.Weight_GEN_nom * x.sf_weight)
-                            df = df.assign(total_weight_uplfstats1=lambda x: x.Weight_XS *
-                                        x.Weight_CSV_UL_uplfstats1 * x.Weight_GEN_nom * x.sf_weight)
-                            df = df.assign(total_weight_downlfstats1=lambda x: x.Weight_XS *
-                                        x.Weight_CSV_UL_downlfstats1 * x.Weight_GEN_nom * x.sf_weight)
-                            df = df.assign(total_weight_uplfstats2=lambda x: x.Weight_XS *
-                                        x.Weight_CSV_UL_uplfstats2 * x.Weight_GEN_nom * x.sf_weight)
-                            df = df.assign(total_weight_downlfstats2=lambda x: x.Weight_XS *
-                                        x.Weight_CSV_UL_downlfstats2 * x.Weight_GEN_nom * x.sf_weight)
-                            df = df.assign(total_weight_uphfstats1=lambda x: x.Weight_XS *
-                                        x.Weight_CSV_UL_uphfstats1 * x.Weight_GEN_nom * x.sf_weight)
-                            df = df.assign(total_weight_downhfstats1=lambda x: x.Weight_XS *
-                                        x.Weight_CSV_UL_downhfstats1 * x.Weight_GEN_nom * x.sf_weight)
-                            df = df.assign(total_weight_uphfstats2=lambda x: x.Weight_XS *
-                                        x.Weight_CSV_UL_uphfstats2 * x.Weight_GEN_nom * x.sf_weight)
-                            df = df.assign(total_weight_downhfstats2=lambda x: x.Weight_XS *
-                                        x.Weight_CSV_UL_downhfstats2 * x.Weight_GEN_nom * x.sf_weight)
-                            df = df.assign(total_weight_upcferr1=lambda x: x.Weight_XS *
-                                        x.Weight_CSV_UL_upcferr1 * x.Weight_GEN_nom * x.sf_weight)
-                            df = df.assign(total_weight_downcferr1=lambda x: x.Weight_XS *
-                                        x.Weight_CSV_UL_downcferr1 * x.Weight_GEN_nom * x.sf_weight)
-                            df = df.assign(total_weight_upcferr2=lambda x: x.Weight_XS *
-                                        x.Weight_CSV_UL_upcferr2 * x.Weight_GEN_nom * x.sf_weight)
-                            df = df.assign(total_weight_downcferr2=lambda x: x.Weight_XS *
-                                        x.Weight_CSV_UL_downcferr2 * x.Weight_GEN_nom * x.sf_weight)
+                            df = df.assign(total_weight_uplf=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL_uplf)
+                            df = df.assign(total_weight_downlf=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL_downlf)
+                            df = df.assign(total_weight_uphf=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL_uphf)
+                            df = df.assign(total_weight_downhf=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL_downhf)
+                            df = df.assign(total_weight_uplfstats1=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL_uplfstats1)
+                            df = df.assign(total_weight_downlfstats1=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL_downlfstats1)
+                            df = df.assign(total_weight_uplfstats2=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL_uplfstats2)
+                            df = df.assign(total_weight_downlfstats2=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL_downlfstats2)
+                            df = df.assign(total_weight_uphfstats1=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL_uphfstats1)
+                            df = df.assign(total_weight_downhfstats1=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL_downhfstats1)
+                            df = df.assign(total_weight_uphfstats2=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL_uphfstats2)
+                            df = df.assign(total_weight_downhfstats2=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL_downhfstats2)
+                            df = df.assign(total_weight_upcferr1=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL_upcferr1)
+                            df = df.assign(total_weight_downcferr1=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL_downcferr1)
+                            df = df.assign(total_weight_upcferr2=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL_upcferr2)
+                            df = df.assign(total_weight_downcferr2=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL_downcferr2)
 
                             print("Done with btagging SFs")
 
@@ -476,9 +460,9 @@ class Dataset:
 
                             df = df.assign(total_weight_upEle=lambda x: (sample.lumiWeight*x['Weight_XS'] * x['Weight_CSV_UL'] * x['Weight_GEN_nom'] * x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSFUp[0]'] > 0.) & (x['Electron_ReconstructionSFUp[0]'] > 0.))*1.*x['Electron_IdentificationSFUp[0]']*x['Electron_ReconstructionSFUp[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & ((x['Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX'] == 1) | (
                                 (x['Triggered_HLT_Ele32_WPTight_Gsf_L1DoubleEG_vX'] == 1) & (x['Triggered_HLT_Ele32_WPTight_Gsf_2017SeedsX'] == 1))) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['Triggered_HLT_IsoMu27_vX'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
-
-                            df = df.assign(total_preweight=lambda x: (sample.lumiWeight * x['Weight_XS'] * x['Weight_CSV_UL'] * x['Weight_GEN_nom'] * x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSFUp[0]'] > 0.) & (x['Electron_ReconstructionSFUp[0]'] > 0.))*1.*x['Electron_IdentificationSFUp[0]']*x['Electron_ReconstructionSFUp[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & ((x['Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX'] == 1) | (
-                                (x['Triggered_HLT_Ele32_WPTight_Gsf_L1DoubleEG_vX'] == 1) & (x['Triggered_HLT_Ele32_WPTight_Gsf_2017SeedsX'] == 1))) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['Triggered_HLT_IsoMu27_vX'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
+                            
+                            # df = df.assign(total_preweight=lambda x: (sample.lumiWeight * x['Weight_XS'] * x['Weight_CSV_UL'] * x['Weight_GEN_nom'] * x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSFUp[0]'] > 0.) & (x['Electron_ReconstructionSFUp[0]'] > 0.))*1.*x['Electron_IdentificationSFUp[0]']*x['Electron_ReconstructionSFUp[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & ((x['Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX'] == 1) | (
+                                # (x['Triggered_HLT_Ele32_WPTight_Gsf_L1DoubleEG_vX'] == 1) & (x['Triggered_HLT_Ele32_WPTight_Gsf_2017SeedsX'] == 1))) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['Triggered_HLT_IsoMu27_vX'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
 
                             print("Done with other SFs")
 
@@ -488,8 +472,8 @@ class Dataset:
                                 if (sample.process == "ttDL" or sample.process == "ttSL" or sample.process == "ttH"):
                                     df['compare'] = df['Weight_pdf_variation_{}'.format(x)].ge(
                                         0.)
-                                    df['total_weight_PDF_Weight_{}'.format(x)] = (df['Weight_pdf_variation_{}'.format(
-                                        x)]*((df['process'] == "ttSL")*1. * float(internal['ttSL'][internal[internal['Name'] == 'Weight_pdf_variation_{}'.format(x)].index]) + (df['process'] == "ttDL")*1. * float(internal['ttDL'][internal[internal['Name'] == 'Weight_pdf_variation_{}'.format(x)].index]) + (df['process'] == "ttH")*1. * float(internal['ttH'][internal[internal['Name'] == 'Weight_pdf_variation_{}'.format(x)].index]))) * df['total_preweight']*df['compare']*1.
+                                    df['total_weight_PDF_Weight_{}'.format(x)] = df['Weight_pdf_variation_{}'.format(
+                                        x)] * df['compare']*x[' total_weight'] 
                                 else:
 
                                     df.loc[:, 'Weight_pdf_variation_{}'.format(
@@ -506,8 +490,10 @@ class Dataset:
 
                                     df['compare'] = df['Weight_pdf_variation_{}'.format(x)].ge(
                                         0.)
-                                    df['total_weight_PDF_Weight_{}'.format(x)] = (df['Weight_pdf_variation_{}'.format(
-                                        x)]*((df['process'] == "ttbbSL")*1. * float(internal_ttbb['ttbbSL'][internal_ttbb[internal_ttbb['Name'] == 'Weight_pdf_variation_{}'.format(x)].index]) + (df['process'] == "ttbbDL")*1. * float(internal_ttbb['ttbbDL'][internal_ttbb[internal_ttbb['Name'] == 'Weight_pdf_variation_{}'.format(x)].index]))) * df['total_preweight']*df['compare']*1.
+                                    
+                                    df['total_weight_PDF_Weight_{}'.format(x)] = df['Weight_pdf_variation_{}'.format(
+                                        x)] * df['total_weight']*df['compare']*1.
+
 
                                 else:
                                     df.loc[:, 'Weight_pdf_variation_{}'.format(
@@ -915,6 +901,15 @@ class Dataset:
                         float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))	
                     jet_btagsf_downlfstats2_perevent *= btvjson["deepJet_shape"].evaluate("down_lfstats2", jet_flavor['Jet_Flav'][i][j], abs(	
                         float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))	
+                    
+                    jet_btagsf_upcferr1_perevent *= btvjson["deepJet_shape"].evaluate("central", jet_flavor['Jet_Flav'][i][j], abs(	
+                        float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))	
+                    jet_btagsf_downcferr1_perevent *= btvjson["deepJet_shape"].evaluate("central", jet_flavor['Jet_Flav'][i][j], abs(	
+                        float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))	
+                    jet_btagsf_upcferr2_perevent *= btvjson["deepJet_shape"].evaluate("central", jet_flavor['Jet_Flav'][i][j], abs(	
+                        float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))	
+                    jet_btagsf_downcferr2_perevent *= btvjson["deepJet_shape"].evaluate("central", jet_flavor['Jet_Flav'][i][j], abs(	
+                        float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))	
 
                 # c jets	
                 elif jet_flavor['Jet_Flav'][i][j] == 4:	
@@ -925,6 +920,34 @@ class Dataset:
                     jet_btagsf_upcferr2_perevent *= btvjson["deepJet_shape"].evaluate("up_cferr2", jet_flavor['Jet_Flav'][i][j], abs(	
                         float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))	
                     jet_btagsf_downcferr2_perevent *= btvjson["deepJet_shape"].evaluate("down_cferr2", jet_flavor['Jet_Flav'][i][j], abs(	
+                        float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))	
+                    
+                    jet_btagsf_uphf_perevent *= btvjson["deepJet_shape"].evaluate("central", jet_flavor['Jet_Flav'][i][j], abs(	
+                        float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))	
+                    jet_btagsf_downhf_perevent *= btvjson["deepJet_shape"].evaluate("central", jet_flavor['Jet_Flav'][i][j], abs(	
+                        float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))	
+
+                    jet_btagsf_uphfstats1_perevent *= btvjson["deepJet_shape"].evaluate("central", jet_flavor['Jet_Flav'][i][j], abs(	
+                        float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))	
+                    jet_btagsf_downhfstats1_perevent *= btvjson["deepJet_shape"].evaluate("central", jet_flavor['Jet_Flav'][i][j], abs(	
+                        float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))	
+                    jet_btagsf_uphfstats2_perevent *= btvjson["deepJet_shape"].evaluate("central", jet_flavor['Jet_Flav'][i][j], abs(	
+                        float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))	
+                    jet_btagsf_downhfstats2_perevent *= btvjson["deepJet_shape"].evaluate("central", jet_flavor['Jet_Flav'][i][j], abs(	
+                        float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))	
+
+
+                    jet_btagsf_uplf_perevent *= btvjson["deepJet_shape"].evaluate("central", jet_flavor['Jet_Flav'][i][j], abs(	
+                        float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))	
+                    jet_btagsf_downlf_perevent *= btvjson["deepJet_shape"].evaluate("central", jet_flavor['Jet_Flav'][i][j], abs(	
+                        float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))	
+                    jet_btagsf_uplfstats1_perevent *= btvjson["deepJet_shape"].evaluate("central", jet_flavor['Jet_Flav'][i][j], abs(	
+                        float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))	
+                    jet_btagsf_downlfstats1_perevent *= btvjson["deepJet_shape"].evaluate("central", jet_flavor['Jet_Flav'][i][j], abs(	
+                        float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))	
+                    jet_btagsf_uplfstats2_perevent *= btvjson["deepJet_shape"].evaluate("central", jet_flavor['Jet_Flav'][i][j], abs(	
+                        float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))	
+                    jet_btagsf_downlfstats2_perevent *= btvjson["deepJet_shape"].evaluate("central", jet_flavor['Jet_Flav'][i][j], abs(	
                         float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))	
 
             
@@ -1089,8 +1112,12 @@ class Dataset:
 
                 # btagging SF
                 if jet_flavor['Jet_Flav'][i][j] != 4: 
-                    		
+
                     jet_btagsf_perevent *= btvjson["deepJet_shape"].evaluate(dosyst, jet_flavor['Jet_Flav'][i][j], abs(float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))
+
+                else:
+                    
+                    jet_btagsf_perevent *= btvjson["deepJet_shape"].evaluate("central", jet_flavor['Jet_Flav'][i][j], abs(float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))
 
                 if float(jet_pt['Jet_Pt'][i][j]) < 50.:	
                     jet_PUIDsf_perevent *= PUIDjson["PUJetID_eff"].evaluate(	
