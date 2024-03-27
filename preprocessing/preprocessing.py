@@ -762,30 +762,18 @@ class Dataset:
         jet_btagsf = []
         for i in range(njet.size):
 
-            jet_pt_perevent = jet_pt['Jet_Pt'][i].to_numpy()
-            jet_flavor_perevent = jet_flavor['Jet_Flav'][i].to_numpy()
-            jet_eta_perevent = jet_eta['Jet_Eta'][i].to_numpy()
-            jet_btag_perevent = jet_bTag['Jet_CSV'][i].to_numpy()
-            
-            pt_below50_idx = np.where(jet_pt_perevent < 50.)
             jet_PUIDsf_perevent = 1.
-            print("index list")
-            print(jet_pt_perevent[0])
-            if pt_below50_idx[0]:
-                for idx in pt_below50_idx[0]:
-                    
-                    jet_PUIDsf_perevent *= PUIDjson["PUJetID_eff"].evaluate(
-                        float(jet_eta_perevent[0][idx]), float(jet_pt_perevent[0][idx]), "nom", "L")
+            jet_btagsf_perevent = 1.
 
-            jet_btagsf_perevent = np.prod(btvjson["deepJet_shape"].evaluate("central",jet_flavor_perevent, abs(
-                    float(jet_eta_perevent)), float(jet_pt_perevent), float(jet_btag_perevent)))
-            
-            if i == 1:
-                print("BTV SFs")
-                print(btvjson["deepJet_shape"].evaluate("central",jet_flavor_perevent, abs(
-                    float(jet_eta_perevent)), float(jet_pt_perevent), float(jet_btag_perevent)))
-                print("BTV product")
-                print(jet_btagsf_perevent) 
+            for j in range(jet_pt["Jet_Pt"][i].size):	
+
+
+                # btagging SF	
+                jet_btagsf_perevent *= btvjson["deepJet_shape"].evaluate("central", jet_flavor['Jet_Flav'][i][j], abs(float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))
+
+                if float(jet_pt['Jet_Pt'][i][j]) < 50.:	
+                    jet_PUIDsf_perevent *= PUIDjson["PUJetID_eff"].evaluate(	
+                        float(jet_eta['Jet_Eta'][i][j]), float(jet_pt['Jet_Pt'][i][j]), "nom", "L")
 
             jet_PUIDsf.append(jet_PUIDsf_perevent)
             jet_btagsf.append(jet_btagsf_perevent)
@@ -861,64 +849,85 @@ class Dataset:
         # loop over event
         for i in range(njet.size):
 
-            jet_pt_perevent = jet_pt['Jet_Pt'][i].to_numpy()
-            jet_flavor_perevent = jet_flavor['Jet_Flav'][i].to_numpy()
-            jet_eta_perevent = jet_eta['Jet_Eta'][i].to_numpy()
-            jet_btag_perevent = jet_bTag['Jet_CSV'][i].to_numpy()
-
-            # Get Jet Pileup ID SF and systematics
-            pt_below50_idx = np.where(jet_pt_perevent < 50.)
             jet_PUIDsf_perevent = 1.
             jet_PUIDsfup_perevent = 1.
             jet_PUIDsfdown_perevent = 1.
 
-            for idx in pt_below50_idx:
-                jet_PUIDsf_perevent *= PUIDjson["PUJetID_eff"].evaluate(
-                        float(jet_eta_perevent[idx]), float(jet_pt_perevent[idx]), "nom", "L")
-                jet_PUIDsfup_perevent *= PUIDjson["PUJetID_eff"].evaluate(
-                        float(jet_eta_perevent[idx]), float(jet_pt_perevent[idx]), "up", "L")
-                jet_PUIDsfdown_perevent *= PUIDjson["PUJetID_eff"].evaluate(
-                        float(jet_eta_perevent[idx]), float(jet_pt_perevent[idx]), "down", "L")
+            jet_btagsf_perevent = 1.
+            jet_btagsf_uplf_perevent = 1.	            
+            jet_btagsf_downlf_perevent = 1.	            
+            jet_btagsf_uphf_perevent = 1.	            
+            jet_btagsf_downhf_perevent = 1.	                    
+            jet_btagsf_uphfstats1_perevent = 1.	            
+            jet_btagsf_downhfstats1_perevent = 1.	                    
+            jet_btagsf_uphfstats2_perevent = 1.	            
+            jet_btagsf_downhfstats2_perevent = 1.	                    
+            jet_btagsf_uplfstats1_perevent = 1.	
+            jet_btagsf_downlfstats1_perevent = 1.	
+            jet_btagsf_uplfstats2_perevent = 1.	
+            jet_btagsf_downlfstats2_perevent = 1.	
+            jet_btagsf_upcferr1_perevent = 1.	
+            jet_btagsf_downcferr1_perevent = 1.	
+            jet_btagsf_upcferr2_perevent = 1.	
+            jet_btagsf_downcferr2_perevent = 1.
+
+            for j in range(jet_pt["Jet_Pt"][i].size):
+
+                if float(jet_pt['Jet_Pt'][i][j]) < 50.:	
+
+                    jet_PUIDsf_perevent *= PUIDjson["PUJetID_eff"].evaluate(	
+                        float(jet_eta['Jet_Eta'][i][j]), float(jet_pt['Jet_Pt'][i][j]), "nom", "L")	
+                    jet_PUIDsfup_perevent *= PUIDjson["PUJetID_eff"].evaluate(	
+                        float(jet_eta['Jet_Eta'][i][j]), float(jet_pt['Jet_Pt'][i][j]), "up", "L")	
+                    jet_PUIDsfdown_perevent *= PUIDjson["PUJetID_eff"].evaluate(	
+                        float(jet_eta['Jet_Eta'][i][j]), float(jet_pt['Jet_Pt'][i][j]), "down", "L")
 
 
-            jet_btagsf_perevent = np.prod(btvjson["deepJet_shape"].evaluate("central",jet_flavor_perevent, abs(
-                    float(jet_eta_perevent)), float(jet_pt_perevent), float(jet_btag_perevent)))
+                # btagging SF	
+                jet_btagsf_perevent *= btvjson["deepJet_shape"].evaluate("central", jet_flavor['Jet_Flav'][i][j], abs(float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))
+
+                if jet_flavor['Jet_Flav'][i][j] != 4: 	
+
+                    jet_btagsf_uphf_perevent *= btvjson["deepJet_shape"].evaluate("up_hf", jet_flavor['Jet_Flav'][i][j], abs(	
+                        float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))	
+                    jet_btagsf_downhf_perevent *= btvjson["deepJet_shape"].evaluate("down_hf", jet_flavor['Jet_Flav'][i][j], abs(	
+                        float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))	
+
+                    jet_btagsf_uphfstats1_perevent *= btvjson["deepJet_shape"].evaluate("up_hfstats1", jet_flavor['Jet_Flav'][i][j], abs(	
+                        float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))	
+                    jet_btagsf_downhfstats1_perevent *= btvjson["deepJet_shape"].evaluate("down_hfstats1", jet_flavor['Jet_Flav'][i][j], abs(	
+                        float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))	
+                    jet_btagsf_uphfstats2_perevent *= btvjson["deepJet_shape"].evaluate("up_hfstats2", jet_flavor['Jet_Flav'][i][j], abs(	
+                        float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))	
+                    jet_btagsf_downhfstats2_perevent *= btvjson["deepJet_shape"].evaluate("down_hfstats2", jet_flavor['Jet_Flav'][i][j], abs(	
+                        float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))	
+
+
+                    jet_btagsf_uplf_perevent *= btvjson["deepJet_shape"].evaluate("up_lf", jet_flavor['Jet_Flav'][i][j], abs(	
+                        float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))	
+                    jet_btagsf_downlf_perevent *= btvjson["deepJet_shape"].evaluate("down_lf", jet_flavor['Jet_Flav'][i][j], abs(	
+                        float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))	
+                    jet_btagsf_uplfstats1_perevent *= btvjson["deepJet_shape"].evaluate("up_lfstats1", jet_flavor['Jet_Flav'][i][j], abs(	
+                        float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))	
+                    jet_btagsf_downlfstats1_perevent *= btvjson["deepJet_shape"].evaluate("down_lfstats1", jet_flavor['Jet_Flav'][i][j], abs(	
+                        float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))	
+                    jet_btagsf_uplfstats2_perevent *= btvjson["deepJet_shape"].evaluate("up_lfstats2", jet_flavor['Jet_Flav'][i][j], abs(	
+                        float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))	
+                    jet_btagsf_downlfstats2_perevent *= btvjson["deepJet_shape"].evaluate("down_lfstats2", jet_flavor['Jet_Flav'][i][j], abs(	
+                        float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))	
+
+                # c jets	
+                elif jet_flavor['Jet_Flav'][i][j] == 4:	
+                    jet_btagsf_upcferr1_perevent *= btvjson["deepJet_shape"].evaluate("up_cferr1", jet_flavor['Jet_Flav'][i][j], abs(	
+                        float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))	
+                    jet_btagsf_downcferr1_perevent *= btvjson["deepJet_shape"].evaluate("down_cferr1", jet_flavor['Jet_Flav'][i][j], abs(	
+                        float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))	
+                    jet_btagsf_upcferr2_perevent *= btvjson["deepJet_shape"].evaluate("up_cferr2", jet_flavor['Jet_Flav'][i][j], abs(	
+                        float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))	
+                    jet_btagsf_downcferr2_perevent *= btvjson["deepJet_shape"].evaluate("down_cferr2", jet_flavor['Jet_Flav'][i][j], abs(	
+                        float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))	
+
             
-            blight_jets = np.where(jet_flavor_perevent != 4)
-            c_jets = np.where(jet_flavor_perevent == 4)
-            
-            jet_btagsf_uplf_perevent = np.prod(btvjson["deepJet_shape"].evaluate("up_lf",jet_flavor_perevent[blight_jets], abs(
-                    float(jet_eta_perevent[blight_jets])), float(jet_pt_perevent[blight_jets]), float(jet_btag_perevent[blight_jets])))
-            jet_btagsf_downlf_perevent = np.prod(btvjson["deepJet_shape"].evaluate("down_lf",jet_flavor_perevent[blight_jets], abs(
-                    float(jet_eta_perevent[blight_jets])), float(jet_pt_perevent[blight_jets]), float(jet_btag_perevent[blight_jets])))
-            jet_btagsf_uphf_perevent = np.prod(btvjson["deepJet_shape"].evaluate("up_hf",jet_flavor_perevent[blight_jets], abs(
-                    float(jet_eta_perevent[blight_jets])), float(jet_pt_perevent[blight_jets]), float(jet_btag_perevent[blight_jets])))
-            jet_btagsf_downhf_perevent = np.prod(btvjson["deepJet_shape"].evaluate("down_hf",jet_flavor_perevent[blight_jets], abs(
-                    float(jet_eta_perevent[blight_jets])), float(jet_pt_perevent[blight_jets]), float(jet_btag_perevent[blight_jets])))
-            jet_btagsf_uphfstats1_perevent = np.prod(btvjson["deepJet_shape"].evaluate("up_hfstats1",jet_flavor_perevent[blight_jets], abs(
-                    float(jet_eta_perevent[blight_jets])), float(jet_pt_perevent[blight_jets]), float(jet_btag_perevent[blight_jets])))
-            jet_btagsf_downhfstats1_perevent = np.prod(btvjson["deepJet_shape"].evaluate("down_hfstats1",jet_flavor_perevent[blight_jets], abs(
-                    float(jet_eta_perevent[blight_jets])), float(jet_pt_perevent[blight_jets]), float(jet_btag_perevent[blight_jets])))
-            jet_btagsf_uphfstats2_perevent = np.prod(btvjson["deepJet_shape"].evaluate("up_stats2",jet_flavor_perevent[blight_jets], abs(
-                    float(jet_eta_perevent[blight_jets])), float(jet_pt_perevent[blight_jets]), float(jet_btag_perevent[blight_jets])))
-            jet_btagsf_downhfstats2_perevent = np.prod(btvjson["deepJet_shape"].evaluate("down_hfstats2",jet_flavor_perevent[blight_jets], abs(
-                    float(jet_eta_perevent[blight_jets])), float(jet_pt_perevent[blight_jets]), float(jet_btag_perevent[blight_jets])))
-            jet_btagsf_uplfstats1_perevent = np.prod(btvjson["deepJet_shape"].evaluate("up_lfstats1",jet_flavor_perevent[blight_jets], abs(
-                    float(jet_eta_perevent[blight_jets])), float(jet_pt_perevent[blight_jets]), float(jet_btag_perevent[blight_jets])))
-            jet_btagsf_downlfstats1_perevent = np.prod(btvjson["deepJet_shape"].evaluate("down_lfstats1",jet_flavor_perevent[blight_jets], abs(
-                    float(jet_eta_perevent[blight_jets])), float(jet_pt_perevent[blight_jets]), float(jet_btag_perevent[blight_jets])))
-            jet_btagsf_uplfstats2_perevent = np.prod(btvjson["deepJet_shape"].evaluate("up_lfstats2",jet_flavor_perevent[blight_jets], abs(
-                    float(jet_eta_perevent[blight_jets])), float(jet_pt_perevent[blight_jets]), float(jet_btag_perevent[blight_jets])))
-            jet_btagsf_downlfstats2_perevent = np.prod(btvjson["deepJet_shape"].evaluate("down_lfstats2",jet_flavor_perevent[blight_jets], abs(
-                    float(jet_eta_perevent[blight_jets])), float(jet_pt_perevent[blight_jets]), float(jet_btag_perevent[blight_jets])))
-            jet_btagsf_upcferr1_perevent = np.prod(btvjson["deepJet_shape"].evaluate("up_cferr1",jet_flavor_perevent[c_jets], abs(
-                    float(jet_eta_perevent[c_jets])), float(jet_pt_perevent[c_jets]), float(jet_btag_perevent[c_jets])))
-            jet_btagsf_downcferr1_perevent = np.prod(btvjson["deepJet_shape"].evaluate("down_cferr1",jet_flavor_perevent[c_jets], abs(
-                    float(jet_eta_perevent[c_jets])), float(jet_pt_perevent[c_jets]), float(jet_btag_perevent[c_jets])))
-            jet_btagsf_upcferr2_perevent = np.prod(btvjson["deepJet_shape"].evaluate("up_cferr2",jet_flavor_perevent[c_jets], abs(
-                    float(jet_eta_perevent[c_jets])), float(jet_pt_perevent[c_jets]), float(jet_btag_perevent[c_jets])))
-            jet_btagsf_downcferr2_perevent = np.prod(btvjson["deepJet_shape"].evaluate("down_cferr2",jet_flavor_perevent[c_jets], abs(
-                    float(jet_eta_perevent[c_jets])), float(jet_pt_perevent[c_jets]), float(jet_btag_perevent[c_jets])))
             
             jet_PUIDsf.append(jet_PUIDsf_perevent)
             jet_PUIDsfup.append(jet_PUIDsfup_perevent)
@@ -1072,19 +1081,19 @@ class Dataset:
 
         for i in range(njet.size):
 
-            jet_pt_perevent = jet_pt['Jet_Pt'][i].to_numpy()
-            jet_flavor_perevent = jet_flavor['Jet_Flav'][i].to_numpy()
-            jet_eta_perevent = jet_eta['Jet_Eta'][i].to_numpy()
-            jet_btag_perevent = jet_bTag['Jet_CSV'][i].to_numpy()
-            
-            pt_below50_idx = np.where(jet_pt_perevent < 50.)
             jet_PUIDsf_perevent = 1.
-            for idx in pt_below50_idx:
-                jet_PUIDsf_perevent *= PUIDjson["PUJetID_eff"].evaluate(
-                    float(jet_eta_perevent[idx]), float(jet_pt_perevent[idx]), "nom", "L")
+            jet_btagsf_perevent = 1.
 
-            jet_btagsf_perevent = np.prod(btvjson["deepJet_shape"].evaluate(dosyst,jet_flavor_perevent, abs(
-                    float(jet_eta_perevent)), float(jet_pt_perevent), float(jet_btag_perevent)))
+            for j in range(jet_pt["Jet_Pt"][i].size):	
+
+
+                # btagging SF	
+                jet_btagsf_perevent *= btvjson["deepJet_shape"].evaluate(dosyst, jet_flavor['Jet_Flav'][i][j], abs(float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))
+
+                if float(jet_pt['Jet_Pt'][i][j]) < 50.:	
+                    jet_PUIDsf_perevent *= PUIDjson["PUJetID_eff"].evaluate(	
+                        float(jet_eta['Jet_Eta'][i][j]), float(jet_pt['Jet_Pt'][i][j]), "nom", "L")
+
             jet_PUIDsf.append(jet_PUIDsf_perevent)
             jet_btagsf.append(jet_btagsf_perevent)
 
