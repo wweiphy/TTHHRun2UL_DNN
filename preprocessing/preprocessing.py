@@ -1087,8 +1087,10 @@ class Dataset:
             for j in range(jet_pt["Jet_Pt"][i].size):	
 
 
-                # btagging SF	
-                jet_btagsf_perevent *= btvjson["deepJet_shape"].evaluate(dosyst, jet_flavor['Jet_Flav'][i][j], abs(float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))
+                # btagging SF
+                if jet_flavor['Jet_Flav'][i][j] != 4: 
+                    		
+                    jet_btagsf_perevent *= btvjson["deepJet_shape"].evaluate(dosyst, jet_flavor['Jet_Flav'][i][j], abs(float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))
 
                 if float(jet_pt['Jet_Pt'][i][j]) < 50.:	
                     jet_PUIDsf_perevent *= PUIDjson["PUJetID_eff"].evaluate(	
