@@ -769,18 +769,22 @@ class Dataset:
             
             pt_below50_idx = np.where(jet_pt_perevent < 50.)
             jet_PUIDsf_perevent = 1.
-            print("index list")
-            print(pt_below50_idx[0])
-            for idx in pt_below50_idx:
-                print("index")
-                print(idx)
-                print("eta")
-                print(jet_eta_perevent[idx])
-                jet_PUIDsf_perevent *= PUIDjson["PUJetID_eff"].evaluate(
-                    float(jet_eta_perevent[idx]), float(jet_pt_perevent[idx]), "nom", "L")
+            # print("index list")
+            # print(pt_below50_idx[0])
+            if pt_below50_idx[0]:
+                for idx in pt_below50_idx[0]:
+                    jet_PUIDsf_perevent *= PUIDjson["PUJetID_eff"].evaluate(
+                        float(jet_eta_perevent[idx]), float(jet_pt_perevent[idx]), "nom", "L")
 
             jet_btagsf_perevent = np.prod(btvjson["deepJet_shape"].evaluate("central",jet_flavor_perevent, abs(
                     float(jet_eta_perevent)), float(jet_pt_perevent), float(jet_btag_perevent)))
+            
+            if i == 1:
+                print("BTV SFs")
+                print(btvjson["deepJet_shape"].evaluate("central",jet_flavor_perevent, abs(
+                    float(jet_eta_perevent)), float(jet_pt_perevent), float(jet_btag_perevent)))
+                print("BTV product")
+                print(jet_btagsf_perevent) 
 
             jet_PUIDsf.append(jet_PUIDsf_perevent)
             jet_btagsf.append(jet_btagsf_perevent)
@@ -1080,12 +1084,6 @@ class Dataset:
 
             jet_btagsf_perevent = np.prod(btvjson["deepJet_shape"].evaluate(dosyst,jet_flavor_perevent, abs(
                     float(jet_eta_perevent)), float(jet_pt_perevent), float(jet_btag_perevent)))
-            if i == 1:
-                print("BTV SFs")
-                print(btvjson["deepJet_shape"].evaluate(dosyst,jet_flavor_perevent, abs(
-                    float(jet_eta_perevent)), float(jet_pt_perevent), float(jet_btag_perevent)))
-                print("BTV product")
-                print(jet_btagsf_perevent) 
             jet_PUIDsf.append(jet_PUIDsf_perevent)
             jet_btagsf.append(jet_btagsf_perevent)
 
