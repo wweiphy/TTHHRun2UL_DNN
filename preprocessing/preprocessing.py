@@ -12,17 +12,18 @@ from correctionlib import _core
 filedir = os.path.dirname(os.path.realpath(__file__))
 basedir = os.path.dirname(filedir)
 
-
-internal = pd.read_csv(filedir+"/GenNormMap/internalNorm.csv")
-internal_ttbb = pd.read_csv(
-    filedir+"/GenNormMap/internalNorm_ttbb.csv")
-ttbb = pd.read_csv(filedir+"/GenNormMap/fracttbb.csv")
-ttbb_ttbb = pd.read_csv(filedir+"/GenNormMap/fracttbb_ttbb.csv")
-ttcc = pd.read_csv(filedir+"/GenNormMap/fracttcc.csv")
-ttcc_ttbb = pd.read_csv(filedir+"/GenNormMap/fracttcc_ttbb.csv")
-ttlf = pd.read_csv(filedir+"/GenNormMap/fracttlf.csv")
-ttlf_ttbb = pd.read_csv(filedir+"/GenNormMap/fracttlf_ttbb.csv")
-
+# internal = pd.read_csv(filedir+"/GenNormMap/internalNorm.csv")
+# internal_ttbb = pd.read_csv(
+#     filedir+"/GenNormMap/internalNorm_ttbb.csv")
+# ttbb = pd.read_csv(filedir+"/GenNormMap/fracttbb.csv")
+# ttbb_ttbb = pd.read_csv(filedir+"/GenNormMap/fracttbb_ttbb.csv")
+# ttcc = pd.read_csv(filedir+"/GenNormMap/fracttcc.csv")
+# ttcc_ttbb = pd.read_csv(filedir+"/GenNormMap/fracttcc_ttbb.csv")
+# ttlf = pd.read_csv(filedir+"/GenNormMap/fracttlf.csv")
+# ttlf_ttbb = pd.read_csv(filedir+"/GenNormMap/fracttlf_ttbb.csv")
+genmap2016 = pd.read_csv(filedir+"/GenNormMap/ratefactors_new_plotscript_2016.csv")
+genmap2017 = pd.read_csv(filedir+"/GenNormMap/ratefactors_new_plotscript_2017.csv")
+genmap2018 = pd.read_csv(filedir+"/GenNormMap/ratefactors_new_plotscript_2018.csv")
 
 # multi processing magic
 # TODO - A value is trying to be set on a copy of a slice from a DataFrame. Try using .loc[row_indexer, col_indexer] = value instead. See the caveats in the documentation: http: // pandas.pydata.org/pandas-docs/stable/indexing.html; self.obj[key] = _infer_fill_value(value)
@@ -84,6 +85,15 @@ class Dataset:
         self.dataEra = dataEra
         self.do_EvalSFs = do_EvalSFs
 
+        if dataEra == 2017:
+            genfile = genmap2017
+        elif dataEra == 2018:
+            genfile = genmap2018
+        if dataEra == "2016postVFP" or dataEra == "2016preVFP":
+            genfile = genmap2016
+
+        print("handle relative ratio for year "+dataEra)
+        self.genfile = genfile
 
         # generating output dir
         if not os.path.exists(self.outputdir):
@@ -473,7 +483,8 @@ class Dataset:
                                     df['compare'] = df['Weight_pdf_variation_{}'.format(x)].ge(
                                         0.)
                                     df['total_weight_PDF_Weight_{}'.format(x)] = (df['Weight_pdf_variation_{}'.format(
-                                        x)]*((df['process'] == "ttSL")*1. * float(internal['ttSL'][internal[internal['Name'] == 'Weight_pdf_variation_{}'.format(x)].index]) + (df['process'] == "ttDL")*1. * float(internal['ttDL'][internal[internal['Name'] == 'Weight_pdf_variation_{}'.format(x)].index]) + (df['process'] == "ttH")*1. * float(internal['ttH'][internal[internal['Name'] == 'Weight_pdf_variation_{}'.format(x)].index]))) * df['total_preweight']*df['compare']*1.
+                                        x)]*((df['process'] == sample.process)*1. * self.genfile[(self.genfile['sample'] == sample.process) & (self.genfile['variation'] == 'Weight_pdf_variation_{}'.format(x))]['final_weight_sl_analysis'].values[0])) * df['total_preweight']*df['compare']*1.
+                                
                                 else:
 
                                     df.loc[:, 'Weight_pdf_variation_{}'.format(
@@ -492,7 +503,7 @@ class Dataset:
                                         0.)
                                     
                                     df['total_weight_PDF_Weight_{}'.format(x)] = (df['Weight_pdf_variation_{}'.format(
-                                        x)]*((df['process'] == "ttbbSL")*1. * float(internal_ttbb['ttbbSL'][internal_ttbb[internal_ttbb['Name'] == 'Weight_pdf_variation_{}'.format(x)].index]) + (df['process'] == "ttbbDL")*1. * float(internal_ttbb['ttbbDL'][internal_ttbb[internal_ttbb['Name'] == 'Weight_pdf_variation_{}'.format(x)].index]))) * df['total_preweight']*df['compare']*1.
+                                        x)]*((df['process'] == sample.process)*1. * self.genfile[(self.genfile['sample'] == sample.process) & (self.genfile['variation'] == 'Weight_pdf_variation_{}'.format(x))]['final_weight_sl_analysis'].values[0])) * df['total_preweight']*df['compare']*1.
 
 
                                 else:
