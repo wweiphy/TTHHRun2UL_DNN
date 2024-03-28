@@ -86,9 +86,9 @@ class Dataset:
         self.do_EvalSFs = do_EvalSFs
 
         genfile = ""
-        if dataEra == 2017:
+        if dataEra == "2017":
             genfile = genmap2017
-        elif dataEra == 2018:
+        elif dataEra == "2018":
             genfile = genmap2018
         if dataEra == "2016postVFP" or dataEra == "2016preVFP":
             genfile = genmap2016
