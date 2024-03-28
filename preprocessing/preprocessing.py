@@ -92,6 +92,9 @@ class Dataset:
             genfile = genmap2018
         if dataEra == "2016postVFP" or dataEra == "2016preVFP":
             genfile = genmap2016
+        else:
+            # print("no file matches the dataEra " +dataEra)
+            sys.exit("no file matches the dataEra " +dataEra)
 
         print("handle relative ratio for year "+dataEra)
         self.genfile = genfile
