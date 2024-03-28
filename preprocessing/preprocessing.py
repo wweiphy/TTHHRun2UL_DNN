@@ -487,7 +487,7 @@ class Dataset:
                                     df['compare'] = df['Weight_pdf_variation_{}'.format(x)].ge(
                                         0.)
                                     df['total_weight_PDF_Weight_{}'.format(x)] = (df['Weight_pdf_variation_{}'.format(
-                                        x)]*((df['process'] == sample.process)*1. * self.genfile[(self.genfile['sample'] == sample.process) & (self.genfile['variation'] == 'Weight_pdf_variation_{}'.format(x))]['final_weight_sl_analysis'].values[0])) * df['total_preweight']*df['compare']*1.
+                                        x)]*((df['process'] == sample.process)*1. * float(self.genfile[(self.genfile['sample'] == sample.process) & (self.genfile['variation'] == 'Weight_pdf_variation_{}'.format(x))]['final_weight_sl_analysis'].values[0]))) * df['total_preweight']*df['compare']*1.
                                 
                                 else:
 
@@ -507,7 +507,7 @@ class Dataset:
                                         0.)
                                     
                                     df['total_weight_PDF_Weight_{}'.format(x)] = (df['Weight_pdf_variation_{}'.format(
-                                        x)]*((df['process'] == sample.process)*1. * self.genfile[(self.genfile['sample'] == sample.process) & (self.genfile['variation'] == 'Weight_pdf_variation_{}'.format(x))]['final_weight_sl_analysis'].values[0])) * df['total_preweight']*df['compare']*1.
+                                        x)]*((df['process'] == sample.process)*1. * float(self.genfile[(self.genfile['sample'] == sample.process) & (self.genfile['variation'] == 'Weight_pdf_variation_{}'.format(x))]['final_weight_sl_analysis'].values[0]))) * df['total_preweight']*df['compare']*1.
 
 
                                 else:
