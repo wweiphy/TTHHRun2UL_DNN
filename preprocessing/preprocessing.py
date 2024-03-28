@@ -85,6 +85,7 @@ class Dataset:
         self.dataEra = dataEra
         self.do_EvalSFs = do_EvalSFs
 
+        genfile = ""
         if dataEra == 2017:
             genfile = genmap2017
         elif dataEra == 2018:
