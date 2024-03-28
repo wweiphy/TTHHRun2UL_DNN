@@ -86,11 +86,11 @@ class Dataset:
         self.do_EvalSFs = do_EvalSFs
 
         genfile = ""
-        if dataEra == "2017":
+        if self.dataEra == "2017" or self.dataEra == 2017:
             genfile = genmap2017
-        elif dataEra == "2018":
+        elif self.dataEra == "2018" or self.dataEra == 2018:
             genfile = genmap2018
-        if dataEra == "2016postVFP" or dataEra == "2016preVFP":
+        elif self.dataEra == "2016postVFP" or dataEra == "2016preVFP":
             genfile = genmap2016
         else:
             # print("no file matches the dataEra " +dataEra)
