@@ -1122,6 +1122,10 @@ class Dataset:
             jet_PUIDsf_perevent = 1.
             jet_btagsf_perevent = 1.
 
+            up = 1.
+            nominal = 1.
+            down = 1.
+
             for j in range(jet_pt["Jet_Pt"][i].size):	
 
 
@@ -1136,7 +1140,11 @@ class Dataset:
 
                     test_down = btvjson["deepJet_shape"].evaluate("down_jes", jet_flavor['Jet_Flav'][i][j], abs(float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j])) 
 
-                    print("up: {}, nominal: {}, down: {}".format(test_up, test_nominal, test_down))
+                    up *= test_up
+                    nominal *= test_nominal
+                    down *= test_down
+                    if j == 0:
+                        print("up: {}, nominal: {}, down: {}".format(test_up, test_nominal, test_down))
 
                 else:
                     
@@ -1148,6 +1156,9 @@ class Dataset:
 
             jet_PUIDsf.append(jet_PUIDsf_perevent)
             jet_btagsf.append(jet_btagsf_perevent)
+
+            if i in range(0,5):
+                print("up: {}, nominal: {}, down: {}".format(up, nominal, down))
 
         df.loc[:, "Weight_CSV_UL"] = 0.
         df.loc[:, "Weight_JetPUID"] = 0.
