@@ -74,7 +74,7 @@ class Sample:
 
 
 class Dataset:
-    def __init__(self, outputdir, tree=['MVATree'], naming='', maxEntries=50000, varName_Run='Evt_Run', varName_LumiBlock='Evt_Lumi', varName_Event='Evt_ID',ncores=1, dataEra = 2017, do_EvalSFs=False):
+    def __init__(self, outputdir, tree=['MVATree'], naming='', maxEntries=50000, varName_Run='Evt_Run', varName_LumiBlock='Evt_Lumi', varName_Event='Evt_ID',ncores=1, dataEra = 2017, do_EvalSFs=False, do_BTagCorrection=False):
         # settings for paths
         self.outputdir = outputdir
         self.naming = naming
@@ -84,6 +84,7 @@ class Dataset:
         self.varName_Event = varName_Event
         self.dataEra = dataEra
         self.do_EvalSFs = do_EvalSFs
+        self.do_BTagCorrection = do_BTagCorrection
 
         genfile = ""
         if self.dataEra == "2017" or self.dataEra == 2017:
@@ -547,6 +548,59 @@ class Dataset:
                                      x.Weight_GEN_nom )
                             df = df.assign(
                                 total_weight=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL)
+                            
+                elif self.do_BTagCorrection:
+
+                    if "nominal" in file:
+
+                        df = self.CalculateSFsEval(tree, df)
+
+                        df = df.assign(sf_weight=lambda x: (sample.lumiWeight*x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSF[0]'] > 0.) & (x['Electron_ReconstructionSF[0]'] > 0.))*1.*x['Electron_IdentificationSF[0]']*x['Electron_ReconstructionSF[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & ((x['Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX'] == 1) | (
+                                (x['Triggered_HLT_Ele32_WPTight_Gsf_L1DoubleEG_vX'] == 1) & (x['Triggered_HLT_Ele32_WPTight_Gsf_2017SeedsX'] == 1))) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['Triggered_HLT_IsoMu27_vX'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
+
+                        # btag SF & uncertainties
+                        df = df.assign(xs_weight=lambda x: x.Weight_XS * x.Weight_GEN_nom)
+                        # df = df.assign(xs_weight=lambda x: x.Weight_XS *
+                        #             x.Weight_CSV_UL * x.Weight_GEN_nom)
+
+                        df = df.assign(
+                            total_weight=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL)
+                        df = df.assign(total_preweight=lambda x: x.xs_weight * x.sf_weight)
+
+                        # ratio = sum(df["total_preweight"].values)/sum(df["total_weight"].values)
+
+                        # print("ratio for sample")
+
+                        
+                    
+                    else:
+
+                        doJES = False
+                        if "JESup" in file:
+                            syst = "JESup"
+                            doJES = True
+                        elif "JESdown" in file:
+                            syst = "JESdown"
+                            doJES = True
+                                
+                        if doJES:
+                            print("Evaluate SFs for {} files".format(syst))
+                            df = self.CalculateSFsEvalSyst(tree,df,syst)
+                        else:
+                            print("Evaluate SFs for JER files")
+                            df = self.CalculateSFs(tree,df)
+
+                        df = df.assign(sf_weight=lambda x: (sample.lumiWeight*x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSF[0]'] > 0.) & (x['Electron_ReconstructionSF[0]'] > 0.))*1.*x['Electron_IdentificationSF[0]']*x['Electron_ReconstructionSF[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & ((x['Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX'] == 1) | (
+                                (x['Triggered_HLT_Ele32_WPTight_Gsf_L1DoubleEG_vX'] == 1) & (x['Triggered_HLT_Ele32_WPTight_Gsf_2017SeedsX'] == 1))) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['Triggered_HLT_IsoMu27_vX'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
+
+                        # btag SF & uncertainties
+                        df = df.assign(xs_weight=lambda x: x.Weight_XS * x.Weight_GEN_nom)
+
+
+                        df = df.assign(
+                            total_weight=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL)
+                        df = df.assign(total_preweight=lambda x: x.xs_weight * x.sf_weight) 
+
 
                 else:
                     # for DNN, only Weight_CSV_UL is needed
@@ -729,8 +783,8 @@ class Dataset:
 
         bsfDir = os.path.join(basedir, "data", "BTV", "{}_UL".format(self.dataEra))
         bsfName = os.path.join(bsfDir, "btagging.json.gz")
-        print("eataEra is: {}".format(self.dataEra))
-        print("btv file is: "+bsfName)
+        # print("eataEra is: {}".format(self.dataEra))
+        # print("btv file is: "+bsfName)
 
         PUIDsfDir = os.path.join(
             basedir, "data", "PUJetIDSFs", "{}".format(self.dataEra))
@@ -795,7 +849,7 @@ class Dataset:
                               "{}_UL".format(self.dataEra))
         bsfName = os.path.join(bsfDir, "btagging.json.gz")
 
-        print("btv file is: "+bsfName)
+        # print("btv file is: "+bsfName)
 
         PUIDsfDir = os.path.join(
             basedir, "data", "PUJetIDSFs", "{}".format(self.dataEra))
@@ -1079,8 +1133,8 @@ class Dataset:
 
         bsfDir = os.path.join(basedir, "data", "BTV", "{}_UL".format(self.dataEra))
         bsfName = os.path.join(bsfDir, "btagging.json.gz")
-        print("eataEra is: {}".format(self.dataEra))
-        print("btv file is: "+bsfName)
+        # print("eataEra is: {}".format(self.dataEra))
+        # print("btv file is: "+bsfName)
 
         PUIDsfDir = os.path.join(
             basedir, "data", "PUJetIDSFs", "{}".format(self.dataEra))
@@ -1143,8 +1197,8 @@ class Dataset:
                     up *= test_up
                     nominal *= test_nominal
                     down *= test_down
-                    if j == 0:
-                        print("up: {}, nominal: {}, down: {}".format(test_up, test_nominal, test_down))
+                    # if j == 0:
+                        # print("up: {}, nominal: {}, down: {}".format(test_up, test_nominal, test_down))
 
                 else:
                     
@@ -1157,8 +1211,8 @@ class Dataset:
             jet_PUIDsf.append(jet_PUIDsf_perevent)
             jet_btagsf.append(jet_btagsf_perevent)
 
-            if i == 0:
-                print("total up: {}, total nominal: {}, total down: {}".format(up, nominal, down))
+            # if i == 0:
+                # print("total up: {}, total nominal: {}, total down: {}".format(up, nominal, down))
 
         df.loc[:, "Weight_CSV_UL"] = 0.
         df.loc[:, "Weight_JetPUID"] = 0.
@@ -1168,3 +1222,5 @@ class Dataset:
         df.update(jet_btagsf)
         df.update(jet_PUIDsf)
         return df
+
+   
