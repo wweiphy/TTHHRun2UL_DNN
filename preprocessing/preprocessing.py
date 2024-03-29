@@ -1157,8 +1157,8 @@ class Dataset:
             jet_PUIDsf.append(jet_PUIDsf_perevent)
             jet_btagsf.append(jet_btagsf_perevent)
 
-            if i in range(0,5):
-                print("up: {}, nominal: {}, down: {}".format(up, nominal, down))
+            if i == 0:
+                print("total up: {}, total nominal: {}, total down: {}".format(up, nominal, down))
 
         df.loc[:, "Weight_CSV_UL"] = 0.
         df.loc[:, "Weight_JetPUID"] = 0.
