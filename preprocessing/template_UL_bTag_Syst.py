@@ -320,9 +320,10 @@ dataset.addSample(
 )
 
 dataset.addSample(
+    
     sampleName="TTHDL",
     ntuples=ntuplesPath2 +
-    "/2018/ntuple/ttHTobb_ttToSemiLep_M125_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2018/240330_005509/*/*"+options.syst+"*.root",
+    "/2018/ntuple/ttHTobb_ttTo2L2Nu_M125_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2018/240330_005509/*/*"+options.syst+"*.root",
     #    ntuples     = ntuplesPath+"/ttH_220208.root",
     categories=ttHDL_categories,
     process = "ttHDL",
