@@ -395,7 +395,7 @@ class Dataset:
                     else:
                     # for DNN evaluation on MC
                         if "nominal" in file:
-                            print(sample.process)
+                            # print(sample.process)
                             btagfactor = self.btagfile[self.btagfile['sample'] == sample.process]['nominal'].values[0]
                             
 
