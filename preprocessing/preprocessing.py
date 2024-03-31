@@ -397,6 +397,7 @@ class Dataset:
                         if "nominal" in file:
 
                             btagfactor = self.btagfile[self.btagfile['sample'] == sample.process]['nominal'].values[0]
+                            print(sample.process)
 
                             print('Evaluate SFs for nominal files')
                             df = self.CalculateSFsEval(tree, df)
