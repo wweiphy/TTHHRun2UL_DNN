@@ -39,16 +39,17 @@ import DNN_framework.data_frame as df
 
 
 # 2016post
-# python eval_template_new_sys.py -o 230523_evaluation_new_2 -i 230523_50_ge4j_ge3t --signalclass=ttHH --plot --printroc -d Eval_0523_UL --syst=JESup
+# python eval_template_new_sys.py -o 230523_evaluation_new_2 -i 230523_50_ge4j_ge3t --signalclass=ttHH --plot --printroc -d Eval_0523_UL --syst=JESup --ttmb=5.654803199 --ttnb=3.611169031 --lumi=67.24 --notequalbin
 
-# python eval_template_new_sys.py -o 230523_evaluation_new_6j4b_2 -i 230523_50_ge6j_ge4t  --signalclass=ttHH --plot --printroc -d Eval_0523_UL  --syst=JESup
+# python eval_template_new_sys.py -o 230523_evaluation_new_6j4b_4FS -i 230523_50_ge6j_ge4t  --signalclass=ttHH --plot --printroc -d Eval_0523_UL --ttmb=5.654803199 --ttnb=3.611169031 --lumi=67.24 --notequalbin --syst=JESup
+# python eval_template_new_sys.py -o 230523_evaluation_new_6j4b -i 230523_50_ge6j_ge4t  --signalclass=ttHH --plot --printroc -d Eval_0523_UL --ttmb=5.654803199 --ttnb=1.0 --lumi=67.24 --notequalbin --syst=JESup
 
-# python eval_template_new_sys.py -o 230523_evaluation_new_5j4b_2 -i 230523_50_ge5j_ge4t  --signalclass=ttHH --plot --printroc -d Eval_0523_UL  --syst=JESup
+# python eval_template_new_sys.py -o 230523_evaluation_new_5j4b_4FS -i 230523_50_ge5j_ge4t  --signalclass=ttHH --plot --printroc -d Eval_0523_UL --ttmb=5.654803199 --ttnb=3.611169031 --lumi=67.24 --notequalbin --syst=JESup 
 
 # 2016pre
 # python eval_template_new_sys.py -o 230515_evaluation_new_2 -i 230515_50_ge4j_ge3t --signalclass=ttHH --plot --printroc -d Eval_0515_UL --syst=JESup
 
-# python eval_template_new_sys.py -o 230515_evaluation_new_6j4b_2 -i 230515_50_ge6j_ge4t  --signalclass=ttHH --plot --printroc -d Eval_0515_UL  --syst=JESup
+# python eval_template_new_sys.py -o 230515_evaluation_new_6j4b -i 230515_50_ge6j_ge4t  --signalclass=ttHH --plot --printroc -d Eval_0515_UL  --ttmb=5.654803199 --ttnb=1.0 --lumi=78.08 --syst=JESup --notequalbin
 
 # python eval_template_new_sys.py -o 230515_evaluation_new_5j4b_2 -i 230515_50_ge5j_ge4t  --signalclass=ttHH --plot --printroc -d Eval_0515_UL  --syst=JESup
 
@@ -97,7 +98,8 @@ parser.add_option("-f", "--test_percentage", dest="test_percentage", default=0.2
 
 parser.add_option("--lumi", dest="lumi", default=83, type=float,
                   help="luminosity", metavar="lumi")
-
+parser.add_option("--year", dest="year", default = "2017",
+                  help="year", metavar="year")
 parser.add_option("--notequalbin", dest="notequalbin", action="store_false",
                   default=True, help="set up equal bin or not", metavar="notequalbin")
 
@@ -191,7 +193,7 @@ syst = [
 # for sys in syst:
 
 # load samples
-input_samples = df.InputSamples(input_path=dfDirectory+"_"+options.syst+"/",
+input_samples = df.InputSamples(input_path=dfDirectory+"_"+options.syst+"/",dataEra=options.year,
                                 addSampleSuffix=config["addSampleSuffix"], test_percentage=options.test_percentage)
 
 for sample in config["eventClasses"]:
@@ -281,5 +283,5 @@ dnn.load_trained_model(inPath, options.evaluation_epoch_model)
 # plot the output discriminators
 
 dnn.save_JESJERdiscriminators(
-    log=options.log, privateWork=options.privateWork, printROC=options.printROC, syst=options.syst, equalbin=options.notequalbin)
+    log=options.log, privateWork=options.privateWork, printROC=options.printROC, syst=options.syst, year=options.year, equalbin=options.notequalbin)
 

@@ -20,7 +20,7 @@ import VariableMap
 
 # save DNN outputs for evaluation 
 class savenominalDiscriminators:
-    def __init__(self, data, prediction_vector, predicted_classes, event_classes, nbins, bin_range, event_category, savedir, lumi, equalbin=True, logscale=False):
+    def __init__(self, data, prediction_vector, predicted_classes, event_classes, nbins, bin_range, event_category, savedir, lumi, year, equalbin=True, logscale=False):
         self.data = data
         self.prediction_vector = prediction_vector
         self.predicted_classes = predicted_classes
@@ -33,6 +33,7 @@ class savenominalDiscriminators:
         self.lumi = lumi
         self.logscale = logscale
         self.equalbin=equalbin
+        self.year = year
 
     def save(self):
 
@@ -170,16 +171,12 @@ class savenominalDiscriminators:
 
 
                 for syst in SystMap.systs:
-                    # TODO - add the normalization function without sepcifying 61 
-                    # TODO - when combining 3 years, this should be done separately along with the separate integrated luminosity (better put in the normalization weight)  
-                    # if truth_cls == "ttb" or truth_cls == "ttbb" or truth_cls == "tt2b" or truth_cls == "ttmb":
-                    #     filtered_syst_weights = 6.1 * self.lumi * filtered_data[syst].values
-                    #     # filtered_syst_weights = 61. * self.lumi * filtered_data[syst].values
-                    # else:
-                    #     filtered_syst_weights = self.lumi * \
-                    #        filtered_data[syst].values
+
                     filtered_syst_weights = self.lumi * \
                         filtered_data[syst].values
+                    
+                    if "total_weight_upL1Fire" in syst or "total_weight_downL1Fire" in syst:
+                        if self.year == 2018: continue
 
                     histogram = setup.setupHistogram(
                         values=filtered_values,
@@ -197,18 +194,16 @@ class savenominalDiscriminators:
                         filled=True)
                     bkgHists.append(histogram)
 
+                for syst in SystMap.systs_decorrelated:
 
-                for syst in SystMap.systs_reverse:
-                    # TODO - add the normalization function without sepcifying 61   
-                    # if truth_cls == "ttb" or truth_cls == "ttbb" or truth_cls == "tt2b" or truth_cls == "ttmb":
-                    #     filtered_syst_weights = 6.1 * self.lumi * filtered_data[syst].values
-                    #     # filtered_syst_weights = 61. * self.lumi * filtered_data[syst].values
-                    # else:
-                    #     filtered_syst_weights = self.lumi * \
-                    #        filtered_data[syst].values
+                    if "total_weight_up" in syst:
+                        subtitle = SystMap.systs[syst][0].replace('Up','')+"_"+self.year+"Up"
+                    if "total_weight_down" in syst:
+                        subtitle = SystMap.systs[syst][0].replace('Down','')+"_"+self.year+"Down" 
+
+                    
                     filtered_syst_weights = self.lumi * \
                         filtered_data[syst].values
-
 
                     histogram = setup.setupHistogram(
                         values=filtered_values,
@@ -218,14 +213,36 @@ class savenominalDiscriminators:
                         # nbins=self.nbins,
                         # bin_range=self.bin_range,
                         bin_range=current_binrange,
-                        title = str(node_cls)+"_node__"+str(truth_cls),
+                        title=str(node_cls)+"_node__"+str(truth_cls),
                         #                        color     = setup.GetPlotColor(truth_cls),
                         xtitle="ljets_ge4j_ge3t_" + \
-                        str(node_cls)+"_node__"+str(truth_cls) + \
-                        SystMap.systs_reverse[syst][0],
+                        str(node_cls)+"_node__"+str(truth_cls)+subtitle,
                         ytitle=setup.GetyTitle(),
                         filled=True)
                     bkgHists.append(histogram)
+
+                # for syst in SystMap.systs_reverse:
+                #     # TODO - add the normalization function without sepcifying 61   
+                #     filtered_syst_weights = self.lumi * \
+                #         filtered_data[syst].values
+
+
+                #     histogram = setup.setupHistogram(
+                #         values=filtered_values,
+                #         weights=filtered_syst_weights,
+                #         # nbins=len(current_binrange) - 1,
+                #         nbins=nbins,
+                #         # nbins=self.nbins,
+                #         # bin_range=self.bin_range,
+                #         bin_range=current_binrange,
+                #         title = str(node_cls)+"_node__"+str(truth_cls),
+                #         #                        color     = setup.GetPlotColor(truth_cls),
+                #         xtitle="ljets_ge4j_ge3t_" + \
+                #         str(node_cls)+"_node__"+str(truth_cls) + \
+                #         SystMap.systs_reverse[syst][0],
+                #         ytitle=setup.GetyTitle(),
+                #         filled=True)
+                #     bkgHists.append(histogram)
 
                 if truth_cls == "ttH":
 
@@ -540,7 +557,7 @@ class saveDataDiscriminators:
         f.Close()
 
 class saveJESJERDiscriminators:
-    def __init__(self, data, prediction_vector, predicted_classes, event_classes, nbins, bin_range, event_category, savedir, syst, equalbin=True, logscale=False):
+    def __init__(self, data, prediction_vector, predicted_classes, event_classes, nbins, bin_range, event_category, savedir, syst, year, equalbin=True, logscale=False):
         self.data = data
         self.prediction_vector = prediction_vector
         self.predicted_classes = predicted_classes
@@ -553,6 +570,7 @@ class saveJESJERDiscriminators:
         self.syst = syst
         self.logscale = logscale
         self.equalbin=equalbin
+        self.year = year
 
     def save(self):
 
@@ -657,9 +675,14 @@ class saveJESJERDiscriminators:
 
                 weightIntegral += sum(filtered_weights)
                 
-                if "up" in self.syst:
+                if "JERup" in self.syst:
+                    sys2 = self.syst.replace("up", "")+"_"+self.year+"Up"
+                elif "JERdown" in self.syst:
+                    sys2 = self.syst.replace("down", "")+"_"+self.year+"Down"
+
+                elif "JESup" in self.syst:
                     sys2 = self.syst.replace("up", "Up")
-                if "down" in self.syst:
+                elif "JESdown" in self.syst:
                     sys2 = self.syst.replace("down", "Down")
 
                 histogram = setup.setupHistogram(
