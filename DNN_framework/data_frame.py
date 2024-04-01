@@ -216,10 +216,10 @@ class Sample:
             # df = df.assign(xs_weight=lambda x: eval(
                 # self.total_weight_expr))
             # "x.Weight_XS * x.Weight_CSV_UL * x.Weight_GEN_nom * x.lumiWeight"
-            # xs_weight_sum = sum(df["xs_weight"].values)
+            xs_weight_sum = sum(df["xs_weight"].values)
             # print("xs weight sum: {}".format(xs_weight_sum))
-            # df = df.assign(train_weight=lambda x: x.xs_weight /
-                            # xs_weight_sum*self.train_weight)
+            df = df.assign(train_weight=lambda x: x.xs_weight /
+                            xs_weight_sum*self.train_weight)
             # df = df.assign(total_weight=lambda x: x.xs_weight * x.extra_weight)
             if 'data' in self.path:
                 df = df.assign(
