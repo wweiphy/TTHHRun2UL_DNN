@@ -497,11 +497,30 @@ class Dataset:
                             # for x in range(306000, 306001):
                             for x in range(306000, 306103):
 
-                                if (sample.process == "ttDL" or sample.process == "ttSL" or sample.process == "ttHSL" or sample.process == "ttHDL"):
+                                if (sample.process == "ttDL" or sample.process == "ttSL"):
                                     df['compare'] = df['Weight_pdf_variation_{}'.format(x)].ge(
                                         0.)
                                     df['total_weight_PDF_Weight_{}'.format(x)] = (df['Weight_pdf_variation_{}'.format(
                                         x)]*((df['process'] == sample.process)*1. * self.genfile[(self.genfile['sample'] == sample.process) & (self.genfile['variation'] == 'Weight_pdf_variation_{}'.format(x))]['final_weight_sl_analysis'].values[0])) * df['total_weight']*df['compare']*1.
+                                
+                                else:
+
+                                    df.loc[:, 'Weight_pdf_variation_{}'.format(
+                                        x)] = 0.
+                                    df.loc[:, 'total_weight_PDF_Weight_{}'.format(
+                                        x)] = 0.
+                                    df['compare'] = df['Weight_pdf_variation_{}'.format(x)].ge(
+                                        0.)
+
+                            # for x in range(306000, 306001):
+                            for x in range(306000, 306103):
+
+                                if (sample.process == "ttHSL" or sample.process == "ttHDL"):
+                                    sample_process = "ttH"
+                                    df['compare'] = df['Weight_pdf_variation_{}'.format(x)].ge(
+                                        0.)
+                                    df['total_weight_PDF_Weight_{}'.format(x)] = (df['Weight_pdf_variation_{}'.format(
+                                        x)]*((df['process'] == sample.process)*1. * self.genfile[(self.genfile['sample'] == sample_process) & (self.genfile['variation'] == 'Weight_pdf_variation_{}'.format(x))]['final_weight_sl_analysis'].values[0])) * df['total_weight']*df['compare']*1.
                                 
                                 else:
 
