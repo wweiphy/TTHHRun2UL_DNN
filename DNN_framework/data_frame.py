@@ -54,10 +54,10 @@ class Sample:
 
         genfile = ""
         # btagfile = ""
-        if dataEra == "2017" or self.dataEra == 2017:
+        if dataEra == "2017" or dataEra == 2017:
             genfile = genmap2017
             # btagfile = btagcorrection2017
-        elif dataEra == "2018" or self.dataEra == 2018:
+        elif dataEra == "2018" or dataEra == 2018:
             genfile = genmap2018
             # btagfile = btagcorrection2018
         elif dataEra == "2016postVFP" or dataEra == "2016preVFP":
