@@ -18,7 +18,7 @@ import sf_variables as sf_var
 
 
 """
-USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_Syst.py --outputdirectory=Eval_0308_UL_test --variableselection=variables --maxentries=20000 --cores=8  --syst=JERdown --dataEra=2018
+USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_Syst.py --outputdirectory=Eval_0308_UL_2 --variableselection=variables --maxentries=20000 --cores=8  --syst=JESdown --dataEra=2018
 
 """
 
@@ -253,7 +253,7 @@ dataset.addSample(
     #    lumiWeight  = 41.5,
     selections=ttHH_selection,  # ttbar_selection,
     #    selections  = ttbar_selection,
-    islocal=True
+    islocal=False
 )  # almost
 
       
@@ -302,7 +302,7 @@ dataset.addSample(
     "/2018/ntuple/ttHTobb_ttToSemiLep_M125_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2018/240312_161423/*/*"+options.syst+"*.root",
     #    ntuples     = ntuplesPath+"/ttH_220208.root",
     categories=ttH_categories,
-    process = "ttH",
+    process = "ttHSL",
     #    lumiWeight  = 41.5,
     selections=ttHH_selection,  # ttbar_selection,
     #    selections  = ttH_selection,
@@ -315,7 +315,7 @@ dataset.addSample(
     "/2018/ntuple/ttHTobb_ttToSemiLep_M125_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2018/240312_161030/*/*"+options.syst+"*.root",
     #    ntuples     = ntuplesPath+"/ttH_220208.root",
     categories=ttH_categories,
-    process = "ttH",
+    process = "ttHDL",
     #    lumiWeight  = 41.5,
     selections=ttHH_selection,  # ttbar_selection,
     #    selections  = ttH_selection,
