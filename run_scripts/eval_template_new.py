@@ -15,11 +15,8 @@ import DNN_framework.DNN as DNN
 import DNN_framework.data_frame as df
 
 # 2018 
-# python eval_template_new.py -o 230220_evaluation_new_5FS -i 230220_50_ge4j_ge3t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_nominal
 
-# python eval_template_new.py -o 230220_evaluation_new_4FS_test -i 230220_50_ge4j_ge3t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_nominal
-
-# python eval_template_new.py -o 230220_evaluation_new_5j4b -i 230220_50_ge5j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_nominal --ttmb=5.654803199 --ttnb=1.0 --notequalbin
+# python eval_template_new.py -o 230220_evaluation_new_5j4b -i 230220_50_ge5j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_3_nominal --ttmb=5.654803199 --ttnb=1.0 --notequalbin --lumi=83 --year=2018 
 
 # --ttnb=1.240415029
 # python eval_template_new.py -o 230220_evaluation_new_5j4b_5FS_test -i 230220_50_ge5j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_nominal --ttmb=1.0 --ttnb=1.0
@@ -169,7 +166,7 @@ for sample in config["eventClasses"]:
         # normalization_weight = 1
         if sample["sampleLabel"] == "ttHH":
                 # sample_train_weight = 0.5
-                normalization_weight = 1.
+                normalization_weight = 0.861419355
                 # sample_path = dfDirectory+"ttHH_dnn.h5"
         elif sample["sampleLabel"] == "ttZH":
                 # sample_train_weight = 1

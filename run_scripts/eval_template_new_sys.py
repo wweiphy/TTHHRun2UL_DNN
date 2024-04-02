@@ -15,14 +15,13 @@ import DNN_framework.DNN as DNN
 import DNN_framework.data_frame as df
 
 #  2018
-# python eval_template_new_sys.py -o 230220_evaluation_new -i 230220_50_ge4j_ge3t --signalclass=ttHH --plot --printroc -d Eval_0308_UL --syst=JESup
 
-# python eval_template_new_sys.py -o 230220_evaluation_new_5j4b_test -i 230220_50_ge5j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL --ttmb=5.505191209 --ttnb=1.240415029 --syst=JESup
-# python eval_template_new_sys.py -o 230220_evaluation_new_5j4b_5FS_test -i 230220_50_ge5j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL --ttmb=1.0 --ttnb=1.0 --syst=JESdown
+# python eval_template_new_sys.py -o 230220_evaluation_new_5j4b -i 230220_50_ge5j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_3 --ttmb=5.505191209 --ttnb=1.0 --lumi=83 --year=2018 --notequalbin --syst=JESup 
+
 # python eval_template_new_sys.py -o 230220_evaluation_new_5j4b_4FS_test -i 230220_50_ge5j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL --ttmb=5.505191209 --ttnb=3.538023785 --syst=JESdown
 
 # python eval_template_new_sys.py -o 230220_evaluation_new_6j4b_test -i 230220_50_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL --ttmb=5.467833742 --ttnb=1.212174627 --syst=JESup
-# python eval_template_new_sys.py -o 230220_evaluation_new_6j4b_5FS_test -i 230220_50_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL --ttmb=1.0 --ttnb=1.0 --syst=JESdown
+
 # python eval_template_new_sys.py -o 230220_evaluation_new_6j4b_4FS_test -i 230220_50_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL --ttmb=5.467833742 --ttnb=3.363282228 --syst=JESdown
 
 # 2017
@@ -202,7 +201,7 @@ for sample in config["eventClasses"]:
         if sample["sampleLabel"] == "ttHH":
                 # sample_train_weight = 0.5
                 # normalization_weight = 2.
-                normalization_weight = 1.
+                normalization_weight = 0.861419355
                 # sample_path = dfDirectory+"ttHH_dnn.h5"
         elif sample["sampleLabel"] == "ttZH":
                 sample_train_weight = 1
