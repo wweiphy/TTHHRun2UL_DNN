@@ -197,9 +197,9 @@ class savenominalDiscriminators:
                 for syst in SystMap.syst_decorrelated:
 
                     if "total_weight_up" in syst:
-                        subtitle = SystMap.systs[syst][0].replace('Up','')+"_"+self.year+"Up"
+                        subtitle = SystMap.syst_decorrelated[syst][0].replace('Up','')+"_"+self.year+"Up"
                     if "total_weight_down" in syst:
-                        subtitle = SystMap.systs[syst][0].replace('Down','')+"_"+self.year+"Down" 
+                        subtitle = SystMap.syst_decorrelated[syst][0].replace('Down','')+"_"+self.year+"Down" 
 
                     
                     filtered_syst_weights = self.lumi * \
