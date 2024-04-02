@@ -194,7 +194,7 @@ class savenominalDiscriminators:
                         filled=True)
                     bkgHists.append(histogram)
 
-                for syst in SystMap.systs_decorrelated:
+                for syst in SystMap.syst_decorrelated:
 
                     if "total_weight_up" in syst:
                         subtitle = SystMap.systs[syst][0].replace('Up','')+"_"+self.year+"Up"
