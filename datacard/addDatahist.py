@@ -20,10 +20,10 @@ parser.add_option("-f", "--folder", dest="folder", default="221204_test_evaluati
 # classNames = ['ttHH','ttH','ttZ','ttZH','ttZZ','ttlf','ttcc','ttb','tt2b','ttbb','ttbbb','tt4b']
 
 if options.new == "new":
-    # nodeNames = ['ttHH','ttH','ttZ','ttZH','ttZZ','ttlf','ttcc','ttmb','ttnb']
-    # classNames = ['ttHH','ttH','ttZ','ttZH','ttZZ','ttlf','ttcc','ttmb','ttnb']
-    nodeNames = ['ttH','ttZ','ttZH','ttZZ','ttlf','ttcc','ttmb','ttnb']
-    classNames = ['ttH','ttZ','ttZH','ttZZ','ttlf','ttcc','ttmb','ttnb']
+    nodeNames = ['ttHH','ttH','ttZ','ttZH','ttZZ','ttlf','ttcc','ttmb','ttnb']
+    classNames = ['ttHH','ttH','ttZ','ttZH','ttZZ','ttlf','ttcc','ttmb','ttnb']
+    # nodeNames = ['ttH','ttZ','ttZH','ttZZ','ttlf','ttcc','ttmb','ttnb']
+    # classNames = ['ttH','ttZ','ttZH','ttZZ','ttlf','ttcc','ttmb','ttnb']
 
 elif options.new == "old":
     nodeNames = ['ttHH','ttH','ttZ','ttZH','ttZZ','ttlf','ttcc','ttb','tt2b','ttbb','ttbbb','tt4b']
