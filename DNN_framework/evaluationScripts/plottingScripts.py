@@ -70,40 +70,49 @@ class savenominalDiscriminators:
             # current_binrange = [0,1]
             if not self.equalbin:
                 if node_cls == "ttHH":
-                    current_binrange = [0, 0.19, 0.23, 0.25,
-                                        0.27, 0.285, 0.3, 0.33, 0.35, 0.55]
+                    current_binrange = [0, 0.55]
+                    # current_binrange = [0, 0.19, 0.23, 0.25,
+                    #                     0.27, 0.285, 0.3, 0.33, 0.35, 0.55]
                     nbins = len(current_binrange) - 1
                 if node_cls == "ttH":
-                    current_binrange = [0, 0.18, 0.20, 0.22, 0.24,
-                                        0.255, 0.265, 0.28, 0.30, 0.32, 0.36, 0.45]
+                    current_binrange = [0, 0.45]
+                    # current_binrange = [0, 0.18, 0.20, 0.22, 0.24,
+                    #                     0.255, 0.265, 0.28, 0.30, 0.32, 0.36, 0.45]
                     nbins = len(current_binrange) - 1
                 if node_cls == "ttZH":
-                    current_binrange = [0, 0.16, 0.18, 0.2,
-                                        0.21, 0.23, 0.24, 0.25, 0.26, 0.27, 0.45]
+                    current_binrange = [0, 0.45]
+                    # current_binrange = [0, 0.16, 0.18, 0.2,
+                    #                     0.21, 0.23, 0.24, 0.25, 0.26, 0.27, 0.45]
                     nbins = len(current_binrange) - 1
                 if node_cls == "ttZ":
-                    current_binrange = [0, 0.19, 0.205, 0.22,
-                                        0.23, 0.245, 0.255, 0.27, 0.29, 0.45]
+                    current_binrange = [0, 0.45]
+                    # current_binrange = [0, 0.19, 0.205, 0.22,
+                    #                     0.23, 0.245, 0.255, 0.27, 0.29, 0.45]
                     nbins = len(current_binrange) - 1
                 if node_cls == "ttZZ":
-                    current_binrange = [0, 0.16, 0.18, 0.19,
-                                        0.20, 0.21, 0.22, 0.235, 0.25, 0.28, 0.5]
+                    current_binrange = [0, 0.5]
+                    # current_binrange = [0, 0.16, 0.18, 0.19,
+                    #                     0.20, 0.21, 0.22, 0.235, 0.25, 0.28, 0.5]
                     nbins = len(current_binrange) - 1
                 if node_cls == "ttlf":
-                    current_binrange = [0, 0.22, 0.25, 0.28,
-                                        0.30, 0.34, 0.36, 0.4, 0.5, 0.55, 0.7]
+                    current_binrange = [0, 0.7]
+                    # current_binrange = [0, 0.22, 0.25, 0.28,
+                    #                     0.30, 0.34, 0.36, 0.4, 0.5, 0.55, 0.7]
                     nbins = len(current_binrange) - 1
                 if node_cls == "ttcc":
-                    current_binrange = [0, 0.17, 0.2, 0.22,
-                                        0.24, 0.26, 0.28, 0.30, 0.32, 0.35, 0.5]
+                    current_binrange = [0, 0.5]
+                    # current_binrange = [0, 0.17, 0.2, 0.22,
+                    #                     0.24, 0.26, 0.28, 0.30, 0.32, 0.35, 0.5]
                     nbins = len(current_binrange) - 1
                 if node_cls == "ttmb":
-                    current_binrange = [0, 0.18, 0.2, 0.215, 0.23,
-                                        0.24, 0.25, 0.26, 0.28, 0.30, 0.32, 0.4]
+                    current_binrange = [0, 0.4]
+                    # current_binrange = [0, 0.18, 0.2, 0.215, 0.23,
+                    #                     0.24, 0.25, 0.26, 0.28, 0.30, 0.32, 0.4]
                     nbins = len(current_binrange) - 1
                 if node_cls == "ttnb":
-                    current_binrange = [0, 0.19, 0.22, 0.24,
-                                        0.25, 0.26, 0.28, 0.30, 0.34, 0.36, 0.55]
+                    current_binrange = [0, 0.55]
+                    # current_binrange = [0, 0.19, 0.22, 0.24,
+                    #                     0.25, 0.26, 0.28, 0.30, 0.34, 0.36, 0.55]
                     nbins = len(current_binrange) - 1
 
             else:
@@ -609,40 +618,49 @@ class saveJESJERDiscriminators:
             # current_binrange = [0, 1]
             if not self.equalbin:
                 if node_cls == "ttHH":
-                    current_binrange = [0, 0.19, 0.23, 0.25,
-                                        0.27, 0.285, 0.3, 0.33, 0.35, 0.55]
+                    current_binrange = [0, 0.55]
+                    # current_binrange = [0, 0.19, 0.23, 0.25,
+                    #                     0.27, 0.285, 0.3, 0.33, 0.35, 0.55]
                     nbins = len(current_binrange) - 1
                 if node_cls == "ttH":
-                    current_binrange = [0, 0.18, 0.20, 0.22, 0.24,
-                                        0.255, 0.265, 0.28, 0.30, 0.32, 0.36, 0.45]
+                    current_binrange = [0, 0.45]
+                    # current_binrange = [0, 0.18, 0.20, 0.22, 0.24,
+                    #                     0.255, 0.265, 0.28, 0.30, 0.32, 0.36, 0.45]
                     nbins = len(current_binrange) - 1
                 if node_cls == "ttZH":
-                    current_binrange = [0, 0.16, 0.18, 0.2,
-                                        0.21, 0.23, 0.24, 0.25, 0.26, 0.27, 0.45]
+                    current_binrange = [0, 0.45]
+                    # current_binrange = [0, 0.16, 0.18, 0.2,
+                    #                     0.21, 0.23, 0.24, 0.25, 0.26, 0.27, 0.45]
                     nbins = len(current_binrange) - 1
                 if node_cls == "ttZ":
-                    current_binrange = [0, 0.19, 0.205, 0.22,
-                                        0.23, 0.245, 0.255, 0.27, 0.29, 0.45]
+                    current_binrange = [0, 0.45]
+                    # current_binrange = [0, 0.19, 0.205, 0.22,
+                    #                     0.23, 0.245, 0.255, 0.27, 0.29, 0.45]
                     nbins = len(current_binrange) - 1
                 if node_cls == "ttZZ":
-                    current_binrange = [0, 0.16, 0.18, 0.19,
-                                        0.20, 0.21, 0.22, 0.235, 0.25, 0.28, 0.5]
+                    current_binrange = [0, 0.5]
+                    # current_binrange = [0, 0.16, 0.18, 0.19,
+                    #                     0.20, 0.21, 0.22, 0.235, 0.25, 0.28, 0.5]
                     nbins = len(current_binrange) - 1
                 if node_cls == "ttlf":
-                    current_binrange = [0, 0.22, 0.25, 0.28,
-                                        0.30, 0.34, 0.36, 0.4, 0.5, 0.55, 0.7]
+                    current_binrange = [0, 0.7]
+                    # current_binrange = [0, 0.22, 0.25, 0.28,
+                    #                     0.30, 0.34, 0.36, 0.4, 0.5, 0.55, 0.7]
                     nbins = len(current_binrange) - 1
                 if node_cls == "ttcc":
-                    current_binrange = [0, 0.17, 0.2, 0.22,
-                                        0.24, 0.26, 0.28, 0.30, 0.32, 0.35, 0.5]
+                    current_binrange = [0, 0.5]
+                    # current_binrange = [0, 0.17, 0.2, 0.22,
+                    #                     0.24, 0.26, 0.28, 0.30, 0.32, 0.35, 0.5]
                     nbins = len(current_binrange) - 1
                 if node_cls == "ttmb":
-                    current_binrange = [0, 0.18, 0.2, 0.215, 0.23,
-                                        0.24, 0.25, 0.26, 0.28, 0.30, 0.32, 0.4]
+                    current_binrange = [0, 0.4]
+                    # current_binrange = [0, 0.18, 0.2, 0.215, 0.23,
+                    #                     0.24, 0.25, 0.26, 0.28, 0.30, 0.32, 0.4]
                     nbins = len(current_binrange) - 1
                 if node_cls == "ttnb":
-                    current_binrange = [0, 0.19, 0.22, 0.24,
-                                        0.25, 0.26, 0.28, 0.30, 0.34, 0.36, 0.55]
+                    current_binrange = [0, 0.55]
+                    # current_binrange = [0, 0.19, 0.22, 0.24,
+                    #                     0.25, 0.26, 0.28, 0.30, 0.34, 0.36, 0.55]
                     nbins = len(current_binrange) - 1
             else:
                 current_binrange = [out_values.min(), out_values.max()]
