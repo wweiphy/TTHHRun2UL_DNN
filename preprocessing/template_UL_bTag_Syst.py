@@ -323,7 +323,7 @@ dataset.addSample(
     
     sampleName="TTHDL",
     ntuples=ntuplesPath2 +
-    "/2017/ntuple/ttHTobb_ttTo2L2Nu_M125_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2017/240331_223756/*/*"+options.syst+"*.root",
+    "/2017/ntuple/ttHTobb_ttTo2L2Nu_M125_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2017/240401_042748/*/*"+options.syst+"*.root",
     #    ntuples     = ntuplesPath+"/ttH_220208.root",
     categories=ttHDL_categories,
     process = "ttHDL",
