@@ -618,9 +618,9 @@ class saveJESJERDiscriminators:
             # current_binrange = [0, 1]
             if not self.equalbin:
                 if node_cls == "ttHH":
-                    # current_binrange = [0, 0.23, 0.25, 0.3, 0.55]
-                    current_binrange = [0, 0.19, 0.23, 0.25,
-                                        0.27, 0.285, 0.3, 0.33, 0.35, 0.55]
+                    current_binrange = [0, 0.23, 0.25, 0.27, 0.3, 0.33, 0.55]
+                    # current_binrange = [0, 0.19, 0.23, 0.25,
+                                        # 0.27, 0.285, 0.3, 0.33, 0.35, 0.55]
                     nbins = len(current_binrange) - 1
                 if node_cls == "ttH":
                     # current_binrange = [0, 0.18, 0.20, 0.22, 0.24,0.45]
