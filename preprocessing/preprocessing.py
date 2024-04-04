@@ -1200,9 +1200,9 @@ class Dataset:
             jet_PUIDsf_perevent = 1.
             jet_btagsf_perevent = 1.
 
-            up = 1.
-            nominal = 1.
-            down = 1.
+            # up = 1.
+            # nominal = 1.
+            # down = 1.
 
             for j in range(jet_pt["Jet_Pt"][i].size):	
 
@@ -1212,15 +1212,15 @@ class Dataset:
 
                     jet_btagsf_perevent *= btvjson["deepJet_shape"].evaluate(dosyst, jet_flavor['Jet_Flav'][i][j], abs(float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))
 
-                    test_up = btvjson["deepJet_shape"].evaluate("up_jes", jet_flavor['Jet_Flav'][i][j], abs(float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))
+                    # test_up = btvjson["deepJet_shape"].evaluate("up_jes", jet_flavor['Jet_Flav'][i][j], abs(float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))
 
-                    test_nominal = btvjson["deepJet_shape"].evaluate("central", jet_flavor['Jet_Flav'][i][j], abs(float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))
+                    # test_nominal = btvjson["deepJet_shape"].evaluate("central", jet_flavor['Jet_Flav'][i][j], abs(float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))
 
-                    test_down = btvjson["deepJet_shape"].evaluate("down_jes", jet_flavor['Jet_Flav'][i][j], abs(float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j])) 
+                    # test_down = btvjson["deepJet_shape"].evaluate("down_jes", jet_flavor['Jet_Flav'][i][j], abs(float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j])) 
 
-                    up *= test_up
-                    nominal *= test_nominal
-                    down *= test_down
+                    # up *= test_up
+                    # nominal *= test_nominal
+                    # down *= test_down
                     # if j == 0:
                         # print("up: {}, nominal: {}, down: {}".format(test_up, test_nominal, test_down))
 
