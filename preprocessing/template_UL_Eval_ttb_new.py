@@ -12,7 +12,7 @@ import preprocessing
 
 
 """
-USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_ttb_new.py --outputdirectory=Eval_0308_UL_nominal --variableselection=variables --maxentries=20000 --cores=8 --dataEra=2018
+USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_ttb_new.py --outputdirectory=Eval_0119_UL_nominal --variableselection=variables --maxentries=20000 --cores=8
 """
 
 usage="usage=%prog [options] \n"
@@ -131,9 +131,10 @@ dataset.addBaseSelection(base_selection)
 dataset.addSample(
     sampleName  = "TTbbSL",
     ntuples=ntuplesPath2 +
-    "/2018/ntuple/TTbb_4f_TTToSemiLeptonic_TuneCP5-Powheg-Openloops-Pythia8/sl_LEG_ntuple_2018/240325_145203/*/*nominal*.root",
+    "/2017/ntuple/TTbb_4f_TTToSemiLeptonic_TuneCP5-Powheg-Openloops-Pythia8/sl_LEG_ntuple_2017/230115_045551/*/*nominal*.root",
+    # 221118_234458
     categories  = ttmb_categories,
-    process = "ttbbSL",
+    process="ttbbSL",
 #    lumiWeight  = 41.5,
     selections=ttHH_selection,  # ttbar_selection,
 #    selections  = ttbar_selection,
@@ -143,7 +144,7 @@ dataset.addSample(
 dataset.addSample(
     sampleName="TTbbDL",
     ntuples=ntuplesPath2 +
-    "/2018/ntuple/TTbb_4f_TTTo2L2Nu_TuneCP5-Powheg-Openloops-Pythia8/sl_LEG_ntuple_2018/240321_053846/*/*nominal*.root",
+    "/2017/ntuple/TTbb_4f_TTTo2L2Nu_TuneCP5-Powheg-Openloops-Pythia8/sl_LEG_ntuple_2017/230115_050027/*/*nominal*.root",
     # 221118_234955
     categories=ttmb_categories,
     process="ttbbDL",

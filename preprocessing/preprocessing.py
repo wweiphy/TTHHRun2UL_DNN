@@ -26,7 +26,7 @@ genmap2017 = pd.read_csv(filedir+"/GenNormMap/ratefactors_new_plotscript_2017.cs
 genmap2018 = pd.read_csv(filedir+"/GenNormMap/ratefactors_new_plotscript_2018.csv")
 
 # btagcorrection2016 = pd.read_csv(filedir+"/BTagCorrection/btag-correction-2016.csv")
-# btagcorrection2017 = pd.read_csv(filedir+"/BTagCorrection/btag-correction-2017.csv")
+btagcorrection2017 = pd.read_csv(filedir+"/BTagCorrection/btag-correction-2017.csv")
 btagcorrection2018 = pd.read_csv(filedir+"/BTagCorrection/btag-correction-2018.csv")
 
 # multi processing magic
@@ -94,7 +94,7 @@ class Dataset:
         btagfile = btagcorrection2018
         if self.dataEra == "2017" or self.dataEra == 2017:
             genfile = genmap2017
-            # btagfile = btagcorrection2017 
+            btagfile = btagcorrection2017 
         elif self.dataEra == "2018" or self.dataEra == 2018:
             genfile = genmap2018
             btagfile = btagcorrection2018
