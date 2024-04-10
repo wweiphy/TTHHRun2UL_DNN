@@ -16,27 +16,18 @@ import DNN_framework.data_frame as df
 
 # 2018 
 
-# python eval_template_new.py -o 230220_evaluation_new_5j4b -i 230220_50_ge5j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_3_nominal --ttmb=5.654803199 --ttnb=1.0 --notequalbin --lumi=83 --year=2018 
+# python eval_template_new.py -o 230220_evaluation_new_5j4b_2 -i 230220_50_ge5j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_3_nominal --ttmb=5.654803199 --ttnb=1.0 --ttHH=0.861419355 --notequalbin --lumi=119.66 --year=2018  
 
-# --ttnb=1.240415029
-# python eval_template_new.py -o 230220_evaluation_new_5j4b_5FS_test -i 230220_50_ge5j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_nominal --ttmb=1.0 --ttnb=1.0
 
-# python eval_template_new.py -o 230220_evaluation_new_5j4b_4FS -i 230220_50_ge5j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_nominal --ttmb=5.654803199 --ttnb=3.611169031 --notequalbin
+# python eval_template_new.py -o 230220_evaluation_new_6j4b_2 -i 230220_50_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_3_nominal --ttmb=5.654803199 --ttnb=1.0 --notequalbin --lumi=119.66 --year=2018 --ttHH=0.861419355  
 
-# python eval_template_new.py -o 230220_evaluation_new_6j4b_test -i 230220_50_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_nominal --ttmb=5.654803199 --ttnb=1.0 --notequalbin
+
 # --ttnb=1.212174627
 
-# python eval_template_new.py -o 230220_evaluation_new_6j4b_5FS_test -i 230220_50_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_nominal --ttmb=1.0 --ttnb=1.0
-
-# python eval_template_new.py -o 230220_evaluation_new_6j4b_4FS -i 230220_50_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_nominal --ttmb=5.654803199 --ttnb=3.611169031 --notequalbin
-
-# python eval_template_new.py -o 230220_evaluation_new_6j4b_4FS_2 -i 231011_50_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_nominal_4FS
 
 # 2017
-# python eval_template_new.py -o 230119_evaluation_new_4FS -i 221130_50_ge4j_ge3t --signalclass=ttHH --plot --printroc -d Eval_0119_UL_nominal
 
-# python eval_template_new.py -o 230119_evaluation_new_6j4b -i 230119_50_ge6j_ge4t  --signalclass=ttHH --plot --printroc -d Eval_0119_UL_nominal
-# python eval_template_new.py -o 230119_evaluation_new_5j4b -i 230119_50_ge5j_ge4t  --signalclass=ttHH --plot --printroc -d Eval_0119_UL_nominal
+# python eval_template_new.py -o 230119_evaluation_new_6j4b -i 230119_50_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0119_UL_3_nominal --ttmb=5.654803199 --ttnb=1.0 --notequalbin --lumi=83.0 --year=2017 --ttHH=0.861419355 
 
 # 2016post
 # python eval_template_new.py -o 230523_evaluation_new_2 -i 230523_50_ge4j_ge3t --signalclass=ttHH --plot --printroc -d Eval_0523_UL_nominal
@@ -104,6 +95,9 @@ parser.add_option("--ttmb", dest="ttmb", default=1.0, type=float,
 parser.add_option("--ttnb", dest="ttnb", default=1.0, type=float,
                   help="factor for ttnb events", metavar="ttnb")
 
+parser.add_option("--ttHH", dest="ttHH", default=1.0, type=float,
+                  help="factor for ttHH events", metavar="ttHH")
+
 parser.add_option("--lumi", dest="lumi", default=83, type=float,
                   help="luminosity", metavar="lumi")
 parser.add_option("--year", dest="year", default = "2017",
@@ -166,7 +160,9 @@ for sample in config["eventClasses"]:
         # normalization_weight = 1
         if sample["sampleLabel"] == "ttHH":
                 # sample_train_weight = 0.5
-                normalization_weight = 0.861419355
+                normalization_weight = options.ttHH
+                # normalization_weight = 0.861419355
+                # ratio = new cross section (0.6676)/old cross section (0.775)
                 # sample_path = dfDirectory+"ttHH_dnn.h5"
         elif sample["sampleLabel"] == "ttZH":
                 # sample_train_weight = 1

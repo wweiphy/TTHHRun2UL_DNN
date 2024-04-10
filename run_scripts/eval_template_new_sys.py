@@ -16,25 +16,14 @@ import DNN_framework.data_frame as df
 
 #  2018
 
-# python eval_template_new_sys.py -o 230220_evaluation_new_5j4b -i 230220_50_ge5j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_3 --ttmb=5.505191209 --ttnb=1.0 --lumi=83 --year=2018 --notequalbin --syst=JESup 
+# python eval_template_new_sys.py -o 230220_evaluation_new_5j4b_2 -i 230220_50_ge5j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_3 --ttmb=5.654803199 --ttnb=1.0 --lumi=119.66 --year=2018 --notequalbin --ttHH=0.861419355 --syst=JESup 
 
-# python eval_template_new_sys.py -o 230220_evaluation_new_5j4b_4FS_test -i 230220_50_ge5j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL --ttmb=5.505191209 --ttnb=3.538023785 --syst=JESdown
 
-# python eval_template_new_sys.py -o 230220_evaluation_new_6j4b_test -i 230220_50_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL --ttmb=5.467833742 --ttnb=1.212174627 --syst=JESup
+# python eval_template_new_sys.py -o 230220_evaluation_new_6j4b_2 -i 230220_50_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_3 --ttmb=5.654803199 --ttnb=1.0 --lumi=119.66 --year=2018 --notequalbin --ttHH=0.861419355 --syst=JESup
 
-# python eval_template_new_sys.py -o 230220_evaluation_new_6j4b_4FS_test -i 230220_50_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL --ttmb=5.467833742 --ttnb=3.363282228 --syst=JESdown
 
 # 2017
-# python eval_template_new_sys.py -o 230119_evaluation_new_2 -i 221130_50_ge4j_ge3t --signalclass=ttHH --plot --printroc -d Eval_0119_UL --syst=JESup --lumi=83 --notequalbin
-
-# python eval_template_new_sys.py -o 230119_evaluation_new_6j4b -i 230119_50_ge6j_ge4t  --signalclass=ttHH --plot --printroc -d Eval_0119_UL --ttmb=58.90519929 --ttnb=1.0 --syst=JESup --lumi=83 --notequalbin
-# --ttnb = 1.201014393
-# python eval_template_new_sys.py -o 230119_evaluation_new_6j4b_4FS -i 230119_50_ge6j_ge4t  --signalclass=ttHH --plot --printroc -d Eval_0119_UL --ttmb=58.90519929 --ttnb=38.92963248 --syst=JESup
-# python eval_template_new_sys.py -o 230119_evaluation_new_6j4b_5FS -i 230119_50_ge6j_ge4t  --signalclass=ttHH --plot --printroc -d Eval_0119_UL --ttmb=1.0 --ttnb=1.0 --syst=JESup
-
-# python eval_template_new_sys.py -o 230119_evaluation_new_5j4b -i 230119_50_ge5j_ge4t  --signalclass=ttHH --plot --printroc -d Eval_0119_UL --ttmb=59.00761686 --ttnb=1.206068632 --syst=JESup
-# python eval_template_new_sys.py -o 230119_evaluation_new_5j4b_4FS -i 230119_50_ge5j_ge4t  --signalclass=ttHH --plot --printroc -d Eval_0119_UL --ttmb=59.00761686 --ttnb=39.87166406 --syst=JESup
-# python eval_template_new_sys.py -o 230119_evaluation_new_5j4b_5FS -i 230119_50_ge5j_ge4t  --signalclass=ttHH --plot --printroc -d Eval_0119_UL --ttmb=1.0 --ttnb=1.0 --syst=JESup
+# python eval_template_new_sys.py -o 230119_evaluation_new_6j4b -i 230119_50_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0119_UL_3 --ttmb=5.654803199 --ttnb=1.0 --lumi=83.0 --notequalbin --year=2017 --ttHH=0.861419355 --syst=JESup 
 
 
 # 2016post
@@ -107,6 +96,8 @@ parser.add_option("--ttmb", dest="ttmb", default=1.0, type=float,
 
 parser.add_option("--ttnb", dest="ttnb", default=1.0, type=float,
                   help="factor for ttnb events", metavar="ttnb")
+parser.add_option("--ttHH", dest="ttHH", default=1.0, type=float,
+                  help="factor for ttHH events", metavar="ttHH")
 
 parser.add_option("-s", "--syst", dest="syst", default="JESup",
                   help="JER JES uncertainties", metavar="syst")
@@ -199,10 +190,10 @@ for sample in config["eventClasses"]:
         total_weight_expr = "x.Weight_XS * x.Weight_CSV_UL * x.Weight_GEN_nom * x.lumiWeight"
         # normalization_weight = 1
         if sample["sampleLabel"] == "ttHH":
-                # sample_train_weight = 0.5
-                # normalization_weight = 2.
-                normalization_weight = 0.861419355
-                # sample_path = dfDirectory+"ttHH_dnn.h5"
+
+                normalization_weight = options.ttHH
+                # normalization_weight = 0.861419355
+                # ratio = new cross section (0.6676)/old cross section (0.775)
         elif sample["sampleLabel"] == "ttZH":
                 sample_train_weight = 1
                 # normalization_weight = 2. # JERdown 2018
