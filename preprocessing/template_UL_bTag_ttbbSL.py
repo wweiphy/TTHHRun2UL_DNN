@@ -122,17 +122,17 @@ dataset = preprocessing.Dataset(
 # add base event selection
 dataset.addBaseSelection(base_selection)
 
-dataset.addSample(
-    sampleName  = "TTbbSL",
-    ntuples=ntuplesPath2 +
-    "/2016pre/ntuple/TTbb_4f_TTToSemiLeptonic_TuneCP5-Powheg-Openloops-Pythia8/sl_LEG_ntuple_2016preVFP/240403_011254/*/*nominal*.root",
-    categories  = ttmb_categories,
-    process = "ttbbSL",
-#    lumiWeight  = 41.5,
-    selections=None,  # ttbar_selection,
-#    selections  = ttbar_selection,
-    islocal     = False
-      )
+# dataset.addSample(
+#     sampleName  = "TTbbSL",
+#     ntuples=ntuplesPath2 +
+#     "/2016pre/ntuple/TTbb_4f_TTToSemiLeptonic_TuneCP5-Powheg-Openloops-Pythia8/sl_LEG_ntuple_2016preVFP/240403_011254/*/*nominal*.root",
+#     categories  = ttmb_categories,
+#     process = "ttbbSL",
+# #    lumiWeight  = 41.5,
+#     selections=None,  # ttbar_selection,
+# #    selections  = ttbar_selection,
+#     islocal     = False
+#       )
 
 
 dataset.addSample(

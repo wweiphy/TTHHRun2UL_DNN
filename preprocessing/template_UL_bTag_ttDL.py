@@ -138,18 +138,18 @@ dataset.addBaseSelection(base_selection)
 #     islocal=False
 # )
 
-dataset.addSample(
-    sampleName="TTDL",
-    ntuples=ntuplesPath2 +
-    "/2016pre/ntuple/TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2016preVFP/240402_023949/*/*nominal*.root",
-    #    ntuples     = ntuplesPath+"/ttSL_220210.root",
-    categories=ttbar_categories,
-    process="ttDL",
-    # lumiWeight  = 1.0,
-    selections=None,  # ttbar_selection,
-    #    selections  = ttbar_selection
-    islocal=False
-)
+# dataset.addSample(
+#     sampleName="TTDL",
+#     ntuples=ntuplesPath2 +
+#     "/2016pre/ntuple/TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2016preVFP/240402_023949/*/*nominal*.root",
+#     #    ntuples     = ntuplesPath+"/ttSL_220210.root",
+#     categories=ttbar_categories,
+#     process="ttDL",
+#     # lumiWeight  = 1.0,
+#     selections=None,  # ttbar_selection,
+#     #    selections  = ttbar_selection
+#     islocal=False
+# )
 
 dataset.addSample(
     sampleName="TTDL",

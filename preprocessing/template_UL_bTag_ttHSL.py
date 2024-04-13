@@ -124,18 +124,18 @@ dataset = preprocessing.Dataset(
 dataset.addBaseSelection(base_selection)
 
 
-dataset.addSample(
-    sampleName="TTHSL",
-    ntuples=ntuplesPath2 +
-    "/2016pre/ntuple/ttHTobb_ttToSemiLep_M125_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2016preVFP/240403_015030/*/*nominal*.root",
-    #    ntuples     = ntuplesPath+"/ttH_220208.root",
-    categories=ttH_categories,
-    process = "ttHSL",
-    #    lumiWeight  = 41.5,
-    selections=None,  # ttbar_selection,
-    #    selections  = ttH_selection,
-    islocal=False
-)
+# dataset.addSample(
+#     sampleName="TTHSL",
+#     ntuples=ntuplesPath2 +
+#     "/2016pre/ntuple/ttHTobb_ttToSemiLep_M125_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2016preVFP/240403_015030/*/*nominal*.root",
+#     #    ntuples     = ntuplesPath+"/ttH_220208.root",
+#     categories=ttH_categories,
+#     process = "ttHSL",
+#     #    lumiWeight  = 41.5,
+#     selections=None,  # ttbar_selection,
+#     #    selections  = ttH_selection,
+#     islocal=False
+# )
 
 
 dataset.addSample(

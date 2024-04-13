@@ -180,19 +180,19 @@ dataset = preprocessing.Dataset(
 dataset.addBaseSelection(base_selection)
 
 
-dataset.addSample(
-    sampleName="TTHHTo4b",
-    ntuples=ntuplesPath2 +
-    "/2016pre/ntuple/TTHHTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2016preVFP/240402_010207/*/*" +
-    options.syst+"*.root",
-    #    ntuples     = ntuplesPath+"/ttHH_4b.root",
-    categories=ttHH_categories,
-    process = "ttHH",
-    #    lumiWeight  = 41.5,
-    # selections  = None,
-    selections=None,
-    islocal=False
-)
+# dataset.addSample(
+#     sampleName="TTHHTo4b",
+#     ntuples=ntuplesPath2 +
+#     "/2016pre/ntuple/TTHHTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2016preVFP/240402_010207/*/*" +
+#     options.syst+"*.root",
+#     #    ntuples     = ntuplesPath+"/ttHH_4b.root",
+#     categories=ttHH_categories,
+#     process = "ttHH",
+#     #    lumiWeight  = 41.5,
+#     # selections  = None,
+#     selections=None,
+#     islocal=False
+# )
 
 dataset.addSample(
     sampleName="TTHHTo4b",
@@ -209,18 +209,18 @@ dataset.addSample(
 )
 
 
-dataset.addSample(
-    sampleName="TTZZ",
-    ntuples=ntuplesPath2 +
-    "/2016pre/ntuple/TTZZTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2016preVFP/240402_214958/*/*" + options.syst+"*.root",
-    #    ntuples     = ntuplesPath+"/ttH_220208.root",
-    categories=ttZZ_categories,
-    process = "ttZZ",
-    #    lumiWeight  = 41.5,
-    selections=None,  # ttbar_selection,
-    #    selections  = ttbar_selection,
-    islocal=False
-)
+# dataset.addSample(
+#     sampleName="TTZZ",
+#     ntuples=ntuplesPath2 +
+#     "/2016pre/ntuple/TTZZTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2016preVFP/240402_214958/*/*" + options.syst+"*.root",
+#     #    ntuples     = ntuplesPath+"/ttH_220208.root",
+#     categories=ttZZ_categories,
+#     process = "ttZZ",
+#     #    lumiWeight  = 41.5,
+#     selections=None,  # ttbar_selection,
+#     #    selections  = ttbar_selection,
+#     islocal=False
+# )
 
 dataset.addSample(
     sampleName="TTZZ",
@@ -237,18 +237,18 @@ dataset.addSample(
 
 
 
-dataset.addSample(
-    sampleName="TTZH",
-    ntuples=ntuplesPath2 +
-    "/2016pre/ntuple/TTZHTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2016preVFP/240402_143702/*/*" + options.syst+"*.root",
-    #    ntuples     = ntuplesPath+"/ttH_220208.root",
-    categories=ttZH_categories,
-    process = "ttZH",
-    #    lumiWeight  = 41.5,
-    selections=None,  # ttbar_selection,
-    #    selections  = ttbar_selection,
-    islocal=False
-)
+# dataset.addSample(
+#     sampleName="TTZH",
+#     ntuples=ntuplesPath2 +
+#     "/2016pre/ntuple/TTZHTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2016preVFP/240402_143702/*/*" + options.syst+"*.root",
+#     #    ntuples     = ntuplesPath+"/ttH_220208.root",
+#     categories=ttZH_categories,
+#     process = "ttZH",
+#     #    lumiWeight  = 41.5,
+#     selections=None,  # ttbar_selection,
+#     #    selections  = ttbar_selection,
+#     islocal=False
+# )
 
 dataset.addSample(
     sampleName="TTZH",
@@ -266,19 +266,19 @@ dataset.addSample(
 
 
 
-dataset.addSample(
-    sampleName="TTZ",
-    ntuples=ntuplesPath2 +
-    "/2016pre/ntuple/TTZToBB_TuneCP5_13TeV-amcatnlo-pythia8/sl_LEG_ntuple_2016preVFP/240402_212026/*/*" + options.syst+"*.root",
-    # ntuples="/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_10_6_29/src/BoostedTTH/BoostedAnalyzer/test/ntuples_nominal_Tree.root",
-    #    ntuples     = ntuplesPath+"/ttH_220208.root",
-    categories=ttZ_categories,
-    process = "ttZ",
-    #    lumiWeight  = 41.5,
-    selections=None,  # ttbar_selection,
-    #    selections  = ttbar_selection,
-    islocal=False
-)  
+# dataset.addSample(
+#     sampleName="TTZ",
+#     ntuples=ntuplesPath2 +
+#     "/2016pre/ntuple/TTZToBB_TuneCP5_13TeV-amcatnlo-pythia8/sl_LEG_ntuple_2016preVFP/240402_212026/*/*" + options.syst+"*.root",
+#     # ntuples="/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_10_6_29/src/BoostedTTH/BoostedAnalyzer/test/ntuples_nominal_Tree.root",
+#     #    ntuples     = ntuplesPath+"/ttH_220208.root",
+#     categories=ttZ_categories,
+#     process = "ttZ",
+#     #    lumiWeight  = 41.5,
+#     selections=None,  # ttbar_selection,
+#     #    selections  = ttbar_selection,
+#     islocal=False
+# )  
 
 
 dataset.addSample(
@@ -296,17 +296,17 @@ dataset.addSample(
 )
 
       
-dataset.addSample(
-    sampleName  = "TTbbSL",
-    ntuples=ntuplesPath2 +
-    "/2016pre/ntuple/TTbb_4f_TTToSemiLeptonic_TuneCP5-Powheg-Openloops-Pythia8/sl_LEG_ntuple_2016preVFP/240403_011254/*/*"+options.syst+"*.root",
-    categories  = ttmbSL_categories,
-    process = "ttbbSL",
-#    lumiWeight  = 41.5,
-    selections=None,  # ttbar_selection,
-#    selections  = ttbar_selection,
-    islocal     = False
-      )
+# dataset.addSample(
+#     sampleName  = "TTbbSL",
+#     ntuples=ntuplesPath2 +
+#     "/2016pre/ntuple/TTbb_4f_TTToSemiLeptonic_TuneCP5-Powheg-Openloops-Pythia8/sl_LEG_ntuple_2016preVFP/240403_011254/*/*"+options.syst+"*.root",
+#     categories  = ttmbSL_categories,
+#     process = "ttbbSL",
+# #    lumiWeight  = 41.5,
+#     selections=None,  # ttbar_selection,
+# #    selections  = ttbar_selection,
+#     islocal     = False
+#       )
 
 dataset.addSample(
     sampleName  = "TTbbSL",
@@ -321,18 +321,18 @@ dataset.addSample(
       )
 
 
-dataset.addSample(
-    sampleName="TTbbDL",
-    ntuples=ntuplesPath2 +
-    "/2016pre/ntuple/TTbb_4f_TTTo2L2Nu_TuneCP5-Powheg-Openloops-Pythia8/sl_LEG_ntuple_2016preVFP/240403_010844/*/*"+options.syst+"*.root",
-    # 221118_234955
-    categories=ttmbDL_categories,
-    process="ttbbDL",
-    #    lumiWeight  = 41.5,
-    selections=None,  # ttbar_selection,
-    #    selections  = ttbar_selection,
-    islocal=False
-)
+# dataset.addSample(
+#     sampleName="TTbbDL",
+#     ntuples=ntuplesPath2 +
+#     "/2016pre/ntuple/TTbb_4f_TTTo2L2Nu_TuneCP5-Powheg-Openloops-Pythia8/sl_LEG_ntuple_2016preVFP/240403_010844/*/*"+options.syst+"*.root",
+#     # 221118_234955
+#     categories=ttmbDL_categories,
+#     process="ttbbDL",
+#     #    lumiWeight  = 41.5,
+#     selections=None,  # ttbar_selection,
+#     #    selections  = ttbar_selection,
+#     islocal=False
+# )
 
 
 dataset.addSample(
@@ -349,18 +349,18 @@ dataset.addSample(
 )
 
 
-dataset.addSample(
-    sampleName="TT4b",
-    ntuples=ntuplesPath2 +
-    "/2016pre/ntuple/TT4b_TuneCP5_13TeV_madgraph_pythia8/sl_LEG_ntuple_2016preVFP/240402_000654/*/*"+
-    options.syst+"*.root",
-    categories=ttnb_categories,
-    process="tt4b",
-    #    lumiWeight  = 41.5,
-    selections=None,  # ttbar_selection,
-    #    selections  = ttbar_selection,
-    islocal=False
-)  
+# dataset.addSample(
+#     sampleName="TT4b",
+#     ntuples=ntuplesPath2 +
+#     "/2016pre/ntuple/TT4b_TuneCP5_13TeV_madgraph_pythia8/sl_LEG_ntuple_2016preVFP/240402_000654/*/*"+
+#     options.syst+"*.root",
+#     categories=ttnb_categories,
+#     process="tt4b",
+#     #    lumiWeight  = 41.5,
+#     selections=None,  # ttbar_selection,
+#     #    selections  = ttbar_selection,
+#     islocal=False
+# )  
 
 
 dataset.addSample(
@@ -376,18 +376,18 @@ dataset.addSample(
     islocal=False
 )  
 
-dataset.addSample(
-    sampleName="TTHSL",
-    ntuples=ntuplesPath2 +
-    "/2016pre/ntuple/ttHTobb_ttToSemiLep_M125_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2016preVFP/240412_015349/*/*"+options.syst+"*.root",
-    #    ntuples     = ntuplesPath+"/ttH_220208.root",
-    categories=ttHSL_categories,
-    process = "ttHSL",
-    #    lumiWeight  = 41.5,
-    selections=None,  # ttbar_selection,
-    #    selections  = ttH_selection,
-    islocal=False
-)
+# dataset.addSample(
+#     sampleName="TTHSL",
+#     ntuples=ntuplesPath2 +
+#     "/2016pre/ntuple/ttHTobb_ttToSemiLep_M125_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2016preVFP/240412_015349/*/*"+options.syst+"*.root",
+#     #    ntuples     = ntuplesPath+"/ttH_220208.root",
+#     categories=ttHSL_categories,
+#     process = "ttHSL",
+#     #    lumiWeight  = 41.5,
+#     selections=None,  # ttbar_selection,
+#     #    selections  = ttH_selection,
+#     islocal=False
+# )
 
 dataset.addSample(
     sampleName="TTHSL",
@@ -402,19 +402,19 @@ dataset.addSample(
     islocal=False
 )
 
-dataset.addSample(
+# dataset.addSample(
     
-    sampleName="TTHDL",
-    ntuples=ntuplesPath2 +
-    "/2016pre/ntuple/ttHTobb_ttTo2L2Nu_M125_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2016preVFP/240403_013749/*/*"+options.syst+"*.root",
-    #    ntuples     = ntuplesPath+"/ttH_220208.root",
-    categories=ttHDL_categories,
-    process = "ttHDL",
-    #    lumiWeight  = 41.5,
-    selections=None,  # ttbar_selection,
-    #    selections  = ttH_selection,
-    islocal=False
-)
+#     sampleName="TTHDL",
+#     ntuples=ntuplesPath2 +
+#     "/2016pre/ntuple/ttHTobb_ttTo2L2Nu_M125_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2016preVFP/240403_013749/*/*"+options.syst+"*.root",
+#     #    ntuples     = ntuplesPath+"/ttH_220208.root",
+#     categories=ttHDL_categories,
+#     process = "ttHDL",
+#     #    lumiWeight  = 41.5,
+#     selections=None,  # ttbar_selection,
+#     #    selections  = ttH_selection,
+#     islocal=False
+# )
 
 dataset.addSample(
     
@@ -430,18 +430,18 @@ dataset.addSample(
     islocal=False
 )
 
-dataset.addSample(
-    sampleName="TTSL",
-    ntuples=ntuplesPath2 +
-    "/2016pre/ntuple/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2016preVFP/240402_051139/*/*" + options.syst+"*.root",
-    #    ntuples     = ntuplesPath+"/ttSL_220210.root",
-    categories=ttSL_categories,
-    process = "ttSL",
-    #    lumiWeight  = 41.5,
-    selections=None,  # ttbar_selection,
-    #    selections  = ttbar_selection
-    islocal=False
-)
+# dataset.addSample(
+#     sampleName="TTSL",
+#     ntuples=ntuplesPath2 +
+#     "/2016pre/ntuple/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2016preVFP/240402_051139/*/*" + options.syst+"*.root",
+#     #    ntuples     = ntuplesPath+"/ttSL_220210.root",
+#     categories=ttSL_categories,
+#     process = "ttSL",
+#     #    lumiWeight  = 41.5,
+#     selections=None,  # ttbar_selection,
+#     #    selections  = ttbar_selection
+#     islocal=False
+# )
 
 dataset.addSample(
     sampleName="TTSL",
@@ -456,18 +456,18 @@ dataset.addSample(
     islocal=False
 )
 
-dataset.addSample(
-    sampleName="TTDL",
-    ntuples=ntuplesPath2 +
-    "/2016pre/ntuple/TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2016preVFP/240402_023949/*/*" + options.syst+"*.root",
-    #    ntuples     = ntuplesPath+"/ttSL_220210.root",
-    categories=ttDL_categories,
-    process="ttDL",
-    # lumiWeight  = 1.0,
-    selections=None,  # ttbar_selection,
-    #    selections  = ttbar_selection
-    islocal=False
-)
+# dataset.addSample(
+#     sampleName="TTDL",
+#     ntuples=ntuplesPath2 +
+#     "/2016pre/ntuple/TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2016preVFP/240402_023949/*/*" + options.syst+"*.root",
+#     #    ntuples     = ntuplesPath+"/ttSL_220210.root",
+#     categories=ttDL_categories,
+#     process="ttDL",
+#     # lumiWeight  = 1.0,
+#     selections=None,  # ttbar_selection,
+#     #    selections  = ttbar_selection
+#     islocal=False
+# )
 
 dataset.addSample(
     sampleName="TTDL",
