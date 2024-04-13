@@ -12,7 +12,7 @@ import preprocessing
 
 
 """
-USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_bTag_ttHH.py --outputdirectory=BTag_0308_UL_nominal --variableselection=variables_bTagCorrection --maxentries=20000 --cores=8 --dataEra=2018
+USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_bTag_ttHH.py --outputdirectory=BTag_0119_UL_nominal --variableselection=variables_bTagCorrection --maxentries=20000 --cores=8 --dataEra=2017
 """
 
 usage="usage=%prog [options] \n"
@@ -127,7 +127,7 @@ dataset.addBaseSelection(base_selection)
 dataset.addSample(
     sampleName="TTHHTo4b",
     ntuples=ntuplesPath2 +
-    "/2017/ntuple/TTHHTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2017/240331_011307/*/*nominal*.root",
+    "/2016pre/ntuple/TTHHTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2016preVFP/240402_010207/*/*nominal*.root",
     #    ntuples     = ntuplesPath+"/ttHH_4b.root",
     categories=ttHH_categories,
     process = "ttHH",
@@ -136,6 +136,21 @@ dataset.addSample(
     # selections=ttHH_selection,
     islocal=False
 )
+
+dataset.addSample(
+    sampleName="TTHHTo4b",
+    ntuples=ntuplesPath2 +
+    "/2016post/ntuple/TTHHTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2016postVFP/240401_050308/*/*nominal*.root",
+    #    ntuples     = ntuplesPath+"/ttHH_4b.root",
+    categories=ttHH_categories,
+    process = "ttHH",
+    #    lumiWeight  = 41.5,
+    selections  = None,
+    # selections=ttHH_selection,
+    islocal=False
+)
+
+
 
 
 # initialize variable list
