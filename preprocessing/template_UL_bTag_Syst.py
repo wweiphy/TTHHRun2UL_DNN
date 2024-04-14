@@ -270,7 +270,7 @@ dataset.addSample(
 dataset.addSample(
     sampleName="TT4b",
     ntuples=ntuplesPath2 +
-    "/2016pre/ntuple/TT4b_TuneCP5_13TeV_madgraph_pythia8/sl_LEG_ntuple_2016preVFP/240402_000654/*/*"+
+    "/2016pre/ntuple/TT4b_TuneCP5_13TeV_madgraph_pythia8/sl_LEG_ntuple_2016preVFP/240412_015349/*/*"+
     options.syst+"*.root",
     categories=ttnb_categories,
     process="tt4b",
