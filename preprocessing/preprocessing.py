@@ -25,7 +25,8 @@ genmap2016 = pd.read_csv(filedir+"/GenNormMap/ratefactors_new_plotscript_2016.cs
 genmap2017 = pd.read_csv(filedir+"/GenNormMap/ratefactors_new_plotscript_2017.csv")
 genmap2018 = pd.read_csv(filedir+"/GenNormMap/ratefactors_new_plotscript_2018.csv")
 
-# btagcorrection2016 = pd.read_csv(filedir+"/BTagCorrection/btag-correction-2016.csv")
+btagcorrection2016pre = pd.read_csv(filedir+"/BTagCorrection/btag-correction-2016pre.csv")
+btagcorrection2016post = pd.read_csv(filedir+"/BTagCorrection/btag-correction-2016post.csv")
 btagcorrection2017 = pd.read_csv(filedir+"/BTagCorrection/btag-correction-2017.csv")
 btagcorrection2018 = pd.read_csv(filedir+"/BTagCorrection/btag-correction-2018.csv")
 
@@ -98,9 +99,12 @@ class Dataset:
         elif self.dataEra == "2018" or self.dataEra == 2018:
             genfile = genmap2018
             btagfile = btagcorrection2018
-        elif self.dataEra == "2016postVFP" or dataEra == "2016preVFP":
+        elif self.dataEra == "2016postVFP":
             genfile = genmap2016
-            # btagfile = btagcorrection2016
+            btagfile = btagcorrection2016post 
+        elif self.dataEra == "2016preVFP":
+            genfile = genmap2016
+            btagfile = btagcorrection2016pre  
         else:
             # print("no file matches the dataEra " +dataEra)
             sys.exit("no file matches the dataEra " +dataEra)
