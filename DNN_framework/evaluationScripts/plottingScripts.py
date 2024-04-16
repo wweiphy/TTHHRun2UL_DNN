@@ -205,6 +205,11 @@ class savenominalDiscriminators:
 
                 for syst in SystMap.syst_decorrelated:
 
+                    # if self.year == "2016postVFP" or self.year == '2016preVFP':
+                    #     modified_year = "2016"
+                    # else:
+                    #     modified_year = self.year
+
                     if "total_weight_up" in syst:
                         subtitle = SystMap.syst_decorrelated[syst][0].replace('Up','')+"_"+self.year+"Up"
                     if "total_weight_down" in syst:
@@ -692,7 +697,12 @@ class saveJESJERDiscriminators:
                     truth_cls, len(filtered_values), sum(filtered_weights)))
 
                 weightIntegral += sum(filtered_weights)
-                
+
+                # if self.year == "2016postVFP" or self.year == '2016preVFP':
+                #         modified_year = "2016"
+                # else:
+                #         modified_year = self.year
+
                 if "JERup" in self.syst:
                     sys2 = self.syst.replace("up", "")+"_"+self.year+"Up"
                 elif "JERdown" in self.syst:
