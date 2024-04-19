@@ -146,34 +146,34 @@ for node in processlist:
         hist1 = file1.Get(histoname)
         hist2 = file2.Get(histoname)
 
-        for decorrelate_syst in decorrelated_systs:
+        # for decorrelate_syst in decorrelated_systs:
 
-            uphistoname1 = 'ljets_ge4j_ge3t_'+node+"_node__"+process+"__"+decorrelate_syst+"_2018"+"Up"
-            downhistoname1 = 'ljets_ge4j_ge3t_'+node+"_node__"+process+"__"+decorrelate_syst+"_2018"+"Down"
-            # print(uphistoname1)
-            # testhist1 = file1.Get('ljets_ge4j_ge3t_ttHH_node__ttHH__effTrigger_mu_2018Up')
-            # testhist2 = file2.Get('ljets_ge4j_ge3t_ttHH_node__ttHH__effTrigger_mu_2018Up')
-            # print(testhist1)
-            # print(testhist2)
-            # print('done')
-            syst_histup1 = file1.Get(uphistoname1)
-            syst_histdown1 = file1.Get(downhistoname1)
-            systup1 = syst_histup1.Clone()
-            systdown1 = syst_histdown1.Clone()
+        #     uphistoname1 = 'ljets_ge4j_ge3t_'+node+"_node__"+process+"__"+decorrelate_syst+"_2018"+"Up"
+        #     downhistoname1 = 'ljets_ge4j_ge3t_'+node+"_node__"+process+"__"+decorrelate_syst+"_2018"+"Down"
+        #     # print(uphistoname1)
+        #     # testhist1 = file1.Get('ljets_ge4j_ge3t_ttHH_node__ttHH__effTrigger_mu_2018Up')
+        #     # testhist2 = file2.Get('ljets_ge4j_ge3t_ttHH_node__ttHH__effTrigger_mu_2018Up')
+        #     # print(testhist1)
+        #     # print(testhist2)
+        #     # print('done')
+        #     syst_histup1 = file1.Get(uphistoname1)
+        #     syst_histdown1 = file1.Get(downhistoname1)
+        #     systup1 = syst_histup1.Clone()
+        #     systdown1 = syst_histdown1.Clone()
 
-            systup1.Write(uphistoname1) 
-            systdown1.Write(downhistoname1) 
+        #     systup1.Write(uphistoname1) 
+        #     systdown1.Write(downhistoname1) 
 
-            uphistoname2 = 'ljets_ge4j_ge3t_'+node+"_node__"+process+"__"+decorrelate_syst+"_2017"+"Up"
-            downhistoname2 = 'ljets_ge4j_ge3t_'+node+"_node__"+process+"__"+decorrelate_syst+"_2017"+"Down"
-            syst_histup2 = file2.Get(uphistoname2)
-            syst_histdown2 = file2.Get(downhistoname2)
+        #     uphistoname2 = 'ljets_ge4j_ge3t_'+node+"_node__"+process+"__"+decorrelate_syst+"_2017"+"Up"
+        #     downhistoname2 = 'ljets_ge4j_ge3t_'+node+"_node__"+process+"__"+decorrelate_syst+"_2017"+"Down"
+        #     syst_histup2 = file2.Get(uphistoname2)
+        #     syst_histdown2 = file2.Get(downhistoname2)
             
-            systup2 = syst_histup2.Clone()
-            systdown2 = syst_histdown2.Clone()
+        #     systup2 = syst_histup2.Clone()
+        #     systdown2 = syst_histdown2.Clone()
 
-            systup2.Write(uphistoname2) 
-            systdown2.Write(downhistoname2) 
+        #     systup2.Write(uphistoname2) 
+        #     systdown2.Write(downhistoname2) 
 
 
         combined_hist = hist1.Clone()
@@ -194,25 +194,30 @@ for node in processlist:
             combined_hist.Add(hist3)
             combined_hist.Add(hist4)
 
+        combined_hist.Write(histoname)
+
+        if options.threeyear:
+
             for decorrelate_syst in decorrelated_systs:
                 
-                uphistoname1 = 'ljets_ge4j_ge3t_'+node+"_node__"+process+"__"+decorrelate_syst+"_2016preVFP"+"Up"
-                downhistoname1 = 'ljets_ge4j_ge3t_'+node+"_node__"+process+"__"+decorrelate_syst+"_2016preVFP"+"Down"
-                syst_histup1 = file1.Get(uphistoname1)
-                syst_histdown1 = file1.Get(downhistoname1)
+                uphistoname3 = 'ljets_ge4j_ge3t_'+node+"_node__"+process+"__"+decorrelate_syst+"_2016preVFP"+"Up"
+                downhistoname3 = 'ljets_ge4j_ge3t_'+node+"_node__"+process+"__"+decorrelate_syst+"_2016preVFP"+"Down"
 
-                syst_histup1.Write(uphistoname1) 
-                syst_histdown1.Write(downhistoname1) 
+                syst_histup3 = file3.Get(uphistoname3)
+                print(uphistoname3)
+                print(syst_histup3)
+                syst_histdown3 = file3.Get(downhistoname3)
 
-                uphistoname2 = 'ljets_ge4j_ge3t_'+node+"_node__"+process+"__"+decorrelate_syst+"_2016postVFP"+"Up"
-                downhistoname2 = 'ljets_ge4j_ge3t_'+node+"_node__"+process+"__"+decorrelate_syst+"_2016postVFP"+"Down"
-                syst_histup2 = file2.Get(uphistoname2)
-                syst_histdown2 = file2.Get(downhistoname2)
+                syst_histup3.Write(uphistoname3) 
+                syst_histdown3.Write(downhistoname3) 
 
-                syst_histup2.Write(uphistoname2) 
-                syst_histdown2.Write(downhistoname2) 
+                uphistoname4 = 'ljets_ge4j_ge3t_'+node+"_node__"+process+"__"+decorrelate_syst+"_2016postVFP"+"Up"
+                downhistoname4 = 'ljets_ge4j_ge3t_'+node+"_node__"+process+"__"+decorrelate_syst+"_2016postVFP"+"Down"
+                syst_histup4 = file4.Get(uphistoname4)
+                syst_histdown4 = file4.Get(downhistoname4)
 
-        combined_hist.Write(histoname)
+                syst_histup4.Write(uphistoname4) 
+                syst_histdown4.Write(downhistoname4) 
 
         
         for sys in systlist:
