@@ -5,7 +5,7 @@ import pandas as pd
 import ROOT
 
 
-# python combineRun2_script.py --flavor -c 5j4b
+# python combineRun2_script.py --flavor -c 6j4b --threeyear
 
 usage = "usage=%prog [options] \n"
 usage += "USE: python cardmakingscript.py -n True "
@@ -29,6 +29,7 @@ parser.add_option("-c", "--category", dest="category",default="5j4b",
 processlist = ['ttHH', 'ttH', 'ttZ', 'ttZH',
                'ttZZ', 'ttlf', 'ttcc', 'ttmb', 'ttnb']
 
+decorrelated_systs = ['effTrigger_mu','effTrigger_e','eff_mu','eff_e','btag_hfstats1','btag_hfstats2','btag_lfstats1','btag_lfstats2']
 
 filedir = os.path.dirname(os.path.realpath(__file__))
 combdir = os.path.dirname(filedir)
@@ -145,6 +146,25 @@ for node in processlist:
         hist1 = file1.Get(histoname)
         hist2 = file2.Get(histoname)
 
+        for decorrelate_syst in decorrelated_systs:
+
+            uphistoname1 = 'ljets_ge4j_ge3t_'+node+"_node__"+process+"__"+decorrelate_syst+"_2018"+"Up"
+            downhistoname1 = 'ljets_ge4j_ge3t_'+node+"_node__"+process+"__"+decorrelate_syst+"_2018"+"Down"
+            syst_histup1 = file1.Get(uphistoname1)
+            syst_histdown1 = file1.Get(downhistoname1)
+
+            syst_histup1.Write(uphistoname1) 
+            syst_histdown1.Write(downhistoname1) 
+
+            uphistoname2 = 'ljets_ge4j_ge3t_'+node+"_node__"+process+"__"+decorrelate_syst+"_2017"+"Up"
+            downhistoname2 = 'ljets_ge4j_ge3t_'+node+"_node__"+process+"__"+decorrelate_syst+"_2017"+"Down"
+            syst_histup2 = file1.Get(uphistoname2)
+            syst_histdown2 = file1.Get(downhistoname2)
+
+            syst_histup2.Write(uphistoname2) 
+            syst_histdown2.Write(downhistoname2) 
+
+
         combined_hist = hist1.Clone()
         combined_hist.Add(hist2)
 
@@ -162,6 +182,24 @@ for node in processlist:
                 exit(1)
             combined_hist.Add(hist3)
             combined_hist.Add(hist4)
+
+        for decorrelate_syst in decorrelated_systs:
+            
+            uphistoname1 = 'ljets_ge4j_ge3t_'+node+"_node__"+process+"__"+decorrelate_syst+"_2016preVFP"+"Up"
+            downhistoname1 = 'ljets_ge4j_ge3t_'+node+"_node__"+process+"__"+decorrelate_syst+"_2016preVFP"+"Down"
+            syst_histup1 = file1.Get(uphistoname1)
+            syst_histdown1 = file1.Get(downhistoname1)
+
+            syst_histup1.Write(uphistoname1) 
+            syst_histdown1.Write(downhistoname1) 
+
+            uphistoname2 = 'ljets_ge4j_ge3t_'+node+"_node__"+process+"__"+decorrelate_syst+"_2016postVFP"+"Up"
+            downhistoname2 = 'ljets_ge4j_ge3t_'+node+"_node__"+process+"__"+decorrelate_syst+"_2016postVFP"+"Down"
+            syst_histup2 = file1.Get(uphistoname2)
+            syst_histdown2 = file1.Get(downhistoname2)
+
+            syst_histup2.Write(uphistoname2) 
+            syst_histdown2.Write(downhistoname2) 
 
         combined_hist.Write(histoname)
 
