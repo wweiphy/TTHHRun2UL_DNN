@@ -14,19 +14,16 @@ import sys
 # python cardmakingscript.py -n old -f 230119_evaluation_old_2
 # python cardmakingscript.py -n new -f 230119_evaluation_new_2
 # python cardmakingscript.py -n new -f 230119_evaluation_new_5j4b
-# python cardmakingscript.py -n new -f 230119_evaluation_new_5j4b_4FS
-# python cardmakingscript.py -n new -f 230119_evaluation_new_5j4b_5FS
-# python cardmakingscript.py -n new -f 230119_evaluation_new_6j4b
-# python cardmakingscript.py -n new -f 230119_evaluation_new_6j4b_4FS
-# python cardmakingscript.py -n new -f 230119_evaluation_new_6j4b_5FS
+# python cardmakingscript.py -y 2017 -f 230119_evaluation_new_6j4b_oldtthh
+
 
 # 2018
 # python cardmakingscript.py -n old -f 230220_evaluation_old
 # python cardmakingscript.py -n new -f 230220_evaluation_new
-# python cardmakingscript.py -n new -f 230220_evaluation_new_5j4b
+# python cardmakingscript.py -y 2018 -f 230220_evaluation_new_5j4b
 # python cardmakingscript.py -n new -f 230220_evaluation_new_5j4b_5FS
 # python cardmakingscript.py -n new -f 230220_evaluation_new_5j4b_4FS
-# python cardmakingscript.py -n new -f 230220_evaluation_new_6j4b
+# python cardmakingscript.py -y 2018 -f 230220_evaluation_new_6j4b_oldtthh
 # python cardmakingscript.py -n new -f 230220_evaluation_new_6j4b_5FS
 # python cardmakingscript.py -n new -f 230220_evaluation_new_6j4b_4FS
 # python cardmakingscript.py -n new -f 231011_evaluation_new_6j4b_4FS
@@ -84,6 +81,8 @@ if "4FS" in options.folder:
 else:
     if options.year == "2016":
         systfile = "datacard_new_sys_reduce_2016.csv"
+    # elif options.year == "2016postVFP":
+        # systfile = "datacard_new_sys_reduce_2016postVFP.csv"
     elif options.year == "2017":
         systfile = "datacard_new_sys_reduce_2017.csv"
     elif options.year == "2018":
