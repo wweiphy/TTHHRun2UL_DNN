@@ -298,6 +298,9 @@ for node in processlist:
                     uphistoname = 'ljets_ge4j_ge3t_'+node+"_node__"+process+"__"+sys+"Up"
                     downhistoname = 'ljets_ge4j_ge3t_'+node+"_node__"+process+"__"+sys+"Down"
 
+                    print(sys)
+                    print(uphistoname)
+                    
                     uphist1 = file1.Get(uphistoname)
                     uphist2 = file2.Get(uphistoname)
                     downhist1 = file1.Get(downhistoname)
