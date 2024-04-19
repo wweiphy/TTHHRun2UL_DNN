@@ -151,24 +151,29 @@ for node in processlist:
             uphistoname1 = 'ljets_ge4j_ge3t_'+node+"_node__"+process+"__"+decorrelate_syst+"_2018"+"Up"
             downhistoname1 = 'ljets_ge4j_ge3t_'+node+"_node__"+process+"__"+decorrelate_syst+"_2018"+"Down"
             # print(uphistoname1)
-            testhist1 = file1.Get('ljets_ge4j_ge3t_ttHH_node__ttHH__effTrigger_mu_2018Up')
+            # testhist1 = file1.Get('ljets_ge4j_ge3t_ttHH_node__ttHH__effTrigger_mu_2018Up')
             # testhist2 = file2.Get('ljets_ge4j_ge3t_ttHH_node__ttHH__effTrigger_mu_2018Up')
             # print(testhist1)
             # print(testhist2)
-            print('done')
+            # print('done')
             syst_histup1 = file1.Get(uphistoname1)
             syst_histdown1 = file1.Get(downhistoname1)
+            systup1 = syst_histup1.Clone()
+            systdown1 = syst_histdown1.Clone()
 
-            syst_histup1.Write(uphistoname1) 
-            syst_histdown1.Write(downhistoname1) 
+            systup1.Write(uphistoname1) 
+            systdown1.Write(downhistoname1) 
 
             uphistoname2 = 'ljets_ge4j_ge3t_'+node+"_node__"+process+"__"+decorrelate_syst+"_2017"+"Up"
             downhistoname2 = 'ljets_ge4j_ge3t_'+node+"_node__"+process+"__"+decorrelate_syst+"_2017"+"Down"
             syst_histup2 = file2.Get(uphistoname2)
             syst_histdown2 = file2.Get(downhistoname2)
+            
+            systup2 = syst_histup2.Clone()
+            systdown2 = syst_histdown2.Clone()
 
-            syst_histup2.Write(uphistoname2) 
-            syst_histdown2.Write(downhistoname2) 
+            systup2.Write(uphistoname2) 
+            systdown2.Write(downhistoname2) 
 
 
         combined_hist = hist1.Clone()
