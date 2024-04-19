@@ -141,7 +141,6 @@ for node in processlist:
         print("Error: Unable to load data histograms for 17 or 18.")
         exit(1)
         
-    print(datahistname)
     if options.threeyear:
 
         datahist3 = file3.Get(datahistname)
@@ -160,36 +159,7 @@ for node in processlist:
         histoname = 'ljets_ge4j_ge3t_'+node+"_node__"+process
 
         hist1 = file1.Get(histoname)
-        hist2 = file2.Get(histoname)
-
-        # for decorrelate_syst in decorrelated_systs:
-
-        #     uphistoname1 = 'ljets_ge4j_ge3t_'+node+"_node__"+process+"__"+decorrelate_syst+"_2018"+"Up"
-        #     downhistoname1 = 'ljets_ge4j_ge3t_'+node+"_node__"+process+"__"+decorrelate_syst+"_2018"+"Down"
-        #     # print(uphistoname1)
-        #     # testhist1 = file1.Get('ljets_ge4j_ge3t_ttHH_node__ttHH__effTrigger_mu_2018Up')
-        #     # testhist2 = file2.Get('ljets_ge4j_ge3t_ttHH_node__ttHH__effTrigger_mu_2018Up')
-        #     # print(testhist1)
-        #     # print(testhist2)
-        #     # print('done')
-        #     syst_histup1 = file1.Get(uphistoname1)
-        #     syst_histdown1 = file1.Get(downhistoname1)
-        #     systup1 = syst_histup1.Clone()
-        #     systdown1 = syst_histdown1.Clone()
-
-        #     systup1.Write(uphistoname1) 
-        #     systdown1.Write(downhistoname1) 
-
-        #     uphistoname2 = 'ljets_ge4j_ge3t_'+node+"_node__"+process+"__"+decorrelate_syst+"_2017"+"Up"
-        #     downhistoname2 = 'ljets_ge4j_ge3t_'+node+"_node__"+process+"__"+decorrelate_syst+"_2017"+"Down"
-        #     syst_histup2 = file2.Get(uphistoname2)
-        #     syst_histdown2 = file2.Get(downhistoname2)
-            
-        #     systup2 = syst_histup2.Clone()
-        #     systdown2 = syst_histdown2.Clone()
-
-        #     systup2.Write(uphistoname2) 
-        #     systdown2.Write(downhistoname2) 
+        hist2 = file2.Get(histoname) 
 
 
         combined_hist = hist1.Clone()
@@ -254,23 +224,70 @@ for node in processlist:
                 syst_histup4.Write(uphistoname4) 
                 syst_histdown4.Write(downhistoname4) 
 
+        if not options.twoyear:
+
+             for decorrelate_syst in decorrelated_systs:
+
+                uphistoname = 'ljets_ge4j_ge3t_'+node+"_node__"+process+"__"+decorrelate_syst+"_2016"+"Up"
+                downhistoname = 'ljets_ge4j_ge3t_'+node+"_node__"+process+"__"+decorrelate_syst+"_2016"+"Down"
+
+
+                uphistoname1 = 'ljets_ge4j_ge3t_'+node+"_node__"+process+"__"+decorrelate_syst+"_2016postVFP"+"Up"
+                downhistoname1 = 'ljets_ge4j_ge3t_'+node+"_node__"+process+"__"+decorrelate_syst+"_2016postVFP"+"Down"
+                
+                syst_histup1 = file1.Get(uphistoname1)
+                syst_histdown1 = file1.Get(downhistoname1)
+                systup = syst_histup1.Clone()
+                systdown = syst_histdown1.Clone()
+
+                uphistoname2 = 'ljets_ge4j_ge3t_'+node+"_node__"+process+"__"+decorrelate_syst+"_2016preVFP"+"Up"
+                downhistoname2 = 'ljets_ge4j_ge3t_'+node+"_node__"+process+"__"+decorrelate_syst+"_2016preVFP"+"Down"
+                syst_histup2 = file2.Get(uphistoname2)
+                syst_histdown2 = file2.Get(downhistoname2)
+                
+                systup.Add(syst_histup2)
+                systdown.Add(syst_histdown2)
+
+                systup.Write(uphistoname) 
+                systdown.Write(downhistoname)    
         
         for sys in systlist:
 
             if sys == "L1Prefiring":
 
-                uphistoname = 'ljets_ge4j_ge3t_'+node+"_node__"+process+"__"+sys+"Up"
-                downhistoname = 'ljets_ge4j_ge3t_'+node+"_node__"+process+"__"+sys+"Down"
+                if not options.twoyear:
 
-                uphist2 = file2.Get(uphistoname)
-                downhist2 = file2.Get(downhistoname)
+                    uphistoname = 'ljets_ge4j_ge3t_'+node+"_node__"+process+"__"+sys+"Up"
+                    downhistoname = 'ljets_ge4j_ge3t_'+node+"_node__"+process+"__"+sys+"Down"
 
-                upcombined_hist = uphist2.Clone()
-                downcombined_hist = downhist2.Clone()
+                    uphist1 = file1.Get(uphistoname)
+                    uphist2 = file2.Get(uphistoname)
+                    downhist1 = file1.Get(downhistoname)
+                    downhist2 = file2.Get(downhistoname)
 
-                if not uphist2 or not downhist2:
-                    print("Error: Unable to load histograms for 17 systematic "+sys)
-                    exit(1)
+                    upcombined_hist = uphist1.Clone()
+                    downcombined_hist = downhist1.Clone()
+                    upcombined_hist.Add(uphist2)
+                    downcombined_hist.Add(downhist2)
+
+                    if not uphist2 or not downhist2:
+                        print("Error: Unable to load histograms for 17 systematic "+sys)
+                        exit(1)
+
+                if options.threeyear or options.twoyear:
+
+                    uphistoname = 'ljets_ge4j_ge3t_'+node+"_node__"+process+"__"+sys+"Up"
+                    downhistoname = 'ljets_ge4j_ge3t_'+node+"_node__"+process+"__"+sys+"Down"
+
+                    uphist2 = file2.Get(uphistoname)
+                    downhist2 = file2.Get(downhistoname)
+
+                    upcombined_hist = uphist2.Clone()
+                    downcombined_hist = downhist2.Clone()
+
+                    if not uphist2 or not downhist2:
+                        print("Error: Unable to load histograms for 17 systematic "+sys)
+                        exit(1)
 
                 if options.threeyear:
 
@@ -300,7 +317,7 @@ for node in processlist:
 
                     print(sys)
                     print(uphistoname)
-                    
+
                     uphist1 = file1.Get(uphistoname)
                     uphist2 = file2.Get(uphistoname)
                     downhist1 = file1.Get(downhistoname)
