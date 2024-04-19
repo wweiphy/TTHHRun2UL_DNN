@@ -1,15 +1,7 @@
 Uncertainty,ttHH,ttlf,ttcc,ttnb,ttmb,ttH,ttZZ,ttZH,ttZ
 L1Prefiring,1,1,1,1,1,1,1,1,1
-effTrigger_mu,1,1,1,1,1,1,1,1,1
-effTrigger_e,1,1,1,1,1,1,1,1,1
-eff_mu,1,1,1,1,1,1,1,1,1
-eff_e,1,1,1,1,1,1,1,1,1
 btag_lf,1,1,1,1,1,1,1,1,1
 btag_hf,1,1,1,1,1,1,1,1,1
-btag_hfstats1,1,1,1,1,1,1,1,1,1
-btag_hfstats2,1,1,1,1,1,1,1,1,1
-btag_lfstats1,1,1,1,1,1,1,1,1,1
-btag_lfstats2,1,1,1,1,1,1,1,1,1
 btag_cferr1,1,1,1,1,1,1,1,1,1
 btag_cferr2,1,1,1,1,1,1,1,1,1
 PU,1,1,1,1,1,1,1,1,1
