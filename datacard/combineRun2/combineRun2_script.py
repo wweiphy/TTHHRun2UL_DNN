@@ -152,10 +152,10 @@ for node in processlist:
             downhistoname1 = 'ljets_ge4j_ge3t_'+node+"_node__"+process+"__"+decorrelate_syst+"_2018"+"Down"
             print(uphistoname1)
             testhist1 = file1.Get('ljets_ge4j_ge3t_ttHH_node__ttHH__effTrigger_mu_2018Up')
-            testhist2 = file2.Get('ljets_ge4j_ge3t_ttHH_node__ttHH__effTrigger_mu_2018Up')
+            # testhist2 = file2.Get('ljets_ge4j_ge3t_ttHH_node__ttHH__effTrigger_mu_2018Up')
             print(testhist1)
-            print(testhist2)
-            
+            # print(testhist2)
+
             syst_histup1 = file1.Get(uphistoname1)
             syst_histdown1 = file1.Get(downhistoname1)
 
