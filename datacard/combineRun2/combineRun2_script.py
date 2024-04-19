@@ -151,6 +151,11 @@ for node in processlist:
             uphistoname1 = 'ljets_ge4j_ge3t_'+node+"_node__"+process+"__"+decorrelate_syst+"_2018"+"Up"
             downhistoname1 = 'ljets_ge4j_ge3t_'+node+"_node__"+process+"__"+decorrelate_syst+"_2018"+"Down"
             print(uphistoname1)
+            testhist1 = file1.Get('ljets_ge4j_ge3t_ttHH_node__ttHH__effTrigger_mu_2018Up')
+            testhist2 = file2.Get('ljets_ge4j_ge3t_ttHH_node__ttHH__effTrigger_mu_2018Up')
+            print(testhist1)
+            print(testhist2)
+            
             syst_histup1 = file1.Get(uphistoname1)
             syst_histdown1 = file1.Get(downhistoname1)
 
@@ -159,8 +164,8 @@ for node in processlist:
 
             uphistoname2 = 'ljets_ge4j_ge3t_'+node+"_node__"+process+"__"+decorrelate_syst+"_2017"+"Up"
             downhistoname2 = 'ljets_ge4j_ge3t_'+node+"_node__"+process+"__"+decorrelate_syst+"_2017"+"Down"
-            syst_histup2 = file1.Get(uphistoname2)
-            syst_histdown2 = file1.Get(downhistoname2)
+            syst_histup2 = file2.Get(uphistoname2)
+            syst_histdown2 = file2.Get(downhistoname2)
 
             syst_histup2.Write(uphistoname2) 
             syst_histdown2.Write(downhistoname2) 
@@ -184,23 +189,23 @@ for node in processlist:
             combined_hist.Add(hist3)
             combined_hist.Add(hist4)
 
-        for decorrelate_syst in decorrelated_systs:
-            
-            uphistoname1 = 'ljets_ge4j_ge3t_'+node+"_node__"+process+"__"+decorrelate_syst+"_2016preVFP"+"Up"
-            downhistoname1 = 'ljets_ge4j_ge3t_'+node+"_node__"+process+"__"+decorrelate_syst+"_2016preVFP"+"Down"
-            syst_histup1 = file1.Get(uphistoname1)
-            syst_histdown1 = file1.Get(downhistoname1)
+            for decorrelate_syst in decorrelated_systs:
+                
+                uphistoname1 = 'ljets_ge4j_ge3t_'+node+"_node__"+process+"__"+decorrelate_syst+"_2016preVFP"+"Up"
+                downhistoname1 = 'ljets_ge4j_ge3t_'+node+"_node__"+process+"__"+decorrelate_syst+"_2016preVFP"+"Down"
+                syst_histup1 = file1.Get(uphistoname1)
+                syst_histdown1 = file1.Get(downhistoname1)
 
-            syst_histup1.Write(uphistoname1) 
-            syst_histdown1.Write(downhistoname1) 
+                syst_histup1.Write(uphistoname1) 
+                syst_histdown1.Write(downhistoname1) 
 
-            uphistoname2 = 'ljets_ge4j_ge3t_'+node+"_node__"+process+"__"+decorrelate_syst+"_2016postVFP"+"Up"
-            downhistoname2 = 'ljets_ge4j_ge3t_'+node+"_node__"+process+"__"+decorrelate_syst+"_2016postVFP"+"Down"
-            syst_histup2 = file1.Get(uphistoname2)
-            syst_histdown2 = file1.Get(downhistoname2)
+                uphistoname2 = 'ljets_ge4j_ge3t_'+node+"_node__"+process+"__"+decorrelate_syst+"_2016postVFP"+"Up"
+                downhistoname2 = 'ljets_ge4j_ge3t_'+node+"_node__"+process+"__"+decorrelate_syst+"_2016postVFP"+"Down"
+                syst_histup2 = file2.Get(uphistoname2)
+                syst_histdown2 = file2.Get(downhistoname2)
 
-            syst_histup2.Write(uphistoname2) 
-            syst_histdown2.Write(downhistoname2) 
+                syst_histup2.Write(uphistoname2) 
+                syst_histdown2.Write(downhistoname2) 
 
         combined_hist.Write(histoname)
 
