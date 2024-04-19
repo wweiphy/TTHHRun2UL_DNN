@@ -5,7 +5,7 @@ import pandas as pd
 import ROOT
 
 
-# python combineRun2_script.py --flavor -c 6j4b --threeyear
+# python combineRun2_script.py --flavor -c 6j4b_oldtthh --threeyear
 
 usage = "usage=%prog [options] \n"
 usage += "USE: python cardmakingscript.py -n True "
@@ -150,6 +150,7 @@ for node in processlist:
 
             uphistoname1 = 'ljets_ge4j_ge3t_'+node+"_node__"+process+"__"+decorrelate_syst+"_2018"+"Up"
             downhistoname1 = 'ljets_ge4j_ge3t_'+node+"_node__"+process+"__"+decorrelate_syst+"_2018"+"Down"
+            print(uphistoname1)
             syst_histup1 = file1.Get(uphistoname1)
             syst_histdown1 = file1.Get(downhistoname1)
 
