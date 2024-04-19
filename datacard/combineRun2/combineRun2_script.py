@@ -199,13 +199,32 @@ for node in processlist:
         if options.threeyear:
 
             for decorrelate_syst in decorrelated_systs:
+
+                uphistoname1 = 'ljets_ge4j_ge3t_'+node+"_node__"+process+"__"+decorrelate_syst+"_2018"+"Up"
+                downhistoname1 = 'ljets_ge4j_ge3t_'+node+"_node__"+process+"__"+decorrelate_syst+"_2018"+"Down"
+                syst_histup1 = file1.Get(uphistoname1)
+                syst_histdown1 = file1.Get(downhistoname1)
+                # systup1 = syst_histup1.Clone()
+                # systdown1 = syst_histdown1.Clone()
+
+                syst_histup1.Write(uphistoname1) 
+                syst_histdown1.Write(downhistoname1) 
+
+                uphistoname2 = 'ljets_ge4j_ge3t_'+node+"_node__"+process+"__"+decorrelate_syst+"_2017"+"Up"
+                downhistoname2 = 'ljets_ge4j_ge3t_'+node+"_node__"+process+"__"+decorrelate_syst+"_2017"+"Down"
+                syst_histup2 = file2.Get(uphistoname2)
+                syst_histdown2 = file2.Get(downhistoname2)
+                
+                # systup2 = syst_histup2.Clone()
+                # systdown2 = syst_histdown2.Clone()
+
+                syst_histup2.Write(uphistoname2) 
+                syst_histdown2.Write(downhistoname2) 
                 
                 uphistoname3 = 'ljets_ge4j_ge3t_'+node+"_node__"+process+"__"+decorrelate_syst+"_2016preVFP"+"Up"
                 downhistoname3 = 'ljets_ge4j_ge3t_'+node+"_node__"+process+"__"+decorrelate_syst+"_2016preVFP"+"Down"
 
                 syst_histup3 = file3.Get(uphistoname3)
-                print(uphistoname3)
-                print(syst_histup3)
                 syst_histdown3 = file3.Get(downhistoname3)
 
                 syst_histup3.Write(uphistoname3) 
@@ -222,24 +241,19 @@ for node in processlist:
         
         for sys in systlist:
 
-            if df[(df['Uncertainty']==sys)][process].item() == '1':
+            if sys == "L1Prefiring":
 
                 uphistoname = 'ljets_ge4j_ge3t_'+node+"_node__"+process+"__"+sys+"Up"
                 downhistoname = 'ljets_ge4j_ge3t_'+node+"_node__"+process+"__"+sys+"Down"
 
-                uphist1 = file1.Get(uphistoname)
                 uphist2 = file2.Get(uphistoname)
-                downhist1 = file1.Get(downhistoname)
                 downhist2 = file2.Get(downhistoname)
 
-                upcombined_hist = uphist1.Clone()
-                upcombined_hist.Add(uphist2)
+                upcombined_hist = uphist2.Clone()
+                downcombined_hist = downhist2.Clone()
 
-                downcombined_hist = downhist1.Clone()
-                downcombined_hist.Add(downhist2)
-
-                if not uphist1 or not uphist2 or not downhist1 or not downhist2:
-                    print("Error: Unable to load histograms for 17 or 18 systematic "+sys)
+                if not uphist2 or not downhist2:
+                    print("Error: Unable to load histograms for 17 systematic "+sys)
                     exit(1)
 
                 if options.threeyear:
@@ -260,6 +274,47 @@ for node in processlist:
 
                 upcombined_hist.Write(uphistoname)
                 downcombined_hist.Write(downhistoname)
+
+            else:
+                
+                if df[(df['Uncertainty']==sys)][process].item() == '1':
+
+                    uphistoname = 'ljets_ge4j_ge3t_'+node+"_node__"+process+"__"+sys+"Up"
+                    downhistoname = 'ljets_ge4j_ge3t_'+node+"_node__"+process+"__"+sys+"Down"
+
+                    uphist1 = file1.Get(uphistoname)
+                    uphist2 = file2.Get(uphistoname)
+                    downhist1 = file1.Get(downhistoname)
+                    downhist2 = file2.Get(downhistoname)
+
+                    upcombined_hist = uphist1.Clone()
+                    upcombined_hist.Add(uphist2)
+
+                    downcombined_hist = downhist1.Clone()
+                    downcombined_hist.Add(downhist2)
+
+                    if not uphist1 or not uphist2 or not downhist1 or not downhist2:
+                        print("Error: Unable to load histograms for 17 or 18 systematic "+sys)
+                        exit(1)
+
+                    if options.threeyear:
+
+                        uphist3 = file3.Get(uphistoname)
+                        uphist4 = file4.Get(uphistoname)
+                        downhist3 = file3.Get(downhistoname)
+                        downhist4 = file4.Get(downhistoname)
+
+                        if not uphist3 or not uphist4 or not downhist3 or not downhist4:
+                            print("Error: Unable to load histograms for 16APV or 16 systematic "+sys)
+                            exit(1)
+
+                        upcombined_hist.Add(uphist3)
+                        upcombined_hist.Add(uphist4)
+                        downcombined_hist.Add(downhist3)
+                        downcombined_hist.Add(downhist4)
+
+                    upcombined_hist.Write(uphistoname)
+                    downcombined_hist.Write(downhistoname)
 
 output_file.Close()
 
