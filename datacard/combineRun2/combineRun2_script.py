@@ -5,7 +5,7 @@ import pandas as pd
 import ROOT
 
 
-# python combineRun2_script.py --flavor -c 6j4b_oldtthh --threeyear
+# python combineRun2_script.py --flavor -c 6j4b_oldtthh --threeyear 
 
 usage = "usage=%prog [options] \n"
 usage += "USE: python cardmakingscript.py -n True "
@@ -57,6 +57,10 @@ if options.twoyear:
         file1path = "230220_evaluation_new_"+options.category+"/plots/output_limit.root"
         file2path = "230119_evaluation_new_"+options.category+"/plots/output_limit.root"
         outFolder = 'TwoYear'+options.category
+
+    file1 = ROOT.TFile.Open(folder_path+file1path)
+    file2 = ROOT.TFile.Open(folder_path+file2path)
+
 else:
     
     if options.flavor:
@@ -76,12 +80,16 @@ else:
         file2path = "230515_evaluation_new_"+options.category+"/plots/output_limit.root"
         outFolder = '2016'+options.category 
 
-file1 = ROOT.TFile.Open(folder_path+file1path)
-file2 = ROOT.TFile.Open(folder_path+file2path)
+    file1 = ROOT.TFile.Open(folder_path+file1path)
+    file2 = ROOT.TFile.Open(folder_path+file2path)
 
 if options.threeyear:
 
+
     if options.flavor:
+
+        file1path = "230220_evaluation_new_"+options.category+"_4FS/plots/output_limit.root"
+        file2path = "230119_evaluation_new_"+options.category+"_4FS/plots/output_limit.root"
 
         file3path = "230515_evaluation_new_"+options.category+"_4FS/plots/output_limit.root"
         file4path = "230523_evaluation_new_"+options.category+"_4FS/plots/output_limit.root"
@@ -90,12 +98,20 @@ if options.threeyear:
 
     else:
 
+        file1path = "230220_evaluation_new_"+options.category+"/plots/output_limit.root"
+        file2path = "230119_evaluation_new_"+options.category+"/plots/output_limit.root"
+
         file3path = "230515_evaluation_new_"+options.category+"/plots/output_limit.root"
         file4path = "230523_evaluation_new_"+options.category+"/plots/output_limit.root"
         outFolder = 'ThreeYear'+options.category
 
+    file1 = ROOT.TFile.Open(folder_path+file1path)
+    file2 = ROOT.TFile.Open(folder_path+file2path)
     file3 = ROOT.TFile.Open(folder_path+file3path)
     file4 = ROOT.TFile.Open(folder_path+file4path)
+    
+print('file1: '+file1path)
+print('file2: '+file2path)
 
 
 
@@ -276,7 +292,7 @@ for node in processlist:
                 downcombined_hist.Write(downhistoname)
 
             else:
-                
+
                 if df[(df['Uncertainty']==sys)][process].item() == '1':
 
                     uphistoname = 'ljets_ge4j_ge3t_'+node+"_node__"+process+"__"+sys+"Up"
