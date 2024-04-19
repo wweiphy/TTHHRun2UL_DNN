@@ -10,6 +10,12 @@ import sys
 # python cardmakingscript.py -n new -f 20166j4b
 # python cardmakingscript.py -n new -f 2016-4FS6j4b
 
+# Run2
+
+# python cardmakingscript.py -y run2 -f ThreeYear6j4b_oldtthh
+
+
+
 # 2017
 # python cardmakingscript.py -n old -f 230119_evaluation_old_2
 # python cardmakingscript.py -n new -f 230119_evaluation_new_2
@@ -33,12 +39,12 @@ import sys
 # python cardmakingscript.py -n old -f 230515_evaluation_old_2
 # python cardmakingscript.py -n new -f 230515_evaluation_new_2
 # python cardmakingscript.py -n new -f 230515_evaluation_new_5j4b_2
-# python cardmakingscript.py -n new -f 230515_evaluation_new_6j4b_2
+# python cardmakingscript.py -y 2016 -f 230515_evaluation_new_6j4b_oldtthh
 
 # python cardmakingscript.py -n old -f 230523_evaluation_old_2
 # python cardmakingscript.py -n new -f 230523_evaluation_new_2
 # python cardmakingscript.py -n new -f 230523_evaluation_new_5j4b_2
-# python cardmakingscript.py -n new -f 230523_evaluation_new_6j4b_2
+# python cardmakingscript.py -y 2016 -f 230523_evaluation_new_6j4b_oldtthh
 
 
 usage = "usage=%prog [options] \n"
@@ -94,10 +100,9 @@ for node in process_new:
 
     categoryname = "ljets_ge4j_ge3t_{}_node".format(node)
 
-    if "TwoYear" in options.folder or "ThreeYear" in options.folder:
+    if "TwoYear" in options.folder or "ThreeYear" in options.folder or "2016" in options.folder:
         rootfile = filedir + "/combineRun2/"+options.folder+"/output_limit.root"
         print(rootfile)
-
     else:
         rootfile = basedir + "/workdir/{}/plots/output_limit.root".format(options.folder)
 
