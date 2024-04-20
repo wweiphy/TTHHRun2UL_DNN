@@ -109,7 +109,7 @@ class Dataset:
             # print("no file matches the dataEra " +dataEra)
             sys.exit("no file matches the dataEra " +dataEra)
 
-        print("handle relative ratio for year "+dataEra)
+        print("handle relative ratio for year {}".format(dataEra))
         self.genfile = genfile
         self.btagfile = btagfile
 
