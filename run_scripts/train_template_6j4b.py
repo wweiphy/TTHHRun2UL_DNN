@@ -5,7 +5,7 @@
 # python train_template_6j4b.py -i DNN_0308_UL_2018 -o 230220_200  --plot --printroc -c ge6j_ge4t --epochs=500 --signalclass=ttHH -f 0.2 -v dnn_variables_new_200 -n ge4j_ge3t_ttH
 
 
-# python train_template_6j4b.py -i DNN_0308_UL_2018 -o 230220_50  --plot --printroc -c ge6j_ge4t --epochs=500 --signalclass=ttHH -f 0.2 -v dnn_variables_new_50 -n ge4j_ge3t_ttH
+# python train_template_6j4b.py -i DNN_0308_UL_2018 -o 230220_50  --plot --printroc -c ge6j_ge4t --epochs=500 --signalclass=ttHH -f 0.2 -v dnn_variables_new_50 -n ge4j_ge3t_ttH --year=2018
 
 
 # global imports
@@ -62,7 +62,8 @@ weight_expr = 'x.Weight_XS * x.Weight_CSV_UL * x.Weight_GEN_nom'
 # only ttH sample needs even/odd splitting for 2017 MC, not sure if ttHH needs it??
 
 #input_samples.addSample(options.getDefaultName("ttHH"),  label = "ttHH",  normalization_weight = options.getNomWeight(), train_weight = 2, total_weight_expr = weight_expr_ttHH)
-input_samples.addSample(options.getDefaultName("ttHH"),  label = "ttHH",  normalization_weight = options.getNomWeight(), train_weight = 1, total_weight_expr = weight_expr)
+input_samples.addSample(options.getDefaultName("ttHH"),  dataEra = 2018, label = "ttHH",  normalization_weight = options.getNomWeight(), train_weight = 1, total_weight_expr = weight_expr)
+
 
 #input_samples.addSample(options.getDefaultName("ttbb"), label = "ttbb", normalization_weight = options.getNomWeight(), total_weight_expr = weight_expr)
 #input_samples.addSample(options.getDefaultName("tt2b"), label = "tt2b", normalization_weight = options.getNomWeight(), total_weight_expr = weight_expr)
