@@ -134,7 +134,8 @@ dataset2.addSample(
     categories=ttbar_categories,
     process = "ttSL",
     #    lumiWeight  = 41.5,
-    selections=ttHH_selection,  # ttbar_selection,
+    selections=None,  # ttbar_selection,
+    # selections=ttHH_selection,  # ttbar_selection,
     #    selections  = ttbar_selection
     islocal=False
 )
@@ -147,7 +148,8 @@ dataset2.addSample(
     categories=ttbar_categories,
     process="ttDL",
     # lumiWeight  = 1.0,
-    selections=ttHH_selection,  # ttbar_selection,
+    selections=None,  # ttbar_selection,
+    # selections=ttHH_selection,  # ttbar_selection,
     #    selections  = ttbar_selection
     islocal=False
 )
