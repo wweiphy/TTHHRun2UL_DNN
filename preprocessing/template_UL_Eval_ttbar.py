@@ -129,7 +129,7 @@ dataset2.addBaseSelection(base_selection)
 dataset2.addSample(
     sampleName="TTSL",
     ntuples=ntuplesPath2 +
-    "/2018/ntuple/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2018/240417_003916/*/*nominal*.root",
+    "/2018/ntuple/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2018/240419_045520/*/*nominal*.root",
     #    ntuples     = ntuplesPath+"/ttSL_220210.root",
     categories=ttbar_categories,
     process = "ttSL",
@@ -142,7 +142,7 @@ dataset2.addSample(
 dataset2.addSample(
     sampleName="TTDL",
     ntuples=ntuplesPath2 +
-    "/2018/ntuple/TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2018/240417_004747/*/*nominal*.root",
+    "/2018/ntuple/TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2018/240420_033658/*/*nominal*.root",
     #    ntuples     = ntuplesPath+"/ttSL_220210.root",
     categories=ttbar_categories,
     process="ttDL",
