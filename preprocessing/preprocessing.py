@@ -1008,14 +1008,14 @@ class Dataset:
                     jet_btagsf_downcferr2_perevent *= btvjson["deepJet_shape"].evaluate("central", jet_flavor['Jet_Flav'][i][j], abs(	
                         float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))
 
-                    print("hf up for this jet is : ", btvjson["deepJet_shape"].evaluate("up_hf", jet_flavor['Jet_Flav'][i][j], abs(	
-                        float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j])))
+                    # print("hf up for this jet is : ", btvjson["deepJet_shape"].evaluate("up_hf", jet_flavor['Jet_Flav'][i][j], abs(	
+                    #     float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j])))
                     
-                    print("hf down for this jet is : ", btvjson["deepJet_shape"].evaluate("down_hf", jet_flavor['Jet_Flav'][i][j], abs(	
-                        float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j])))	
+                    # print("hf down for this jet is : ", btvjson["deepJet_shape"].evaluate("down_hf", jet_flavor['Jet_Flav'][i][j], abs(	
+                    #     float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j])))	
 
-                    print("nominal for this jet is : ", btvjson["deepJet_shape"].evaluate("central", jet_flavor['Jet_Flav'][i][j], abs(	
-                        float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j])))		
+                    # print("nominal for this jet is : ", btvjson["deepJet_shape"].evaluate("central", jet_flavor['Jet_Flav'][i][j], abs(	
+                    #     float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j])))		
 
                 # c jets	
                 elif jet_flavor['Jet_Flav'][i][j] == 4:	
@@ -1056,14 +1056,14 @@ class Dataset:
                     jet_btagsf_downlfstats2_perevent *= btvjson["deepJet_shape"].evaluate("central", jet_flavor['Jet_Flav'][i][j], abs(	
                         float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))
 
-                    print("hf up for this jet is : ", btvjson["deepJet_shape"].evaluate("central", jet_flavor['Jet_Flav'][i][j], abs(	
-                        float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j])))
+                    # print("hf up for this jet is : ", btvjson["deepJet_shape"].evaluate("central", jet_flavor['Jet_Flav'][i][j], abs(	
+                    #     float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j])))
                     
-                    print("hf down for this jet is : ", btvjson["deepJet_shape"].evaluate("central", jet_flavor['Jet_Flav'][i][j], abs(	
-                        float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j])))	
+                    # print("hf down for this jet is : ", btvjson["deepJet_shape"].evaluate("central", jet_flavor['Jet_Flav'][i][j], abs(	
+                    #     float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j])))	
 
-                    print("nominal for this jet is : ", btvjson["deepJet_shape"].evaluate("central", jet_flavor['Jet_Flav'][i][j], abs(	
-                        float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j])))	
+                    # print("nominal for this jet is : ", btvjson["deepJet_shape"].evaluate("central", jet_flavor['Jet_Flav'][i][j], abs(	
+                    #     float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j])))	
 	
 
             
