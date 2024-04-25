@@ -1056,14 +1056,14 @@ class Dataset:
                     jet_btagsf_downlfstats2_perevent *= btvjson["deepJet_shape"].evaluate("central", jet_flavor['Jet_Flav'][i][j], abs(	
                         float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))
 
-                    # print("hf up for this jet is : ", btvjson["deepJet_shape"].evaluate("central", jet_flavor['Jet_Flav'][i][j], abs(	
-                    #     float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j])))
+                    print("hf up for this jet is : ", btvjson["deepJet_shape"].evaluate("central", jet_flavor['Jet_Flav'][i][j], abs(	
+                        float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j])))
                     
-                    # print("hf down for this jet is : ", btvjson["deepJet_shape"].evaluate("central", jet_flavor['Jet_Flav'][i][j], abs(	
-                    #     float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j])))	
+                    print("hf down for this jet is : ", btvjson["deepJet_shape"].evaluate("central", jet_flavor['Jet_Flav'][i][j], abs(	
+                        float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j])))	
 
-                    # print("nominal for this jet is : ", btvjson["deepJet_shape"].evaluate("central", jet_flavor['Jet_Flav'][i][j], abs(	
-                    #     float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j])))	
+                    print("nominal for this jet is : ", btvjson["deepJet_shape"].evaluate("central", jet_flavor['Jet_Flav'][i][j], abs(	
+                        float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j])))	
 	
 
             
@@ -1089,9 +1089,9 @@ class Dataset:
             jet_btagsf_upcferr2.append(jet_btagsf_upcferr2_perevent)
             jet_btagsf_downcferr2.append(jet_btagsf_downcferr2_perevent)
 
-            print("hf up per event: ", jet_btagsf_uphf_perevent)
-            print("hf down per event: ", jet_btagsf_downhf_perevent)
-            print("nominal per event: ", jet_btagsf_perevent)
+            # print("hf up per event: ", jet_btagsf_uphf_perevent)
+            # print("hf down per event: ", jet_btagsf_downhf_perevent)
+            # print("nominal per event: ", jet_btagsf_perevent)
 
 
         df.loc[:, "Weight_CSV_UL"] = 0.
