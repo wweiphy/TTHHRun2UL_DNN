@@ -100,7 +100,7 @@ class Sample:
 
             print("Do DNN Evaluation")
 
-            df.query(df.sf_weight > 0., inplace=True)
+            df.query('sf_weight > 0.', inplace=True)
 
             # calculate uncertainties for nominal events
             if "nominal" in self.path: 
