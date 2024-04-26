@@ -5,7 +5,7 @@ import pandas as pd
 import ROOT
 
 
-# python combineRun2_script.py --flavor -c 6j4b_oldtthh --threeyear 
+# python combineRun2_script.py -c 6j4b_oldtthh --threeyear 
 
 usage = "usage=%prog [options] \n"
 usage += "USE: python cardmakingscript.py -n True "
@@ -29,7 +29,7 @@ parser.add_option("-c", "--category", dest="category",default="5j4b",
 processlist = ['ttHH', 'ttH', 'ttZ', 'ttZH',
                'ttZZ', 'ttlf', 'ttcc', 'ttmb', 'ttnb']
 
-decorrelated_systs = ['effTrigger_mu','effTrigger_e','eff_mu','eff_e','btag_hfstats1','btag_hfstats2','btag_lfstats1','btag_lfstats2']
+decorrelated_systs = ['effTrigger_mu','effTrigger_e','eff_mu','eff_e','btag_hfstats1','btag_hfstats2','btag_lfstats1','btag_lfstats2','JER']
 
 filedir = os.path.dirname(os.path.realpath(__file__))
 combdir = os.path.dirname(filedir)
