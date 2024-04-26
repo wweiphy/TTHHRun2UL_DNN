@@ -10,6 +10,10 @@ import sys
 # python cardmakingscript.py -n new -f 20166j4b
 # python cardmakingscript.py -n new -f 2016-4FS6j4b
 
+# 16pre&16post
+
+# python cardmakingscript.py -y 2016 -f 20166j4b_oldtthh
+
 # Run2
 
 # python cardmakingscript.py -y run2 -f ThreeYear6j4b_oldtthh
@@ -81,20 +85,28 @@ if not os.path.exists("new_nosys"):
     os.mkdir("new_nosys")
 else:
     os.rmdir("new_nosys")
+if not os.path.exists("new_rate"):
+    os.mkdir("new_rate")
+else:
+    os.rmdir("new_rate")
 
 if "4FS" in options.folder:
     systfile = "datacard_new_sys_reduce_4FS.csv"
 else:
     if options.year == "2016":
         systfile = "datacard_new_sys_reduce_2016.csv"
+        systfilerate = "datacard_new_sys_reduce_2016_rate.csv"
     # elif options.year == "2016postVFP":
         # systfile = "datacard_new_sys_reduce_2016postVFP.csv"
     elif options.year == "2017":
         systfile = "datacard_new_sys_reduce_2017.csv"
+        systfilerate = "datacard_new_sys_reduce_2017_rate.csv"
     elif options.year == "2018":
         systfile = "datacard_new_sys_reduce_2018.csv"
+        systfilerate = "datacard_new_sys_reduce_2018_rate.csv"
     elif options.year == "run2":
         systfile = "datacard_new_sys_reduce_run2.csv"
+        systfilerate = "datacard_new_sys_reduce_run2_rate.csv"
 
 for node in process_new:
 
@@ -118,10 +130,17 @@ for node in process_new:
     outfile2 = filedir + "/new/ljets_ge4j_ge3t_{}_node_hdecay.txt".format(node)
     runcommand2 = "python {} --categoryname={} --rootfile={} --outputfile={} --directory={} --signaltag=ttHH --csvfile={} --nominal_key='$CHANNEL__$PROCESS' --syst_key='$CHANNEL__$PROCESS__$SYSTEMATIC'".format(
         scriptfile, categoryname, rootfile, outfile2, cardmaker, csvfile_sys)
+    
+
+    csvfile_sys_rate = filedir+"/"+systfilerate
+    outfile3 = filedir + "/new_rate/ljets_ge4j_ge3t_{}_node_hdecay.txt".format(node)
+    runcommand3 = "python {} --categoryname={} --rootfile={} --outputfile={} --directory={} --signaltag=ttHH --csvfile={} --nominal_key='$CHANNEL__$PROCESS' --syst_key='$CHANNEL__$PROCESS__$SYSTEMATIC'".format(
+        scriptfile, categoryname, rootfile, outfile3, cardmaker, csvfile_sys_rate)
 
 
     os.system(runcommand1)
     os.system(runcommand2)
+    os.system(runcommand3)
 
     print("finish making datacard for process {}".format(node))
 
