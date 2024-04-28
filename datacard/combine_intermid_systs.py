@@ -32,8 +32,6 @@ def histo2np(h, binlist = None):
         contents[n] = h.GetBinContent(i)
     if debug >= 10:
         print(contents)
-    print("contents: ")
-    print(contents)
     return contents
 
 def load_bins(h):
@@ -59,10 +57,6 @@ def construct_new_hist(h_nom, name, vals):
 def load_values(key, rfile, syst_list):
     values = None
     keylist = [x.GetName() for x in rfile.GetListOfKeys()]
-    print("syst_list:")
-    print(syst_list)
-    # print("list of keys:")
-    # print(keylist)
 
     for syst in syst_list:
         wildcard = key.replace("$SYSTEMATIC", syst)
@@ -93,14 +87,9 @@ def combine_systs(nom_key, syst_key, rfile, systname, replace_cfg, cleanup = Tru
         return
     print("nom key is "+nom_key)
     nom_vals = histo2np(h_nom)
-    print ("nom values from combine syst: ")
-    print (nom_vals)
 
     syst_list = ["{}_{}".format(systname, x) for x in syst_list]
     values = load_values(key = syst_key, rfile = rfile, syst_list = syst_list)
-
-    print ("values: ")
-    print (values)
 
     if values.size != 0:
         residuals = values - nom_vals
@@ -113,10 +102,7 @@ def combine_systs(nom_key, syst_key, rfile, systname, replace_cfg, cleanup = Tru
         elif keyword == "MCrelic":
             # values are the root mean squared values of the respective variations
             values = (np.mean(residuals**2, axis=0))**0.5
-            print("residuals: ")
-            print(residuals)
-            # print ("values")
-            # print (values)
+
         else:
             msg = "Did not recognize keyword '{}'!".format(keyword)
             msg += "\nCurrent choices: Hessian, MCrelic"
@@ -126,18 +112,6 @@ def combine_systs(nom_key, syst_key, rfile, systname, replace_cfg, cleanup = Tru
             print(nom_vals)
             print("varied (nElements: {}):".format(values.size))
             print(values)
-
-        
-        # print ("values: ")
-        # print (values)
-
-        # print("nom values: ")
-        # print (nom_vals)
-
-        # print("Up values")
-        # print(values + nom_vals)
-        # print("Down values")
-        # print(nom_vals - values)
 
         h_up = construct_new_hist(h_nom = h_nom, name = name+"Up", vals = values + nom_vals)
         print("Writing '{}'".format(h_up.GetName()))
@@ -169,8 +143,7 @@ def merge_systs(nom_key, syst_key, rfile, systname, replace_cfg, cleanup = True)
         print("ERROR: Could not load histogram '{}' from file '{}'".format(nom_key, rfile.GetName()))
         return
     nom_vals = histo2np(h_nom)
-    # print ("nom values for merge")
-    # print (nom_vals)
+
 
     for var in ["Up", "Down"]:
         values = load_values(key = syst_key, rfile = rfile, syst_list = [x+var for x in syst_list])
@@ -179,11 +152,6 @@ def merge_systs(nom_key, syst_key, rfile, systname, replace_cfg, cleanup = True)
             values = (values - nom_vals)**2
             # final values is squared sum per bin
             values = (values.sum(axis=0))**0.5
-
-            # print("Up or Down")
-            # print(var)
-            # print("plus/minus values for for merge")
-            # print(values)
 
             if debug >= 3:
                 print("nominal (nElements: {}):".format(nom_vals.size))

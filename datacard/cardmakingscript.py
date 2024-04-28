@@ -43,12 +43,12 @@ import sys
 # python cardmakingscript.py -n old -f 230515_evaluation_old_2
 # python cardmakingscript.py -n new -f 230515_evaluation_new_2
 # python cardmakingscript.py -n new -f 230515_evaluation_new_5j4b_2
-# python cardmakingscript.py -y 2016 -f 230515_evaluation_new_6j4b_oldtthh
+# python cardmakingscript.py -y 2016 -f 230515_evaluation_new_6j4b_oldtthh_2
 
 # python cardmakingscript.py -n old -f 230523_evaluation_old_2
 # python cardmakingscript.py -n new -f 230523_evaluation_new_2
 # python cardmakingscript.py -n new -f 230523_evaluation_new_5j4b_2
-# python cardmakingscript.py -y 2016 -f 230523_evaluation_new_6j4b_oldtthh
+# python cardmakingscript.py -y 2016 -f 230523_evaluation_new_6j4b_oldtthh_2
 
 
 usage = "usage=%prog [options] \n"
@@ -93,11 +93,14 @@ else:
 if "4FS" in options.folder:
     systfile = "datacard_new_sys_reduce_4FS.csv"
 else:
-    if options.year == "2016":
+    if options.year == "2016" and "2016" in options.folder:
         systfile = "datacard_new_sys_reduce_2016.csv"
         systfilerate = "datacard_new_sys_reduce_2016_rate.csv"
     # elif options.year == "2016postVFP":
         # systfile = "datacard_new_sys_reduce_2016postVFP.csv"
+    elif options.year == "2016" and "2016" not in options.folder:
+        systfile = "datacard_new_sys_reduce_2016-TwoEra.csv"
+        systfilerate = "datacard_new_sys_reduce_2016-TwoEra_rate.csv"
     elif options.year == "2017":
         systfile = "datacard_new_sys_reduce_2017.csv"
         systfilerate = "datacard_new_sys_reduce_2017_rate.csv"
