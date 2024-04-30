@@ -388,6 +388,34 @@ class Dataset:
 
                 df.loc[:, "process"] = sample.process
 
+                if self.dataEra == "2017" or self.dataEra == 2017:
+
+                    df['check_ElectronTrigger'] = (df['Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX'] == 1) | ((df['Triggered_HLT_Ele32_WPTight_Gsf_L1DoubleEG_vX'] == 1) & (df['Triggered_HLT_Ele32_WPTight_Gsf_2017SeedsX'] == 1))
+
+                    df['check_MuonTrigger'] = (df['Triggered_HLT_IsoMu27_vX'])
+
+                elif self.dataEra == "2018" or self.dataEra == 2018:
+
+                    df['check_ElectronTrigger'] = (df['Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX'] == 1) | (df['Triggered_HLT_Ele32_WPTight_Gsf_vX'] == 1) 
+
+                    df['check_MuonTrigger'] = (df['Triggered_HLT_IsoMu24_vX'])
+
+                elif self.dataEra == "2016postVFP":
+                    
+                    df['check_ElectronTrigger'] = (df['Triggered_HLT_Ele27_WPTight_Gsf_vX']) 
+
+                    df['check_MuonTrigger'] = (df['Triggered_HLT_IsoTkMu24_vX'] == 1) | (df['Triggered_HLT_IsoMu24_vX'] == 1)
+
+                elif self.dataEra == "2016preVFP":
+                    
+                    df['check_ElectronTrigger'] = (df['Triggered_HLT_Ele27_WPTight_Gsf_vX']) 
+
+                    df['check_MuonTrigger'] = (df['Triggered_HLT_IsoTkMu24_vX'] == 1) | (df['Triggered_HLT_IsoMu24_vX'] == 1)
+
+                else:
+                    # print("no file matches the dataEra " +dataEra)
+                    sys.exit("no file matches the dataEra " +self.dataEra)
+
                 # apply event selection
                 df = self.applySelections(df, sample.selections)
 
@@ -422,33 +450,7 @@ class Dataset:
                                 df.loc[:, 'Weight_scale_variation_muR_2p0_muF_2p0'] = 0.
 
                             
-                            if self.dataEra == "2017" or self.dataEra == 2017:
-
-                                df['check_ElectronTrigger'] = (df['Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX'] == 1) | ((df['Triggered_HLT_Ele32_WPTight_Gsf_L1DoubleEG_vX'] == 1) & (df['Triggered_HLT_Ele32_WPTight_Gsf_2017SeedsX'] == 1))
-
-                                df['check_MuonTrigger'] = (df['Triggered_HLT_IsoMu27_vX'])
-
-                            elif self.dataEra == "2018" or self.dataEra == 2018:
-
-                                df['check_ElectronTrigger'] = (df['Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX'] == 1) | (df['Triggered_HLT_Ele32_WPTight_Gsf_vX'] == 1) 
-
-                                df['check_MuonTrigger'] = (df['Triggered_HLT_IsoMu24_vX'])
-
-                            elif self.dataEra == "2016postVFP":
-                                
-                                df['check_ElectronTrigger'] = (df['Triggered_HLT_Ele27_WPTight_Gsf_vX']) 
-
-                                df['check_MuonTrigger'] = (df['Triggered_HLT_IsoTkMu24_vX'] == 1) | (df['Triggered_HLT_IsoMu24_vX'] == 1)
-
-                            elif self.dataEra == "2016preVFP":
-                                
-                                df['check_ElectronTrigger'] = (df['Triggered_HLT_Ele27_WPTight_Gsf_vX']) 
-
-                                df['check_MuonTrigger'] = (df['Triggered_HLT_IsoTkMu24_vX'] == 1) | (df['Triggered_HLT_IsoMu24_vX'] == 1)
-
-                            else:
-                                # print("no file matches the dataEra " +dataEra)
-                                sys.exit("no file matches the dataEra " +self.dataEra)
+                            
         
                             # nominal values
                             df = df.assign(sf_weight=lambda x: (btagfactor*sample.lumiWeight*x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSF[0]'] > 0.) & (x['Electron_ReconstructionSF[0]'] > 0.))*1.*x['Electron_IdentificationSF[0]']*x['Electron_ReconstructionSF[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & (x['check_ElectronTrigger']) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['check_MuonTrigger'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
