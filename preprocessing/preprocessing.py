@@ -428,19 +428,19 @@ class Dataset:
                 df = self.applySelections(df, sample.selections)
 
                 print('check electron identification')
-                print("nominal, ",df['Electron_IdentificationSF[0]'].head(5))
-                print("up, ", df['Electron_IdentificationSFUp[0]'].head(5))
-                print("down, ", df['Electron_IdentificationSFDown[0]'].head(5))
+                print("nominal, ",df['Electron_IdentificationSF'].head(5))
+                print("up, ", df['Electron_IdentificationSFUp'].head(5))
+                print("down, ", df['Electron_IdentificationSFDown'].head(5))
 
                 print('check electron reconstruction')
-                print("nominal, ", df['Electron_ReconstructionSF[0]'].head(5))
-                print("up, ", df['Electron_ReconstructionSFUp[0]'].head(5))
-                print("down, ", df['Electron_ReconstructionSFDown[0]'].head(5))
+                print("nominal, ", df['Electron_ReconstructionSF'].head(5))
+                print("up, ", df['Electron_ReconstructionSFUp'].head(5))
+                print("down, ", df['Electron_ReconstructionSFDown'].head(5))
 
                 print('check electron trigger')
-                print("nominal, ", df['Weight_ElectronTriggerSF'].head(5))
-                print("up, ", df['Weight_ElectronTriggerSF_Up'].head(5))
-                print("down, ", df['Weight_ElectronTriggerSF_Down'].head(5))
+                print("nominal, ", df['Weight_ElectronTriggerSF'].mean())
+                print("up, ", df['Weight_ElectronTriggerSF_Up'].mean())
+                print("down, ", df['Weight_ElectronTriggerSF_Down'].mean())
 
                 if self.do_EvalSFs:
                     # for DNN evaluation on data
