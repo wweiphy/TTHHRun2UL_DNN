@@ -394,11 +394,15 @@ class Dataset:
 
                     df['check_MuonTrigger'] = (df['Triggered_HLT_IsoMu27_vX'])
 
+                    print('check Trigger paths in 2017')
+
                 elif self.dataEra == "2018" or self.dataEra == 2018:
 
                     df['check_ElectronTrigger'] = (df['Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX'] == 1) | (df['Triggered_HLT_Ele32_WPTight_Gsf_vX'] == 1) 
 
                     df['check_MuonTrigger'] = (df['Triggered_HLT_IsoMu24_vX'])
+
+                    print('check Trigger paths in 2018')
 
                 elif self.dataEra == "2016postVFP":
                     
@@ -406,11 +410,15 @@ class Dataset:
 
                     df['check_MuonTrigger'] = (df['Triggered_HLT_IsoTkMu24_vX'] == 1) | (df['Triggered_HLT_IsoMu24_vX'] == 1)
 
+                    print('check Trigger paths in 2016 postVFP')
+
                 elif self.dataEra == "2016preVFP":
                     
                     df['check_ElectronTrigger'] = (df['Triggered_HLT_Ele27_WPTight_Gsf_vX']) 
 
                     df['check_MuonTrigger'] = (df['Triggered_HLT_IsoTkMu24_vX'] == 1) | (df['Triggered_HLT_IsoMu24_vX'] == 1)
+
+                    print('check Trigger paths in 2016 preVFP')
 
                 else:
                     # print("no file matches the dataEra " +dataEra)
@@ -418,6 +426,21 @@ class Dataset:
 
                 # apply event selection
                 df = self.applySelections(df, sample.selections)
+
+                print('check electron identification')
+                print("nominal, ",df['Electron_IdentificationSF[0]'].head(5))
+                print("up, ", df['Electron_IdentificationSFUp[0]'].head(5))
+                print("down, ", df['Electron_IdentificationSFDown[0]'].head(5))
+
+                print('check electron reconstruction')
+                print("nominal, ", df['Electron_ReconstructionSF[0]'].head(5))
+                print("up, ", df['Electron_ReconstructionSFUp[0]'].head(5))
+                print("down, ", df['Electron_ReconstructionSFDown[0]'].head(5))
+
+                print('check electron trigger')
+                print("nominal, ", df['Weight_ElectronTriggerSF'].head(5))
+                print("up, ", df['Weight_ElectronTriggerSF_Up'].head(5))
+                print("down, ", df['Weight_ElectronTriggerSF_Down'].head(5))
 
                 if self.do_EvalSFs:
                     # for DNN evaluation on data
