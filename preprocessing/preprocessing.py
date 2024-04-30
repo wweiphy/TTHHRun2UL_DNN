@@ -427,24 +427,10 @@ class Dataset:
                 # apply event selection
                 df = self.applySelections(df, sample.selections)
 
-                print('number of electron, ', df[df['N_TightElectrons'] == 1].shape[0])
-                print('number of muon, ', df[df['N_TightMuons'] == 1].shape[0])
-                print("electron nominal identification, ", df[df['N_TightElectrons'] == 1]['Electron_IdentificationSF[0]'].head(5))
-                print("muon nominal identification, ", df[df['N_TightMuons'] == 1]['Muon_IdentificationSF[0]'].head(5))
-                # print('check electron identification')
-                # print("nominal, ",df['Electron_IdentificationSF[0]'].shape[0])
-                # print("up, ", df['Electron_IdentificationSFUp[0]'].shape[0])
-                # print("down, ", df['Electron_IdentificationSFDown[0]'].shape[0])
-
-                # print('check electron reconstruction')
-                # print("nominal, ", df['Electron_ReconstructionSF[0]'].mean())
-                # print("up, ", df['Electron_ReconstructionSFUp[0]'].mean())
-                # print("down, ", df['Electron_ReconstructionSFDown[0]'].mean())
-
-                # print('check electron trigger')
-                # print("nominal, ", df['Weight_ElectronTriggerSF'].mean())
-                # print("up, ", df['Weight_ElectronTriggerSF_Up'].mean())
-                # print("down, ", df['Weight_ElectronTriggerSF_Down'].mean())
+                # print('number of electron, ', df[df['N_TightElectrons'] == 1].shape[0])
+                # print('number of muon, ', df[df['N_TightMuons'] == 1].shape[0])
+                # print("electron nominal identification, ", df[df['N_TightElectrons'] == 1]['Electron_IdentificationSF[0]'].head(5))
+                # print("muon nominal identification, ", df[df['N_TightMuons'] == 1]['Muon_IdentificationSF[0]'].head(5))
 
                 if self.do_EvalSFs:
                     # for DNN evaluation on data

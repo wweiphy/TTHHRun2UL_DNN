@@ -86,10 +86,10 @@ elif options.dataEra == "2016preVFP":
     # single lepton selections
     single_mu_sel = "(N_LooseElectrons == 0 and N_TightMuons == 1 and Muon_Pt > 26. and (Triggered_HLT_IsoTkMu24_vX == 1 or Triggered_HLT_IsoMu24_vX == 1))"
     single_el_sel = "(N_LooseMuons == 0 and N_TightElectrons == 1 and Triggered_HLT_Ele27_WPTight_Gsf_vX == 1)"
-    
+
 else:
     # print("no file matches the dataEra " +dataEra)
-    sys.exit("no file matches the dataEra " +self.dataEra)
+    sys.exit("no file matches the dataEra " +options.dataEra)
 
 
 
@@ -155,10 +155,10 @@ dataset.addBaseSelection(base_selection)
       
 dataset.addSample(
     sampleName="TT4b",
-    ntuples=ntuplesPath2 +
-    "/2016pre/ntuple/TT4b_TuneCP5_13TeV_madgraph_pythia8/sl_LEG_ntuple_2016preVFP/240407_043758/*/ntuples_nominal_Tree_33.root",
     # ntuples=ntuplesPath2 +
-    # "/2016pre/ntuple/TT4b_TuneCP5_13TeV_madgraph_pythia8/sl_LEG_ntuple_2016preVFP/240407_043758/*/*nominal*.root",
+    # "/2016pre/ntuple/TT4b_TuneCP5_13TeV_madgraph_pythia8/sl_LEG_ntuple_2016preVFP/240407_043758/*/ntuples_nominal_Tree_33.root",
+    ntuples=ntuplesPath2 +
+    "/2016pre/ntuple/TT4b_TuneCP5_13TeV_madgraph_pythia8/sl_LEG_ntuple_2016preVFP/240407_043758/*/*nominal*.root",
     categories=ttnb_categories,
     process="tt4b",
     #    lumiWeight  = 41.5,
