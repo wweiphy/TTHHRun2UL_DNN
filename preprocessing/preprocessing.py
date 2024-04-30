@@ -428,9 +428,9 @@ class Dataset:
                 df = self.applySelections(df, sample.selections)
 
                 print('check electron identification')
-                print("nominal, ",df['Electron_IdentificationSF[0]'].mean())
-                print("up, ", df['Electron_IdentificationSFUp[0]'].mean())
-                print("down, ", df['Electron_IdentificationSFDown[0]'].mean())
+                print("nominal, ",df['Electron_IdentificationSF[0]'].shape[0])
+                print("up, ", df['Electron_IdentificationSFUp[0]'].shape[0])
+                print("down, ", df['Electron_IdentificationSFDown[0]'].shape[0])
 
                 print('check electron reconstruction')
                 print("nominal, ", df['Electron_ReconstructionSF[0]'].mean())
