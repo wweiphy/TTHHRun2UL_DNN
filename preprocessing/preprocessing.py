@@ -428,14 +428,14 @@ class Dataset:
                 df = self.applySelections(df, sample.selections)
 
                 print('check electron identification')
-                print("nominal, ",df['Electron_IdentificationSF'].head(5))
-                print("up, ", df['Electron_IdentificationSFUp'].head(5))
-                print("down, ", df['Electron_IdentificationSFDown'].head(5))
+                print("nominal, ",df['Electron_IdentificationSF[0]'].mean())
+                print("up, ", df['Electron_IdentificationSFUp[0]'].mean())
+                print("down, ", df['Electron_IdentificationSFDown[0]'].mean())
 
                 print('check electron reconstruction')
-                print("nominal, ", df['Electron_ReconstructionSF'].head(5))
-                print("up, ", df['Electron_ReconstructionSFUp'].head(5))
-                print("down, ", df['Electron_ReconstructionSFDown'].head(5))
+                print("nominal, ", df['Electron_ReconstructionSF[0]'].mean())
+                print("up, ", df['Electron_ReconstructionSFUp[0]'].mean())
+                print("down, ", df['Electron_ReconstructionSFDown[0]'].mean())
 
                 print('check electron trigger')
                 print("nominal, ", df['Weight_ElectronTriggerSF'].mean())
