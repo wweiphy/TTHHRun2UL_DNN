@@ -965,8 +965,15 @@ class DNN():
             plt.legend()
 
             # save
-            out_path = self.save_path + "/model_history_"+str(metric)+".png"
-            plt.savefig(out_path)
+            out_path = self.save_path + "/model_history_"+str(metric)+".csv"
+            # out_path = self.save_path + "/model_history_"+str(metric)+".pdf"
+            # plt.savefig(out_path)
+
+            df_history = pd.DataFrame({'Epoch': epochs,
+                   'Train_{}'.format(metric): train_history,
+                   'Validation_{}'.format(metric): val_history})
+            df_history.to_csv(out_path, index=False)  
+
             print("saved plot of "+str(metric)+" at "+str(out_path))
 
     def plot_outputNodes(self, log=False, printROC=False, signal_class=None,
