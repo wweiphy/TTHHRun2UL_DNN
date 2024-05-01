@@ -7,6 +7,9 @@
 
 # python train_template_5j4b.py -i DNN_0216_UL_2018 -o 230220_50  --plot --printroc -c ge5j_ge4t --epochs=500 --signalclass=ttHH -f 0.2 -v dnn_variables_new_50 -n ge4j_ge3t_ttH
 
+# 2016 pre
+# python train_template_5j4b.py -i DNN_0509_UL_2016pre -o 230515_50_2  --plot --printroc -c ge5j_ge4t --epochs=500 --signalclass=ttHH -f 0.2 -v dnn_variables_new_50 -n ge4j_ge3t_ttH 
+
 
 # global imports
 #import ROOT
