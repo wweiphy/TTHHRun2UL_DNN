@@ -965,7 +965,7 @@ class DNN():
             plt.legend()
 
             # save
-            out_path = self.save_path + "/model_history_"+str(metric)+".pdf"
+            out_path = self.save_path + "/model_history_"+str(metric)+".png"
             plt.savefig(out_path)
             print("saved plot of "+str(metric)+" at "+str(out_path))
 
