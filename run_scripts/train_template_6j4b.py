@@ -40,7 +40,7 @@ options.initArguments()
 
 
 # load samples
-input_samples = df.InputSamples(options.getInputDirectory(),dataEra=2018, test_percentage=options.getTestPercentage())
+input_samples = df.InputSamples(options.getInputDirectory(),dataEra="2016preVFP", test_percentage=options.getTestPercentage())
 
 
 weight_expr = 'x.Weight_XS * x.Weight_CSV_UL * x.Weight_GEN_nom'
