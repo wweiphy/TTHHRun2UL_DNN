@@ -1095,6 +1095,7 @@ class plotDiscriminators:
                     title=str(truth_cls)+" at "+str(node_cls)+" node",
                     xtitle=str(sig_labels[iSig])+" at "+str(node_cls)+" node",
                     ytitle=setup.GetyTitle(self.privateWork),
+                    new_bin=False,
                     filled=False)
 
                 # set signal histogram linewidth
