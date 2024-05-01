@@ -999,11 +999,11 @@ class DNN():
                             sigScale=-1):
         ''' plot all events classified as one category '''
         if not bin_range:
-            bin_range = [0., 1.]
-            # bin_range = [round(1./self.data.n_output_neurons, 2), 1.]
+            # bin_range = [0., 1.]
+            bin_range = [round(1./self.data.n_output_neurons, 2), 1.]
         if not nbins:
-            nbins = int(25)
-            # nbins = int(25*(1.-bin_range[0]))
+            # nbins = int(25)
+            nbins = int(25*(1.-bin_range[0]))
 
         plotDiscrs = plottingScripts.plotDiscriminators(
             data=self.data,
