@@ -16,7 +16,7 @@ usage += "USE: python plottingscript.py -n new_plotting "
 # 2018
 
 # python plottingscript.py -n new -f 230220_evaluation_new_5j4b -c new_230220_5j4b_sys -j 5 -b 4
-# python plottingscript.py -n new -f 230220_evaluation_new_6j4b -c new_230220_6j4b_sys -j 6 -b 4
+# python plottingscript.py -n new -f 230220_evaluation_new_6j4b_2 -c new_230220_6j4b_sys -j 6 -b 4
 # python plottingscript.py -n new -f 230220_evaluation_new_5j4b_4FS -c new_230220_5j4b_4FS_sys -j 5 -b 4
 # python plottingscript.py -n new -f 230220_evaluation_new_6j4b_4FS -c new_230220_6j4b_4FS_sys -j 6 -b 4
 
