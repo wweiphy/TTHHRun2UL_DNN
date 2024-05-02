@@ -16,7 +16,9 @@
 # 2016pre 
 # python train_template_6j4b.py -i DNN_0509_UL_2016pre -o 230515_50_2  --plot --printroc -c ge6j_ge4t --epochs=500 --signalclass=ttHH -f 0.2 -v dnn_variables_new_50 -n ge4j_ge3t_ttH 
  
-# python train_template_6j4b.py -i DNN_0509_UL_2016pre -o 230515_50_2  --plot --printroc -c ge5j_ge4t --epochs=500 --signalclass=ttHH -f 0.2 -v dnn_variables_new_50 -n ge4j_ge3t_ttH 
+# python train_template_6j4b.py -i DNN_0509_UL_2016pre -o 230515_50_2  --plot --printroc -c ge5j_ge4t --epochs=500 --signalclass=ttHH -f 0.2 -v dnn_variables_new_50 -n ge4j_ge3t_ttH
+ 
+# python train_template_6j4b.py -i DNN_0509_UL_2016pre -o 230515_50_2  --plot --printroc -c ge4j_ge3t --epochs=500 --signalclass=ttHH -f 0.2 -v dnn_variables_new_50 -n ge4j_ge3t_ttH 
 
 
 # global imports
@@ -51,7 +53,7 @@ options.initArguments()
 
 
 # load samples
-input_samples = df.InputSamples(options.getInputDirectory(),dataEra="2016postVFP", test_percentage=options.getTestPercentage())
+input_samples = df.InputSamples(options.getInputDirectory(),dataEra="2016preVFP", test_percentage=options.getTestPercentage())
 
 
 weight_expr = 'x.Weight_XS * x.Weight_CSV_UL * x.Weight_GEN_nom'
@@ -107,7 +109,8 @@ dnn = DNN.DNN(
     # metrics for evaluation (c.f. KERAS metrics)
     eval_metrics    = ["acc"],
     Do_Evaluation   = False,
-    lumi=33.62,
+    lumi=39.04,
+    # lumi=33.62,
     # lumi=119.6,
     # percentage of train set to be used for testing (i.e. evaluating/plotting after training)
     test_percentage = options.getTestPercentage(),
