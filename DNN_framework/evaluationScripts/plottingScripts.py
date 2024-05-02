@@ -69,6 +69,7 @@ class savenominalDiscriminators:
             
             # current_binrange = [0,1]
             if not self.equalbin:
+                
                 if node_cls == "ttHH":
                     # current_binrange = [0, 0.19, 0.23, 0.25,
                                         # 0.27, 0.285, 0.3, 0.33, 0.55]
@@ -82,9 +83,11 @@ class savenominalDiscriminators:
                                         0.255, 0.265, 0.28, 0.30, 0.32, 0.36, 0.45]
                     nbins = len(current_binrange) - 1
                 if node_cls == "ttZH":
-                    # current_binrange = [0, 0.24, 0.45]
+                    
                     current_binrange = [0, 0.16, 0.18, 0.2,
-                                        0.21, 0.23, 0.24, 0.25, 0.26, 0.27, 0.45]
+                                        0.21, 0.23, 0.27, 0.45]
+                    # current_binrange = [0, 0.16, 0.18, 0.2,
+                    #                     0.21, 0.23, 0.24, 0.25, 0.26, 0.27, 0.45]
                     nbins = len(current_binrange) - 1
                 if node_cls == "ttZ":
                     # current_binrange = [0, 0.19,0.22,0.23,0.25, 0.45]
@@ -92,9 +95,10 @@ class savenominalDiscriminators:
                                         0.23, 0.245, 0.255, 0.27, 0.29, 0.45]
                     nbins = len(current_binrange) - 1
                 if node_cls == "ttZZ":
-                    # current_binrange = [0, 0.18, 0.25, 0.28, 0.5]
-                    current_binrange = [0, 0.16, 0.18, 0.19,
-                                        0.20, 0.21, 0.22, 0.235, 0.25, 0.28, 0.5]
+                    
+                    current_binrange = [0, 0.18, 0.22, 0.235, 0.28, 0.5]
+                    # current_binrange = [0, 0.16, 0.18, 0.19,
+                    #                     0.20, 0.21, 0.22, 0.235, 0.25, 0.28, 0.5]
                     nbins = len(current_binrange) - 1
                 if node_cls == "ttlf":
                     # current_binrange = [0, 0.22, 0.25, 0.28,
@@ -513,9 +517,11 @@ class saveDataDiscriminators:
                                         0.255, 0.265, 0.28, 0.30, 0.32, 0.36, 0.45]
                     nbins = len(current_binrange) - 1
                 if node_cls == "ttZH":
-                    # current_binrange = [0, 0.24, 0.45]
+                    
                     current_binrange = [0, 0.16, 0.18, 0.2,
-                                        0.21, 0.23, 0.24, 0.25, 0.26, 0.27, 0.45]
+                                        0.21, 0.23, 0.27, 0.45]
+                    # current_binrange = [0, 0.16, 0.18, 0.2,
+                    #                     0.21, 0.23, 0.24, 0.25, 0.26, 0.27, 0.45]
                     nbins = len(current_binrange) - 1
                 if node_cls == "ttZ":
                     # current_binrange = [0, 0.19,0.22,0.23,0.25, 0.45]
@@ -523,9 +529,10 @@ class saveDataDiscriminators:
                                         0.23, 0.245, 0.255, 0.27, 0.29, 0.45]
                     nbins = len(current_binrange) - 1
                 if node_cls == "ttZZ":
-                    # current_binrange = [0, 0.18, 0.25, 0.28, 0.5]
-                    current_binrange = [0, 0.16, 0.18, 0.19,
-                                        0.20, 0.21, 0.22, 0.235, 0.25, 0.28, 0.5]
+                    
+                    current_binrange = [0, 0.18, 0.22, 0.235, 0.28, 0.5]
+                    # current_binrange = [0, 0.16, 0.18, 0.19,
+                    #                     0.20, 0.21, 0.22, 0.235, 0.25, 0.28, 0.5]
                     nbins = len(current_binrange) - 1
                 if node_cls == "ttlf":
                     # current_binrange = [0, 0.22, 0.25, 0.28,
@@ -654,9 +661,11 @@ class saveJESJERDiscriminators:
                                         0.255, 0.265, 0.28, 0.30, 0.32, 0.36, 0.45]
                     nbins = len(current_binrange) - 1
                 if node_cls == "ttZH":
-                    # current_binrange = [0, 0.24, 0.45]
+                    
                     current_binrange = [0, 0.16, 0.18, 0.2,
-                                        0.21, 0.23, 0.24, 0.25, 0.26, 0.27, 0.45]
+                                        0.21, 0.23, 0.27, 0.45]
+                    # current_binrange = [0, 0.16, 0.18, 0.2,
+                    #                     0.21, 0.23, 0.24, 0.25, 0.26, 0.27, 0.45]
                     nbins = len(current_binrange) - 1
                 if node_cls == "ttZ":
                     # current_binrange = [0, 0.19,0.22,0.23,0.25, 0.45]
@@ -664,9 +673,10 @@ class saveJESJERDiscriminators:
                                         0.23, 0.245, 0.255, 0.27, 0.29, 0.45]
                     nbins = len(current_binrange) - 1
                 if node_cls == "ttZZ":
-                    # current_binrange = [0, 0.18, 0.25, 0.28, 0.5]
-                    current_binrange = [0, 0.16, 0.18, 0.19,
-                                        0.20, 0.21, 0.22, 0.235, 0.25, 0.28, 0.5]
+                    
+                    current_binrange = [0, 0.18, 0.22, 0.235, 0.28, 0.5]
+                    # current_binrange = [0, 0.16, 0.18, 0.19,
+                    #                     0.20, 0.21, 0.22, 0.235, 0.25, 0.28, 0.5]
                     nbins = len(current_binrange) - 1
                 if node_cls == "ttlf":
                     # current_binrange = [0, 0.22, 0.25, 0.28,
