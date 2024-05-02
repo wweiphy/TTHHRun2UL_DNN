@@ -127,7 +127,7 @@ ttbar_categories.addCategory("ttcc", selection = "(GenEvt_I_TTPlusBB == 0 and Ge
 
 ttmb_categories = preprocessing.EventCategories()
 ttmb_categories.addCategory("ttmb", selection = "(GenEvt_I_TTPlusBB == 3 and GenEvt_I_TTPlusCC == 0) or (GenEvt_I_TTPlusBB == 2 and GenEvt_I_TTPlusCC == 0) or (GenEvt_I_TTPlusBB == 1 and GenEvt_I_TTPlusCC == 0)")
-ttmb_categories.addCategory("ttnb", selection = "(GenEvt_I_TTPlusBB == 4 and GenEvt_I_TTPlusCC == 0) or (GenEvt_I_TTPlusBB == 5 and GenEvt_I_TTPlusCC == 0)")
+# ttmb_categories.addCategory("ttnb", selection = "(GenEvt_I_TTPlusBB == 4 and GenEvt_I_TTPlusCC == 0) or (GenEvt_I_TTPlusBB == 5 and GenEvt_I_TTPlusCC == 0)")
 
 ntuplesPath = "/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_10_6_29/src/BoostedTTH/crab/2017UL/ntuple/crab_ntuple"
 ntuplesPath2 = "/eos/uscms/store/group/lpctthrun2/wwei/UL"
@@ -153,7 +153,7 @@ dataset2.addSample(
     ntuples=ntuplesPath2 +
     "/2016post/ntuple/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2016postVFP/240408_144254/*/*nominal*.root",
     #    ntuples     = ntuplesPath+"/ttSL_220210.root",
-    categories=ttbar_categories,
+    categories=ttmb_categories,
     process = "ttSL",
     #    lumiWeight  = 41.5,
     selections=ttHH_selection,  # ttbar_selection,
@@ -166,7 +166,7 @@ dataset2.addSample(
     ntuples=ntuplesPath2 +
     "/2016post/ntuple/TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2016postVFP/240405_210225/*/*nominal*.root",
     #    ntuples     = ntuplesPath+"/ttSL_220210.root",
-    categories=ttbar_categories,
+    categories=ttmb_categories,
     process="ttDL",
     # lumiWeight  = 1.0,
     selections=ttHH_selection,  # ttbar_selection,
