@@ -388,6 +388,8 @@ class Dataset:
 
                 df.loc[:, "process"] = sample.process
 
+                print("dataEra is ", self.dataEra)
+
                 if self.dataEra == "2017" or self.dataEra == 2017:
 
                     df['check_ElectronTrigger'] = (df['Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX'] == 1) | ((df['Triggered_HLT_Ele32_WPTight_Gsf_L1DoubleEG_vX'] == 1) & (df['Triggered_HLT_Ele32_WPTight_Gsf_2017SeedsX'] == 1))
