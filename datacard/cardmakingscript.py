@@ -49,7 +49,7 @@ import sys
 
 # python cardmakingscript.py -n old -f 230523_evaluation_old_2
 # python cardmakingscript.py -n new -f 230523_evaluation_new_2
-# python cardmakingscript.py -n new -f 230523_evaluation_new_5j4b_2
+# python cardmakingscript.py -y 2016 -f 230523_evaluation_new_5j4b
 # python cardmakingscript.py -y 2016 -f 230523_evaluation_new_6j4b_oldtthh_2
 
 
