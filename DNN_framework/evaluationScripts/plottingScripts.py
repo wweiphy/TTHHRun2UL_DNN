@@ -67,6 +67,9 @@ class savenominalDiscriminators:
             values_per_node = self.data.df_unsplit_preprocessing[self.data.df_unsplit_preprocessing['Pred_Class'] == nodeIndex]['DNN_OutPut_{}'.format(
                 nodeIndex)].values
             
+            print('maximum value of node {} is {}'.format(node_cls, max(out_values)))
+            print('minimum value of node {} is {}'.format(node_cls, min(out_values)))
+            
             # current_binrange = [0,1]
             if not self.equalbin:
                 
