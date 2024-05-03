@@ -12,7 +12,7 @@ import preprocessing
 
 
 """
-USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_bTag_ttZZ.py --outputdirectory=BTag_0308_UL_nominal --variableselection=variables_bTagCorrection --maxentries=20000 --cores=8 --dataEra=2018
+USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_ttZ.py --outputdirectory=Eval_0308_UL_3_nominal --variableselection=variables --maxentries=20000 --cores=8 --dataEra=2018
 """
 
 usage="usage=%prog [options] \n"
@@ -62,15 +62,37 @@ else:
 # select only events with GEN weight > 0 because training with negative weights is weird
 
 # base = "(N_Jets >= 4 and N_BTagsM >= 3 and Evt_MET > 20. and Weight_GEN_nom > 0.)"
-base_selection = "(N_Jets >= 5)"
+base = "(N_Jets >= 4 and N_BTagsM >= 3 and Evt_MET > 20.)"
 
-# single lepton selections
-single_mu_sel = "(N_LooseElectrons == 0 and N_TightMuons == 1 and Muon_Pt > 29. and Triggered_HLT_IsoMu27_vX == 1)"
-single_el_sel = "(N_LooseMuons == 0 and N_TightElectrons == 1 and (Triggered_HLT_Ele35_WPTight_Gsf_vX == 1 or Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX == 1))"
+if options.dataEra == "2017" or options.dataEra == 2017:
 
-# base_selection = "("+base+" and ("+single_mu_sel+" or "+single_el_sel+"))"
+    # single lepton selections
+    single_mu_sel = "(N_LooseElectrons == 0 and N_TightMuons == 1 and Muon_Pt > 29. and Triggered_HLT_IsoMu27_vX == 1)"
+    single_el_sel = "(N_LooseMuons == 0 and N_TightElectrons == 1 and (Triggered_HLT_Ele35_WPTight_Gsf_vX == 1 or Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX == 1))"
 
-# ttHH_selection = "(Evt_Odd == 0)"  # Should I do this on ttHH
+elif options.dataEra == "2018" or options.dataEra == 2018:
+    # single lepton selections
+    single_mu_sel = "(N_LooseElectrons == 0 and N_TightMuons == 1 and Muon_Pt > 26. and Triggered_HLT_IsoMu24_vX == 1)"
+    single_el_sel = "(N_LooseMuons == 0 and N_TightElectrons == 1 and (Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX == 1 or Triggered_HLT_Ele32_WPTight_Gsf_vX == 1))"
+
+elif options.dataEra == "2016postVFP":
+    # single lepton selections
+    single_mu_sel = "(N_LooseElectrons == 0 and N_TightMuons == 1 and Muon_Pt > 26. and (Triggered_HLT_IsoTkMu24_vX == 1 or Triggered_HLT_IsoMu24_vX == 1))"
+    single_el_sel = "(N_LooseMuons == 0 and N_TightElectrons == 1 and Triggered_HLT_Ele27_WPTight_Gsf_vX == 1)"
+
+elif options.dataEra == "2016preVFP":
+    
+    # single lepton selections
+    single_mu_sel = "(N_LooseElectrons == 0 and N_TightMuons == 1 and Muon_Pt > 26. and (Triggered_HLT_IsoTkMu24_vX == 1 or Triggered_HLT_IsoMu24_vX == 1))"
+    single_el_sel = "(N_LooseMuons == 0 and N_TightElectrons == 1 and Triggered_HLT_Ele27_WPTight_Gsf_vX == 1)"
+
+else:
+    # print("no file matches the dataEra " +dataEra)
+    sys.exit("no file matches the dataEra " +options.dataEra)
+
+base_selection = "("+base+" and ("+single_mu_sel+" or "+single_el_sel+"))"
+
+ttHH_selection = "(Evt_Odd == 0)"  # Should I do this on ttHH
 
 # define output classes
 ttHH_categories = preprocessing.EventCategories()
@@ -117,25 +139,29 @@ dataset = preprocessing.Dataset(
     maxEntries  = options.maxEntries,
     ncores      = options.numCores,
     dataEra=options.dataEra,
-    do_BTagCorrection=True,
+    do_EvalSFs=True,
+    # do_pileup=True,
+    # do_PUJetID=True
     )
 
 # add base event selection
 dataset.addBaseSelection(base_selection)
 
 
+
 dataset.addSample(
-    sampleName="TTZZ",
+    sampleName="TTZ",
     ntuples=ntuplesPath2 +
-    "/2018/ntuple/TTZZTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2018/240329_205536/*/*nominal*.root",
+    "/2018/ntuple/TTZToBB_TuneCP5_13TeV-amcatnlo-pythia8/sl_LEG_ntuple_2018/240315_155148/*/*nominal*.root",
+    # ntuples="/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_10_6_29/src/BoostedTTH/BoostedAnalyzer/test/ntuples_nominal_Tree.root",
     #    ntuples     = ntuplesPath+"/ttH_220208.root",
-    categories=ttZZ_categories,
-    process = "ttZZ",
+    categories=ttZ_categories,
+    process = "ttZ",
     #    lumiWeight  = 41.5,
-    selections=None,  # ttbar_selection,
+    selections=ttHH_selection,  # ttbar_selection,
     #    selections  = ttbar_selection,
     islocal=False
-)
+)  # almost
 
 
 # initialize variable list
@@ -146,12 +172,13 @@ sys.path.append(basedir+"/variable_sets/")
 
 # print (basedir)
 import additional_variables as add_var
-import sf_variables as sf_var
 # import sf_variables as sf_var
+import sf_variables as sf_var
 # add these variables to the variable list
 dataset.addVariables(add_var.additional_variables)
 
 dataset.addVariables(sf_var.scalefactor_variables)
+
 
 # run the preprocessing
 dataset.runPreprocessing()
