@@ -75,6 +75,8 @@ class savenominalDiscriminators:
             if not self.equalbin:
 
                 if self.category == "4j3b":
+
+                    print("category is "+ self.category)
                 
                     if node_cls == "ttHH":
                         # 4j3b
@@ -136,6 +138,8 @@ class savenominalDiscriminators:
 
                 elif self.category == '5j4b':
 
+                    print("category is "+ self.category)
+
                     if node_cls == "ttHH":
                         # 4j3b
                         current_binrange = [0, 0.19, 0.23, 0.25,
@@ -193,6 +197,8 @@ class savenominalDiscriminators:
                         nbins = len(current_binrange) - 1
 
                 elif self.category == "6j4b":
+
+                    print("category is "+ self.category)
 
                     if node_cls == "ttHH":
                         # 4j3b
