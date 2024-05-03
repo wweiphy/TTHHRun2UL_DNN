@@ -19,7 +19,11 @@ import DNN_framework.data_frame as df
 # python eval_template_new.py -o 230220_evaluation_new_5j4b_2 -i 230220_50_ge5j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_3_nominal --ttmb=5.654803199 --ttnb=1.0 --ttHH=0.861419355 --notequalbin --lumi=119.66 --year=2018  
 
 
-# python eval_template_new.py -o 230220_evaluation_new_6j4b_2 -i 230220_50_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_3_nominal --ttmb=5.654803199 --ttnb=1.0 --notequalbin --lumi=119.66 --year=2018 --ttHH=0.861419355  
+# python eval_template_new.py -o 230220_evaluation_new_6j4b_2 -i 230220_50_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_3_nominal --ttmb=5.654803199 --ttnb=1.0 --notequalbin --lumi=119.66 --year=2018 --ttHH=0.861419355 
+ 
+# python eval_template_new.py -o 230220_evaluation_new_6j4b_oldtthh -i 230220_50_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_3_nominal --ttmb=5.654803199 --ttnb=1.0 --notequalbin --lumi=119.66 --year=2018 --ttHH=1.0
+
+# python eval_template_new.py -o 230220_evaluation_new_5j4b_oldtthh -i 230220_50_ge5j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_3_nominal --ttmb=5.654803199 --ttnb=1.0 --notequalbin --lumi=119.66 --year=2018 --ttHH=1.0
 
 
 # --ttnb=1.212174627
@@ -27,21 +31,29 @@ import DNN_framework.data_frame as df
 
 # 2017
 
-# python eval_template_new.py -o 230119_evaluation_new_6j4b -i 230119_50_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0119_UL_3_nominal --ttmb=5.654803199 --ttnb=1.0 --notequalbin --lumi=83.0 --year=2017 --ttHH=0.861419355 
+# python eval_template_new.py -o 230119_evaluation_new_6j4b -i 230119_50_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0119_UL_3_nominal --ttmb=56.54803199 --ttnb=1.0 --notequalbin --lumi=83.0 --year=2017 --ttHH=0.861419355 
+
+# python eval_template_new.py -o 230119_evaluation_new_6j4b_oldtthh_3 -i 230119_50_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0119_UL_3_nominal --ttmb=56.54803199 --ttnb=1.0 --notequalbin --lumi=83.0 --year=2017 --ttHH=1.0
+
+
+# python eval_template_new.py -o 230119_evaluation_new_5j4b_oldtthh_3 -i 230119_50_ge5j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0119_UL_3_nominal --ttmb=56.54803199 --ttnb=1.0 --notequalbin --lumi=83.0 --year=2017 --ttHH=1.0
 
 # 2016post
-# python eval_template_new.py -o 230523_evaluation_new_2 -i 230523_50_ge4j_ge3t --signalclass=ttHH --plot --printroc -d Eval_0523_UL_nominal
 
-# python eval_template_new.py -o 230523_evaluation_new_6j4b -i 230523_50_ge6j_ge4t  --signalclass=ttHH --plot --printroc -d Eval_0523_UL_nominal --ttmb=5.654803199 --ttnb=1.0 --lumi=67.24 --notequalbin
-# python eval_template_new.py -o 230523_evaluation_new_5j4b_4FS -i 230523_50_ge5j_ge4t  --signalclass=ttHH --plot --printroc -d Eval_0523_UL_nominal --ttmb=5.654803199 --ttnb=1.0 --lumi=67.24 --notequalbin
+# python eval_template_new.py -o 230523_evaluation_new_6j4b -i 230523_50_2_ge6j_ge4t  --signalclass=ttHH --plot --printroc -d Eval_0523_UL_3_nominal --ttmb=6.701443314 --ttnb=1.0 --lumi=33.62 --notequalbin --year=2016postVFP --ttHH=1.0
+
+# python eval_template_new.py -o 230523_evaluation_new_5j4b_test -i 230523_50_2_ge5j_ge4t  --signalclass=ttHH --plot --printroc -d Eval_0523_UL_3_nominal --ttmb=6.779070861 --ttnb=1.0 --lumi=33.62 --notequalbin --year=2016postVFP --ttHH=1.0
+
+# python eval_template_new.py -o 230523_evaluation_new_4j3b_test -i 230523_50_2_ge4j_ge3t  --signalclass=ttHH --plot --printroc -d Eval_0523_UL_3_nominal --ttmb=6.861631179 --ttnb=1.0 --lumi=33.62 --notequalbin --year=2016postVFP --ttHH=1.0
 
 
 # 2016pre
-# python eval_template_new.py -o 230515_evaluation_new_2 -i 230515_50_ge4j_ge3t --signalclass=ttHH --plot --printroc -d Eval_0515_UL_nominal
+# python eval_template_new.py -o 230515_evaluation_new_4j3b_test -i 230515_50_2_ge4j_ge3t --signalclass=ttHH --plot --printroc -d Eval_0515_UL_3_nominal --ttmb=6.629180384 --ttnb=1.0 --lumi=39.04 --notequalbin --year=2016preVFP --ttHH=1.0
 
-# python eval_template_new.py -o 230515_evaluation_new_6j4b -i 230515_50_ge6j_ge4t  --signalclass=ttHH --plot --printroc -d Eval_0515_UL_nominal --ttmb=5.654803199 --ttnb=1.0 --lumi=78.08 --notequalbin
+# python eval_template_new.py -o 230515_evaluation_new_6j4b -i 230515_50_2_ge6j_ge4t  --signalclass=ttHH --plot --printroc -d Eval_0515_UL_3_nominal --ttmb=6.413247047 --ttnb=1.0 --lumi=39.04 --notequalbin --year=2016preVFP --ttHH=1.0
 
-# python eval_template_new.py -o 230515_evaluation_new_5j4b -i 230515_50_ge5j_ge4t  --signalclass=ttHH --plot --printroc -d Eval_0515_UL_nominal
+# python eval_template_new.py -o 230515_evaluation_new_5j4b_test -i 230515_50_2_ge5j_ge4t  --signalclass=ttHH --plot --printroc -d Eval_0515_UL_3_nominal -ttmb=6.412307499 --ttnb=1.0 --lumi=39.04 --notequalbin --year=2016preVFP --ttHH=1.0
+
 
 
 
@@ -56,6 +68,9 @@ parser = optparse.OptionParser(usage=usage)
 
 parser.add_option("-i", "--inputdirectory", dest="inputDir",default="test_training_ge4j_ge4t",
         help="DIR of trained net data", metavar="inputDir")
+
+parser.add_option("-c", "--category", dest="category",default="4j3b",
+        help="category", metavar="category")
 
 parser.add_option("-d", "--dataset", dest="dataset", default="Eval_1204_UL_test_nominal",
                   help="folder of h5 files", metavar="dataset")
@@ -265,7 +280,7 @@ dnn.load_trained_model(inPath, options.evaluation_epoch_model)
 # dnn.save_discriminators(log = options.log, privateWork = options.privateWork, printROC = options.printROC, lumi=78.08) # 59.7 * 2 , because select only Evt_Odd = 0 
 # dnn.save_discriminators(log = options.log, privateWork = options.privateWork, printROC = options.printROC, lumi=83) # 59.7 * 2 , because select only Evt_Odd = 0 
 dnn.save_discriminators(log=options.log, privateWork=options.privateWork, printROC=options.printROC,
-                        lumi=options.lumi, year = options.year, equalbin=options.notequalbin)  # 59.7 * 2 , because select only Evt_Odd = 0
+                        lumi=options.lumi, year = options.year, category=options.category, equalbin=options.notequalbin)  # 59.7 * 2 , because select only Evt_Odd = 0
 #
 #        # plot the output nodes
 #        dnn.plot_outputNodes(log = options.log, signal_class = options.signal_class, privateWork = options.privateWork, printROC = options.printROC, sigScale = -1)

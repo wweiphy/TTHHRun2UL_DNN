@@ -838,7 +838,7 @@ class DNN():
                 self.data.get_test_labels(), self.model_prediction_vector)
             print("\nROC-AUC score: {}".format(self.roc_auc_score))
 
-    def save_discriminators(self, log=False, printROC=False, privateWork=False,year = "2017",
+    def save_discriminators(self, log=False, printROC=False, privateWork=False,year = "2017", category = "4j3b",
                             signal_class=None, nbins=None, bin_range=None, lumi=41.5, sigScale=-1, equalbin=True):
         ''' plot all events classified as one category '''
         if not bin_range:
@@ -857,12 +857,13 @@ class DNN():
             savedir=self.plot_path,
             lumi=lumi,
             year=year,
+            category = category,
             equalbin=equalbin,
             logscale=log)
 
         saveDiscrs.save()
 
-    def saveData_discriminators(self, event_classes, log=False, printROC=False, privateWork=False,
+    def saveData_discriminators(self, event_classes, log=False, printROC=False, privateWork=False,category = "4j3b",
                             signal_class=None, nbins=None, bin_range=None, lumi=41.5, sigScale=-1, equalbin=True):
         ''' plot all events classified as one category '''
         if not bin_range:
@@ -881,11 +882,12 @@ class DNN():
             savedir=self.plot_path,
             lumi=lumi,
             equalbin=equalbin,
+            category= category,
             logscale=log)
 
         saveDiscrs.save()
 
-    def save_JESJERdiscriminators(self, log=False, printROC=False, syst = "JESup", privateWork=False, year="2017",
+    def save_JESJERdiscriminators(self, log=False, printROC=False, syst = "JESup", privateWork=False, year="2017",category = '4j3b',
                             signal_class=None, nbins=None, bin_range=None,equalbin=True, sigScale=-1):
         ''' plot all events classified as one category '''
         if not bin_range:
@@ -905,6 +907,7 @@ class DNN():
             syst = syst,
             year = year,
             equalbin=equalbin,
+            category=category,
             logscale=log)
 
         saveDiscrs.save()

@@ -38,6 +38,9 @@ parser.add_option("-i", "--inputdirectory", dest="inputDir",default="test_traini
 parser.add_option("-d", "--dataset", dest="dataset", default="Eval_1204_UL_test_nominal",
                   help="folder of h5 files", metavar="dataset")
 
+parser.add_option("-c", "--category", dest="category",default="4j3b",
+        help="category", metavar="category")
+
 parser.add_option("-o", "--outputdirectory", dest="outDir",default=None,
         help="DIR of evaluation outputs, if None specified use inputDir", metavar="outDir")
 
@@ -151,5 +154,5 @@ Do_Control = False,
 
 dnn.load_trained_model(inPath, options.evaluation_epoch_model)
 
-dnn.saveData_discriminators(event_classes = ['ttHH', 'ttmb', 'ttcc', 'ttlf', 'ttnb','ttH', 'ttZH', 'ttZZ','ttZ'], log=options.log, privateWork=options.privateWork, printROC=options.printROC,
+dnn.saveData_discriminators(event_classes = ['ttHH', 'ttmb', 'ttcc', 'ttlf', 'ttnb','ttH', 'ttZH', 'ttZZ','ttZ'], log=options.log, privateWork=options.privateWork, printROC=options.printROC, category=options.category,
                         lumi=options.lumi, equalbin=options.notequalbin)  #
