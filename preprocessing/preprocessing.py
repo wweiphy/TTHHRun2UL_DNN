@@ -7,6 +7,7 @@ import numpy as np
 import re
 import glob
 import multiprocessing as mp
+import gzip
 from correctionlib import _core
 
 
@@ -849,7 +850,7 @@ class Dataset:
         PUIDsfName = os.path.join(PUIDsfDir, "jmar.json.gz")
         
         if bsfName.endswith(".gz"):
-            import gzip
+            # import gzip
             with gzip.open(bsfName, "rt") as f:
                 data = f.read().strip()
             btvjson = _core.CorrectionSet.from_string(data)
@@ -857,7 +858,7 @@ class Dataset:
             btvjson = _core.CorrectionSet.from_file(bsfName)
 
         if PUIDsfName.endswith(".gz"):
-            import gzip
+            # import gzip
             with gzip.open(PUIDsfName, "rt") as f:
                 data = f.read().strip()
             PUIDjson = _core.CorrectionSet.from_string(data)
@@ -914,7 +915,7 @@ class Dataset:
         PUIDsfName = os.path.join(PUIDsfDir, "jmar.json.gz")
 
         if bsfName.endswith(".gz"):
-            import gzip
+            # import gzip
             with gzip.open(bsfName, "rt") as f:
                 data = f.read().strip()
             btvjson = _core.CorrectionSet.from_string(data)
@@ -922,7 +923,7 @@ class Dataset:
             btvjson = _core.CorrectionSet.from_file(bsfName)
 
         if PUIDsfName.endswith(".gz"):
-            import gzip
+            # import gzip
             with gzip.open(PUIDsfName, "rt") as f:
                 data = f.read().strip()
             PUIDjson = _core.CorrectionSet.from_string(data)
@@ -1227,7 +1228,7 @@ class Dataset:
         PUIDsfName = os.path.join(PUIDsfDir, "jmar.json.gz")
         
         if bsfName.endswith(".gz"):
-            import gzip
+            # import gzip
             with gzip.open(bsfName, "rt") as f:
                 data = f.read().strip()
             btvjson = _core.CorrectionSet.from_string(data)
@@ -1235,7 +1236,7 @@ class Dataset:
             btvjson = _core.CorrectionSet.from_file(bsfName)
 
         if PUIDsfName.endswith(".gz"):
-            import gzip
+            # import gzip
             with gzip.open(PUIDsfName, "rt") as f:
                 data = f.read().strip()
             PUIDjson = _core.CorrectionSet.from_string(data)
@@ -1313,73 +1314,21 @@ class Dataset:
     def CalculateMuonSFs(self, tree, df):
 
         muonDir = os.path.join(basedir, "data", "muonSFs", self.dataEra)
-        
-        if self.dataEra == "2016postVFP":
-
-            RecoName = os.path.join(muonDir, "Efficiency_muon_generalTracks_Run2016postVFP_UL_trackerMuon.root")
-            IDName = os.path.join(muonDir, "Efficiencies_muon_generalTracks_Z_Run2016_UL_ID.root")
-            IsoName = os.path.join(muonDir, "Efficiencies_muon_generalTracks_Z_Run2016_UL_ISO.root")
-
-            print("calculate muon SFs for "+self.dataEra)
-        
-        elif self.dataEra == "2016preVFP":
-
-            RecoName = os.path.join(muonDir, "Efficiency_muon_generalTracks_Run2016preVFP_UL_trackerMuon.root")
-            IDName = os.path.join(muonDir, "Efficiencies_muon_generalTracks_Z_Run2016_UL_HIPM_ID.root")
-            IsoName = os.path.join(muonDir, "Efficiencies_muon_generalTracks_Z_Run2016_UL_HIPM_ISO.root")
-
-            print("calculate muon SFs for "+self.dataEra)
-
-        elif self.dataEra == "2017":
-
-            RecoName = os.path.join(muonDir, "Efficiency_muon_generalTracks_Run2017_UL_trackerMuon.root")
-            IDName = os.path.join(muonDir, "Efficiencies_muon_generalTracks_Z_Run2017_UL_ID.root")
-            IsoName = os.path.join(muonDir, "Efficiencies_muon_generalTracks_Z_Run2017_UL_ISO.root")
-
-            print("calculate muon SFs for "+self.dataEra)
-
-        elif self.dataEra == "2018":
-
-            RecoName = os.path.join(muonDir, "Efficiency_muon_generalTracks_Run2018_UL_trackerMuon.root")
-            IDName = os.path.join(muonDir, "Efficiencies_muon_generalTracks_Z_Run2018_UL_ID.root")
-            IsoName = os.path.join(muonDir, "Efficiencies_muon_generalTracks_Z_Run2018_UL_ISO.root") 
-
-            print("calculate muon SFs for "+self.dataEra)
-
-        histname_ID="NUM_TightID_DEN_TrackerMuons_abseta_pt"
-        histname_Iso = "NUM_TightRelIso_DEN_TightIDandIPCut_abseta_pt"
-
-        RecoFile = ROOT.TFile.Open(RecoName)
-        Recohist = RecoFile.Get('NUM_TrackerMuons_DEN_genTracks')
-
-        Recoxmin = Recohist.GetXaxis().GetXmin()
-        Recoxmax = Recohist.GetXaxis().GetXmax()
-        Recoymin = Recohist.GetYaxis().GetXmin()
-        Recoymax = Recohist.GetYaxis().GetXmax()
-
-        IDFile = ROOT.TFile.Open(IDName)
-        IDhist = IDFile.Get(histname_ID)
-
-        IDxmin = IDhist.GetXaxis().GetXmin()
-        IDxmax = IDhist.GetXaxis().GetXmax()
-        IDymin = IDhist.GetYaxis().GetXmin()
-        IDymax = IDhist.GetYaxis().GetXmax()
-
-        IsoFile = ROOT.TFile.Open(IsoName)
-        Isohist = IsoFile.Get(histname_Iso)
-
-        Isoxmin = Isohist.GetXaxis().GetXmin()
-        Isoxmax = Isohist.GetXaxis().GetXmax()
-        Isoymin = Isohist.GetYaxis().GetXmin()
-        Isoymax = Isohist.GetYaxis().GetXmax()
+        muonName = os.path.join(muonDir, "muon_Z.json.gz")
 
         
+        if muonName.endswith(".gz"):
+            
+            with gzip.open(muonName, "rt") as f:
+                data = f.read().strip()
+            muonjson = _core.CorrectionSet.from_string(data)
+        else:
+            muonjson = _core.CorrectionSet.from_file(muonName)
 
         muon_eta = tree.pandas.df("Muon_Eta")
         muon_pt = tree.pandas.df("Muon_Pt")
         nmuon = tree.pandas.df("N_TightMuons")
 
-        
         muonReco = []
         muonRecoUp = []
         muonRecoDown = []
@@ -1391,9 +1340,6 @@ class Dataset:
         muonIso = []
         muonIsoUp = []
         muonIsoDown = []
-
-        # print(muon_pt['Muon_Pt'][0][0])
-        # print(muon_pt['Muon_Pt'][0])
 
         for i in range(nmuon.size):
 
@@ -1411,48 +1357,27 @@ class Dataset:
                 muonIsoUp.append(0.)
                 muonIsoDown.append(0.)
 
-
             else:
-                # Reco
 
-                Recoeta = max(Recoxmin + 0.1, abs(muon_eta['Muon_Eta'][i][0]))
-                Recoeta = min(Recoxmax - 0.1, Recoeta)
-                Recopt = max(Recoymin + 0.1, muon_pt['Muon_Pt'][i][0])
-                Recopt = min(Recoymax - 0.1, Recopt)
-
-                RecoSF = Recohist.GetBinContent(Recohist.FindBin(Recoeta, Recopt))
-                RecoSF_up = (Recohist.GetBinContent(Recohist.FindBin(Recoeta, Recopt))) + (Recohist.GetBinError(Recohist.FindBin(Recoeta, Recopt)))
-                RecoSF_down = (Recohist.GetBinContent(Recohist.FindBin(Recoeta, Recopt))) - (Recohist.GetBinError(Recohist.FindBin(Recoeta, Recopt)))
+                RecoSF = muonjson["NUM_TrackerMuons_DEN_genTracks"].evaluate(abs(muon_eta['Muon_Eta'][i][0]), muon_pt['Muon_Pt'][i][0], "nominal")
+                RecoSF_up = muonjson["NUM_TrackerMuons_DEN_genTracks"].evaluate(abs(muon_eta['Muon_Eta'][i][0]), muon_pt['Muon_Pt'][i][0], "systup")
+                RecoSF_down = muonjson["NUM_TrackerMuons_DEN_genTracks"].evaluate(abs(muon_eta['Muon_Eta'][i][0]), muon_pt['Muon_Pt'][i][0], "systdown")
 
                 muonReco.append(RecoSF)
                 muonRecoUp.append(RecoSF_up)
                 muonRecoDown.append(RecoSF_down)
 
-                # ID
+                IDSF = muonjson["NUM_TightID_DEN_TrackerMuons"].evaluate(abs(muon_eta['Muon_Eta'][i][0]), muon_pt['Muon_Pt'][i][0], "nominal")
+                IDSF_up = muonjson["NUM_TightID_DEN_TrackerMuons"].evaluate(abs(muon_eta['Muon_Eta'][i][0]), muon_pt['Muon_Pt'][i][0], "systup")
+                IDSF_down = muonjson["NUM_TightID_DEN_TrackerMuons"].evaluate(abs(muon_eta['Muon_Eta'][i][0]), muon_pt['Muon_Pt'][i][0], "systdown")
 
-                IDeta = max(IDxmin + 0.1, abs(muon_eta['Muon_Eta'][i][0]))
-                IDeta = min(IDxmax - 0.1, IDeta)
-                IDpt = max(IDymin + 0.1, muon_pt['Muon_Pt'][i][0])
-                IDpt = min(IDymax - 0.1, IDpt)
-
-                ID_SF = IDhist.GetBinContent(IDhist.FindBin(IDeta, IDpt))
-                IDSF_up = (IDhist.GetBinContent(IDhist.FindBin(IDeta, IDpt))) + (IDhist.GetBinError(IDhist.FindBin(IDeta, IDpt)))
-                IDSF_down = (IDhist.GetBinContent(IDhist.FindBin(IDeta, IDpt))) - (IDhist.GetBinError(IDhist.FindBin(IDeta, IDpt)))
-
-                muonID.append(ID_SF)
+                muonID.append(IDSF)
                 muonIDUp.append(IDSF_up)
                 muonIDDown.append(IDSF_down)
 
-                # ISO
-
-                Isoeta = max(Isoxmin + 0.1, abs(muon_eta['Muon_Eta'][i][0]))
-                Isoeta = min(Isoxmax - 0.1, Isoeta)
-                Isopt = max(Isoymin + 0.1, muon_pt['Muon_Pt'][i][0])
-                Isopt = min(Isoymax - 0.1, Isopt)
-
-                IsoSF = Isohist.GetBinContent(Isohist.FindBin(Isoeta, Isopt))
-                IsoSF_up = (Isohist.GetBinContent(Isohist.FindBin(Isoeta, Isopt))) + (Isohist.GetBinError(Isohist.FindBin(Isoeta, Isopt)))
-                IsoSF_down = (Isohist.GetBinContent(Isohist.FindBin(Isoeta, Isopt))) - (Isohist.GetBinError(Isohist.FindBin(Isoeta, Isopt)))
+                IsoSF = muonjson["NUM_TightRelIso_DEN_TightIDandIPCut"].evaluate(abs(muon_eta['Muon_Eta'][i][0]), muon_pt['Muon_Pt'][i][0], "nominal")
+                IsoSF_up = muonjson["NUM_TightRelIso_DEN_TightIDandIPCut"].evaluate(abs(muon_eta['Muon_Eta'][i][0]), muon_pt['Muon_Pt'][i][0], "systup")
+                IsoSF_down = muonjson["NUM_TightRelIso_DEN_TightIDandIPCut"].evaluate(abs(muon_eta['Muon_Eta'][i][0]), muon_pt['Muon_Pt'][i][0], "systdown")
 
                 muonIso.append(IsoSF)
                 muonIsoUp.append(IsoSF_up)
