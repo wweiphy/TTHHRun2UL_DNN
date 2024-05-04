@@ -1,6 +1,7 @@
 import os
 import sys
 import uproot
+import ROOT
 import pandas as pd
 import numpy as np
 import re
@@ -429,11 +430,6 @@ class Dataset:
                 # apply event selection
                 df = self.applySelections(df, sample.selections)
 
-                # print('number of electron, ', df[df['N_TightElectrons'] == 1].shape[0])
-                # print('number of muon, ', df[df['N_TightMuons'] == 1].shape[0])
-                # print("electron nominal identification, ", df[df['N_TightElectrons'] == 1]['Electron_IdentificationSF[0]'].head(5))
-                # print("muon nominal identification, ", df[df['N_TightMuons'] == 1]['Muon_IdentificationSF[0]'].head(5))
-
                 if self.do_EvalSFs:
                     # for DNN evaluation on data
                     if sample.process == "data":
@@ -448,6 +444,7 @@ class Dataset:
 
                             print('Evaluate SFs for nominal files')
                             df = self.CalculateSFsEval(tree, df)
+                            df = self.CalculateMuonSFs(tree, df)
 
                             if not (sample.process == "ttHSL"  or sample.process == "ttHDL" or sample.process == "ttSL" or sample.process == "ttDL" or sample.process == "ttbbSL" or sample.process == "ttbbDL"):
                                 df.loc[:, "GenWeight_fsr_Def_down"] = 0.
@@ -603,6 +600,8 @@ class Dataset:
                                 print("Evaluate SFs for JER files")
                                 df = self.CalculateSFs(tree,df) 
 
+                            df = self.CalculateMuonSFs(tree, df)
+
                             df = df.assign(sf_weight=lambda x: (btagfactor * sample.lumiWeight*x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSF[0]'] > 0.) & (x['Electron_ReconstructionSF[0]'] > 0.))*1.*x['Electron_IdentificationSF[0]']*x['Electron_ReconstructionSF[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & (x['check_ElectronTrigger']) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['check_MuonTrigger'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
 
                             # Weight_CSV_UL here corresponds to btagging SF for JES & JER variations
@@ -616,6 +615,7 @@ class Dataset:
                     if "nominal" in file:
 
                         df = self.CalculateSFs(tree, df)
+                        df = self.CalculateMuonSFs(tree, df)
 
                         df = df.assign(sf_weight=lambda x: (sample.lumiWeight*x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSF[0]'] > 0.) & (x['Electron_ReconstructionSF[0]'] > 0.))*1.*x['Electron_IdentificationSF[0]']*x['Electron_ReconstructionSF[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & (x['check_ElectronTrigger']) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['check_MuonTrigger'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
 
@@ -1309,4 +1309,177 @@ class Dataset:
         df.update(jet_PUIDsf)
         return df
 
-   
+
+    def CalculateMuonSFs(self, tree, df):
+
+        muonDir = os.path.join(basedir, "data", "muonSFs", "{}_UL".format(self.dataEra))
+        
+        if self.dataEra == "2016postVFP":
+
+            RecoName = os.path.join(muonDir, "Efficiency_muon_generalTracks_Run2016postVFP_UL_trackerMuon.root")
+            IDName = os.path.join(muonDir, "Efficiencies_muon_generalTracks_Z_Run2016_UL_ID.root")
+            IsoName = os.path.join(muonDir, "Efficiencies_muon_generalTracks_Z_Run2016_UL_ISO.root")
+        
+        elif self.dataEra == "2016preVFP":
+
+            RecoName = os.path.join(muonDir, "Efficiency_muon_generalTracks_Run2016preVFP_UL_trackerMuon.root")
+            IDName = os.path.join(muonDir, "Efficiencies_muon_generalTracks_Z_Run2016_UL_HIPM_ID.root")
+            IsoName = os.path.join(muonDir, "Efficiencies_muon_generalTracks_Z_Run2016_UL_HIPM_ISO.root")
+
+        elif self.dataEra == "2017":
+
+            RecoName = os.path.join(muonDir, "Efficiency_muon_generalTracks_Run2017_UL_trackerMuon.root")
+            IDName = os.path.join(muonDir, "Efficiencies_muon_generalTracks_Z_Run2017_UL_ID.root")
+            IsoName = os.path.join(muonDir, "Efficiencies_muon_generalTracks_Z_Run2017_UL_ISO.root")
+
+        elif self.dataEra == "2018":
+
+            RecoName = os.path.join(muonDir, "Efficiency_muon_generalTracks_Run2018_UL_trackerMuon.root")
+            IDName = os.path.join(muonDir, "Efficiencies_muon_generalTracks_Z_Run2018_UL_ID.root")
+            IsoName = os.path.join(muonDir, "Efficiencies_muon_generalTracks_Z_Run2018_UL_ISO.root") 
+
+        histname_ID="NUM_TightID_DEN_TrackerMuons_abseta_pt"
+        histname_Iso = "NUM_TightRelIso_DEN_TightIDandIPCut_abseta_pt"
+
+        RecoFile = ROOT.TFile.Open(RecoName)
+        Recohist = RecoFile.Get('NUM_TrackerMuons_DEN_genTracks')
+
+        Recoxmin = Recohist.GetXaxis().GetXmin()
+        Recoxmax = Recohist.GetXaxis().GetXmax()
+        Recoymin = Recohist.GetYaxis().GetXmin()
+        Recoymax = Recohist.GetYaxis().GetXmax()
+
+        IDFile = ROOT.TFile.Open(IDName)
+        IDhist = IDFile.Get(histname_ID)
+
+        IDxmin = IDhist.GetXaxis().GetXmin()
+        IDxmax = IDhist.GetXaxis().GetXmax()
+        IDymin = IDhist.GetYaxis().GetXmin()
+        IDymax = IDhist.GetYaxis().GetXmax()
+
+        IsoFile = ROOT.TFile.Open(IsoName)
+        Isohist = IsoFile.Get(histname_Iso)
+
+        Isoxmin = Isohist.GetXaxis().GetXmin()
+        Isoxmax = Isohist.GetXaxis().GetXmax()
+        Isoymin = Isohist.GetYaxis().GetXmin()
+        Isoymax = Isohist.GetYaxis().GetXmax()
+
+        
+
+        muon_eta = tree.pandas.df("Muon_Eta")
+        muon_pt = tree.pandas.df("Muon_Pt")
+        nmuon = tree.pandas.df("N_TightMuons")
+
+        
+        muonReco = []
+        muonRecoUp = []
+        muonRecoDown = []
+
+        muonID = []
+        muonIDUp = []
+        muonIDDown = []
+
+        muonIso = []
+        muonIsoUp = []
+        muonIsoDown = []
+
+        for i in range(nmuon.size):
+
+            if nmuon[i] != 1:
+
+                muonReco.append(0.)
+                muonRecoUp.append(0.)
+                muonRecoDown.append(0.)
+
+                muonID.append(0.)
+                muonIDUp.append(0.)
+                muonIDDown.append(0.)
+
+                muonIso.append(0.)
+                muonIsoUp.append(0.)
+                muonIsoDown.append(0.)
+
+
+            else:
+                # Reco
+
+                Recoeta = max(Recoxmin + 0.1, abs(muon_eta[i]))
+                Recoeta = min(Recoxmax - 0.1, Recoeta)
+                Recopt = max(Recoymin + 0.1, muon_pt[i])
+                Recopt = min(Recoymax - 0.1, Recopt)
+
+                RecoSF = Recohist.GetBinContent(Recohist.FindBin(Recoeta, Recopt))
+                RecoSF_up = (Recohist.GetBinContent(Recohist.FindBin(Recoeta, Recopt))) + (Recohist.GetBinError(Recohist.FindBin(Recoeta, Recopt)))
+                RecoSF_down = (Recohist.GetBinContent(Recohist.FindBin(Recoeta, Recopt))) - (Recohist.GetBinError(Recohist.FindBin(Recoeta, Recopt)))
+
+                muonReco.append(RecoSF)
+                muonRecoUp.append(RecoSF_up)
+                muonRecoDown.append(RecoSF_down)
+
+                # ID
+
+                IDeta = max(IDxmin + 0.1, abs(muon_eta[i]))
+                IDeta = min(IDxmax - 0.1, IDeta)
+                IDpt = max(IDymin + 0.1, muon_pt[i])
+                IDpt = min(IDymax - 0.1, IDpt)
+
+                ID_SF = IDhist.GetBinContent(IDhist.FindBin(IDeta, IDpt))
+                IDSF_up = (IDhist.GetBinContent(IDhist.FindBin(IDeta, IDpt))) + (IDhist.GetBinError(IDhist.FindBin(IDeta, IDpt)))
+                IDSF_down = (IDhist.GetBinContent(IDhist.FindBin(IDeta, IDpt))) - (IDhist.GetBinError(IDhist.FindBin(IDeta, IDpt)))
+
+                muonID.append(ID_SF)
+                muonIDUp.append(IDSF_up)
+                muonIDDown.append(IDSF_down)
+
+                # ISO
+
+                Isoeta = max(Isoxmin + 0.1, abs(muon_eta[i]))
+                Isoeta = min(Isoxmax - 0.1, Isoeta)
+                Isopt = max(Isoymin + 0.1, muon_pt[i])
+                Isopt = min(Isoymax - 0.1, Isopt)
+
+                IsoSF = Isohist.GetBinContent(Isohist.FindBin(Isoeta, Isopt))
+                IsoSF_up = (Isohist.GetBinContent(Isohist.FindBin(Isoeta, Isopt))) + (Isohist.GetBinError(Isohist.FindBin(Isoeta, Isopt)))
+                IsoSF_down = (Isohist.GetBinContent(Isohist.FindBin(Isoeta, Isopt))) - (Isohist.GetBinError(Isohist.FindBin(Isoeta, Isopt)))
+
+                muonIso.append(IsoSF)
+                muonIsoUp.append(IsoSF_up)
+                muonIsoDown.append(IsoSF_down)
+
+
+        df.loc[:, "Muon_ReconstructionSF[0]"] = 0.
+        df.loc[:, "Muon_ReconstructionSFUp[0]"] = 0.
+        df.loc[:, "Muon_ReconstructionSFDown[0]"] = 0.
+
+        df.loc[:, "Muon_IdentificationSF[0]"] = 0.
+        df.loc[:, "Muon_IdentificationSFUp[0]"] = 0.
+        df.loc[:, "Muon_IdentificationSFDown[0]"] = 0.
+
+        df.loc[:, "Muon_IsolationSF[0]"] = 0.
+        df.loc[:, "Muon_IsolationSFUp[0]"] = 0.
+        df.loc[:, "Muon_IsolationSFDown[0]"] = 0.
+
+        Reco = pd.DataFrame(muonReco, columns=["Muon_ReconstructionSF[0]"])
+        RecoUp = pd.DataFrame(muonRecoUp, columns=["Muon_ReconstructionSFUp[0]"])
+        RecoDown = pd.DataFrame(muonRecoDown, columns=["Muon_ReconstructionSFDown[0]"])
+        
+        Identification = pd.DataFrame(muonID, columns=["Muon_IdentificationSF[0]"])
+        IdentificationUp = pd.DataFrame(muonIDUp, columns=["Muon_IdentificationSFUp[0]"])
+        IdentificationDown = pd.DataFrame(muonIDDown, columns=["Muon_IdentificationSF[0]"])
+
+        Iso = pd.DataFrame(muonIso, columns=["Muon_IsolationSF[0]"])
+        IsoUp = pd.DataFrame(muonIsoUp, columns=["Muon_IsolationSFUp[0]"])
+        IsoDown = pd.DataFrame(muonIsoDown, columns=["Muon_IsolationSFDown[0]"])
+
+        df.update(Reco)
+        df.update(RecoUp)
+        df.update(RecoDown)
+        df.update(Identification)
+        df.update(IdentificationUp)
+        df.update(IdentificationDown)
+        df.update(Iso)
+        df.update(IsoUp)
+        df.update(IsoDown)
+
+        return df 
