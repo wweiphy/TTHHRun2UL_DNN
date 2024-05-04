@@ -1443,4 +1443,105 @@ class Dataset:
         df.update(IsoUp)
         df.update(IsoDown)
 
-        return df 
+        return df
+
+    def CalculateElectronSFs(self, tree, df):
+
+        eleDir = os.path.join(basedir, "data", "eleSFs", self.dataEra)
+        eleName = os.path.join(eleDir, "electron.json")
+
+        print("handle muon SF for "+self.dataEra)
+
+        
+        if eleName.endswith(".gz"):
+            
+            with gzip.open(eleName, "rt") as f:
+                data = f.read().strip()
+            elejson = _core.CorrectionSet.from_string(data)
+        else:
+            elejson = _core.CorrectionSet.from_file(eleName)
+
+        ele_eta = tree.pandas.df("Electron_Eta")
+        ele_pt = tree.pandas.df("Electron_Pt")
+        nele = tree.pandas.df("N_TightElectrons")
+
+        eleReco = []
+        eleRecoUp = []
+        eleRecoDown = []
+
+        eleID = []
+        eleIDUp = []
+        eleIDDown = []
+
+        for i in range(nele.size):
+
+            if nele['N_TightElectrons'][i] != 1:
+
+                eleReco.append(0.)
+                eleRecoUp.append(0.)
+                eleRecoDown.append(0.)
+
+                eleID.append(0.)
+                eleIDUp.append(0.)
+                eleIDDown.append(0.)
+
+            else:
+
+
+                if float(ele_pt['Electron_Pt'][i][0]) < 10.: 
+                    corrected_pt = 10.
+                else:
+                    corrected_pt = float(ele_pt['Electron_Pt'][i][0]) 
+
+                if corrected_pt <= 20.:
+
+                    RecoSF = elejson["UL-Electron-ID-SF"].evaluate(self.dataEra,"sf","RecoBelow20",float(ele_eta['Electron_Eta'][i][0]), corrected_pt)
+                    RecoSF_up = elejson["UL-Electron-ID-SF"].evaluate(self.dataEra,"sfup","RecoBelow20",float(ele_eta['Electron_Eta'][i][0]), corrected_pt)
+                    RecoSF_down = elejson["UL-Electron-ID-SF"].evaluate(self.dataEra,"sfdown","RecoBelow20",float(ele_eta['Electron_Eta'][i][0]), corrected_pt) 
+                
+                else:
+
+                    RecoSF = elejson["UL-Electron-ID-SF"].evaluate(self.dataEra,"sf","RecoAbove20",float(ele_eta['Electron_Eta'][i][0]), corrected_pt)
+                    RecoSF_up = elejson["UL-Electron-ID-SF"].evaluate(self.dataEra,"sfup","RecoAbove20",float(ele_eta['Electron_Eta'][i][0]), corrected_pt)
+                    RecoSF_down = elejson["UL-Electron-ID-SF"].evaluate(self.dataEra,"sfdown","RecoAbove20",float(ele_eta['Electron_Eta'][i][0]), corrected_pt) 
+
+                
+                IDSF = elejson["UL-Electron-ID-SF"].evaluate(self.dataEra,"sf","Tight",float(ele_eta['Electron_Eta'][i][0]), corrected_pt)
+                IDSF_up = elejson["UL-Electron-ID-SF"].evaluate(self.dataEra,"sfup","Tight",float(ele_eta['Electron_Eta'][i][0]), corrected_pt)
+                IDSF_down = elejson["UL-Electron-ID-SF"].evaluate(self.dataEra,"sfdown","Tight",float(ele_eta['Electron_Eta'][i][0]), corrected_pt)
+
+                eleReco.append(RecoSF)
+                eleRecoUp.append(RecoSF_up)
+                eleRecoDown.append(RecoSF_down)
+
+
+                eleID.append(IDSF)
+                eleIDUp.append(IDSF_up)
+                eleIDDown.append(IDSF_down)
+
+
+        df.loc[:, "Electron_ReconstructionSF[0]"] = 0.
+        df.loc[:, "Electron_ReconstructionSFUp[0]"] = 0.
+        df.loc[:, "Electron_ReconstructionSFDown[0]"] = 0.
+
+        df.loc[:, "Electron_IdentificationSF[0]"] = 0.
+        df.loc[:, "Electron_IdentificationSFUp[0]"] = 0.
+        df.loc[:, "Electron_IdentificationSFDown[0]"] = 0.
+
+        Reco = pd.DataFrame(eleReco, columns=["Electron_ReconstructionSF[0]"])
+        RecoUp = pd.DataFrame(eleRecoUp, columns=["Electron_ReconstructionSFUp[0]"])
+        RecoDown = pd.DataFrame(eleRecoDown, columns=["Electron_ReconstructionSFDown[0]"])
+        
+        Identification = pd.DataFrame(eleID, columns=["Electron_IdentificationSF[0]"])
+        IdentificationUp = pd.DataFrame(eleIDUp, columns=["Electron_IdentificationSFUp[0]"])
+        IdentificationDown = pd.DataFrame(eleIDDown, columns=["Electron_IdentificationSFDown[0]"])
+
+
+        df.update(Reco)
+        df.update(RecoUp)
+        df.update(RecoDown)
+        df.update(Identification)
+        df.update(IdentificationUp)
+        df.update(IdentificationDown)
+
+        return df  
