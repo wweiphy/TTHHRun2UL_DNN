@@ -1454,7 +1454,7 @@ class Dataset:
         eleDir = os.path.join(basedir, "data", "eleSFs", self.dataEra)
         eleName = os.path.join(eleDir, "electron.json")
 
-        print("handle muon SF for "+self.dataEra)
+        print("handle electron SF for "+self.dataEra)
 
         
         if eleName.endswith(".gz"):
