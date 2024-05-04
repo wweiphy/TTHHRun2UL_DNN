@@ -1312,13 +1312,15 @@ class Dataset:
 
     def CalculateMuonSFs(self, tree, df):
 
-        muonDir = os.path.join(basedir, "data", "muonSFs", "{}_UL".format(self.dataEra))
+        muonDir = os.path.join(basedir, "data", "muonSFs", self.dataEra)
         
         if self.dataEra == "2016postVFP":
 
             RecoName = os.path.join(muonDir, "Efficiency_muon_generalTracks_Run2016postVFP_UL_trackerMuon.root")
             IDName = os.path.join(muonDir, "Efficiencies_muon_generalTracks_Z_Run2016_UL_ID.root")
             IsoName = os.path.join(muonDir, "Efficiencies_muon_generalTracks_Z_Run2016_UL_ISO.root")
+
+            print("calculate muon SFs for "+self.dataEra)
         
         elif self.dataEra == "2016preVFP":
 
@@ -1326,17 +1328,23 @@ class Dataset:
             IDName = os.path.join(muonDir, "Efficiencies_muon_generalTracks_Z_Run2016_UL_HIPM_ID.root")
             IsoName = os.path.join(muonDir, "Efficiencies_muon_generalTracks_Z_Run2016_UL_HIPM_ISO.root")
 
+            print("calculate muon SFs for "+self.dataEra)
+
         elif self.dataEra == "2017":
 
             RecoName = os.path.join(muonDir, "Efficiency_muon_generalTracks_Run2017_UL_trackerMuon.root")
             IDName = os.path.join(muonDir, "Efficiencies_muon_generalTracks_Z_Run2017_UL_ID.root")
             IsoName = os.path.join(muonDir, "Efficiencies_muon_generalTracks_Z_Run2017_UL_ISO.root")
 
+            print("calculate muon SFs for "+self.dataEra)
+
         elif self.dataEra == "2018":
 
             RecoName = os.path.join(muonDir, "Efficiency_muon_generalTracks_Run2018_UL_trackerMuon.root")
             IDName = os.path.join(muonDir, "Efficiencies_muon_generalTracks_Z_Run2018_UL_ID.root")
             IsoName = os.path.join(muonDir, "Efficiencies_muon_generalTracks_Z_Run2018_UL_ISO.root") 
+
+            print("calculate muon SFs for "+self.dataEra)
 
         histname_ID="NUM_TightID_DEN_TrackerMuons_abseta_pt"
         histname_Iso = "NUM_TightRelIso_DEN_TightIDandIPCut_abseta_pt"
