@@ -1359,25 +1359,25 @@ class Dataset:
 
             else:
 
-                RecoSF = muonjson["NUM_TrackerMuons_DEN_genTracks"].evaluate(abs(muon_eta['Muon_Eta'][i][0]), muon_pt['Muon_Pt'][i][0], "nominal")
-                RecoSF_up = muonjson["NUM_TrackerMuons_DEN_genTracks"].evaluate(abs(muon_eta['Muon_Eta'][i][0]), muon_pt['Muon_Pt'][i][0], "systup")
-                RecoSF_down = muonjson["NUM_TrackerMuons_DEN_genTracks"].evaluate(abs(muon_eta['Muon_Eta'][i][0]), muon_pt['Muon_Pt'][i][0], "systdown")
+                RecoSF = muonjson["NUM_TrackerMuons_DEN_genTracks"].evaluate(abs(float(muon_eta['Muon_Eta'][i][0])), muon_pt['Muon_Pt'][i][0], "nominal")
+                RecoSF_up = muonjson["NUM_TrackerMuons_DEN_genTracks"].evaluate(abs(float(muon_eta['Muon_Eta'][i][0])), muon_pt['Muon_Pt'][i][0], "systup")
+                RecoSF_down = muonjson["NUM_TrackerMuons_DEN_genTracks"].evaluate(abs(float(muon_eta['Muon_Eta'][i][0])), muon_pt['Muon_Pt'][i][0], "systdown")
 
                 muonReco.append(RecoSF)
                 muonRecoUp.append(RecoSF_up)
                 muonRecoDown.append(RecoSF_down)
 
-                IDSF = muonjson["NUM_TightID_DEN_TrackerMuons"].evaluate(abs(muon_eta['Muon_Eta'][i][0]), muon_pt['Muon_Pt'][i][0], "nominal")
-                IDSF_up = muonjson["NUM_TightID_DEN_TrackerMuons"].evaluate(abs(muon_eta['Muon_Eta'][i][0]), muon_pt['Muon_Pt'][i][0], "systup")
-                IDSF_down = muonjson["NUM_TightID_DEN_TrackerMuons"].evaluate(abs(muon_eta['Muon_Eta'][i][0]), muon_pt['Muon_Pt'][i][0], "systdown")
+                IDSF = muonjson["NUM_TightID_DEN_TrackerMuons"].evaluate(abs(float(muon_eta['Muon_Eta'][i][0])), muon_pt['Muon_Pt'][i][0], "nominal")
+                IDSF_up = muonjson["NUM_TightID_DEN_TrackerMuons"].evaluate(abs(float(muon_eta['Muon_Eta'][i][0])), muon_pt['Muon_Pt'][i][0], "systup")
+                IDSF_down = muonjson["NUM_TightID_DEN_TrackerMuons"].evaluate(abs(float(muon_eta['Muon_Eta'][i][0])), muon_pt['Muon_Pt'][i][0], "systdown")
 
                 muonID.append(IDSF)
                 muonIDUp.append(IDSF_up)
                 muonIDDown.append(IDSF_down)
 
-                IsoSF = muonjson["NUM_TightRelIso_DEN_TightIDandIPCut"].evaluate(abs(muon_eta['Muon_Eta'][i][0]), muon_pt['Muon_Pt'][i][0], "nominal")
-                IsoSF_up = muonjson["NUM_TightRelIso_DEN_TightIDandIPCut"].evaluate(abs(muon_eta['Muon_Eta'][i][0]), muon_pt['Muon_Pt'][i][0], "systup")
-                IsoSF_down = muonjson["NUM_TightRelIso_DEN_TightIDandIPCut"].evaluate(abs(muon_eta['Muon_Eta'][i][0]), muon_pt['Muon_Pt'][i][0], "systdown")
+                IsoSF = muonjson["NUM_TightRelIso_DEN_TightIDandIPCut"].evaluate(abs(float(muon_eta['Muon_Eta'][i][0])), muon_pt['Muon_Pt'][i][0], "nominal")
+                IsoSF_up = muonjson["NUM_TightRelIso_DEN_TightIDandIPCut"].evaluate(abs(float(muon_eta['Muon_Eta'][i][0])), muon_pt['Muon_Pt'][i][0], "systup")
+                IsoSF_down = muonjson["NUM_TightRelIso_DEN_TightIDandIPCut"].evaluate(abs(float(muon_eta['Muon_Eta'][i][0])), muon_pt['Muon_Pt'][i][0], "systdown")
 
                 muonIso.append(IsoSF)
                 muonIsoUp.append(IsoSF_up)
