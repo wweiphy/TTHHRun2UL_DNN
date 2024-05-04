@@ -1477,7 +1477,7 @@ class Dataset:
         
         Identification = pd.DataFrame(muonID, columns=["Muon_IdentificationSF[0]"])
         IdentificationUp = pd.DataFrame(muonIDUp, columns=["Muon_IdentificationSFUp[0]"])
-        IdentificationDown = pd.DataFrame(muonIDDown, columns=["Muon_IdentificationSF[0]"])
+        IdentificationDown = pd.DataFrame(muonIDDown, columns=["Muon_IdentificationSFDown[0]"])
 
         Iso = pd.DataFrame(muonIso, columns=["Muon_IsolationSF[0]"])
         IsoUp = pd.DataFrame(muonIsoUp, columns=["Muon_IsolationSFUp[0]"])
