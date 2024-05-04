@@ -841,13 +841,13 @@ class Dataset:
     def CalculateSFs(self, tree, df):
 
         bsfDir = os.path.join(basedir, "data", "BTV", "{}_UL".format(self.dataEra))
-        bsfName = os.path.join(bsfDir, "btagging.json.gz")
+        bsfName = os.path.join(bsfDir, "btagging.json")
         # print("eataEra is: {}".format(self.dataEra))
         # print("btv file is: "+bsfName)
 
         PUIDsfDir = os.path.join(
             basedir, "data", "PUJetIDSFs", "{}".format(self.dataEra))
-        PUIDsfName = os.path.join(PUIDsfDir, "jmar.json.gz")
+        PUIDsfName = os.path.join(PUIDsfDir, "jmar.json")
         
         if bsfName.endswith(".gz"):
             # import gzip
@@ -906,13 +906,13 @@ class Dataset:
 
         bsfDir = os.path.join(basedir, "data", "BTV",
                               "{}_UL".format(self.dataEra))
-        bsfName = os.path.join(bsfDir, "btagging.json.gz")
+        bsfName = os.path.join(bsfDir, "btagging.json")
 
         # print("btv file is: "+bsfName)
 
         PUIDsfDir = os.path.join(
             basedir, "data", "PUJetIDSFs", "{}".format(self.dataEra))
-        PUIDsfName = os.path.join(PUIDsfDir, "jmar.json.gz")
+        PUIDsfName = os.path.join(PUIDsfDir, "jmar.json")
 
         if bsfName.endswith(".gz"):
             # import gzip
@@ -1219,13 +1219,13 @@ class Dataset:
     def CalculateSFsEvalSyst(self, tree, df, syst):
 
         bsfDir = os.path.join(basedir, "data", "BTV", "{}_UL".format(self.dataEra))
-        bsfName = os.path.join(bsfDir, "btagging.json.gz")
+        bsfName = os.path.join(bsfDir, "btagging.json")
         # print("eataEra is: {}".format(self.dataEra))
         # print("btv file is: "+bsfName)
 
         PUIDsfDir = os.path.join(
             basedir, "data", "PUJetIDSFs", "{}".format(self.dataEra))
-        PUIDsfName = os.path.join(PUIDsfDir, "jmar.json.gz")
+        PUIDsfName = os.path.join(PUIDsfDir, "jmar.json")
         
         if bsfName.endswith(".gz"):
             # import gzip
@@ -1314,7 +1314,9 @@ class Dataset:
     def CalculateMuonSFs(self, tree, df):
 
         muonDir = os.path.join(basedir, "data", "muonSFs", self.dataEra)
-        muonName = os.path.join(muonDir, "muon_Z.json.gz")
+        muonName = os.path.join(muonDir, "muon_Z.json")
+
+        print("handle muon SF for "+self.dataEra)
 
         
         if muonName.endswith(".gz"):
@@ -1359,25 +1361,48 @@ class Dataset:
 
             else:
 
-                RecoSF = muonjson["NUM_TrackerMuons_DEN_genTracks"].evaluate(abs(float(muon_eta['Muon_Eta'][i][0])), float(muon_pt['Muon_Pt'][i][0]), "nominal")
-                RecoSF_up = muonjson["NUM_TrackerMuons_DEN_genTracks"].evaluate(abs(float(muon_eta['Muon_Eta'][i][0])), float(muon_pt['Muon_Pt'][i][0]), "systup")
-                RecoSF_down = muonjson["NUM_TrackerMuons_DEN_genTracks"].evaluate(abs(float(muon_eta['Muon_Eta'][i][0])), float(muon_pt['Muon_Pt'][i][0]), "systdown")
+                if abs(float(muon_eta['Muon_Eta'][i][0])) > 2.4:
+                    corrected_eta = 2.4
+                
+                else:
+
+                    corrected_eta = abs(float(muon_eta['Muon_Eta'][i][0])) 
+
+                if float(muon_pt['Muon_Pt'][i][0]) < 40.:
+
+                    reco_corrected_pt =  40.
+
+                else:
+
+                    reco_corrected_pt = float(muon_pt['Muon_Pt'][i][0])
+
+                if float(muon_pt['Muon_Pt'][i][0]) < 15.:
+
+                    id_corrected_pt =  15.
+
+                else:
+
+                    id_corrected_pt = float(muon_pt['Muon_Pt'][i][0]) 
+
+                RecoSF = muonjson["NUM_TrackerMuons_DEN_genTracks"].evaluate(corrected_eta, reco_corrected_pt, "nominal")
+                RecoSF_up = muonjson["NUM_TrackerMuons_DEN_genTracks"].evaluate(corrected_eta, reco_corrected_pt, "systup")
+                RecoSF_down = muonjson["NUM_TrackerMuons_DEN_genTracks"].evaluate(corrected_eta, reco_corrected_pt, "systdown")
 
                 muonReco.append(RecoSF)
                 muonRecoUp.append(RecoSF_up)
                 muonRecoDown.append(RecoSF_down)
 
-                IDSF = muonjson["NUM_TightID_DEN_TrackerMuons"].evaluate(abs(float(muon_eta['Muon_Eta'][i][0])), float(muon_pt['Muon_Pt'][i][0]), "nominal")
-                IDSF_up = muonjson["NUM_TightID_DEN_TrackerMuons"].evaluate(abs(float(muon_eta['Muon_Eta'][i][0])), float(muon_pt['Muon_Pt'][i][0]), "systup")
-                IDSF_down = muonjson["NUM_TightID_DEN_TrackerMuons"].evaluate(abs(float(muon_eta['Muon_Eta'][i][0])), float(muon_pt['Muon_Pt'][i][0]), "systdown")
+                IDSF = muonjson["NUM_TightID_DEN_TrackerMuons"].evaluate(corrected_eta, id_corrected_pt, "nominal")
+                IDSF_up = muonjson["NUM_TightID_DEN_TrackerMuons"].evaluate(corrected_eta, id_corrected_pt, "systup")
+                IDSF_down = muonjson["NUM_TightID_DEN_TrackerMuons"].evaluate(corrected_eta, id_corrected_pt, "systdown")
 
                 muonID.append(IDSF)
                 muonIDUp.append(IDSF_up)
                 muonIDDown.append(IDSF_down)
 
-                IsoSF = muonjson["NUM_TightRelIso_DEN_TightIDandIPCut"].evaluate(abs(float(muon_eta['Muon_Eta'][i][0])), float(muon_pt['Muon_Pt'][i][0]), "nominal")
-                IsoSF_up = muonjson["NUM_TightRelIso_DEN_TightIDandIPCut"].evaluate(abs(float(muon_eta['Muon_Eta'][i][0])), float(muon_pt['Muon_Pt'][i][0]), "systup")
-                IsoSF_down = muonjson["NUM_TightRelIso_DEN_TightIDandIPCut"].evaluate(abs(float(muon_eta['Muon_Eta'][i][0])), float(muon_pt['Muon_Pt'][i][0]), "systdown")
+                IsoSF = muonjson["NUM_TightRelIso_DEN_TightIDandIPCut"].evaluate(corrected_eta, id_corrected_pt, "nominal")
+                IsoSF_up = muonjson["NUM_TightRelIso_DEN_TightIDandIPCut"].evaluate(corrected_eta, id_corrected_pt, "systup")
+                IsoSF_down = muonjson["NUM_TightRelIso_DEN_TightIDandIPCut"].evaluate(corrected_eta, id_corrected_pt, "systdown")
 
                 muonIso.append(IsoSF)
                 muonIsoUp.append(IsoSF_up)
