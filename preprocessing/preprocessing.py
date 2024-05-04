@@ -1392,6 +1392,9 @@ class Dataset:
         muonIsoUp = []
         muonIsoDown = []
 
+        print(muon_pt['Muon_Pt'][0][0])
+        print(muon_pt['Muon_Pt'][0])
+
         for i in range(nmuon.size):
 
             if nmuon['N_TightMuons'][i] != 1:
@@ -1412,9 +1415,9 @@ class Dataset:
             else:
                 # Reco
 
-                Recoeta = max(Recoxmin + 0.1, abs(muon_eta['Muon_Eta'][i]))
+                Recoeta = max(Recoxmin + 0.1, abs(muon_eta['Muon_Eta'][i][0]))
                 Recoeta = min(Recoxmax - 0.1, Recoeta)
-                Recopt = max(Recoymin + 0.1, muon_pt['Muon_Pt'][i])
+                Recopt = max(Recoymin + 0.1, muon_pt['Muon_Pt'][i][0])
                 Recopt = min(Recoymax - 0.1, Recopt)
 
                 RecoSF = Recohist.GetBinContent(Recohist.FindBin(Recoeta, Recopt))
@@ -1427,9 +1430,9 @@ class Dataset:
 
                 # ID
 
-                IDeta = max(IDxmin + 0.1, abs(muon_eta['Muon_Eta'][i]))
+                IDeta = max(IDxmin + 0.1, abs(muon_eta['Muon_Eta'][i][0]))
                 IDeta = min(IDxmax - 0.1, IDeta)
-                IDpt = max(IDymin + 0.1, muon_pt['Muon_Pt'][i])
+                IDpt = max(IDymin + 0.1, muon_pt['Muon_Pt'][i][0])
                 IDpt = min(IDymax - 0.1, IDpt)
 
                 ID_SF = IDhist.GetBinContent(IDhist.FindBin(IDeta, IDpt))
@@ -1442,9 +1445,9 @@ class Dataset:
 
                 # ISO
 
-                Isoeta = max(Isoxmin + 0.1, abs(muon_eta['Muon_Eta'][i]))
+                Isoeta = max(Isoxmin + 0.1, abs(muon_eta['Muon_Eta'][i][0]))
                 Isoeta = min(Isoxmax - 0.1, Isoeta)
-                Isopt = max(Isoymin + 0.1, muon_pt['Muon_Pt'][i])
+                Isopt = max(Isoymin + 0.1, muon_pt['Muon_Pt'][i][0])
                 Isopt = min(Isoymax - 0.1, Isopt)
 
                 IsoSF = Isohist.GetBinContent(Isohist.FindBin(Isoeta, Isopt))
