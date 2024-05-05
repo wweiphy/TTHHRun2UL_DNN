@@ -91,37 +91,57 @@ if not os.path.exists("new_rate"):
     os.mkdir("new_rate")
 else:
     os.rmdir("new_rate")
+if not os.path.exists("new_fullrate"):
+    os.mkdir("new_fullrate")
+else:
+    os.rmdir("new_fullrate")
+if not os.path.exists("new_full"):
+    os.mkdir("new_full")
+else:
+    os.rmdir("new_full")
 
 if "4FS" in options.folder:
     systfile = "datacard_new_sys_reduce_4FS.csv"
 else:
     if options.year == "2016" and "2016" in options.folder:
+        fullsystfile = "datacard_new_sys_2016.csv" 
+        fullsystfilerate = "datacard_new_sys_2016_rate.csv" 
         systfile = "datacard_new_sys_reduce_2016.csv"
         systfilerate = "datacard_new_sys_reduce_2016_rate.csv"
     # elif options.year == "2016postVFP":
         # systfile = "datacard_new_sys_reduce_2016postVFP.csv"
     elif options.year == "2016" and "230515" in options.folder:
-        systfile = "datacard_new_sys_reduce_2016-TwoEra.csv" 
+        systfile = "datacard_new_sys_reduce_2016-TwoEra.csv"
+        fullsystfile = "datacard_new_sys_2016-TwoEra.csv" 
+        
         if "5j4b" in options.folder: 
             systfilerate = "datacard_new_sys_reduce_2016-TwoEra_rate_5j4b.csv"
+            fullsystfilerate = "datacard_new_sys_2016-TwoEra_rate_5j4b.csv" 
         if "6j4b" in options.folder: 
             systfilerate = "datacard_new_sys_reduce_2016-TwoEra_rate_6j4b.csv"
+            fullsystfilerate = "datacard_new_sys_2016-TwoEra_rate_6j4b.csv"  
 
     elif options.year == "2016" and "230523" in options.folder:
         systfile = "datacard_new_sys_reduce_2016-TwoEra.csv"
-        if "5j4b" in options.folder:
-            print("do 5j4b") 
+        fullsystfile = "datacard_new_sys_2016-TwoEra.csv" 
+        
+        if "5j4b" in options.folder: 
             systfilerate = "datacard_new_sys_reduce_2016-TwoEra_rate_2016post_5j4b.csv"
-        if "6j4b" in options.folder:
-            print("do 6j4b")  
+            fullsystfilerate = "datacard_new_sys_2016-TwoEra_rate_2016post_5j4b.csv" 
+        if "6j4b" in options.folder: 
             systfilerate = "datacard_new_sys_reduce_2016-TwoEra_rate_2016post_6j4b.csv"
+            fullsystfilerate = "datacard_new_sys_2016-TwoEra_rate_2016post_6j4b.csv"  
         
     elif options.year == "2017":
         systfile = "datacard_new_sys_reduce_2017.csv"
         systfilerate = "datacard_new_sys_reduce_2017_rate.csv"
+        fullsystfile = "datacard_new_sys_2017.csv"
+        fullsystfilerate = "datacard_new_sys_2017_rate.csv"
     elif options.year == "2018":
         systfile = "datacard_new_sys_reduce_2018.csv"
         systfilerate = "datacard_new_sys_reduce_2018_rate.csv"
+        fullsystfile = "datacard_new_sys_2018.csv"
+        fullsystfilerate = "datacard_new_sys_2018_rate.csv"
     elif options.year == "run2":
         systfile = "datacard_new_sys_reduce_run2.csv"
         systfilerate = "datacard_new_sys_reduce_run2_rate.csv"
@@ -154,11 +174,23 @@ for node in process_new:
     outfile3 = filedir + "/new_rate/ljets_ge4j_ge3t_{}_node_hdecay.txt".format(node)
     runcommand3 = "python {} --categoryname={} --rootfile={} --outputfile={} --directory={} --signaltag=ttHH --csvfile={} --nominal_key='$CHANNEL__$PROCESS' --syst_key='$CHANNEL__$PROCESS__$SYSTEMATIC'".format(
         scriptfile, categoryname, rootfile, outfile3, cardmaker, csvfile_sys_rate)
+    
+    csvfile_sys_full = filedir+"/"+fullsystfile
+    outfile4 = filedir + "/new_full/ljets_ge4j_ge3t_{}_node_hdecay.txt".format(node)
+    runcommand4 = "python {} --categoryname={} --rootfile={} --outputfile={} --directory={} --signaltag=ttHH --csvfile={} --nominal_key='$CHANNEL__$PROCESS' --syst_key='$CHANNEL__$PROCESS__$SYSTEMATIC'".format(
+        scriptfile, categoryname, rootfile, outfile4, cardmaker, csvfile_sys_full)
+    
+    csvfile_sys_fullrate = filedir+"/"+fullsystfilerate
+    outfile5 = filedir + "/new_fullrate/ljets_ge4j_ge3t_{}_node_hdecay.txt".format(node)
+    runcommand5 = "python {} --categoryname={} --rootfile={} --outputfile={} --directory={} --signaltag=ttHH --csvfile={} --nominal_key='$CHANNEL__$PROCESS' --syst_key='$CHANNEL__$PROCESS__$SYSTEMATIC'".format(
+        scriptfile, categoryname, rootfile, outfile5, cardmaker, csvfile_sys_fullrate)
 
 
-    os.system(runcommand1)
-    os.system(runcommand2)
-    os.system(runcommand3)
+    # os.system(runcommand1)
+    # os.system(runcommand2)
+    # os.system(runcommand3)
+    os.system(runcommand4)
+    os.system(runcommand5)
 
     print("finish making datacard for process {}".format(node))
 
