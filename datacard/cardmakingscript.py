@@ -101,11 +101,19 @@ else:
     # elif options.year == "2016postVFP":
         # systfile = "datacard_new_sys_reduce_2016postVFP.csv"
     elif options.year == "2016" and "230515" in options.folder:
-        systfile = "datacard_new_sys_reduce_2016-TwoEra.csv"
-        systfilerate = "datacard_new_sys_reduce_2016-TwoEra_rate.csv"
+        systfile = "datacard_new_sys_reduce_2016-TwoEra.csv" 
+        if "5j4b" in options.folder: 
+            systfilerate = "datacard_new_sys_reduce_2016-TwoEra_rate_5j4b.csv"
+        if "6j4b" in options.folder: 
+            systfilerate = "datacard_new_sys_reduce_2016-TwoEra_rate_6j4b.csv"
+
     elif options.year == "2016" and "230523" in options.folder:
         systfile = "datacard_new_sys_reduce_2016-TwoEra.csv"
-        systfilerate = "datacard_new_sys_reduce_2016-TwoEra_rate_2016post.csv"
+        if "5j4b" in options.folder: 
+            systfilerate = "datacard_new_sys_reduce_2016-TwoEra_rate_2016post_5j4b.csv"
+        if "6j4b" in options.folder: 
+            systfilerate = "datacard_new_sys_reduce_2016-TwoEra_rate_2016post_6j4b.csv"
+        
     elif options.year == "2017":
         systfile = "datacard_new_sys_reduce_2017.csv"
         systfilerate = "datacard_new_sys_reduce_2017_rate.csv"
