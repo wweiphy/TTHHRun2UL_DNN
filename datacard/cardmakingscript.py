@@ -109,9 +109,11 @@ else:
 
     elif options.year == "2016" and "230523" in options.folder:
         systfile = "datacard_new_sys_reduce_2016-TwoEra.csv"
-        if "5j4b" in options.folder: 
+        if "5j4b" in options.folder:
+            print("do 5j4b") 
             systfilerate = "datacard_new_sys_reduce_2016-TwoEra_rate_2016post_5j4b.csv"
-        if "6j4b" in options.folder: 
+        if "6j4b" in options.folder:
+            print("do 6j4b")  
             systfilerate = "datacard_new_sys_reduce_2016-TwoEra_rate_2016post_6j4b.csv"
         
     elif options.year == "2017":
