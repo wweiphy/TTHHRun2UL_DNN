@@ -186,9 +186,9 @@ for node in process_new:
         scriptfile, categoryname, rootfile, outfile5, cardmaker, csvfile_sys_fullrate)
 
 
-    # os.system(runcommand1)
-    # os.system(runcommand2)
-    # os.system(runcommand3)
+    os.system(runcommand1)
+    os.system(runcommand2)
+    os.system(runcommand3)
     os.system(runcommand4)
     os.system(runcommand5)
 
