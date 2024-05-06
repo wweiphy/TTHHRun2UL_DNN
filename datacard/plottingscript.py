@@ -653,6 +653,9 @@ if options.new == "new":
         elif "ThreeYear" in options.filefolder:
             rootfile = filedir + "/combineRun2/"+options.filefolder+"/output_limit.root"
             lumi = "137.6"
+        elif "2016" in options.filefolder:
+            rootfile = filedir + "/combineRun2/"+options.filefolder+"/output_limit.root"
+            lumi = "36.3"
         elif "230220" in options.filefolder:
             rootfile = basedir + "/workdir/{}/plots/output_limit.root".format(options.filefolder)
             lumi = "59.8"
