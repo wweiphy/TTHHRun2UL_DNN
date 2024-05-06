@@ -12,7 +12,7 @@ import preprocessing
 
 
 """
-USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_ttZZ.py --outputdirectory=Eval_0515_UL_3_nominal --variableselection=variables --maxentries=20000 --cores=8 --dataEra=2016preVFP
+USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_ttZZ.py --outputdirectory=Eval_0119_UL_nominal_3 --variableselection=variables --maxentries=20000 --cores=8 --dataEra=2017
 """
 
 usage="usage=%prog [options] \n"
@@ -63,7 +63,6 @@ else:
 
 # base = "(N_Jets >= 4 and N_BTagsM >= 3 and Evt_MET > 20. and Weight_GEN_nom > 0.)"
 base = "(N_Jets >= 4 and N_BTagsM >= 3 and Evt_MET > 20.)"
-
 if options.dataEra == "2017" or options.dataEra == 2017:
 
     # single lepton selections
@@ -149,12 +148,12 @@ dataset.addBaseSelection(base_selection)
 
 dataset.addSample(
     sampleName="TTZZ",
-    ntuples=ntuplesPath2 +
-    "/2016pre/ntuple/TTZZTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2016preVFP/230518_165745/*/*nominal*.root",
+        ntuples=ntuplesPath2 +
+        "/2017/ntuple/TTZZTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2017/221126_052936/*/*nominal*.root",
     #    ntuples     = ntuplesPath+"/ttH_220208.root",
     categories=ttZZ_categories,
-    process = "ttZZ",
-    #    lumiWeight  = 41.5,
+    process="ttZZ",
+    # lumiWeight  = 6.75E-02,
     selections=ttHH_selection,  # ttbar_selection,
     #    selections  = ttbar_selection,
     islocal=False
@@ -164,15 +163,15 @@ dataset.addSample(
 dataset.addSample(
     sampleName="TTZZ2",
     ntuples=ntuplesPath2 +
-    "/2016pre/ntuple/TTZZTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2016preVFP_Ext/230501_205804/*/*nominal*.root",
+        "/2017/ntuple/TTZZTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2017_Ext/221126_053245/*/*nominal*.root",
     #    ntuples     = ntuplesPath+"/ttH_220208.root",
     categories=ttZZ_categories,
-    process = "ttZZ",
+    process="ttZZ",
     #    lumiWeight  = 41.5,
     selections=ttHH_selection,  # ttbar_selection,
     #    selections  = ttbar_selection,
     islocal=False
-) # complete
+)
 
 
 

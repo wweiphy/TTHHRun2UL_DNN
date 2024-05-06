@@ -12,7 +12,7 @@ import preprocessing
 
 
 """
-USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_ttH.py --outputdirectory=Eval_0515_UL_3_nominal --variableselection=variables --maxentries=20000 --cores=8 --dataEra=2016preVFP
+USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_ttH.py --outputdirectory=Eval_0119_UL_nominal_3 --variableselection=variables --maxentries=20000 --cores=8 --dataEra=2017
 """
 
 usage="usage=%prog [options] \n"
@@ -147,10 +147,40 @@ dataset.addBaseSelection(base_selection)
 
 
 
+dataset.addSample(
+    sampleName="TTHSL",
+    ntuples=ntuplesPath2 +
+    "/2017/ntuple/ttHTobb_ttToSemiLep_M125_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2017/221126_054916/*/*nominal*.root",
+    # 221118_235008
+    #    ntuples     = ntuplesPath+"/ttH_220208.root",
+    categories=ttH_categories,
+    process="ttHSL",
+    #    lumiWeight  = 41.5,
+    selections=ttHH_selection,  # ttbar_selection,
+    #    selections  = ttH_selection,
+    islocal=False
+)
+
+dataset.addSample(
+    sampleName="TTHDL",
+    ntuples=ntuplesPath2 +
+    "/2017/ntuple/ttHTobb_ttTo2L2Nu_M125_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2017/221126_054300/*/*nominal*.root",
+    # 221118_235008
+    #    ntuples     = ntuplesPath+"/ttH_220208.root",
+    categories=ttH_categories,
+    process="ttHDL",
+    #    lumiWeight  = 41.5,
+    selections=ttHH_selection,  # ttbar_selection,
+    #    selections  = ttH_selection,
+    islocal=False
+)
+
+
+
 # dataset.addSample(
-#     sampleName="TTHSL",
+#     sampleName="TTH",
 #     ntuples=ntuplesPath2 +
-#     "/2017/ntuple/ttHTobb_ttToSemiLep_M125_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2017/221126_054916/*/*nominal*.root",
+#     "/2017/ntuple/ttHTobb_M125_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2017/230115_051203/*/*nominal*.root",
 #     # 221118_235008
 #     #    ntuples     = ntuplesPath+"/ttH_220208.root",
 #     categories=ttH_categories,
@@ -160,35 +190,6 @@ dataset.addBaseSelection(base_selection)
 #     #    selections  = ttH_selection,
 #     islocal=False
 # )
-
-
-
-dataset.addSample(
-    sampleName="TTHSL",
-    ntuples=ntuplesPath2 +
-    "/2016pre/ntuple/ttHTobb_ttToSemiLep_M125_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2016preVFP/230502_021518/*/*nominal*.root",
-    #    ntuples     = ntuplesPath+"/ttH_220208.root",
-    categories=ttH_categories,
-    process = "ttHSL",
-    #    lumiWeight  = 41.5,
-    selections=ttHH_selection,  # ttbar_selection,
-    #    selections  = ttH_selection,
-    islocal=False
-)
-
-
-dataset.addSample(
-    sampleName="TTHDL",
-    ntuples=ntuplesPath2 +
-    "/2016pre/ntuple/ttHTobb_ttTo2L2Nu_M125_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2016preVFP/230502_021834/*/*nominal*.root",
-    #    ntuples     = ntuplesPath+"/ttH_220208.root",
-    categories=ttH_categories,
-    process="ttHDL",
-    #    lumiWeight  = 41.5,
-    selections=ttHH_selection,  # ttbar_selection,
-    #    selections  = ttH_selection,
-    islocal=False
-)
 
 
 # initialize variable list
