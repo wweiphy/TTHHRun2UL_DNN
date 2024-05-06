@@ -12,7 +12,7 @@ import preprocessing
 
 
 """
-USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_ttZH.py --outputdirectory=Eval_0119_UL_nominal_3 --variableselection=variables --maxentries=20000 --cores=8 --dataEra=2017
+USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_ttZH.py --outputdirectory=Eval_0308_UL_3_nominal --variableselection=variables --maxentries=20000 --cores=8 --dataEra=2018
 """
 
 usage="usage=%prog [options] \n"
@@ -92,7 +92,7 @@ else:
 
 base_selection = "("+base+" and ("+single_mu_sel+" or "+single_el_sel+"))"
 
-ttHH_selection = "(Evt_Odd == 0)"   # Should I do this on ttHH
+ttHH_selection = "(Evt_Odd == 0)"  # Should I do this on ttHH
 
 # define output classes
 ttHH_categories = preprocessing.EventCategories()
@@ -150,11 +150,11 @@ dataset.addBaseSelection(base_selection)
 dataset.addSample(
     sampleName="TTZH",
     ntuples=ntuplesPath2 +
-        "/2017/ntuple/TTZHTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2017/221126_052419/*/*nominal*.root",
+    "/2018/ntuple/TTZHTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2018/240321_052529/*/*nominal*.root",
     #    ntuples     = ntuplesPath+"/ttH_220208.root",
     categories=ttZH_categories,
-    process="ttZH",
-    # lumiWeight  = 1.1035,
+    process = "ttZH",
+    #    lumiWeight  = 41.5,
     selections=ttHH_selection,  # ttbar_selection,
     #    selections  = ttbar_selection,
     islocal=False
@@ -163,15 +163,15 @@ dataset.addSample(
 dataset.addSample(
     sampleName="TTZH2",
     ntuples=ntuplesPath2 +
-        "/2017/ntuple/TTZHTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2017_Ext/221126_052726/*/*nominal*.root",
+    "/2018/ntuple/TTZHTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2018_Ext/240318_192114/*/*nominal*.root",
     #    ntuples     = ntuplesPath+"/ttH_220208.root",
     categories=ttZH_categories,
-    process="ttZH",
+    process = "ttZH",
     #    lumiWeight  = 41.5,
     selections=ttHH_selection,  # ttbar_selection,
     #    selections  = ttbar_selection,
     islocal=False
-)
+) # complete
 
 
 
