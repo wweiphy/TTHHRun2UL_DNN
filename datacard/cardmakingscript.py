@@ -114,12 +114,8 @@ else:
         systfile = "datacard_new_sys_reduce_2016-TwoEra.csv"
         fullsystfile = "datacard_new_sys_2016-TwoEra.csv" 
         
-        if "5j4b" in options.folder: 
-            systfilerate = "datacard_new_sys_reduce_2016-TwoEra_rate_5j4b.csv"
-            fullsystfilerate = "datacard_new_sys_2016-TwoEra_rate_5j4b.csv" 
-        if "6j4b" in options.folder: 
-            systfilerate = "datacard_new_sys_reduce_2016-TwoEra_rate_6j4b.csv"
-            fullsystfilerate = "datacard_new_sys_2016-TwoEra_rate_6j4b.csv"  
+        systfilerate = "datacard_new_sys_reduce_2016-TwoEra_rate.csv"
+        fullsystfilerate = "datacard_new_sys_2016-TwoEra_rate.csv" 
 
     elif options.year == "2016" and "230523" in options.folder:
         systfile = "datacard_new_sys_reduce_2016-TwoEra.csv"
