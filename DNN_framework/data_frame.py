@@ -117,6 +117,9 @@ class Sample:
                 
                 df = df.assign(total_weight_scaleMuFUp=lambda x: (
                     ((x['process'] == "ttHSL")*1. + (x['process'] == 'ttHDL')*1. + (x['process'] == "ttSL")*1. + (x['process'] == "ttDL")*1. + (x['process'] == "ttbbSL")*1. + (x['process'] == "ttbbDL")*1.)* x['Weight_scale_variation_muR_1p0_muF_2p0'] * x.total_preweight))
+                
+                df = df.assign(total_weight_scaleMuFDown=lambda x: (
+                    ((x['process'] == "ttHSL")*1. + (x['process'] == 'ttHDL')*1. + (x['process'] == "ttSL")*1. + (x['process'] == "ttDL")*1. + (x['process'] == "ttbbSL")*1. + (x['process'] == "ttbbDL")*1.)* x['Weight_scale_variation_muR_1p0_muF_0p5'] * x.total_preweight))
             
 
                 df = df.assign(total_weight_upisr=lambda x: (((x['process'] == "ttHSL")*1. + (x['process'] == "ttHDL") * 1. + (x['process'] == "ttDL") * 1.+ (x['process'] == "ttSL") * 1.+ (x['process'] == "ttbbDL") * 1.+ (x['process'] == "ttbbSL") * 1. ) * x['GenWeight_isr_Def_up'] * x.total_preweight))
