@@ -131,13 +131,13 @@ systs_tt = {
     "total_weight_downisr_ttbb": ["__ISR_ttbbDown"],
     "total_weight_downfsr_ttbb": ["__FSR_ttbbDown"],
 
-    "total_weight_scaleMuF_ttbbNLOUp": ["__scaleMuF_ttbbNLODown"],
+    "total_weight_scaleMuF_ttbbNLOUp": ["__scaleMuF_ttbbNLOUp"],
     # "total_weight_scaleMuF_ttbbNLOUp": ["__scaleMuF_ttbbNLOUp"],
-    "total_weight_scaleMuR_ttbbNLOUp": ["__scaleMuR_ttbbNLODown"],
+    "total_weight_scaleMuR_ttbbNLOUp": ["__scaleMuR_ttbbNLOUp"],
     # "total_weight_scaleMuR_ttbbNLOUp": ["__scaleMuR_ttbbNLOUp"],
-    "total_weight_scaleMuF_ttbbNLODown": ["__scaleMuF_ttbbNLOUp"],
+    "total_weight_scaleMuF_ttbbNLODown": ["__scaleMuF_ttbbNLODown"],
     # "total_weight_scaleMuF_ttbbNLODown": ["__scaleMuF_ttbbNLODown"],
-    "total_weight_scaleMuR_ttbbNLODown": ["__scaleMuR_ttbbNLOUp"],
+    "total_weight_scaleMuR_ttbbNLODown": ["__scaleMuR_ttbbNLODown"],
     # "total_weight_scaleMuR_ttbbNLODown": ["__scaleMuR_ttbbNLODown"],
 
     # "total_weight_upisr": ["__ISRUp"],
