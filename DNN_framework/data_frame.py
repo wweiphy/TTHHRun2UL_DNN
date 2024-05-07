@@ -105,7 +105,9 @@ class Sample:
             # calculate uncertainties for nominal events
             if "nominal" in self.path: 
                 # isr
-                # print(GenNormMap.internalNomFactors['isrUp'][4][1])             
+                # print(GenNormMap.internalNomFactors['isrUp'][4][1])    
+                     
+                df = df.assign(total_preweight=lambda x: (self.normalization_weight * x['total_weight']))    
 
                 df = df.assign(total_weight_scaleMuRUp=lambda x: (
                     ((x['process'] == "ttHSL")*1. + (x['process'] == 'ttHDL')*1. + (x['process'] == "ttSL")*1. + (x['process'] == "ttDL")*1. + (x['process'] == "ttbbSL")*1. + (x['process'] == "ttbbDL")*1.)* x['Weight_scale_variation_muR_2p0_muF_1p0'] * x.total_preweight))
