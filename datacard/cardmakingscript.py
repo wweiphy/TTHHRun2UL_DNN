@@ -140,7 +140,9 @@ else:
         fullsystfilerate = "datacard_new_sys_2018_rate.csv"
     elif options.year == "run2":
         systfile = "datacard_new_sys_reduce_run2.csv"
+        fullsystlfile = "datacard_new_sys_run2.csv"
         systfilerate = "datacard_new_sys_reduce_run2_rate.csv"
+        fullsystfilerate = "datacard_new_sys_run2_rate.csv"
 
 for node in process_new:
 
