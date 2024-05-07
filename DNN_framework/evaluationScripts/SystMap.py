@@ -146,10 +146,10 @@ systs_tt = {
     # "total_weight_downfsr": ["__FSRDown"],
 
 
-    # "total_weight_scaleMuFUp": ["__scaleMuFUp"],
-    # "total_weight_scaleMuRUp": ["__scaleMuRUp"],
-    # "total_weight_scaleMuFDown": ["__scaleMuFDown"],
-    # "total_weight_scaleMuRDown": ["__scaleMuRDown"],
+    "total_weight_scaleMuFUp": ["__scaleMuFUp"],
+    "total_weight_scaleMuRUp": ["__scaleMuRUp"],
+    "total_weight_scaleMuFDown": ["__scaleMuFDown"],
+    "total_weight_scaleMuRDown": ["__scaleMuRDown"],
 
 }
 
