@@ -242,7 +242,12 @@ class savenominalDiscriminators:
                         # current_binrange = [0, 0.22, 0.25, 0.28,
                         #                     0.30, 0.34, 0.36, 0.4, 0.5, 0.7]
                         # 4j3b
-                        current_binrange = [0, 0.22, 0.25, 0.28,
+                        if self.year == "2018" or self.year == 2018:
+                            print("do 2018")
+                            current_binrange = [0, 0.22, 0.25, 0.28,    
+                                            0.30, 0.34, 0.36, 0.4, 0.5, 0.65]
+                        else:
+                            current_binrange = [0, 0.22, 0.25, 0.28,    
                                             0.30, 0.34, 0.36, 0.4, 0.5, 0.55, 0.65]
                         # current_binrange = [0, 0.22, 0.25, 0.28,
                         #                     0.30, 0.34, 0.36, 0.4, 0.5, 0.55, 0.7]
@@ -269,7 +274,7 @@ class savenominalDiscriminators:
                         # current_binrange = [0, 0.19, 0.22, 0.24,
                         #                     0.25, 0.26, 0.28, 0.30, 0.34, 0.36, 0.55]
                         nbins = len(current_binrange) - 1
-
+                
             else:
                 current_binrange = [out_values.min(),out_values.max()]
                 nbins = 5
@@ -821,7 +826,11 @@ class saveDataDiscriminators:
                         # current_binrange = [0, 0.22, 0.25, 0.28,
                         #                     0.30, 0.34, 0.36, 0.4, 0.5, 0.7]
                         # 4j3b
-                        current_binrange = [0, 0.22, 0.25, 0.28,
+                        if self.year == "2018" or self.year == 2018:
+                            current_binrange = [0, 0.22, 0.25, 0.28,    
+                                            0.30, 0.34, 0.36, 0.4, 0.5, 0.65]
+                        else:
+                            current_binrange = [0, 0.22, 0.25, 0.28,    
                                             0.30, 0.34, 0.36, 0.4, 0.5, 0.55, 0.65]
                         # current_binrange = [0, 0.22, 0.25, 0.28,
                         #                     0.30, 0.34, 0.36, 0.4, 0.5, 0.55, 0.7]
@@ -1111,7 +1120,11 @@ class saveJESJERDiscriminators:
                         # current_binrange = [0, 0.22, 0.25, 0.28,
                         #                     0.30, 0.34, 0.36, 0.4, 0.5, 0.7]
                         # 4j3b
-                        current_binrange = [0, 0.22, 0.25, 0.28,
+                        if self.year == "2018" or self.year == 2018:
+                            current_binrange = [0, 0.22, 0.25, 0.28,    
+                                            0.30, 0.34, 0.36, 0.4, 0.5, 0.65]
+                        else:
+                            current_binrange = [0, 0.22, 0.25, 0.28,    
                                             0.30, 0.34, 0.36, 0.4, 0.5, 0.55, 0.65]
                         # current_binrange = [0, 0.22, 0.25, 0.28,
                         #                     0.30, 0.34, 0.36, 0.4, 0.5, 0.55, 0.7]
