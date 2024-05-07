@@ -86,6 +86,19 @@ syst_decorrelated = {
 # }
 
 
+# systs_ttH = {
+#     "total_weight_upisr": ["__ISRUp"],
+#     "total_weight_upfsr": ["__FSRUp"],
+#     "total_weight_downisr": ["__ISRDown"],
+#     "total_weight_downfsr": ["__FSRDown"],
+
+
+#     "total_weight_scaleMuFUp": ["__scaleMuFUp"],
+#     "total_weight_scaleMuRUp": ["__scaleMuRUp"],
+#     "total_weight_scaleMuFDown": ["__scaleMuFDown"],
+#     "total_weight_scaleMuRDown": ["__scaleMuRDown"],
+# }
+
 systs_ttH = {
     "total_weight_upisr_ttH": ["__ISR_ttHUp"],
     "total_weight_upfsr_ttH": ["__FSR_ttHUp"],
@@ -127,10 +140,16 @@ systs_tt = {
     "total_weight_scaleMuR_ttbbNLODown": ["__scaleMuR_ttbbNLOUp"],
     # "total_weight_scaleMuR_ttbbNLODown": ["__scaleMuR_ttbbNLODown"],
 
-    "total_weight_scaleMuFUp": ["__scaleMuFUp"],
-    "total_weight_scaleMuRUp": ["__scaleMuRUp"],
-    "total_weight_scaleMuFDown": ["__scaleMuFDown"],
-    "total_weight_scaleMuRDown": ["__scaleMuRDown"],
+    # "total_weight_upisr": ["__ISRUp"],
+    # "total_weight_upfsr": ["__FSRUp"],
+    # "total_weight_downisr": ["__ISRDown"],
+    # "total_weight_downfsr": ["__FSRDown"],
+
+
+    # "total_weight_scaleMuFUp": ["__scaleMuFUp"],
+    # "total_weight_scaleMuRUp": ["__scaleMuRUp"],
+    # "total_weight_scaleMuFDown": ["__scaleMuFDown"],
+    # "total_weight_scaleMuRDown": ["__scaleMuRDown"],
 
 }
 
