@@ -105,84 +105,25 @@ class Sample:
             # calculate uncertainties for nominal events
             if "nominal" in self.path: 
                 # isr
-                # print(GenNormMap.internalNomFactors['isrUp'][4][1])
+                # print(GenNormMap.internalNomFactors['isrUp'][4][1])             
 
-                df = df.assign(total_preweight=lambda x: (self.normalization_weight * x['total_weight']))
-
-
-                df = df.assign(total_weight_scaleMuRUp=lambda x: (((x['process'] == "ttSL")*1.* x['Weight_scale_variation_muR_2p0_muF_1p0'] + (x['process'] == "ttDL")*1. * x['Weight_scale_variation_muR_2p0_muF_1p0']) * x.total_preweight))
-
-
-                df = df.assign(total_weight_scaleMuR_ttbbNLOUp=lambda x: (((x['process'] == "ttbbSL")*1. * x['Weight_scale_variation_muR_2p0_muF_1p0'] + (x['process'] == "ttbbDL")*1. * x['Weight_scale_variation_muR_2p0_muF_1p0']) * x.total_preweight))
+                df = df.assign(total_weight_scaleMuRUp=lambda x: (
+                    ((x['process'] == "ttHSL")*1. + (x['process'] == 'ttHDL')*1. + (x['process'] == "ttSL")*1. + (x['process'] == "ttDL")*1. + (x['process'] == "ttbbSL")*1. + (x['process'] == "ttbbDL")*1.)* x['Weight_scale_variation_muR_2p0_muF_1p0'] * x.total_preweight))
                 
-
-                df = df.assign(total_weight_scaleMuR_ttHUp=lambda x: (
-                    (((x['process'] == "ttHSL")*1. + (x['process'] == 'ttHDL')*1.))* x['Weight_scale_variation_muR_2p0_muF_1p0'] * x.total_preweight))
-
-                df = df.assign(total_weight_scaleMuRDown=lambda x: (((x['process'] == "ttSL")*1.* x['Weight_scale_variation_muR_0p5_muF_1p0'] + (x['process'] == "ttDL")*1.* x['Weight_scale_variation_muR_0p5_muF_1p0']) * x.total_preweight))
-
-
-                df = df.assign(total_weight_scaleMuR_ttbbNLODown=lambda x: (((x['process'] == "ttbbSL")*1. * x['Weight_scale_variation_muR_0p5_muF_1p0'] + (x['process'] == "ttbbDL")*1. * x['Weight_scale_variation_muR_0p5_muF_1p0']) * x.total_preweight))
+                df = df.assign(total_weight_scaleMuRDown=lambda x: (
+                    ((x['process'] == "ttHSL")*1. + (x['process'] == 'ttHDL')*1. + (x['process'] == "ttSL")*1. + (x['process'] == "ttDL")*1. + (x['process'] == "ttbbSL")*1. + (x['process'] == "ttbbDL")*1.)* x['Weight_scale_variation_muR_0p5_muF_1p0'] * x.total_preweight))
                 
-
-                df = df.assign(total_weight_scaleMuR_ttHDown=lambda x: (
-                    ( ((x['process'] == "ttHSL")*1. + (x['process'] == 'ttHDL')*1.)* x['Weight_scale_variation_muR_0p5_muF_1p0']) * x.total_preweight))
-                
-                df = df.assign(total_weight_scaleMuFUp=lambda x: (((x['process'] == "ttSL")*1. * x['Weight_scale_variation_muR_1p0_muF_2p0'] + (x['process'] == "ttDL")*1. * x['Weight_scale_variation_muR_1p0_muF_2p0']) * x.total_preweight))
-
-
-                df = df.assign(total_weight_scaleMuF_ttbbNLOUp=lambda x: (((x['process'] == "ttbbSL")*1. * x['Weight_scale_variation_muR_1p0_muF_2p0'] + (x['process'] == "ttbbDL")*1. * x['Weight_scale_variation_muR_1p0_muF_2p0']) * x.total_preweight))
-                
-
-                df = df.assign(total_weight_scaleMuF_ttHUp=lambda x: (
-                    (((x['process'] == "ttHSL")*1. +(x['process'] == 'ttHDL')*1.) * x['Weight_scale_variation_muR_1p0_muF_2p0']) * x.total_preweight))
-
-                df = df.assign(total_weight_scaleMuFDown=lambda x: (((x['process'] == "ttSL")*1. * x['Weight_scale_variation_muR_1p0_muF_0p5'] + (x['process'] == "ttDL")*1. * x['Weight_scale_variation_muR_1p0_muF_0p5']) * x.total_preweight))
-
-
-                df = df.assign(total_weight_scaleMuF_ttbbNLODown=lambda x: (((x['process'] == "ttbbSL")*1. * x['Weight_scale_variation_muR_1p0_muF_0p5'] + (x['process'] == "ttbbDL")*1. * x['Weight_scale_variation_muR_1p0_muF_0p5']) * x.total_preweight))
-                
-
-                df = df.assign(total_weight_scaleMuF_ttHDown=lambda x: (
-                    ( ((x['process'] == "ttHSL")*1. + (x['process'] == 'ttHDL')*1.)* x['Weight_scale_variation_muR_1p0_muF_0p5']) * x.total_preweight))
+                df = df.assign(total_weight_scaleMuFUp=lambda x: (
+                    ((x['process'] == "ttHSL")*1. + (x['process'] == 'ttHDL')*1. + (x['process'] == "ttSL")*1. + (x['process'] == "ttDL")*1. + (x['process'] == "ttbbSL")*1. + (x['process'] == "ttbbDL")*1.)* x['Weight_scale_variation_muR_1p0_muF_2p0'] * x.total_preweight))
             
 
-                df = df.assign(total_weight_upisr_ttH=lambda x: (((x['process'] == "ttHSL")*1. + (x['process'] == "ttHDL") * 1.) * x['GenWeight_isr_Def_up'] * x.total_preweight))
+                df = df.assign(total_weight_upisr=lambda x: (((x['process'] == "ttHSL")*1. + (x['process'] == "ttHDL") * 1. + (x['process'] == "ttDL") * 1.+ (x['process'] == "ttSL") * 1.+ (x['process'] == "ttbbDL") * 1.+ (x['process'] == "ttbbSL") * 1. ) * x['GenWeight_isr_Def_up'] * x.total_preweight))
 
-                df = df.assign(total_weight_upisr_ttlf=lambda x: ((((x['process'] == "ttSL") & (self.label == "ttlf"))*1. + ((x['process'] == "ttDL") & (self.label == "ttlf"))*1.) * x['GenWeight_isr_Def_up'] * x.total_preweight))
+                df = df.assign(total_weight_downisr=lambda x: (((x['process'] == "ttHSL")*1. + (x['process'] == "ttHDL") * 1. + (x['process'] == "ttDL") * 1.+ (x['process'] == "ttSL") * 1.+ (x['process'] == "ttbbDL") * 1.+ (x['process'] == "ttbbSL") * 1. ) * x['GenWeight_isr_Def_down'] * x.total_preweight))
 
-                df = df.assign(total_weight_upisr_ttbb=lambda x: (( ((x['process'] == "ttbbSL")*1. * x['GenWeight_isr_Def_up']) + ((x['process'] == "ttbbDL")*1. * x['GenWeight_isr_Def_up'])) * x.total_preweight))
-                
-                df = df.assign(total_weight_upisr_ttcc=lambda x: (( ((x['process'] == "ttSL") & (self.label == "ttcc"))*1. * x['GenWeight_isr_Def_up'] + (
-                    (x['process'] == "ttDL") & (self.label == "ttcc"))*1.* x['GenWeight_isr_Def_up'] ) * x.total_preweight))
+                df = df.assign(total_weight_upfsr=lambda x: (((x['process'] == "ttHSL")*1. + (x['process'] == "ttHDL") * 1. + (x['process'] == "ttDL") * 1.+ (x['process'] == "ttSL") * 1.+ (x['process'] == "ttbbDL") * 1.+ (x['process'] == "ttbbSL") * 1. ) * x['GenWeight_fsr_Def_up'] * x.total_preweight))
 
-                df = df.assign(total_weight_downisr_ttH=lambda x: (((x['process'] == "ttHSL")*1. + (x['process'] == "ttHDL") * 1.) * x['GenWeight_isr_Def_down'] * x.total_preweight))
-
-                df = df.assign(total_weight_downisr_ttlf=lambda x: (( (((x['process'] == "ttSL") & (self.label == "ttlf"))*1. + ((x['process'] == "ttDL") & (self.label == "ttlf"))*1.) * x['GenWeight_isr_Def_down']) * x.total_preweight))
-
-                df = df.assign(total_weight_downisr_ttbb=lambda x: (( ((x['process'] == "ttbbSL")*1. * x['GenWeight_isr_Def_down']) + ((x['process'] == "ttbbDL")*1. * x['GenWeight_isr_Def_down'])) * x.total_preweight))
-                
-                df = df.assign(total_weight_downisr_ttcc=lambda x: (( (((x['process'] == "ttSL") & (self.label == "ttcc"))*1. * x['GenWeight_isr_Def_down']) + ((
-                    (x['process'] == "ttDL") & (self.label == "ttcc"))*1. * x['GenWeight_isr_Def_down']) ) * x.total_preweight))
-
-                df = df.assign(total_weight_upfsr_ttH=lambda x: (((x['process'] == "ttHSL")*1. + (x['process'] == "ttHDL") * 1.) * x['GenWeight_fsr_Def_up'] * x.total_preweight))
-
-                df = df.assign(total_weight_upfsr_ttlf=lambda x: (((((x['process'] == "ttSL") & (self.label == "ttlf"))*1. + ((x['process'] == "ttDL") & (self.label == "ttlf"))*1. ) * x['GenWeight_fsr_Def_up']) * x.total_preweight))
-
-                df = df.assign(total_weight_upfsr_ttbb=lambda x: (( ((x['process'] == "ttbbSL")*1. * x['GenWeight_fsr_Def_up']) + ((x['process'] == "ttbbDL")*1. * x['GenWeight_fsr_Def_up'])) * x.total_preweight))
-                
-                df = df.assign(total_weight_upfsr_ttcc=lambda x: (( (((x['process'] == "ttSL") & (self.label == "ttcc"))*1. * x['GenWeight_fsr_Def_up'])  + ((
-                    (x['process'] == "ttDL") & (self.label == "ttcc"))*1. * x['GenWeight_fsr_Def_up']) ) * x.total_preweight))
-
-
-                df = df.assign(total_weight_downfsr_ttH=lambda x: (((x['process'] == "ttHSL")*1. + (x['process'] == "ttHDL") * 1.) * x['GenWeight_fsr_Def_down'] * x.total_preweight))
-
-                df = df.assign(total_weight_downfsr_ttlf=lambda x: (((((x['process'] == "ttSL") & (self.label == "ttlf"))*1. + ((x['process'] == "ttDL") & (self.label == "ttlf"))*1.) * x['GenWeight_fsr_Def_down']) * x.total_preweight))
-
-                df = df.assign(total_weight_downfsr_ttbb=lambda x: (( ((x['process'] == "ttbbSL")*1.* x['GenWeight_fsr_Def_down']) + ((x['process'] == "ttbbDL")*1.* x['GenWeight_fsr_Def_down'])) * x.total_preweight))
-                
-                df = df.assign(total_weight_downfsr_ttcc=lambda x: (( (((x['process'] == "ttSL") & (self.label == "ttcc"))*1. * x['GenWeight_fsr_Def_down']) + ((
-                    (x['process'] == "ttDL") & (self.label == "ttcc"))*1. * x['GenWeight_fsr_Def_down'])  ) * x.total_preweight))
+                df = df.assign(total_weight_downfsr=lambda x: (((x['process'] == "ttHSL")*1. + (x['process'] == "ttHDL") * 1. + (x['process'] == "ttDL") * 1.+ (x['process'] == "ttSL") * 1.+ (x['process'] == "ttbbDL") * 1.+ (x['process'] == "ttbbSL") * 1. ) * x['GenWeight_fsr_Def_down'] * x.total_preweight))
 
                 
                 for syst in SystMap.systs:
