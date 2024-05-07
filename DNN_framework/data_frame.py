@@ -117,7 +117,7 @@ class Sample:
                 
 
                 df = df.assign(total_weight_scaleMuR_ttHUp=lambda x: (
-                    ((x['process'] == "ttHSL" + x['process'] == 'ttHDL')*1.* x['Weight_scale_variation_muR_2p0_muF_1p0']) * x.total_preweight))
+                    (((x['process'] == "ttHSL")*1. + (x['process'] == 'ttHDL')*1.))* x['Weight_scale_variation_muR_2p0_muF_1p0'] * x.total_preweight))
 
                 df = df.assign(total_weight_scaleMuRDown=lambda x: (((x['process'] == "ttSL")*1.* x['Weight_scale_variation_muR_0p5_muF_1p0'] + (x['process'] == "ttDL")*1.* x['Weight_scale_variation_muR_0p5_muF_1p0']) * x.total_preweight))
 
@@ -126,7 +126,7 @@ class Sample:
                 
 
                 df = df.assign(total_weight_scaleMuR_ttHDown=lambda x: (
-                    ( (x['process'] == "ttHSL" + x['process'] == 'ttHDL')*1.* x['Weight_scale_variation_muR_0p5_muF_1p0']) * x.total_preweight))
+                    ( ((x['process'] == "ttHSL")*1. + (x['process'] == 'ttHDL')*1.)* x['Weight_scale_variation_muR_0p5_muF_1p0']) * x.total_preweight))
                 
                 df = df.assign(total_weight_scaleMuFUp=lambda x: (((x['process'] == "ttSL")*1. * x['Weight_scale_variation_muR_1p0_muF_2p0'] + (x['process'] == "ttDL")*1. * x['Weight_scale_variation_muR_1p0_muF_2p0']) * x.total_preweight))
 
@@ -135,7 +135,7 @@ class Sample:
                 
 
                 df = df.assign(total_weight_scaleMuF_ttHUp=lambda x: (
-                    ((x['process'] == "ttHSL" + x['process'] == 'ttHDL')*1. * x['Weight_scale_variation_muR_1p0_muF_2p0']) * x.total_preweight))
+                    (((x['process'] == "ttHSL")*1. +(x['process'] == 'ttHDL')*1.) * x['Weight_scale_variation_muR_1p0_muF_2p0']) * x.total_preweight))
 
                 df = df.assign(total_weight_scaleMuFDown=lambda x: (((x['process'] == "ttSL")*1. * x['Weight_scale_variation_muR_1p0_muF_0p5'] + (x['process'] == "ttDL")*1. * x['Weight_scale_variation_muR_1p0_muF_0p5']) * x.total_preweight))
 
@@ -144,7 +144,7 @@ class Sample:
                 
 
                 df = df.assign(total_weight_scaleMuF_ttHDown=lambda x: (
-                    ( (x['process'] == "ttHSL" + x['process'] == 'ttHDL')*1.* x['Weight_scale_variation_muR_1p0_muF_0p5']) * x.total_preweight))
+                    ( ((x['process'] == "ttHSL")*1. + (x['process'] == 'ttHDL')*1.)* x['Weight_scale_variation_muR_1p0_muF_0p5']) * x.total_preweight))
             
 
                 df = df.assign(total_weight_upisr_ttH=lambda x: (((x['process'] == "ttHSL")*1. + (x['process'] == "ttHDL") * 1.) * x['GenWeight_isr_Def_up'] * x.total_preweight))
