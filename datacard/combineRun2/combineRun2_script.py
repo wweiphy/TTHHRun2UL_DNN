@@ -5,7 +5,8 @@ import pandas as pd
 import ROOT
 
 
-# python combineRun2_script.py -c 6j4b_oldtthh --threeyear 
+# python combineRun2_script.py -c 5j4b --threeyear 
+# python combineRun2_script.py -c 6j4b 
 
 usage = "usage=%prog [options] \n"
 usage += "USE: python cardmakingscript.py -n True "
@@ -224,7 +225,7 @@ for node in processlist:
                 syst_histup4.Write(uphistoname4) 
                 syst_histdown4.Write(downhistoname4) 
 
-        if not options.twoyear:
+        if not options.twoyear and not options.threeyear:
 
              for decorrelate_syst in decorrelated_systs:
 
