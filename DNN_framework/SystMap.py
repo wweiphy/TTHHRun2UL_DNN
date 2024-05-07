@@ -77,55 +77,75 @@ systs_reverse = {
 }
 
 
+# systs_ttH = {
+#     "total_weight_upisr_ttH": ["__ISR_ttHUp"],
+#     "total_weight_upfsr_ttH": ["__FSR_ttHUp"],
+#     "total_weight_downisr_ttH": ["__ISR_ttHDown"],
+#     "total_weight_downfsr_ttH": ["__FSR_ttHDown"],
+
+
+#     "total_weight_scaleMuF_ttHUp": ["__scaleMuF_ttHUp"],
+#     "total_weight_scaleMuR_ttHUp": ["__scaleMuR_ttHUp"],
+#     "total_weight_scaleMuF_ttHDown": ["__scaleMuF_ttHDown"],
+#     "total_weight_scaleMuR_ttHDown": ["__scaleMuR_ttHDown"],
+# }
+
 systs_ttH = {
-    "total_weight_upisr_ttH": ["__ISR_ttHUp"],
-    "total_weight_upfsr_ttH": ["__FSR_ttHUp"],
-    "total_weight_downisr_ttH": ["__ISR_ttHDown"],
-    "total_weight_downfsr_ttH": ["__FSR_ttHDown"],
+    "total_weight_upisr": ["__ISRUp"],
+    "total_weight_downisr": ["__ISRDown"],
 
 
-    "total_weight_scaleMuF_ttHUp": ["__scaleMuF_ttHUp"],
-    "total_weight_scaleMuR_ttHUp": ["__scaleMuR_ttHUp"],
-    "total_weight_scaleMuF_ttHDown": ["__scaleMuF_ttHDown"],
-    "total_weight_scaleMuR_ttHDown": ["__scaleMuR_ttHDown"],
+    "total_weight_scaleMuFUp": ["__scaleMuFUp"],
+    "total_weight_scaleMuRUp": ["__scaleMuRUp"],
+
 }
 
 systs_tt = {
 
-    "total_weight_upisr_ttcc": ["__ISR_ttccUp"],
-    "total_weight_upfsr_ttcc": ["__FSR_ttccUp"],
-    "total_weight_downisr_ttcc": ["__ISR_ttccDown"],
-    "total_weight_downfsr_ttcc": ["__FSR_ttccDown"],
+    "total_weight_upisr": ["__ISRUp"],
+    "total_weight_downisr": ["__ISRDown"],
 
-    # "total_weight_upisr_ttlf": ["__ISR_ttlfDown"],
-    "total_weight_upisr_ttlf": ["__ISR_ttlfUp"],
-    "total_weight_upfsr_ttlf": ["__FSR_ttlfUp"],
-    # "total_weight_downisr_ttlf": ["__ISR_ttlfUp"],
-    "total_weight_downisr_ttlf": ["__ISR_ttlfDown"],
-    "total_weight_downfsr_ttlf": ["__FSR_ttlfDown"],
-
-    # "total_weight_upisr_ttbb": ["__ISR_ttbbDown"],
-    "total_weight_upisr_ttbb": ["__ISR_ttbbUp"],
-    "total_weight_upfsr_ttbb": ["__FSR_ttbbUp"],
-    # "total_weight_downisr_ttbb": ["__ISR_ttbbUp"],
-    "total_weight_downisr_ttbb": ["__ISR_ttbbDown"],
-    "total_weight_downfsr_ttbb": ["__FSR_ttbbDown"],
-
-    "total_weight_scaleMuF_ttbbNLOUp": ["__scaleMuF_ttbbNLODown"],
-    # "total_weight_scaleMuF_ttbbNLOUp": ["__scaleMuF_ttbbNLOUp"],
-    "total_weight_scaleMuR_ttbbNLOUp": ["__scaleMuR_ttbbNLODown"],
-    # "total_weight_scaleMuR_ttbbNLOUp": ["__scaleMuR_ttbbNLOUp"],
-    "total_weight_scaleMuF_ttbbNLODown": ["__scaleMuF_ttbbNLOUp"],
-    # "total_weight_scaleMuF_ttbbNLODown": ["__scaleMuF_ttbbNLODown"],
-    "total_weight_scaleMuR_ttbbNLODown": ["__scaleMuR_ttbbNLOUp"],
-    # "total_weight_scaleMuR_ttbbNLODown": ["__scaleMuR_ttbbNLODown"],
 
     "total_weight_scaleMuFUp": ["__scaleMuFUp"],
     "total_weight_scaleMuRUp": ["__scaleMuRUp"],
-    "total_weight_scaleMuFDown": ["__scaleMuFDown"],
-    "total_weight_scaleMuRDown": ["__scaleMuRDown"],
 
 }
+# systs_tt = {
+
+#     "total_weight_upisr_ttcc": ["__ISR_ttccUp"],
+#     "total_weight_upfsr_ttcc": ["__FSR_ttccUp"],
+#     "total_weight_downisr_ttcc": ["__ISR_ttccDown"],
+#     "total_weight_downfsr_ttcc": ["__FSR_ttccDown"],
+
+#     # "total_weight_upisr_ttlf": ["__ISR_ttlfDown"],
+#     "total_weight_upisr_ttlf": ["__ISR_ttlfUp"],
+#     "total_weight_upfsr_ttlf": ["__FSR_ttlfUp"],
+#     # "total_weight_downisr_ttlf": ["__ISR_ttlfUp"],
+#     "total_weight_downisr_ttlf": ["__ISR_ttlfDown"],
+#     "total_weight_downfsr_ttlf": ["__FSR_ttlfDown"],
+
+#     # "total_weight_upisr_ttbb": ["__ISR_ttbbDown"],
+#     "total_weight_upisr_ttbb": ["__ISR_ttbbUp"],
+#     "total_weight_upfsr_ttbb": ["__FSR_ttbbUp"],
+#     # "total_weight_downisr_ttbb": ["__ISR_ttbbUp"],
+#     "total_weight_downisr_ttbb": ["__ISR_ttbbDown"],
+#     "total_weight_downfsr_ttbb": ["__FSR_ttbbDown"],
+
+#     "total_weight_scaleMuF_ttbbNLOUp": ["__scaleMuF_ttbbNLODown"],
+#     # "total_weight_scaleMuF_ttbbNLOUp": ["__scaleMuF_ttbbNLOUp"],
+#     "total_weight_scaleMuR_ttbbNLOUp": ["__scaleMuR_ttbbNLODown"],
+#     # "total_weight_scaleMuR_ttbbNLOUp": ["__scaleMuR_ttbbNLOUp"],
+#     "total_weight_scaleMuF_ttbbNLODown": ["__scaleMuF_ttbbNLOUp"],
+#     # "total_weight_scaleMuF_ttbbNLODown": ["__scaleMuF_ttbbNLODown"],
+#     "total_weight_scaleMuR_ttbbNLODown": ["__scaleMuR_ttbbNLOUp"],
+#     # "total_weight_scaleMuR_ttbbNLODown": ["__scaleMuR_ttbbNLODown"],
+
+#     "total_weight_scaleMuFUp": ["__scaleMuFUp"],
+#     "total_weight_scaleMuRUp": ["__scaleMuRUp"],
+#     "total_weight_scaleMuFDown": ["__scaleMuFDown"],
+#     "total_weight_scaleMuRDown": ["__scaleMuRDown"],
+
+# }
 
 
 # systs_ttbb = {
