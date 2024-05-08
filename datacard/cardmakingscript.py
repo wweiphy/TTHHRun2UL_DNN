@@ -79,27 +79,6 @@ sys.path.append(basedir)
 
 # if options.new == "new":
 
-if not os.path.exists("new"):
-    os.mkdir("new")
-else:
-    os.rmdir("new")
-if not os.path.exists("new_nosys"):
-    os.mkdir("new_nosys")
-else:
-    os.rmdir("new_nosys")
-if not os.path.exists("new_rate"):
-    os.mkdir("new_rate")
-else:
-    os.rmdir("new_rate")
-if not os.path.exists("new_fullrate"):
-    os.mkdir("new_fullrate")
-else:
-    os.rmdir("new_fullrate")
-if not os.path.exists("new_full"):
-    os.mkdir("new_full")
-else:
-    os.rmdir("new_full")
-
 if "4FS" in options.folder:
     systfile = "datacard_new_sys_reduce_4FS.csv"
 else:
@@ -184,11 +163,27 @@ for node in process_new:
         scriptfile, categoryname, rootfile, outfile5, cardmaker, csvfile_sys_fullrate)
 
 
+    if not os.path.exists("new_nosys"):
+        os.mkdir("new_nosys")
     os.system(runcommand1)
+
+    # if not os.path.exists("new"):
+    #         os.mkdir("new")
+    # if not os.path.exists("new_rate"):
+    #     os.mkdir("new_rate")
+    # if not os.path.exists("new_fullrate"):
+    #     os.mkdir("new_fullrate")
     # os.system(runcommand2)
     # os.system(runcommand3)
+    if not os.path.exists("new_full"):
+        os.mkdir("new_full")
     os.system(runcommand4)
     # os.system(runcommand5)
+
+    
+    
+
+
 
     print("finish making datacard for process {}".format(node))
 
