@@ -17,9 +17,9 @@ import DNN_framework.data_frame as df
 # 2018 
 
 
-# python eval_template_new_data.py -o 230220_evaluation_new_6j4b_2_data -i 230220_50_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_3_data --notequalbin --lumi=1 -c 6j4b --year=2018 
+# python eval_template_new_data.py -o 230220_evaluation_new_6j4b_2_data -i 230220_50_2_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_3_data --notequalbin --lumi=1 -c 6j4b --year=2018 
 
-# python eval_template_new_data.py -o 230220_evaluation_new_5j4b_2_data -i 230220_50_ge5j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_3_data --notequalbin --lumi=1 -c 5j4b --year=2018
+# python eval_template_new_data.py -o 230220_evaluation_new_5j4b_2_data -i 230220_50_2_ge5j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_3_data --notequalbin --lumi=1 -c 5j4b --year=2018
 
 
 
@@ -36,10 +36,6 @@ parser.add_option("-i", "--inputdirectory", dest="inputDir",default="test_traini
 
 parser.add_option("-d", "--dataset", dest="dataset", default="Eval_1204_UL_test_nominal",
                   help="folder of h5 files", metavar="dataset")
-
-parser.add_option("-c", "--category", dest="category",default="4j3b",
-        help="category", metavar="category")
-
 parser.add_option("-o", "--outputdirectory", dest="outDir",default=None,
         help="DIR of evaluation outputs, if None specified use inputDir", metavar="outDir")
 
