@@ -838,7 +838,7 @@ class DNN():
                 self.data.get_test_labels(), self.model_prediction_vector)
             print("\nROC-AUC score: {}".format(self.roc_auc_score))
 
-    def save_discriminators(self, log=False, printROC=False, privateWork=False,year = "2017", category = "4j3b",
+    def save_discriminators(self, log=False, printROC=False, privateWork=False,year = "2017", category = "5j4b",
                             signal_class=None, nbins=None, bin_range=None, lumi=41.5, sigScale=-1, equalbin=True):
         ''' plot all events classified as one category '''
         if not bin_range:
@@ -863,7 +863,7 @@ class DNN():
 
         saveDiscrs.save()
 
-    def saveData_discriminators(self, event_classes, log=False, printROC=False, privateWork=False,category = "4j3b",
+    def saveData_discriminators(self, event_classes, log=False, printROC=False, privateWork=False,category = "5j4b",year = "2017",
                             signal_class=None, nbins=None, bin_range=None, lumi=41.5, sigScale=-1, equalbin=True):
         ''' plot all events classified as one category '''
         if not bin_range:
@@ -881,6 +881,7 @@ class DNN():
             event_category=self.category_label,
             savedir=self.plot_path,
             lumi=lumi,
+            year = year,
             equalbin=equalbin,
             category= category,
             logscale=log)

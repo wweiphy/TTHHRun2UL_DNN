@@ -185,10 +185,10 @@ for node in process_new:
 
 
     os.system(runcommand1)
-    os.system(runcommand2)
-    os.system(runcommand3)
+    # os.system(runcommand2)
+    # os.system(runcommand3)
     os.system(runcommand4)
-    os.system(runcommand5)
+    # os.system(runcommand5)
 
     print("finish making datacard for process {}".format(node))
 

@@ -556,7 +556,7 @@ class savenominalDiscriminators:
             f.Close()
 
 class saveDataDiscriminators:
-    def __init__(self, data, prediction_vector, predicted_classes, event_classes, nbins, bin_range, event_category, savedir, lumi,category, equalbin=True, logscale=False):
+    def __init__(self, data, prediction_vector, predicted_classes, event_classes, nbins, bin_range, event_category, savedir, lumi,category,year, equalbin=True, logscale=False):
         self.data = data
         self.prediction_vector = prediction_vector
         self.predicted_classes = predicted_classes
@@ -569,6 +569,7 @@ class saveDataDiscriminators:
         self.lumi = lumi
         self.logscale = logscale
         self.category = category
+        self.year = year
         self.equalbin=equalbin
 
     def save(self):

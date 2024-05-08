@@ -17,10 +17,9 @@ import DNN_framework.data_frame as df
 # 2018 
 
 
-# python eval_template_new_data.py -o 230220_evaluation_new_6j4b -i 230220_50_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_data --notequalbin --lumi=1
+# python eval_template_new_data.py -o 230220_evaluation_new_6j4b_2_data -i 230220_50_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_3_data --notequalbin --lumi=1 -c 6j4b --year=2018 
 
-# python eval_template_new_data.py -o 230220_evaluation_new_5j4b -i 230220_50_ge5j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_data --notequalbin --lumi=1
-
+# python eval_template_new_data.py -o 230220_evaluation_new_5j4b_2_data -i 230220_50_ge5j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_3_data --notequalbin --lumi=1 -c 5j4b --year=2018
 
 
 
@@ -78,7 +77,10 @@ parser.add_option("--lumi", dest="lumi", default=83, type=float,
 
 parser.add_option("--notequalbin", dest="notequalbin", action="store_false",
                   default=True, help="set up equal bin or not", metavar="notequalbin")
-
+parser.add_option("--year", dest="year", default = "2017",
+                  help="year", metavar="year")
+parser.add_option("-c", "--category", dest="category",default="5j4b",
+        help="category", metavar="category")
 parser.add_option("--evaluationEpoch", dest="evaluation_epoch_model", default = None,
                   help="model saved in this epoch used for evaluation", metavar="evaluation_epoch_model")
     
@@ -123,7 +125,7 @@ with open(configFile) as f:
 # load samples
 # input_samples = data_frame.InputSamples(
 #     config["inputData"], addSampleSuffix=config["addSampleSuffix"], test_percentage = options.test_percentage)
-input_samples = df.InputSamples(input_path=dfDirectory, addSampleSuffix=config["addSampleSuffix"], test_percentage = options.test_percentage)
+input_samples = df.InputSamples(input_path=dfDirectory, addSampleSuffix=config["addSampleSuffix"],dataEra=options.year, test_percentage = options.test_percentage)
 
 total_weight_expr = "x.Weight_XS * x.lumiWeight"
 # "x.Weight_XS * x.Weight_CSV_UL * x.Weight_GEN_nom * x.lumiWeight"
@@ -154,5 +156,5 @@ Do_Control = False,
 
 dnn.load_trained_model(inPath, options.evaluation_epoch_model)
 
-dnn.saveData_discriminators(event_classes = ['ttHH', 'ttmb', 'ttcc', 'ttlf', 'ttnb','ttH', 'ttZH', 'ttZZ','ttZ'], log=options.log, privateWork=options.privateWork, printROC=options.printROC, category=options.category,
+dnn.saveData_discriminators(event_classes = ['ttHH', 'ttmb', 'ttcc', 'ttlf', 'ttnb','ttH', 'ttZH', 'ttZZ','ttZ'], log=options.log, privateWork=options.privateWork, printROC=options.printROC, category=options.category, year=options.year,
                         lumi=options.lumi, equalbin=options.notequalbin)  #
