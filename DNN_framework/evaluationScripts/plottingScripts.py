@@ -81,7 +81,7 @@ class savenominalDiscriminators:
 
                     if node_cls == "ttHH":
                         # 4j3b
-                        current_binrange = [0, 0.19, 0.23, 0.25,
+                        current_binrange = [0, 0.25,
                                             0.27, 0.285, 0.3, 0.33, 0.35, 0.55]
                         # current_binrange = [0, 0.19, 0.23, 0.25,
                         #                     0.27, 0.285, 0.3, 0.33, 0.35, 0.55]
@@ -144,7 +144,7 @@ class savenominalDiscriminators:
 
                     if node_cls == "ttHH":
                         # 4j3b
-                        current_binrange = [0, 0.19, 0.23, 0.25,
+                        current_binrange = [0, 0.25,
                                             0.27, 0.285, 0.3, 0.33, 0.55]
                         # current_binrange = [0, 0.19, 0.23, 0.25,
                         #                     0.27, 0.285, 0.3, 0.33, 0.35, 0.55]
@@ -603,7 +603,7 @@ class saveDataDiscriminators:
 
                     if node_cls == "ttHH":
                         # 4j3b
-                        current_binrange = [0, 0.19, 0.23, 0.25,
+                        current_binrange = [0, 0.25,
                                             0.27, 0.285, 0.3, 0.33, 0.35, 0.55]
                         # current_binrange = [0, 0.19, 0.23, 0.25,
                         #                     0.27, 0.285, 0.3, 0.33, 0.35, 0.55]
@@ -666,7 +666,7 @@ class saveDataDiscriminators:
 
                     if node_cls == "ttHH":
                         # 4j3b
-                        current_binrange = [0, 0.19, 0.23, 0.25,
+                        current_binrange = [0, 0.25,
                                             0.27, 0.285, 0.3, 0.33, 0.55]
                         # current_binrange = [0, 0.19, 0.23, 0.25,
                         #                     0.27, 0.285, 0.3, 0.33, 0.35, 0.55]
@@ -837,7 +837,7 @@ class saveJESJERDiscriminators:
 
                     if node_cls == "ttHH":
                         # 4j3b
-                        current_binrange = [0, 0.19, 0.23, 0.25,
+                        current_binrange = [0, 0.25,
                                             0.27, 0.285, 0.3, 0.33, 0.35, 0.55]
                         # current_binrange = [0, 0.19, 0.23, 0.25,
                         #                     0.27, 0.285, 0.3, 0.33, 0.35, 0.55]
@@ -900,7 +900,7 @@ class saveJESJERDiscriminators:
 
                     if node_cls == "ttHH":
                         # 4j3b
-                        current_binrange = [0, 0.19, 0.23, 0.25,
+                        current_binrange = [0, 0.25,
                                             0.27, 0.285, 0.3, 0.33, 0.55]
                         # current_binrange = [0, 0.19, 0.23, 0.25,
                         #                     0.27, 0.285, 0.3, 0.33, 0.35, 0.55]
