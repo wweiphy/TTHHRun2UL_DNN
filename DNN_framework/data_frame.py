@@ -100,12 +100,14 @@ class Sample:
 
             print("Do DNN Evaluation")
 
-            df.query('sf_weight > 0.', inplace=True)
+            
 
             # calculate uncertainties for nominal events
             if "nominal" in self.path: 
                 # isr
                 # print(GenNormMap.internalNomFactors['isrUp'][4][1])
+
+                df.query('sf_weight > 0.', inplace=True)
 
                 df = df.assign(total_preweight=lambda x: (self.normalization_weight * x['total_weight']))
 
@@ -217,6 +219,9 @@ class Sample:
             # df = df.assign(xs_weight=lambda x: eval(
                 # self.total_weight_expr))
             # "x.Weight_XS * x.Weight_CSV_UL * x.Weight_GEN_nom * x.lumiWeight"
+            if "JES" in self.path or "JER" in self.path:
+                df.query('sf_weight > 0.', inplace=True)
+                 
             xs_weight_sum = sum(df["xs_weight"].values)
             # print("xs weight sum: {}".format(xs_weight_sum))
             df = df.assign(train_weight=lambda x: x.xs_weight /
