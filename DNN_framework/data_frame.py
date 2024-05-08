@@ -221,7 +221,7 @@ class Sample:
             # "x.Weight_XS * x.Weight_CSV_UL * x.Weight_GEN_nom * x.lumiWeight"
             if "JES" in self.path or "JER" in self.path:
                 df.query('sf_weight > 0.', inplace=True)
-                 
+
             xs_weight_sum = sum(df["xs_weight"].values)
             # print("xs weight sum: {}".format(xs_weight_sum))
             df = df.assign(train_weight=lambda x: x.xs_weight /
@@ -491,6 +491,9 @@ class DataFrame(object):
                 QTScaler.fit_transform(df_train[self.train_variables]))
             df_final_test[self.train_variables] = MScaler.transform(
                 QTScaler.transform(df_test[self.train_variables]))
+            
+            print("MScaler: ", MScaler.get_params(deep=True))
+            print("QTScaler: ", QTScaler.get_params(deep=True))
 
             print("end preprocessing")
 
