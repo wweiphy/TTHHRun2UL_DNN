@@ -281,12 +281,12 @@ class Sample:
         else:
             df = df.assign(lumi_weight=lambda x: x.total_weight *
                             lumi * self.normalization_weight)
-        print("sum of total uplf weights: {}".format(
-            sum(df["total_weight_uplf"].values)))
-        print("sum of total upPU weights: {}".format(
-            sum(df["total_weight_upPU"].values)))
-        print("sum of total weights: {}".format(
-            sum(df["total_weight"].values)))
+        print("sum of total btag weights: {}".format(
+            sum(df["Weight_CSV_UL"].values)))
+        print("sum of total btag uplf weights: {}".format(
+            sum(df["Weight_CSV_UL_uplf"].values)))
+        # print("sum of total weights: {}".format(
+            # sum(df["total_weight"].values)))
         print("sum of lumi weights: {}".format(
             sum(df["lumi_weight"].values)))
         print("length of df, ", df.shape[0])
