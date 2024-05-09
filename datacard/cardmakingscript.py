@@ -167,16 +167,18 @@ for node in process_new:
         os.mkdir("new_nosys")
     os.system(runcommand1)
 
-    # if not os.path.exists("new"):
-    #         os.mkdir("new")
+    if not os.path.exists("new"):
+            os.mkdir("new")
     # if not os.path.exists("new_rate"):
     #     os.mkdir("new_rate")
     # if not os.path.exists("new_fullrate"):
     #     os.mkdir("new_fullrate")
-    # os.system(runcommand2)
+    os.system(runcommand2)
     # os.system(runcommand3)
     if not os.path.exists("new_full"):
         os.mkdir("new_full")
+    # if not os.path.exists("new_fullrate"):
+        # os.mkdir("new_fullrate")
     os.system(runcommand4)
     # os.system(runcommand5)
 
