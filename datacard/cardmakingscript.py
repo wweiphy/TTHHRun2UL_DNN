@@ -147,7 +147,10 @@ for node in process_new:
     runcommand2 = "python {} --categoryname={} --rootfile={} --outputfile={} --directory={} --signaltag=ttHH --csvfile={} --nominal_key='$CHANNEL__$PROCESS' --syst_key='$CHANNEL__$PROCESS__$SYSTEMATIC'".format(
         scriptfile, categoryname, rootfile, outfile2, cardmaker, csvfile_sys)
     
-
+    csvfile_sys2 = filedir+"/"+systfile2
+    outfile3 = filedir + "/new_sys2/ljets_ge4j_ge3t_{}_node_hdecay.txt".format(node)
+    runcommand3 = "python {} --categoryname={} --rootfile={} --outputfile={} --directory={} --signaltag=ttHH --csvfile={} --nominal_key='$CHANNEL__$PROCESS' --syst_key='$CHANNEL__$PROCESS__$SYSTEMATIC'".format(
+        scriptfile, categoryname, rootfile, outfile3, cardmaker, csvfile_sys2)
     # csvfile_sys_rate = filedir+"/"+systfilerate
     # outfile3 = filedir + "/new_rate/ljets_ge4j_ge3t_{}_node_hdecay.txt".format(node)
     # runcommand3 = "python {} --categoryname={} --rootfile={} --outputfile={} --directory={} --signaltag=ttHH --csvfile={} --nominal_key='$CHANNEL__$PROCESS' --syst_key='$CHANNEL__$PROCESS__$SYSTEMATIC'".format(
@@ -170,12 +173,12 @@ for node in process_new:
 
     if not os.path.exists("new"):
             os.mkdir("new")
-    # if not os.path.exists("new_rate"):
-    #     os.mkdir("new_rate")
+    if not os.path.exists("new_sys"):
+        os.mkdir("new_sys")
     # if not os.path.exists("new_fullrate"):
     #     os.mkdir("new_fullrate")
     os.system(runcommand2)
-    # os.system(runcommand3)
+    os.system(runcommand3)
     if not os.path.exists("new_full"):
         os.mkdir("new_full")
     # if not os.path.exists("new_fullrate"):
