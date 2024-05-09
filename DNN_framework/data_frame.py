@@ -516,15 +516,20 @@ class DataFrame(object):
                     QTScaler.fit_transform(df_train[self.train_variables]))
                 df_final_test[self.train_variables] = MScaler.transform(
                     QTScaler.transform(df_test[self.train_variables]))
+
+                
+                self.df_unsplit_preprocessing = pd.concat(
+                    [df_final_test, df_final_train])
+
                 df_final_train["lumi_weight"] = df_train["lumi_weight"] / \
                     (1 - self.test_percentage)
                 df_final_test["lumi_weight"] = df_test["lumi_weight"] / \
                     self.test_percentage
 
+                # adjust weights via 1/test_percentage for test and 1/(1 - test_percentage) for train samples such that yields in plots correspond to complete dataset
+
                 self.df_test = df_final_test
                 self.df_train = df_final_train
-                self.df_unsplit_preprocessing = pd.concat(
-                    [df_final_test, df_final_train])
             
                 print("MScaler: ", MScaler.scale_)
                 print("QTScaler: ", QTScaler.quantiles_)
@@ -542,6 +547,9 @@ class DataFrame(object):
                 print("MScaler: ", MScaler.scale_)
                 print("QTScaler: ", QTScaler.quantiles_)
 
+                df = pd.concat(
+                    [df_test, df_train])
+
                 df[self.train_variables] = MScaler.transform(
                     QTScaler.transform(df[self.train_variables]))
 
@@ -551,7 +559,7 @@ class DataFrame(object):
                 
             print("end preprocessing")
             
-            # adjust weights via 1/test_percentage for test and 1/(1 - test_percentage) for train samples such that yields in plots correspond to complete dataset
+           
 
             
         else:
