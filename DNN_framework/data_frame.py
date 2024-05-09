@@ -285,8 +285,18 @@ class Sample:
             sum(df["Weight_CSV_UL"].values)))
         print("sum of total btag uplf weights: {}".format(
             sum(df["Weight_CSV_UL_uplf"].values)))
-        # print("sum of total weights: {}".format(
-            # sum(df["total_weight"].values)))
+        print("sum of total btag downlf weights: {}".format(
+            sum(df["Weight_CSV_UL_downlf"].values)))
+        print("sum of total weights: {}".format(
+            sum(df["total_weight"].values)))
+        print("sum of total upPU weights: {}".format(
+            sum(df["total_weight_upPU"].values)))
+        print("sum of total downlf weights: {}".format(
+            sum(df["total_weight_uplf"].values)))
+        print("sum of total downlf weights: {}".format(
+            sum(df["total_weight_downlf"].values)))
+        
+
         print("sum of lumi weights: {}".format(
             sum(df["lumi_weight"].values)))
         print("length of df, ", df.shape[0])
