@@ -149,7 +149,7 @@ dataset.addBaseSelection(base_selection)
 dataset.addSample(
     sampleName="TTZZ",
     ntuples=ntuplesPath2 +
-    "/2017/ntuple/TTZZTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2017/221126_052936/*/*nominal*.root",
+        "/2017/ntuple/TTZZTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2017/221126_052936/*/*nominal*.root",
     #    ntuples     = ntuplesPath+"/ttH_220208.root",
     categories=ttZZ_categories,
     process="ttZZ",
@@ -160,19 +160,19 @@ dataset.addSample(
 )
 
 
-dataset.addSample(
-    sampleName="TTZZ2",
-    ntuples=ntuplesPath2 +
-    "/2017/ntuple/TTZZTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2017_Ext/221126_053245/*/*nominal*.root",
-    #    ntuples     = ntuplesPath+"/ttH_220208.root",
-    categories=ttZZ_categories,
-    #    lumiWeight  = 41.5,
-    selections=ttHH_selection,  
-    process="ttZZ",  
-    # ttbar_selection,
-    #    selections  = ttbar_selection,
-    islocal=False
-) # complete
+# dataset.addSample(
+#     sampleName="TTZZ2",
+#     ntuples=ntuplesPath2 +
+#     "/2017/ntuple/TTZZTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2017_Ext/221126_053245/*/*nominal*.root",
+#     #    ntuples     = ntuplesPath+"/ttH_220208.root",
+#     categories=ttZZ_categories,
+#     #    lumiWeight  = 41.5,
+#     selections=ttHH_selection,  
+#     process="ttZZ",  
+#     # ttbar_selection,
+#     #    selections  = ttbar_selection,
+#     islocal=False
+# ) # complete
 
 
 # initialize variable list
@@ -195,3 +195,4 @@ dataset.addVariables(add_var.additional_variables)
 # run the preprocessing
 dataset.runPreprocessing()
 # dataset2.runPreprocessing()
+

@@ -248,7 +248,7 @@ dataset.addBaseSelection(base_selection)
 dataset.addSample(
     sampleName="TTbbSL",
     ntuples=ntuplesPath2 +
-    "/2017/ntuple/TTbb_4f_TTToSemiLeptonic_TuneCP5-Powheg-Openloops-Pythia8/sl_LEG_ntuple_2017/221126_053456/*/*nominal*.root",
+    "/2017/ntuple/TTbb_4f_TTToSemiLeptonic_TuneCP5-Powheg-Openloops-Pythia8/sl_LEG_ntuple_2017/230115_045551/*/*nominal*.root",
     categories=ttmb_categories,
     process="ttbb",
     #    lumiWeight  = 41.5,
