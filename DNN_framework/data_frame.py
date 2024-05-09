@@ -514,7 +514,7 @@ class DataFrame(object):
                 dump(QTScaler, open(self.save_path+"/QTScaler.pkl",'wb'))
                 dump(MScaler, open(self.save_path+"/MScaler.pkl",'wb'))
 
-            elif self.Do_evaluation: 
+            elif self.Do_Evaluation: 
 
                 QTScaler = load(open(self.input_path+"/checkpoints/QTScaler.pkl",'rb'))
                 MScaler = load(open(self.input_path+"/checkpoints/MScaler.pkl",'rb'))
