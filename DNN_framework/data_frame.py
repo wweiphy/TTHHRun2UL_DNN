@@ -289,6 +289,13 @@ class Sample:
             sum(df["Weight_CSV_UL"].values)))
         print("sum of total weights: {}".format(
             sum(df["total_weight"].values)))
+        print("sum of total weights: {}".format(
+            sum(df["total_weight"].values)))
+        
+        
+        df = df.assign(test=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL)
+        print("sum of total weights2: {}".format(
+            sum(df['test'].values)))
 
         
 
