@@ -281,23 +281,22 @@ class Sample:
         else:
             df = df.assign(lumi_weight=lambda x: x.total_weight *
                             lumi * self.normalization_weight)
-        print("sum of sf weights: {}".format(
-            sum(df["sf_weight"].values)))
-        print("sum of total xs weights: {}".format(
-            sum(df["xs_weight"].values)))
-        print("sum of btag weights: {}".format(
-            sum(df["Weight_CSV_UL"].values)))
-        print("sum of total weights: {}".format(
-            sum(df["total_weight"].values)))
-        print("sum of total weights: {}".format(
-            sum(df["total_weight"].values)))
+        # print("sum of sf weights: {}".format(
+        #     sum(df["sf_weight"].values)))
+        # print("sum of total xs weights: {}".format(
+        #     sum(df["xs_weight"].values)))
+        # print("sum of btag weights: {}".format(
+        #     sum(df["Weight_CSV_UL"].values)))
+        # print("sum of total weights: {}".format(
+        #     sum(df["total_weight"].values)))
+        # print("sum of total weights: {}".format(
+        #     sum(df["total_weight"].values)))
         
         
-        df = df.assign(test=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL)
-        print("sum of total weights2: {}".format(
-            sum(df['test'].values)))
+        # df = df.assign(test=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL)
+        # print("sum of total weights2: {}".format(
+        #     sum(df['test'].values)))
 
-        
 
         print("sum of lumi weights: {}".format(
             sum(df["lumi_weight"].values)))
