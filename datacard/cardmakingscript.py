@@ -86,7 +86,7 @@ else:
         fullsystfile = "datacard_new_sys_2016.csv" 
         # fullsystfilerate = "datacard_new_sys_2016_rate.csv" 
         systfile = "datacard_new_sys_reduce_2016.csv"
-        systfile2 = "datacard_new_sys2_2016_rate.csv"
+        systfile2 = "datacard_new_sys2_2016.csv"
     # elif options.year == "2016postVFP":
         # systfile = "datacard_new_sys_reduce_2016postVFP.csv"
     elif options.year == "2016":
