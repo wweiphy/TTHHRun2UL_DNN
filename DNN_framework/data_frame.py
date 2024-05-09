@@ -516,6 +516,8 @@ class DataFrame(object):
 
             elif self.Do_Evaluation: 
 
+                print("Do evaluation, preprocessing")
+
                 QTScaler = load(open(self.input_path+"/checkpoints/QTScaler.pkl",'rb'))
                 MScaler = load(open(self.input_path+"/checkpoints/MScaler.pkl",'rb'))
 
