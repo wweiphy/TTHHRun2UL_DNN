@@ -9,7 +9,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import QuantileTransformer
 from sklearn.preprocessing import MinMaxScaler
 from tensorflow.keras.utils import to_categorical
-from pickle import dump
+from pickle import dump, load
 
 import SystMap
 
@@ -479,8 +479,10 @@ class DataFrame(object):
         df_train = df.tail(df.shape[0] - n_test_samples)
 
         if not self.Do_Control:
-            print("start preprocessing")
 
+            print("start preprocessing")
+            # if not self.Do_Evaluation:
+            
             QTScaler = QuantileTransformer(
                 n_quantiles=2000, output_distribution='uniform', random_state=0)
             MScaler = MinMaxScaler(feature_range=(0, 1))
@@ -492,20 +494,6 @@ class DataFrame(object):
                 QTScaler.fit_transform(df_train[self.train_variables]))
             df_final_test[self.train_variables] = MScaler.transform(
                 QTScaler.transform(df_test[self.train_variables]))
-            
-            # print("MScaler: ", MScaler.scale_)
-            # print("QTScaler: ", QTScaler.quantiles_)
-
-            dump(QTScaler, open(self.save_path+"/QTScaler.pkl",'wb'))
-            dump(MScaler, open(self.save_path+"/MScaler.pkl",'wb'))
-
-            print("end preprocessing")
-
-            self.df_unsplit_preprocessing = pd.concat(
-                [df_final_test, df_final_train])
-            
-            # adjust weights via 1/test_percentage for test and 1/(1 - test_percentage) for train samples such that yields in plots correspond to complete dataset
-
             df_final_train["lumi_weight"] = df_train["lumi_weight"] / \
                 (1 - self.test_percentage)
             df_final_test["lumi_weight"] = df_test["lumi_weight"] / \
@@ -513,6 +501,29 @@ class DataFrame(object):
 
             self.df_test = df_final_test
             self.df_train = df_final_train
+            self.df_unsplit_preprocessing = pd.concat(
+                [df_final_test, df_final_train])
+            
+            # print("MScaler: ", MScaler.scale_)
+            # print("QTScaler: ", QTScaler.quantiles_)
+
+            dump(QTScaler, open(self.save_path+"/QTScaler.pkl",'wb'))
+            dump(MScaler, open(self.save_path+"/MScaler.pkl",'wb'))
+
+            # else: 
+                # QTScaler = load(open("QTScaler.pkl",'rb'))
+                # MScaler = load(open("MScaler.pkl",'rb'))
+
+                # df[self.train_variables] = MScaler.transform(
+                #     QTScaler.transform(df[self.train_variables]))
+
+                # self.df_unsplit_preprocessing = df
+                
+                # print("end preprocessing")
+            
+            # adjust weights via 1/test_percentage for test and 1/(1 - test_percentage) for train samples such that yields in plots correspond to complete dataset
+
+            
         else:
             self.df_unsplit_preprocessing = pd.concat(
                 [df_test, df_train])
