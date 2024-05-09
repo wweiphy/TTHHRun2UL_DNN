@@ -9,6 +9,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import QuantileTransformer
 from sklearn.preprocessing import MinMaxScaler
 from tensorflow.keras.utils import to_categorical
+from pickle import dump
 
 import SystMap
 
@@ -492,8 +493,11 @@ class DataFrame(object):
             df_final_test[self.train_variables] = MScaler.transform(
                 QTScaler.transform(df_test[self.train_variables]))
             
-            print("MScaler: ", MScaler.scale_)
-            print("QTScaler: ", QTScaler.quantiles_)
+            # print("MScaler: ", MScaler.scale_)
+            # print("QTScaler: ", QTScaler.quantiles_)
+
+            dump(QTScaler, open(self.save_path+"/QTScaler.pkl",'wb'))
+            dump(MScaler, open(self.save_path+"/MScaler.pkl",'wb'))
 
             print("end preprocessing")
 
