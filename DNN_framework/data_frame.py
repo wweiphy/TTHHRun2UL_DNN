@@ -350,6 +350,7 @@ class DataFrame(object):
     def __init__(self,
                  isData,
                  input_samples,
+                 input_path,
                  save_path,
                  event_category,
                  train_variables,
@@ -365,6 +366,7 @@ class DataFrame(object):
         self.lumi = lumi
         self.evenSel = evenSel
         self.save_path = save_path
+        self.input_path = input_path
         self.input_samples = input_samples
         self.train_variables = train_variables
         self.test_percentage = test_percentage
@@ -481,52 +483,59 @@ class DataFrame(object):
         if not self.Do_Control:
 
             print("start preprocessing")
-            # if not self.Do_Evaluation:
+
+            if not self.Do_Evaluation:
+                # Do Training
             
-            QTScaler = QuantileTransformer(
-                n_quantiles=2000, output_distribution='uniform', random_state=0)
-            MScaler = MinMaxScaler(feature_range=(0, 1))
+                QTScaler = QuantileTransformer(
+                    n_quantiles=2000, output_distribution='uniform', random_state=0)
+                MScaler = MinMaxScaler(feature_range=(0, 1))
 
-            df_final_train = df_train.copy(deep=True)
-            df_final_test = df_test.copy(deep=True)
+                df_final_train = df_train.copy(deep=True)
+                df_final_test = df_test.copy(deep=True)
 
-            df_final_train[self.train_variables] = MScaler.fit_transform(
-                QTScaler.fit_transform(df_train[self.train_variables]))
-            df_final_test[self.train_variables] = MScaler.transform(
-                QTScaler.transform(df_test[self.train_variables]))
-            df_final_train["lumi_weight"] = df_train["lumi_weight"] / \
-                (1 - self.test_percentage)
-            df_final_test["lumi_weight"] = df_test["lumi_weight"] / \
-                self.test_percentage
+                df_final_train[self.train_variables] = MScaler.fit_transform(
+                    QTScaler.fit_transform(df_train[self.train_variables]))
+                df_final_test[self.train_variables] = MScaler.transform(
+                    QTScaler.transform(df_test[self.train_variables]))
+                df_final_train["lumi_weight"] = df_train["lumi_weight"] / \
+                    (1 - self.test_percentage)
+                df_final_test["lumi_weight"] = df_test["lumi_weight"] / \
+                    self.test_percentage
 
-            self.df_test = df_final_test
-            self.df_train = df_final_train
-            self.df_unsplit_preprocessing = pd.concat(
-                [df_final_test, df_final_train])
+                self.df_test = df_final_test
+                self.df_train = df_final_train
+                self.df_unsplit_preprocessing = pd.concat(
+                    [df_final_test, df_final_train])
             
-            # print("MScaler: ", MScaler.scale_)
-            # print("QTScaler: ", QTScaler.quantiles_)
+                print("MScaler: ", MScaler.scale_)
+                print("QTScaler: ", QTScaler.quantiles_)
 
-            dump(QTScaler, open(self.save_path+"/QTScaler.pkl",'wb'))
-            dump(MScaler, open(self.save_path+"/MScaler.pkl",'wb'))
+                dump(QTScaler, open(self.save_path+"/QTScaler.pkl",'wb'))
+                dump(MScaler, open(self.save_path+"/MScaler.pkl",'wb'))
 
-            # else: 
-                # QTScaler = load(open("QTScaler.pkl",'rb'))
-                # MScaler = load(open("MScaler.pkl",'rb'))
+            elif self.Do_evaluation: 
 
-                # df[self.train_variables] = MScaler.transform(
-                #     QTScaler.transform(df[self.train_variables]))
+                QTScaler = load(open(self.input_path+"/checkpoints/QTScaler.pkl",'rb'))
+                MScaler = load(open(self.input_path+"/checkpoints/MScaler.pkl",'rb'))
 
-                # self.df_unsplit_preprocessing = df
+                print("MScaler: ", MScaler.scale_)
+                print("QTScaler: ", QTScaler.quantiles_)
+
+                df[self.train_variables] = MScaler.transform(
+                    QTScaler.transform(df[self.train_variables]))
+
+                self.df_test = df_test # not important 
+                self.df_train = df_train # not important
+                self.df_unsplit_preprocessing = df
                 
-                # print("end preprocessing")
+            print("end preprocessing")
             
             # adjust weights via 1/test_percentage for test and 1/(1 - test_percentage) for train samples such that yields in plots correspond to complete dataset
 
             
         else:
-            self.df_unsplit_preprocessing = pd.concat(
-                [df_test, df_train])
+            self.df_unsplit_preprocessing = df
             
             self.df_test = df_test
             self.df_train = df_train

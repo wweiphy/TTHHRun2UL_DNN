@@ -221,6 +221,7 @@ class DNN():
     def __init__(self,
                  save_path,
                  input_samples,
+                 input_path,
                 #  sample_save_path,
                  category_name,
                  train_variables,
@@ -248,6 +249,7 @@ class DNN():
         self.Do_Evaluation = Do_Evaluation
         self.Do_Control = Do_Control
         self.isData = is_Data
+        self.input_path = input_path
 
         # output directory for results
         self.save_path = save_path
@@ -329,6 +331,7 @@ class DNN():
         data = data_frame.DataFrame(
             isData = self.isData,
             input_samples=self.input_samples,
+            input_path = self.input_path,
             save_path=self.save_path,
             event_category=self.category_cutString,
             train_variables=self.train_variables,
