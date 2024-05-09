@@ -492,7 +492,7 @@ class DataFrame(object):
             df_final_test[self.train_variables] = MScaler.transform(
                 QTScaler.transform(df_test[self.train_variables]))
             
-            print("MScaler: ", MScaler.data_max_)
+            print("MScaler: ", MScaler.scale_)
             print("QTScaler: ", QTScaler.quantiles_)
 
             print("end preprocessing")
