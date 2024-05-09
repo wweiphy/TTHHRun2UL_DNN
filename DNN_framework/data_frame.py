@@ -9,6 +9,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import QuantileTransformer
 from sklearn.preprocessing import MinMaxScaler
 from tensorflow.keras.utils import to_categorical
+from pickle import dump, load
 
 import SystMap
 
@@ -100,89 +101,100 @@ class Sample:
 
             print("Do DNN Evaluation")
 
-            df.query('sf_weight > 0.', inplace=True)
-
             # calculate uncertainties for nominal events
             if "nominal" in self.path: 
                 # isr
                 # print(GenNormMap.internalNomFactors['isrUp'][4][1])
 
+                df.query('sf_weight > 0.', inplace=True)
+
                 df = df.assign(total_preweight=lambda x: (self.normalization_weight * x['total_weight']))
 
 
-                df = df.assign(total_weight_scaleMuRUp=lambda x: (((x['process'] == "ttSL")*1.* x['Weight_scale_variation_muR_2p0_muF_1p0'] + (x['process'] == "ttDL")*1. * x['Weight_scale_variation_muR_2p0_muF_1p0']) * x.total_preweight))
+                df = df.assign(total_weight_scaleMuRUp=lambda x: (((x['process'] == "ttSL")*1. * float(self.genfile[(self.genfile['sample'] == "ttSL") & (self.genfile['variation'] == 'Weight_scale_variation_muR_2p0_muF_1p0')]['final_weight_sl_analysis'].values[0]) * x['Weight_scale_variation_muR_2p0_muF_1p0'] + (x['process'] == "ttDL")*1. * float(self.genfile[(self.genfile['sample'] == "ttDL") & (self.genfile['variation'] == 'Weight_scale_variation_muR_2p0_muF_1p0')]['final_weight_sl_analysis'].values[0]) * x['Weight_scale_variation_muR_2p0_muF_1p0'] + (x['process'] == "ttbbSL")*1. * float(self.genfile[(self.genfile['sample'] == "ttbbSL") & (self.genfile['variation'] == 'Weight_scale_variation_muR_2p0_muF_1p0')]['ratio_ttB_varied_vs_nom_5FS'].values[0]) + (x['process'] == "ttbbDL")*1. * float(self.genfile[(self.genfile['sample'] == "ttbbDL") & (self.genfile['variation'] == 'Weight_scale_variation_muR_2p0_muF_1p0')]['ratio_ttB_varied_vs_nom_5FS'].values[0])) * x.total_preweight))
 
 
-                df = df.assign(total_weight_scaleMuR_ttbbNLOUp=lambda x: (((x['process'] == "ttbbSL")*1. * x['Weight_scale_variation_muR_2p0_muF_1p0'] + (x['process'] == "ttbbDL")*1. * x['Weight_scale_variation_muR_2p0_muF_1p0']) * x.total_preweight))
+                df = df.assign(total_weight_scaleMuR_ttbbNLOUp=lambda x: (((x['process'] == "ttbbSL")*1. * float(self.genfile[(self.genfile['sample'] == "ttbbSL") & (self.genfile['variation'] == 'Weight_scale_variation_muR_2p0_muF_1p0')]['ratio_ttB_varied_vs_nom_5FS'].values[0]) * x['Weight_scale_variation_muR_2p0_muF_1p0'] + (x['process'] == "ttbbDL")*1. * float(self.genfile[(self.genfile['sample'] == "ttbbDL") & (self.genfile['variation'] == 'Weight_scale_variation_muR_2p0_muF_1p0')]['ratio_ttB_varied_vs_nom_5FS'].values[0]) * x['Weight_scale_variation_muR_2p0_muF_1p0'] + ((self.label == "ttlf") & (
+                    x['process'] == "ttSL"))*1. * float(self.genfile[(self.genfile['sample'] == "ttSL") & (self.genfile['variation'] == 'Weight_scale_variation_muR_2p0_muF_1p0')]['ratio_ttLF_varied_vs_nom_5FS'].values[0]) + ((self.label == "ttlf") & (x['process'] == "ttDL"))*1. * float(self.genfile[(self.genfile['sample'] == "ttDL") & (self.genfile['variation'] == 'Weight_scale_variation_muR_2p0_muF_1p0')]['ratio_ttLF_varied_vs_nom_5FS'].values[0]) + ((self.label == "ttcc") & (x['process'] == "ttSL"))*1. * float(self.genfile[(self.genfile['sample'] == "ttSL") & (self.genfile['variation'] == 'Weight_scale_variation_muR_2p0_muF_1p0')]['ratio_ttC_varied_vs_nom_5FS'].values[0]) + ((self.label == "ttcc") & (x['process'] == "ttDL"))*1. * float(self.genfile[(self.genfile['sample'] == "ttDL") & (self.genfile['variation'] == 'Weight_scale_variation_muR_2p0_muF_1p0')]['ratio_ttC_varied_vs_nom_5FS'].values[0])) * x.total_preweight))
                 
 
                 df = df.assign(total_weight_scaleMuR_ttHUp=lambda x: (
-                    (((x['process'] == "ttHSL")*1. + (x['process'] == 'ttHDL')*1.))* x['Weight_scale_variation_muR_2p0_muF_1p0'] * x.total_preweight))
+                    (float(self.genfile[(self.genfile['sample'] == "ttH") & (self.genfile['variation'] == 'Weight_scale_variation_muR_2p0_muF_1p0')]['final_weight_sl_analysis'].values[0]) * x['Weight_scale_variation_muR_2p0_muF_1p0']) * x.total_preweight))
 
-                df = df.assign(total_weight_scaleMuRDown=lambda x: (((x['process'] == "ttSL")*1.* x['Weight_scale_variation_muR_0p5_muF_1p0'] + (x['process'] == "ttDL")*1.* x['Weight_scale_variation_muR_0p5_muF_1p0']) * x.total_preweight))
+                df = df.assign(total_weight_scaleMuRDown=lambda x: (((x['process'] == "ttSL")*1. * float(self.genfile[(self.genfile['sample'] == "ttSL") & (self.genfile['variation'] == 'Weight_scale_variation_muR_0p5_muF_1p0')]['final_weight_sl_analysis'].values[0]) * x['Weight_scale_variation_muR_0p5_muF_1p0'] + (x['process'] == "ttDL")*1. * float(self.genfile[(self.genfile['sample'] == "ttDL") & (self.genfile['variation'] == 'Weight_scale_variation_muR_0p5_muF_1p0')]['final_weight_sl_analysis'].values[0]) * x['Weight_scale_variation_muR_0p5_muF_1p0'] + (x['process'] == "ttbbSL")*1. * float(self.genfile[(self.genfile['sample'] == "ttbbSL") & (self.genfile['variation'] == 'Weight_scale_variation_muR_0p5_muF_1p0')]['ratio_ttB_varied_vs_nom_5FS'].values[0]) + (x['process'] == "ttbbDL")*1. * float(self.genfile[(self.genfile['sample'] == "ttbbDL") & (self.genfile['variation'] == 'Weight_scale_variation_muR_0p5_muF_1p0')]['ratio_ttB_varied_vs_nom_5FS'].values[0])) * x.total_preweight))
 
 
-                df = df.assign(total_weight_scaleMuR_ttbbNLODown=lambda x: (((x['process'] == "ttbbSL")*1. * x['Weight_scale_variation_muR_0p5_muF_1p0'] + (x['process'] == "ttbbDL")*1. * x['Weight_scale_variation_muR_0p5_muF_1p0']) * x.total_preweight))
+                df = df.assign(total_weight_scaleMuR_ttbbNLODown=lambda x: (((x['process'] == "ttbbSL")*1. * float(self.genfile[(self.genfile['sample'] == "ttbbSL") & (self.genfile['variation'] == 'Weight_scale_variation_muR_0p5_muF_1p0')]['ratio_ttB_varied_vs_nom_5FS'].values[0]) * x['Weight_scale_variation_muR_0p5_muF_1p0'] + (x['process'] == "ttbbDL")*1. * float(self.genfile[(self.genfile['sample'] == "ttbbDL") & (self.genfile['variation'] == 'Weight_scale_variation_muR_0p5_muF_1p0')]['ratio_ttB_varied_vs_nom_5FS'].values[0]) * x['Weight_scale_variation_muR_0p5_muF_1p0'] + ((self.label == "ttlf") & (
+                    x['process'] == "ttSL"))*1. * float(self.genfile[(self.genfile['sample'] == "ttSL") & (self.genfile['variation'] == 'Weight_scale_variation_muR_0p5_muF_1p0')]['ratio_ttLF_varied_vs_nom_5FS'].values[0]) + ((self.label == "ttlf") & (x['process'] == "ttDL"))*1. * float(self.genfile[(self.genfile['sample'] == "ttDL") & (self.genfile['variation'] == 'Weight_scale_variation_muR_0p5_muF_1p0')]['ratio_ttLF_varied_vs_nom_5FS'].values[0]) + ((self.label == "ttcc") & (x['process'] == "ttSL"))*1. * float(self.genfile[(self.genfile['sample'] == "ttSL") & (self.genfile['variation'] == 'Weight_scale_variation_muR_0p5_muF_1p0')]['ratio_ttC_varied_vs_nom_5FS'].values[0]) + ((self.label == "ttcc") & (x['process'] == "ttDL"))*1. * float(self.genfile[(self.genfile['sample'] == "ttDL") & (self.genfile['variation'] == 'Weight_scale_variation_muR_0p5_muF_1p0')]['ratio_ttC_varied_vs_nom_5FS'].values[0])) * x.total_preweight))
                 
 
                 df = df.assign(total_weight_scaleMuR_ttHDown=lambda x: (
-                    ( ((x['process'] == "ttHSL")*1. + (x['process'] == 'ttHDL')*1.)* x['Weight_scale_variation_muR_0p5_muF_1p0']) * x.total_preweight))
+                    (float(self.genfile[(self.genfile['sample'] == "ttH") & (self.genfile['variation'] == 'Weight_scale_variation_muR_0p5_muF_1p0')]['final_weight_sl_analysis'].values[0]) * x['Weight_scale_variation_muR_0p5_muF_1p0']) * x.total_preweight))
                 
-                df = df.assign(total_weight_scaleMuFUp=lambda x: (((x['process'] == "ttSL")*1. * x['Weight_scale_variation_muR_1p0_muF_2p0'] + (x['process'] == "ttDL")*1. * x['Weight_scale_variation_muR_1p0_muF_2p0']) * x.total_preweight))
+                df = df.assign(total_weight_scaleMuFUp=lambda x: (((x['process'] == "ttSL")*1. * float(self.genfile[(self.genfile['sample'] == "ttSL") & (self.genfile['variation'] == 'Weight_scale_variation_muR_1p0_muF_2p0')]['final_weight_sl_analysis'].values[0]) * x['Weight_scale_variation_muR_1p0_muF_2p0'] + (x['process'] == "ttDL")*1. * float(self.genfile[(self.genfile['sample'] == "ttDL") & (self.genfile['variation'] == 'Weight_scale_variation_muR_1p0_muF_2p0')]['final_weight_sl_analysis'].values[0]) * x['Weight_scale_variation_muR_1p0_muF_2p0'] + (x['process'] == "ttbbSL")*1. * float(self.genfile[(self.genfile['sample'] == "ttbbSL") & (self.genfile['variation'] == 'Weight_scale_variation_muR_1p0_muF_2p0')]['ratio_ttB_varied_vs_nom_5FS'].values[0]) + (x['process'] == "ttbbDL")*1. * float(self.genfile[(self.genfile['sample'] == "ttbbDL") & (self.genfile['variation'] == 'Weight_scale_variation_muR_1p0_muF_2p0')]['ratio_ttB_varied_vs_nom_5FS'].values[0])) * x.total_preweight))
 
 
-                df = df.assign(total_weight_scaleMuF_ttbbNLOUp=lambda x: (((x['process'] == "ttbbSL")*1. * x['Weight_scale_variation_muR_1p0_muF_2p0'] + (x['process'] == "ttbbDL")*1. * x['Weight_scale_variation_muR_1p0_muF_2p0']) * x.total_preweight))
+                df = df.assign(total_weight_scaleMuF_ttbbNLOUp=lambda x: (((x['process'] == "ttbbSL")*1. * float(self.genfile[(self.genfile['sample'] == "ttbbSL") & (self.genfile['variation'] == 'Weight_scale_variation_muR_1p0_muF_2p0')]['ratio_ttB_varied_vs_nom_5FS'].values[0]) * x['Weight_scale_variation_muR_1p0_muF_2p0'] + (x['process'] == "ttbbDL")*1. * float(self.genfile[(self.genfile['sample'] == "ttbbDL") & (self.genfile['variation'] == 'Weight_scale_variation_muR_1p0_muF_2p0')]['ratio_ttB_varied_vs_nom_5FS'].values[0]) * x['Weight_scale_variation_muR_1p0_muF_2p0'] + ((self.label == "ttlf") & (
+                    x['process'] == "ttSL"))*1. * float(self.genfile[(self.genfile['sample'] == "ttSL") & (self.genfile['variation'] == 'Weight_scale_variation_muR_1p0_muF_2p0')]['ratio_ttLF_varied_vs_nom_5FS'].values[0]) + ((self.label == "ttlf") & (x['process'] == "ttDL"))*1. * float(self.genfile[(self.genfile['sample'] == "ttDL") & (self.genfile['variation'] == 'Weight_scale_variation_muR_1p0_muF_2p0')]['ratio_ttLF_varied_vs_nom_5FS'].values[0]) + ((self.label == "ttcc") & (x['process'] == "ttSL"))*1. * float(self.genfile[(self.genfile['sample'] == "ttSL") & (self.genfile['variation'] == 'Weight_scale_variation_muR_1p0_muF_2p0')]['ratio_ttC_varied_vs_nom_5FS'].values[0]) + ((self.label == "ttcc") & (x['process'] == "ttDL"))*1. * float(self.genfile[(self.genfile['sample'] == "ttDL") & (self.genfile['variation'] == 'Weight_scale_variation_muR_1p0_muF_2p0')]['ratio_ttC_varied_vs_nom_5FS'].values[0])) * x.total_preweight))
                 
 
                 df = df.assign(total_weight_scaleMuF_ttHUp=lambda x: (
-                    (((x['process'] == "ttHSL")*1. +(x['process'] == 'ttHDL')*1.) * x['Weight_scale_variation_muR_1p0_muF_2p0']) * x.total_preweight))
+                    (float(self.genfile[(self.genfile['sample'] == "ttH") & (self.genfile['variation'] == 'Weight_scale_variation_muR_1p0_muF_2p0')]['final_weight_sl_analysis'].values[0]) * x['Weight_scale_variation_muR_1p0_muF_2p0']) * x.total_preweight))
 
-                df = df.assign(total_weight_scaleMuFDown=lambda x: (((x['process'] == "ttSL")*1. * x['Weight_scale_variation_muR_1p0_muF_0p5'] + (x['process'] == "ttDL")*1. * x['Weight_scale_variation_muR_1p0_muF_0p5']) * x.total_preweight))
+                df = df.assign(total_weight_scaleMuFDown=lambda x: (((x['process'] == "ttSL")*1. * float(self.genfile[(self.genfile['sample'] == "ttSL") & (self.genfile['variation'] == 'Weight_scale_variation_muR_1p0_muF_0p5')]['final_weight_sl_analysis'].values[0]) * x['Weight_scale_variation_muR_1p0_muF_0p5'] + (x['process'] == "ttDL")*1. * float(self.genfile[(self.genfile['sample'] == "ttDL") & (self.genfile['variation'] == 'Weight_scale_variation_muR_1p0_muF_0p5')]['final_weight_sl_analysis'].values[0]) * x['Weight_scale_variation_muR_1p0_muF_0p5'] + (x['process'] == "ttbbSL")*1. * float(self.genfile[(self.genfile['sample'] == "ttbbSL") & (self.genfile['variation'] == 'Weight_scale_variation_muR_1p0_muF_0p5')]['ratio_ttB_varied_vs_nom_5FS'].values[0]) + (x['process'] == "ttbbDL")*1. * float(self.genfile[(self.genfile['sample'] == "ttbbDL") & (self.genfile['variation'] == 'Weight_scale_variation_muR_1p0_muF_0p5')]['ratio_ttB_varied_vs_nom_5FS'].values[0])) * x.total_preweight))
 
 
-                df = df.assign(total_weight_scaleMuF_ttbbNLODown=lambda x: (((x['process'] == "ttbbSL")*1. * x['Weight_scale_variation_muR_1p0_muF_0p5'] + (x['process'] == "ttbbDL")*1. * x['Weight_scale_variation_muR_1p0_muF_0p5']) * x.total_preweight))
+                df = df.assign(total_weight_scaleMuF_ttbbNLODown=lambda x: (((x['process'] == "ttbbSL")*1. * float(self.genfile[(self.genfile['sample'] == "ttbbSL") & (self.genfile['variation'] == 'Weight_scale_variation_muR_1p0_muF_0p5')]['ratio_ttB_varied_vs_nom_5FS'].values[0]) * x['Weight_scale_variation_muR_1p0_muF_0p5'] + (x['process'] == "ttbbDL")*1. * float(self.genfile[(self.genfile['sample'] == "ttbbDL") & (self.genfile['variation'] == 'Weight_scale_variation_muR_1p0_muF_0p5')]['ratio_ttB_varied_vs_nom_5FS'].values[0]) * x['Weight_scale_variation_muR_1p0_muF_0p5'] + ((self.label == "ttlf") & (
+                    x['process'] == "ttSL"))*1. * float(self.genfile[(self.genfile['sample'] == "ttSL") & (self.genfile['variation'] == 'Weight_scale_variation_muR_1p0_muF_0p5')]['ratio_ttLF_varied_vs_nom_5FS'].values[0]) + ((self.label == "ttlf") & (x['process'] == "ttDL"))*1. * float(self.genfile[(self.genfile['sample'] == "ttDL") & (self.genfile['variation'] == 'Weight_scale_variation_muR_1p0_muF_0p5')]['ratio_ttLF_varied_vs_nom_5FS'].values[0]) + ((self.label == "ttcc") & (x['process'] == "ttSL"))*1. * float(self.genfile[(self.genfile['sample'] == "ttSL") & (self.genfile['variation'] == 'Weight_scale_variation_muR_1p0_muF_0p5')]['ratio_ttC_varied_vs_nom_5FS'].values[0]) + ((self.label == "ttcc") & (x['process'] == "ttDL"))*1. * float(self.genfile[(self.genfile['sample'] == "ttDL") & (self.genfile['variation'] == 'Weight_scale_variation_muR_1p0_muF_0p5')]['ratio_ttC_varied_vs_nom_5FS'].values[0])) * x.total_preweight))
                 
 
                 df = df.assign(total_weight_scaleMuF_ttHDown=lambda x: (
-                    ( ((x['process'] == "ttHSL")*1. + (x['process'] == 'ttHDL')*1.)* x['Weight_scale_variation_muR_1p0_muF_0p5']) * x.total_preweight))
+                    (float(self.genfile[(self.genfile['sample'] == "ttH") & (self.genfile['variation'] == 'Weight_scale_variation_muR_1p0_muF_0p5')]['final_weight_sl_analysis'].values[0]) * x['Weight_scale_variation_muR_1p0_muF_0p5']) * x.total_preweight))
             
 
-                df = df.assign(total_weight_upisr_ttH=lambda x: (((x['process'] == "ttHSL")*1. + (x['process'] == "ttHDL") * 1.) * x['GenWeight_isr_Def_up'] * x.total_preweight))
+                df = df.assign(total_weight_upisr_ttH=lambda x: (((x['process'] == "ttHSL")*1. + (x['process'] == "ttHDL") * 1.) * float(self.genfile[(self.genfile['sample'] == "ttH") & (self.genfile['variation'] == 'GenWeight_isr_Def_up')]['final_weight_sl_analysis'].values[0]) * x['GenWeight_isr_Def_up'] * x.total_preweight))
 
-                df = df.assign(total_weight_upisr_ttlf=lambda x: ((((x['process'] == "ttSL") & (self.label == "ttlf"))*1. + ((x['process'] == "ttDL") & (self.label == "ttlf"))*1.) * x['GenWeight_isr_Def_up'] * x.total_preweight))
+                df = df.assign(total_weight_upisr_ttlf=lambda x: (((((x['process'] == "ttSL") & (self.label == "ttlf"))*1. * float(self.genfile[(self.genfile['sample'] == "ttSL") & (self.genfile['variation'] == 'GenWeight_isr_Def_up')]['final_weight_sl_analysis'].values[0]) + ((x['process'] == "ttDL") & (self.label == "ttlf"))*1. * float(self.genfile[(self.genfile['sample'] == "ttDL") & (self.genfile['variation'] == 'GenWeight_isr_Def_up')]['final_weight_sl_analysis'].values[0])) * x['GenWeight_isr_Def_up'] + (
+                    (x['process'] == "ttSL") & (self.label == "ttcc"))*1. * float(self.genfile[(self.genfile['sample'] == "ttSL") & (self.genfile['variation'] == 'GenWeight_isr_Def_up')]['ratio_ttC_varied_vs_nom_5FS'].values[0]) + ((x['process'] == "ttDL") & (self.label == "ttcc"))*1. * float(self.genfile[(self.genfile['sample'] == "ttDL") & (self.genfile['variation'] == 'GenWeight_isr_Def_up')]['ratio_ttC_varied_vs_nom_5FS'].values[0]) + (x['process'] == "ttbbSL")*1. * float(self.genfile[(self.genfile['sample'] == "ttbbSL") & (self.genfile['variation'] == 'GenWeight_isr_Def_up')]['ratio_ttB_varied_vs_nom_5FS'].values[0]) + (x['process'] == "ttbbDL")*1. * float(self.genfile[(self.genfile['sample'] == "ttbbDL") & (self.genfile['variation'] == 'GenWeight_isr_Def_up')]['ratio_ttB_varied_vs_nom_5FS'].values[0])) * x.total_preweight))
 
-                df = df.assign(total_weight_upisr_ttbb=lambda x: (( ((x['process'] == "ttbbSL")*1. * x['GenWeight_isr_Def_up']) + ((x['process'] == "ttbbDL")*1. * x['GenWeight_isr_Def_up'])) * x.total_preweight))
+                df = df.assign(total_weight_upisr_ttbb=lambda x: ((((x['process'] == "ttSL") & (self.label == "ttlf"))*1. * float(self.genfile[(self.genfile['sample'] == "ttSL") & (self.genfile['variation'] == 'GenWeight_isr_Def_up')]['ratio_ttLF_varied_vs_nom_5FS'].values[0]) + ((x['process'] == "ttDL") & (self.label == "ttlf"))*1. * float(self.genfile[(self.genfile['sample'] == "ttDL") & (self.genfile['variation'] == 'GenWeight_isr_Def_up')]['ratio_ttLF_varied_vs_nom_5FS'].values[0]) + ((x['process'] == "ttSL") & (self.label == "ttcc"))*1. * float(self.genfile[(self.genfile['sample'] == "ttSL") & (self.genfile['variation'] == 'GenWeight_isr_Def_up')]['ratio_ttC_varied_vs_nom_5FS'].values[0]) + ((x['process'] == "ttDL") & (self.label == "ttcc"))*1. * float(self.genfile[(self.genfile['sample'] == "ttDL") & (self.genfile['variation'] == 'GenWeight_isr_Def_up')]['ratio_ttC_varied_vs_nom_5FS'].values[0]) + ((x['process'] == "ttbbSL")*1. * float(self.genfile[(self.genfile['sample'] == "ttbbSL") & (self.genfile['variation'] == 'GenWeight_isr_Def_up')]['final_weight_sl_analysis'].values[0]) * x['GenWeight_isr_Def_up']) + ((x['process'] == "ttbbDL")*1. * float(self.genfile[(self.genfile['sample'] == "ttbbDL") & (self.genfile['variation'] == 'GenWeight_isr_Def_up')]['final_weight_sl_analysis'].values[0]) * x['GenWeight_isr_Def_up'])) * x.total_preweight))
                 
-                df = df.assign(total_weight_upisr_ttcc=lambda x: (( ((x['process'] == "ttSL") & (self.label == "ttcc"))*1. * x['GenWeight_isr_Def_up'] + (
-                    (x['process'] == "ttDL") & (self.label == "ttcc"))*1.* x['GenWeight_isr_Def_up'] ) * x.total_preweight))
+                df = df.assign(total_weight_upisr_ttcc=lambda x: ((((x['process'] == "ttSL") & (self.label == "ttlf"))*1. * float(self.genfile[(self.genfile['sample'] == "ttSL") & (self.genfile['variation'] == 'GenWeight_isr_Def_up')]['ratio_ttLF_varied_vs_nom_5FS'].values[0]) + ((x['process'] == "ttDL") & (self.label == "ttlf"))*1. * float(self.genfile[(self.genfile['sample'] == "ttDL") & (self.genfile['variation'] == 'GenWeight_isr_Def_up')]['ratio_ttLF_varied_vs_nom_5FS'].values[0]) + (((x['process'] == "ttSL") & (self.label == "ttcc"))*1. * float(self.genfile[(self.genfile['sample'] == "ttSL") & (self.genfile['variation'] == 'GenWeight_isr_Def_up')]['final_weight_sl_analysis'].values[0]) * x['GenWeight_isr_Def_up']) + ((
+                    (x['process'] == "ttDL") & (self.label == "ttcc"))*1. * float(self.genfile[(self.genfile['sample'] == "ttDL") & (self.genfile['variation'] == 'GenWeight_isr_Def_up')]['final_weight_sl_analysis'].values[0]) * x['GenWeight_isr_Def_up']) + (x['process'] == "ttbbSL")*1. * float(self.genfile[(self.genfile['sample'] == "ttbbSL") & (self.genfile['variation'] == 'GenWeight_isr_Def_up')]['ratio_ttB_varied_vs_nom_5FS'].values[0]) + (x['process'] == "ttbbDL")*1. * float(self.genfile[(self.genfile['sample'] == "ttbbDL") & (self.genfile['variation'] == 'GenWeight_isr_Def_up')]['ratio_ttB_varied_vs_nom_5FS'].values[0])) * x.total_preweight))
 
-                df = df.assign(total_weight_downisr_ttH=lambda x: (((x['process'] == "ttHSL")*1. + (x['process'] == "ttHDL") * 1.) * x['GenWeight_isr_Def_down'] * x.total_preweight))
+                df = df.assign(total_weight_downisr_ttH=lambda x: (((x['process'] == "ttHSL")*1. + (x['process'] == "ttHDL") * 1.) * float(self.genfile[(self.genfile['sample'] == "ttH") & (self.genfile['variation'] == 'GenWeight_isr_Def_down')]['final_weight_sl_analysis'].values[0]) * x['GenWeight_isr_Def_down'] * x.total_preweight))
 
-                df = df.assign(total_weight_downisr_ttlf=lambda x: (( (((x['process'] == "ttSL") & (self.label == "ttlf"))*1. + ((x['process'] == "ttDL") & (self.label == "ttlf"))*1.) * x['GenWeight_isr_Def_down']) * x.total_preweight))
+                df = df.assign(total_weight_downisr_ttlf=lambda x: (((((x['process'] == "ttSL") & (self.label == "ttlf"))*1. * float(self.genfile[(self.genfile['sample'] == "ttSL") & (self.genfile['variation'] == 'GenWeight_isr_Def_down')]['final_weight_sl_analysis'].values[0]) + ((x['process'] == "ttDL") & (self.label == "ttlf"))*1. * float(self.genfile[(self.genfile['sample'] == "ttDL") & (self.genfile['variation'] == 'GenWeight_isr_Def_down')]['final_weight_sl_analysis'].values[0])) * x['GenWeight_isr_Def_down'] + (
+                    (x['process'] == "ttSL") & (self.label == "ttcc"))*1. * float(self.genfile[(self.genfile['sample'] == "ttSL") & (self.genfile['variation'] == 'GenWeight_isr_Def_down')]['ratio_ttC_varied_vs_nom_5FS'].values[0]) + ((x['process'] == "ttDL") & (self.label == "ttcc"))*1. * float(self.genfile[(self.genfile['sample'] == "ttDL") & (self.genfile['variation'] == 'GenWeight_isr_Def_down')]['ratio_ttC_varied_vs_nom_5FS'].values[0]) + (x['process'] == "ttbbSL")*1. * float(self.genfile[(self.genfile['sample'] == "ttbbSL") & (self.genfile['variation'] == 'GenWeight_isr_Def_down')]['ratio_ttB_varied_vs_nom_5FS'].values[0]) + (x['process'] == "ttbbDL")*1. * float(self.genfile[(self.genfile['sample'] == "ttbbDL") & (self.genfile['variation'] == 'GenWeight_isr_Def_down')]['ratio_ttB_varied_vs_nom_5FS'].values[0])) * x.total_preweight))
 
-                df = df.assign(total_weight_downisr_ttbb=lambda x: (( ((x['process'] == "ttbbSL")*1. * x['GenWeight_isr_Def_down']) + ((x['process'] == "ttbbDL")*1. * x['GenWeight_isr_Def_down'])) * x.total_preweight))
+                df = df.assign(total_weight_downisr_ttbb=lambda x: ((((x['process'] == "ttSL") & (self.label == "ttlf"))*1. * float(self.genfile[(self.genfile['sample'] == "ttSL") & (self.genfile['variation'] == 'GenWeight_isr_Def_down')]['ratio_ttLF_varied_vs_nom_5FS'].values[0]) + ((x['process'] == "ttDL") & (self.label == "ttlf"))*1. * float(self.genfile[(self.genfile['sample'] == "ttDL") & (self.genfile['variation'] == 'GenWeight_isr_Def_down')]['ratio_ttLF_varied_vs_nom_5FS'].values[0]) + ((x['process'] == "ttSL") & (self.label == "ttcc"))*1. * float(self.genfile[(self.genfile['sample'] == "ttSL") & (self.genfile['variation'] == 'GenWeight_isr_Def_down')]['ratio_ttC_varied_vs_nom_5FS'].values[0]) + (
+                    (x['process'] == "ttDL") & (self.label == "ttcc"))*1. * float(self.genfile[(self.genfile['sample'] == "ttDL") & (self.genfile['variation'] == 'GenWeight_isr_Def_down')]['ratio_ttC_varied_vs_nom_5FS'].values[0]) + ((x['process'] == "ttbbSL")*1. * float(self.genfile[(self.genfile['sample'] == "ttbbSL") & (self.genfile['variation'] == 'GenWeight_isr_Def_down')]['final_weight_sl_analysis'].values[0]) * x['GenWeight_isr_Def_down']) + ((x['process'] == "ttbbDL")*1. * float(self.genfile[(self.genfile['sample'] == "ttbbDL") & (self.genfile['variation'] == 'GenWeight_isr_Def_down')]['final_weight_sl_analysis'].values[0]) * x['GenWeight_isr_Def_down'])) * x.total_preweight))
                 
-                df = df.assign(total_weight_downisr_ttcc=lambda x: (( (((x['process'] == "ttSL") & (self.label == "ttcc"))*1. * x['GenWeight_isr_Def_down']) + ((
-                    (x['process'] == "ttDL") & (self.label == "ttcc"))*1. * x['GenWeight_isr_Def_down']) ) * x.total_preweight))
+                df = df.assign(total_weight_downisr_ttcc=lambda x: ((((x['process'] == "ttSL") & (self.label == "ttlf"))*1. * float(self.genfile[(self.genfile['sample'] == "ttSL") & (self.genfile['variation'] == 'GenWeight_isr_Def_down')]['ratio_ttLF_varied_vs_nom_5FS'].values[0]) + ((x['process'] == "ttDL") & (self.label == "ttlf"))*1. * float(self.genfile[(self.genfile['sample'] == "ttDL") & (self.genfile['variation'] == 'GenWeight_isr_Def_down')]['ratio_ttLF_varied_vs_nom_5FS'].values[0]) + (((x['process'] == "ttSL") & (self.label == "ttcc"))*1. * float(self.genfile[(self.genfile['sample'] == "ttSL") & (self.genfile['variation'] == 'GenWeight_isr_Def_down')]['final_weight_sl_analysis'].values[0]) * x['GenWeight_isr_Def_down']) + ((
+                    (x['process'] == "ttDL") & (self.label == "ttcc"))*1. * float(self.genfile[(self.genfile['sample'] == "ttDL") & (self.genfile['variation'] == 'GenWeight_isr_Def_down')]['final_weight_sl_analysis'].values[0]) * x['GenWeight_isr_Def_down']) + (x['process'] == "ttbbSL")*1. * float(self.genfile[(self.genfile['sample'] == "ttbbSL") & (self.genfile['variation'] == 'GenWeight_isr_Def_down')]['ratio_ttB_varied_vs_nom_5FS'].values[0]) + (x['process'] == "ttbbDL")*1. * float(self.genfile[(self.genfile['sample'] == "ttbbDL") & (self.genfile['variation'] == 'GenWeight_isr_Def_down')]['ratio_ttB_varied_vs_nom_5FS'].values[0])) * x.total_preweight))
 
-                df = df.assign(total_weight_upfsr_ttH=lambda x: (((x['process'] == "ttHSL")*1. + (x['process'] == "ttHDL") * 1.) * x['GenWeight_fsr_Def_up'] * x.total_preweight))
+                df = df.assign(total_weight_upfsr_ttH=lambda x: (((x['process'] == "ttHSL")*1. + (x['process'] == "ttHDL") * 1.) * float(self.genfile[(self.genfile['sample'] == "ttH") & (self.genfile['variation'] == 'GenWeight_fsr_Def_up')]['final_weight_sl_analysis'].values[0]) * x['GenWeight_fsr_Def_up'] * x.total_preweight))
 
-                df = df.assign(total_weight_upfsr_ttlf=lambda x: (((((x['process'] == "ttSL") & (self.label == "ttlf"))*1. + ((x['process'] == "ttDL") & (self.label == "ttlf"))*1. ) * x['GenWeight_fsr_Def_up']) * x.total_preweight))
+                df = df.assign(total_weight_upfsr_ttlf=lambda x: (((((x['process'] == "ttSL") & (self.label == "ttlf"))*1. * float(self.genfile[(self.genfile['sample'] == "ttSL") & (self.genfile['variation'] == 'GenWeight_fsr_Def_up')]['final_weight_sl_analysis'].values[0]) + ((x['process'] == "ttDL") & (self.label == "ttlf"))*1. * float(self.genfile[(self.genfile['sample'] == "ttDL") & (self.genfile['variation'] == 'GenWeight_fsr_Def_up')]['final_weight_sl_analysis'].values[0])) * x['GenWeight_fsr_Def_up'] + (
+                    (x['process'] == "ttSL") & (self.label == "ttcc"))*1. * float(self.genfile[(self.genfile['sample'] == "ttSL") & (self.genfile['variation'] == 'GenWeight_fsr_Def_up')]['ratio_ttC_varied_vs_nom_5FS'].values[0]) + ((x['process'] == "ttDL") & (self.label == "ttcc"))*1. * float(self.genfile[(self.genfile['sample'] == "ttDL") & (self.genfile['variation'] == 'GenWeight_fsr_Def_up')]['ratio_ttC_varied_vs_nom_5FS'].values[0]) + (x['process'] == "ttbbSL")*1. * float(self.genfile[(self.genfile['sample'] == "ttbbSL") & (self.genfile['variation'] == 'GenWeight_fsr_Def_up')]['ratio_ttB_varied_vs_nom_5FS'].values[0]) + (x['process'] == "ttbbDL")*1. * float(self.genfile[(self.genfile['sample'] == "ttbbDL") & (self.genfile['variation'] == 'GenWeight_fsr_Def_up')]['ratio_ttB_varied_vs_nom_5FS'].values[0])) * x.total_preweight))
 
-                df = df.assign(total_weight_upfsr_ttbb=lambda x: (( ((x['process'] == "ttbbSL")*1. * x['GenWeight_fsr_Def_up']) + ((x['process'] == "ttbbDL")*1. * x['GenWeight_fsr_Def_up'])) * x.total_preweight))
+                df = df.assign(total_weight_upfsr_ttbb=lambda x: ((((x['process'] == "ttSL") & (self.label == "ttlf"))*1. * float(self.genfile[(self.genfile['sample'] == "ttSL") & (self.genfile['variation'] == 'GenWeight_fsr_Def_up')]['ratio_ttLF_varied_vs_nom_5FS'].values[0]) + ((x['process'] == "ttDL") & (self.label == "ttlf"))*1. * float(self.genfile[(self.genfile['sample'] == "ttDL") & (self.genfile['variation'] == 'GenWeight_fsr_Def_up')]['ratio_ttLF_varied_vs_nom_5FS'].values[0]) + ((x['process'] == "ttSL") & (self.label == "ttcc"))*1. * float(self.genfile[(self.genfile['sample'] == "ttSL") & (self.genfile['variation'] == 'GenWeight_fsr_Def_up')]['ratio_ttC_varied_vs_nom_5FS'].values[0]) + (
+                    (x['process'] == "ttDL") & (self.label == "ttcc"))*1. * float(self.genfile[(self.genfile['sample'] == "ttDL") & (self.genfile['variation'] == 'GenWeight_fsr_Def_up')]['ratio_ttC_varied_vs_nom_5FS'].values[0]) + ((x['process'] == "ttbbSL")*1. * float(self.genfile[(self.genfile['sample'] == "ttbbSL") & (self.genfile['variation'] == 'GenWeight_fsr_Def_up')]['final_weight_sl_analysis'].values[0]) * x['GenWeight_fsr_Def_up']) + ((x['process'] == "ttbbDL")*1. * float(self.genfile[(self.genfile['sample'] == "ttbbDL") & (self.genfile['variation'] == 'GenWeight_fsr_Def_up')]['final_weight_sl_analysis'].values[0]) * x['GenWeight_fsr_Def_up'])) * x.total_preweight))
                 
-                df = df.assign(total_weight_upfsr_ttcc=lambda x: (( (((x['process'] == "ttSL") & (self.label == "ttcc"))*1. * x['GenWeight_fsr_Def_up'])  + ((
-                    (x['process'] == "ttDL") & (self.label == "ttcc"))*1. * x['GenWeight_fsr_Def_up']) ) * x.total_preweight))
+                df = df.assign(total_weight_upfsr_ttcc=lambda x: ((((x['process'] == "ttSL") & (self.label == "ttlf"))*1. * float(self.genfile[(self.genfile['sample'] == "ttSL") & (self.genfile['variation'] == 'GenWeight_fsr_Def_up')]['ratio_ttLF_varied_vs_nom_5FS'].values[0]) + ((x['process'] == "ttDL") & (self.label == "ttlf"))*1. * float(self.genfile[(self.genfile['sample'] == "ttDL") & (self.genfile['variation'] == 'GenWeight_fsr_Def_up')]['ratio_ttLF_varied_vs_nom_5FS'].values[0]) + (((x['process'] == "ttSL") & (self.label == "ttcc"))*1. * float(self.genfile[(self.genfile['sample'] == "ttSL") & (self.genfile['variation'] == 'GenWeight_fsr_Def_up')]['final_weight_sl_analysis'].values[0]) * x['GenWeight_fsr_Def_up'])  + ((
+                    (x['process'] == "ttDL") & (self.label == "ttcc"))*1. * float(self.genfile[(self.genfile['sample'] == "ttDL") & (self.genfile['variation'] == 'GenWeight_fsr_Def_up')]['final_weight_sl_analysis'].values[0]) * x['GenWeight_fsr_Def_up']) + (x['process'] == "ttbbSL")*1. * float(self.genfile[(self.genfile['sample'] == "ttbbSL") & (self.genfile['variation'] == 'GenWeight_fsr_Def_up')]['ratio_ttB_varied_vs_nom_5FS'].values[0]) + (x['process'] == "ttbbDL")*1. * float(self.genfile[(self.genfile['sample'] == "ttbbDL") & (self.genfile['variation'] == 'GenWeight_fsr_Def_up')]['ratio_ttB_varied_vs_nom_5FS'].values[0])) * x.total_preweight))
 
 
-                df = df.assign(total_weight_downfsr_ttH=lambda x: (((x['process'] == "ttHSL")*1. + (x['process'] == "ttHDL") * 1.) * x['GenWeight_fsr_Def_down'] * x.total_preweight))
+                df = df.assign(total_weight_downfsr_ttH=lambda x: (((x['process'] == "ttHSL")*1. + (x['process'] == "ttHDL") * 1.) * float(self.genfile[(self.genfile['sample'] == "ttH") & (self.genfile['variation'] == 'GenWeight_fsr_Def_down')]['final_weight_sl_analysis'].values[0]) * x['GenWeight_fsr_Def_down'] * x.total_preweight))
 
-                df = df.assign(total_weight_downfsr_ttlf=lambda x: (((((x['process'] == "ttSL") & (self.label == "ttlf"))*1. + ((x['process'] == "ttDL") & (self.label == "ttlf"))*1.) * x['GenWeight_fsr_Def_down']) * x.total_preweight))
+                df = df.assign(total_weight_downfsr_ttlf=lambda x: (((((x['process'] == "ttSL") & (self.label == "ttlf"))*1. * float(self.genfile[(self.genfile['sample'] == "ttSL") & (self.genfile['variation'] == 'GenWeight_fsr_Def_down')]['final_weight_sl_analysis'].values[0]) + ((x['process'] == "ttDL") & (self.label == "ttlf"))*1. * float(self.genfile[(self.genfile['sample'] == "ttDL") & (self.genfile['variation'] == 'GenWeight_fsr_Def_down')]['final_weight_sl_analysis'].values[0])) * x['GenWeight_fsr_Def_down'] + (
+                    (x['process'] == "ttSL") & (self.label == "ttcc"))*1. * float(self.genfile[(self.genfile['sample'] == "ttSL") & (self.genfile['variation'] == 'GenWeight_fsr_Def_down')]['ratio_ttC_varied_vs_nom_5FS'].values[0]) + ((x['process'] == "ttDL") & (self.label == "ttcc"))*1. * float(self.genfile[(self.genfile['sample'] == "ttDL") & (self.genfile['variation'] == 'GenWeight_fsr_Def_down')]['ratio_ttC_varied_vs_nom_5FS'].values[0]) + (x['process'] == "ttbbSL")*1. * float(self.genfile[(self.genfile['sample'] == "ttbbSL") & (self.genfile['variation'] == 'GenWeight_fsr_Def_down')]['ratio_ttB_varied_vs_nom_5FS'].values[0]) + (x['process'] == "ttbbDL")*1. * float(self.genfile[(self.genfile['sample'] == "ttbbDL") & (self.genfile['variation'] == 'GenWeight_fsr_Def_down')]['ratio_ttB_varied_vs_nom_5FS'].values[0])) * x.total_preweight))
 
-                df = df.assign(total_weight_downfsr_ttbb=lambda x: (( ((x['process'] == "ttbbSL")*1.* x['GenWeight_fsr_Def_down']) + ((x['process'] == "ttbbDL")*1.* x['GenWeight_fsr_Def_down'])) * x.total_preweight))
+                df = df.assign(total_weight_downfsr_ttbb=lambda x: ((((x['process'] == "ttSL") & (self.label == "ttlf"))*1. * float(self.genfile[(self.genfile['sample'] == "ttSL") & (self.genfile['variation'] == 'GenWeight_fsr_Def_down')]['ratio_ttLF_varied_vs_nom_5FS'].values[0]) + ((x['process'] == "ttDL") & (self.label == "ttlf"))*1. * float(self.genfile[(self.genfile['sample'] == "ttDL") & (self.genfile['variation'] == 'GenWeight_fsr_Def_down')]['ratio_ttLF_varied_vs_nom_5FS'].values[0]) + ((x['process'] == "ttSL") & (self.label == "ttcc"))*1. * float(self.genfile[(self.genfile['sample'] == "ttSL") & (self.genfile['variation'] == 'GenWeight_fsr_Def_down')]['ratio_ttC_varied_vs_nom_5FS'].values[0]) + (
+                    (x['process'] == "ttDL") & (self.label == "ttcc"))*1. * float(self.genfile[(self.genfile['sample'] == "ttDL") & (self.genfile['variation'] == 'GenWeight_fsr_Def_down')]['ratio_ttC_varied_vs_nom_5FS'].values[0]) + ((x['process'] == "ttbbSL")*1. * float(self.genfile[(self.genfile['sample'] == "ttbbSL") & (self.genfile['variation'] == 'GenWeight_fsr_Def_down')]['final_weight_sl_analysis'].values[0]) * x['GenWeight_fsr_Def_down']) + ((x['process'] == "ttbbDL")*1. * float(self.genfile[(self.genfile['sample'] == "ttbbDL") & (self.genfile['variation'] == 'GenWeight_fsr_Def_down')]['final_weight_sl_analysis'].values[0]) * x['GenWeight_fsr_Def_down'])) * x.total_preweight))
                 
-                df = df.assign(total_weight_downfsr_ttcc=lambda x: (( (((x['process'] == "ttSL") & (self.label == "ttcc"))*1. * x['GenWeight_fsr_Def_down']) + ((
-                    (x['process'] == "ttDL") & (self.label == "ttcc"))*1. * x['GenWeight_fsr_Def_down'])  ) * x.total_preweight))
+                df = df.assign(total_weight_downfsr_ttcc=lambda x: ((((x['process'] == "ttSL") & (self.label == "ttlf"))*1. * float(self.genfile[(self.genfile['sample'] == "ttSL") & (self.genfile['variation'] == 'GenWeight_fsr_Def_down')]['ratio_ttLF_varied_vs_nom_5FS'].values[0]) + ((x['process'] == "ttDL") & (self.label == "ttlf"))*1. * float(self.genfile[(self.genfile['sample'] == "ttDL") & (self.genfile['variation'] == 'GenWeight_fsr_Def_down')]['ratio_ttLF_varied_vs_nom_5FS'].values[0]) + (((x['process'] == "ttSL") & (self.label == "ttcc"))*1. * float(self.genfile[(self.genfile['sample'] == "ttSL") & (self.genfile['variation'] == 'GenWeight_fsr_Def_down')]['final_weight_sl_analysis'].values[0])  * x['GenWeight_fsr_Def_down']) + ((
+                    (x['process'] == "ttDL") & (self.label == "ttcc"))*1. * float(self.genfile[(self.genfile['sample'] == "ttDL") & (self.genfile['variation'] == 'GenWeight_fsr_Def_down')]['final_weight_sl_analysis'].values[0]) * x['GenWeight_fsr_Def_down']) + (x['process'] == "ttbbSL")*1. * float(self.genfile[(self.genfile['sample'] == "ttbbSL") & (self.genfile['variation'] == 'GenWeight_fsr_Def_down')]['ratio_ttB_varied_vs_nom_5FS'].values[0]) + (x['process'] == "ttbbDL")*1. * float(self.genfile[(self.genfile['sample'] == "ttbbDL") & (self.genfile['variation'] == 'GenWeight_fsr_Def_down')]['ratio_ttB_varied_vs_nom_5FS'].values[0]) ) * x.total_preweight))
 
                 
                 for syst in SystMap.systs:
@@ -206,6 +218,9 @@ class Sample:
             # df = df.assign(xs_weight=lambda x: eval(
                 # self.total_weight_expr))
             # "x.Weight_XS * x.Weight_CSV_UL * x.Weight_GEN_nom * x.lumiWeight"
+            if "JES" in self.path or "JER" in self.path:
+                df.query('sf_weight > 0.', inplace=True)
+
             xs_weight_sum = sum(df["xs_weight"].values)
             # print("xs weight sum: {}".format(xs_weight_sum))
             df = df.assign(train_weight=lambda x: x.xs_weight /
@@ -264,8 +279,10 @@ class Sample:
         else:
             df = df.assign(lumi_weight=lambda x: x.total_weight *
                             lumi * self.normalization_weight)
+
         print("sum of lumi weights: {}".format(
             sum(df["lumi_weight"].values)))
+        print("length of df, ", df.shape[0])
         self.data = df
         print("-"*50)
 
@@ -464,37 +481,71 @@ class DataFrame(object):
         df_train = df.tail(df.shape[0] - n_test_samples)
 
         if not self.Do_Control:
+
             print("start preprocessing")
 
-            QTScaler = QuantileTransformer(
-                n_quantiles=2000, output_distribution='uniform', random_state=0)
-            MScaler = MinMaxScaler(feature_range=(0, 1))
-
-            df_final_train = df_train.copy(deep=True)
-            df_final_test = df_test.copy(deep=True)
-
-            df_final_train[self.train_variables] = MScaler.fit_transform(
-                QTScaler.fit_transform(df_train[self.train_variables]))
-            df_final_test[self.train_variables] = MScaler.transform(
-                QTScaler.transform(df_test[self.train_variables]))
-
-            print("end preprocessing")
-
-            self.df_unsplit_preprocessing = pd.concat(
-                [df_final_test, df_final_train])
+            if not self.Do_Evaluation:
+                # Do Training
             
-            # adjust weights via 1/test_percentage for test and 1/(1 - test_percentage) for train samples such that yields in plots correspond to complete dataset
+                QTScaler = QuantileTransformer(
+                    n_quantiles=2000, output_distribution='uniform', random_state=0)
+                MScaler = MinMaxScaler(feature_range=(0, 1))
 
-            df_final_train["lumi_weight"] = df_train["lumi_weight"] / \
-                (1 - self.test_percentage)
-            df_final_test["lumi_weight"] = df_test["lumi_weight"] / \
-                self.test_percentage
+                df_final_train = df_train.copy(deep=True)
+                df_final_test = df_test.copy(deep=True)
 
-            self.df_test = df_final_test
-            self.df_train = df_final_train
+                df_final_train[self.train_variables] = MScaler.fit_transform(
+                    QTScaler.fit_transform(df_train[self.train_variables]))
+                df_final_test[self.train_variables] = MScaler.transform(
+                    QTScaler.transform(df_test[self.train_variables]))
+
+                
+                self.df_unsplit_preprocessing = pd.concat(
+                    [df_final_test, df_final_train])
+
+                df_final_train["lumi_weight"] = df_train["lumi_weight"] / \
+                    (1 - self.test_percentage)
+                df_final_test["lumi_weight"] = df_test["lumi_weight"] / \
+                    self.test_percentage
+
+                # adjust weights via 1/test_percentage for test and 1/(1 - test_percentage) for train samples such that yields in plots correspond to complete dataset
+
+                self.df_test = df_final_test
+                self.df_train = df_final_train
+            
+                print("MScaler: ", MScaler.scale_)
+                print("QTScaler: ", QTScaler.quantiles_)
+
+                dump(QTScaler, open(self.save_path+"/QTScaler.pkl",'wb'))
+                dump(MScaler, open(self.save_path+"/MScaler.pkl",'wb'))
+
+            elif self.Do_Evaluation: 
+
+                print("Do evaluation, preprocessing")
+
+                QTScaler = load(open(self.input_path+"/checkpoints/QTScaler.pkl",'rb'))
+                MScaler = load(open(self.input_path+"/checkpoints/MScaler.pkl",'rb'))
+
+                print("MScaler: ", MScaler.scale_)
+                print("QTScaler: ", QTScaler.quantiles_)
+
+                df = pd.concat(
+                    [df_test, df_train])
+
+                df[self.train_variables] = MScaler.transform(
+                    QTScaler.transform(df[self.train_variables]))
+
+                self.df_test = df_test # not important 
+                self.df_train = df_train # not important
+                self.df_unsplit_preprocessing = df
+                
+            print("end preprocessing")
+            
+           
+
+            
         else:
-            self.df_unsplit_preprocessing = pd.concat(
-                [df_test, df_train])
+            self.df_unsplit_preprocessing = df
             
             self.df_test = df_test
             self.df_train = df_train
