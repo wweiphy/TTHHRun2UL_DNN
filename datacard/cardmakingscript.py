@@ -173,8 +173,8 @@ for node in process_new:
 
     if not os.path.exists("new"):
             os.mkdir("new")
-    if not os.path.exists("new_sys"):
-        os.mkdir("new_sys")
+    if not os.path.exists("new_sys2"):
+        os.mkdir("new_sys2")
     # if not os.path.exists("new_fullrate"):
     #     os.mkdir("new_fullrate")
     os.system(runcommand2)
