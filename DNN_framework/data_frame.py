@@ -283,6 +283,7 @@ class Sample:
                             lumi * self.normalization_weight)
         print("sum of lumi weights: {}".format(
             sum(df["lumi_weight"].values)))
+        print("length of df, ", df.shape[0])
         self.data = df
         print("-"*50)
 
