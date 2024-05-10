@@ -94,8 +94,8 @@ class Sample:
         df.query(query, inplace=True)
         print("number of events after selections:  "+str(df.shape[0]))
         self.nevents = df.shape[0]
-        print("sum of total weights000: {}".format(
-            sum(df["total_weight"].values)))
+        # print("sum of total weights000: {}".format(
+            # sum(df["total_weight"].values)))
         # TODO - move the SF calculation into preprocessing.py 
         
         if Do_Evaluation:
@@ -227,16 +227,16 @@ class Sample:
             df = df.assign(train_weight=lambda x: x.xs_weight /
                             xs_weight_sum*self.train_weight)
             # df = df.assign(total_weight=lambda x: x.xs_weight * x.extra_weight)
-            if 'data' in self.path:
-                print(self.path)
-                print("did this")
+            if not 'uscms_data' in self.path and 'data' in self.path:
+                # print(self.path)
+                # print("did this")
                 df = df.assign(
                 total_weight=lambda x: x.xs_weight)
             # else:
                 # df = df.assign(
                     # total_weight=lambda x: x.xs_weight * x.sf_weight)
-            print("sum of total weights0-0: {}".format(
-            sum(df["total_weight"].values)))
+            # print("sum of total weights0-0: {}".format(
+            # sum(df["total_weight"].values)))
             
         elif Do_Control:
 
@@ -276,25 +276,25 @@ class Sample:
 
             # add lumi weight
 
-        print("sum of total weights0: {}".format(
-            sum(df["total_weight"].values)))
+        # print("sum of total weights0: {}".format(
+            # sum(df["total_weight"].values)))
         
         print ("normalization weight is {}".format(self.normalization_weight))
         print ("lumi is {}".format(lumi))
 
-        print("sum of total weights1: {}".format(
-            sum(df["total_weight"].values)))
+        # print("sum of total weights1: {}".format(
+            # sum(df["total_weight"].values)))
         # print("xs weight is {}".format(df["Weight_XS"][0]))
         if self.label == "SingleMuon" or self.label == "SingleElectron":
             df = df.assign(lumi_weight=lambda x: self.normalization_weight * x.lumiWeight)
         else:
-            print("sum of total weights2: {}".format(
-            sum(df["total_weight"].values)))
+            # print("sum of total weights2: {}".format(
+            # sum(df["total_weight"].values)))
             df = df.assign(lumi_weight=lambda x: x.total_weight *
                             lumi * self.normalization_weight)
         
-            print("sum of total weights3: {}".format(
-            sum(df["total_weight"].values)))
+            # print("sum of total weights3: {}".format(
+            # sum(df["total_weight"].values)))
 
         print("sum of total weights: {}".format(
             sum(df["total_weight"].values)))
