@@ -94,10 +94,13 @@ class Sample:
         df.query(query, inplace=True)
         print("number of events after selections:  "+str(df.shape[0]))
         self.nevents = df.shape[0]
-
+        print("sum of total weights000: {}".format(
+            sum(df["total_weight"].values)))
         # TODO - move the SF calculation into preprocessing.py 
         
         if Do_Evaluation:
+            print("sum of total weights00: {}".format(
+            sum(df["total_weight"].values)))
 
             print("Do DNN Evaluation")
             # calculate uncertainties for nominal events
