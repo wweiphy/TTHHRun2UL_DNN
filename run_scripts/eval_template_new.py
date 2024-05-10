@@ -16,7 +16,7 @@ import DNN_framework.data_frame as df
 
 # 2018 
 
-# python eval_template_new.py -o 230220_evaluation_new_6j4b_3 -i 230220_50_2_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_3_nominal --ttmb=5.696962364 --ttnb=1.0 --notequalbin --lumi=119.66 --year=2018 --ttHH=1.0 -c 6j4b
+# python eval_template_new.py -o 230220_evaluation_new_6j4b_test -i 230220_50_2_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_3_nominal --ttmb=5.696962364 --ttnb=1.0 --notequalbin --lumi=119.66 --year=2018 --ttHH=1.0 -c 6j4b
 
 # python eval_template_new.py -o 230220_evaluation_new_5j4b_2 -i 230220_50_2_ge5j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_3_nominal --ttmb=5.722827499 --ttnb=1.0 --notequalbin --lumi=119.66 --year=2018 --ttHH=1.0 -c 5j4b
 
@@ -170,7 +170,7 @@ for sample in config["eventClasses"]:
         # normalization_weight = 1
         if sample["sampleLabel"] == "ttHH":
                 # sample_train_weight = 0.5
-                normalization_weight = options.ttHH / 0.7715803757745394
+                normalization_weight = options.ttHH 
                 # normalization_weight = 0.861419355
                 # ratio = new cross section (0.6676)/old cross section (0.775)
                 # sample_path = dfDirectory+"ttHH_dnn.h5"
@@ -198,7 +198,7 @@ for sample in config["eventClasses"]:
         elif sample["sampleLabel"] == "ttnb":
         #     sample_train_weight = 1
                 # normalization_weight = 1.
-                normalization_weight = options.ttnb / 0.7552818566914298
+                normalization_weight = options.ttnb 
                 # normalization_weight = 1.35 # for 2018 tt4b
                 # normalization_weight = 3.538023785  # for 2018 ttbb 5j4b
                 # normalization_weight = 3.363282228  # for 2018 ttbb 6j4b
