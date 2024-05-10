@@ -269,6 +269,9 @@ class Sample:
 
             # add lumi weight
 
+        print("sum of total weights0: {}".format(
+            sum(df["total_weight"].values)))
+        
         print ("normalization weight is {}".format(self.normalization_weight))
         print ("lumi is {}".format(lumi))
 
