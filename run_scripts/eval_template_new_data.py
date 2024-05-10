@@ -140,6 +140,7 @@ dnn = DNN.DNN(
 is_Data=True,
 save_path=outPath,
 input_samples=input_samples,
+input_path = inPath,
 lumi=options.lumi,
 category_name=config["JetTagCategory"],
 train_variables=config["trainVariables"],
