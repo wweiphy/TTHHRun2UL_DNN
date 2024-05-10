@@ -88,22 +88,18 @@ class Sample:
 
         # apply event category cut
         query = event_category
-        print("sum of total weights1: {}".format(
-            sum(df["total_weight"].values)))
+
         if not evenSel == "":
             query += " and "+evenSel
         df.query(query, inplace=True)
         print("number of events after selections:  "+str(df.shape[0]))
         self.nevents = df.shape[0]
-        print("sum of total weights2: {}".format(
-            sum(df["total_weight"].values)))
+
         # TODO - move the SF calculation into preprocessing.py 
         
         if Do_Evaluation:
 
             print("Do DNN Evaluation")
-            print("sum of total weights3: {}".format(
-            sum(df["total_weight"].values)))
             # calculate uncertainties for nominal events
             if "nominal" in self.path: 
                 # isr
@@ -112,7 +108,6 @@ class Sample:
                 df.query('sf_weight > 0.', inplace=True)
 
                 df = df.assign(total_preweight=lambda x: (self.normalization_weight * x['total_weight']))
-
 
                 df = df.assign(total_weight_scaleMuRUp=lambda x: (((x['process'] == "ttSL")*1. * float(self.genfile[(self.genfile['sample'] == "ttSL") & (self.genfile['variation'] == 'Weight_scale_variation_muR_2p0_muF_1p0')]['final_weight_sl_analysis'].values[0]) * x['Weight_scale_variation_muR_2p0_muF_1p0'] + (x['process'] == "ttDL")*1. * float(self.genfile[(self.genfile['sample'] == "ttDL") & (self.genfile['variation'] == 'Weight_scale_variation_muR_2p0_muF_1p0')]['final_weight_sl_analysis'].values[0]) * x['Weight_scale_variation_muR_2p0_muF_1p0'] + (x['process'] == "ttbbSL")*1. * float(self.genfile[(self.genfile['sample'] == "ttbbSL") & (self.genfile['variation'] == 'Weight_scale_variation_muR_2p0_muF_1p0')]['ratio_ttB_varied_vs_nom_5FS'].values[0]) + (x['process'] == "ttbbDL")*1. * float(self.genfile[(self.genfile['sample'] == "ttbbDL") & (self.genfile['variation'] == 'Weight_scale_variation_muR_2p0_muF_1p0')]['ratio_ttB_varied_vs_nom_5FS'].values[0])) * x.total_preweight))
 
@@ -216,8 +211,7 @@ class Sample:
                 for x in range(320900, 321001):
                     df["total_weight_PDF_Weight_{}".format(
                         x)] = df["total_weight_PDF_Weight_{}".format(x)] * self.normalization_weight
-            print("sum of total weights4: {}".format(
-            sum(df["total_weight"].values)))
+            
             # for other JES&JER events and nominal events
             # df = df.assign(xs_weight=lambda x: eval(
                 # self.total_weight_expr))
@@ -277,12 +271,20 @@ class Sample:
 
         print ("normalization weight is {}".format(self.normalization_weight))
         print ("lumi is {}".format(lumi))
+
+        print("sum of total weights1: {}".format(
+            sum(df["total_weight"].values)))
         # print("xs weight is {}".format(df["Weight_XS"][0]))
         if self.label == "SingleMuon" or self.label == "SingleElectron":
             df = df.assign(lumi_weight=lambda x: self.normalization_weight * x.lumiWeight)
         else:
+            print("sum of total weights2: {}".format(
+            sum(df["total_weight"].values)))
             df = df.assign(lumi_weight=lambda x: x.total_weight *
                             lumi * self.normalization_weight)
+        
+            print("sum of total weights3: {}".format(
+            sum(df["total_weight"].values)))
 
         print("sum of total weights: {}".format(
             sum(df["total_weight"].values)))
