@@ -295,9 +295,13 @@ class Sample:
         
             # print("sum of total weights3: {}".format(
             # sum(df["total_weight"].values)))
-
         print("sum of total weights: {}".format(
             sum(df["total_weight"].values)))
+        
+        df['test'] = df['xs_weight']*df['sf_weight'] * lumi * self.normalization_weight
+        print("weight before btag: {}".format(
+            sum(df["test"].values)))
+
         print("sum of lumi weights: {}".format(
             sum(df["lumi_weight"].values)))
         print("length of df, ", df.shape[0])
