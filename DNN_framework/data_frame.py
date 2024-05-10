@@ -99,8 +99,8 @@ class Sample:
         # TODO - move the SF calculation into preprocessing.py 
         
         if Do_Evaluation:
-            print("sum of total weights00: {}".format(
-            sum(df["total_weight"].values)))
+            # print("sum of total weights00: {}".format(
+            # sum(df["total_weight"].values)))
 
             print("Do DNN Evaluation")
             # calculate uncertainties for nominal events
