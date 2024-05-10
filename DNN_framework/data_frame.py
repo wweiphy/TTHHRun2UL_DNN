@@ -102,7 +102,8 @@ class Sample:
         if Do_Evaluation:
 
             print("Do DNN Evaluation")
-
+            print("sum of total weights3: {}".format(
+            sum(df["total_weight"].values)))
             # calculate uncertainties for nominal events
             if "nominal" in self.path: 
                 # isr
@@ -215,7 +216,8 @@ class Sample:
                 for x in range(320900, 321001):
                     df["total_weight_PDF_Weight_{}".format(
                         x)] = df["total_weight_PDF_Weight_{}".format(x)] * self.normalization_weight
-
+            print("sum of total weights4: {}".format(
+            sum(df["total_weight"].values)))
             # for other JES&JER events and nominal events
             # df = df.assign(xs_weight=lambda x: eval(
                 # self.total_weight_expr))
