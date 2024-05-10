@@ -88,13 +88,15 @@ class Sample:
 
         # apply event category cut
         query = event_category
-
+        print("sum of total weights1: {}".format(
+            sum(df["total_weight"].values)))
         if not evenSel == "":
             query += " and "+evenSel
         df.query(query, inplace=True)
         print("number of events after selections:  "+str(df.shape[0]))
         self.nevents = df.shape[0]
-
+        print("sum of total weights2: {}".format(
+            sum(df["total_weight"].values)))
         # TODO - move the SF calculation into preprocessing.py 
         
         if Do_Evaluation:
