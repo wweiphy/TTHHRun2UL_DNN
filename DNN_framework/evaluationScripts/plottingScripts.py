@@ -168,7 +168,7 @@ class savenominalDiscriminators:
                         nbins = len(current_binrange) - 1
                     if node_cls == "ttZ":
                         # current_binrange = [0, 0.19,0.22,0.23,0.25, 0.45]
-                        current_binrange = [0, 0.19, 0.22, 0.245, 0.27, 0.29, 0.45]
+                        current_binrange = [0, 0.19, 0.22, 0.27, 0.29, 0.45]
                         nbins = len(current_binrange) - 1
                     if node_cls == "ttZZ":
                         # for 5j4b and 6j4b
@@ -210,6 +210,7 @@ class savenominalDiscriminators:
                         # current_binrange = [0, 0.19, 0.22, 0.24,
                         #                     0.25, 0.26, 0.28, 0.30, 0.34, 0.36, 0.55]
                         nbins = len(current_binrange) - 1
+
                 
             else:
                 current_binrange = [out_values.min(),out_values.max()]
@@ -688,7 +689,7 @@ class saveDataDiscriminators:
                         nbins = len(current_binrange) - 1
                     if node_cls == "ttZ":
                         # current_binrange = [0, 0.19,0.22,0.23,0.25, 0.45]
-                        current_binrange = [0, 0.19, 0.22, 0.245, 0.27, 0.29, 0.45]
+                        current_binrange = [0, 0.19, 0.22, 0.27, 0.29, 0.45]
                         nbins = len(current_binrange) - 1
                     if node_cls == "ttZZ":
                         # for 5j4b and 6j4b
@@ -730,6 +731,7 @@ class saveDataDiscriminators:
                         # current_binrange = [0, 0.19, 0.22, 0.24,
                         #                     0.25, 0.26, 0.28, 0.30, 0.34, 0.36, 0.55]
                         nbins = len(current_binrange) - 1
+
 
 
             else:
@@ -919,7 +921,7 @@ class saveJESJERDiscriminators:
                         nbins = len(current_binrange) - 1
                     if node_cls == "ttZ":
                         # current_binrange = [0, 0.19,0.22,0.23,0.25, 0.45]
-                        current_binrange = [0, 0.19, 0.22, 0.245, 0.27, 0.29, 0.45]
+                        current_binrange = [0, 0.19, 0.22, 0.27, 0.29, 0.45]
                         nbins = len(current_binrange) - 1
                     if node_cls == "ttZZ":
                         # for 5j4b and 6j4b
