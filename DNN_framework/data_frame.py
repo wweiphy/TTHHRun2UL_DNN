@@ -228,11 +228,15 @@ class Sample:
                             xs_weight_sum*self.train_weight)
             # df = df.assign(total_weight=lambda x: x.xs_weight * x.extra_weight)
             if 'data' in self.path:
+                print(self.path)
+                print("did this")
                 df = df.assign(
                 total_weight=lambda x: x.xs_weight)
             # else:
                 # df = df.assign(
                     # total_weight=lambda x: x.xs_weight * x.sf_weight)
+            print("sum of total weights0-0: {}".format(
+            sum(df["total_weight"].values)))
             
         elif Do_Control:
 
@@ -254,7 +258,7 @@ class Sample:
                 
             else:
                 df = df.assign(total_weight=lambda x: x.xs_weight)
-
+        
         else:
             print("Do training")
             # print("total weight: ")
