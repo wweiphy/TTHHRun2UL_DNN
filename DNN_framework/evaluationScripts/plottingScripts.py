@@ -661,7 +661,7 @@ class saveDataDiscriminators:
 
                     print("category is "+ self.category)
 
-                     if node_cls == "ttHH":
+                    if node_cls == "ttHH":
                         # 4j3b
                         current_binrange = [0, 0.25,
                                             0.27, 0.285, 0.3, 0.33, 0.55]
