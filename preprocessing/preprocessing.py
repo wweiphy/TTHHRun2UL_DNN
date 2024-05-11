@@ -892,8 +892,9 @@ class Dataset:
 
                 for j in range(jet_pt["Jet_Pt"][i].size):	
 
-                    print(jet_flavor['Jet_Flav'][i][j])
-                    print(jet_pt['Jet_Pt'][i][j])
+                    # print(jet_flavor['Jet_Flav'][i][j])
+                    # print(jet_pt['Jet_Pt'][i][j])
+                    if jet_pt['Jet_Pt'][i][j] != jet_pt['Jet_Pt'][i][j]: continue
 
                     # if jet_flavor['Jet_Flav'][i][j]
                     # btagging SF	
@@ -1002,6 +1003,8 @@ class Dataset:
             if jet_pt["Jet_Pt"][i].size != 0: 
 
                 for j in range(jet_pt["Jet_Pt"][i].size):
+
+                    if jet_pt['Jet_Pt'][i][j] != jet_pt['Jet_Pt'][i][j]: continue
 
                     if float(jet_pt['Jet_Pt'][i][j]) < 50.:	
 
@@ -1285,6 +1288,8 @@ class Dataset:
             if jet_pt["Jet_Pt"][i].size != 0:
 
                 for j in range(jet_pt["Jet_Pt"][i].size):	
+
+                    if jet_pt['Jet_Pt'][i][j] != jet_pt['Jet_Pt'][i][j]: continue
 
 
                     # btagging SF
