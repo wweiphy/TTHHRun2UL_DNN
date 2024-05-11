@@ -893,8 +893,9 @@ class Dataset:
                 for j in range(jet_pt["Jet_Pt"][i].size):	
 
                     print(jet_flavor['Jet_Flav'][i][j])
+                    print(jet_pt['Jet_Pt'][i][j])
 
-
+                    if jet_flavor['Jet_Flav'][i][j]
                     # btagging SF	
                     jet_btagsf_perevent *= btvjson["deepJet_shape"].evaluate("central", int(jet_flavor['Jet_Flav'][i][j]), abs(float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))
 
