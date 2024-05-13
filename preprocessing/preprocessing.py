@@ -1601,9 +1601,9 @@ class Dataset:
 
         for i in range(np.size):
 
-            pu.append(pujson['Collisions18_UltraLegacy_goldenJSON'].evaluate(np['N_PrimaryVertices'][i], "nominal"))
-            pu_up.append(pujson['Collisions18_UltraLegacy_goldenJSON'].evaluate(np['N_PrimaryVertices'][i], "up"))
-            pu_down.append(pujson['Collisions18_UltraLegacy_goldenJSON'].evaluate(np['N_PrimaryVertices'][i], "down"))
+            pu.append(pujson['Collisions18_UltraLegacy_goldenJSON'].evaluate(float(np['N_PrimaryVertices'][i]), "nominal"))
+            pu_up.append(pujson['Collisions18_UltraLegacy_goldenJSON'].evaluate(float(np['N_PrimaryVertices'][i]), "up"))
+            pu_down.append(pujson['Collisions18_UltraLegacy_goldenJSON'].evaluate(float(np['N_PrimaryVertices'][i]), "down"))
 
             # IDSF = elejson["UL-Electron-ID-SF"].evaluate(self.dataEra,"sf","Tight",float(ele_eta['Electron_Eta'][i][0]), corrected_pt)
 
