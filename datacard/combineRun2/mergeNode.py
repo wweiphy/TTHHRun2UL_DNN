@@ -39,7 +39,7 @@ sys.path.append(basedir)
 folder_path = basedir + "/workdir/"
 
 files = ['230220','230119','230515','230523']
-histofile = "histo-name.csv"
+histofile = "histo-name-merge.csv"
 decorrelated_systs = ['effTrigger_mu','effTrigger_e','eff_mu','eff_e','btag_hfstats1','btag_hfstats2','btag_lfstats1','btag_lfstats2','JER']
 
 for file in files:
@@ -173,11 +173,46 @@ for file in files:
                     upcombined_hist.Write(uphistoname)
                     downcombined_hist.Write(downhistoname)
 
+            elif sys == "PDF":
+
+                uphistoname = 'ljets_ge4j_ge3t_'+node+"_node__ttbar__"+sys+"Up"
+                downhistoname = 'ljets_ge4j_ge3t_'+node+"_node__ttbar__"+sys+"Down"
+
+                uphistoname_ttlf = 'ljets_ge4j_ge3t_'+node+"_node__ttlf__"+sys+"Up"
+                downhistoname_ttlf = 'ljets_ge4j_ge3t_'+node+"_node__ttlf__"+sys+"Down"
+
+                uphistoname_ttcc = 'ljets_ge4j_ge3t_'+node+"_node__ttcc__"+sys+"Up"
+                downhistoname_ttcc = 'ljets_ge4j_ge3t_'+node+"_node__ttcc__"+sys+"Down"
+
+                uphistoname_ttmb = 'ljets_ge4j_ge3t_'+node+"_node__ttmb__"+sys+"_ttbbNLOUp"
+                downhistoname_ttmb = 'ljets_ge4j_ge3t_'+node+"_node__ttmb__"+sys+"_ttbbNLODown"
+
+                uphist_ttlf = file.Get(uphistoname_ttlf)
+                uphist_ttcc = file.Get(uphistoname_ttcc)
+                uphist_ttmb = file.Get(uphistoname_ttmb)
+                downhist_ttlf = file.Get(downhistoname_ttlf)
+                downhist_ttcc = file.Get(downhistoname_ttcc)
+                downhist_ttmb = file.Get(downhistoname_ttmb)
+
+                upcombined_hist = uphist_ttlf.Clone()
+                upcombined_hist.Add(uphist_ttcc)
+                upcombined_hist.Add(uphist_ttmb)
+
+                downcombined_hist = downhist_ttlf.Clone()
+                downcombined_hist.Add(downhist_ttcc)
+                downcombined_hist.Add(downhist_ttmb)
+
+
+                upcombined_hist.Write(uphistoname)
+                downcombined_hist.Write(downhistoname)
+
+
+
             else:
 
                 if df[(df['Uncertainty']==sys)]["ttlf"].item() == '1':
 
-                    print(sys)
+                    # print(sys)
 
                     uphistoname = 'ljets_ge4j_ge3t_'+node+"_node__ttbar__"+sys+"Up"
                     downhistoname = 'ljets_ge4j_ge3t_'+node+"_node__ttbar__"+sys+"Down"
