@@ -5,8 +5,8 @@ import pandas as pd
 import ROOT
 
 
-# python combineRun2_script.py -c 5j4b --threeyear 
-# python combineRun2_script.py -c 6j4b_2 
+# python mergeNode.py -c 6j4b_5 -y 2018
+
 
 usage = "usage=%prog [options] \n"
 usage += "USE: python cardmakingscript.py -n True "
@@ -39,9 +39,19 @@ sys.path.append(basedir)
 folder_path = basedir + "/workdir/"
 
 files = ['230220','230119','230515','230523']
+histofile = "histo-name.csv"
+decorrelated_systs = ['effTrigger_mu','effTrigger_e','eff_mu','eff_e','btag_hfstats1','btag_hfstats2','btag_lfstats1','btag_lfstats2','JER']
 
 for file in files:
 
+    if file == "230220":
+        year = "2018"
+    if file == "230119":
+        year = "2017"
+    if file == "230515":
+        year = "2016preVFP"
+    if file == "230523":
+        year = "2016postVFP"
 
     filepath = file+"_evaluation_new_"+options.category+"/plots/output_limit.root"
 
@@ -88,12 +98,45 @@ for file in files:
         combined_hist.Add(hist_ttmb)
 
         combined_hist.Write(histoname)
+
+        for decorrelate_syst in decorrelated_systs:
+
+            uphistoname = 'ljets_ge4j_ge3t_'+node+"_node__ttbar__"+decorrelate_syst+"_"+year +"Up"
+            downhistoname = 'ljets_ge4j_ge3t_'+node+"_node__ttbar__"+decorrelate_syst+"_"+year +"Down"
+
+            uphistoname_ttlf = 'ljets_ge4j_ge3t_'+node+"_node__ttlf__"+decorrelate_syst+"_"+year +"Up"
+            downhistoname_ttlf = 'ljets_ge4j_ge3t_'+node+"_node__ttlf__"+decorrelate_syst+"_"+year +"Down"
+
+            uphistoname_ttcc = 'ljets_ge4j_ge3t_'+node+"_node__ttcc__"+decorrelate_syst+"_"+year +"Up"
+            downhistoname_ttcc = 'ljets_ge4j_ge3t_'+node+"_node__ttcc__"+decorrelate_syst+"_"+year +"Down"
+
+            uphistoname_ttmb = 'ljets_ge4j_ge3t_'+node+"_node__ttmb__"+decorrelate_syst+"_"+year +"Up"
+            downhistoname_ttmb = 'ljets_ge4j_ge3t_'+node+"_node__ttmb__"+decorrelate_syst+"_"+year +"Down"
+
+            uphist_ttlf = file.Get(uphistoname_ttlf)
+            uphist_ttcc = file.Get(uphistoname_ttcc)
+            uphist_ttmb = file.Get(uphistoname_ttmb)
+            downhist_ttlf = file.Get(downhistoname_ttlf)
+            downhist_ttcc = file.Get(downhistoname_ttcc)
+            downhist_ttmb = file.Get(downhistoname_ttmb)
+
+            upcombined_hist = uphist_ttlf.Clone()
+            upcombined_hist.Add(uphist_ttcc)
+            upcombined_hist.Add(uphist_ttmb)
+
+            downcombined_hist = downhist_ttlf.Clone()
+            downcombined_hist.Add(downhist_ttcc)
+            downcombined_hist.Add(downhist_ttmb)
+
+
+            upcombined_hist.Write(uphistoname)
+            downcombined_hist.Write(downhistoname)
             
         for sys in systlist:
 
             if sys == "L1Prefiring":
 
-                if options.year == "2018":
+                if files == "230220":
 
                     continue
 
@@ -193,6 +236,39 @@ for file in files:
     combined_hist.Add(hist_ttmb)
 
     combined_hist.Write(histoname)
+
+    for decorrelate_syst in decorrelated_systs:
+
+        uphistoname = 'ljets_ge4j_ge3t_ttbar_node__ttbar__'+decorrelate_syst+"_"+year +"Up"
+        downhistoname = 'ljets_ge4j_ge3t_ttbar_node__ttbar__'+decorrelate_syst+"_"+year +"Down"
+
+        uphistoname_ttlf = 'ljets_ge4j_ge3t_ttlf_node__ttbar__'+decorrelate_syst+"_"+year +"Up"
+        downhistoname_ttlf = 'ljets_ge4j_ge3t_ttlf_node__ttbar__'+decorrelate_syst+"_"+year +"Down"
+
+        uphistoname_ttcc = 'ljets_ge4j_ge3t_ttcc_node__ttbar__'+decorrelate_syst+"_"+year +"Up"
+        downhistoname_ttcc = 'ljets_ge4j_ge3t_ttcc_node__ttbar__'+decorrelate_syst+"_"+year +"Down"
+
+        uphistoname_ttmb = 'ljets_ge4j_ge3t_ttmb_node__ttbar__'+decorrelate_syst+"_"+year +"Up"
+        downhistoname_ttmb = 'ljets_ge4j_ge3t_ttmb_node__ttbar__'+decorrelate_syst+"_"+year +"Down"
+
+        uphist_ttlf = file.Get(uphistoname_ttlf)
+        uphist_ttcc = file.Get(uphistoname_ttcc)
+        uphist_ttmb = file.Get(uphistoname_ttmb)
+        downhist_ttlf = file.Get(downhistoname_ttlf)
+        downhist_ttcc = file.Get(downhistoname_ttcc)
+        downhist_ttmb = file.Get(downhistoname_ttmb)
+
+        upcombined_hist = uphist_ttlf.Clone()
+        upcombined_hist.Add(uphist_ttcc)
+        upcombined_hist.Add(uphist_ttmb)
+
+        downcombined_hist = downhist_ttlf.Clone()
+        downcombined_hist.Add(downhist_ttcc)
+        downcombined_hist.Add(downhist_ttmb)
+
+
+        upcombined_hist.Write(uphistoname)
+        downcombined_hist.Write(downhistoname)
         
     for sys in systlist:
 
