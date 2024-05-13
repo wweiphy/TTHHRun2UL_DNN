@@ -621,6 +621,15 @@ class Dataset:
                         df = self.CalculateSFs(tree, df)
                         df = self.CalculateMuonSFs(tree, df)
                         df = self.CalculateElectronSFs(tree, df)
+                        df = self.CalculatePUSFs(tree, df)
+
+                        print("PU SF")
+                        print(df['Weight_pu69p2'].head(10))
+                        print(df['Weight_PU'].head(10))
+
+                        print("PU up")
+                        print(df['Weight_pu69p2Up'].head(10))
+                        print(df['Weight_PUUp'].head(10))
 
                         df = df.assign(sf_weight=lambda x: (sample.lumiWeight*x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSF[0]'] > 0.) & (x['Electron_ReconstructionSF[0]'] > 0.))*1.*x['Electron_IdentificationSF[0]']*x['Electron_ReconstructionSF[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & (x['check_ElectronTrigger']) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['check_MuonTrigger'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
 
@@ -1565,5 +1574,48 @@ class Dataset:
         df.update(Identification)
         df.update(IdentificationUp)
         df.update(IdentificationDown)
+
+        return df  
+    
+    def CalculatePUSFs(self, tree, df):
+
+        PUDir = os.path.join(basedir, "data", "PUSFs", self.dataEra)
+        PUName = os.path.join(PUDir, "puWeights.json")
+
+        print("handle PU SF for "+self.dataEra)
+
+        
+        if PUName.endswith(".gz"):
+            
+            with gzip.open(PUName, "rt") as f:
+                data = f.read().strip()
+            pujson = _core.CorrectionSet.from_string(data)
+        else:
+            pujson = _core.CorrectionSet.from_file(PUName)
+
+        np = tree.pandas.df("N_PrimaryVertices") 
+
+        pu = []
+        pu_up = []
+        pu_down = []
+
+        for i in range(np.size):
+
+            pu.append(pujson.evaluate(np['N_PrimaryVertices'][i], "nominal"))
+            pu_up.append(pujson.evaluate(np['N_PrimaryVertices'][i], "up"))
+            pu_down.append(pujson.evaluate(np['N_PrimaryVertices'][i], "down"))
+
+        df.loc[:, "Weight_PU"] = 0.
+        df.loc[:, "Weight_PUUp"] = 0.
+        df.loc[:, "Weight_PUDown"] = 0.
+
+        PU = pd.DataFrame(pu, columns=["Weight_PU"])
+        PUUp = pd.DataFrame(pu_up, columns=["Weight_PUUp"])
+        PUDown = pd.DataFrame(pu_down, columns=["Weight_PUDown"])
+
+
+        df.update(PU)
+        df.update(PUUp)
+        df.update(PUDown)
 
         return df  
