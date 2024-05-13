@@ -175,7 +175,7 @@ for file in files:
 
             else:
 
-                if df[(df['Uncertainty']==sys)][process].item() == '1':
+                if df[(df['Uncertainty']==sys)]["ttlf"].item() == '1':
 
                     uphistoname = 'ljets_ge4j_ge3t_'+node+"_node__ttbar__"+sys+"Up"
                     downhistoname = 'ljets_ge4j_ge3t_'+node+"_node__ttbar__"+sys+"Down"
@@ -313,7 +313,7 @@ for file in files:
 
         else:
 
-            if df[(df['Uncertainty']==sys)][process].item() == '1':
+            if df[(df['Uncertainty']==sys)]["ttlf"].item() == '1':
 
                 uphistoname = 'ljets_ge4j_ge3t_ttbar_node__ttbar__'+sys+"Up"
                 downhistoname = 'ljets_ge4j_ge3t_ttbar_node__ttbar__'+sys+"Down"
