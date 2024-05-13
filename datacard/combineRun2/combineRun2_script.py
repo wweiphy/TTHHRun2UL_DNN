@@ -6,7 +6,7 @@ import ROOT
 
 
 # python combineRun2_script.py -c 5j4b --threeyear 
-# python combineRun2_script.py -c 6j4b_2 
+# python combineRun2_script.py -c 6j4b_5 
 
 usage = "usage=%prog [options] \n"
 usage += "USE: python cardmakingscript.py -n True "
@@ -55,7 +55,7 @@ if options.twoyear:
 
     else:
 
-        histofile = "histo-name-merge.csv"
+        histofile = "histo-name-2.csv"
 
         file1path = "230220_evaluation_new_"+options.category+"/plots/output_limit.root"
         file2path = "230119_evaluation_new_"+options.category+"/plots/output_limit.root"
@@ -77,7 +77,7 @@ else:
 
     else:
 
-        histofile = "histo-name-merge.csv"
+        histofile = "histo-name-2.csv"
 
         file1path = "230523_evaluation_new_"+options.category+"/plots/output_limit.root"
         file2path = "230515_evaluation_new_"+options.category+"/plots/output_limit.root"
