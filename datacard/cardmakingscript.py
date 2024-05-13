@@ -66,10 +66,12 @@ parser.add_option("-f", "--folder", dest="folder", default="221204_test_evaluati
 
 (options, args) = parser.parse_args()
 
-process_new = ['ttHH', 'ttH', 'ttZ', 'ttZH',
-               'ttZZ', 'ttlf', 'ttcc', 'ttmb', 'ttnb']
+# process_new = ['ttHH', 'ttH', 'ttZ', 'ttZH',
+#                'ttZZ', 'ttlf', 'ttcc', 'ttmb', 'ttnb']
 process_old = ['ttHH', 'ttH', 'ttZ', 'ttZH',
                'ttZZ', 'ttlf', 'ttcc', 'ttb','ttbb','tt2b','ttbbb','tt4b']
+process_new = ['ttHH', 'ttH', 'ttZ', 'ttZH',
+               'ttZZ', 'ttbar', 'ttnb']
 
 filedir = os.path.dirname(os.path.realpath(__file__))
 # datacarddir = os.path.dirname(filedir)
@@ -147,10 +149,10 @@ for node in process_new:
     runcommand2 = "python {} --categoryname={} --rootfile={} --outputfile={} --directory={} --signaltag=ttHH --csvfile={} --nominal_key='$CHANNEL__$PROCESS' --syst_key='$CHANNEL__$PROCESS__$SYSTEMATIC'".format(
         scriptfile, categoryname, rootfile, outfile2, cardmaker, csvfile_sys)
     
-    csvfile_sys2 = filedir+"/"+systfile2
-    outfile3 = filedir + "/new_sys2/ljets_ge4j_ge3t_{}_node_hdecay.txt".format(node)
-    runcommand3 = "python {} --categoryname={} --rootfile={} --outputfile={} --directory={} --signaltag=ttHH --csvfile={} --nominal_key='$CHANNEL__$PROCESS' --syst_key='$CHANNEL__$PROCESS__$SYSTEMATIC'".format(
-        scriptfile, categoryname, rootfile, outfile3, cardmaker, csvfile_sys2)
+    # csvfile_sys2 = filedir+"/"+systfile2
+    # outfile3 = filedir + "/new_sys2/ljets_ge4j_ge3t_{}_node_hdecay.txt".format(node)
+    # runcommand3 = "python {} --categoryname={} --rootfile={} --outputfile={} --directory={} --signaltag=ttHH --csvfile={} --nominal_key='$CHANNEL__$PROCESS' --syst_key='$CHANNEL__$PROCESS__$SYSTEMATIC'".format(
+    #     scriptfile, categoryname, rootfile, outfile3, cardmaker, csvfile_sys2)
     # csvfile_sys_rate = filedir+"/"+systfilerate
     # outfile3 = filedir + "/new_rate/ljets_ge4j_ge3t_{}_node_hdecay.txt".format(node)
     # runcommand3 = "python {} --categoryname={} --rootfile={} --outputfile={} --directory={} --signaltag=ttHH --csvfile={} --nominal_key='$CHANNEL__$PROCESS' --syst_key='$CHANNEL__$PROCESS__$SYSTEMATIC'".format(
@@ -173,12 +175,12 @@ for node in process_new:
 
     if not os.path.exists("new"):
             os.mkdir("new")
-    if not os.path.exists("new_sys2"):
-        os.mkdir("new_sys2")
+    # if not os.path.exists("new_sys2"):
+    #     # os.mkdir("new_sys2")
     # if not os.path.exists("new_fullrate"):
     #     os.mkdir("new_fullrate")
     os.system(runcommand2)
-    os.system(runcommand3)
+    # os.system(runcommand3)
     if not os.path.exists("new_full"):
         os.mkdir("new_full")
     # if not os.path.exists("new_fullrate"):

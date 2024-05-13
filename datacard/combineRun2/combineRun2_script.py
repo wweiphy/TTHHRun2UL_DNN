@@ -6,7 +6,7 @@ import ROOT
 
 
 # python combineRun2_script.py -c 5j4b --threeyear 
-# python combineRun2_script.py -c 6j4b 
+# python combineRun2_script.py -c 6j4b_2 
 
 usage = "usage=%prog [options] \n"
 usage += "USE: python cardmakingscript.py -n True "
@@ -27,8 +27,10 @@ parser.add_option("-c", "--category", dest="category",default="5j4b",
 
 (options, args) = parser.parse_args()
 
+# processlist = ['ttHH', 'ttH', 'ttZ', 'ttZH',
+#                'ttZZ', 'ttlf', 'ttcc', 'ttmb', 'ttnb']
 processlist = ['ttHH', 'ttH', 'ttZ', 'ttZH',
-               'ttZZ', 'ttlf', 'ttcc', 'ttmb', 'ttnb']
+               'ttZZ', 'ttbar','ttnb']
 
 decorrelated_systs = ['effTrigger_mu','effTrigger_e','eff_mu','eff_e','btag_hfstats1','btag_hfstats2','btag_lfstats1','btag_lfstats2','JER']
 
@@ -53,7 +55,7 @@ if options.twoyear:
 
     else:
 
-        histofile = "histo-name.csv"
+        histofile = "histo-name-merge.csv"
 
         file1path = "230220_evaluation_new_"+options.category+"/plots/output_limit.root"
         file2path = "230119_evaluation_new_"+options.category+"/plots/output_limit.root"
@@ -75,7 +77,7 @@ else:
 
     else:
 
-        histofile = "histo-name.csv"
+        histofile = "histo-name-merge.csv"
 
         file1path = "230523_evaluation_new_"+options.category+"/plots/output_limit.root"
         file2path = "230515_evaluation_new_"+options.category+"/plots/output_limit.root"
