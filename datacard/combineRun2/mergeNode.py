@@ -311,7 +311,7 @@ for file in files:
 
         if sys == "L1Prefiring":
 
-            if options.year == "2018":
+            if year == "2018":
 
                 continue
 
