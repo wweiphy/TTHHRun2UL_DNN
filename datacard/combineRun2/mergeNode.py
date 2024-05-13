@@ -177,6 +177,8 @@ for file in files:
 
                 if df[(df['Uncertainty']==sys)]["ttlf"].item() == '1':
 
+                    print(sys)
+
                     uphistoname = 'ljets_ge4j_ge3t_'+node+"_node__ttbar__"+sys+"Up"
                     downhistoname = 'ljets_ge4j_ge3t_'+node+"_node__ttbar__"+sys+"Down"
 
