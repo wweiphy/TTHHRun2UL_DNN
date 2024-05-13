@@ -5,7 +5,7 @@ import pandas as pd
 import ROOT
 
 
-# python mergeNode.py -c 6j4b_5 -y 2018
+# python mergeNode.py -c 6j4b_5 
 
 
 usage = "usage=%prog [options] \n"
@@ -16,8 +16,8 @@ parser = optparse.OptionParser(usage=usage)
 # parser.add_option("--twoyear", dest="twoyear", action = "store_true", default=False,
 #         help="combine 18 with 17", metavar="twoyear")
 
-parser.add_option("-y", "--year", dest="year", default="2017",
-        help="year", metavar="year")
+# parser.add_option("-y", "--year", dest="year", default="2017",
+#         help="year", metavar="year")
 
 
 parser.add_option("-c", "--category", dest="category",default="5j4b",
