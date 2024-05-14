@@ -26,7 +26,7 @@ parser.add_option("-c", "--category", dest="category",default="5j4b",
 (options, args) = parser.parse_args()
 
 processlist = ['ttlf', 'ttcc', 'ttmb', 'ttHH','ttH','ttZ','ttZH','ttZZ','ttnb']
-# processlist2 = ['ttbar', 'ttHH','ttH','ttZ','ttZH','ttZZ','ttnb']
+processlist2 = ['ttbar', 'ttHH','ttH','ttZ','ttZH','ttZZ','ttnb']
 
 # decorrelated_systs = ['effTrigger_mu','effTrigger_e','eff_mu','eff_e','btag_hfstats1','btag_hfstats2','btag_lfstats1','btag_lfstats2','JER']
 
@@ -88,6 +88,7 @@ for file in files:
         histoname_ttlf = 'ljets_ge4j_ge3t_'+node+"_node__ttlf"
         histoname_ttcc = 'ljets_ge4j_ge3t_'+node+"_node__ttcc"
         histoname_ttmb = 'ljets_ge4j_ge3t_'+node+"_node__ttmb"
+
 
         hist_ttlf = file.Get(histoname_ttlf)
         hist_ttcc = file.Get(histoname_ttcc) 
@@ -256,133 +257,133 @@ for file in files:
     # # print('file: '+filepath)
 
 
-    # # for node2 in processlist2:
+    for node2 in processlist2:
 
-    histoname = 'ljets_ge4j_ge3t_ttbar_node__ttbar'
+        histoname = 'ljets_ge4j_ge3t_ttbar_node__'+node2
 
-    histoname_ttlf = 'ljets_ge4j_ge3t_ttlf_node__ttbar'
-    histoname_ttcc = 'ljets_ge4j_ge3t_ttcc_node__ttbar'
-    histoname_ttmb = 'ljets_ge4j_ge3t_ttmb_node__ttbar'
+        histoname_ttlf = 'ljets_ge4j_ge3t_ttlf_node__'+node2
+        histoname_ttcc = 'ljets_ge4j_ge3t_ttcc_node__'+node2
+        histoname_ttmb = 'ljets_ge4j_ge3t_ttmb_node__'+node2
 
-    hist_ttlf = file.Get(histoname_ttlf)
-    hist_ttcc = file.Get(histoname_ttcc) 
-    hist_ttmb = file.Get(histoname_ttmb) 
+        hist_ttlf = file.Get(histoname_ttlf)
+        hist_ttcc = file.Get(histoname_ttcc) 
+        hist_ttmb = file.Get(histoname_ttmb) 
 
-    combined_hist = hist_ttlf.Clone()
-    combined_hist.Add(hist_ttcc)
-    combined_hist.Add(hist_ttmb)
+        combined_hist = hist_ttlf.Clone()
+        combined_hist.Add(hist_ttcc)
+        combined_hist.Add(hist_ttmb)
 
-    combined_hist.Write(histoname)
+        combined_hist.Write(histoname)
 
-    for decorrelate_syst in decorrelated_systs:
+        for decorrelate_syst in decorrelated_systs:
 
-        uphistoname = 'ljets_ge4j_ge3t_ttbar_node__ttbar__'+decorrelate_syst+"_"+year +"Up"
-        downhistoname = 'ljets_ge4j_ge3t_ttbar_node__ttbar__'+decorrelate_syst+"_"+year +"Down"
+            uphistoname = 'ljets_ge4j_ge3t_ttbar_node__'+node2+decorrelate_syst+"_"+year +"Up"
+            downhistoname = 'ljets_ge4j_ge3t_ttbar_node__'+node2+decorrelate_syst+"_"+year +"Down"
 
-        uphistoname_ttlf = 'ljets_ge4j_ge3t_ttlf_node__ttbar__'+decorrelate_syst+"_"+year +"Up"
-        downhistoname_ttlf = 'ljets_ge4j_ge3t_ttlf_node__ttbar__'+decorrelate_syst+"_"+year +"Down"
+            uphistoname_ttlf = 'ljets_ge4j_ge3t_ttlf_node__'+node2+decorrelate_syst+"_"+year +"Up"
+            downhistoname_ttlf = 'ljets_ge4j_ge3t_ttlf_node__'+node2+decorrelate_syst+"_"+year +"Down"
 
-        uphistoname_ttcc = 'ljets_ge4j_ge3t_ttcc_node__ttbar__'+decorrelate_syst+"_"+year +"Up"
-        downhistoname_ttcc = 'ljets_ge4j_ge3t_ttcc_node__ttbar__'+decorrelate_syst+"_"+year +"Down"
+            uphistoname_ttcc = 'ljets_ge4j_ge3t_ttcc_node__'+node2+decorrelate_syst+"_"+year +"Up"
+            downhistoname_ttcc = 'ljets_ge4j_ge3t_ttcc_node__'+node2+decorrelate_syst+"_"+year +"Down"
 
-        uphistoname_ttmb = 'ljets_ge4j_ge3t_ttmb_node__ttbar__'+decorrelate_syst+"_"+year +"Up"
-        downhistoname_ttmb = 'ljets_ge4j_ge3t_ttmb_node__ttbar__'+decorrelate_syst+"_"+year +"Down"
+            uphistoname_ttmb = 'ljets_ge4j_ge3t_ttmb_node__'+node2+decorrelate_syst+"_"+year +"Up"
+            downhistoname_ttmb = 'ljets_ge4j_ge3t_ttmb_node__'+node2+decorrelate_syst+"_"+year +"Down"
 
-        uphist_ttlf = file.Get(uphistoname_ttlf)
-        uphist_ttcc = file.Get(uphistoname_ttcc)
-        uphist_ttmb = file.Get(uphistoname_ttmb)
-        downhist_ttlf = file.Get(downhistoname_ttlf)
-        downhist_ttcc = file.Get(downhistoname_ttcc)
-        downhist_ttmb = file.Get(downhistoname_ttmb)
+            uphist_ttlf = file.Get(uphistoname_ttlf)
+            uphist_ttcc = file.Get(uphistoname_ttcc)
+            uphist_ttmb = file.Get(uphistoname_ttmb)
+            downhist_ttlf = file.Get(downhistoname_ttlf)
+            downhist_ttcc = file.Get(downhistoname_ttcc)
+            downhist_ttmb = file.Get(downhistoname_ttmb)
 
-        upcombined_hist = uphist_ttlf.Clone()
-        upcombined_hist.Add(uphist_ttcc)
-        upcombined_hist.Add(uphist_ttmb)
+            upcombined_hist = uphist_ttlf.Clone()
+            upcombined_hist.Add(uphist_ttcc)
+            upcombined_hist.Add(uphist_ttmb)
 
-        downcombined_hist = downhist_ttlf.Clone()
-        downcombined_hist.Add(downhist_ttcc)
-        downcombined_hist.Add(downhist_ttmb)
+            downcombined_hist = downhist_ttlf.Clone()
+            downcombined_hist.Add(downhist_ttcc)
+            downcombined_hist.Add(downhist_ttmb)
 
 
-        upcombined_hist.Write(uphistoname)
-        downcombined_hist.Write(downhistoname)
-        
-    for sys in systlist:
+            upcombined_hist.Write(uphistoname)
+            downcombined_hist.Write(downhistoname)
+            
+        for sys in systlist:
 
-        if sys == "L1Prefiring":
+            if sys == "L1Prefiring":
 
-            if year == "2018":
+                if year == "2018":
 
-                continue
+                    continue
+
+                else:
+
+                    uphistoname = 'ljets_ge4j_ge3t_ttbar_node__'+node2+sys+"Up"
+                    downhistoname = 'ljets_ge4j_ge3t_ttbar_node__'+node2+sys+"Down"
+
+                    uphistoname_ttlf = 'ljets_ge4j_ge3t_ttlf_node__'+node2+sys+"Up"
+                    downhistoname_ttlf = 'ljets_ge4j_ge3t_ttlf_node__'+node2+sys+"Down"
+
+                    uphistoname_ttcc = 'ljets_ge4j_ge3t_ttcc_node__'+node2+sys+"Up"
+                    downhistoname_ttcc = 'ljets_ge4j_ge3t_ttcc_node__'+node2+sys+"Down"
+
+                    uphistoname_ttmb = 'ljets_ge4j_ge3t_ttmb_node__'+node2+sys+"Up"
+                    downhistoname_ttmb = 'ljets_ge4j_ge3t_ttmb_node__'+node2+sys+"Down"
+
+                    uphist_ttlf = file.Get(uphistoname_ttlf)
+                    uphist_ttcc = file.Get(uphistoname_ttcc)
+                    uphist_ttmb = file.Get(uphistoname_ttmb)
+                    downhist_ttlf = file.Get(downhistoname_ttlf)
+                    downhist_ttcc = file.Get(downhistoname_ttcc)
+                    downhist_ttmb = file.Get(downhistoname_ttmb)
+
+                    upcombined_hist = uphist_ttlf.Clone()
+                    upcombined_hist.Add(uphist_ttcc)
+                    upcombined_hist.Add(uphist_ttmb)
+
+                    downcombined_hist = downhist_ttlf.Clone()
+                    downcombined_hist.Add(downhist_ttcc)
+                    downcombined_hist.Add(downhist_ttmb)
+
+
+                    upcombined_hist.Write(uphistoname)
+                    downcombined_hist.Write(downhistoname)
 
             else:
 
-                uphistoname = 'ljets_ge4j_ge3t_ttbar_node__ttbar__'+sys+"Up"
-                downhistoname = 'ljets_ge4j_ge3t_ttbar_node__ttbar__'+sys+"Down"
+                if df[(df['Uncertainty']==sys)][node2].item() == '1':
 
-                uphistoname_ttlf = 'ljets_ge4j_ge3t_ttlf_node__ttbar__'+sys+"Up"
-                downhistoname_ttlf = 'ljets_ge4j_ge3t_ttlf_node__ttbar__'+sys+"Down"
+                    uphistoname = 'ljets_ge4j_ge3t_ttbar_node__'+node2+sys+"Up"
+                    downhistoname = 'ljets_ge4j_ge3t_ttbar_node__'+node2+sys+"Down"
 
-                uphistoname_ttcc = 'ljets_ge4j_ge3t_ttcc_node__ttbar__'+sys+"Up"
-                downhistoname_ttcc = 'ljets_ge4j_ge3t_ttcc_node__ttbar__'+sys+"Down"
+                    uphistoname_ttlf = 'ljets_ge4j_ge3t_ttlf_node__'+node2+sys+"Up"
+                    downhistoname_ttlf = 'ljets_ge4j_ge3t_ttlf_node__'+node2+sys+"Down"
 
-                uphistoname_ttmb = 'ljets_ge4j_ge3t_ttmb_node__ttbar__'+sys+"Up"
-                downhistoname_ttmb = 'ljets_ge4j_ge3t_ttmb_node__ttbar__'+sys+"Down"
+                    uphistoname_ttcc = 'ljets_ge4j_ge3t_ttcc_node__'+node2+sys+"Up"
+                    downhistoname_ttcc = 'ljets_ge4j_ge3t_ttcc_node__'+node2+sys+"Down"
 
-                uphist_ttlf = file.Get(uphistoname_ttlf)
-                uphist_ttcc = file.Get(uphistoname_ttcc)
-                uphist_ttmb = file.Get(uphistoname_ttmb)
-                downhist_ttlf = file.Get(downhistoname_ttlf)
-                downhist_ttcc = file.Get(downhistoname_ttcc)
-                downhist_ttmb = file.Get(downhistoname_ttmb)
+                    uphistoname_ttmb = 'ljets_ge4j_ge3t_ttmb_node__'+node2+sys+"Up"
+                    downhistoname_ttmb = 'ljets_ge4j_ge3t_ttmb_node__'+node2+sys+"Down"
 
-                upcombined_hist = uphist_ttlf.Clone()
-                upcombined_hist.Add(uphist_ttcc)
-                upcombined_hist.Add(uphist_ttmb)
+                    uphist_ttlf = file.Get(uphistoname_ttlf)
+                    uphist_ttcc = file.Get(uphistoname_ttcc)
+                    uphist_ttmb = file.Get(uphistoname_ttmb)
+                    downhist_ttlf = file.Get(downhistoname_ttlf)
+                    downhist_ttcc = file.Get(downhistoname_ttcc)
+                    downhist_ttmb = file.Get(downhistoname_ttmb)
 
-                downcombined_hist = downhist_ttlf.Clone()
-                downcombined_hist.Add(downhist_ttcc)
-                downcombined_hist.Add(downhist_ttmb)
+                    upcombined_hist = uphist_ttlf.Clone()
+                    upcombined_hist.Add(uphist_ttcc)
+                    upcombined_hist.Add(uphist_ttmb)
 
+                    downcombined_hist = downhist_ttlf.Clone()
+                    downcombined_hist.Add(downhist_ttcc)
+                    downcombined_hist.Add(downhist_ttmb)
 
-                upcombined_hist.Write(uphistoname)
-                downcombined_hist.Write(downhistoname)
+                    upcombined_hist.Write(uphistoname)
+                    downcombined_hist.Write(downhistoname)
 
-        else:
-
-            if df[(df['Uncertainty']==sys)]["ttlf"].item() == '1':
-
-                uphistoname = 'ljets_ge4j_ge3t_ttbar_node__ttbar__'+sys+"Up"
-                downhistoname = 'ljets_ge4j_ge3t_ttbar_node__ttbar__'+sys+"Down"
-
-                uphistoname_ttlf = 'ljets_ge4j_ge3t_ttlf_node__ttbar__'+sys+"Up"
-                downhistoname_ttlf = 'ljets_ge4j_ge3t_ttlf_node__ttbar__'+sys+"Down"
-
-                uphistoname_ttcc = 'ljets_ge4j_ge3t_ttcc_node__ttbar__'+sys+"Up"
-                downhistoname_ttcc = 'ljets_ge4j_ge3t_ttcc_node__ttbar__'+sys+"Down"
-
-                uphistoname_ttmb = 'ljets_ge4j_ge3t_ttmb_node__ttbar__'+sys+"Up"
-                downhistoname_ttmb = 'ljets_ge4j_ge3t_ttmb_node__ttbar__'+sys+"Down"
-
-                uphist_ttlf = file.Get(uphistoname_ttlf)
-                uphist_ttcc = file.Get(uphistoname_ttcc)
-                uphist_ttmb = file.Get(uphistoname_ttmb)
-                downhist_ttlf = file.Get(downhistoname_ttlf)
-                downhist_ttcc = file.Get(downhistoname_ttcc)
-                downhist_ttmb = file.Get(downhistoname_ttmb)
-
-                upcombined_hist = uphist_ttlf.Clone()
-                upcombined_hist.Add(uphist_ttcc)
-                upcombined_hist.Add(uphist_ttmb)
-
-                downcombined_hist = downhist_ttlf.Clone()
-                downcombined_hist.Add(downhist_ttcc)
-                downcombined_hist.Add(downhist_ttmb)
-
-                upcombined_hist.Write(uphistoname)
-                downcombined_hist.Write(downhistoname)
-
-    print("done with merging nodes")
+        print("done with merging nodes")
 
 
 
