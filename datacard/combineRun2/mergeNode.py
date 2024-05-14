@@ -277,6 +277,10 @@ for file in files:
 
         for decorrelate_syst in decorrelated_systs:
 
+            print(node2)
+
+            print('ljets_ge4j_ge3t_ttlf_node__'+node2+decorrelate_syst+"_"+year +"Up")
+
             uphistoname = 'ljets_ge4j_ge3t_ttbar_node__'+node2+decorrelate_syst+"_"+year +"Up"
             downhistoname = 'ljets_ge4j_ge3t_ttbar_node__'+node2+decorrelate_syst+"_"+year +"Down"
 
