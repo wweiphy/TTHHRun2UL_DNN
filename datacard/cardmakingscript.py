@@ -71,7 +71,7 @@ parser.add_option("-f", "--folder", dest="folder", default="221204_test_evaluati
 process_old = ['ttHH', 'ttH', 'ttZ', 'ttZH',
                'ttZZ', 'ttlf', 'ttcc', 'ttb','ttbb','tt2b','ttbbb','tt4b']
 process_new = ['ttHH', 'ttH', 'ttZ', 'ttZH',
-               'ttZZ', 'ttbar', 'ttnb']
+               'ttZZ', 'ttbar']
 
 filedir = os.path.dirname(os.path.realpath(__file__))
 # datacarddir = os.path.dirname(filedir)

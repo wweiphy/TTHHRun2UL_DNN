@@ -66,7 +66,7 @@ parser.add_option("-b", "--nbjets", dest="nbjets", default=3,
 # process_new = ['ttHH', 'ttH', 'ttZ', 'ttZH',
 #                'ttZZ', 'ttlf', 'ttcc', 'ttmb', 'ttnb']
 process_new = ['ttHH', 'ttH', 'ttZ', 'ttZH',
-               'ttZZ', 'ttbar', 'ttnb']
+               'ttZZ', 'ttbar']
 process_old = ['ttHH', 'ttH', 'ttZ', 'ttZH',
                'ttZZ', 'ttlf', 'ttcc', 'ttb', 'ttbb', 'tt2b', 'ttbbb', 'tt4b']
 # variables = ['N_BTagsM', 'Electron_E[0]', 'Jet_CSV[5]']
