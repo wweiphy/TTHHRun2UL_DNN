@@ -70,8 +70,7 @@ parser.add_option("-f", "--folder", dest="folder", default="221204_test_evaluati
 #                'ttZZ', 'ttlf', 'ttcc', 'ttmb', 'ttnb']
 process_old = ['ttHH', 'ttH', 'ttZ', 'ttZH',
                'ttZZ', 'ttlf', 'ttcc', 'ttb','ttbb','tt2b','ttbbb','tt4b']
-process_new = ['ttHH', 'ttH', 'ttZ', 'ttZH',
-               'ttZZ', 'ttbar']
+process_new = ['ttHH', 'ttH', 'ttZ', 'ttZH', 'ttZZ', 'ttbar']
 
 filedir = os.path.dirname(os.path.realpath(__file__))
 # datacarddir = os.path.dirname(filedir)
@@ -144,10 +143,10 @@ for node in process_new:
     runcommand1 = "python {} --categoryname={} --rootfile={} --outputfile={} --directory={} --signaltag=ttHH --csvfile={} --nominal_key='$CHANNEL__$PROCESS' --syst_key='$CHANNEL__$PROCESS__$SYSTEMATIC'".format(
         scriptfile, categoryname, rootfile, outfile1, cardmaker, csvfile_nosys)
 
-    # csvfile_sys = filedir+"/"+systfile
-    # outfile2 = filedir + "/new/ljets_ge4j_ge3t_{}_node_hdecay.txt".format(node)
-    # runcommand2 = "python {} --categoryname={} --rootfile={} --outputfile={} --directory={} --signaltag=ttHH --csvfile={} --nominal_key='$CHANNEL__$PROCESS' --syst_key='$CHANNEL__$PROCESS__$SYSTEMATIC'".format(
-    #     scriptfile, categoryname, rootfile, outfile2, cardmaker, csvfile_sys)
+    csvfile_sys = filedir+"/"+systfile
+    outfile2 = filedir + "/new/ljets_ge4j_ge3t_{}_node_hdecay.txt".format(node)
+    runcommand2 = "python {} --categoryname={} --rootfile={} --outputfile={} --directory={} --signaltag=ttHH --csvfile={} --nominal_key='$CHANNEL__$PROCESS' --syst_key='$CHANNEL__$PROCESS__$SYSTEMATIC'".format(
+        scriptfile, categoryname, rootfile, outfile2, cardmaker, csvfile_sys)
     
     csvfile_sys2 = filedir+"/"+systfile2
     outfile3 = filedir + "/new_sys2/ljets_ge4j_ge3t_{}_node_hdecay.txt".format(node)
@@ -173,13 +172,13 @@ for node in process_new:
         os.mkdir("new_nosys")
     os.system(runcommand1)
 
-    # if not os.path.exists("new"):
-            # os.mkdir("new")
+    if not os.path.exists("new"):
+            os.mkdir("new")
     if not os.path.exists("new_sys2"):
         os.mkdir("new_sys2")
     # if not os.path.exists("new_fullrate"):
     #     os.mkdir("new_fullrate")
-    # os.system(runcommand2)
+    os.system(runcommand2)
     os.system(runcommand3)
     if not os.path.exists("new_full"):
         os.mkdir("new_full")
