@@ -322,6 +322,8 @@ for file in files:
 
                 else:
 
+                    print('ljets_ge4j_ge3t_ttcc_node__'+node2+"__"+sys+"Up")
+
                     uphistoname = 'ljets_ge4j_ge3t_ttbar_node__'+node2+"__"+sys+"Up"
                     downhistoname = 'ljets_ge4j_ge3t_ttbar_node__'+node2+"__"+sys+"Down"
 
