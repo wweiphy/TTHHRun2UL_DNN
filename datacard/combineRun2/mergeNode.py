@@ -300,7 +300,7 @@ for file in files:
         histoname_ttlf = 'ljets_ge4j_ge3t_ttlf_node__'+node2
         histoname_ttcc = 'ljets_ge4j_ge3t_ttcc_node__'+node2
         histoname_ttmb = 'ljets_ge4j_ge3t_ttmb_node__'+node2
-        histoname_ttmb = 'ljets_ge4j_ge3t_ttnb_node__'+node2
+        histoname_ttnb = 'ljets_ge4j_ge3t_ttnb_node__'+node2
 
         hist_ttlf = file.Get(histoname_ttlf)
         hist_ttcc = file.Get(histoname_ttcc) 
@@ -382,8 +382,8 @@ for file in files:
                     uphistoname_ttmb = 'ljets_ge4j_ge3t_ttmb_node__'+node2+"__"+sys+"Up"
                     downhistoname_ttmb = 'ljets_ge4j_ge3t_ttmb_node__'+node2+"__"+sys+"Down"
 
-                    uphistoname_ttmb = 'ljets_ge4j_ge3t_ttnb_node__'+node2+"__"+sys+"Up"
-                    downhistoname_ttmb = 'ljets_ge4j_ge3t_ttnb_node__'+node2+"__"+sys+"Down"
+                    uphistoname_ttnb = 'ljets_ge4j_ge3t_ttnb_node__'+node2+"__"+sys+"Up"
+                    downhistoname_ttnb = 'ljets_ge4j_ge3t_ttnb_node__'+node2+"__"+sys+"Down"
 
                     uphist_ttlf = file.Get(uphistoname_ttlf)
                     uphist_ttcc = file.Get(uphistoname_ttcc)
@@ -424,8 +424,8 @@ for file in files:
                     uphistoname_ttmb = 'ljets_ge4j_ge3t_ttmb_node__'+node2+"__"+sys+"Up"
                     downhistoname_ttmb = 'ljets_ge4j_ge3t_ttmb_node__'+node2+"__"+sys+"Down"
 
-                    uphistoname_ttmb = 'ljets_ge4j_ge3t_ttnb_node__'+node2+"__"+sys+"Up"
-                    downhistoname_ttmb = 'ljets_ge4j_ge3t_ttnb_node__'+node2+"__"+sys+"Down"
+                    uphistoname_ttnb = 'ljets_ge4j_ge3t_ttnb_node__'+node2+"__"+sys+"Up"
+                    downhistoname_ttnb = 'ljets_ge4j_ge3t_ttnb_node__'+node2+"__"+sys+"Down"
 
                     uphist_ttlf = file.Get(uphistoname_ttlf)
                     uphist_ttcc = file.Get(uphistoname_ttcc)
