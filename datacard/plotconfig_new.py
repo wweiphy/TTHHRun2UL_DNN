@@ -1,6 +1,6 @@
 #samples named in the rootfile
-samples = {   'ttmb': {   'info': {   'color': 633L,
-                            'label': 't#bar{t}+mb',
+samples = {   'ttbar': {   'info': {   'color': 633L,
+                            'label': 't#bar{t}',
                             'typ': 'bkg'},
                 'plot': True},
     'ttnb': {   'info': {   'color': 636L,
@@ -27,19 +27,20 @@ samples = {   'ttmb': {   'info': {   'color': 633L,
                             'label': 't#bar{t}+ZZ',
                             'typ': 'bkg'},
                 'plot': True},
-    'ttcc': {   'info': {   'color': 633L,
-                            'label': 't#bar{t}+c#bar{c}',
-                            'typ': 'bkg'},
-                'plot': True},
-    'ttlf': {   'info': {   'color': 625L,
-                            'label': 't#bar{t}+lf',
-                            'typ': 'bkg'},
-                'plot': True}}
+    # 'ttcc': {   'info': {   'color': 633L,
+    #                         'label': 't#bar{t}+c#bar{c}',
+    #                         'typ': 'bkg'},
+    #             'plot': True},
+    # 'ttlf': {   'info': {   'color': 625L,
+    #                         'label': 't#bar{t}+lf',
+    #                         'typ': 'bkg'},
+    #             'plot': True}
+                }
 
 #combined samples
-plottingsamples = {   'ttmb': {   'addSamples': [   'ttmb'],
+plottingsamples = {   'ttbar': {   'addSamples': [   'ttmb'],
                 'color': 633L,
-                'label': 't#bar{t}mb',
+                'label': 't#bar{t}',
                 'typ': 'bkg'},
     'ttnb': {   'addSamples': [   'ttnb'],
                 'color': 636L,
@@ -65,23 +66,24 @@ plottingsamples = {   'ttmb': {   'addSamples': [   'ttmb'],
                 'color': 860L,
                 'label': 't#bar{t}ZZ',
                 'typ': 'bkg'},
-    'ttcc': {   'addSamples': [   'ttcc'],
-                'color': 633L,
-                'label': 't#bar{t}cc',
-                'typ': 'bkg'},
-    'ttlf': {   'addSamples': [   'ttlf'],
-                'color': 625L,
-                'label': 't#bar{t}lf',
-                'typ': 'bkg'}}
+    # 'ttcc': {   'addSamples': [   'ttcc'],
+    #             'color': 633L,
+    #             'label': 't#bar{t}cc',
+    #             'typ': 'bkg'},
+    # 'ttlf': {   'addSamples': [   'ttlf'],
+    #             'color': 625L,
+    #             'label': 't#bar{t}lf',
+    #             'typ': 'bkg'}
+                }
 
 #systematics to be plotted
 systematics = [   ]
 
 # order of the stack processes, descending from top to bottom
 sortedprocesses = [   'ttHH',
-    'ttlf',
-    'ttcc',
-    'ttmb',
+    # 'ttlf',
+    # 'ttcc',
+    'ttbar',
     'ttnb',
     'ttH',
     'ttZZ',
