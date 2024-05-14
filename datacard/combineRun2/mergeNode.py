@@ -331,7 +331,7 @@ for file in files:
                     downhistoname_ttlf = 'ljets_ge4j_ge3t_ttlf_node__'+node2+"__"+sys+"Down"
 
                     uphistoname_ttcc = 'ljets_ge4j_ge3t_ttcc_node__'+node2+"__"+sys+"Up"
-                    downhistoname_ttcc = 'ljets_ge4j_ge3t_ttcc_node__'+node2+sys+"Down"
+                    downhistoname_ttcc = 'ljets_ge4j_ge3t_ttcc_node__'+node2+"__"+sys+"Down"
 
                     uphistoname_ttmb = 'ljets_ge4j_ge3t_ttmb_node__'+node2+"__"+sys+"Up"
                     downhistoname_ttmb = 'ljets_ge4j_ge3t_ttmb_node__'+node2+"__"+sys+"Down"
