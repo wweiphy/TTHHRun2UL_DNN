@@ -1669,10 +1669,10 @@ class Dataset:
                 nominal=trigger_hist.GetBinContent(thisBin)
                 error=trigger_hist.GetBinError(thisBin)
 
-                print("pt: ", trigger_pt)
-                print("eta: ", trigger_eta)
-                print("bin: ", thisBin)
-                print("nominal: ", nominal)
+                # print("pt: ", trigger_pt)
+                # print("eta: ", trigger_eta)
+                # print("bin: ", thisBin)
+                # print("nominal: ", nominal)
 
                 eleTrigger.append(nominal)
                 eleTriggerUp.append(nominal+error)
