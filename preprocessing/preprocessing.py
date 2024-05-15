@@ -1519,8 +1519,8 @@ class Dataset:
         df.loc[:, "Muon_IsolationSFDown[0]"] = 0.
 
         df.loc[:, "Weight_MuonTriggerSF"] = 0.
-        df.loc[:, "Weight_MuonTriggerSFUp"] = 0.
-        df.loc[:, "Weight_MuonTriggerSFDown"] = 0.
+        df.loc[:, "Weight_MuonTriggerSF_Up"] = 0.
+        df.loc[:, "Weight_MuonTriggerSF_Down"] = 0.
 
         Reco = pd.DataFrame(muonReco, columns=["Muon_ReconstructionSF[0]"])
         RecoUp = pd.DataFrame(muonRecoUp, columns=["Muon_ReconstructionSFUp[0]"])
@@ -1535,8 +1535,8 @@ class Dataset:
         IsoDown = pd.DataFrame(muonIsoDown, columns=["Muon_IsolationSFDown[0]"])
 
         Trigger = pd.DataFrame(muonTrigger, columns=["Weight_MuonTriggerSF"])
-        TriggerUp = pd.DataFrame(muonTriggerUp, columns=["Weight_MuonTriggerSFUp"])
-        TriggerDown = pd.DataFrame(muonTriggerDown, columns=["Weight_MuonTriggerSFDown"])
+        TriggerUp = pd.DataFrame(muonTriggerUp, columns=["Weight_MuonTriggerSF_Up"])
+        TriggerDown = pd.DataFrame(muonTriggerDown, columns=["Weight_MuonTriggerSF_Down"])
 
         df.update(Reco)
         df.update(RecoUp)
