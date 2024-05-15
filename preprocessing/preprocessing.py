@@ -1656,7 +1656,7 @@ class Dataset:
                 eleIDDown.append(IDSF_down)
 
 
-                trigger_pt = max(xmin+0.1,ele_pt['Electron_Pt_BeforeRun2Calibration'][i][0]);
+                trigger_pt = max(xmin+0.1,ele_pt['Electron_Pt_BeforeRun2Calibration'][i][0])
                 trigger_pt = min(xmax-0.1,trigger_pt)
                 trigger_eta = max(ymin+0.1,ele_eta['Electron_Eta_Supercluster'][i][0])
                 trigger_eta = min(ymax-0.1,trigger_eta)
@@ -1664,6 +1664,11 @@ class Dataset:
                 thisBin = trigger_hist.FindBin(trigger_pt, trigger_eta)
                 nominal=trigger_hist.GetBinContent(thisBin)
                 error=trigger_hist.GetBinError(thisBin)
+
+                print("pt: ", trigger_pt)
+                print("eta: ", trigger_eta)
+                print("bin: ", thisBin)
+                print("nominal: ", nominal)
 
                 eleTrigger.append(nominal)
                 eleTriggerUp.append(nominal+error)
