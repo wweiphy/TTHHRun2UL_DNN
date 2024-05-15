@@ -115,9 +115,9 @@ class Sample:
                 df['muon'] = df['Muon_IdentificationSF[0]']*df['Muon_IsolationSF[0]']*df['Muon_ReconstructionSF[0]'] 
                 print("Electron: ", sum(df[df['electron'] > 0]['electron'].values)/df[df['N_TightElectrons']==1].shape[0])
                 print("Muon: ", sum(df[df['muon'] > 0]['muon'].values)/df[df['N_TightMuons']==1].shape[0])
-                print("check Electron trigger: ", sum(df[df['check_ElectronTrigger'] == 1].shape[0])/df[df['N_TightElectrons']==1].shape[0])
+                print("check Electron trigger: ", df[df['check_ElectronTrigger'] == 1].shape[0]/df[df['N_TightElectrons']==1].shape[0])
                 print("Electron trigger: ", sum(df[df['check_ElectronTrigger'] == 1]['Weight_ElectronTriggerSF'].values)/df[df['N_TightElectrons']==1].shape[0])
-                print("check Electron trigger: ", sum(df[df['check_ElectronTrigger'] == 1].shape[0])/df[df['N_TightElectrons']==1].shape[0])
+                print("check Electron trigger: ", df[df['check_ElectronTrigger'] == 1].shape[0]/df[df['N_TightElectrons']==1].shape[0])
                 print("Electron trigger: ", sum(df[df['check_ElectronTrigger'] == 1]['Weight_ElectronTriggerSF'].values)/df[df['N_TightElectrons']==1].shape[0])
 
                 print("check Muon trigger: ", sum(df[df['check_MuonTrigger'] == 1].shape[0])/df[df['N_TightMuons']==1].shape[0])
