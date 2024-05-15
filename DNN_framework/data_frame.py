@@ -117,10 +117,8 @@ class Sample:
                 print("Muon: ", sum(df[df['muon'] > 0]['muon'].values)/df[df['N_TightMuons']==1].shape[0])
                 print("check Electron trigger: ", df[df['check_ElectronTrigger'] == 1].shape[0]/df[df['N_TightElectrons']==1].shape[0])
                 print("Electron trigger: ", sum(df[df['check_ElectronTrigger'] == 1]['Weight_ElectronTriggerSF'].values)/df[df['N_TightElectrons']==1].shape[0])
-                print("check Electron trigger: ", df[df['check_ElectronTrigger'] == 1].shape[0]/df[df['N_TightElectrons']==1].shape[0])
-                print("Electron trigger: ", sum(df[df['check_ElectronTrigger'] == 1]['Weight_ElectronTriggerSF'].values)/df[df['N_TightElectrons']==1].shape[0])
 
-                print("check Muon trigger: ", sum(df[df['check_MuonTrigger'] == 1].shape[0])/df[df['N_TightMuons']==1].shape[0])
+                print("check Muon trigger: ", df[df['check_MuonTrigger'] == 1].shape[0]/df[df['N_TightMuons']==1].shape[0])
                 print("Muon trigger: ", sum(df[df['check_MuonTrigger'] == 1]['Weight_MuonTriggerSF'].values)/df[df['N_TightMuons']==1].shape[0])
 
                 print("btag SF: ", sum(df['Weight_CSV_UL'].values)/df.shape[0])
