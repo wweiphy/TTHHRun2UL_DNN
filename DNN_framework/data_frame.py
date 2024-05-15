@@ -108,6 +108,23 @@ class Sample:
                 # isr
                 # print(GenNormMap.internalNomFactors['isrUp'][4][1])
 
+                print("PU: ", sum(df['Weight_pu69p2'].values)/df.shape[0])
+                print("L1 prefire: ", sum(df['Weight_L1ECALPrefire'].values)/df.shape[0])
+                print("Pileup Jet ID: ", sum(df['Weight_JetPUID'].values)/df.shape[0])
+                df['electron'] = df['Electron_ReconstructionSF[0]']*df['Electron_IdentificationSF[0]']
+                df['muon'] = df['Muon_IdentificationSF[0]']*df['Muon_IsolationSF[0]']*df['Muon_ReconstructionSF[0]'] 
+                print("Electron: ", sum(df[df['electron'] > 0]['electron'].values)/df[df['N_TightElectrons']==1].shape[0])
+                print("Muon: ", sum(df[df['muon'] > 0]['muon'].values)/df[df['N_TightMuons']==1].shape[0])
+                print("check Electron trigger: ", sum(df[df['check_ElectronTrigger'] == 1].shape[0])/df[df['N_TightElectrons']==1].shape[0])
+                print("Electron trigger: ", sum(df[df['check_ElectronTrigger'] == 1]['Weight_ElectronTriggerSF'].values)/df[df['N_TightElectrons']==1].shape[0])
+                print("check Electron trigger: ", sum(df[df['check_ElectronTrigger'] == 1].shape[0])/df[df['N_TightElectrons']==1].shape[0])
+                print("Electron trigger: ", sum(df[df['check_ElectronTrigger'] == 1]['Weight_ElectronTriggerSF'].values)/df[df['N_TightElectrons']==1].shape[0])
+
+                print("check Muon trigger: ", sum(df[df['check_MuonTrigger'] == 1].shape[0])/df[df['N_TightMuons']==1].shape[0])
+                print("Muon trigger: ", sum(df[df['check_MuonTrigger'] == 1]['Weight_MuonTriggerSF'].values)/df[df['N_TightMuons']==1].shape[0])
+
+                print("btag SF: ", sum(df['Weight_CSV_UL'].values)/df.shape[0])
+
                 df.query('sf_weight > 0.', inplace=True)
 
                 df = df.assign(total_preweight=lambda x: (self.normalization_weight * x['total_weight']))
