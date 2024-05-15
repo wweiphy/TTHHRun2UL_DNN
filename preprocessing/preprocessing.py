@@ -1621,6 +1621,10 @@ class Dataset:
                 eleIDUp.append(0.)
                 eleIDDown.append(0.)
 
+                eleTrigger.append(0.)
+                eleTriggerUp.append(0.)
+                eleTriggerDown.append(0.)
+
             else:
 
 
