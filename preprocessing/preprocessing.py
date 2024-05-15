@@ -1329,7 +1329,8 @@ class Dataset:
 
                     if jet_pt['Jet_Pt'][i][j] != jet_pt['Jet_Pt'][i][j]: continue
 
-
+                    jet_btagsf_perevent *= btvjson["deepJet_shape"].evaluate(dosyst, int(jet_flavor['Jet_Flav'][i][j]), abs(float(jet_eta['Jet_Eta'][i][j])), float(jet_pt['Jet_Pt'][i][j]), float(jet_bTag['Jet_CSV'][i][j]))
+                    
                     # btagging SF
                     if int(jet_flavor['Jet_Flav'][i][j]) != 4: 
 
