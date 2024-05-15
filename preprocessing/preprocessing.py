@@ -466,6 +466,12 @@ class Dataset:
                             
                             
                             print("muon trigger SF: ", sum(df[df['check_MuonTrigger'] == 1]['Weight_MuonTriggerSF'].values)/df[df['N_TightMuons']==1].shape[0])
+                            print("muon trigger SF Up: ", sum(df[df['check_MuonTrigger'] == 1]['Weight_MuonTriggerSF_Up'].values)/df[df['N_TightMuons']==1].shape[0])
+                            print("muon trigger SF Down: ", sum(df[df['check_MuonTrigger'] == 1]['Weight_MuonTriggerSF_Down'].values)/df[df['N_TightMuons']==1].shape[0])
+                            
+                            print("ele trigger SF: ", sum(df[df['check_ElectronTrigger'] == 1]['Weight_ElectronTriggerSF'].values)/df[df['N_TightElectrons']==1].shape[0])
+                            print("ele trigger SF Up: ", sum(df[df['check_ElectronTrigger'] == 1]['Weight_ElectronTriggerSF_Up'].values)/df[df['N_TightElectrons']==1].shape[0])
+                            print("ele trigger SF Down: ", sum(df[df['check_ElectronTrigger'] == 1]['Weight_ElectronTriggerSF_Down'].values)/df[df['N_TightElectrons']==1].shape[0])
 
                             df.loc[:, "btagfactor"] = btagfactor 
 
@@ -611,6 +617,14 @@ class Dataset:
                             df = self.CalculateMuonSFs(tree, df)
                             df = self.CalculateElectronSFs(tree, df)
 
+                            print("muon trigger SF: ", sum(df[df['check_MuonTrigger'] == 1]['Weight_MuonTriggerSF'].values)/df[df['N_TightMuons']==1].shape[0])
+                            print("muon trigger SF Up: ", sum(df[df['check_MuonTrigger'] == 1]['Weight_MuonTriggerSF_Up'].values)/df[df['N_TightMuons']==1].shape[0])
+                            print("muon trigger SF Down: ", sum(df[df['check_MuonTrigger'] == 1]['Weight_MuonTriggerSF_Down'].values)/df[df['N_TightMuons']==1].shape[0])
+                            
+                            print("ele trigger SF: ", sum(df[df['check_ElectronTrigger'] == 1]['Weight_ElectronTriggerSF'].values)/df[df['N_TightElectrons']==1].shape[0])
+                            print("ele trigger SF Up: ", sum(df[df['check_ElectronTrigger'] == 1]['Weight_ElectronTriggerSF_Up'].values)/df[df['N_TightElectrons']==1].shape[0])
+                            print("ele trigger SF Down: ", sum(df[df['check_ElectronTrigger'] == 1]['Weight_ElectronTriggerSF_Down'].values)/df[df['N_TightElectrons']==1].shape[0])
+
                             df.loc[:, "btagfactor"] = btagfactor 
                             
 
@@ -629,6 +643,14 @@ class Dataset:
                         df = self.CalculateSFs(tree, df)
                         df = self.CalculateMuonSFs(tree, df)
                         df = self.CalculateElectronSFs(tree, df)
+
+                        print("muon trigger SF: ", sum(df[df['check_MuonTrigger'] == 1]['Weight_MuonTriggerSF'].values)/df[df['N_TightMuons']==1].shape[0])
+                        print("muon trigger SF Up: ", sum(df[df['check_MuonTrigger'] == 1]['Weight_MuonTriggerSF_Up'].values)/df[df['N_TightMuons']==1].shape[0])
+                        print("muon trigger SF Down: ", sum(df[df['check_MuonTrigger'] == 1]['Weight_MuonTriggerSF_Down'].values)/df[df['N_TightMuons']==1].shape[0])
+                        
+                        print("ele trigger SF: ", sum(df[df['check_ElectronTrigger'] == 1]['Weight_ElectronTriggerSF'].values)/df[df['N_TightElectrons']==1].shape[0])
+                        print("ele trigger SF Up: ", sum(df[df['check_ElectronTrigger'] == 1]['Weight_ElectronTriggerSF_Up'].values)/df[df['N_TightElectrons']==1].shape[0])
+                        print("ele trigger SF Down: ", sum(df[df['check_ElectronTrigger'] == 1]['Weight_ElectronTriggerSF_Down'].values)/df[df['N_TightElectrons']==1].shape[0]) 
 
                         df = df.assign(sf_weight=lambda x: (sample.lumiWeight*x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSF[0]'] > 0.) & (x['Electron_ReconstructionSF[0]'] > 0.))*1.*x['Electron_IdentificationSF[0]']*x['Electron_ReconstructionSF[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & (x['check_ElectronTrigger']) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['check_MuonTrigger'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
 
@@ -665,6 +687,14 @@ class Dataset:
                             df = self.CalculateSFs(tree,df)
                             df = self.CalculateMuonSFs(tree, df)
                             df = self.CalculateElectronSFs(tree, df)
+
+                        print("muon trigger SF: ", sum(df[df['check_MuonTrigger'] == 1]['Weight_MuonTriggerSF'].values)/df[df['N_TightMuons']==1].shape[0])
+                        print("muon trigger SF Up: ", sum(df[df['check_MuonTrigger'] == 1]['Weight_MuonTriggerSF_Up'].values)/df[df['N_TightMuons']==1].shape[0])
+                        print("muon trigger SF Down: ", sum(df[df['check_MuonTrigger'] == 1]['Weight_MuonTriggerSF_Down'].values)/df[df['N_TightMuons']==1].shape[0])
+                        
+                        print("ele trigger SF: ", sum(df[df['check_ElectronTrigger'] == 1]['Weight_ElectronTriggerSF'].values)/df[df['N_TightElectrons']==1].shape[0])
+                        print("ele trigger SF Up: ", sum(df[df['check_ElectronTrigger'] == 1]['Weight_ElectronTriggerSF_Up'].values)/df[df['N_TightElectrons']==1].shape[0])
+                        print("ele trigger SF Down: ", sum(df[df['check_ElectronTrigger'] == 1]['Weight_ElectronTriggerSF_Down'].values)/df[df['N_TightElectrons']==1].shape[0])
 
                         df = df.assign(sf_weight=lambda x: (sample.lumiWeight*x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSF[0]'] > 0.) & (x['Electron_ReconstructionSF[0]'] > 0.))*1.*x['Electron_IdentificationSF[0]']*x['Electron_ReconstructionSF[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & (x['check_ElectronTrigger']) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['check_MuonTrigger'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
 
@@ -1358,7 +1388,7 @@ class Dataset:
             muonjson = _core.CorrectionSet.from_file(muonName)
 
         muon_eta = tree.pandas.df("Muon_Eta")
-        muon_pt = tree.pandas.df("Muon_Pt")
+        muon_pt = tree.pandas.df("Muon_Pt_BeForeRC")
         nmuon = tree.pandas.df("N_TightMuons")
 
         muonReco = []
@@ -1406,29 +1436,29 @@ class Dataset:
 
                     corrected_eta = abs(float(muon_eta['Muon_Eta'][i][0])) 
 
-                if float(muon_pt['Muon_Pt'][i][0]) < 40.:
+                if float(muon_pt['Muon_Pt_BeForeRC'][i][0]) < 40.:
 
                     reco_corrected_pt =  40.
 
                 else:
 
-                    reco_corrected_pt = float(muon_pt['Muon_Pt'][i][0])
+                    reco_corrected_pt = float(muon_pt['Muon_Pt_BeForeRC'][i][0])
 
-                if float(muon_pt['Muon_Pt'][i][0]) < 15.:
+                if float(muon_pt['Muon_Pt_BeForeRC'][i][0]) < 15.:
 
                     id_corrected_pt =  15.
 
                 else:
 
-                    id_corrected_pt = float(muon_pt['Muon_Pt'][i][0]) 
+                    id_corrected_pt = float(muon_pt['Muon_Pt_BeForeRC'][i][0]) 
 
-                if float(muon_pt['Muon_Pt'][i][0]) < 26.:
+                if float(muon_pt['Muon_Pt_BeForeRC'][i][0]) < 26.:
 
                     trigger_corrected_pt =  26.
 
                 else:
 
-                    trigger_corrected_pt = float(muon_pt['Muon_Pt'][i][0]) 
+                    trigger_corrected_pt = float(muon_pt['Muon_Pt_BeForeRC'][i][0]) 
 
                 if self.dataEra == "2018" or self.dataEra == 2018:
                     jsonName = "NUM_IsoMu24_DEN_CutBasedIdTight_and_PFIsoTight"
@@ -1538,8 +1568,32 @@ class Dataset:
         else:
             elejson = _core.CorrectionSet.from_file(eleName)
 
-        ele_eta = tree.pandas.df("Electron_Eta")
-        ele_pt = tree.pandas.df("Electron_Pt")
+        if self.dataEra == "2016postVFP" or self.dataEra == "2016preVFP":
+
+            trigger_histoFile = os.path.join(eleDir, "SingleEG_JetHT_Trigger_Scale_Factors_ttHbb2016_v4.root")
+            trigger_histoname = "ele27_ele_pt_ele_sceta"
+
+        elif self.dataEra == "2017" or self.dataEra == 2017:
+
+            trigger_histoFile = os.path.join(eleDir, "SingleEG_JetHT_Trigger_Scale_Factors_ttHbb2017_v3.root")
+            trigger_histoname = "ele28_ht150_OR_ele32_ele_pt_ele_sceta"
+
+        if self.dataEra == "2018" or self.dataEra == 2018:
+
+            trigger_histoFile = os.path.join(eleDir, "SingleEG_JetHT_Trigger_Scale_Factors_ttHbb2018_v3.root")
+            trigger_histoname = "ele28_ht150_OR_ele32_ele_pt_ele_sceta"
+
+        trigger_file = ROOT.TFile(trigger_histoFile,"READ")
+        trigger_hist = trigger_file.Get(trigger_histoname)
+
+        xmin = trigger_hist.GetXaxis().GetXmin()
+        xmax = trigger_hist.GetXaxis().GetXmax()
+        ymin = trigger_hist.GetYaxis().GetXmin()
+        ymax = trigger_hist.GetYaxis().GetXmax()
+
+
+        ele_eta = tree.pandas.df("Electron_Eta_Supercluster")
+        ele_pt = tree.pandas.df("Electron_Pt_BeforeRun2Calibration")
         nele = tree.pandas.df("N_TightElectrons")
 
         eleReco = []
@@ -1549,6 +1603,10 @@ class Dataset:
         eleID = []
         eleIDUp = []
         eleIDDown = []
+
+        eleTrigger = []
+        eleTriggerUp = []
+        eleTriggerDown = []
 
         for i in range(nele.size):
 
@@ -1565,27 +1623,27 @@ class Dataset:
             else:
 
 
-                if float(ele_pt['Electron_Pt'][i][0]) < 10.: 
+                if float(ele_pt['Electron_Pt_BeforeRun2Calibration'][i][0]) < 10.: 
                     corrected_pt = 10.
                 else:
-                    corrected_pt = float(ele_pt['Electron_Pt'][i][0]) 
+                    corrected_pt = float(ele_pt['Electron_Pt_BeforeRun2Calibration'][i][0]) 
 
                 if corrected_pt <= 20.:
 
-                    RecoSF = elejson["UL-Electron-ID-SF"].evaluate(self.dataEra,"sf","RecoBelow20",float(ele_eta['Electron_Eta'][i][0]), corrected_pt)
-                    RecoSF_up = elejson["UL-Electron-ID-SF"].evaluate(self.dataEra,"sfup","RecoBelow20",float(ele_eta['Electron_Eta'][i][0]), corrected_pt)
-                    RecoSF_down = elejson["UL-Electron-ID-SF"].evaluate(self.dataEra,"sfdown","RecoBelow20",float(ele_eta['Electron_Eta'][i][0]), corrected_pt) 
+                    RecoSF = elejson["UL-Electron-ID-SF"].evaluate(self.dataEra,"sf","RecoBelow20",float(ele_eta['Electron_Eta_Supercluster'][i][0]), corrected_pt)
+                    RecoSF_up = elejson["UL-Electron-ID-SF"].evaluate(self.dataEra,"sfup","RecoBelow20",float(ele_eta['Electron_Eta_Supercluster'][i][0]), corrected_pt)
+                    RecoSF_down = elejson["UL-Electron-ID-SF"].evaluate(self.dataEra,"sfdown","RecoBelow20",float(ele_eta['Electron_Eta_Supercluster'][i][0]), corrected_pt) 
                 
                 else:
 
-                    RecoSF = elejson["UL-Electron-ID-SF"].evaluate(self.dataEra,"sf","RecoAbove20",float(ele_eta['Electron_Eta'][i][0]), corrected_pt)
-                    RecoSF_up = elejson["UL-Electron-ID-SF"].evaluate(self.dataEra,"sfup","RecoAbove20",float(ele_eta['Electron_Eta'][i][0]), corrected_pt)
-                    RecoSF_down = elejson["UL-Electron-ID-SF"].evaluate(self.dataEra,"sfdown","RecoAbove20",float(ele_eta['Electron_Eta'][i][0]), corrected_pt) 
+                    RecoSF = elejson["UL-Electron-ID-SF"].evaluate(self.dataEra,"sf","RecoAbove20",float(ele_eta['Electron_Eta_Supercluster'][i][0]), corrected_pt)
+                    RecoSF_up = elejson["UL-Electron-ID-SF"].evaluate(self.dataEra,"sfup","RecoAbove20",float(ele_eta['Electron_Eta_Supercluster'][i][0]), corrected_pt)
+                    RecoSF_down = elejson["UL-Electron-ID-SF"].evaluate(self.dataEra,"sfdown","RecoAbove20",float(ele_eta['Electron_Eta_Supercluster'][i][0]), corrected_pt) 
 
                 
-                IDSF = elejson["UL-Electron-ID-SF"].evaluate(self.dataEra,"sf","Tight",float(ele_eta['Electron_Eta'][i][0]), corrected_pt)
-                IDSF_up = elejson["UL-Electron-ID-SF"].evaluate(self.dataEra,"sfup","Tight",float(ele_eta['Electron_Eta'][i][0]), corrected_pt)
-                IDSF_down = elejson["UL-Electron-ID-SF"].evaluate(self.dataEra,"sfdown","Tight",float(ele_eta['Electron_Eta'][i][0]), corrected_pt)
+                IDSF = elejson["UL-Electron-ID-SF"].evaluate(self.dataEra,"sf","Tight",float(ele_eta['Electron_Eta_Supercluster'][i][0]), corrected_pt)
+                IDSF_up = elejson["UL-Electron-ID-SF"].evaluate(self.dataEra,"sfup","Tight",float(ele_eta['Electron_Eta_Supercluster'][i][0]), corrected_pt)
+                IDSF_down = elejson["UL-Electron-ID-SF"].evaluate(self.dataEra,"sfdown","Tight",float(ele_eta['Electron_Eta_Supercluster'][i][0]), corrected_pt)
 
                 eleReco.append(RecoSF)
                 eleRecoUp.append(RecoSF_up)
@@ -1597,6 +1655,20 @@ class Dataset:
                 eleIDDown.append(IDSF_down)
 
 
+                trigger_pt = max(xmin+0.1,ele_pt['Electron_Pt_BeforeRun2Calibration'][i][0]);
+                trigger_pt = min(xmax-0.1,trigger_pt)
+                trigger_eta = max(ymin+0.1,ele_eta['Electron_Eta_Supercluster'][i][0])
+                trigger_eta = min(ymax-0.1,trigger_eta)
+
+                thisBin = trigger_hist.FindBin(trigger_pt, trigger_eta)
+                nominal=trigger_hist.GetBinContent(thisBin)
+                error=trigger_hist.GetBinError(thisBin)
+
+                eleTrigger.append(nominal)
+                eleTriggerUp.append(nominal+error)
+                eleTriggerDown.append(nominal-error)
+
+
         df.loc[:, "Electron_ReconstructionSF[0]"] = 0.
         df.loc[:, "Electron_ReconstructionSFUp[0]"] = 0.
         df.loc[:, "Electron_ReconstructionSFDown[0]"] = 0.
@@ -1604,6 +1676,10 @@ class Dataset:
         df.loc[:, "Electron_IdentificationSF[0]"] = 0.
         df.loc[:, "Electron_IdentificationSFUp[0]"] = 0.
         df.loc[:, "Electron_IdentificationSFDown[0]"] = 0.
+
+        df.loc[:, "Weight_ElectronTriggerSF"] = 0.
+        df.loc[:, "Weight_ElectronTriggerSF_Up"] = 0.
+        df.loc[:, "Weight_ElectronTriggerSF_Down"] = 0.
 
         Reco = pd.DataFrame(eleReco, columns=["Electron_ReconstructionSF[0]"])
         RecoUp = pd.DataFrame(eleRecoUp, columns=["Electron_ReconstructionSFUp[0]"])
@@ -1613,6 +1689,10 @@ class Dataset:
         IdentificationUp = pd.DataFrame(eleIDUp, columns=["Electron_IdentificationSFUp[0]"])
         IdentificationDown = pd.DataFrame(eleIDDown, columns=["Electron_IdentificationSFDown[0]"])
 
+        TriggerSF = pd.DataFrame(eleTrigger, columns=["Weight_ElectronTriggerSF"])
+        TriggerSFUp = pd.DataFrame(eleTriggerUp, columns=["Weight_ElectronTriggerSF_Up"])
+        TriggerSFDown = pd.DataFrame(eleTriggerDown, columns=["Weight_ElectronTriggerSF_Down"])
+
 
         df.update(Reco)
         df.update(RecoUp)
@@ -1620,6 +1700,9 @@ class Dataset:
         df.update(Identification)
         df.update(IdentificationUp)
         df.update(IdentificationDown)
+        df.update(TriggerSF)
+        df.update(TriggerSFUp)
+        df.update(TriggerSFDown)
 
         return df  
     
