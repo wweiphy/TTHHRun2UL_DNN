@@ -469,6 +469,9 @@ class Dataset:
                             # nominal values
                             df = df.assign(sf_weight=lambda x: (btagfactor*sample.lumiWeight*x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSF[0]'] > 0.) & (x['Electron_ReconstructionSF[0]'] > 0.))*1.*x['Electron_IdentificationSF[0]']*x['Electron_ReconstructionSF[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & (x['check_ElectronTrigger']) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['check_MuonTrigger'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
 
+
+
+
                             # btag SF & uncertainties
                             df = df.assign(xs_weight=lambda x: x.Weight_XS * x.Weight_GEN_nom)
                             # df = df.assign(xs_weight=lambda x: x.Weight_XS *
@@ -1365,6 +1368,10 @@ class Dataset:
         muonIsoUp = []
         muonIsoDown = []
 
+        muonTrigger = []
+        muonTriggerUp = []
+        muonTriggerDown = []
+
         for i in range(nmuon.size):
 
             if nmuon['N_TightMuons'][i] != 1:
@@ -1380,6 +1387,10 @@ class Dataset:
                 muonIso.append(0.)
                 muonIsoUp.append(0.)
                 muonIsoDown.append(0.)
+
+                muonTrigger.append(0.)
+                muonTriggerUp.append(0.)
+                muonTriggerDown.append(0.)
 
             else:
 
@@ -1406,6 +1417,26 @@ class Dataset:
 
                     id_corrected_pt = float(muon_pt['Muon_Pt'][i][0]) 
 
+                if float(muon_pt['Muon_Pt'][i][0]) < 26.:
+
+                    trigger_corrected_pt =  26.
+
+                else:
+
+                    trigger_corrected_pt = float(muon_pt['Muon_Pt'][i][0]) 
+
+                if self.dataEra == "2018" or self.dataEra == 2018:
+                    jsonName = "NUM_IsoMu24_DEN_CutBasedIdTight_and_PFIsoTight"
+
+                elif self.dataEra == "2017" or self.dataEra == 2017:
+
+                    jsonName = "NUM_IsoMu27_DEN_CutBasedIdTight_and_PFIsoTight"
+
+                elif self.dataEra == "2016preVFP" or self.dataEra == "2016postVFP":
+
+                    jsonName = "NUM_IsoMu24_or_IsoTkMu24_DEN_CutBasedIdTight_and_PFIsoTight" 
+
+
                 RecoSF = muonjson["NUM_TrackerMuons_DEN_genTracks"].evaluate(corrected_eta, reco_corrected_pt, "nominal")
                 RecoSF_up = muonjson["NUM_TrackerMuons_DEN_genTracks"].evaluate(corrected_eta, reco_corrected_pt, "systup")
                 RecoSF_down = muonjson["NUM_TrackerMuons_DEN_genTracks"].evaluate(corrected_eta, reco_corrected_pt, "systdown")
@@ -1430,6 +1461,14 @@ class Dataset:
                 muonIsoUp.append(IsoSF_up)
                 muonIsoDown.append(IsoSF_down)
 
+                TriggerSF = muonjson[jsonName].evaluate(corrected_eta, trigger_corrected_pt, "nominal")
+                TriggerSF_up = muonjson[jsonName].evaluate(corrected_eta, trigger_corrected_pt, "systup")
+                TriggerSF_down = muonjson[jsonName].evaluate(corrected_eta, trigger_corrected_pt, "systdown")
+
+                muonTrigger.append(TriggerSF)
+                muonTriggerUp.append(TriggerSF_up)
+                muonTriggerDown.append(TriggerSF_down)
+
 
         df.loc[:, "Muon_ReconstructionSF[0]"] = 0.
         df.loc[:, "Muon_ReconstructionSFUp[0]"] = 0.
@@ -1443,6 +1482,10 @@ class Dataset:
         df.loc[:, "Muon_IsolationSFUp[0]"] = 0.
         df.loc[:, "Muon_IsolationSFDown[0]"] = 0.
 
+        df.loc[:, "Weight_MuonTriggerSF"] = 0.
+        df.loc[:, "Weight_MuonTriggerSFUp"] = 0.
+        df.loc[:, "Weight_MuonTriggerSFDown"] = 0.
+
         Reco = pd.DataFrame(muonReco, columns=["Muon_ReconstructionSF[0]"])
         RecoUp = pd.DataFrame(muonRecoUp, columns=["Muon_ReconstructionSFUp[0]"])
         RecoDown = pd.DataFrame(muonRecoDown, columns=["Muon_ReconstructionSFDown[0]"])
@@ -1455,6 +1498,10 @@ class Dataset:
         IsoUp = pd.DataFrame(muonIsoUp, columns=["Muon_IsolationSFUp[0]"])
         IsoDown = pd.DataFrame(muonIsoDown, columns=["Muon_IsolationSFDown[0]"])
 
+        Trigger = pd.DataFrame(muonTrigger, columns=["Weight_MuonTriggerSF"])
+        TriggerUp = pd.DataFrame(muonTriggerUp, columns=["Weight_MuonTriggerSFUp"])
+        TriggerDown = pd.DataFrame(muonTriggerDown, columns=["Weight_MuonTriggerSFDown"])
+
         df.update(Reco)
         df.update(RecoUp)
         df.update(RecoDown)
@@ -1464,6 +1511,9 @@ class Dataset:
         df.update(Iso)
         df.update(IsoUp)
         df.update(IsoDown)
+        df.update(Trigger)
+        df.update(TriggerUp)
+        df.update(TriggerDown)
 
         return df
 
