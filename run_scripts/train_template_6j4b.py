@@ -1,11 +1,10 @@
 
-# 4j3b 50
-# python train_template_6j4b.py -i DNN_0308_UL_2018 -o 230220_all  --plot --printroc -c ge6j_ge4t --epochs=500 --signalclass=ttHH -f 0.2 -v variables -n ge4j_ge3t_ttH
+# 2018
+# python train_template_6j4b.py -i DNN_0308_UL_2018 -o 230220_50_2  --plot --printroc -c ge6j_ge4t --epochs=500 --signalclass=ttHH -f 0.2 -v dnn_variables_new_50 -n ge4j_ge3t_ttH 
+ 
+# python train_template_6j4b.py -i DNN_0308_UL_2018 -o 230220_50_3 --plot --printroc -c ge5j_ge4t --epochs=500 --signalclass=ttHH -f 0.2 -v dnn_variables_new_50 -n ge4j_ge3t_ttH 
 
-# python train_template_6j4b.py -i DNN_0308_UL_2018 -o 230220_200  --plot --printroc -c ge6j_ge4t --epochs=500 --signalclass=ttHH -f 0.2 -v dnn_variables_new_200 -n ge4j_ge3t_ttH
-
-
-# python train_template_6j4b.py -i DNN_0308_UL_2018 -o 230220_50_2  --plot --printroc -c ge6j_ge4t --epochs=500 --signalclass=ttHH -f 0.2 -v dnn_variables_new_50 -n ge4j_ge3t_ttH
+# python train_template_6j4b.py -i DNN_0308_UL_2018 -o 230220_50_2 --plot --printroc -c ge4j_ge3t --epochs=500 --signalclass=ttHH -f 0.2 -v dnn_variables_new_50 -n ge4j_ge3t_ttH 
 
 # 2016post
 # python train_template_6j4b.py -i DNN_0509_UL_2016post -o 230523_50_2  --plot --printroc -c ge6j_ge4t --epochs=500 --signalclass=ttHH -f 0.2 -v dnn_variables_new_50 -n ge4j_ge3t_ttH 
@@ -104,6 +103,7 @@ if options.isBinary():
 dnn = DNN.DNN(
     save_path       = options.getOutputDir(),
     input_samples   = input_samples,
+    input_path = options.getInputDirectory() ,
     category_name   = options.getCategory(),
     train_variables = options.getTrainVariables(),
     # number of epochs
