@@ -6,6 +6,9 @@
 
 # python train_template_6j4b.py -i DNN_0308_UL_2018 -o 230220_50_2 --plot --printroc -c ge4j_ge3t --epochs=500 --signalclass=ttHH -f 0.2 -v dnn_variables_new_50 -n ge4j_ge3t_ttH 
 
+# 2017
+# python train_template_6j4b.py -i DNN_0119_UL -o 230119_50_3 --plot --printroc -c ge5j_ge4t --epochs=500 --signalclass=ttHH -f 0.2 -v dnn_variables_new_50 -n ge4j_ge3t_ttH 
+
 # 2016post
 # python train_template_6j4b.py -i DNN_0509_UL_2016post -o 230523_50_2  --plot --printroc -c ge6j_ge4t --epochs=500 --signalclass=ttHH -f 0.2 -v dnn_variables_new_50 -n ge4j_ge3t_ttH 
  
@@ -54,7 +57,7 @@ options.initArguments()
 
 
 # load samples
-input_samples = df.InputSamples(options.getInputDirectory(),dataEra="2017", test_percentage=options.getTestPercentage())
+input_samples = df.InputSamples(options.getInputDirectory(),dataEra="2016preVFP", test_percentage=options.getTestPercentage())
 
 
 weight_expr = 'x.Weight_XS * x.Weight_CSV_UL * x.Weight_GEN_nom'
