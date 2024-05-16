@@ -43,7 +43,7 @@ options.initArguments()
 
 
 # load samples
-input_samples = df.InputSamples(options.getInputDirectory(),dataEra="2016preVFP", test_percentage=options.getTestPercentage())
+input_samples = df.InputSamples(options.getInputDirectory(),dataEra="2018", test_percentage=options.getTestPercentage())
 
 weight_expr = 'x.Weight_XS * x.Weight_CSV_UL * x.Weight_GEN_nom'
 
@@ -97,7 +97,8 @@ dnn = DNN.DNN(
     # metrics for evaluation (c.f. KERAS metrics)
     eval_metrics    = ["acc"],
     Do_Evaluation   = False,
-    lumi=78.08,
+    lumi=119.66,
+    # lumi=78.08,
     # percentage of train set to be used for testing (i.e. evaluating/plotting after training)
     test_percentage = options.getTestPercentage(),
     # balance samples per epoch such that there amount of samples per category is roughly equal
