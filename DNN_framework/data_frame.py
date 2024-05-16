@@ -122,6 +122,7 @@ class Sample:
                 print("Muon trigger: ", sum(df[df['check_MuonTrigger'] == 1]['Weight_MuonTriggerSF'].values)/df[df['N_TightMuons']==1].shape[0])
 
                 print("btag SF: ", sum(df['Weight_CSV_UL'].values)/df.shape[0])
+                print("xs SF: ", sum(df['weight_xs'].values)/df.shape[0])
 
                 df.query('sf_weight > 0.', inplace=True)
 
