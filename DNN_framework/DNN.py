@@ -5,6 +5,7 @@ import pandas as pd
 # import ROOT
 import array
 import math
+sys.path.append(os.path.realpath(__file__))
 import generateJTcut as JTcut
 import data_frame
 import csv
