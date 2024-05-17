@@ -132,7 +132,7 @@ class savenominalDiscriminators:
                         # for 5j4b and 6j4b
                         # current_binrange = [0, 0.18, 0.22, 0.235, 0.28, 0.5]
                         current_binrange = [0, 0.18, 0.19,
-                                            0.20, 0.21, 0.22, 0.235, 0.25, 0.33, 0.45]
+                                            0.20, 0.21, 0.22, 0.235, 0.25, 0.45]
                         # current_binrange = [0, 0.16, 0.18, 0.19,
                         #                     0.20, 0.21, 0.22, 0.235, 0.25, 0.28, 0.5]
                         nbins = len(current_binrange) - 1
@@ -666,7 +666,7 @@ class saveDataDiscriminators:
                         # for 5j4b and 6j4b
                         # current_binrange = [0, 0.18, 0.22, 0.235, 0.28, 0.5]
                         current_binrange = [0, 0.18, 0.19,
-                                            0.20, 0.21, 0.22, 0.235, 0.25, 0.33, 0.45]
+                                            0.20, 0.21, 0.22, 0.235, 0.25, 0.45]
                         # current_binrange = [0, 0.16, 0.18, 0.19,
                         #                     0.20, 0.21, 0.22, 0.235, 0.25, 0.28, 0.5]
                         nbins = len(current_binrange) - 1
@@ -893,7 +893,7 @@ class saveJESJERDiscriminators:
                         # for 5j4b and 6j4b
                         # current_binrange = [0, 0.18, 0.22, 0.235, 0.28, 0.5]
                         current_binrange = [0, 0.18, 0.19,
-                                            0.20, 0.21, 0.22, 0.235, 0.25, 0.33, 0.45]
+                                            0.20, 0.21, 0.22, 0.235, 0.25, 0.45]
                         # current_binrange = [0, 0.16, 0.18, 0.19,
                         #                     0.20, 0.21, 0.22, 0.235, 0.25, 0.28, 0.5]
                         nbins = len(current_binrange) - 1
