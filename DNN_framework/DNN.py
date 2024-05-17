@@ -5,7 +5,10 @@ import pandas as pd
 # import ROOT
 import array
 import math
-sys.path.append(os.path.realpath(__file__))
+filedir = os.path.realpath(__file__)
+sys.path.append(filedir)
+basedir = os.path.dirname(filedir)
+sys.path.append(basedir)
 import generateJTcut as JTcut
 import data_frame
 import csv
