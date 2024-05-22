@@ -1379,6 +1379,21 @@ class Dataset:
 
         print("handle muon SF for "+self.dataEra)
 
+        if self.dataEra == "2018" or self.dataEra == 2018:
+            jsonName = "NUM_IsoMu24_DEN_CutBasedIdTight_and_PFIsoTight"
+            pt_min = 26. 
+
+        elif self.dataEra == "2017" or self.dataEra == 2017:
+
+            jsonName = "NUM_IsoMu27_DEN_CutBasedIdTight_and_PFIsoTight"
+            pt_min = 29.
+
+        elif self.dataEra == "2016preVFP" or self.dataEra == "2016postVFP":
+
+            jsonName = "NUM_IsoMu24_or_IsoTkMu24_DEN_CutBasedIdTight_and_PFIsoTight"
+            pt_min = 26. 
+                    
+
         
         if muonName.endswith(".gz"):
             
@@ -1453,24 +1468,15 @@ class Dataset:
 
                     id_corrected_pt = float(muon_pt['Muon_Pt_BeForeRC'][i][0]) 
 
-                if float(muon_pt['Muon_Pt_BeForeRC'][i][0]) < 26.:
+                if float(muon_pt['Muon_Pt_BeForeRC'][i][0]) < pt_min:
 
-                    trigger_corrected_pt =  26.
+                    trigger_corrected_pt =  pt_min
 
                 else:
 
                     trigger_corrected_pt = float(muon_pt['Muon_Pt_BeForeRC'][i][0]) 
 
-                if self.dataEra == "2018" or self.dataEra == 2018:
-                    jsonName = "NUM_IsoMu24_DEN_CutBasedIdTight_and_PFIsoTight"
-
-                elif self.dataEra == "2017" or self.dataEra == 2017:
-
-                    jsonName = "NUM_IsoMu27_DEN_CutBasedIdTight_and_PFIsoTight"
-
-                elif self.dataEra == "2016preVFP" or self.dataEra == "2016postVFP":
-
-                    jsonName = "NUM_IsoMu24_or_IsoTkMu24_DEN_CutBasedIdTight_and_PFIsoTight" 
+                
 
 
                 RecoSF = muonjson["NUM_TrackerMuons_DEN_genTracks"].evaluate(corrected_eta, reco_corrected_pt, "nominal")
