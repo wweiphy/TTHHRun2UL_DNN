@@ -12,7 +12,7 @@ import preprocessing
 
 
 """
-USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_bTag_ttbbDL.py --outputdirectory=BTag_0308_UL_nominal --variableselection=variables_bTagCorrection --maxentries=20000 --cores=8 --dataEra=2018
+USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_bTag_ttbbDL.py --outputdirectory=BTag_0119_UL_nominal --variableselection=variables_bTagCorrection --maxentries=20000 --cores=8 --dataEra=2017
 """
 
 usage="usage=%prog [options] \n"
@@ -126,7 +126,7 @@ dataset.addBaseSelection(base_selection)
 dataset.addSample(
     sampleName="TTbbDL",
     ntuples=ntuplesPath2 +
-    "/2018/ntuple/TTbb_4f_TTTo2L2Nu_TuneCP5-Powheg-Openloops-Pythia8/sl_LEG_ntuple_2018/240330_005217/*/*nominal*.root",
+    "/2017/ntuple/TTbb_4f_TTTo2L2Nu_TuneCP5-Powheg-Openloops-Pythia8/sl_LEG_ntuple_2017/240331_223756/*/*nominal*.root",
     # 221118_234955
     categories=ttmb_categories,
     process="ttbbDL",

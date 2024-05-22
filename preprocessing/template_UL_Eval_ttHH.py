@@ -12,7 +12,7 @@ import preprocessing
 
 
 """
-USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/EL8/CMSSW_12_4_3/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_ttHH.py --outputdirectory=Eval_0308_UL_3_nominal --variableselection=variables --maxentries=20000 --cores=8 --dataEra=2018
+USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_ttHH.py --outputdirectory=Eval_0119_UL_nominal_3 --variableselection=variables --maxentries=20000 --cores=8 --dataEra=2017
 """
 
 usage="usage=%prog [options] \n"
@@ -92,7 +92,7 @@ else:
 
 base_selection = "("+base+" and ("+single_mu_sel+" or "+single_el_sel+"))"
 
-ttHH_selection = "(Evt_Odd == 0)"  # Should I do this on ttHH
+ttHH_selection = "(Evt_Odd == 0)"   # Should I do this on ttHH
 
 # define output classes
 ttHH_categories = preprocessing.EventCategories()
@@ -147,15 +147,15 @@ dataset.addBaseSelection(base_selection)
 
 
 dataset.addSample(
-    sampleName="TTHHTo4b",
+    sampleName="TTHH",
     ntuples=ntuplesPath2 +
-    "/2018/ntuple/TTHHTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2018/240322_015524/*/*nominal*.root",
+    "/2017/ntuple/TTHHTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2017/240405_204825/*/*nominal*root",
     #    ntuples     = ntuplesPath+"/ttHH_4b.root",
     categories=ttHH_categories,
     process = "ttHH",
-    #    lumiWeight  = 41.5,
-    # selections  = None,
+    # lumiWeight  = 1.105,
     selections=ttHH_selection,
+    # selections=ttHH_selection,
     islocal=False
 )
 

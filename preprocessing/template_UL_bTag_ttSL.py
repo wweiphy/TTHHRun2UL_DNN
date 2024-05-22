@@ -12,7 +12,7 @@ import preprocessing
 
 
 """
-USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/EL8/CMSSW_12_4_3/src/TTHHRun2UL_DNN/preprocessing/template_UL_bTag_ttSL.py --outputdirectory=BTag_0308_UL_nominal_2 --variableselection=variables_bTagCorrection --maxentries=20000 --cores=4 --dataEra=2018
+USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_bTag_ttSL.py --outputdirectory=BTag_0119_UL_nominal --variableselection=variables_bTagCorrection --maxentries=20000 --cores=8 --dataEra=2017
 """
 
 usage="usage=%prog [options] \n"
@@ -128,7 +128,7 @@ dataset.addBaseSelection(base_selection)
 dataset.addSample(
     sampleName="TTSL",
     ntuples=ntuplesPath2 +
-    "/2018/ntuple/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2018/240329_161542/*/*nominal*.root",
+    "/2017/ntuple/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2017/240331_045656/*/*nominal*.root",
     #    ntuples     = ntuplesPath+"/ttSL_220210.root",
     categories=ttbar_categories,
     process = "ttSL",
