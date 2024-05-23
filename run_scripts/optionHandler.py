@@ -39,6 +39,8 @@ sampleopts.add_option("--ttnb", dest="ttnb", default=1.0, type=float,
                   help="factor for ttnb events", metavar="ttnb")
 sampleopts.add_option("--normweight", dest="normweight", default=1.0, type=float,
                   help="normalization weight", metavar="normweight")
+sampleopts.add_option("--year", dest="year", default = "2017",
+                  help="year", metavar="year")
 parser.add_option_group(sampleopts)
 
 trainopts = optparse.OptionGroup(parser, "Train Configurations")
