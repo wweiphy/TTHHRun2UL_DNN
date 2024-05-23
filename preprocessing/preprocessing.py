@@ -465,13 +465,13 @@ class Dataset:
 
                             
                             
-                            print("muon trigger SF: ", sum(df[df['check_MuonTrigger'] == 1]['Weight_MuonTriggerSF'].values)/df[df['N_TightMuons']==1].shape[0])
-                            print("muon trigger SF Up: ", sum(df[df['check_MuonTrigger'] == 1]['Weight_MuonTriggerSF_Up'].values)/df[df['N_TightMuons']==1].shape[0])
-                            print("muon trigger SF Down: ", sum(df[df['check_MuonTrigger'] == 1]['Weight_MuonTriggerSF_Down'].values)/df[df['N_TightMuons']==1].shape[0])
+                            print("muon trigger SF: ", sum(df[df['check_MuonTrigger'] == 1]['Weight_MuonTriggerSF'].values)/(df[df['N_TightMuons']==1].shape[0]+0.000001))
+                            print("muon trigger SF Up: ", sum(df[df['check_MuonTrigger'] == 1]['Weight_MuonTriggerSF_Up'].values)/(df[df['N_TightMuons']==1].shape[0]+0.000001))
+                            print("muon trigger SF Down: ", sum(df[df['check_MuonTrigger'] == 1]['Weight_MuonTriggerSF_Down'].values)/(df[df['N_TightMuons']==1].shape[0]+0.000001))
                             
-                            print("ele trigger SF: ", sum(df[df['check_ElectronTrigger'] == 1]['Weight_ElectronTriggerSF'].values)/df[df['N_TightElectrons']==1].shape[0])
-                            print("ele trigger SF Up: ", sum(df[df['check_ElectronTrigger'] == 1]['Weight_ElectronTriggerSF_Up'].values)/df[df['N_TightElectrons']==1].shape[0])
-                            print("ele trigger SF Down: ", sum(df[df['check_ElectronTrigger'] == 1]['Weight_ElectronTriggerSF_Down'].values)/df[df['N_TightElectrons']==1].shape[0])
+                            print("ele trigger SF: ", sum(df[df['check_ElectronTrigger'] == 1]['Weight_ElectronTriggerSF'].values)/(df[df['N_TightElectrons']==1].shape[0]+0.000001))
+                            print("ele trigger SF Up: ", sum(df[df['check_ElectronTrigger'] == 1]['Weight_ElectronTriggerSF_Up'].values)/(df[df['N_TightElectrons']==1].shape[0]+0.000001))
+                            print("ele trigger SF Down: ", sum(df[df['check_ElectronTrigger'] == 1]['Weight_ElectronTriggerSF_Down'].values)/(df[df['N_TightElectrons']==1].shape[0]+0.000001))
 
                             df.loc[:, "btagfactor"] = btagfactor 
 
