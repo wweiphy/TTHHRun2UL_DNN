@@ -45,7 +45,7 @@ import DNN_framework.data_frame as df
 options.initArguments()
 
 
-input_samples = df.InputSamples(options.getInputDirectory(), options.getTestPercentage())
+input_samples = df.InputSamples(options.getInputDirectory(), dataEra = options.getDataEra(), test_percentage=options.getTestPercentage())
 
 weight_expr = "x.Weight_XS * x.Weight_CSV_UL * x.Weight_GEN_nom * x.lumiWeight"
 input_samples.addSample(options.getDefaultName("ttHH"),  label = "ttHH",  normalization_weight = 1., train_weight = 1, total_weight_expr = weight_expr)
@@ -71,6 +71,7 @@ input_samples.addSample(options.getDefaultName("ttHH"),  label = "ttHH",  normal
 dnn = DNN.DNN(
     save_path       = options.getOutputDir(),
     input_samples   = input_samples,
+    input_path = options.getOutputDir(),
     category_name   = options.getCategory(),
     train_variables = options.getTrainVariables(),
     # number of epochs

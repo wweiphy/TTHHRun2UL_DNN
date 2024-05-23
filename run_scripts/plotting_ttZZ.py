@@ -3,7 +3,7 @@
 
 # python plotting_ttZZ.py -i Eval_0119_UL_nominal -o ttZZ_2017 -c ge4j_ge3t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables -n ge4j_ge3t_ttH --plot --printroc
 
-# python plotting_ttZZ.py -i Eval_0308_UL_nominal -o ttZZ_2018_test -c ge4j_ge3t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables -n ge4j_ge3t_ttH --plot --printroc --lumi=119.66
+# python plotting_ttZZ.py -i Eval_0308_UL_nominal -o ttZZ_2018 -c ge4j_ge3t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables -n ge4j_ge3t_ttH --plot --printroc --lumi=119.66
 
 # python plotting_ttZZ.py -i Eval_0523_UL_nominal -o ttZZ_2016post -c ge4j_ge3t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables -n ge4j_ge3t_ttH --plot --printroc
 # python plotting_ttZZ.py -i Eval_0515_UL_nominal -o ttZZ_2016pre -c ge4j_ge3t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables -n ge4j_ge3t_ttH --plot --printroc
@@ -51,7 +51,7 @@ import DNN_framework.data_frame as df
 options.initArguments()
 
 
-input_samples = df.InputSamples(options.getInputDirectory(), options.getTestPercentage())
+input_samples = df.InputSamples(options.getInputDirectory(), dataEra = options.getDataEra(), test_percentage=options.getTestPercentage())
 
 weight_expr = "x.Weight_XS * x.Weight_CSV_UL * x.Weight_GEN_nom * x.lumiWeight"
 input_samples.addSample(options.getDefaultName("ttZZ"),  label = "ttZZ",  normalization_weight = 1., train_weight = 1, total_weight_expr = weight_expr)
@@ -77,6 +77,7 @@ input_samples.addSample(options.getDefaultName("ttZZ"),  label = "ttZZ",  normal
 dnn = DNN.DNN(
     save_path       = options.getOutputDir(),
     input_samples   = input_samples,
+    input_path = options.getOutputDir(),
     category_name   = options.getCategory(),
     train_variables = options.getTrainVariables(),
     # number of epochs
