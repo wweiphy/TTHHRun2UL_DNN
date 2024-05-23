@@ -298,3 +298,6 @@ class optionHandler:
     
     def getNormttnb(self):
         return self.__options.ttnb
+    
+    def getDataEra(self):
+        return self.__options.year

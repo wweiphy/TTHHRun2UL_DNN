@@ -84,7 +84,7 @@ import DNN_framework.data_frame as df
 options.initArguments()
 
 
-input_samples = df.InputSamples(options.getInputDirectory(), options.getTestPercentage(), dataEra = options.year)
+input_samples = df.InputSamples(options.getInputDirectory(), options.getTestPercentage(), dataEra = options.getDataEra())
 
 weight_expr = "x.Weight_XS * x.lumiWeight"
 # weight_expr = "x.Weight_XS * x.Weight_CSV_UL * x.Weight_GEN_nom * x.lumiWeight"
