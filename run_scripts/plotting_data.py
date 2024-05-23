@@ -8,7 +8,8 @@
 
 # python plotting_data.py -i Eval_0119_UL_nominal -o data_2017_allMC -c ge4j_ge3t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables -n ge4j_ge3t_ttH --plot --printroc
 
-# python plotting_data.py -i Eval_0308_UL_nominal -o data_2018 -c ge4j_ge3t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables -n ge4j_ge3t_ttH --plot --printroc --lumi=119.66
+# python plotting_data.py -i Eval_0308_UL_3_data -o data_2018 -c ge5j_ge4t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables -n ge4j_ge3t_ttH --plot --printroc --lumi=119.66 --year=2018
+
 
 # python plotting_data.py -i Control_0409_data -o data_2 -c ge4j_2t --epochs=500 --signalclass=ttHH -f 0.2 -v variables -n ge4j_ge3t_ttH --plot --printroc
 
@@ -130,6 +131,7 @@ input_samples.addSample(options.getDefaultName("eledata"), label="SingleElectron
 dnn = DNN.DNN(
     save_path       = options.getOutputDir(),
     input_samples   = input_samples,
+    input_path = options.getOutputDir(),
     category_name   = options.getCategory(),
     train_variables = options.getTrainVariables(),
     # number of epochs
@@ -148,6 +150,7 @@ dnn = DNN.DNN(
     # balanceSamples  = options.doBalanceSamples(),
     evenSel         = options.doEvenSelection()
     )
+
 
 
 
