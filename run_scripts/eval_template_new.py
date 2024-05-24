@@ -16,11 +16,11 @@ import DNN_framework.data_frame as df
 
 # 2018 
 
-# python eval_template_new.py -o 230220_evaluation_new_6j4b_test -i 230220_50_2_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_3_nominal --ttmb=5.696962364 --ttnb=1.0 --notequalbin --lumi=119.66 --year=2018 --ttHH=1.0 -c 6j4b
+# python eval_template_new.py -o 230220_evaluation_new_6j4b_8 -i 230220_50_2_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_3_nominal --ttmb=5.696962364 --ttnb=1.0 --notequalbin --lumi=119.66 --year=2018 --ttHH=1.0 -c 6j4b
 
-# python eval_template_new.py -o 230220_evaluation_new_5j4b_2 -i 230220_50_2_ge5j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_3_nominal --ttmb=5.722827499 --ttnb=1.0 --notequalbin --lumi=119.66 --year=2018 --ttHH=1.0 -c 5j4b
+# python eval_template_new.py -o 230220_evaluation_new_5j4b_4 -i 230220_50_2_ge5j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_3_nominal --ttHH=1.999080604 --ttmb=2.007207567*5.975098412128998 --ttcc=2.084432718 --ttlf=2.091277069 --ttnb=1.998488589 --ttH=1.995859324 --ttZH=2.002227143 --ttZZ=2.00097006 --ttZ=1.991758603 --notequalbin --lumi=59.74 --year=2018 -c 5j4b
 
-# python eval_template_new.py -o 230220_evaluation_new_4j3b_test -i 230220_50_2_ge4j_ge3t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_3_nominal --ttmb=5.722827499 --ttnb=1.0 --notequalbin --lumi=119.66 --year=2018 --ttHH=1.0 -c 4j3b
+# python eval_template_new.py -o 230220_evaluation_new_4j3b_test -i 230220_50_2_ge4j_ge3t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_3_nominal --ttmb=5.704889739467897  --ttnb=1.0 --notequalbin --lumi=119.66 --year=2018 --ttHH=1.0 -c 4j3b
 
 
 # --ttnb=1.212174627
@@ -28,14 +28,14 @@ import DNN_framework.data_frame as df
 
 # 2017
 
-# python eval_template_new.py -o 230119_evaluation_new_6j4b_3 -i 230119_50_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0119_UL_3_nominal --ttmb=62.58449531 --ttnb=1.0 --notequalbin --lumi=83.0 --year=2017 --ttHH=1.0 -c 6j4b
+# python eval_template_new.py -o 230119_evaluation_new_6j4b_test -i 230119_50_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0119_UL_3_nominal --ttmb=62.58449531 --ttnb=1.0 --notequalbin --lumi=83.0 --year=2017 --ttHH=1.0 -c 6j4b
 
 
 # python eval_template_new.py -o 230119_evaluation_new_5j4b_2 -i 230119_50_ge5j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0119_UL_3_nominal --ttmb=62.52235271 --ttnb=1.0 --notequalbin --lumi=83.0 --year=2017 --ttHH=1.0 -c 5j4b
 
 # 2016post
 
-# python eval_template_new.py -o 230523_evaluation_new_6j4b_3 -i 230523_50_2_ge6j_ge4t  --signalclass=ttHH --plot --printroc -d Eval_0523_UL_3_nominal --ttmb=6.705125691 --ttnb=1.0 --lumi=33.62 -c 6j4b --notequalbin --year=2016postVFP --ttHH=1.0
+# python eval_template_new.py -o 230523_evaluation_new_6j4b_test -i 230523_50_2_ge6j_ge4t  --signalclass=ttHH --plot --printroc -d Eval_0523_UL_3_nominal --ttmb=6.705125691 --ttnb=1.0 --lumi=33.62 -c 6j4b --notequalbin --year=2016postVFP --ttHH=1.0
 
 # python eval_template_new.py -o 230523_evaluation_new_5j4b_2 -i 230523_50_2_ge5j_ge4t  --signalclass=ttHH --plot --printroc -d Eval_0523_UL_3_nominal --ttmb=6.780838642 --ttnb=1.0 --lumi=33.62 -c 5j4b --notequalbin --year=2016postVFP --ttHH=1.0
 
@@ -45,9 +45,9 @@ import DNN_framework.data_frame as df
 # 2016pre
 # python eval_template_new.py -o 230515_evaluation_new_4j3b -i 230515_50_2_ge4j_ge3t --signalclass=ttHH --plot --printroc -d Eval_0515_UL_3_nominal -c 4j3b --ttmb=6.629180384 --ttnb=1.0 --lumi=39.04 --notequalbin --year=2016preVFP --ttHH=1.0
 
-# python eval_template_new.py -o 230515_evaluation_new_6j4b_3 -i 230515_50_2_ge6j_ge4t  --signalclass=ttHH --plot --printroc -d Eval_0515_UL_3_nominal --ttmb=6.414488975 --ttnb=1.0 --lumi=39.04 -c 6j4b --notequalbin --year=2016preVFP --ttHH=1.0
+# python eval_template_new.py -o 230515_evaluation_new_6j4b_test -i 230515_50_2_ge6j_ge4t  --signalclass=ttHH --plot --printroc -d Eval_0515_UL_3_nominal --ttmb=6.414488975 --ttnb=1.0 --lumi=39.04 -c 6j4b --notequalbin --year=2016preVFP --ttHH=1.0
 
-# python eval_template_new.py -o 230515_evaluation_new_5j4b_2 -i 230515_50_2_ge5j_ge4t  --signalclass=ttHH --plot --printroc -d Eval_0515_UL_3_nominal -ttmb=6.412307499 --ttnb=1.0 --lumi=39.04 -c 5j4b --notequalbin --year=2016preVFP --ttHH=1.0
+# python eval_template_new.py -o 230515_evaluation_new_5j4b_3 -i 230515_50_2_ge5j_ge4t  --signalclass=ttHH --plot --printroc -d Eval_0515_UL_3_nominal --ttmb=6.412307499 --ttnb=1.0 --lumi=39.04 -c 5j4b --notequalbin --year=2016preVFP --ttHH=1.0
 
 
 
@@ -94,6 +94,9 @@ parser.add_option("--binary", dest="binary", action = "store_true", default=Fals
 parser.add_option("-t", "--binaryBkgTarget", dest="binary_bkg_target", default = 0.,
         help="target value for training of background samples (default is 0, signal is always 1)")
 
+parser.add_option("-f", "--testfraction", dest="test_percentage",default=0.2,type=float,
+        help="set fraction of events used for testing, rest is used for training", metavar="TESTFRACTION")
+
 # parser.add_option("--total-weight-expr", dest="total_weight_expr",default="x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom",
 #         help="string containing expression of total event weight (use letter \"x\" for event-object; example: \"x.weight\")", metavar="total_weight_expr")
 
@@ -107,6 +110,24 @@ parser.add_option("--ttnb", dest="ttnb", default=1.0, type=float,
 
 parser.add_option("--ttHH", dest="ttHH", default=1.0, type=float,
                   help="factor for ttHH events", metavar="ttHH")
+
+parser.add_option("--ttH", dest="ttH", default=1.0, type=float,
+                  help="factor for ttH events", metavar="ttH")
+
+parser.add_option("--ttZH", dest="ttZH", default=1.0, type=float,
+                  help="factor for ttZH events", metavar="ttZH")
+
+parser.add_option("--ttZZ", dest="ttZZ", default=1.0, type=float,
+                  help="factor for ttZZ events", metavar="ttZZ")
+
+parser.add_option("--ttZ", dest="ttZ", default=1.0, type=float,
+                  help="factor for ttZ events", metavar="ttZ")
+
+parser.add_option("--ttlf", dest="ttlf", default=1.0, type=float,
+                  help="factor for ttHH events", metavar="ttlf")
+
+parser.add_option("--ttcc", dest="ttcc", default=1.0, type=float,
+                  help="factor for ttHH events", metavar="ttcc")
 
 parser.add_option("--lumi", dest="lumi", default=83, type=float,
                   help="luminosity", metavar="lumi")
@@ -164,7 +185,7 @@ input_samples = df.InputSamples(input_path=dfDirectory, dataEra = options.year, 
 
 # TODO - remove the addSample part because future DNN will save the data df
 # TODO - add the dealing with data
-
+# sampleList = ['ttHH','ttZ','ttZZ','ttZH','ttH','ttH2','ttmb','ttmb2','ttnb','ttlf','ttlf2','ttcc','ttcc2']
 for sample in config["eventClasses"]:
         total_weight_expr = "x.Weight_XS * x.Weight_CSV_UL * x.Weight_GEN_nom * x.lumiWeight"
         # normalization_weight = 1
@@ -176,15 +197,15 @@ for sample in config["eventClasses"]:
                 # sample_path = dfDirectory+"ttHH_dnn.h5"
         elif sample["sampleLabel"] == "ttZH":
                 # sample_train_weight = 1
-                normalization_weight = 1.
+                normalization_weight = options.ttZH
                 # sample_path = dfDirectory+"ttZH_dnn.h5"
         elif sample["sampleLabel"] == "ttZZ":
                 # sample_train_weight = 1
-                normalization_weight = 1.
+                normalization_weight = options.ttZZ
                 # sample_path = dfDirectory+"ttZZ_dnn.h5"
         elif sample["sampleLabel"] == "ttZ":
                 # sample_train_weight = 1
-                normalization_weight = 1.
+                normalization_weight = options.ttZ
                 # '/ (0.001571054/0.00016654)'
                 # sample_path = dfDirectory+"ttZ_dnn.h5"
         elif sample["sampleLabel"] == "ttmb":
@@ -207,15 +228,15 @@ for sample in config["eventClasses"]:
         #     sample_path = dfDirectory+"ttnb_dnn.h5"
         elif sample["sampleLabel"] == "ttcc":
                 # sample_train_weight = 1
-                normalization_weight = 1.
+                normalization_weight = options.ttcc
                 # sample_path = dfDirectory+"ttcc_dnn.h5"
         elif sample["sampleLabel"] == "ttlf":
                 # sample_train_weight = 1
-                normalization_weight = 1.
+                normalization_weight = options.ttlf
                 # sample_path = dfDirectory+"ttlf_dnn.h5"
         elif sample["sampleLabel"] == "ttH":
                 # sample_train_weight = 1
-                normalization_weight = 1.
+                normalization_weight = options.ttH
                 # sample_path = dfDirectory+"ttH_dnn.h5"
         # normalization_weight = 1
 

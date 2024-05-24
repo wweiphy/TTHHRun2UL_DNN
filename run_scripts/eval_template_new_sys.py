@@ -16,21 +16,21 @@ import DNN_framework.data_frame as df
 
 #  2018
 
-# python eval_template_new_sys.py -o 230220_evaluation_new_5j4b_2 -i 230220_50_2_ge5j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_3 --ttmb=5.722827499 --ttnb=1.0 --lumi=119.66 --year=2018 --notequalbin --ttHH=1.0 -c 5j4b --syst=JESup 
+# python eval_template_new_sys.py -o 230220_evaluation_new_5j4b_3 -i 230220_50_2_ge5j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_3 --ttmb=5.704889739467897 --ttnb=1.0 --lumi=119.66 --year=2018 --notequalbin --ttHH=1.0 -c 5j4b --syst=JESup 
 
 
-# python eval_template_new_sys.py -o 230220_evaluation_new_6j4b_2 -i 230220_50_2_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_3 --ttmb=5.696962364 --ttnb=1.0 --lumi=119.66 --year=2018 --notequalbin --ttHH=1.0 -c 6j4b --syst=JESup
+# python eval_template_new_sys.py -o 230220_evaluation_new_6j4b_7 -i 230220_50_2_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_3 --ttmb=5.696962364 --ttnb=1.0 --lumi=119.66 --year=2018 --notequalbin --ttHH=1.0 -c 6j4b --syst=JESup
 
 
 # 2017
  
-# python eval_template_new_sys.py -o 230119_evaluation_new_6j4b_2 -i 230119_50_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0119_UL_3 --ttmb=62.58449531 --ttnb=1.0 --lumi=83.0 --notequalbin --year=2017 --ttHH=1.0 -c 6j4b --syst=JESup
+# python eval_template_new_sys.py -o 230119_evaluation_new_6j4b_7 -i 230119_50_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0119_UL_3 --ttmb=62.58449531 --ttnb=1.0 --lumi=83.0 --notequalbin --year=2017 --ttHH=1.0 -c 6j4b --syst=JESup
  
 # python eval_template_new_sys.py -o 230119_evaluation_new_5j4b_2 -i 230119_50_ge5j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0119_UL_3 --ttmb=62.52235271 --ttnb=1.0 --lumi=83.0 --notequalbin --year=2017 --ttHH=1.0 -c 5j4b --syst=JESup 
 
 
 # 2016post
-# python eval_template_new_sys.py -o 230523_evaluation_new_6j4b_2 -i 230523_50_2_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0523_UL_3 --ttmb=6.705125691 --ttnb=1.0 --lumi=33.62 -c 6j4b --notequalbin --year=2016postVFP --ttHH=1.0 --syst=JESup
+# python eval_template_new_sys.py -o 230523_evaluation_new_6j4b_7 -i 230523_50_2_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0523_UL_3 --ttmb=6.705125691 --ttnb=1.0 --lumi=33.62 -c 6j4b --notequalbin --year=2016postVFP --ttHH=1.0 --syst=JESup
 
 # python eval_template_new_sys.py -o 230523_evaluation_new_5j4b_2 -i 230523_50_2_ge5j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0523_UL_3 --ttmb=6.780838642 --ttnb=1.0 --lumi=33.62 -c 5j4b --notequalbin --year=2016postVFP --ttHH=1.0 --syst=JESup
 
@@ -41,7 +41,7 @@ import DNN_framework.data_frame as df
 
 # python eval_template_new_sys.py -o 230515_evaluation_new_4j3b -i 230515_50_2_ge4j_ge3t  --signalclass=ttHH --plot --printroc -c 4j3b -d Eval_0515_UL_3  --ttmb=6.629180384 --ttnb=1.0 --lumi=39.04 --year=2016preVFP --ttHH=1.0 --notequalbin --syst=JESup
  
-# python eval_template_new_sys.py -o 230515_evaluation_new_6j4b_2 -i 230515_50_2_ge6j_ge4t  --signalclass=ttHH --plot --printroc -d Eval_0515_UL_3  --ttmb=6.414488975 --ttnb=1.0 --lumi=39.04 -c 6j4b --year=2016preVFP --ttHH=1.0 --notequalbin --syst=JESup 
+# python eval_template_new_sys.py -o 230515_evaluation_new_6j4b_7 -i 230515_50_2_ge6j_ge4t  --signalclass=ttHH --plot --printroc -d Eval_0515_UL_3  --ttmb=6.414488975 --ttnb=1.0 --lumi=39.04 -c 6j4b --year=2016preVFP --ttHH=1.0 --notequalbin --syst=JESup 
 
 # python eval_template_new_sys.py -o 230515_evaluation_new_5j4b_2 -i 230515_50_2_ge5j_ge4t  --signalclass=ttHH --plot --printroc -d Eval_0515_UL_3  --ttmb=6.412307499 --ttnb=1.0 --lumi=39.04 -c 5j4b --year=2016preVFP --ttHH=1.0 --notequalbin --syst=JESup 
 
@@ -106,6 +106,24 @@ parser.add_option("--ttnb", dest="ttnb", default=1.0, type=float,
                   help="factor for ttnb events", metavar="ttnb")
 parser.add_option("--ttHH", dest="ttHH", default=1.0, type=float,
                   help="factor for ttHH events", metavar="ttHH")
+
+parser.add_option("--ttH", dest="ttH", default=1.0, type=float,
+                  help="factor for ttH events", metavar="ttH")
+
+parser.add_option("--ttZH", dest="ttZH", default=1.0, type=float,
+                  help="factor for ttZH events", metavar="ttZH")
+
+parser.add_option("--ttZZ", dest="ttZZ", default=1.0, type=float,
+                  help="factor for ttZZ events", metavar="ttZZ")
+
+parser.add_option("--ttZ", dest="ttZ", default=1.0, type=float,
+                  help="factor for ttZ events", metavar="ttZ")
+
+parser.add_option("--ttlf", dest="ttlf", default=1.0, type=float,
+                  help="factor for ttHH events", metavar="ttlf")
+
+parser.add_option("--ttcc", dest="ttcc", default=1.0, type=float,
+                  help="factor for ttHH events", metavar="ttcc")
 
 parser.add_option("-s", "--syst", dest="syst", default="JESup",
                   help="JER JES uncertainties", metavar="syst")
@@ -198,53 +216,53 @@ for sample in config["eventClasses"]:
         total_weight_expr = "x.Weight_XS * x.Weight_CSV_UL * x.Weight_GEN_nom * x.lumiWeight"
         # normalization_weight = 1
         if sample["sampleLabel"] == "ttHH":
-
-                normalization_weight = options.ttHH
+                # sample_train_weight = 0.5
+                normalization_weight = options.ttHH 
                 # normalization_weight = 0.861419355
                 # ratio = new cross section (0.6676)/old cross section (0.775)
+                # sample_path = dfDirectory+"ttHH_dnn.h5"
         elif sample["sampleLabel"] == "ttZH":
-                sample_train_weight = 1
-                # normalization_weight = 2. # JERdown 2018
+                # sample_train_weight = 1
+                normalization_weight = options.ttZH
                 # sample_path = dfDirectory+"ttZH_dnn.h5"
         elif sample["sampleLabel"] == "ttZZ":
-                sample_train_weight = 1
-                # normalization_weight = 2. # JERdown 2018
+                # sample_train_weight = 1
+                normalization_weight = options.ttZZ
                 # sample_path = dfDirectory+"ttZZ_dnn.h5"
         elif sample["sampleLabel"] == "ttZ":
                 # sample_train_weight = 1
-                normalization_weight = 1.
+                normalization_weight = options.ttZ
                 # '/ (0.001571054/0.00016654)'
                 # sample_path = dfDirectory+"ttZ_dnn.h5"
-
         elif sample["sampleLabel"] == "ttmb":
-                #     sample_train_weight = 1
+        #     sample_train_weight = 1
+                normalization_weight = options.ttmb
                 # normalization_weight = 61.  # for 2017
                 # normalization_weight = 5.505191209  # for 2018 ttbb 5j4b
                 # normalization_weight = 5.467833742  # for 2018 ttbb 6j4b
-                # normalization_weight = 1.  # for 2018 tt
-                normalization_weight = options.ttmb
+                # normalization_weight = 1.  # for 2018
         #     sample_path = dfDirectory+"ttmb_dnn.h5"
         elif sample["sampleLabel"] == "ttnb":
-                #     sample_train_weight = 1
+        #     sample_train_weight = 1
                 # normalization_weight = 1.
+                normalization_weight = options.ttnb 
                 # normalization_weight = 1.35 # for 2018 tt4b
                 # normalization_weight = 3.538023785  # for 2018 ttbb 5j4b
-                # normalization_weight = 3.538023785 * 2  # for 2018 ttbb 5j4b JER down
                 # normalization_weight = 3.363282228  # for 2018 ttbb 6j4b
                 # normalization_weight = 1.240415029  # for 2018 tt4b 5j4b
                 # normalization_weight = 1.212174627  # for 2018 tt4b 6j4b
-                normalization_weight = options.ttnb
+        #     sample_path = dfDirectory+"ttnb_dnn.h5"
         elif sample["sampleLabel"] == "ttcc":
                 # sample_train_weight = 1
-                normalization_weight = 1.
+                normalization_weight = options.ttcc
                 # sample_path = dfDirectory+"ttcc_dnn.h5"
         elif sample["sampleLabel"] == "ttlf":
                 # sample_train_weight = 1
-                normalization_weight = 1.
+                normalization_weight = options.ttlf
                 # sample_path = dfDirectory+"ttlf_dnn.h5"
         elif sample["sampleLabel"] == "ttH":
                 # sample_train_weight = 1
-                normalization_weight = 1.
+                normalization_weight = options.ttH
                 # sample_path = dfDirectory+"ttH_dnn.h5"
         # normalization_weight = 1
         # if sample["sampleLabel"] == "ttH":
