@@ -37,6 +37,28 @@ sampleopts.add_option("--ttmb", dest="ttmb", default=1.0, type=float,
 
 sampleopts.add_option("--ttnb", dest="ttnb", default=1.0, type=float,
                   help="factor for ttnb events", metavar="ttnb")
+
+sampleopts.add_option("--ttHH", dest="ttHH", default=1.0, type=float,
+                  help="factor for ttHH events", metavar="ttHH")
+
+sampleopts.add_option("--ttH", dest="ttH", default=1.0, type=float,
+                  help="factor for ttH events", metavar="ttH")
+
+sampleopts.add_option("--ttZH", dest="ttZH", default=1.0, type=float,
+                  help="factor for ttZH events", metavar="ttZH")
+
+sampleopts.add_option("--ttZZ", dest="ttZZ", default=1.0, type=float,
+                  help="factor for ttZZ events", metavar="ttZZ")
+
+sampleopts.add_option("--ttZ", dest="ttZ", default=1.0, type=float,
+                  help="factor for ttZ events", metavar="ttZ")
+
+sampleopts.add_option("--ttlf", dest="ttlf", default=1.0, type=float,
+                  help="factor for ttlf events", metavar="ttlf")
+
+sampleopts.add_option("--ttcc", dest="ttcc", default=1.0, type=float,
+                  help="factor for ttcc events", metavar="ttcc")
+
 sampleopts.add_option("--normweight", dest="normweight", default=1.0, type=float,
                   help="normalization weight", metavar="normweight")
 sampleopts.add_option("--year", dest="year", default = "2017",
@@ -299,5 +321,25 @@ class optionHandler:
     def getNormttnb(self):
         return self.__options.ttnb
     
+    def getNormttZ(self):
+        return self.__options.ttZ
+    
+    def getNormttHH(self):
+        return self.__options.ttHH
+    
+    def getNormttH(self):
+        return self.__options.ttH
+    
+    def getNormttZH(self):
+        return self.__options.ttZH
+    
+    def getNormttZZ(self):
+        return self.__options.ttZZ
+    
+    def getNormttlf(self):
+        return self.__options.ttlf
+    
+    def getNormttcc(self):
+        return self.__options.ttcc
     def getDataEra(self):
         return self.__options.year

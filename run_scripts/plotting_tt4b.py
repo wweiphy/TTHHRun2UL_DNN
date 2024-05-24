@@ -10,7 +10,7 @@
 # python plotting_tt4b.py -i Eval_0119_UL_nominal_5FS -o tt4b_2017_5FS -c ge4j_ge3t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables -n ge4j_ge3t_ttH --plot --printroc
 
 # 2018
-# python plotting_tt4b.py -i Eval_0308_UL_nominal -o tt4b_2018 -c ge4j_ge3t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables -n ge4j_ge3t_ttH --plot --printroc --lumi=119.66 --ttnb=1.351130313 
+# python plotting_tt4b.py -i Eval_0308_UL_3_nominal -o tt4b_2018 -c ge5j_ge4t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables -n ge4j_ge3t_ttH --plot --printroc --lumi=59.74 --ttnb=1.0 --year=2018 --ttnb=2.0
 
 # 2018 4FS tt4b
 # python plotting_tt4b.py -i Eval_0308_UL_nominal_4FS -o tt4b_2018_4FS -c ge4j_ge3t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables -n ge4j_ge3t_ttH --plot --printroc

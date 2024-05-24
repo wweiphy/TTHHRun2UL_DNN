@@ -7,8 +7,8 @@
 # python plotting_ttbb.py -i Eval_0119_UL_nominal -o ttbb_2017_5FS -c ge4j_ge3t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables -n ge4j_ge3t_ttH --plot --printroc
 
 # 2018
-# python plotting_ttbb.py -i Eval_0308_UL_nominal -o ttbb_2018 -c ge4j_ge3t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables -n ge4j_ge3t_ttH --plot --printroc --lumi=119.66 --ttmb=5.654803199
-
+# python plotting_ttbb.py -i Eval_0308_UL_3_nominal -o ttbb_2018 -c ge5j_ge4t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables -n ge4j_ge3t_ttH --plot --printroc --lumi=59.74 --ttmb=11.99326275 --year=2018
+# 2.007207567*5.975098412128998
 # 2018 5FS ttmb
 # python plotting_ttbb.py -i Eval_0308_UL_nominal_5FS -o ttbb_2018_5FS -c ge4j_ge3t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables -n ge4j_ge3t_ttH --plot --printroc
 

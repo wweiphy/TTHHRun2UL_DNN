@@ -3,7 +3,7 @@
 
 # python plotting_ttH.py -i Eval_0119_UL_nominal -o ttH_2017 -c ge4j_ge3t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables -n ge4j_ge3t_ttH --plot --printroc
 
-# python plotting_ttH.py -i Eval_0308_UL_nominal -o ttH_2018 -c ge4j_ge3t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables -n ge4j_ge3t_ttH --plot --printroc --lumi=119.66
+# python plotting_ttH.py -i Eval_0308_UL_3_nominal -o ttH_2018 -c ge5j_ge4t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables -n ge4j_ge3t_ttH --plot --printroc --lumi=59.74 --year=2018 --ttH=2.0
 
 # python plotting_ttH.py -i Eval_0523_UL_nominal -o ttH_2016post -c ge4j_ge3t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables -n ge4j_ge3t_ttH --plot --printroc
 
@@ -49,7 +49,7 @@ input_samples = df.InputSamples(options.getInputDirectory(), dataEra = options.g
 
 weight_expr = "x.Weight_XS * x.Weight_CSV_UL * x.Weight_GEN_nom * x.lumiWeight"
 input_samples.addSample(options.getDefaultName("ttH"),  label="ttH",
-                        normalization_weight=1., train_weight=1, total_weight_expr=weight_expr)
+                        normalization_weight=options.getNormttH(), train_weight=1, total_weight_expr=weight_expr)
 # input_samples.addSample(options.getDefaultName("ttH_2017"),  label="ttH",
                         # normalization_weight=82.96, train_weight=1, total_weight_expr=weight_expr)
 # input_samples.addSample(options.getDefaultName("ttH_2018"),  label="ttH",

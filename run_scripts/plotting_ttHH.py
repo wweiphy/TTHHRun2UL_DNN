@@ -3,10 +3,10 @@
 
 # python plotting_ttHH.py -i Eval_0119_UL_nominal -o ttHH_2017 -c ge4j_ge3t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables -n ge4j_ge3t_ttH --plot --printroc
 
-# python plotting_ttHH.py -i Eval_0308_UL_nominal -o ttHH_2018 -c ge4j_ge3t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables -n ge4j_ge3t_ttH --plot --printroc --lumi=119.66
+# python plotting_ttHH.py -i Eval_0308_UL_3_nominal -o ttHH_2018 -c ge5j_ge4t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables -n ge4j_ge3t_ttH --plot --printroc --lumi=59.74 --year=2018 --ttHH=2.0
 
 
-# python plotting_ttHH.py -i Eval_0523_UL_nominal -o ttHH_2016post -c ge4j_ge3t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables -n ge4j_ge3t_ttH --plot --printroc
+# python plotting_ttHH.py -i Eval_0523_UL_3_nominal -o ttHH_2016post -c ge4j_ge3t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables -n ge4j_ge3t_ttH --plot --printroc
 # python plotting_ttHH.py -i Eval_0515_UL_nominal -o ttHH_2016pre -c ge4j_ge3t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables -n ge4j_ge3t_ttH --plot --printroc
 
 # python plotting_ttHH.py -i Control_0409_2 -o ttHH_2 -c ge4j_2t -v variables -n ge4j_ge3t_ttH --epochs=500 --signalclass=ttHH -f 0.2 -v variables --plot --printroc
@@ -48,7 +48,7 @@ options.initArguments()
 input_samples = df.InputSamples(options.getInputDirectory(), dataEra = options.getDataEra(), test_percentage=options.getTestPercentage())
 
 weight_expr = "x.Weight_XS * x.Weight_CSV_UL * x.Weight_GEN_nom * x.lumiWeight"
-input_samples.addSample(options.getDefaultName("ttHH"),  label = "ttHH",  normalization_weight = 1., train_weight = 1, total_weight_expr = weight_expr)
+input_samples.addSample(options.getDefaultName("ttHH"),  label = "ttHH",  normalization_weight = options.getNormttHH(), train_weight = 1, total_weight_expr = weight_expr)
 # input_samples.addSample(options.getDefaultName("ttHH_2017"),  label = "ttHH",  normalization_weight = 82.96, train_weight = 1, total_weight_expr = weight_expr)
 # input_samples.addSample(options.getDefaultName("ttHH_2018"),  label = "ttHH",  normalization_weight =119.66, train_weight = 1, total_weight_expr = weight_expr)
 # input_samples.addSample(options.getDefaultName("ttHH"),  label = "ttHH",  normalization_weight =1, train_weight = 1, total_weight_expr = weight_expr)
