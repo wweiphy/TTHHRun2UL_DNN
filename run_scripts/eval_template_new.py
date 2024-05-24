@@ -18,7 +18,7 @@ import DNN_framework.data_frame as df
 
 # python eval_template_new.py -o 230220_evaluation_new_6j4b_8 -i 230220_50_2_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_3_nominal --ttmb=5.696962364 --ttnb=1.0 --notequalbin --lumi=119.66 --year=2018 --ttHH=1.0 -c 6j4b
 
-# python eval_template_new.py -o 230220_evaluation_new_5j4b_4 -i 230220_50_2_ge5j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_3_nominal --ttHH=1.999080604 --ttmb=2.007207567*5.975098412128998 --ttcc=2.084432718 --ttlf=2.091277069 --ttnb=1.998488589 --ttH=1.995859324 --ttZH=2.002227143 --ttZZ=2.00097006 --ttZ=1.991758603 --notequalbin --lumi=59.74 --year=2018 -c 5j4b
+# python eval_template_new.py -o 230220_evaluation_new_5j4b_4 -i 230220_50_2_ge5j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_3_nominal --ttmb=2.007207567*5.975098412128998 --ttcc=2.084432718 --ttlf=2.091277069 --notequalbin --lumi=59.74 --year=2018 -c 5j4b
 
 # python eval_template_new.py -o 230220_evaluation_new_4j3b_test -i 230220_50_2_ge4j_ge3t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_3_nominal --ttmb=5.704889739467897  --ttnb=1.0 --notequalbin --lumi=119.66 --year=2018 --ttHH=1.0 -c 4j3b
 
@@ -93,10 +93,6 @@ parser.add_option("--binary", dest="binary", action = "store_true", default=Fals
 
 parser.add_option("-t", "--binaryBkgTarget", dest="binary_bkg_target", default = 0.,
         help="target value for training of background samples (default is 0, signal is always 1)")
-
-parser.add_option("-f", "--testfraction", dest="test_percentage",default=0.2,type=float,
-        help="set fraction of events used for testing, rest is used for training", metavar="TESTFRACTION")
-
 # parser.add_option("--total-weight-expr", dest="total_weight_expr",default="x.Weight_XS * x.Weight_CSV * x.Weight_GEN_nom",
 #         help="string containing expression of total event weight (use letter \"x\" for event-object; example: \"x.weight\")", metavar="total_weight_expr")
 
