@@ -12,7 +12,7 @@ import preprocessing
 
 
 """
-USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/EL8/CMSSW_12_4_3/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_ttbar_ttmb_2018.py --outputdirectory=Eval_0308_UL_3_nominal_ttmb --variableselection=variables --maxentries=20000 --cores=8 --dataEra=2018
+USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/EL8/CMSSW_12_4_3/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_ttbar_ttmb_2018.py --outputdirectory=Eval_0308_UL_4_nominal_ttmb --variableselection=variables --maxentries=20000 --cores=4 --dataEra=2018
 
 """
 
@@ -69,7 +69,7 @@ if options.dataEra == "2017" or options.dataEra == 2017:
 
     # single lepton selections
     single_mu_sel = "(N_LooseElectrons == 0 and N_TightMuons == 1 and Muon_Pt > 29. and Triggered_HLT_IsoMu27_vX == 1)"
-    single_el_sel = "(N_LooseMuons == 0 and N_TightElectrons == 1 and (Triggered_HLT_Ele35_WPTight_Gsf_vX == 1 or Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX == 1))"
+    single_el_sel = "((N_LooseMuons == 0 and N_TightElectrons == 1 and Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX == 1) or (N_LooseMuons == 0 and N_TightElectrons == 1 and Triggered_HLT_Ele32_WPTight_Gsf_L1DoubleEG_vX == 1 and Triggered_HLT_Ele32_WPTight_Gsf_2017SeedsX == 1))"
 
 elif options.dataEra == "2018" or options.dataEra == 2018:
     # single lepton selections

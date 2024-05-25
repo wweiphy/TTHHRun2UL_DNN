@@ -73,13 +73,13 @@ else:
 # select only events with GEN weight > 0 because training with negative weights is weird
 
 # base = "(N_Jets >= 4 and N_BTagsM >= 3 and Evt_MET > 20. and Weight_GEN_nom > 0.)"
-base = "(N_Jets >= 5 and N_BTagsM >= 4 and Evt_MET > 20.)"
+base = "(N_Jets >= 4 and N_BTagsM >= 3 and Evt_MET > 20.)"
 
 if options.dataEra == "2017" or options.dataEra == 2017:
 
     # single lepton selections
     single_mu_sel = "(N_LooseElectrons == 0 and N_TightMuons == 1 and Muon_Pt > 29. and Triggered_HLT_IsoMu27_vX == 1)"
-    single_el_sel = "(N_LooseMuons == 0 and N_TightElectrons == 1 and (Triggered_HLT_Ele35_WPTight_Gsf_vX == 1 or Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX == 1))"
+    single_el_sel = "((N_LooseMuons == 0 and N_TightElectrons == 1 and Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX == 1) or (N_LooseMuons == 0 and N_TightElectrons == 1 and Triggered_HLT_Ele32_WPTight_Gsf_L1DoubleEG_vX == 1 and Triggered_HLT_Ele32_WPTight_Gsf_2017SeedsX == 1))"
 
 elif options.dataEra == "2018" or options.dataEra == 2018:
     # single lepton selections
@@ -103,7 +103,7 @@ else:
 
 base_selection = "("+base+" and ("+single_mu_sel+" or "+single_el_sel+"))"
 
-ttHH_selection = "(Evt_Odd == 1)"  # Should I do this on ttHH
+ttHH_selection = "(Evt_Odd == 0)"  
 
 # define output classes
 ttHH_categories = preprocessing.EventCategories()
