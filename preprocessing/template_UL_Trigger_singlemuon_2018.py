@@ -62,7 +62,7 @@ else:
 # select only events with GEN weight > 0 because training with negative weights is weird
 
 # base = "(N_Jets >= 4 and N_BTagsM >= 3 and Evt_MET > 20. and Weight_GEN_nom > 0.)"
-base = "(N_Jets >= 5 and N_BTagsM >= 4 )"
+base = "(N_Jets >= 5 and N_BTagsM >= 4)"
 
 if options.dataEra == "2017" or options.dataEra == 2017:
 
@@ -181,19 +181,19 @@ dataset.addSample(
     islocal=False
 )
 
-# dataset.addSample(
-#     sampleName="SingleMuonC",
-#     ntuples=ntuplesPath2 +
-#     "/2018/ntuple/SingleMuon/sl_LEG_ntuple_2018/231219_133524/*/*nominal*.root",
-#     # "/2018/ntuple/SingleMuon/sl_LEG_ntuple_2018/230710_070951/*/*nominal*.root",
-#     #    ntuples     = ntuplesPath+"/ttH_220208.root",
-#     categories=mudata_categories,
-#     process="data",
-#     #    lumiWeight  = 41.5,
-#     selections=None,  # ttbar_selection,
-#     #    selections  = ttbar_selection,
-#     islocal=False
-# )
+dataset.addSample(
+    sampleName="SingleMuonC",
+    ntuples=ntuplesPath2 +
+    "/2018/ntuple/SingleMuon/sl_LEG_ntuple_2018/240527_015833/*/*nominal*.root",
+    # "/2018/ntuple/SingleMuon/sl_LEG_ntuple_2018/230710_070951/*/*nominal*.root",
+    #    ntuples     = ntuplesPath+"/ttH_220208.root",
+    categories=mudata_categories,
+    process="data",
+    #    lumiWeight  = 41.5,
+    selections=None,  # ttbar_selection,
+    #    selections  = ttbar_selection,
+    islocal=False
+)
 
 # dataset.addSample(
 #     sampleName="SingleMuonD",
