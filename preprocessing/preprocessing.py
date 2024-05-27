@@ -640,6 +640,8 @@ class Dataset:
 
                     if sample.process == "data":
 
+                        print("Do data trigger study")
+
                         df = df.assign(sf_weight=1.)
 
                             # btag SF & uncertainties
@@ -734,8 +736,10 @@ class Dataset:
                 if concat_df.empty: concat_df = df
                 else: concat_df = concat_df.append(df)            
                 n_entries += df.shape[0]
+                print("n entries ", n_entries)
             
                 # if number of entries exceeds max threshold, add labels and save dataframe
+                print(f == files[-1])
                 if (n_entries > self.maxEntries or f == files[-1]):
                     print("*"*50)
                     print("max entries reached ...")
