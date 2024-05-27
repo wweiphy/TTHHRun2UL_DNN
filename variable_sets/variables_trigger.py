@@ -1,6 +1,6 @@
 variables = {}
 variables["ge4j_ge3t"] = [
-    'Evt_MET'
+    'Evt_MET_Pt'
       'Evt_HT',
     'N_BTagsL',
     'N_BTagsM',
