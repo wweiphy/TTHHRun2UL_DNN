@@ -346,7 +346,7 @@ class Dataset:
 
 
                 
-                if tree.numentries == 0:
+                if tree.numentries == 0 and f != files[-1]:
                    print(str(tr)+" has no entries - skipping file")
                    continue
                 # test 
@@ -354,392 +354,391 @@ class Dataset:
 
                 # convert to dataframe
                 # df = tree.arrays(self.variables,library="pd")
-                df = tree.pandas.df([v for v in self.variables])
-                # print(df["Evt_CSV_avg"])
+                if tree.numentries != 0:
 
-                # delete subentry index
-                try: df = df.reset_index(1, drop = True)
-                except: None
-                # print(df)
-                
-                # print("start processing vector variables")
-                # print("vector variables list: ")
-                # print(self.vector_variables)
-                # handle vector variables, loop over them
+                    df = tree.pandas.df([v for v in self.variables])
+                    # print(df["Evt_CSV_avg"])
 
-                for vecvar in self.vector_variables:
-
-                    # load dataframe with vector variable
-                    vec_df = tree.pandas.df(vecvar)
-
-                    # loop over inices in vecvar list
-                    for idx in self.vector_variables[vecvar]:
-
-                        # slice the index
-                        idx_df = vec_df.loc[(slice(None), slice(idx, idx)), :]
-                        idx_df = idx_df.reset_index(1, drop=True)
-
-                        # define name for column in df
-                        col_name = str(vecvar)+"["+str(idx)+"]"
-                        # print("colomn name is: " + col_name)
-
-                        # initialize column in original dataframe
-                        df.loc[:, col_name] = 0.
-                        # append column to original dataframe
-                        df.update(idx_df[vecvar].rename(col_name))
-
-                df.loc[:, "process"] = sample.process
-
-                print("dataEra is ", self.dataEra)
-
-                if self.dataEra == "2017" or self.dataEra == 2017:
-
-                    df['check_ElectronTrigger'] = (df['Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX'] == 1) | ((df['Triggered_HLT_Ele32_WPTight_Gsf_L1DoubleEG_vX'] == 1) & (df['Triggered_HLT_Ele32_WPTight_Gsf_2017SeedsX'] == 1))
-
-                    df['check_MuonTrigger'] = (df['Triggered_HLT_IsoMu27_vX'])
-
-                    print('check Trigger paths in 2017')
-
-                elif self.dataEra == "2018" or self.dataEra == 2018:
-
-                    df['check_ElectronTrigger'] = (df['Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX'] == 1) | (df['Triggered_HLT_Ele32_WPTight_Gsf_vX'] == 1) 
-
-                    df['check_MuonTrigger'] = (df['Triggered_HLT_IsoMu24_vX'])
-
-                    print('check Trigger paths in 2018')
-
-                elif self.dataEra == "2016postVFP":
+                    # delete subentry index
+                    try: df = df.reset_index(1, drop = True)
+                    except: None
+                    # print(df)
                     
-                    df['check_ElectronTrigger'] = (df['Triggered_HLT_Ele27_WPTight_Gsf_vX']) 
+                    # print("start processing vector variables")
+                    # print("vector variables list: ")
+                    # print(self.vector_variables)
+                    # handle vector variables, loop over them
 
-                    df['check_MuonTrigger'] = (df['Triggered_HLT_IsoTkMu24_vX'] == 1) | (df['Triggered_HLT_IsoMu24_vX'] == 1)
+                    for vecvar in self.vector_variables:
 
-                    print('check Trigger paths in 2016 postVFP')
+                        # load dataframe with vector variable
+                        vec_df = tree.pandas.df(vecvar)
 
-                elif self.dataEra == "2016preVFP":
-                    
-                    df['check_ElectronTrigger'] = (df['Triggered_HLT_Ele27_WPTight_Gsf_vX']) 
+                        # loop over inices in vecvar list
+                        for idx in self.vector_variables[vecvar]:
 
-                    df['check_MuonTrigger'] = (df['Triggered_HLT_IsoTkMu24_vX'] == 1) | (df['Triggered_HLT_IsoMu24_vX'] == 1)
+                            # slice the index
+                            idx_df = vec_df.loc[(slice(None), slice(idx, idx)), :]
+                            idx_df = idx_df.reset_index(1, drop=True)
 
-                    print('check Trigger paths in 2016 preVFP')
+                            # define name for column in df
+                            col_name = str(vecvar)+"["+str(idx)+"]"
+                            # print("colomn name is: " + col_name)
 
-                else:
-                    # print("no file matches the dataEra " +dataEra)
-                    sys.exit("no file matches the dataEra " +self.dataEra)
+                            # initialize column in original dataframe
+                            df.loc[:, col_name] = 0.
+                            # append column to original dataframe
+                            df.update(idx_df[vecvar].rename(col_name))
 
-                # apply event selection
-                df = self.applySelections(df, sample.selections)
+                    df.loc[:, "process"] = sample.process
 
-                if self.do_EvalSFs:
-                    # for DNN evaluation on data
-                    if sample.process == "data":
-                        df = df.assign(xs_weight=1.)
+                    print("dataEra is ", self.dataEra)
+
+                    if self.dataEra == "2017" or self.dataEra == 2017:
+
+                        df['check_ElectronTrigger'] = (df['Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX'] == 1) | ((df['Triggered_HLT_Ele32_WPTight_Gsf_L1DoubleEG_vX'] == 1) & (df['Triggered_HLT_Ele32_WPTight_Gsf_2017SeedsX'] == 1))
+
+                        df['check_MuonTrigger'] = (df['Triggered_HLT_IsoMu27_vX'])
+
+                        print('check Trigger paths in 2017')
+
+                    elif self.dataEra == "2018" or self.dataEra == 2018:
+
+                        df['check_ElectronTrigger'] = (df['Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX'] == 1) | (df['Triggered_HLT_Ele32_WPTight_Gsf_vX'] == 1) 
+
+                        df['check_MuonTrigger'] = (df['Triggered_HLT_IsoMu24_vX'])
+
+                        print('check Trigger paths in 2018')
+
+                    elif self.dataEra == "2016postVFP":
+                        
+                        df['check_ElectronTrigger'] = (df['Triggered_HLT_Ele27_WPTight_Gsf_vX']) 
+
+                        df['check_MuonTrigger'] = (df['Triggered_HLT_IsoTkMu24_vX'] == 1) | (df['Triggered_HLT_IsoMu24_vX'] == 1)
+
+                        print('check Trigger paths in 2016 postVFP')
+
+                    elif self.dataEra == "2016preVFP":
+                        
+                        df['check_ElectronTrigger'] = (df['Triggered_HLT_Ele27_WPTight_Gsf_vX']) 
+
+                        df['check_MuonTrigger'] = (df['Triggered_HLT_IsoTkMu24_vX'] == 1) | (df['Triggered_HLT_IsoMu24_vX'] == 1)
+
+                        print('check Trigger paths in 2016 preVFP')
 
                     else:
-                    # for DNN evaluation on MC
-                        if "nominal" in file:
-                            # print(sample.process)
-                            btagfactor = self.btagfile[self.btagfile['sample'] == sample.process]['nominal'].values[0]
-                            
+                        # print("no file matches the dataEra " +dataEra)
+                        sys.exit("no file matches the dataEra " +self.dataEra)
 
-                            print('Evaluate SFs for nominal files')
-                            df = self.CalculateSFsEval(tree, df)
-                            df = self.CalculateMuonSFs(tree, df)
-                            df = self.CalculateElectronSFs(tree, df)
+                    # apply event selection
+                    df = self.applySelections(df, sample.selections)
 
-                            if not (sample.process == "ttHSL"  or sample.process == "ttHDL" or sample.process == "ttSL" or sample.process == "ttDL" or sample.process == "ttbbSL" or sample.process == "ttbbDL"):
-                                df.loc[:, "GenWeight_fsr_Def_down"] = 0.
-                                df.loc[:, "GenWeight_fsr_Def_up"] = 0.
-                                df.loc[:, "GenWeight_isr_Def_down"] = 0.
-                                df.loc[:, "GenWeight_isr_Def_up"] = 0.
-                                df.loc[:, 'Weight_scale_variation_muR_0p5_muF_0p5'] = 0.
-                                df.loc[:, 'Weight_scale_variation_muR_0p5_muF_1p0'] = 0.
-                                df.loc[:, 'Weight_scale_variation_muR_0p5_muF_2p0'] = 0.
-                                df.loc[:, 'Weight_scale_variation_muR_1p0_muF_0p5'] = 0.
-                                df.loc[:, 'Weight_scale_variation_muR_1p0_muF_1p0'] = 0.
-                                df.loc[:, 'Weight_scale_variation_muR_1p0_muF_2p0'] = 0.
-                                df.loc[:, 'Weight_scale_variation_muR_2p0_muF_0p5'] = 0.
-                                df.loc[:, 'Weight_scale_variation_muR_2p0_muF_1p0'] = 0.
-                                df.loc[:, 'Weight_scale_variation_muR_2p0_muF_2p0'] = 0.
-
-                            
-                            
-                            print("muon trigger SF: ", sum(df[df['check_MuonTrigger'] == 1]['Weight_MuonTriggerSF'].values)/(df[df['N_TightMuons']==1].shape[0]+0.000001))
-                            print("muon trigger SF Up: ", sum(df[df['check_MuonTrigger'] == 1]['Weight_MuonTriggerSF_Up'].values)/(df[df['N_TightMuons']==1].shape[0]+0.000001))
-                            print("muon trigger SF Down: ", sum(df[df['check_MuonTrigger'] == 1]['Weight_MuonTriggerSF_Down'].values)/(df[df['N_TightMuons']==1].shape[0]+0.000001))
-                            
-                            print("ele trigger SF: ", sum(df[df['check_ElectronTrigger'] == 1]['Weight_ElectronTriggerSF'].values)/(df[df['N_TightElectrons']==1].shape[0]+0.000001))
-                            print("ele trigger SF Up: ", sum(df[df['check_ElectronTrigger'] == 1]['Weight_ElectronTriggerSF_Up'].values)/(df[df['N_TightElectrons']==1].shape[0]+0.000001))
-                            print("ele trigger SF Down: ", sum(df[df['check_ElectronTrigger'] == 1]['Weight_ElectronTriggerSF_Down'].values)/(df[df['N_TightElectrons']==1].shape[0]+0.000001))
-
-                            df.loc[:, "btagfactor"] = btagfactor 
-
-                            # nominal values
-                            df = df.assign(sf_weight=lambda x: (btagfactor*sample.lumiWeight*x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSF[0]'] > 0.) & (x['Electron_ReconstructionSF[0]'] > 0.))*1.*x['Electron_IdentificationSF[0]']*x['Electron_ReconstructionSF[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & (x['check_ElectronTrigger']) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['check_MuonTrigger'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
-
-
-
-
-                            # btag SF & uncertainties
-                            df = df.assign(xs_weight=lambda x: x.Weight_XS * x.Weight_GEN_nom)
-                            # df = df.assign(xs_weight=lambda x: x.Weight_XS *
-                            #             x.Weight_CSV_UL * x.Weight_GEN_nom)
-
-                            df = df.assign(
-                                total_weight=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL)
-                            df = df.assign(total_weight_uplf=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL_uplf)
-                            df = df.assign(total_weight_downlf=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL_downlf)
-                            df = df.assign(total_weight_uphf=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL_uphf)
-                            df = df.assign(total_weight_downhf=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL_downhf)
-                            df = df.assign(total_weight_uplfstats1=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL_uplfstats1)
-                            df = df.assign(total_weight_downlfstats1=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL_downlfstats1)
-                            df = df.assign(total_weight_uplfstats2=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL_uplfstats2)
-                            df = df.assign(total_weight_downlfstats2=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL_downlfstats2)
-                            df = df.assign(total_weight_uphfstats1=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL_uphfstats1)
-                            df = df.assign(total_weight_downhfstats1=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL_downhfstats1)
-                            df = df.assign(total_weight_uphfstats2=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL_uphfstats2)
-                            df = df.assign(total_weight_downhfstats2=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL_downhfstats2)
-                            df = df.assign(total_weight_upcferr1=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL_upcferr1)
-                            df = df.assign(total_weight_downcferr1=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL_downcferr1)
-                            df = df.assign(total_weight_upcferr2=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL_upcferr2)
-                            df = df.assign(total_weight_downcferr2=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL_downcferr2)
-
-                            print("Done with btagging SFs")
-
-                            # PU weights & uncertainties
-                            df = df.assign(total_weight_upPU=lambda x: (btagfactor*sample.lumiWeight*x['Weight_XS'] * x['Weight_CSV_UL'] * x['Weight_GEN_nom'] * x['Weight_pu69p2Up'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSF[0]'] > 0.) & (x['Electron_ReconstructionSF[0]'] > 0.))*1.*x['Electron_IdentificationSF[0]']*x['Electron_ReconstructionSF[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & (x['check_ElectronTrigger']) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['check_MuonTrigger'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
-
-                            df = df.assign(total_weight_downPU=lambda x: (btagfactor*sample.lumiWeight*x['Weight_XS'] * x['Weight_CSV_UL'] * x['Weight_GEN_nom'] * x['Weight_pu69p2Down'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSF[0]'] > 0.) & (x['Electron_ReconstructionSF[0]'] > 0.))*1.*x['Electron_IdentificationSF[0]']*x['Electron_ReconstructionSF[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & (x['check_ElectronTrigger']) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['check_MuonTrigger'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
-
-                            # L1 prefiring
-                            df = df.assign(total_weight_upL1Fire=lambda x: (btagfactor*sample.lumiWeight*x['Weight_XS'] * x['Weight_CSV_UL'] * x['Weight_GEN_nom'] * x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefireUp'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSF[0]'] > 0.) & (x['Electron_ReconstructionSF[0]'] > 0.))*1.*x['Electron_IdentificationSF[0]']*x['Electron_ReconstructionSF[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & (x['check_ElectronTrigger']) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['check_MuonTrigger'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
-
-                            df = df.assign(total_weight_downL1Fire=lambda x: (btagfactor*sample.lumiWeight*x['Weight_XS'] * x['Weight_CSV_UL'] * x['Weight_GEN_nom'] * x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefireDown'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSF[0]'] > 0.) & (x['Electron_ReconstructionSF[0]'] > 0.))*1.*x['Electron_IdentificationSF[0]']*x['Electron_ReconstructionSF[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & (x['check_ElectronTrigger']) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['check_MuonTrigger'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
-
-                            # electron trigger SF & uncertainties
-                            df = df.assign(total_weight_downEleTrigger=lambda x: (btagfactor*sample.lumiWeight*x['Weight_XS'] * x['Weight_CSV_UL'] * x['Weight_GEN_nom'] * x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSF[0]'] > 0.) & (x['Electron_ReconstructionSF[0]'] > 0.))*1.*x['Electron_IdentificationSF[0]']*x['Electron_ReconstructionSF[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & (x['check_ElectronTrigger']) & (x['Weight_ElectronTriggerSF_Down'] > 0)) * 1. * x['Weight_ElectronTriggerSF_Down'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['check_MuonTrigger'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
-
-                            df = df.assign(total_weight_upEleTrigger=lambda x: (btagfactor*sample.lumiWeight*x['Weight_XS'] * x['Weight_CSV_UL'] * x['Weight_GEN_nom'] * x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSF[0]'] > 0.) & (x['Electron_ReconstructionSF[0]'] > 0.))*1.*x['Electron_IdentificationSF[0]']*x['Electron_ReconstructionSF[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & (x['check_ElectronTrigger']) & (x['Weight_ElectronTriggerSF_Up'] > 0)) * 1. * x['Weight_ElectronTriggerSF_Up'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['check_MuonTrigger'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
-
-                            # muon trigger SF & uncertainties
-                            df = df.assign(total_weight_downMuonTrigger=lambda x: (btagfactor*sample.lumiWeight*x['Weight_XS'] * x['Weight_CSV_UL'] * x['Weight_GEN_nom'] * x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSF[0]'] > 0.) & (x['Electron_ReconstructionSF[0]'] > 0.))*1.*x['Electron_IdentificationSF[0]']*x['Electron_ReconstructionSF[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & (x['check_ElectronTrigger']) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['check_MuonTrigger'])) & (x['Weight_MuonTriggerSF_Down'] > 0.)) * 1. * x['Weight_MuonTriggerSF_Down'])))
-
-                            df = df.assign(total_weight_upMuonTrigger=lambda x: (btagfactor*sample.lumiWeight*x['Weight_XS'] * x['Weight_CSV_UL'] * x['Weight_GEN_nom'] * x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSF[0]'] > 0.) & (x['Electron_ReconstructionSF[0]'] > 0.))*1.*x['Electron_IdentificationSF[0]']*x['Electron_ReconstructionSF[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & (x['check_ElectronTrigger']) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['check_MuonTrigger'])) & (x['Weight_MuonTriggerSF_Up'] > 0.)) * 1. * x['Weight_MuonTriggerSF_Up'])))
-
-                            # Muon SF & uncertainties
-                            df = df.assign(total_weight_downMuon=lambda x: (btagfactor*sample.lumiWeight*x['Weight_XS'] * x['Weight_CSV_UL'] * x['Weight_GEN_nom'] * x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSF[0]'] > 0.) & (x['Electron_ReconstructionSF[0]'] > 0.))*1.*x['Electron_IdentificationSF[0]']*x['Electron_ReconstructionSF[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSFDown[0]'] > 0.) & (x['Muon_ReconstructionSFDown[0]'] > 0.) & (x['Muon_IsolationSFDown[0]'] > 0.))*1.*x['Muon_IdentificationSFDown[0]'] * x['Muon_IsolationSFDown[0]'] * x['Muon_ReconstructionSFDown[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & (x['check_ElectronTrigger']) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['check_MuonTrigger'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
-
-                            df = df.assign(total_weight_upMuon=lambda x: (btagfactor*sample.lumiWeight*x['Weight_XS'] * x['Weight_CSV_UL'] * x['Weight_GEN_nom'] * x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSF[0]'] > 0.) & (x['Electron_ReconstructionSF[0]'] > 0.))*1.*x['Electron_IdentificationSF[0]']*x['Electron_ReconstructionSF[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSFUp[0]'] > 0.) & (x['Muon_ReconstructionSFUp[0]'] > 0.) & (x['Muon_IsolationSFUp[0]'] > 0.))*1.*x['Muon_IdentificationSFUp[0]'] * x['Muon_IsolationSFUp[0]'] * x['Muon_ReconstructionSFUp[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & (x['check_ElectronTrigger']) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['check_MuonTrigger'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
-
-                            # Electron SF & uncertainties
-                            df = df.assign(total_weight_downEle=lambda x: (btagfactor*sample.lumiWeight*x['Weight_XS'] * x['Weight_CSV_UL'] * x['Weight_GEN_nom'] * x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSFDown[0]'] > 0.) & (x['Electron_ReconstructionSFDown[0]'] > 0.))*1.*x['Electron_IdentificationSFDown[0]']*x['Electron_ReconstructionSFDown[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & (x['check_ElectronTrigger']) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['check_MuonTrigger'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
-
-                            df = df.assign(total_weight_upEle=lambda x: (btagfactor*sample.lumiWeight*x['Weight_XS'] * x['Weight_CSV_UL'] * x['Weight_GEN_nom'] * x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSFUp[0]'] > 0.) & (x['Electron_ReconstructionSFUp[0]'] > 0.))*1.*x['Electron_IdentificationSFUp[0]']*x['Electron_ReconstructionSFUp[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & (x['check_ElectronTrigger']) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['check_MuonTrigger'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
-                            
-                            # df = df.assign(total_preweight=lambda x: (sample.lumiWeight * x['Weight_XS'] * x['Weight_CSV_UL'] * x['Weight_GEN_nom'] * x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSFUp[0]'] > 0.) & (x['Electron_ReconstructionSFUp[0]'] > 0.))*1.*x['Electron_IdentificationSFUp[0]']*x['Electron_ReconstructionSFUp[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & ((x['Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX'] == 1) | (
-                                # (x['Triggered_HLT_Ele32_WPTight_Gsf_L1DoubleEG_vX'] == 1) & (x['Triggered_HLT_Ele32_WPTight_Gsf_2017SeedsX'] == 1))) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['Triggered_HLT_IsoMu27_vX'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
-
-                            print("Done with other SFs")
-
-                            # for x in range(306000, 306001):
-                            for x in range(306000, 306103):
-
-                                if (sample.process == "ttDL" or sample.process == "ttSL"):
-                                    df['compare'] = df['Weight_pdf_variation_{}'.format(x)].ge(
-                                        0.)
-                                    df['total_weight_PDF_Weight_{}'.format(x)] = (df['Weight_pdf_variation_{}'.format(
-                                        x)]*((df['process'] == sample.process)*1. * self.genfile[(self.genfile['sample'] == sample.process) & (self.genfile['variation'] == 'Weight_pdf_variation_{}'.format(x))]['final_weight_sl_analysis'].values[0])) * df['total_weight']*df['compare']*1.
-                                
-                                elif (sample.process == "ttHSL" or sample.process == "ttHDL"):
-                                    sample_process = "ttH"
-                                    df['compare'] = df['Weight_pdf_variation_{}'.format(x)].ge(
-                                        0.)
-                                    df['total_weight_PDF_Weight_{}'.format(x)] = (df['Weight_pdf_variation_{}'.format(
-                                        x)]*((df['process'] == sample.process)*1. * self.genfile[(self.genfile['sample'] == sample_process) & (self.genfile['variation'] == 'Weight_pdf_variation_{}'.format(x))]['final_weight_sl_analysis'].values[0])) * df['total_weight']*df['compare']*1.
-                                
-                                else:
-
-                                    df.loc[:, 'Weight_pdf_variation_{}'.format(
-                                        x)] = 0.
-                                    df.loc[:, 'total_weight_PDF_Weight_{}'.format(
-                                        x)] = 0.
-                                    df['compare'] = df['Weight_pdf_variation_{}'.format(x)].ge(
-                                        0.)
-
-                            # for x in range(320900, 320901):
-                            for x in range(320900, 321001):
-
-                                if (sample.process == "ttbbSL" or sample.process == "ttbbDL"):
-
-                                    df['compare'] = df['Weight_pdf_variation_{}'.format(x)].ge(
-                                        0.)
-                                    
-                                    df['total_weight_PDF_Weight_{}'.format(x)] = (df['Weight_pdf_variation_{}'.format(
-                                        x)]*((df['process'] == sample.process)*1. * self.genfile[(self.genfile['sample'] == sample.process) & (self.genfile['variation'] == 'Weight_pdf_variation_{}'.format(x))]['final_weight_sl_analysis'].values[0])) * df['total_weight']*df['compare']*1.
-
-
-                                else:
-                                    df.loc[:, 'Weight_pdf_variation_{}'.format(
-                                        x)] = 0.
-                                    df.loc[:, 'total_weight_PDF_Weight_{}'.format(x)] = 0.
-                                    df['compare'] = df['Weight_pdf_variation_{}'.format(x)].ge(
-                                        0.)
-
-                            print("Done with PDF shape calculations")
-
-                            # print ("*"*50)
-                            print("Done with all Uncertainties")
+                    if self.do_EvalSFs:
+                        # for DNN evaluation on data
+                        if sample.process == "data":
+                            df = df.assign(xs_weight=1.)
 
                         else:
-                        # for JES & JER variations
-                            doJES = False
-                            if "JESup" in file:
-                                syst = "JESup"
-                                doJES = True
-                                btagfactor = self.btagfile[self.btagfile['sample'] == sample.process]['JESup'].values[0] 
-                            elif "JESdown" in file:
-                                syst = "JESdown"
-                                doJES = True
-                                btagfactor = self.btagfile[self.btagfile['sample'] == sample.process]['JESdown'].values[0] 
-                            elif "JERup" in file:
-                                btagfactor = self.btagfile[self.btagfile['sample'] == sample.process]['JERup'].values[0] 
-                            elif "JERdown" in file:
-                                btagfactor = self.btagfile[self.btagfile['sample'] == sample.process]['JERdown'].values[0]  
-                                 
-                            if doJES:
-                                print("Evaluate SFs for {} files".format(syst))
-                                df = self.CalculateSFsEvalSyst(tree,df,syst)
+                        # for DNN evaluation on MC
+                            if "nominal" in file:
+                                # print(sample.process)
+                                btagfactor = self.btagfile[self.btagfile['sample'] == sample.process]['nominal'].values[0]
+                                
+
+                                print('Evaluate SFs for nominal files')
+                                df = self.CalculateSFsEval(tree, df)
+                                df = self.CalculateMuonSFs(tree, df)
+                                df = self.CalculateElectronSFs(tree, df)
+
+                                if not (sample.process == "ttHSL"  or sample.process == "ttHDL" or sample.process == "ttSL" or sample.process == "ttDL" or sample.process == "ttbbSL" or sample.process == "ttbbDL"):
+                                    df.loc[:, "GenWeight_fsr_Def_down"] = 0.
+                                    df.loc[:, "GenWeight_fsr_Def_up"] = 0.
+                                    df.loc[:, "GenWeight_isr_Def_down"] = 0.
+                                    df.loc[:, "GenWeight_isr_Def_up"] = 0.
+                                    df.loc[:, 'Weight_scale_variation_muR_0p5_muF_0p5'] = 0.
+                                    df.loc[:, 'Weight_scale_variation_muR_0p5_muF_1p0'] = 0.
+                                    df.loc[:, 'Weight_scale_variation_muR_0p5_muF_2p0'] = 0.
+                                    df.loc[:, 'Weight_scale_variation_muR_1p0_muF_0p5'] = 0.
+                                    df.loc[:, 'Weight_scale_variation_muR_1p0_muF_1p0'] = 0.
+                                    df.loc[:, 'Weight_scale_variation_muR_1p0_muF_2p0'] = 0.
+                                    df.loc[:, 'Weight_scale_variation_muR_2p0_muF_0p5'] = 0.
+                                    df.loc[:, 'Weight_scale_variation_muR_2p0_muF_1p0'] = 0.
+                                    df.loc[:, 'Weight_scale_variation_muR_2p0_muF_2p0'] = 0.
+
+                                
+                                
+                                print("muon trigger SF: ", sum(df[df['check_MuonTrigger'] == 1]['Weight_MuonTriggerSF'].values)/(df[df['N_TightMuons']==1].shape[0]+0.000001))
+                                print("muon trigger SF Up: ", sum(df[df['check_MuonTrigger'] == 1]['Weight_MuonTriggerSF_Up'].values)/(df[df['N_TightMuons']==1].shape[0]+0.000001))
+                                print("muon trigger SF Down: ", sum(df[df['check_MuonTrigger'] == 1]['Weight_MuonTriggerSF_Down'].values)/(df[df['N_TightMuons']==1].shape[0]+0.000001))
+                                
+                                print("ele trigger SF: ", sum(df[df['check_ElectronTrigger'] == 1]['Weight_ElectronTriggerSF'].values)/(df[df['N_TightElectrons']==1].shape[0]+0.000001))
+                                print("ele trigger SF Up: ", sum(df[df['check_ElectronTrigger'] == 1]['Weight_ElectronTriggerSF_Up'].values)/(df[df['N_TightElectrons']==1].shape[0]+0.000001))
+                                print("ele trigger SF Down: ", sum(df[df['check_ElectronTrigger'] == 1]['Weight_ElectronTriggerSF_Down'].values)/(df[df['N_TightElectrons']==1].shape[0]+0.000001))
+
+                                df.loc[:, "btagfactor"] = btagfactor 
+
+                                # nominal values
+                                df = df.assign(sf_weight=lambda x: (btagfactor*sample.lumiWeight*x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSF[0]'] > 0.) & (x['Electron_ReconstructionSF[0]'] > 0.))*1.*x['Electron_IdentificationSF[0]']*x['Electron_ReconstructionSF[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & (x['check_ElectronTrigger']) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['check_MuonTrigger'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
+
+
+
+
+                                # btag SF & uncertainties
+                                df = df.assign(xs_weight=lambda x: x.Weight_XS * x.Weight_GEN_nom)
+                                # df = df.assign(xs_weight=lambda x: x.Weight_XS *
+                                #             x.Weight_CSV_UL * x.Weight_GEN_nom)
+
+                                df = df.assign(
+                                    total_weight=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL)
+                                df = df.assign(total_weight_uplf=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL_uplf)
+                                df = df.assign(total_weight_downlf=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL_downlf)
+                                df = df.assign(total_weight_uphf=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL_uphf)
+                                df = df.assign(total_weight_downhf=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL_downhf)
+                                df = df.assign(total_weight_uplfstats1=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL_uplfstats1)
+                                df = df.assign(total_weight_downlfstats1=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL_downlfstats1)
+                                df = df.assign(total_weight_uplfstats2=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL_uplfstats2)
+                                df = df.assign(total_weight_downlfstats2=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL_downlfstats2)
+                                df = df.assign(total_weight_uphfstats1=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL_uphfstats1)
+                                df = df.assign(total_weight_downhfstats1=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL_downhfstats1)
+                                df = df.assign(total_weight_uphfstats2=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL_uphfstats2)
+                                df = df.assign(total_weight_downhfstats2=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL_downhfstats2)
+                                df = df.assign(total_weight_upcferr1=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL_upcferr1)
+                                df = df.assign(total_weight_downcferr1=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL_downcferr1)
+                                df = df.assign(total_weight_upcferr2=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL_upcferr2)
+                                df = df.assign(total_weight_downcferr2=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL_downcferr2)
+
+                                print("Done with btagging SFs")
+
+                                # PU weights & uncertainties
+                                df = df.assign(total_weight_upPU=lambda x: (btagfactor*sample.lumiWeight*x['Weight_XS'] * x['Weight_CSV_UL'] * x['Weight_GEN_nom'] * x['Weight_pu69p2Up'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSF[0]'] > 0.) & (x['Electron_ReconstructionSF[0]'] > 0.))*1.*x['Electron_IdentificationSF[0]']*x['Electron_ReconstructionSF[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & (x['check_ElectronTrigger']) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['check_MuonTrigger'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
+
+                                df = df.assign(total_weight_downPU=lambda x: (btagfactor*sample.lumiWeight*x['Weight_XS'] * x['Weight_CSV_UL'] * x['Weight_GEN_nom'] * x['Weight_pu69p2Down'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSF[0]'] > 0.) & (x['Electron_ReconstructionSF[0]'] > 0.))*1.*x['Electron_IdentificationSF[0]']*x['Electron_ReconstructionSF[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & (x['check_ElectronTrigger']) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['check_MuonTrigger'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
+
+                                # L1 prefiring
+                                df = df.assign(total_weight_upL1Fire=lambda x: (btagfactor*sample.lumiWeight*x['Weight_XS'] * x['Weight_CSV_UL'] * x['Weight_GEN_nom'] * x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefireUp'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSF[0]'] > 0.) & (x['Electron_ReconstructionSF[0]'] > 0.))*1.*x['Electron_IdentificationSF[0]']*x['Electron_ReconstructionSF[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & (x['check_ElectronTrigger']) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['check_MuonTrigger'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
+
+                                df = df.assign(total_weight_downL1Fire=lambda x: (btagfactor*sample.lumiWeight*x['Weight_XS'] * x['Weight_CSV_UL'] * x['Weight_GEN_nom'] * x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefireDown'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSF[0]'] > 0.) & (x['Electron_ReconstructionSF[0]'] > 0.))*1.*x['Electron_IdentificationSF[0]']*x['Electron_ReconstructionSF[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & (x['check_ElectronTrigger']) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['check_MuonTrigger'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
+
+                                # electron trigger SF & uncertainties
+                                df = df.assign(total_weight_downEleTrigger=lambda x: (btagfactor*sample.lumiWeight*x['Weight_XS'] * x['Weight_CSV_UL'] * x['Weight_GEN_nom'] * x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSF[0]'] > 0.) & (x['Electron_ReconstructionSF[0]'] > 0.))*1.*x['Electron_IdentificationSF[0]']*x['Electron_ReconstructionSF[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & (x['check_ElectronTrigger']) & (x['Weight_ElectronTriggerSF_Down'] > 0)) * 1. * x['Weight_ElectronTriggerSF_Down'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['check_MuonTrigger'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
+
+                                df = df.assign(total_weight_upEleTrigger=lambda x: (btagfactor*sample.lumiWeight*x['Weight_XS'] * x['Weight_CSV_UL'] * x['Weight_GEN_nom'] * x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSF[0]'] > 0.) & (x['Electron_ReconstructionSF[0]'] > 0.))*1.*x['Electron_IdentificationSF[0]']*x['Electron_ReconstructionSF[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & (x['check_ElectronTrigger']) & (x['Weight_ElectronTriggerSF_Up'] > 0)) * 1. * x['Weight_ElectronTriggerSF_Up'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['check_MuonTrigger'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
+
+                                # muon trigger SF & uncertainties
+                                df = df.assign(total_weight_downMuonTrigger=lambda x: (btagfactor*sample.lumiWeight*x['Weight_XS'] * x['Weight_CSV_UL'] * x['Weight_GEN_nom'] * x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSF[0]'] > 0.) & (x['Electron_ReconstructionSF[0]'] > 0.))*1.*x['Electron_IdentificationSF[0]']*x['Electron_ReconstructionSF[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & (x['check_ElectronTrigger']) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['check_MuonTrigger'])) & (x['Weight_MuonTriggerSF_Down'] > 0.)) * 1. * x['Weight_MuonTriggerSF_Down'])))
+
+                                df = df.assign(total_weight_upMuonTrigger=lambda x: (btagfactor*sample.lumiWeight*x['Weight_XS'] * x['Weight_CSV_UL'] * x['Weight_GEN_nom'] * x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSF[0]'] > 0.) & (x['Electron_ReconstructionSF[0]'] > 0.))*1.*x['Electron_IdentificationSF[0]']*x['Electron_ReconstructionSF[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & (x['check_ElectronTrigger']) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['check_MuonTrigger'])) & (x['Weight_MuonTriggerSF_Up'] > 0.)) * 1. * x['Weight_MuonTriggerSF_Up'])))
+
+                                # Muon SF & uncertainties
+                                df = df.assign(total_weight_downMuon=lambda x: (btagfactor*sample.lumiWeight*x['Weight_XS'] * x['Weight_CSV_UL'] * x['Weight_GEN_nom'] * x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSF[0]'] > 0.) & (x['Electron_ReconstructionSF[0]'] > 0.))*1.*x['Electron_IdentificationSF[0]']*x['Electron_ReconstructionSF[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSFDown[0]'] > 0.) & (x['Muon_ReconstructionSFDown[0]'] > 0.) & (x['Muon_IsolationSFDown[0]'] > 0.))*1.*x['Muon_IdentificationSFDown[0]'] * x['Muon_IsolationSFDown[0]'] * x['Muon_ReconstructionSFDown[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & (x['check_ElectronTrigger']) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['check_MuonTrigger'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
+
+                                df = df.assign(total_weight_upMuon=lambda x: (btagfactor*sample.lumiWeight*x['Weight_XS'] * x['Weight_CSV_UL'] * x['Weight_GEN_nom'] * x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSF[0]'] > 0.) & (x['Electron_ReconstructionSF[0]'] > 0.))*1.*x['Electron_IdentificationSF[0]']*x['Electron_ReconstructionSF[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSFUp[0]'] > 0.) & (x['Muon_ReconstructionSFUp[0]'] > 0.) & (x['Muon_IsolationSFUp[0]'] > 0.))*1.*x['Muon_IdentificationSFUp[0]'] * x['Muon_IsolationSFUp[0]'] * x['Muon_ReconstructionSFUp[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & (x['check_ElectronTrigger']) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['check_MuonTrigger'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
+
+                                # Electron SF & uncertainties
+                                df = df.assign(total_weight_downEle=lambda x: (btagfactor*sample.lumiWeight*x['Weight_XS'] * x['Weight_CSV_UL'] * x['Weight_GEN_nom'] * x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSFDown[0]'] > 0.) & (x['Electron_ReconstructionSFDown[0]'] > 0.))*1.*x['Electron_IdentificationSFDown[0]']*x['Electron_ReconstructionSFDown[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & (x['check_ElectronTrigger']) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['check_MuonTrigger'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
+
+                                df = df.assign(total_weight_upEle=lambda x: (btagfactor*sample.lumiWeight*x['Weight_XS'] * x['Weight_CSV_UL'] * x['Weight_GEN_nom'] * x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSFUp[0]'] > 0.) & (x['Electron_ReconstructionSFUp[0]'] > 0.))*1.*x['Electron_IdentificationSFUp[0]']*x['Electron_ReconstructionSFUp[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & (x['check_ElectronTrigger']) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['check_MuonTrigger'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
+                                
+                                # df = df.assign(total_preweight=lambda x: (sample.lumiWeight * x['Weight_XS'] * x['Weight_CSV_UL'] * x['Weight_GEN_nom'] * x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSFUp[0]'] > 0.) & (x['Electron_ReconstructionSFUp[0]'] > 0.))*1.*x['Electron_IdentificationSFUp[0]']*x['Electron_ReconstructionSFUp[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & ((x['Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX'] == 1) | (
+                                    # (x['Triggered_HLT_Ele32_WPTight_Gsf_L1DoubleEG_vX'] == 1) & (x['Triggered_HLT_Ele32_WPTight_Gsf_2017SeedsX'] == 1))) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['Triggered_HLT_IsoMu27_vX'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
+
+                                print("Done with other SFs")
+
+                                # for x in range(306000, 306001):
+                                for x in range(306000, 306103):
+
+                                    if (sample.process == "ttDL" or sample.process == "ttSL"):
+                                        df['compare'] = df['Weight_pdf_variation_{}'.format(x)].ge(
+                                            0.)
+                                        df['total_weight_PDF_Weight_{}'.format(x)] = (df['Weight_pdf_variation_{}'.format(
+                                            x)]*((df['process'] == sample.process)*1. * self.genfile[(self.genfile['sample'] == sample.process) & (self.genfile['variation'] == 'Weight_pdf_variation_{}'.format(x))]['final_weight_sl_analysis'].values[0])) * df['total_weight']*df['compare']*1.
+                                    
+                                    elif (sample.process == "ttHSL" or sample.process == "ttHDL"):
+                                        sample_process = "ttH"
+                                        df['compare'] = df['Weight_pdf_variation_{}'.format(x)].ge(
+                                            0.)
+                                        df['total_weight_PDF_Weight_{}'.format(x)] = (df['Weight_pdf_variation_{}'.format(
+                                            x)]*((df['process'] == sample.process)*1. * self.genfile[(self.genfile['sample'] == sample_process) & (self.genfile['variation'] == 'Weight_pdf_variation_{}'.format(x))]['final_weight_sl_analysis'].values[0])) * df['total_weight']*df['compare']*1.
+                                    
+                                    else:
+
+                                        df.loc[:, 'Weight_pdf_variation_{}'.format(
+                                            x)] = 0.
+                                        df.loc[:, 'total_weight_PDF_Weight_{}'.format(
+                                            x)] = 0.
+                                        df['compare'] = df['Weight_pdf_variation_{}'.format(x)].ge(
+                                            0.)
+
+                                # for x in range(320900, 320901):
+                                for x in range(320900, 321001):
+
+                                    if (sample.process == "ttbbSL" or sample.process == "ttbbDL"):
+
+                                        df['compare'] = df['Weight_pdf_variation_{}'.format(x)].ge(
+                                            0.)
+                                        
+                                        df['total_weight_PDF_Weight_{}'.format(x)] = (df['Weight_pdf_variation_{}'.format(
+                                            x)]*((df['process'] == sample.process)*1. * self.genfile[(self.genfile['sample'] == sample.process) & (self.genfile['variation'] == 'Weight_pdf_variation_{}'.format(x))]['final_weight_sl_analysis'].values[0])) * df['total_weight']*df['compare']*1.
+
+
+                                    else:
+                                        df.loc[:, 'Weight_pdf_variation_{}'.format(
+                                            x)] = 0.
+                                        df.loc[:, 'total_weight_PDF_Weight_{}'.format(x)] = 0.
+                                        df['compare'] = df['Weight_pdf_variation_{}'.format(x)].ge(
+                                            0.)
+
+                                print("Done with PDF shape calculations")
+
+                                # print ("*"*50)
+                                print("Done with all Uncertainties")
+
                             else:
-                                print("Evaluate SFs for JER files")
-                                df = self.CalculateSFs(tree,df) 
+                            # for JES & JER variations
+                                doJES = False
+                                if "JESup" in file:
+                                    syst = "JESup"
+                                    doJES = True
+                                    btagfactor = self.btagfile[self.btagfile['sample'] == sample.process]['JESup'].values[0] 
+                                elif "JESdown" in file:
+                                    syst = "JESdown"
+                                    doJES = True
+                                    btagfactor = self.btagfile[self.btagfile['sample'] == sample.process]['JESdown'].values[0] 
+                                elif "JERup" in file:
+                                    btagfactor = self.btagfile[self.btagfile['sample'] == sample.process]['JERup'].values[0] 
+                                elif "JERdown" in file:
+                                    btagfactor = self.btagfile[self.btagfile['sample'] == sample.process]['JERdown'].values[0]  
+                                    
+                                if doJES:
+                                    print("Evaluate SFs for {} files".format(syst))
+                                    df = self.CalculateSFsEvalSyst(tree,df,syst)
+                                else:
+                                    print("Evaluate SFs for JER files")
+                                    df = self.CalculateSFs(tree,df) 
 
-                            df = self.CalculateMuonSFs(tree, df)
-                            df = self.CalculateElectronSFs(tree, df)
+                                df = self.CalculateMuonSFs(tree, df)
+                                df = self.CalculateElectronSFs(tree, df)
 
-                            print("muon trigger SF: ", sum(df[df['check_MuonTrigger'] == 1]['Weight_MuonTriggerSF'].values)/(df[df['N_TightMuons']==1].shape[0]+0.000001))
-                            print("muon trigger SF Up: ", sum(df[df['check_MuonTrigger'] == 1]['Weight_MuonTriggerSF_Up'].values)/(df[df['N_TightMuons']==1].shape[0]+0.000001))
-                            print("muon trigger SF Down: ", sum(df[df['check_MuonTrigger'] == 1]['Weight_MuonTriggerSF_Down'].values)/(df[df['N_TightMuons']==1].shape[0]+0.000001))
-                            
-                            print("ele trigger SF: ", sum(df[df['check_ElectronTrigger'] == 1]['Weight_ElectronTriggerSF'].values)/(df[df['N_TightElectrons']==1].shape[0]+0.000001))
-                            print("ele trigger SF Up: ", sum(df[df['check_ElectronTrigger'] == 1]['Weight_ElectronTriggerSF_Up'].values)/(df[df['N_TightElectrons']==1].shape[0]+0.000001))
-                            print("ele trigger SF Down: ", sum(df[df['check_ElectronTrigger'] == 1]['Weight_ElectronTriggerSF_Down'].values)/(df[df['N_TightElectrons']==1].shape[0]+0.000001))
+                                print("muon trigger SF: ", sum(df[df['check_MuonTrigger'] == 1]['Weight_MuonTriggerSF'].values)/(df[df['N_TightMuons']==1].shape[0]+0.000001))
+                                print("muon trigger SF Up: ", sum(df[df['check_MuonTrigger'] == 1]['Weight_MuonTriggerSF_Up'].values)/(df[df['N_TightMuons']==1].shape[0]+0.000001))
+                                print("muon trigger SF Down: ", sum(df[df['check_MuonTrigger'] == 1]['Weight_MuonTriggerSF_Down'].values)/(df[df['N_TightMuons']==1].shape[0]+0.000001))
+                                
+                                print("ele trigger SF: ", sum(df[df['check_ElectronTrigger'] == 1]['Weight_ElectronTriggerSF'].values)/(df[df['N_TightElectrons']==1].shape[0]+0.000001))
+                                print("ele trigger SF Up: ", sum(df[df['check_ElectronTrigger'] == 1]['Weight_ElectronTriggerSF_Up'].values)/(df[df['N_TightElectrons']==1].shape[0]+0.000001))
+                                print("ele trigger SF Down: ", sum(df[df['check_ElectronTrigger'] == 1]['Weight_ElectronTriggerSF_Down'].values)/(df[df['N_TightElectrons']==1].shape[0]+0.000001))
 
-                            df.loc[:, "btagfactor"] = btagfactor 
-                            
+                                df.loc[:, "btagfactor"] = btagfactor 
+                                
 
-                            df = df.assign(sf_weight=lambda x: (btagfactor * sample.lumiWeight*x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSF[0]'] > 0.) & (x['Electron_ReconstructionSF[0]'] > 0.))*1.*x['Electron_IdentificationSF[0]']*x['Electron_ReconstructionSF[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & (x['check_ElectronTrigger']) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['check_MuonTrigger'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
+                                df = df.assign(sf_weight=lambda x: (btagfactor * sample.lumiWeight*x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSF[0]'] > 0.) & (x['Electron_ReconstructionSF[0]'] > 0.))*1.*x['Electron_IdentificationSF[0]']*x['Electron_ReconstructionSF[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & (x['check_ElectronTrigger']) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['check_MuonTrigger'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
 
-                            # Weight_CSV_UL here corresponds to btagging SF for JES & JER variations
-                            df = df.assign(xs_weight=lambda x: x.Weight_XS *
-                                     x.Weight_GEN_nom )
-                            df = df.assign(
-                                total_weight=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL)
-                            
-                elif self.do_BTagCorrection:
+                                # Weight_CSV_UL here corresponds to btagging SF for JES & JER variations
+                                df = df.assign(xs_weight=lambda x: x.Weight_XS *
+                                        x.Weight_GEN_nom )
+                                df = df.assign(
+                                    total_weight=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL)
+                                
+                    elif self.do_BTagCorrection:
 
-                    if sample.process == "data":
+                        if sample.process == "data":
 
-                        print("Do data trigger study")
+                            print("Do data trigger study")
 
-                        df = df.assign(sf_weight=1.)
+                            df = df.assign(sf_weight=1.)
 
-                            # btag SF & uncertainties
-                        df = df.assign(xs_weight=lambda x: x.Weight_XS)
-                        # df = df.assign(xs_weight=lambda x: x.Weight_XS *
-                        #             x.Weight_CSV_UL * x.Weight_GEN_nom)
-
-                        df = df.assign(
-                            total_weight=lambda x: x.xs_weight * x.sf_weight)
-                        df = df.assign(total_preweight=lambda x: x.xs_weight * x.sf_weight)
- 
-
-                    else:
-
-                        if "nominal" in file:
-
-                            df = self.CalculateSFs(tree, df)
-                            df = self.CalculateMuonSFs(tree, df)
-                            df = self.CalculateElectronSFs(tree, df)
-
-                            print("muon trigger SF: ", sum(df[df['check_MuonTrigger'] == 1]['Weight_MuonTriggerSF'].values)/df[df['N_TightMuons']==1].shape[0])
-                            print("muon trigger SF Up: ", sum(df[df['check_MuonTrigger'] == 1]['Weight_MuonTriggerSF_Up'].values)/df[df['N_TightMuons']==1].shape[0])
-                            print("muon trigger SF Down: ", sum(df[df['check_MuonTrigger'] == 1]['Weight_MuonTriggerSF_Down'].values)/df[df['N_TightMuons']==1].shape[0])
-                            
-                            print("ele trigger SF: ", sum(df[df['check_ElectronTrigger'] == 1]['Weight_ElectronTriggerSF'].values)/df[df['N_TightElectrons']==1].shape[0])
-                            print("ele trigger SF Up: ", sum(df[df['check_ElectronTrigger'] == 1]['Weight_ElectronTriggerSF_Up'].values)/df[df['N_TightElectrons']==1].shape[0])
-                            print("ele trigger SF Down: ", sum(df[df['check_ElectronTrigger'] == 1]['Weight_ElectronTriggerSF_Down'].values)/df[df['N_TightElectrons']==1].shape[0]) 
-
-                            df = df.assign(sf_weight=lambda x: (sample.lumiWeight*x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSF[0]'] > 0.) & (x['Electron_ReconstructionSF[0]'] > 0.))*1.*x['Electron_IdentificationSF[0]']*x['Electron_ReconstructionSF[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & (x['check_ElectronTrigger']) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['check_MuonTrigger'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
-
-                            # btag SF & uncertainties
-                            df = df.assign(xs_weight=lambda x: x.Weight_XS * x.Weight_GEN_nom)
+                                # btag SF & uncertainties
+                            df = df.assign(xs_weight=lambda x: x.Weight_XS)
                             # df = df.assign(xs_weight=lambda x: x.Weight_XS *
                             #             x.Weight_CSV_UL * x.Weight_GEN_nom)
 
                             df = df.assign(
-                                total_weight=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL)
+                                total_weight=lambda x: x.xs_weight * x.sf_weight)
                             df = df.assign(total_preweight=lambda x: x.xs_weight * x.sf_weight)
+    
 
-                            # ratio = sum(df["total_preweight"].values)/sum(df["total_weight"].values)
-
-                            # print("ratio for sample")
-              
                         else:
 
-                            doJES = False
-                            if "JESup" in file:
-                                syst = "JESup"
-                                doJES = True
-                            elif "JESdown" in file:
-                                syst = "JESdown"
-                                doJES = True
-                                    
-                            if doJES:
-                                print("Evaluate SFs for {} files".format(syst))
-                                df = self.CalculateSFsEvalSyst(tree,df,syst)
+                            if "nominal" in file:
+
+                                df = self.CalculateSFs(tree, df)
                                 df = self.CalculateMuonSFs(tree, df)
                                 df = self.CalculateElectronSFs(tree, df)
+
+                                print("muon trigger SF: ", sum(df[df['check_MuonTrigger'] == 1]['Weight_MuonTriggerSF'].values)/df[df['N_TightMuons']==1].shape[0])
+                                print("muon trigger SF Up: ", sum(df[df['check_MuonTrigger'] == 1]['Weight_MuonTriggerSF_Up'].values)/df[df['N_TightMuons']==1].shape[0])
+                                print("muon trigger SF Down: ", sum(df[df['check_MuonTrigger'] == 1]['Weight_MuonTriggerSF_Down'].values)/df[df['N_TightMuons']==1].shape[0])
+                                
+                                print("ele trigger SF: ", sum(df[df['check_ElectronTrigger'] == 1]['Weight_ElectronTriggerSF'].values)/df[df['N_TightElectrons']==1].shape[0])
+                                print("ele trigger SF Up: ", sum(df[df['check_ElectronTrigger'] == 1]['Weight_ElectronTriggerSF_Up'].values)/df[df['N_TightElectrons']==1].shape[0])
+                                print("ele trigger SF Down: ", sum(df[df['check_ElectronTrigger'] == 1]['Weight_ElectronTriggerSF_Down'].values)/df[df['N_TightElectrons']==1].shape[0]) 
+
+                                df = df.assign(sf_weight=lambda x: (sample.lumiWeight*x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSF[0]'] > 0.) & (x['Electron_ReconstructionSF[0]'] > 0.))*1.*x['Electron_IdentificationSF[0]']*x['Electron_ReconstructionSF[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & (x['check_ElectronTrigger']) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['check_MuonTrigger'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
+
+                                # btag SF & uncertainties
+                                df = df.assign(xs_weight=lambda x: x.Weight_XS * x.Weight_GEN_nom)
+                                # df = df.assign(xs_weight=lambda x: x.Weight_XS *
+                                #             x.Weight_CSV_UL * x.Weight_GEN_nom)
+
+                                df = df.assign(
+                                    total_weight=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL)
+                                df = df.assign(total_preweight=lambda x: x.xs_weight * x.sf_weight)
+
+                                # ratio = sum(df["total_preweight"].values)/sum(df["total_weight"].values)
+
+                                # print("ratio for sample")
+                
                             else:
-                                print("Evaluate SFs for JER files")
-                                df = self.CalculateSFs(tree,df)
-                                df = self.CalculateMuonSFs(tree, df)
-                                df = self.CalculateElectronSFs(tree, df)
 
-                            print("muon trigger SF: ", sum(df[df['check_MuonTrigger'] == 1]['Weight_MuonTriggerSF'].values)/df[df['N_TightMuons']==1].shape[0])
-                            print("muon trigger SF Up: ", sum(df[df['check_MuonTrigger'] == 1]['Weight_MuonTriggerSF_Up'].values)/df[df['N_TightMuons']==1].shape[0])
-                            print("muon trigger SF Down: ", sum(df[df['check_MuonTrigger'] == 1]['Weight_MuonTriggerSF_Down'].values)/df[df['N_TightMuons']==1].shape[0])
-                            
-                            print("ele trigger SF: ", sum(df[df['check_ElectronTrigger'] == 1]['Weight_ElectronTriggerSF'].values)/df[df['N_TightElectrons']==1].shape[0])
-                            print("ele trigger SF Up: ", sum(df[df['check_ElectronTrigger'] == 1]['Weight_ElectronTriggerSF_Up'].values)/df[df['N_TightElectrons']==1].shape[0])
-                            print("ele trigger SF Down: ", sum(df[df['check_ElectronTrigger'] == 1]['Weight_ElectronTriggerSF_Down'].values)/df[df['N_TightElectrons']==1].shape[0])
+                                doJES = False
+                                if "JESup" in file:
+                                    syst = "JESup"
+                                    doJES = True
+                                elif "JESdown" in file:
+                                    syst = "JESdown"
+                                    doJES = True
+                                        
+                                if doJES:
+                                    print("Evaluate SFs for {} files".format(syst))
+                                    df = self.CalculateSFsEvalSyst(tree,df,syst)
+                                    df = self.CalculateMuonSFs(tree, df)
+                                    df = self.CalculateElectronSFs(tree, df)
+                                else:
+                                    print("Evaluate SFs for JER files")
+                                    df = self.CalculateSFs(tree,df)
+                                    df = self.CalculateMuonSFs(tree, df)
+                                    df = self.CalculateElectronSFs(tree, df)
 
-                            df = df.assign(sf_weight=lambda x: (sample.lumiWeight*x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSF[0]'] > 0.) & (x['Electron_ReconstructionSF[0]'] > 0.))*1.*x['Electron_IdentificationSF[0]']*x['Electron_ReconstructionSF[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & (x['check_ElectronTrigger']) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['check_MuonTrigger'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
+                                print("muon trigger SF: ", sum(df[df['check_MuonTrigger'] == 1]['Weight_MuonTriggerSF'].values)/df[df['N_TightMuons']==1].shape[0])
+                                print("muon trigger SF Up: ", sum(df[df['check_MuonTrigger'] == 1]['Weight_MuonTriggerSF_Up'].values)/df[df['N_TightMuons']==1].shape[0])
+                                print("muon trigger SF Down: ", sum(df[df['check_MuonTrigger'] == 1]['Weight_MuonTriggerSF_Down'].values)/df[df['N_TightMuons']==1].shape[0])
+                                
+                                print("ele trigger SF: ", sum(df[df['check_ElectronTrigger'] == 1]['Weight_ElectronTriggerSF'].values)/df[df['N_TightElectrons']==1].shape[0])
+                                print("ele trigger SF Up: ", sum(df[df['check_ElectronTrigger'] == 1]['Weight_ElectronTriggerSF_Up'].values)/df[df['N_TightElectrons']==1].shape[0])
+                                print("ele trigger SF Down: ", sum(df[df['check_ElectronTrigger'] == 1]['Weight_ElectronTriggerSF_Down'].values)/df[df['N_TightElectrons']==1].shape[0])
 
-                            # btag SF & uncertainties
-                            df = df.assign(xs_weight=lambda x: x.Weight_XS * x.Weight_GEN_nom)
+                                df = df.assign(sf_weight=lambda x: (sample.lumiWeight*x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSF[0]'] > 0.) & (x['Electron_ReconstructionSF[0]'] > 0.))*1.*x['Electron_IdentificationSF[0]']*x['Electron_ReconstructionSF[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & (x['check_ElectronTrigger']) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['check_MuonTrigger'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
+
+                                # btag SF & uncertainties
+                                df = df.assign(xs_weight=lambda x: x.Weight_XS * x.Weight_GEN_nom)
 
 
-                            df = df.assign(
-                                total_weight=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL)
-                            df = df.assign(total_preweight=lambda x: x.xs_weight * x.sf_weight) 
+                                df = df.assign(
+                                    total_weight=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL)
+                                df = df.assign(total_preweight=lambda x: x.xs_weight * x.sf_weight) 
 
-                else:
-                    # for DNN, only Weight_CSV_UL is needed
-                    df = self.CalculateSFs(tree,df)
-                    # print("df bTag SF: ")
-                    # print(df["Weight_CSV_UL"])
-                    # print(df["Weight_JetPUID"])
-                
-                
+                    else:
+                        # for DNN, only Weight_CSV_UL is needed
+                        df = self.CalculateSFs(tree,df)
+                        # print("df bTag SF: ")
+                        # print(df["Weight_CSV_UL"])
+                        # print(df["Weight_JetPUID"])
+                    
+                    
 
-                if concat_df.empty: concat_df = df
-                else: concat_df = concat_df.append(df)            
-                n_entries += df.shape[0]
-                print("n entries ", n_entries)
-            
-                # if number of entries exceeds max threshold, add labels and save dataframe
-                print(f == files[-1])
+                    if concat_df.empty: concat_df = df
+                    else: concat_df = concat_df.append(df)            
+                    n_entries += df.shape[0]
+
                 if (n_entries > self.maxEntries or f == files[-1]):
                     print("*"*50)
                     print("max entries reached ...")
