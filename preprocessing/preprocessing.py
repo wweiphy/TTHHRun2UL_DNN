@@ -706,7 +706,6 @@ class Dataset:
                             total_weight=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL)
                         df = df.assign(total_preweight=lambda x: x.xs_weight * x.sf_weight) 
 
-
                 else:
                     # for DNN, only Weight_CSV_UL is needed
                     df = self.CalculateSFs(tree,df)
