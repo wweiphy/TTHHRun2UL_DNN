@@ -12,7 +12,7 @@ import preprocessing
 
 
 """
-USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/EL8/CMSSW_12_4_3/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_singlemuon_2018.py --outputdirectory=Eval_0308_UL_data --variableselection=variables --maxentries=20000 --cores=8 --dataEra=2018
+USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/EL8/CMSSW_12_4_3/src/TTHHRun2UL_DNN/preprocessing/template_UL_Trigger_singlemuon_2018.py --outputdirectory=Trigger_0308_UL_data --variableselection=variables_trigger --maxentries=20000 --cores=4 --dataEra=2018
 """
 
 usage="usage=%prog [options] \n"
