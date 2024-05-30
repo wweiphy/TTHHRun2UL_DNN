@@ -1088,11 +1088,26 @@ class saveDNNInput:
 
             # print(self.data.df_unsplit_preprocessing["Jet_Pt[2]"])
             for var in VariableMap.MCVariable:
+
+                
                 
                 nbins = VariableMap.MCVariable[var][0]
                 bin_range = [VariableMap.MCVariable[var][1], VariableMap.MCVariable[var][2]]
                 # print("plotting variable: "+var)
-                filtered_values = self.data.df_unsplit_preprocessing[var].values
+
+                if var == "Electron_Eta[0]" or var == "Electron_Phi[0]":
+                    new_df = self.data.df_unsplit_preprocessing[self.data.df_unsplit_preprocessing['N_TightElectrons'] == 1] 
+                    filtered_values = new_df[var].values
+                    filtered_weights = new_df["lumi_weight"].values
+                elif var == "Muon_Eta[0]" or var == "Muon_Phi[0]":
+                    new_df = self.data.df_unsplit_preprocessing[self.data.df_unsplit_preprocessing['N_TightMuons'] == 1] 
+                    filtered_values = new_df[var].values
+                    filtered_weights = new_df["lumi_weight"].values
+                else:
+
+                    filtered_values = self.data.df_unsplit_preprocessing[var].values
+                # filtered_weights = self.data.df_unsplit_preprocessing["lumi_weight"].values
+
 
                 # weightIntegral += sum(filtered_weights)
 
@@ -1171,7 +1186,20 @@ class saveDNNInput:
 
                 nbins = VariableMap.DataVariable[var][0]
                 bin_range = [VariableMap.DataVariable[var][1], VariableMap.DataVariable[var][2]]
-                filtered_values = self.data.df_unsplit_preprocessing[var].values
+                # filtered_values = self.data.df_unsplit_preprocessing[var].values
+
+
+                if var == "Electron_Eta[0]" or var == "Electron_Phi[0]":
+                    new_df = self.data.df_unsplit_preprocessing[self.data.df_unsplit_preprocessing['N_TightElectrons'] == 1] 
+                    filtered_values = new_df[var].values
+                    filtered_weights = new_df["lumi_weight"].values
+                elif var == "Muon_Eta[0]" or var == "Muon_Phi[0]":
+                    new_df = self.data.df_unsplit_preprocessing[self.data.df_unsplit_preprocessing['N_TightMuons'] == 1] 
+                    filtered_values = new_df[var].values
+                    filtered_weights = new_df["lumi_weight"].values
+                else:
+
+                    filtered_values = self.data.df_unsplit_preprocessing[var].values
 
                 # weightIntegral += sum(filtered_weights)
 

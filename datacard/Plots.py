@@ -570,7 +570,10 @@ class DrawHistograms:
 
         if self.evaluation:
         # firstHist.GetTitle().split('_', 1)[0]
-            canvaslabel = firstHist.GetTitle().split('_', 1)[0] + " final discriminator"
+            if firstHist.GetTitle().split('_', 1)[0] == "ttlf":
+                canvaslabel = "ttbar final discriminator"
+            else: 
+                canvaslabel = firstHist.GetTitle().split('_', 1)[0] + " final discriminator"
         else:
             canvaslabel=firstHist.GetTitle()
             
