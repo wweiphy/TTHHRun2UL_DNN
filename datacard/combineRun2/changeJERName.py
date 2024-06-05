@@ -5,7 +5,7 @@ import pandas as pd
 import ROOT
 
 
-# python mergeNode.py -c 6j4b_5 
+# python changeJERName.py -c 5j4b_2 
 
 
 usage = "usage=%prog [options] \n"
@@ -69,13 +69,16 @@ for file in files:
             new_histonameup = 'ljets_ge4j_ge3t_'+node+"_node__"+process+"__JER_"+process+"_"+year+"Up"
             new_histonamedown = 'ljets_ge4j_ge3t_'+node+"_node__"+process+"__JER_"+process+"_"+year+"Down"
 
+            uphist = file.Get(histonameup)
+            downhist = file.Get(histonamedown)
 
-            new_histup = histonameup.Clone()
-            new_histdown = histonamedown.Clone()
+
+            new_histup = uphist.Clone()
+            new_histdown = downhist.Clone()
 
 
-            new_histup.Write(histoname)
-            new_histdown.Write(histoname)
+            new_histup.Write(new_histonameup)
+            new_histdown.Write(new_histonamedown)
 
         
 
