@@ -96,7 +96,7 @@ else:
         fullsystfile = "datacard_new_sys_2016-TwoEra.csv" 
         
         systfile = "datacard_new_sys_reduce_2016-TwoEra.csv"
-        systfile2 = "datacard_new_sys2_2016-TwoEra.csv" 
+        systfile2 = "datacard_new_sys_2016-TwoEra-JERsplit.csv" 
 
     # elif options.year == "2016" and "230523" in options.folder:
     #     # systfile = "datacard_new_sys_reduce_2016-TwoEra.csv"
@@ -113,12 +113,12 @@ else:
         systfile = "datacard_new_sys_reduce_2017.csv"
         # systfilerate = "datacard_new_sys_reduce_2017_rate.csv"
         fullsystfile = "datacard_new_sys_2017.csv"
-        systfile2 = "datacard_new_sys2_2017.csv"
+        systfile2 = "datacard_new_sys_2017-JERsplit.csv"
     elif options.year == "2018":
         systfile = "datacard_new_sys_reduce_2018.csv"
         # systfilerate = "datacard_new_sys_reduce_2018_rate.csv"
         fullsystfile = "datacard_new_sys_2018.csv"
-        systfile2 = "datacard_new_sys2_2018.csv"
+        systfile2 = "datacard_new_sys_2018-JERsplit.csv"
     # elif options.year == "run2":
     #     systfile = "datacard_new_sys_reduce_run2.csv"
     #     fullsystfile = "datacard_new_sys_run2.csv"
