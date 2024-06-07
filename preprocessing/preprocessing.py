@@ -608,7 +608,7 @@ class Dataset:
                                     
                                     df['N_Jets_for_bTag'] = np.clip(df['N_Jets'], min(bin_range),max(bin_range))
                                     # df = df.assign(N_Jets_for_bTag = lambda x: max(min_njet, x['N_Jets']) if x['N_Jets'] <= max(bin_range) else min(max(bin_range), x['N_Jets']))
-                                    print(self.btagfile[(self.btagfile['sample'] == sample.process) & (self.btagfile['syst'] == "JESup") & (self.btagfile['bin'] == x['N_Jets_for_bTag'])]['ratio'].values)
+                                    print(self.btagfile[(self.btagfile['sample'] == sample.process) & (self.btagfile['syst'] == "JESup") & (self.btagfile['bin'] == 5)]['ratio'].values)
                                     df = df.assign(btagfactor=lambda x: self.btagfile[(self.btagfile['sample'] == sample.process) & (self.btagfile['syst'] == "JESup") & (self.btagfile['bin'] == x['N_Jets_for_bTag'])]['ratio'].values[0])
 
                                 elif "JESdown" in file:
