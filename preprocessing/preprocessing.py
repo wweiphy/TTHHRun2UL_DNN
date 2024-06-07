@@ -604,7 +604,7 @@ class Dataset:
                                     syst = "JESup"
                                     doJES = True
 
-                                    bin_range = self.btagfile[(self.btagfile['sample'] == sample.process) and (self.btagfile['syst'] == "JESup")]['bin'].to_list()
+                                    bin_range = self.btagfile[(self.btagfile['sample'] == sample.process) & (self.btagfile['syst'] == "JESup")]['bin'].values()
                                     
 
                                     df = df.assign(N_Jets_for_bTag = lambda x: max(min(bin_range), x['N_Jets']) if x['N_Jets'] <= max(bin_range) else min(max(bin_range), x['N_Jets']))
@@ -614,7 +614,7 @@ class Dataset:
                                 elif "JESdown" in file:
                                     syst = "JESdown"
                                     doJES = True
-                                    bin_range = self.btagfile[(self.btagfile['sample'] == sample.process) and (self.btagfile['syst'] == "JESdown")]['bin'].to_list()
+                                    bin_range = self.btagfile[(self.btagfile['sample'] == sample.process) & (self.btagfile['syst'] == "JESdown")]['bin'].values()
 
                                     df = df.assign(N_Jets_for_bTag = lambda x: max(min(bin_range), x['N_Jets']) if x['N_Jets'] <= max(bin_range) else min(max(bin_range), x['N_Jets']))
 
