@@ -18,7 +18,7 @@ import sf_variables as sf_var
 
 
 """
-USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/EL8/CMSSW_12_4_3/src/TTHHRun2UL_DNN/preprocessing/template_UL_bTag_Syst.py --outputdirectory=BTag_0308_UL_2 --variableselection=variables_bTagCorrection --maxentries=20000 --cores=4  --syst=JESup --dataEra=2018
+USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/EL8/CMSSW_12_4_3/src/TTHHRun2UL_DNN/preprocessing/template_UL_bTag_Syst.py --outputdirectory=BTag_0308_UL_3 --variableselection=variables_bTagCorrection --maxentries=20000 --cores=4  --syst=JESup --dataEra=2018
 
 
 """
@@ -269,18 +269,18 @@ dataset.addSample(
     islocal=False
 )
 
-dataset.addSample(
-    sampleName="TT4b",
-    ntuples=ntuplesPath2 +
-    "/2018/ntuple/TT4b_TuneCP5_13TeV_madgraph_pythia8/sl_LEG_ntuple_2018/240329_194937/*/*" +
-    options.syst+"*.root",
-    categories=ttnb_categories,
-    process="tt4b",
-    #    lumiWeight  = 41.5,
-    selections=None,  # ttbar_selection,
-    #    selections  = ttbar_selection,
-    islocal=False
-)  # not finished
+# dataset.addSample(
+#     sampleName="TT4b",
+#     ntuples=ntuplesPath2 +
+#     "/2018/ntuple/TT4b_TuneCP5_13TeV_madgraph_pythia8/sl_LEG_ntuple_2018/240329_194937/*/*" +
+#     options.syst+"*.root",
+#     categories=ttnb_categories,
+#     process="tt4b",
+#     #    lumiWeight  = 41.5,
+#     selections=None,  # ttbar_selection,
+#     #    selections  = ttbar_selection,
+#     islocal=False
+# )  # not finished
 
 
 dataset.addSample(
