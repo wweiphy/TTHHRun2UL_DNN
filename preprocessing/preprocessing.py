@@ -651,10 +651,10 @@ class Dataset:
 
                                     df['btagfactor'] = df.apply(lambda x: self.get_btagfactor(x, this_btag), axis=1)
                                 
-                                print("bin range: ",bin_range)
-                                print("N jets: ",df['N_Jets'].head(10))
-                                print("N jets for btag: ",df['N_Jets_for_bTag'].head(10))
-                                print("btag factor", df['btagfactor'].head(10))
+                                # print("bin range: ",bin_range)
+                                # print("N jets: ",df['N_Jets'].head(10))
+                                # print("N jets for btag: ",df['N_Jets_for_bTag'].head(10))
+                                # print("btag factor", df['btagfactor'].head(10))
                                     
                                 if doJES:
                                     print("Evaluate SFs for {} files".format(syst))
