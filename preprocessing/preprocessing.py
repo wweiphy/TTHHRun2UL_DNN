@@ -605,6 +605,8 @@ class Dataset:
                                     doJES = True
 
                                     bin_range = self.btagfile[(self.btagfile['sample'] == sample.process) & (self.btagfile['syst'] == "JESup")]['bin'].values
+
+                                    print(bin_range)
                                     
 
                                     df = df.assign(N_Jets_for_bTag = lambda x: max(min(bin_range), x['N_Jets']) if x['N_Jets'] <= max(bin_range) else min(max(bin_range), x['N_Jets']))
