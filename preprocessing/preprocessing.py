@@ -477,7 +477,7 @@ class Dataset:
 
                                 bin_range = self.btagfile[(self.btagfile['sample'] == sample.process) and (self.btagfile['syst'] == "nominal")]['bin'].to_list()
 
-                                df = df.assign(N_Jets_for_bTag = lambda x: max(min(bin_range), x['N_Jets']) if x['N_Jets'] <= max(bin_range) else min(max(bin_range), x['N_Jets']))
+                                df['N_Jets_for_bTag'] = np.clip(df['N_Jets'], min(bin_range),max(bin_range))
 
                                 df = df.assign(btagfactor=lambda x: self.btagfile[(self.btagfile['sample'] == sample.process) and (self.btagfile['syst'] == "nominal") and (self.btagfile['bin'] == x['N_Jets_for_bTag'])]['ratio'].values[0])
 
@@ -605,11 +605,9 @@ class Dataset:
                                     doJES = True
 
                                     bin_range = self.btagfile[(self.btagfile['sample'] == sample.process) & (self.btagfile['syst'] == "JESup")]['bin'].values
-
-                                    print(bin_range)
                                     
-
-                                    df = df.assign(N_Jets_for_bTag = lambda x: max(min(bin_range), x['N_Jets']) if x['N_Jets'] <= max(bin_range) else min(max(bin_range), x['N_Jets']))
+                                    df['N_Jets_for_bTag'] = np.clip(df['N_Jets'], min(bin_range),max(bin_range))
+                                    # df = df.assign(N_Jets_for_bTag = lambda x: max(min_njet, x['N_Jets']) if x['N_Jets'] <= max(bin_range) else min(max(bin_range), x['N_Jets']))
 
                                     df = df.assign(btagfactor=lambda x: self.btagfile[(self.btagfile['sample'] == sample.process) and (self.btagfile['syst'] == "JESup") and (self.btagfile['bin'] == x['N_Jets_for_bTag'])]['ratio'].values[0])
 
@@ -618,19 +616,19 @@ class Dataset:
                                     doJES = True
                                     bin_range = self.btagfile[(self.btagfile['sample'] == sample.process) & (self.btagfile['syst'] == "JESdown")]['bin'].values()
 
-                                    df = df.assign(N_Jets_for_bTag = lambda x: max(min(bin_range), x['N_Jets']) if x['N_Jets'] <= max(bin_range) else min(max(bin_range), x['N_Jets']))
+                                    df['N_Jets_for_bTag'] = np.clip(df['N_Jets'], min(bin_range),max(bin_range))
 
                                     df = df.assign(btagfactor=lambda x: self.btagfile[(self.btagfile['sample'] == sample.process) and (self.btagfile['syst'] == "JESdown") and (self.btagfile['bin'] == x['N_Jets_for_bTag'])]['ratio'].values[0])
                                 elif "JERup" in file:
                                     bin_range = self.btagfile[(self.btagfile['sample'] == sample.process) and (self.btagfile['syst'] == "JERup")]['bin'].to_list()
 
-                                    df = df.assign(N_Jets_for_bTag = lambda x: max(min(bin_range), x['N_Jets']) if x['N_Jets'] <= max(bin_range) else min(max(bin_range), x['N_Jets']))
+                                    df['N_Jets_for_bTag'] = np.clip(df['N_Jets'], min(bin_range),max(bin_range))
 
                                     df = df.assign(btagfactor=lambda x: self.btagfile[(self.btagfile['sample'] == sample.process) and (self.btagfile['syst'] == "JERup") and (self.btagfile['bin'] == x['N_Jets_for_bTag'])]['ratio'].values[0])
                                 elif "JERdown" in file:
                                     bin_range = self.btagfile[(self.btagfile['sample'] == sample.process) and (self.btagfile['syst'] == "JERdown")]['bin'].to_list()
 
-                                    df = df.assign(N_Jets_for_bTag = lambda x: max(min(bin_range), x['N_Jets']) if x['N_Jets'] <= max(bin_range) else min(max(bin_range), x['N_Jets']))
+                                    df['N_Jets_for_bTag'] = np.clip(df['N_Jets'], min(bin_range),max(bin_range))
 
                                     df = df.assign(btagfactor=lambda x: self.btagfile[(self.btagfile['sample'] == sample.process) and (self.btagfile['syst'] == "JERdown") and (self.btagfile['bin'] == x['N_Jets_for_bTag'])]['ratio'].values[0])
                                 
