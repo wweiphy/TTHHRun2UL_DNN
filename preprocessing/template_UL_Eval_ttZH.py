@@ -168,7 +168,8 @@ dataset.addSample(
     categories=ttZH_categories,
     process = "ttZH",
     #    lumiWeight  = 41.5,
-    selections=ttHH_selection,  # ttbar_selection,
+    selections=None,
+    # selections=ttHH_selection,  # ttbar_selection,
     #    selections  = ttbar_selection,
     islocal=False
 ) # complete

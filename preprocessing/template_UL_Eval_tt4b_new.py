@@ -12,7 +12,7 @@ import preprocessing
 
 
 """
-USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/EL8/CMSSW_12_4_3/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_tt4b_new.py --outputdirectory=Eval_0308_UL_4_nominal --variableselection=variables --maxentries=20000 --cores=4 --dataEra=2018
+USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/EL8/CMSSW_12_4_3/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_tt4b_new.py --outputdirectory=Eval_0308_UL_3_nominal --variableselection=variables --maxentries=20000 --cores=4 --dataEra=2018
 """
 
 usage="usage=%prog [options] \n"
@@ -158,7 +158,8 @@ dataset.addSample(
     categories=ttnb_categories,
     process="tt4b",
     #    lumiWeight  = 41.5,
-    selections=ttHH_selection,  # ttbar_selection,
+    selections=None,
+    # selections=ttHH_selection,  # ttbar_selection,
     #    selections  = ttbar_selection,
     islocal=False
 )  # not finished
