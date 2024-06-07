@@ -475,7 +475,7 @@ class Dataset:
                                 print("ele trigger SF Up: ", sum(df[df['check_ElectronTrigger'] == 1]['Weight_ElectronTriggerSF_Up'].values)/(df[df['N_TightElectrons']==1].shape[0]+0.000001))
                                 print("ele trigger SF Down: ", sum(df[df['check_ElectronTrigger'] == 1]['Weight_ElectronTriggerSF_Down'].values)/(df[df['N_TightElectrons']==1].shape[0]+0.000001))
 
-                                this_btag = self.btagfile[self.btagfile[(self.btagfile['sample'] == sample.process) & (self.btagfile['syst'] == "nominal")]] 
+                                this_btag = self.btagfile[(self.btagfile['sample'] == sample.process) & (self.btagfile['syst'] == "nominal")]
 
                                 bin_range = this_btag['bin'].values
                                 df['N_Jets_for_bTag'] = np.clip(df['N_Jets'], min(bin_range),max(bin_range))
@@ -607,7 +607,7 @@ class Dataset:
                                     syst = "JESup"
                                     doJES = True
 
-                                    this_btag = self.btagfile[self.btagfile[(self.btagfile['sample'] == sample.process) & (self.btagfile['syst'] == "JESup")]] 
+                                    this_btag = self.btagfile[(self.btagfile['sample'] == sample.process) & (self.btagfile['syst'] == "JESup")]
 
                                     bin_range = this_btag['bin'].values
                                     df['N_Jets_for_bTag'] = np.clip(df['N_Jets'], min(bin_range),max(bin_range))
@@ -621,7 +621,7 @@ class Dataset:
                                     syst = "JESdown"
                                     doJES = True
                                     
-                                    this_btag = self.btagfile[self.btagfile[(self.btagfile['sample'] == sample.process) & (self.btagfile['syst'] == "JESdown")]] 
+                                    this_btag = self.btagfile[(self.btagfile['sample'] == sample.process) & (self.btagfile['syst'] == "JESdown")]
 
                                     bin_range = this_btag['bin'].values
                                     df['N_Jets_for_bTag'] = np.clip(df['N_Jets'], min(bin_range),max(bin_range))
@@ -631,7 +631,7 @@ class Dataset:
                                     df['btagfactor'] = df.apply(lambda x: self.get_btagfactor(x, this_btag), axis=1)
 
                                 elif "JERup" in file:
-                                    this_btag = self.btagfile[self.btagfile[(self.btagfile['sample'] == sample.process) & (self.btagfile['syst'] == "JERup")]] 
+                                    this_btag = self.btagfile[(self.btagfile['sample'] == sample.process) & (self.btagfile['syst'] == "JERup")]
 
                                     bin_range = this_btag['bin'].values
                                     df['N_Jets_for_bTag'] = np.clip(df['N_Jets'], min(bin_range),max(bin_range))
@@ -642,7 +642,7 @@ class Dataset:
 
                                 elif "JERdown" in file:
 
-                                    this_btag = self.btagfile[self.btagfile[(self.btagfile['sample'] == sample.process) & (self.btagfile['syst'] == "JERdown")]] 
+                                    this_btag = self.btagfile[(self.btagfile['sample'] == sample.process) & (self.btagfile['syst'] == "JERdown")]
 
                                     bin_range = this_btag['bin'].values
                                     df['N_Jets_for_bTag'] = np.clip(df['N_Jets'], min(bin_range),max(bin_range))
