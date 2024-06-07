@@ -605,6 +605,7 @@ class Dataset:
                                     doJES = True
 
                                     bin_range = self.btagfile[(self.btagfile['sample'] == sample.process) and (self.btagfile['syst'] == "JESup")]['bin'].to_list()
+                                    
 
                                     df = df.assign(N_Jets_for_bTag = lambda x: max(min(bin_range), x['N_Jets']) if x['N_Jets'] <= max(bin_range) else min(max(bin_range), x['N_Jets']))
 
@@ -630,6 +631,11 @@ class Dataset:
                                     df = df.assign(N_Jets_for_bTag = lambda x: max(min(bin_range), x['N_Jets']) if x['N_Jets'] <= max(bin_range) else min(max(bin_range), x['N_Jets']))
 
                                     df = df.assign(btagfactor=lambda x: self.btagfile[(self.btagfile['sample'] == sample.process) and (self.btagfile['syst'] == "JERdown") and (self.btagfile['bin'] == x['N_Jets_for_bTag'])]['ratio'].values[0])
+                                
+                                print("bin range: ",bin_range)
+                                print("N jets: ",df['N_Jets'].head(10))
+                                print("N jets for btag: ",df['N_Jets_for_bTag'].head(10))
+                                print("btag factor", df['btagfactor'].head(10))
                                     
                                 if doJES:
                                     print("Evaluate SFs for {} files".format(syst))
