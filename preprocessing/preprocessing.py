@@ -609,7 +609,8 @@ class Dataset:
                                     df['N_Jets_for_bTag'] = np.clip(df['N_Jets'], min(bin_range),max(bin_range))
                                     # df = df.assign(N_Jets_for_bTag = lambda x: max(min_njet, x['N_Jets']) if x['N_Jets'] <= max(bin_range) else min(max(bin_range), x['N_Jets']))
                                     # print(self.btagfile[(self.btagfile['sample'] == sample.process) & (self.btagfile['syst'] == "JESup") & (self.btagfile['bin'] == 5)]['ratio'].values)
-                                    df['btagfactor'] = self.btagfile[(self.btagfile['sample'] == sample.process) & (self.btagfile['syst'] == "JESup") & (self.btagfile['bin'] == df['N_Jets_for_bTag'])]['ratio'].values[0] 
+                                    df['btagfactor'] = df.apply(lambda x: self.get_btagfactor(x, self.btagfile), axis=1)
+                                    # df['btagfactor'] = self.btagfile[(self.btagfile['sample'] == sample.process) & (self.btagfile['syst'] == "JESup") & (self.btagfile['bin'] == df['N_Jets_for_bTag'])]['ratio'].values[0] 
                                     # df = df.assign(btagfactor=lambda x: self.btagfile[(self.btagfile['sample'] == sample.process) & (self.btagfile['syst'] == "JESup") & (self.btagfile['bin'] == x['N_Jets_for_bTag'])]['ratio'].values[0])
 
                                 elif "JESdown" in file:
@@ -811,6 +812,14 @@ class Dataset:
         if sampleSelection:
             df = df.query(sampleSelection)
         return df
+    
+    def get_btagfactor(self,row, btagfile):
+        # Find the matching row in btagfile
+        match = btagfile[btagfile['bin'] == row['N_Jets_for_bTag']]
+        if not match.empty:
+            return match['ratio'].values[0]
+        else:
+            return None 
 
     def addClassLabels(self, df, categories):
         print("adding class labels to df ...")
