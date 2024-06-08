@@ -18,7 +18,7 @@ import sf_variables as sf_var
 
 
 """
-USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/EL8/CMSSW_12_4_3/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_Syst.py --outputdirectory=Eval_0308_UL_3 --variableselection=variables --maxentries=20000 --cores=4  --syst=JESup --dataEra=2018
+USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/EL8/CMSSW_12_4_3/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_Syst.py --outputdirectory=Eval_0308_UL_3 --variableselection=variables --maxentries=20000 --cores=4  --syst=JERdown --dataEra=2018
 
 
 """
@@ -320,8 +320,8 @@ dataset.addSample(
     categories=ttnb_categories,
     process="tt4b",
     #    lumiWeight  = 41.5,
-    selections=None,
-    # selections=ttHH_selection,  # ttbar_selection,
+    # selections=None,
+    selections=ttHH_selection,  # ttbar_selection,
     #    selections  = ttbar_selection,
     islocal=False
 )  # not finished
