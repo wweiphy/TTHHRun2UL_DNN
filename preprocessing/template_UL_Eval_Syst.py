@@ -364,8 +364,8 @@ dataset.addSample(
     categories=ttbar_categories,
     process = "ttSL",
     #    lumiWeight  = 41.5,
-    selections=None,
-    # selections=ttHH_selection,  # ttbar_selection,
+    # selections=None,
+    selections=ttHH_selection,  # ttbar_selection,
     #    selections  = ttbar_selection
     islocal=False
 )
@@ -379,11 +379,12 @@ dataset.addSample(
     categories=ttbar_categories,
     process="ttDL",
     # lumiWeight  = 1.0,
-    selections=None,
-    # selections=ttHH_selection,  # ttbar_selection,
+    # selections=None,
+    selections=ttHH_selection,  # ttbar_selection,
     #    selections  = ttbar_selection
     islocal=False
 )
+
 
 # initialize variable list
 dataset.addVariables(variable_set.all_variables)

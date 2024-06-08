@@ -94,6 +94,7 @@ else:
 base_selection = "("+base+" and ("+single_mu_sel+" or "+single_el_sel+"))"
 
 ttHH_selection = "(Evt_Odd == 0)"  # Should I do this on ttHH
+# ttHH_selection2 = "(Evt_Odd == 1)"  # Should I do this on ttHH
 
 # define output classes
 ttHH_categories = preprocessing.EventCategories()
@@ -124,6 +125,16 @@ ttbar_categories.addCategory("ttlf", selection = "(GenEvt_I_TTPlusBB == 0 and Ge
 ttbar_categories.addCategory("ttcc", selection = "(GenEvt_I_TTPlusBB == 0 and GenEvt_I_TTPlusCC == 1)")
 # ttbar_categories.addCategory("ttbbb", selection = "(GenEvt_I_TTPlusBB == 4 and GenEvt_I_TTPlusCC == 0)")
 # ttbar_categories.addCategory("tt4b", selection = "(GenEvt_I_TTPlusBB == 5 and GenEvt_I_TTPlusCC == 0)")
+
+ttbar2_categories = preprocessing.EventCategories()
+# ttbar_categories.addCategory("ttbb", selection = "(GenEvt_I_TTPlusBB == 3 and GenEvt_I_TTPlusCC == 0)")
+# ttbar_categories.addCategory("tt2b", selection = "(GenEvt_I_TTPlusBB == 2 and GenEvt_I_TTPlusCC == 0)")
+# ttbar_categories.addCategory("ttb",  selection = "(GenEvt_I_TTPlusBB == 1 and GenEvt_I_TTPlusCC == 0)")
+ttbar2_categories.addCategory("ttlf-odd", selection = "(GenEvt_I_TTPlusBB == 0 and GenEvt_I_TTPlusCC == 0)")
+ttbar2_categories.addCategory("ttcc-odd", selection = "(GenEvt_I_TTPlusBB == 0 and GenEvt_I_TTPlusCC == 1)")
+# ttbar_categories.addCategory("ttbbb", selection = "(GenEvt_I_TTPlusBB == 4 and GenEvt_I_TTPlusCC == 0)")
+# ttbar_categories.addCategory("tt4b", selection = "(GenEvt_I_TTPlusBB == 5 and GenEvt_I_TTPlusCC == 0)")
+
 
 ttmb_categories = preprocessing.EventCategories()
 ttmb_categories.addCategory("ttmb", selection = "(GenEvt_I_TTPlusBB == 3 and GenEvt_I_TTPlusCC == 0) or (GenEvt_I_TTPlusBB == 2 and GenEvt_I_TTPlusCC == 0) or (GenEvt_I_TTPlusBB == 1 and GenEvt_I_TTPlusCC == 0)")
@@ -156,8 +167,8 @@ dataset2.addSample(
     categories=ttbar_categories,
     process = "ttSL",
     #    lumiWeight  = 41.5,
-    selections=None,  # ttbar_selection,
-    # selections=ttHH_selection,  # ttbar_selection,
+    # selections=None,  # ttbar_selection,
+    selections=ttHH_selection,  # ttbar_selection,
     #    selections  = ttbar_selection
     islocal=False
 )
@@ -170,11 +181,13 @@ dataset2.addSample(
     categories=ttbar_categories,
     process="ttDL",
     # lumiWeight  = 1.0,
-    selections=None,  # ttbar_selection,
-    # selections=ttHH_selection,  # ttbar_selection,
+    # selections=None,  # ttbar_selection,
+    selections=ttHH_selection,  # ttbar_selection,
     #    selections  = ttbar_selection
     islocal=False
 )
+
+
 
 # initialize variable list
 dataset2.addVariables(variable_set.all_variables)
