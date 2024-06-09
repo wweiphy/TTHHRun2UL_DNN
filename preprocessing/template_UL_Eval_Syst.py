@@ -199,8 +199,8 @@ dataset.addSample(
     categories=ttHH_categories,
     process = "ttHH",
     #    lumiWeight  = 41.5,
-    selections  = None,
-    # selections=ttHH_selection,
+    # selections  = None,
+    selections=ttHH_selection,
     islocal=False
 )
 
@@ -214,8 +214,8 @@ dataset.addSample(
     categories=ttZZ_categories,
     process = "ttZZ",
     #    lumiWeight  = 41.5,
-    # selections=ttHH_selection,  # ttbar_selection,
-    selections=None,
+    selections=ttHH_selection,  # ttbar_selection,
+    # selections=None,
     #    selections  = ttbar_selection,
     islocal=False
 )
@@ -230,8 +230,8 @@ dataset.addSample(
     categories=ttZZ_categories,
     process = "ttZZ",
     #    lumiWeight  = 41.5,
-    selections=None,
-    # selections=ttHH_selection,  # ttbar_selection,
+    # selections=None,
+    selections=ttHH_selection,  # ttbar_selection,
     #    selections  = ttbar_selection,
     islocal=False
 ) # complete
@@ -245,8 +245,8 @@ dataset.addSample(
     categories=ttZH_categories,
     process = "ttZH",
     #    lumiWeight  = 41.5,
-    selections=None,
-    # selections=ttHH_selection,  # ttbar_selection,
+    # selections=None,
+    selections=ttHH_selection,  # ttbar_selection,
     #    selections  = ttbar_selection,
     islocal=False
 )
@@ -260,8 +260,8 @@ dataset.addSample(
     categories=ttZH_categories,
     process = "ttZH",
     #    lumiWeight  = 41.5,
-    selections=None,
-    # selections=ttHH_selection,  # ttbar_selection,
+    # selections=None,
+    selections=ttHH_selection,  # ttbar_selection,
     #    selections  = ttbar_selection,
     islocal=False
 ) # complete
@@ -278,8 +278,8 @@ dataset.addSample(
     categories=ttZ_categories,
     process = "ttZ",
     #    lumiWeight  = 41.5,
-    selections=None,
-    # selections=ttHH_selection,  # ttbar_selection,
+    # selections=None,
+    selections=ttHH_selection,  # ttbar_selection,
     #    selections  = ttbar_selection,
     islocal=False
 )  # almost
@@ -292,8 +292,8 @@ dataset.addSample(
     categories  = ttmb_categories,
     process = "ttbbSL",
 #    lumiWeight  = 41.5,
-    selections=None,
-    # selections=ttHH_selection,  # ttbar_selection,
+    # selections=None,
+    selections=ttHH_selection,  # ttbar_selection,
 #    selections  = ttbar_selection,
     islocal     = False
       )
@@ -306,8 +306,8 @@ dataset.addSample(
     categories=ttmb_categories,
     process="ttbbDL",
     #    lumiWeight  = 41.5,
-    selections=None,
-    # selections=ttHH_selection,  # ttbar_selection,
+    # selections=None,
+    selections=ttHH_selection,  # ttbar_selection,
     #    selections  = ttbar_selection,
     islocal=False
 )
@@ -335,8 +335,8 @@ dataset.addSample(
     categories=ttH_categories,
     process = "ttHSL",
     #    lumiWeight  = 41.5,
-    selections=None,
-    # selections=ttHH_selection,  # ttbar_selection,
+    # selections=None,
+    selections=ttHH_selection,  # ttbar_selection,
     #    selections  = ttH_selection,
     islocal=False
 )
@@ -349,8 +349,8 @@ dataset.addSample(
     categories=ttH_categories,
     process = "ttHDL",
     #    lumiWeight  = 41.5,
-    selections=None,
-    # selections=ttHH_selection,  # ttbar_selection,
+    # selections=None,
+    selections=ttHH_selection,  # ttbar_selection,
     #    selections  = ttH_selection,
     islocal=False
 )

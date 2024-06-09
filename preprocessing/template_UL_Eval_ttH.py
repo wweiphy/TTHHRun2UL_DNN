@@ -172,8 +172,8 @@ dataset.addSample(
     categories=ttH_categories,
     process = "ttHSL",
     #    lumiWeight  = 41.5,
-    selections=None,
-    # selections=ttHH_selection,  # ttbar_selection,
+    # selections=None,
+    selections=ttHH_selection,  # ttbar_selection,
     #    selections  = ttH_selection,
     islocal=False
 )
@@ -189,8 +189,8 @@ dataset.addSample(
     categories=ttH_categories,
     process="ttHDL",
     #    lumiWeight  = 41.5,
-    selections=None,
-    # selections=ttHH_selection,  # ttbar_selection,
+    # selections=None,
+    selections=ttHH_selection,  # ttbar_selection,
     #    selections  = ttH_selection,
     islocal=False
 )

@@ -157,8 +157,8 @@ dataset.addSample(
     categories  = ttmb_categories,
     process = "ttbbSL",
 #    lumiWeight  = 41.5,
-    selections=None,
-    # selections=ttHH_selection,  # ttbar_selection,
+    # selections=None,
+    selections=ttHH_selection,  # ttbar_selection,
 #    selections  = ttbar_selection,
     islocal     = False
       )
@@ -170,9 +170,9 @@ dataset.addSample(
     # 221118_234955
     categories=ttmb_categories,
     process="ttbbDL",
-    selections=None,
+    # selections=None,
     #    lumiWeight  = 41.5,
-    # selections=ttHH_selection,  # ttbar_selection,
+    selections=ttHH_selection,  # ttbar_selection,
     #    selections  = ttbar_selection,
     islocal=False
 )
