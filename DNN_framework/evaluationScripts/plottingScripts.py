@@ -1095,11 +1095,11 @@ class saveDNNInput:
                 bin_range = [VariableMap.MCVariable[var][1], VariableMap.MCVariable[var][2]]
                 # print("plotting variable: "+var)
 
-                if var == "Electron_Eta[0]" or var == "Electron_Phi[0]":
+                if var == "Electron_Eta[0]" or var == "Electron_Phi[0]" or var == "Electron_Pt[0]" or var == "Electron_M[0]" or var == "Electron_E[0]":
                     new_df = self.data.df_unsplit_preprocessing[self.data.df_unsplit_preprocessing['N_TightElectrons'] == 1] 
                     filtered_values = new_df[var].values
                     filtered_weights = new_df["lumi_weight"].values
-                elif var == "Muon_Eta[0]" or var == "Muon_Phi[0]":
+                elif var == "Muon_Eta[0]" or var == "Muon_Phi[0]" or var == "Muon_Pt[0]" or var == "Muon_E[0]" or var == "Muon_M[0]":
                     new_df = self.data.df_unsplit_preprocessing[self.data.df_unsplit_preprocessing['N_TightMuons'] == 1] 
                     filtered_values = new_df[var].values
                     filtered_weights = new_df["lumi_weight"].values
