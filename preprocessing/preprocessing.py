@@ -27,10 +27,10 @@ genmap2016 = pd.read_csv(filedir+"/GenNormMap/ratefactors_new_plotscript_2016.cs
 genmap2017 = pd.read_csv(filedir+"/GenNormMap/ratefactors_new_plotscript_2017.csv")
 genmap2018 = pd.read_csv(filedir+"/GenNormMap/ratefactors_new_plotscript_2018.csv")
 
-btagcorrection2016pre = pd.read_csv(filedir+"/BTagCorrection/btag-correction-2016pre-by-bin.csv")
-btagcorrection2016post = pd.read_csv(filedir+"/BTagCorrection/btag-correction-2016post-by-bin.csv")
-btagcorrection2017 = pd.read_csv(filedir+"/BTagCorrection/btag-correction-2017-by-bin.csv")
-btagcorrection2018 = pd.read_csv(filedir+"/BTagCorrection/btag-correction-2018-by-bin.csv")
+btagcorrection2016pre = pd.read_csv(filedir+"/BTagCorrection/btag-correction-2016pre.csv")
+btagcorrection2016post = pd.read_csv(filedir+"/BTagCorrection/btag-correction-2016post.csv")
+btagcorrection2017 = pd.read_csv(filedir+"/BTagCorrection/btag-correction-2017.csv")
+btagcorrection2018 = pd.read_csv(filedir+"/BTagCorrection/btag-correction-2018.csv")
 
 # multi processing magic
 # TODO - A value is trying to be set on a copy of a slice from a DataFrame. Try using .loc[row_indexer, col_indexer] = value instead. See the caveats in the documentation: http: // pandas.pydata.org/pandas-docs/stable/indexing.html; self.obj[key] = _infer_fill_value(value)
@@ -442,7 +442,7 @@ class Dataset:
                         # for DNN evaluation on MC
                             if "nominal" in file:
                                 # print(sample.process)
-                                # btagfactor = self.btagfile[self.btagfile['sample'] == sample.process]['nominal'].values[0]
+                                btagfactor = self.btagfile[self.btagfile['sample'] == sample.process]['nominal'].values[0]
                                 
 
                                 print('Evaluate SFs for nominal files')
@@ -482,7 +482,9 @@ class Dataset:
 
                                 print(this_btag.head(3))
 
-                                df['btagfactor'] = df.apply(lambda x: self.get_btagfactor(x, this_btag), axis=1)
+                                df.loc[:, "btagfactor"] = btagfactor
+
+                                # df['btagfactor'] = df.apply(lambda x: self.get_btagfactor(x, this_btag), axis=1)
 
                                 # nominal values
                                 df = df.assign(sf_weight=lambda x: (x['btagfactor']*sample.lumiWeight*x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSF[0]'] > 0.) & (x['Electron_ReconstructionSF[0]'] > 0.))*1.*x['Electron_IdentificationSF[0]']*x['Electron_ReconstructionSF[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & (x['check_ElectronTrigger']) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['check_MuonTrigger'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
@@ -607,49 +609,57 @@ class Dataset:
                                     syst = "JESup"
                                     doJES = True
 
-                                    this_btag = self.btagfile[(self.btagfile['sample'] == sample.process) & (self.btagfile['syst'] == "JESup")]
+                                    # this_btag = self.btagfile[(self.btagfile['sample'] == sample.process) & (self.btagfile['syst'] == "JESup")]
 
-                                    bin_range = this_btag['bin'].values
-                                    df['N_Jets_for_bTag'] = np.clip(df['N_Jets'], min(bin_range),max(bin_range))
+                                    # bin_range = this_btag['bin'].values
+                                    # df['N_Jets_for_bTag'] = np.clip(df['N_Jets'], min(bin_range),max(bin_range))
 
-                                    print(this_btag.head(3))
+                                    # print(this_btag.head(3))
 
-                                    df['btagfactor'] = df.apply(lambda x: self.get_btagfactor(x, this_btag), axis=1)
+                                    # df['btagfactor'] = df.apply(lambda x: self.get_btagfactor(x, this_btag), axis=1)
+
+                                    btagfactor = self.btagfile[self.btagfile['sample'] == sample.process]['JESup'].values[0]
 
 
                                 elif "JESdown" in file:
                                     syst = "JESdown"
                                     doJES = True
                                     
-                                    this_btag = self.btagfile[(self.btagfile['sample'] == sample.process) & (self.btagfile['syst'] == "JESdown")]
+                                    # this_btag = self.btagfile[(self.btagfile['sample'] == sample.process) & (self.btagfile['syst'] == "JESdown")]
 
-                                    bin_range = this_btag['bin'].values
-                                    df['N_Jets_for_bTag'] = np.clip(df['N_Jets'], min(bin_range),max(bin_range))
+                                    # bin_range = this_btag['bin'].values
+                                    # df['N_Jets_for_bTag'] = np.clip(df['N_Jets'], min(bin_range),max(bin_range))
 
-                                    print(this_btag.head(3))
+                                    # print(this_btag.head(3))
 
-                                    df['btagfactor'] = df.apply(lambda x: self.get_btagfactor(x, this_btag), axis=1)
+                                    # df['btagfactor'] = df.apply(lambda x: self.get_btagfactor(x, this_btag), axis=1)
+
+                                    btagfactor = self.btagfile[self.btagfile['sample'] == sample.process]['JESdown'].values[0]
 
                                 elif "JERup" in file:
-                                    this_btag = self.btagfile[(self.btagfile['sample'] == sample.process) & (self.btagfile['syst'] == "JERup")]
+                                    # this_btag = self.btagfile[(self.btagfile['sample'] == sample.process) & (self.btagfile['syst'] == "JERup")]
 
-                                    bin_range = this_btag['bin'].values
-                                    df['N_Jets_for_bTag'] = np.clip(df['N_Jets'], min(bin_range),max(bin_range))
+                                    # bin_range = this_btag['bin'].values
+                                    # df['N_Jets_for_bTag'] = np.clip(df['N_Jets'], min(bin_range),max(bin_range))
 
-                                    print(this_btag.head(3))
+                                    # print(this_btag.head(3))
 
-                                    df['btagfactor'] = df.apply(lambda x: self.get_btagfactor(x, this_btag), axis=1)
+                                    # df['btagfactor'] = df.apply(lambda x: self.get_btagfactor(x, this_btag), axis=1)
+
+                                    btagfactor = self.btagfile[self.btagfile['sample'] == sample.process]['JERup'].values[0]
 
                                 elif "JERdown" in file:
 
-                                    this_btag = self.btagfile[(self.btagfile['sample'] == sample.process) & (self.btagfile['syst'] == "JERdown")]
+                                    # this_btag = self.btagfile[(self.btagfile['sample'] == sample.process) & (self.btagfile['syst'] == "JERdown")]
 
-                                    bin_range = this_btag['bin'].values
-                                    df['N_Jets_for_bTag'] = np.clip(df['N_Jets'], min(bin_range),max(bin_range))
+                                   btagfactor = self.btagfile[self.btagfile['sample'] == sample.process]['JERdown'].values[0]
 
-                                    print(this_btag.head(3))
+                                    # bin_range = this_btag['bin'].values
+                                    # df['N_Jets_for_bTag'] = np.clip(df['N_Jets'], min(bin_range),max(bin_range))
 
-                                    df['btagfactor'] = df.apply(lambda x: self.get_btagfactor(x, this_btag), axis=1)
+                                    # print(this_btag.head(3))
+
+                                    # df['btagfactor'] = df.apply(lambda x: self.get_btagfactor(x, this_btag), axis=1)
                                 
                                 # print("bin range: ",bin_range)
                                 # print("N jets: ",df['N_Jets'].head(10))
@@ -674,7 +684,7 @@ class Dataset:
                                 print("ele trigger SF Up: ", sum(df[df['check_ElectronTrigger'] == 1]['Weight_ElectronTriggerSF_Up'].values)/(df[df['N_TightElectrons']==1].shape[0]+0.000001))
                                 print("ele trigger SF Down: ", sum(df[df['check_ElectronTrigger'] == 1]['Weight_ElectronTriggerSF_Down'].values)/(df[df['N_TightElectrons']==1].shape[0]+0.000001))
 
-                                # df.loc[:, "btagfactor"] = btagfactor 
+                                df.loc[:, "btagfactor"] = btagfactor 
                                 
 
                                 df = df.assign(sf_weight=lambda x: (x['btagfactor'] * sample.lumiWeight*x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSF[0]'] > 0.) & (x['Electron_ReconstructionSF[0]'] > 0.))*1.*x['Electron_IdentificationSF[0]']*x['Electron_ReconstructionSF[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & (x['check_ElectronTrigger']) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['check_MuonTrigger'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
@@ -707,7 +717,7 @@ class Dataset:
 
                             if "nominal" in file:
 
-                                df = self.CalculateSFsEval(tree, df)
+                                df = self.CalculateSFs(tree, df)
                                 df = self.CalculateMuonSFs(tree, df)
                                 df = self.CalculateElectronSFs(tree, df)
 
