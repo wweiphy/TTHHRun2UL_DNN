@@ -670,7 +670,7 @@ class Dataset:
 
                                     df['btagfactor'] = df.apply(lambda x: self.get_btagfactor(x, this_btag), axis = 1)
 
-                                    print(df['btagfactor'].head(3))
+                                    # print(df['btagfactor'].head(3))
                                 
                                 # print("bin range: ",bin_range)
                                 # print("N jets: ",df['N_Jets'].head(10))
@@ -853,10 +853,13 @@ class Dataset:
     def get_btagfactor(self,df,btagfile):
         # Find the matching row in btagfile
         match = btagfile[btagfile['bin'] == df['N_Jets_for_bTag']]
+        print("match")
         print(match)
+        print("length of df")
         print(df.shape[0])
+    
         if not match.empty:
-            print(match['ratio'].values[0])
+            # print(match['ratio'].values[0])
             return match['ratio'].values[0]
         
         else:
