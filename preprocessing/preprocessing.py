@@ -661,13 +661,14 @@ class Dataset:
                                 #    btagfactor = self.btagfile[self.btagfile['sample'] == sample.process]['JERdown'].values[0]
 
                                     bin_range = this_btag['bin'].values
+
                                     df['N_Jets_for_bTag'] = np.clip(df['N_Jets'], min(bin_range),max(bin_range))
 
                                     # print(this_btag.head(3))
 
                                     df.loc[:, "btagfactor"] = 0.
 
-                                    df['btagfactor'] = df.apply(lambda x: self.get_btagfactor(x, this_btag))
+                                    df['btagfactor'] = df.apply(lambda x: self.get_btagfactor(x, this_btag), axis = 1)
 
                                     print(df['btagfactor'].head(3))
                                 
@@ -852,12 +853,15 @@ class Dataset:
     def get_btagfactor(self,df,btagfile):
         # Find the matching row in btagfile
         match = btagfile[btagfile['bin'] == df['N_Jets_for_bTag']]
+        print(match)
+        print(df.shape[0])
         if not match.empty:
+            print(match['ratio'].values[0])
             return match['ratio'].values[0]
+        
         else:
             
             print("error, non matching N btag")
-            print(match)
             return None 
 
     def addClassLabels(self, df, categories):
