@@ -442,7 +442,7 @@ class Dataset:
                         # for DNN evaluation on MC
                             if "nominal" in file:
                                 # print(sample.process)
-                                btagfactor = self.btagfile[self.btagfile['sample'] == sample.process]['nominal'].values[0]
+                                # btagfactor = self.btagfile[self.btagfile['sample'] == sample.process]['nominal'].values[0]
                                 
 
                                 print('Evaluate SFs for nominal files')
@@ -845,6 +845,9 @@ class Dataset:
         if not match.empty:
             return match['ratio'].values[0]
         else:
+            
+            print("error, non matching N btag")
+            print(match)
             return None 
 
     def addClassLabels(self, df, categories):
