@@ -614,7 +614,9 @@ class Dataset:
                                     bin_range = this_btag['bin'].values
                                     df['N_Jets_for_bTag'] = np.clip(df['N_Jets'], min(bin_range),max(bin_range))
 
-                                    print(this_btag.head(3))
+                                    # print(this_btag.head(3))
+
+                                    df.loc[:, "btagfactor"] = 0.
 
                                     df['btagfactor'] = df.apply(lambda x: self.get_btagfactor(x, this_btag), axis=1)
 
@@ -630,7 +632,9 @@ class Dataset:
                                     bin_range = this_btag['bin'].values
                                     df['N_Jets_for_bTag'] = np.clip(df['N_Jets'], min(bin_range),max(bin_range))
 
-                                    print(this_btag.head(3))
+                                    # print(this_btag.head(3))
+
+                                    df.loc[:, "btagfactor"] = 0.
 
                                     df['btagfactor'] = df.apply(lambda x: self.get_btagfactor(x, this_btag), axis=1)
 
@@ -642,7 +646,9 @@ class Dataset:
                                     bin_range = this_btag['bin'].values
                                     df['N_Jets_for_bTag'] = np.clip(df['N_Jets'], min(bin_range),max(bin_range))
 
-                                    print(this_btag.head(3))
+                                    # print(this_btag.head(3))
+
+                                    df.loc[:, "btagfactor"] = 0.
 
                                     df['btagfactor'] = df.apply(lambda x: self.get_btagfactor(x, this_btag), axis=1)
 
@@ -657,9 +663,13 @@ class Dataset:
                                     bin_range = this_btag['bin'].values
                                     df['N_Jets_for_bTag'] = np.clip(df['N_Jets'], min(bin_range),max(bin_range))
 
-                                    print(this_btag.head(3))
+                                    # print(this_btag.head(3))
 
-                                    df['btagfactor'] = df.apply(lambda x: self.get_btagfactor(x, this_btag), axis=1)
+                                    df.loc[:, "btagfactor"] = 0.
+
+                                    df['btagfactor'] = df.apply(lambda x: self.get_btagfactor(x, this_btag))
+
+                                    print(df['btagfactor'].head(3))
                                 
                                 # print("bin range: ",bin_range)
                                 # print("N jets: ",df['N_Jets'].head(10))
