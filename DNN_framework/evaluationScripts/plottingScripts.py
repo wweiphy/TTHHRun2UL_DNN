@@ -1176,7 +1176,7 @@ class saveDNNInput:
             print(self.savedir + "/" + "data_" + "variables" + ".root")
 
             print("\nPLOTTING variables for data ")
-            filtered_weights = self.data.df_unsplit_preprocessing["lumi_weight"].values
+            # filtered_weights = self.data.df_unsplit_preprocessing["lumi_weight"].values
             
             bkgHists = []
             bkgLabels = []
