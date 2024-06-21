@@ -669,7 +669,8 @@ class Dataset:
                                     print(df_combine.shape[0])
                                     print(df_combine[['N_Jets_for_bTag','ratio']].head(5))
 
-                                    df['btagfactor'] = df_combine['ratio']
+                                    # df['btagfactor'] = df_combine['ratio']
+                                    df.loc[:, "btagfactor"] = df_combine['ratio'].values
 
                                     print(df[['N_Jets_for_bTag','btagfactor']].head(5))
 
