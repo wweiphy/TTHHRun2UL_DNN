@@ -478,7 +478,7 @@ class Dataset:
                                 this_btag = self.btagfile[(self.btagfile['sample'] == sample.process) & (self.btagfile['syst'] == "nominal")]
 
                                 bin_range = this_btag['bin'].values
-                                df.loc[:,'N_Jets_for_bTag'] = np.clip(df['N_Jets'], min(bin_range),max(bin_range))
+                                df.loc[:,'N_Jets_for_bTag'] = np.clip(df['N_Jets'].values, min(bin_range),max(bin_range))
 
                                 df_combine = pd.merge(df, this_btag, left_on='N_Jets_for_bTag', right_on='bin', how='left')
                                 # print(df.shape[0])
@@ -616,7 +616,7 @@ class Dataset:
                                     this_btag = self.btagfile[(self.btagfile['sample'] == sample.process) & (self.btagfile['syst'] == "JESup")]
 
                                     bin_range = this_btag['bin'].values
-                                    df.loc[:,'N_Jets_for_bTag'] = np.clip(df['N_Jets'], min(bin_range),max(bin_range))
+                                    df.loc[:,'N_Jets_for_bTag'] = np.clip(df['N_Jets'].values, min(bin_range),max(bin_range))
 
                                     df_combine = pd.merge(df, this_btag, left_on='N_Jets_for_bTag', right_on='bin', how='left')
                                     # print(df.shape[0])
@@ -636,7 +636,7 @@ class Dataset:
                                     this_btag = self.btagfile[(self.btagfile['sample'] == sample.process) & (self.btagfile['syst'] == "JESdown")]
 
                                     bin_range = this_btag['bin'].values
-                                    df.loc[:,'N_Jets_for_bTag'] = np.clip(df['N_Jets'], min(bin_range),max(bin_range))
+                                    df.loc[:,'N_Jets_for_bTag'] = np.clip(df['N_Jets'].values, min(bin_range),max(bin_range))
 
                                     df_combine = pd.merge(df, this_btag, left_on='N_Jets_for_bTag', right_on='bin', how='left')
                                     # print(df.shape[0])
@@ -652,7 +652,7 @@ class Dataset:
                                     this_btag = self.btagfile[(self.btagfile['sample'] == sample.process) & (self.btagfile['syst'] == "JERup")]
 
                                     bin_range = this_btag['bin'].values
-                                    df.loc[:,'N_Jets_for_bTag'] = np.clip(df['N_Jets'], min(bin_range),max(bin_range))
+                                    df.loc[:,'N_Jets_for_bTag'] = np.clip(df['N_Jets'].values, min(bin_range),max(bin_range))
 
                                     df_combine = pd.merge(df, this_btag, left_on='N_Jets_for_bTag', right_on='bin', how='left')
                                     # print(df.shape[0])
@@ -672,7 +672,7 @@ class Dataset:
 
                                     bin_range = this_btag['bin'].values
 
-                                    df.loc[:,'N_Jets_for_bTag'] = np.clip(df['N_Jets'], min(bin_range),max(bin_range))
+                                    df.loc[:,'N_Jets_for_bTag'] = np.clip(df['N_Jets'].values, min(bin_range),max(bin_range))
 
                                     # print(this_btag.head(3))
 
@@ -719,7 +719,7 @@ class Dataset:
                                 
                                 # print("success 2") 
 
-                                df = df.assign(sf_weight=lambda x: (x['btagfactor'] * sample.lumiWeight*x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSF[0]'] > 0.) & (x['Electron_ReconstructionSF[0]'] > 0.))*1.*x['Electron_IdentificationSF[0]']*x['Electron_ReconstructionSF[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & (x['check_ElectronTrigger']) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['check_MuonTrigger'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
+                                df = df.assign(sf_weight=lambda x: (0.8 * sample.lumiWeight*x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSF[0]'] > 0.) & (x['Electron_ReconstructionSF[0]'] > 0.))*1.*x['Electron_IdentificationSF[0]']*x['Electron_ReconstructionSF[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & (x['check_ElectronTrigger']) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['check_MuonTrigger'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
 
                                 # Weight_CSV_UL here corresponds to btagging SF for JES & JER variations
                                 df = df.assign(xs_weight=lambda x: x.Weight_XS *
