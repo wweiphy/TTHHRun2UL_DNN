@@ -671,7 +671,7 @@ class Dataset:
 
                                     df['btagfactor'] = df_combine['ratio']
 
-                                    print(df['btagfactor'].head(5))
+                                    print(df[['N_Jets_for_bTag','btagfactor']].head(5))
 
                                     # df['btagfactor'] = df.apply(lambda x: self.get_btagfactor(x, this_btag), axis = 1)
 
