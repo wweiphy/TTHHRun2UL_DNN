@@ -837,7 +837,7 @@ class Dataset:
                     concat_df.set_index([self.varName_Run, self.varName_LumiBlock, self.varName_Event], inplace=True, drop=True)
 
                     # remove trigger variables
-                    concat_df = self.removeTriggerVariables(concat_df)
+                    # concat_df = self.removeTriggerVariables(concat_df)
 
                     # write data to file
                     self.createDatasets(concat_df, sample.categories.categories, chunkNumber)
