@@ -672,17 +672,17 @@ class Dataset:
 
                                     bin_range = this_btag['bin'].values
 
-                                    df.loc[:,'N_Jets_for_bTag'] = np.clip(df['N_Jets'].values, min(bin_range),max(bin_range))
+                                    # df.loc[:,'N_Jets_for_bTag'] = np.clip(df['N_Jets'].values, min(bin_range),max(bin_range))
 
                                     # print(this_btag.head(3))
 
-                                    df_combine = pd.merge(df, this_btag, left_on='N_Jets_for_bTag', right_on='bin', how='left')
+                                    # df_combine = pd.merge(df, this_btag, left_on='N_Jets_for_bTag', right_on='bin', how='left')
                                     # print(df.shape[0])
                                     # print(df_combine.shape[0])
                                     # print(df_combine[['N_Jets_for_bTag','ratio']].head(10))
 
                                     # df['btagfactor'] = df_combine['ratio']
-                                    df.loc[:, "btagfactor"] = 0.8
+                                    # df.loc[:, "btagfactor"] = 0.8
 
                                     # print(df[['N_Jets_for_bTag','btagfactor']].head(10))
 
