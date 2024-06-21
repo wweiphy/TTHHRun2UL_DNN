@@ -326,6 +326,7 @@ variables["ge4j_ge3t"] = [
     'N_PrimaryVertices',
     'N_TightElectrons',
     'N_TightMuons',
+    'N_TightLeptons',
     'CSV[0]',
     'CSV[1]',
     'CSV[2]',
