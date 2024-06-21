@@ -2,9 +2,9 @@
 additional_variables = [
     "Evt_Odd",
     "N_Jets",
-    # "N_BTagsL",
+    "N_BTagsL",
     "N_BTagsM",
-    # "N_BTagsT",
+    "N_BTagsT",
     'N_TightElectrons',
     'N_TightMuons',
     "Weight_XS",

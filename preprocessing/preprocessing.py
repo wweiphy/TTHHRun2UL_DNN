@@ -398,7 +398,7 @@ class Dataset:
 
                         df.loc[:,'check_ElectronTrigger'] = (df['Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX'] == 1) | ((df['Triggered_HLT_Ele32_WPTight_Gsf_L1DoubleEG_vX'] == 1) & (df['Triggered_HLT_Ele32_WPTight_Gsf_2017SeedsX'] == 1))
 
-                        df.loc[:,'check_MuonTrigger'] = (df['Triggered_HLT_IsoMu27_vX'])
+                        df.loc[:,'check_MuonTrigger'] = (df['Triggered_HLT_IsoMu27_vX'] == 1)
 
                         print('check Trigger paths in 2017')
 
@@ -406,13 +406,13 @@ class Dataset:
 
                         df.loc[:,'check_ElectronTrigger'] = (df['Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX'] == 1) | (df['Triggered_HLT_Ele32_WPTight_Gsf_vX'] == 1) 
 
-                        df.loc[:,'check_MuonTrigger'] = (df['Triggered_HLT_IsoMu24_vX'])
+                        df.loc[:,'check_MuonTrigger'] = (df['Triggered_HLT_IsoMu24_vX'] == 1)
 
                         print('check Trigger paths in 2018')
 
                     elif self.dataEra == "2016postVFP":
                         
-                        df.loc[:,'check_ElectronTrigger'] = (df['Triggered_HLT_Ele27_WPTight_Gsf_vX']) 
+                        df.loc[:,'check_ElectronTrigger'] = (df['Triggered_HLT_Ele27_WPTight_Gsf_vX'] == 1) 
 
                         df.loc[:,'check_MuonTrigger'] = (df['Triggered_HLT_IsoTkMu24_vX'] == 1) | (df['Triggered_HLT_IsoMu24_vX'] == 1)
 
@@ -420,7 +420,7 @@ class Dataset:
 
                     elif self.dataEra == "2016preVFP":
                         
-                        df.loc[:,'check_ElectronTrigger'] = (df['Triggered_HLT_Ele27_WPTight_Gsf_vX']) 
+                        df.loc[:,'check_ElectronTrigger'] = (df['Triggered_HLT_Ele27_WPTight_Gsf_vX'] == 1) 
 
                         df.loc[:,'check_MuonTrigger'] = (df['Triggered_HLT_IsoTkMu24_vX'] == 1) | (df['Triggered_HLT_IsoMu24_vX'] == 1)
 
