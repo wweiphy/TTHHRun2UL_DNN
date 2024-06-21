@@ -396,33 +396,33 @@ class Dataset:
 
                     if self.dataEra == "2017" or self.dataEra == 2017:
 
-                        df['check_ElectronTrigger'] = (df['Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX'] == 1) | ((df['Triggered_HLT_Ele32_WPTight_Gsf_L1DoubleEG_vX'] == 1) & (df['Triggered_HLT_Ele32_WPTight_Gsf_2017SeedsX'] == 1))
+                        df.loc[:,'check_ElectronTrigger'] = (df['Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX'] == 1) | ((df['Triggered_HLT_Ele32_WPTight_Gsf_L1DoubleEG_vX'] == 1) & (df['Triggered_HLT_Ele32_WPTight_Gsf_2017SeedsX'] == 1))
 
-                        df['check_MuonTrigger'] = (df['Triggered_HLT_IsoMu27_vX'])
+                        df.loc[:,'check_MuonTrigger'] = (df['Triggered_HLT_IsoMu27_vX'])
 
                         print('check Trigger paths in 2017')
 
                     elif self.dataEra == "2018" or self.dataEra == 2018:
 
-                        df['check_ElectronTrigger'] = (df['Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX'] == 1) | (df['Triggered_HLT_Ele32_WPTight_Gsf_vX'] == 1) 
+                        df.loc[:,'check_ElectronTrigger'] = (df['Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX'] == 1) | (df['Triggered_HLT_Ele32_WPTight_Gsf_vX'] == 1) 
 
-                        df['check_MuonTrigger'] = (df['Triggered_HLT_IsoMu24_vX'])
+                        df.loc[:,'check_MuonTrigger'] = (df['Triggered_HLT_IsoMu24_vX'])
 
                         print('check Trigger paths in 2018')
 
                     elif self.dataEra == "2016postVFP":
                         
-                        df['check_ElectronTrigger'] = (df['Triggered_HLT_Ele27_WPTight_Gsf_vX']) 
+                        df.loc[:,'check_ElectronTrigger'] = (df['Triggered_HLT_Ele27_WPTight_Gsf_vX']) 
 
-                        df['check_MuonTrigger'] = (df['Triggered_HLT_IsoTkMu24_vX'] == 1) | (df['Triggered_HLT_IsoMu24_vX'] == 1)
+                        df.loc[:,'check_MuonTrigger'] = (df['Triggered_HLT_IsoTkMu24_vX'] == 1) | (df['Triggered_HLT_IsoMu24_vX'] == 1)
 
                         print('check Trigger paths in 2016 postVFP')
 
                     elif self.dataEra == "2016preVFP":
                         
-                        df['check_ElectronTrigger'] = (df['Triggered_HLT_Ele27_WPTight_Gsf_vX']) 
+                        df.loc[:,'check_ElectronTrigger'] = (df['Triggered_HLT_Ele27_WPTight_Gsf_vX']) 
 
-                        df['check_MuonTrigger'] = (df['Triggered_HLT_IsoTkMu24_vX'] == 1) | (df['Triggered_HLT_IsoMu24_vX'] == 1)
+                        df.loc[:,'check_MuonTrigger'] = (df['Triggered_HLT_IsoTkMu24_vX'] == 1) | (df['Triggered_HLT_IsoMu24_vX'] == 1)
 
                         print('check Trigger paths in 2016 preVFP')
 
@@ -478,7 +478,7 @@ class Dataset:
                                 this_btag = self.btagfile[(self.btagfile['sample'] == sample.process) & (self.btagfile['syst'] == "nominal")]
 
                                 bin_range = this_btag['bin'].values
-                                df['N_Jets_for_bTag'] = np.clip(df['N_Jets'], min(bin_range),max(bin_range))
+                                df.loc[:,'N_Jets_for_bTag'] = np.clip(df['N_Jets'], min(bin_range),max(bin_range))
 
                                 df_combine = pd.merge(df, this_btag, left_on='N_Jets_for_bTag', right_on='bin', how='left')
                                 # print(df.shape[0])
@@ -616,7 +616,7 @@ class Dataset:
                                     this_btag = self.btagfile[(self.btagfile['sample'] == sample.process) & (self.btagfile['syst'] == "JESup")]
 
                                     bin_range = this_btag['bin'].values
-                                    df['N_Jets_for_bTag'] = np.clip(df['N_Jets'], min(bin_range),max(bin_range))
+                                    df.loc[:,'N_Jets_for_bTag'] = np.clip(df['N_Jets'], min(bin_range),max(bin_range))
 
                                     df_combine = pd.merge(df, this_btag, left_on='N_Jets_for_bTag', right_on='bin', how='left')
                                     # print(df.shape[0])
@@ -636,7 +636,7 @@ class Dataset:
                                     this_btag = self.btagfile[(self.btagfile['sample'] == sample.process) & (self.btagfile['syst'] == "JESdown")]
 
                                     bin_range = this_btag['bin'].values
-                                    df['N_Jets_for_bTag'] = np.clip(df['N_Jets'], min(bin_range),max(bin_range))
+                                    df.loc[:,'N_Jets_for_bTag'] = np.clip(df['N_Jets'], min(bin_range),max(bin_range))
 
                                     df_combine = pd.merge(df, this_btag, left_on='N_Jets_for_bTag', right_on='bin', how='left')
                                     # print(df.shape[0])
@@ -652,7 +652,7 @@ class Dataset:
                                     this_btag = self.btagfile[(self.btagfile['sample'] == sample.process) & (self.btagfile['syst'] == "JERup")]
 
                                     bin_range = this_btag['bin'].values
-                                    df['N_Jets_for_bTag'] = np.clip(df['N_Jets'], min(bin_range),max(bin_range))
+                                    df.loc[:,'N_Jets_for_bTag'] = np.clip(df['N_Jets'], min(bin_range),max(bin_range))
 
                                     df_combine = pd.merge(df, this_btag, left_on='N_Jets_for_bTag', right_on='bin', how='left')
                                     # print(df.shape[0])
@@ -670,7 +670,7 @@ class Dataset:
 
                                     bin_range = this_btag['bin'].values
 
-                                    df['N_Jets_for_bTag'] = np.clip(df['N_Jets'], min(bin_range),max(bin_range))
+                                    df.loc[:,'N_Jets_for_bTag'] = np.clip(df['N_Jets'], min(bin_range),max(bin_range))
 
                                     # print(this_btag.head(3))
 
@@ -837,7 +837,7 @@ class Dataset:
                     concat_df.set_index([self.varName_Run, self.varName_LumiBlock, self.varName_Event], inplace=True, drop=True)
 
                     # remove trigger variables
-                    # concat_df = self.removeTriggerVariables(concat_df)
+                    concat_df = self.removeTriggerVariables(concat_df)
 
                     # write data to file
                     self.createDatasets(concat_df, sample.categories.categories, chunkNumber)
