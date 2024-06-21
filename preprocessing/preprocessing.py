@@ -658,17 +658,19 @@ class Dataset:
 
                                     this_btag = self.btagfile[(self.btagfile['sample'] == sample.process) & (self.btagfile['syst'] == "JERdown")]
 
-                                #    btagfactor = self.btagfile[self.btagfile['sample'] == sample.process]['JERdown'].values[0]
-
                                     bin_range = this_btag['bin'].values
 
                                     df['N_Jets_for_bTag'] = np.clip(df['N_Jets'], min(bin_range),max(bin_range))
 
                                     # print(this_btag.head(3))
 
-                                    df.loc[:, "btagfactor"] = 0.
+                                    df_combine = pd.merge(df, this_btag, left_on='N_Jets_for_bTag', right_on='bin', how='left')
+                                    print(df_combine.shape[0])
+                                    print(df_combine['ratio'].head(5))
 
-                                    df['btagfactor'] = df.apply(lambda x: self.get_btagfactor(x, this_btag), axis = 1)
+                                    df['btagfactor'] = df_combine['ratio']
+
+                                    # df['btagfactor'] = df.apply(lambda x: self.get_btagfactor(x, this_btag), axis = 1)
 
                                     # print(df['btagfactor'].head(3))
                                 
