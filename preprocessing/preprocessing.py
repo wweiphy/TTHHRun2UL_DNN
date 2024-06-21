@@ -665,6 +665,7 @@ class Dataset:
                                     # print(this_btag.head(3))
 
                                     df_combine = pd.merge(df, this_btag, left_on='N_Jets_for_bTag', right_on='bin', how='left')
+                                    print(df.shape[0])
                                     print(df_combine.shape[0])
                                     print(df_combine['ratio'].head(5))
 
@@ -855,10 +856,10 @@ class Dataset:
     def get_btagfactor(self,df,btagfile):
         # Find the matching row in btagfile
         match = btagfile[btagfile['bin'] == df['N_Jets_for_bTag']]
-        print("match")
-        print(match)
-        print("length of df")
-        print(df.shape[0])
+        # print("match")
+        # print(match)
+        # print("length of df")
+        # print(df.shape[0])
     
         if not match.empty:
             # print(match['ratio'].values[0])
