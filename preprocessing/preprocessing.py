@@ -480,11 +480,15 @@ class Dataset:
                                 bin_range = this_btag['bin'].values
                                 df['N_Jets_for_bTag'] = np.clip(df['N_Jets'], min(bin_range),max(bin_range))
 
-                                print(this_btag.head(3))
+                                df_combine = pd.merge(df, this_btag, left_on='N_Jets_for_bTag', right_on='bin', how='left')
+                                # print(df.shape[0])
+                                # print(df_combine.shape[0])
+                                print(df_combine[['N_Jets_for_bTag','ratio']].head(10))
 
-                                # df.loc[:, "btagfactor"] = btagfactor
+                                # df['btagfactor'] = df_combine['ratio']
+                                df.loc[:, "btagfactor"] = df_combine['ratio'].values
 
-                                df['btagfactor'] = df.apply(lambda x: self.get_btagfactor(x, this_btag), axis=1)
+                                print(df[['N_Jets_for_bTag','btagfactor']].head(10))
 
                                 # nominal values
                                 df = df.assign(sf_weight=lambda x: (x['btagfactor']*sample.lumiWeight*x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSF[0]'] > 0.) & (x['Electron_ReconstructionSF[0]'] > 0.))*1.*x['Electron_IdentificationSF[0]']*x['Electron_ReconstructionSF[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & (x['check_ElectronTrigger']) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['check_MuonTrigger'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
@@ -614,13 +618,15 @@ class Dataset:
                                     bin_range = this_btag['bin'].values
                                     df['N_Jets_for_bTag'] = np.clip(df['N_Jets'], min(bin_range),max(bin_range))
 
-                                    # print(this_btag.head(3))
+                                    df_combine = pd.merge(df, this_btag, left_on='N_Jets_for_bTag', right_on='bin', how='left')
+                                    # print(df.shape[0])
+                                    # print(df_combine.shape[0])
+                                    print(df_combine[['N_Jets_for_bTag','ratio']].head(10))
 
-                                    df.loc[:, "btagfactor"] = 0.
+                                    # df['btagfactor'] = df_combine['ratio']
+                                    df.loc[:, "btagfactor"] = df_combine['ratio'].values
 
-                                    df['btagfactor'] = df.apply(lambda x: self.get_btagfactor(x, this_btag), axis=1)
-
-                                    # btagfactor = self.btagfile[self.btagfile['sample'] == sample.process]['JESup'].values[0]
+                                    print(df[['N_Jets_for_bTag','btagfactor']].head(10))
 
 
                                 elif "JESdown" in file:
@@ -632,13 +638,15 @@ class Dataset:
                                     bin_range = this_btag['bin'].values
                                     df['N_Jets_for_bTag'] = np.clip(df['N_Jets'], min(bin_range),max(bin_range))
 
-                                    # print(this_btag.head(3))
+                                    df_combine = pd.merge(df, this_btag, left_on='N_Jets_for_bTag', right_on='bin', how='left')
+                                    # print(df.shape[0])
+                                    # print(df_combine.shape[0])
+                                    print(df_combine[['N_Jets_for_bTag','ratio']].head(10))
 
-                                    df.loc[:, "btagfactor"] = 0.
+                                    # df['btagfactor'] = df_combine['ratio']
+                                    df.loc[:, "btagfactor"] = df_combine['ratio'].values
 
-                                    df['btagfactor'] = df.apply(lambda x: self.get_btagfactor(x, this_btag), axis=1)
-
-                                    # btagfactor = self.btagfile[self.btagfile['sample'] == sample.process]['JESdown'].values[0]
+                                    print(df[['N_Jets_for_bTag','btagfactor']].head(10))
 
                                 elif "JERup" in file:
                                     this_btag = self.btagfile[(self.btagfile['sample'] == sample.process) & (self.btagfile['syst'] == "JERup")]
@@ -646,13 +654,15 @@ class Dataset:
                                     bin_range = this_btag['bin'].values
                                     df['N_Jets_for_bTag'] = np.clip(df['N_Jets'], min(bin_range),max(bin_range))
 
-                                    # print(this_btag.head(3))
+                                    df_combine = pd.merge(df, this_btag, left_on='N_Jets_for_bTag', right_on='bin', how='left')
+                                    # print(df.shape[0])
+                                    # print(df_combine.shape[0])
+                                    print(df_combine[['N_Jets_for_bTag','ratio']].head(10))
 
-                                    df.loc[:, "btagfactor"] = 0.
+                                    # df['btagfactor'] = df_combine['ratio']
+                                    df.loc[:, "btagfactor"] = df_combine['ratio'].values
 
-                                    df['btagfactor'] = df.apply(lambda x: self.get_btagfactor(x, this_btag), axis=1)
-
-                                    # btagfactor = self.btagfile[self.btagfile['sample'] == sample.process]['JERup'].values[0]
+                                    print(df[['N_Jets_for_bTag','btagfactor']].head(10))
 
                                 elif "JERdown" in file:
 
@@ -665,14 +675,14 @@ class Dataset:
                                     # print(this_btag.head(3))
 
                                     df_combine = pd.merge(df, this_btag, left_on='N_Jets_for_bTag', right_on='bin', how='left')
-                                    print(df.shape[0])
-                                    print(df_combine.shape[0])
-                                    print(df_combine[['N_Jets_for_bTag','ratio']].head(5))
+                                    # print(df.shape[0])
+                                    # print(df_combine.shape[0])
+                                    print(df_combine[['N_Jets_for_bTag','ratio']].head(10))
 
                                     # df['btagfactor'] = df_combine['ratio']
                                     df.loc[:, "btagfactor"] = df_combine['ratio'].values
 
-                                    print(df[['N_Jets_for_bTag','btagfactor']].head(5))
+                                    print(df[['N_Jets_for_bTag','btagfactor']].head(10))
 
                                     # df['btagfactor'] = df.apply(lambda x: self.get_btagfactor(x, this_btag), axis = 1)
 
