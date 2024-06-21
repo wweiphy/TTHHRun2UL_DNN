@@ -483,12 +483,12 @@ class Dataset:
                                 df_combine = pd.merge(df, this_btag, left_on='N_Jets_for_bTag', right_on='bin', how='left')
                                 # print(df.shape[0])
                                 # print(df_combine.shape[0])
-                                print(df_combine[['N_Jets_for_bTag','ratio']].head(10))
+                                # print(df_combine[['N_Jets_for_bTag','ratio']].head(10))
 
                                 # df['btagfactor'] = df_combine['ratio']
                                 df.loc[:, "btagfactor"] = df_combine['ratio'].values
 
-                                print(df[['N_Jets_for_bTag','btagfactor']].head(10))
+                                # print(df[['N_Jets_for_bTag','btagfactor']].head(10))
 
                                 # nominal values
                                 df = df.assign(sf_weight=lambda x: (x['btagfactor']*sample.lumiWeight*x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSF[0]'] > 0.) & (x['Electron_ReconstructionSF[0]'] > 0.))*1.*x['Electron_IdentificationSF[0]']*x['Electron_ReconstructionSF[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & (x['check_ElectronTrigger']) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['check_MuonTrigger'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
@@ -621,12 +621,12 @@ class Dataset:
                                     df_combine = pd.merge(df, this_btag, left_on='N_Jets_for_bTag', right_on='bin', how='left')
                                     # print(df.shape[0])
                                     # print(df_combine.shape[0])
-                                    print(df_combine[['N_Jets_for_bTag','ratio']].head(10))
+                                    # print(df_combine[['N_Jets_for_bTag','ratio']].head(10))
 
                                     # df['btagfactor'] = df_combine['ratio']
                                     df.loc[:, "btagfactor"] = df_combine['ratio'].values
 
-                                    print(df[['N_Jets_for_bTag','btagfactor']].head(10))
+                                    # print(df[['N_Jets_for_bTag','btagfactor']].head(10))
 
 
                                 elif "JESdown" in file:
@@ -641,12 +641,12 @@ class Dataset:
                                     df_combine = pd.merge(df, this_btag, left_on='N_Jets_for_bTag', right_on='bin', how='left')
                                     # print(df.shape[0])
                                     # print(df_combine.shape[0])
-                                    print(df_combine[['N_Jets_for_bTag','ratio']].head(10))
+                                    # print(df_combine[['N_Jets_for_bTag','ratio']].head(10))
 
                                     # df['btagfactor'] = df_combine['ratio']
                                     df.loc[:, "btagfactor"] = df_combine['ratio'].values
 
-                                    print(df[['N_Jets_for_bTag','btagfactor']].head(10))
+                                    # print(df[['N_Jets_for_bTag','btagfactor']].head(10))
 
                                 elif "JERup" in file:
                                     this_btag = self.btagfile[(self.btagfile['sample'] == sample.process) & (self.btagfile['syst'] == "JERup")]
@@ -657,12 +657,12 @@ class Dataset:
                                     df_combine = pd.merge(df, this_btag, left_on='N_Jets_for_bTag', right_on='bin', how='left')
                                     # print(df.shape[0])
                                     # print(df_combine.shape[0])
-                                    print(df_combine[['N_Jets_for_bTag','ratio']].head(10))
+                                    # print(df_combine[['N_Jets_for_bTag','ratio']].head(10))
 
                                     # df['btagfactor'] = df_combine['ratio']
                                     df.loc[:, "btagfactor"] = df_combine['ratio'].values
 
-                                    print(df[['N_Jets_for_bTag','btagfactor']].head(10))
+                                    # print(df[['N_Jets_for_bTag','btagfactor']].head(10))
 
                                 elif "JERdown" in file:
 
@@ -914,6 +914,9 @@ class Dataset:
             cat_df = df.query("(class_label == \""+str(key)+"\")")
             print("creating dataset for class label {} with {} entries".format(
                 key, cat_df.shape[0]))
+            print("head 0: ")
+            print(cat_df.head(2))
+            print("check muon trigger: ", cat_df['check_MuonTrigger'].head(3))
 
             with pd.HDFStore(outFile, "a") as store:
                 store.append("data", cat_df, index=False)
