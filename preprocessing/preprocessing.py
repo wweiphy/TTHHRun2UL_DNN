@@ -666,6 +666,8 @@ class Dataset:
 
                                 elif "JERdown" in file:
 
+                                    # print("success 1") 
+
                                     this_btag = self.btagfile[(self.btagfile['sample'] == sample.process) & (self.btagfile['syst'] == "JERdown")]
 
                                     bin_range = this_btag['bin'].values
@@ -698,7 +700,9 @@ class Dataset:
                                     df = self.CalculateSFsEvalSyst(tree,df,syst)
                                 else:
                                     print("Evaluate SFs for JER files")
-                                    df = self.CalculateSFs(tree,df) 
+                                    df = self.CalculateSFs(tree,df)
+
+                                
 
                                 df = self.CalculateMuonSFs(tree, df)
                                 df = self.CalculateElectronSFs(tree, df)
@@ -713,6 +717,7 @@ class Dataset:
 
                                 # df.loc[:, "btagfactor"] = btagfactor 
                                 
+                                # print("success 2") 
 
                                 df = df.assign(sf_weight=lambda x: (x['btagfactor'] * sample.lumiWeight*x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSF[0]'] > 0.) & (x['Electron_ReconstructionSF[0]'] > 0.))*1.*x['Electron_IdentificationSF[0]']*x['Electron_ReconstructionSF[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & (x['check_ElectronTrigger']) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['check_MuonTrigger'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
 
@@ -721,6 +726,9 @@ class Dataset:
                                         x.Weight_GEN_nom )
                                 df = df.assign(
                                     total_weight=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL)
+                                
+                                # print("success 3")  
+                                
                                 
                     elif self.do_BTagCorrection:
 
@@ -838,14 +846,17 @@ class Dataset:
 
                     # remove trigger variables
                     concat_df = self.removeTriggerVariables(concat_df)
-
+                    print("success 1") 
                     # write data to file
                     self.createDatasets(concat_df, sample.categories.categories, chunkNumber)
                     print("*"*50)
+                    print("success 2") 
 
                     # reset counters
                     n_entries = 0
                     concat_df = pd.DataFrame()
+
+                    
             
             # remove file copied from eos space
             if not sample.islocal:
@@ -856,6 +867,7 @@ class Dataset:
                     print ("successfully removed the file")
                 except:
                     print ("failed to remove file")
+
 
     # ====================================================================
 
