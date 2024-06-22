@@ -350,7 +350,7 @@ class Dataset:
                    print(str(tr)+" has no entries - skipping file")
                    continue
                 # test 
-                print(self.variables)
+                # print(self.variables)
 
                 # convert to dataframe
                 # df = tree.arrays(self.variables,library="pd")
