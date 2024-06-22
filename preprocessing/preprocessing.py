@@ -691,7 +691,7 @@ class Dataset:
                                     df_combine = pd.merge(df, this_btag, left_on='N_Jets_for_bTag', right_on='bin', how='left')
                                     # print(df.shape[0])
                                     # print(df_combine.shape[0])
-                                    # print(df_combine[['N_Jets_for_bTag','ratio']].head(10))
+                                    print(df_combine[['N_Jets_for_bTag','ratio']].head(5))
 
                                     df.loc[:, 'btagfactor'] = df_combine['ratio'].values
                                     # df.loc[:, "btagfactor"] = btagfactor
