@@ -30,7 +30,7 @@ genmap2018 = pd.read_csv(filedir+"/GenNormMap/ratefactors_new_plotscript_2018.cs
 btagcorrection2016pre = pd.read_csv(filedir+"/BTagCorrection/btag-correction-2016pre.csv")
 btagcorrection2016post = pd.read_csv(filedir+"/BTagCorrection/btag-correction-2016post.csv")
 btagcorrection2017 = pd.read_csv(filedir+"/BTagCorrection/btag-correction-2017.csv")
-btagcorrection2018 = pd.read_csv(filedir+"/BTagCorrection/btag-correction-2018.csv")
+btagcorrection2018 = pd.read_csv(filedir+"/BTagCorrection/btag-correction-2018-by-bin.csv")
 
 # multi processing magic
 # TODO - A value is trying to be set on a copy of a slice from a DataFrame. Try using .loc[row_indexer, col_indexer] = value instead. See the caveats in the documentation: http: // pandas.pydata.org/pandas-docs/stable/indexing.html; self.obj[key] = _infer_fill_value(value)
