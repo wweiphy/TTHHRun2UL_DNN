@@ -938,8 +938,8 @@ class Dataset:
             cat_df = df.query("(class_label == \""+str(key)+"\")")
             print("creating dataset for class label {} with {} entries".format(
                 key, cat_df.shape[0]))
-            print("columns: ")
-            print(cat_df.columns)
+            # print("columns: ")
+            # print(cat_df.columns)
             # print("check muon trigger: ", cat_df['check_MuonTrigger'].head(3))
 
             with pd.HDFStore(outFile, "a") as store:
