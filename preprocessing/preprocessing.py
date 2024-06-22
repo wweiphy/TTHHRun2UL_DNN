@@ -678,23 +678,23 @@ class Dataset:
 
                                     # print("success 1") 
 
-                                    btagfactor = self.btagfile[self.btagfile['sample'] == sample.process]['JERdown'].values[0]
+                                    # btagfactor = self.btagfile[self.btagfile['sample'] == sample.process]['JERdown'].values[0]
 
-                                    # this_btag = self.btagfile[(self.btagfile['sample'] == sample.process) & (self.btagfile['syst'] == "JERdown")]
+                                    this_btag = self.btagfile[(self.btagfile['sample'] == sample.process) & (self.btagfile['syst'] == "JERdown")]
 
-                                    # bin_range = this_btag['bin'].values
+                                    bin_range = this_btag['bin'].values
 
-                                    # df.loc[:,'N_Jets_for_bTag'] = np.clip(df['N_Jets'].values, min(bin_range),max(bin_range))
+                                    df.loc[:,'N_Jets_for_bTag'] = np.clip(df['N_Jets'].values, min(bin_range),max(bin_range))
 
                                     # print(this_btag.head(3))
 
-                                    # df_combine = pd.merge(df, this_btag, left_on='N_Jets_for_bTag', right_on='bin', how='left')
+                                    df_combine = pd.merge(df, this_btag, left_on='N_Jets_for_bTag', right_on='bin', how='left')
                                     # print(df.shape[0])
                                     # print(df_combine.shape[0])
                                     # print(df_combine[['N_Jets_for_bTag','ratio']].head(10))
 
-                                    # df['btagfactor'] = df_combine['ratio']
-                                    df.loc[:, "btagfactor"] = btagfactor
+                                    df.loc[:, 'btagfactor'] = df_combine['ratio'].values
+                                    # df.loc[:, "btagfactor"] = btagfactor
 
                                     # print(df[['N_Jets_for_bTag','btagfactor']].head(10))
 
@@ -731,7 +731,7 @@ class Dataset:
                                 
                                 # print("success 2") 
 
-                                df = df.assign(sf_weight=lambda x: (btagfactor * sample.lumiWeight*x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSF[0]'] > 0.) & (x['Electron_ReconstructionSF[0]'] > 0.))*1.*x['Electron_IdentificationSF[0]']*x['Electron_ReconstructionSF[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & (x['check_ElectronTrigger']) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['check_MuonTrigger'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
+                                df = df.assign(sf_weight=lambda x: (sample.lumiWeight*x['btagfactor']*x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSF[0]'] > 0.) & (x['Electron_ReconstructionSF[0]'] > 0.))*1.*x['Electron_IdentificationSF[0]']*x['Electron_ReconstructionSF[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & (x['check_ElectronTrigger']) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['check_MuonTrigger'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
 
                                 # Weight_CSV_UL here corresponds to btagging SF for JES & JER variations
                                 df = df.assign(xs_weight=lambda x: x.Weight_XS *
