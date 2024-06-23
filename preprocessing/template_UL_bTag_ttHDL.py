@@ -12,7 +12,7 @@ import preprocessing
 
 
 """
-USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/EL8/CMSSW_12_4_3/src/TTHHRun2UL_DNN/preprocessing/template_UL_bTag_ttHDL.py --outputdirectory=BTag_0119_UL_nominal --variableselection=variables_bTagCorrection --maxentries=20000 --cores=4 --dataEra=2017
+USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/EL8/CMSSW_12_4_3/src/TTHHRun2UL_DNN/preprocessing/template_UL_bTag_ttHDL.py --outputdirectory=BTag_16post_UL_nominal --variableselection=variables_bTagCorrection --maxentries=20000 --cores=8 --dataEra=2016postVFP
 """
 
 usage="usage=%prog [options] \n"
@@ -62,13 +62,11 @@ else:
 # select only events with GEN weight > 0 because training with negative weights is weird
 
 # base = "(N_Jets >= 4 and N_BTagsM >= 3 and Evt_MET > 20. and Weight_GEN_nom > 0.)"
-base = "(N_Jets >= 5)"
+base_selection = "(N_Jets >= 5)"
 
 # single lepton selections
 single_mu_sel = "(N_LooseElectrons == 0 and N_TightMuons == 1 and Muon_Pt > 29. and Triggered_HLT_IsoMu27_vX == 1)"
-single_el_sel = "((N_LooseMuons == 0 and N_TightElectrons == 1 and Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX == 1) or (N_LooseMuons == 0 and N_TightElectrons == 1 and Triggered_HLT_Ele32_WPTight_Gsf_L1DoubleEG_vX == 1 and Triggered_HLT_Ele32_WPTight_Gsf_2017SeedsX == 1))"
-
-base_selection = "("+base+" and ("+single_mu_sel+" or "+single_el_sel+"))"
+single_el_sel = "(N_LooseMuons == 0 and N_TightElectrons == 1 and (Triggered_HLT_Ele35_WPTight_Gsf_vX == 1 or Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX == 1))"
 
 # base_selection = "("+base+" and ("+single_mu_sel+" or "+single_el_sel+"))"
 
@@ -126,10 +124,23 @@ dataset = preprocessing.Dataset(
 dataset.addBaseSelection(base_selection)
 
 
+# dataset.addSample(
+#     sampleName="TTHDL",
+#     ntuples=ntuplesPath2 +
+#     "/2016pre/ntuple/ttHTobb_ttTo2L2Nu_M125_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2016preVFP/240403_013749/*/*nominal*.root",
+#     #    ntuples     = ntuplesPath+"/ttH_220208.root",
+#     categories=ttH_categories,
+#     process="ttHDL",
+#     #    lumiWeight  = 41.5,
+#     selections=None,  # ttbar_selection,
+#     #    selections  = ttH_selection,
+#     islocal=False
+# )
+
 dataset.addSample(
     sampleName="TTHDL",
     ntuples=ntuplesPath2 +
-    "/2017/ntuple/ttHTobb_ttTo2L2Nu_M125_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2017/240401_042748/*/*nominal*.root",
+    "/2016post/ntuple/ttHTobb_ttTo2L2Nu_M125_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2016postVFP/240401_210249/*/*nominal*.root",
     #    ntuples     = ntuplesPath+"/ttH_220208.root",
     categories=ttH_categories,
     process="ttHDL",
@@ -138,6 +149,7 @@ dataset.addSample(
     #    selections  = ttH_selection,
     islocal=False
 )
+
 
 
 # initialize variable list
