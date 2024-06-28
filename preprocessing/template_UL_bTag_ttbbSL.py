@@ -12,7 +12,7 @@ import preprocessing
 
 
 """
-USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/EL8/CMSSW_12_4_3/src/TTHHRun2UL_DNN/preprocessing/template_UL_bTag_ttHDL.py --outputdirectory=BTag_0119_UL_nominal --variableselection=variables_bTagCorrection --maxentries=20000 --cores=4 --dataEra=2017
+USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/EL8/CMSSW_12_4_3/src/TTHHRun2UL_DNN/preprocessing/template_UL_bTag_ttbbSL.py --outputdirectory=BTag_0119_UL_nominal --variableselection=variables_bTagCorrection --maxentries=20000 --cores=4 --dataEra=2017
 """
 
 usage="usage=%prog [options] \n"
@@ -92,7 +92,7 @@ ttZ_categories = preprocessing.EventCategories()
 ttZ_categories.addCategory("ttZ", selection = None)
 
 ttH_categories = preprocessing.EventCategories()
-ttH_categories.addCategory("ttHDL", selection = None)
+ttH_categories.addCategory("ttH", selection = None)
 
 
 ttbar_categories = preprocessing.EventCategories()
@@ -105,8 +105,7 @@ ttbar_categories.addCategory("ttcc", selection = "(GenEvt_I_TTPlusBB == 0 and Ge
 # ttbar_categories.addCategory("tt4b", selection = "(GenEvt_I_TTPlusBB == 5 and GenEvt_I_TTPlusCC == 0)")
 
 ttmb_categories = preprocessing.EventCategories()
-ttmb_categories.addCategory("ttmb", selection = "(GenEvt_I_TTPlusBB == 3 and GenEvt_I_TTPlusCC == 0) or (GenEvt_I_TTPlusBB == 2 and GenEvt_I_TTPlusCC == 0) or (GenEvt_I_TTPlusBB == 1 and GenEvt_I_TTPlusCC == 0)")
-ttmb_categories.addCategory("ttnb", selection = "(GenEvt_I_TTPlusBB == 4 and GenEvt_I_TTPlusCC == 0) or (GenEvt_I_TTPlusBB == 5 and GenEvt_I_TTPlusCC == 0)")
+ttmb_categories.addCategory("ttbbSL", selection = "(GenEvt_I_TTPlusBB == 3 and GenEvt_I_TTPlusCC == 0) or (GenEvt_I_TTPlusBB == 2 and GenEvt_I_TTPlusCC == 0) or (GenEvt_I_TTPlusBB == 1 and GenEvt_I_TTPlusCC == 0)")
 
 ntuplesPath = "/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_10_6_29/src/BoostedTTH/crab/2017UL/ntuple/crab_ntuple"
 ntuplesPath2 = "/eos/uscms/store/group/lpctthrun2/wwei/UL"
@@ -125,19 +124,17 @@ dataset = preprocessing.Dataset(
 # add base event selection
 dataset.addBaseSelection(base_selection)
 
-
 dataset.addSample(
-    sampleName="TTHDL",
+    sampleName  = "TTbbSL",
     ntuples=ntuplesPath2 +
-    "/2017/ntuple/ttHTobb_ttTo2L2Nu_M125_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2017/240627_154602/*/*nominal*.root",
-    #    ntuples     = ntuplesPath+"/ttH_220208.root",
-    categories=ttH_categories,
-    process="ttHDL",
-    #    lumiWeight  = 41.5,
+    "/2017/ntuple/TTbb_4f_TTToSemiLeptonic_TuneCP5-Powheg-Openloops-Pythia8/sl_LEG_ntuple_2017/240627_154410/*/*nominal*.root",
+    categories  = ttmb_categories,
+    process = "ttbbSL",
+#    lumiWeight  = 41.5,
     selections=None,  # ttbar_selection,
-    #    selections  = ttH_selection,
-    islocal=False
-)
+#    selections  = ttbar_selection,
+    islocal     = False
+      )
 
 
 # initialize variable list
