@@ -12,7 +12,7 @@ import preprocessing
 
 
 """
-USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/EL8/CMSSW_12_4_3/src/TTHHRun2UL_DNN/preprocessing/template_UL_bTag_ttbbSL.py --outputdirectory=BTag_0119_UL_nominal --variableselection=variables_bTagCorrection --maxentries=20000 --cores=4 --dataEra=2017
+USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/EL8/CMSSW_12_4_3/src/TTHHRun2UL_DNN/preprocessing/template_UL_bTag_ttbbSL.py --outputdirectory=BTag_0308_UL_3_nominal --variableselection=variables_bTagCorrection --maxentries=20000 --cores=4 --dataEra=2018
 """
 
 usage="usage=%prog [options] \n"
@@ -62,13 +62,11 @@ else:
 # select only events with GEN weight > 0 because training with negative weights is weird
 
 # base = "(N_Jets >= 4 and N_BTagsM >= 3 and Evt_MET > 20. and Weight_GEN_nom > 0.)"
-base = "(N_Jets >= 4)"
+base_selection = "(N_Jets >= 4)"
 
 # single lepton selections
 single_mu_sel = "(N_LooseElectrons == 0 and N_TightMuons == 1 and Muon_Pt > 29. and Triggered_HLT_IsoMu27_vX == 1)"
-single_el_sel = "((N_LooseMuons == 0 and N_TightElectrons == 1 and Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX == 1) or (N_LooseMuons == 0 and N_TightElectrons == 1 and Triggered_HLT_Ele32_WPTight_Gsf_L1DoubleEG_vX == 1 and Triggered_HLT_Ele32_WPTight_Gsf_2017SeedsX == 1))"
-
-base_selection = "("+base+" and ("+single_mu_sel+" or "+single_el_sel+"))"
+single_el_sel = "(N_LooseMuons == 0 and N_TightElectrons == 1 and (Triggered_HLT_Ele35_WPTight_Gsf_vX == 1 or Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX == 1))"
 
 # base_selection = "("+base+" and ("+single_mu_sel+" or "+single_el_sel+"))"
 
@@ -127,7 +125,7 @@ dataset.addBaseSelection(base_selection)
 dataset.addSample(
     sampleName  = "TTbbSL",
     ntuples=ntuplesPath2 +
-    "/2017/ntuple/TTbb_4f_TTToSemiLeptonic_TuneCP5-Powheg-Openloops-Pythia8/sl_LEG_ntuple_2017/240627_154410/*/*nominal*.root",
+    "/2018/ntuple/TTbb_4f_TTToSemiLeptonic_TuneCP5-Powheg-Openloops-Pythia8/sl_LEG_ntuple_2018/240628_214659/*/*nominal*.root",
     categories  = ttmb_categories,
     process = "ttbbSL",
 #    lumiWeight  = 41.5,
