@@ -18,7 +18,7 @@ import sf_variables as sf_var
 
 # 2016pre TTZ, TT4B
 """
-USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/EL8/CMSSW_12_4_3/src/TTHHRun2UL_DNN/preprocessing/template_UL_bTag_Syst.py --outputdirectory=BTag_16post_UL --variableselection=variables_bTagCorrection --maxentries=20000 --cores=8  --syst=JESup --dataEra=2016postVFP
+USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_bTag_Syst.py --outputdirectory=BTag_16pre_UL --variableselection=variables_bTagCorrection --maxentries=20000 --cores=8  --syst=JESup --dataEra=2016preVFP
 
 
 """
@@ -75,9 +75,7 @@ else:
 # base = "(N_Jets >= 4 and N_BTagsM >= 3 and Evt_MET > 20. and Weight_GEN_nom > 0.)"
 base_selection = "(N_Jets >= 4)"
 
-# single lepton selections
-single_mu_sel = "(N_LooseElectrons == 0 and N_TightMuons == 1 and Muon_Pt > 29. and Triggered_HLT_IsoMu27_vX == 1)"
-single_el_sel = "(N_LooseMuons == 0 and N_TightElectrons == 1 and (Triggered_HLT_Ele35_WPTight_Gsf_vX == 1 or Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX == 1))"
+
 
 # base_selection = "("+base+" and ("+single_mu_sel+" or "+single_el_sel+"))"
 
@@ -183,7 +181,7 @@ dataset.addBaseSelection(base_selection)
 dataset.addSample(
     sampleName="TTHHTo4b",
     ntuples=ntuplesPath2 +
-    "/2016post/ntuple/TTHHTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2016postVFP/240628_220456/*/*" +
+    "/2016pre/ntuple/TTHHTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2016preVFP/240630_160547/*/*" +
     options.syst+"*.root",
     #    ntuples     = ntuplesPath+"/ttHH_4b.root",
     categories=ttHH_categories,
@@ -198,7 +196,7 @@ dataset.addSample(
 dataset.addSample(
     sampleName="TTZZ",
     ntuples=ntuplesPath2 +
-    "/2016post/ntuple/TTZZTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2016postVFP/240629_043656/*/*" + options.syst+"*.root",
+    "/2016pre/ntuple/TTZZTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2016preVFP/240703_182222/*/*" + options.syst+"*.root",
     #    ntuples     = ntuplesPath+"/ttH_220208.root",
     categories=ttZZ_categories,
     process = "ttZZ",
@@ -213,7 +211,7 @@ dataset.addSample(
 dataset.addSample(
     sampleName="TTZH",
     ntuples=ntuplesPath2 +
-    "/2016post/ntuple/TTZHTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2016postVFP/240629_025826/*/*" + options.syst+"*.root",
+    "/2016pre/ntuple/TTZHTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2016preVFP/240702_041545/*/*" + options.syst+"*.root",
     #    ntuples     = ntuplesPath+"/ttH_220208.root",
     categories=ttZH_categories,
     process = "ttZH",
@@ -227,7 +225,7 @@ dataset.addSample(
 dataset.addSample(
     sampleName="TTZ",
     ntuples=ntuplesPath2 +
-    "/2016post/ntuple/TTZToBB_TuneCP5_13TeV-amcatnlo-pythia8/sl_LEG_ntuple_2016postVFP/240629_043447/*/*" + options.syst+"*.root",
+    "/2016pre/ntuple/TTZToBB_TuneCP5_13TeV-amcatnlo-pythia8/sl_LEG_ntuple_2016preVFP/240703_162358/*/*" + options.syst+"*.root",
     # ntuples="/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_10_6_29/src/BoostedTTH/BoostedAnalyzer/test/ntuples_nominal_Tree.root",
     #    ntuples     = ntuplesPath+"/ttH_220208.root",
     categories=ttZ_categories,
@@ -242,7 +240,7 @@ dataset.addSample(
 dataset.addSample(
     sampleName  = "TTbbSL",
     ntuples=ntuplesPath2 +
-    "/2016post/ntuple/TTbb_4f_TTToSemiLeptonic_TuneCP5-Powheg-Openloops-Pythia8/sl_LEG_ntuple_2016postVFP/240629_143905/*/*"+options.syst+"*.root",
+    "/2016pre/ntuple/TTbb_4f_TTToSemiLeptonic_TuneCP5-Powheg-Openloops-Pythia8/sl_LEG_ntuple_2016preVFP/240703_215657/*/*"+options.syst+"*.root",
     categories  = ttmbSL_categories,
     process = "ttbbSL",
 #    lumiWeight  = 41.5,
@@ -256,7 +254,7 @@ dataset.addSample(
 dataset.addSample(
     sampleName="TTbbDL",
     ntuples=ntuplesPath2 +
-    "/2016post/ntuple/TTbb_4f_TTTo2L2Nu_TuneCP5-Powheg-Openloops-Pythia8/sl_LEG_ntuple_2016postVFP/240629_044615/*/*"+options.syst+"*.root",
+    "/2016pre/ntuple/TTbb_4f_TTTo2L2Nu_TuneCP5-Powheg-Openloops-Pythia8/sl_LEG_ntuple_2016preVFP/240703_215454/*/*"+options.syst+"*.root",
     # 221118_234955
     categories=ttmbDL_categories,
     process="ttbbDL",
@@ -270,7 +268,7 @@ dataset.addSample(
 dataset.addSample(
     sampleName="TT4b",
     ntuples=ntuplesPath2 +
-    "/2016post/ntuple/TT4b_TuneCP5_13TeV_madgraph_pythia8/sl_LEG_ntuple_2016postVFP/240628_220020/*/*"+
+    "/2016pre/ntuple/TT4b_TuneCP5_13TeV_madgraph_pythia8/sl_LEG_ntuple_2016preVFP/240630_041943/*/*"+
     options.syst+"*.root",
     categories=ttnb_categories,
     process="tt4b",
@@ -285,7 +283,7 @@ dataset.addSample(
 dataset.addSample(
     sampleName="TTHSL",
     ntuples=ntuplesPath2 +
-    "/2016post/ntuple/ttHTobb_ttToSemiLep_M125_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2016postVFP/240629_212332/*/*"+options.syst+"*.root",
+    "/2016pre/ntuple/ttHTobb_ttToSemiLep_M125_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2016preVFP/240704_040614/*/*"+options.syst+"*.root",
     #    ntuples     = ntuplesPath+"/ttH_220208.root",
     categories=ttHSL_categories,
     process = "ttHSL",
@@ -300,7 +298,7 @@ dataset.addSample(
     
     sampleName="TTHDL",
     ntuples=ntuplesPath2 +
-    "/2016post/ntuple/ttHTobb_ttTo2L2Nu_M125_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2016postVFP/240629_145751/*/*"+options.syst+"*.root",
+    "/2016pre/ntuple/ttHTobb_ttTo2L2Nu_M125_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2016preVFP/240703_215913/*/*"+options.syst+"*.root",
     #    ntuples     = ntuplesPath+"/ttH_220208.root",
     categories=ttHDL_categories,
     process = "ttHDL",
@@ -314,7 +312,7 @@ dataset.addSample(
 dataset.addSample(
     sampleName="TTSL",
     ntuples=ntuplesPath2 +
-    "/2016post/ntuple/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2016postVFP/240629_025652/*/*" + options.syst+"*.root",
+    "/2016pre/ntuple/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2016preVFP/240701_045453/*/*" + options.syst+"*.root",
     #    ntuples     = ntuplesPath+"/ttSL_220210.root",
     categories=ttSL_categories,
     process = "ttSL",
@@ -328,7 +326,7 @@ dataset.addSample(
 dataset.addSample(
     sampleName="TTDL",
     ntuples=ntuplesPath2 +
-    "/2016post/ntuple/TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2016postVFP/240629_022452/*/*" + options.syst+"*.root",
+    "/2016pre/ntuple/TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2016preVFP/240630_162354/*/*" + options.syst+"*.root",
     #    ntuples     = ntuplesPath+"/ttSL_220210.root",
     categories=ttDL_categories,
     process="ttDL",
