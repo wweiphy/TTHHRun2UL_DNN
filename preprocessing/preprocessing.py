@@ -32,6 +32,8 @@ btagcorrection2016post = pd.read_csv(filedir+"/BTagCorrection/btag-correction-20
 btagcorrection2017 = pd.read_csv(filedir+"/BTagCorrection/btag-correction-2017-by-bin.csv")
 btagcorrection2018 = pd.read_csv(filedir+"/BTagCorrection/btag-correction-2018-by-bin.csv")
 
+systs = ['hf','lf','lfstats1','lfstats2','hfstats1','hfstats2','cferr1','cferr2']
+
 # multi processing magic
 # TODO - A value is trying to be set on a copy of a slice from a DataFrame. Try using .loc[row_indexer, col_indexer] = value instead. See the caveats in the documentation: http: // pandas.pydata.org/pandas-docs/stable/indexing.html; self.obj[key] = _infer_fill_value(value)
 
@@ -490,9 +492,29 @@ class Dataset:
                                 # df.loc[:, "btagfactor"] = df_combine['ratio'].values
 
                                 # print(df[['N_Jets_for_bTag','btagfactor']].head(10))
+                                for syst in systs:
+
+
+                                    this_btag2 = self.btagfile[(self.btagfile['sample'] == sample.process) & (self.btagfile['syst'] == "up"+syst)]
+                                    bin_range2 = this_btag2['bin'].values
+                                    df.loc[:,'N_Jets_for_bTag_up'+syst] = np.clip(df['N_Jets'].values, min(bin_range2),max(bin_range2))
+                                    df_combine2 = pd.merge(df, this_btag2, left_on='N_Jets_for_bTag_up'+syst, right_on='bin', how='left')
+                                    df.loc[:, 'btagfactor_up'+syst] = df_combine2['ratio'].values
+
+
+                                    this_btag3 = self.btagfile[(self.btagfile['sample'] == sample.process) & (self.btagfile['syst'] == "down"+syst)]
+                                    bin_range3 = this_btag3['bin'].values
+                                    df.loc[:,'N_Jets_for_bTag_down'+syst] = np.clip(df['N_Jets'].values, min(bin_range3),max(bin_range3))
+                                    df_combine3 = pd.merge(df, this_btag3, left_on='N_Jets_for_bTag_down'+syst, right_on='bin', how='left')
+                                    df.loc[:, 'btagfactor_down'+syst] = df_combine3['ratio'].values
+
+                                df.drop(['N_Jets_for_bTag','N_Jets_for_bTag_up'+syst, 'N_Jets_for_bTag_down'+syst],axis=1)
+
+
+
 
                                 # nominal values
-                                df = df.assign(sf_weight=lambda x: (sample.lumiWeight*x['btagfactor']*x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSF[0]'] > 0.) & (x['Electron_ReconstructionSF[0]'] > 0.))*1.*x['Electron_IdentificationSF[0]']*x['Electron_ReconstructionSF[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & (x['check_ElectronTrigger']) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['check_MuonTrigger'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
+                                df = df.assign(sf_weight=lambda x: (sample.lumiWeight*x['Weight_pu69p2'] * x['Weight_JetPUID'] * x['Weight_L1ECALPrefire'] * (((x['N_TightElectrons'] == 1) & (x['Electron_IdentificationSF[0]'] > 0.) & (x['Electron_ReconstructionSF[0]'] > 0.))*1.*x['Electron_IdentificationSF[0]']*x['Electron_ReconstructionSF[0]'] + ((x['N_TightMuons'] == 1) & (x['Muon_IdentificationSF[0]'] > 0.) & (x['Muon_ReconstructionSF[0]'] > 0.) & (x['Muon_IsolationSF[0]'] > 0.))*1.*x['Muon_IdentificationSF[0]'] * x['Muon_IsolationSF[0]'] * x['Muon_ReconstructionSF[0]']) * ((((x['N_LooseMuons'] == 0) & (x['N_TightElectrons'] == 1)) & (x['check_ElectronTrigger']) & (x['Weight_ElectronTriggerSF'] > 0)) * 1. * x['Weight_ElectronTriggerSF'] + (((x['N_LooseElectrons'] == 0) & (x['N_TightMuons'] == 1) & (x['check_MuonTrigger'])) & (x['Weight_MuonTriggerSF'] > 0.)) * 1. * x['Weight_MuonTriggerSF'])))
 
 
 
@@ -503,23 +525,23 @@ class Dataset:
                                 #             x.Weight_CSV_UL * x.Weight_GEN_nom)
 
                                 df = df.assign(
-                                    total_weight=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL)
-                                df = df.assign(total_weight_uplf=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL_uplf)
-                                df = df.assign(total_weight_downlf=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL_downlf)
-                                df = df.assign(total_weight_uphf=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL_uphf)
-                                df = df.assign(total_weight_downhf=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL_downhf)
-                                df = df.assign(total_weight_uplfstats1=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL_uplfstats1)
-                                df = df.assign(total_weight_downlfstats1=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL_downlfstats1)
-                                df = df.assign(total_weight_uplfstats2=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL_uplfstats2)
-                                df = df.assign(total_weight_downlfstats2=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL_downlfstats2)
-                                df = df.assign(total_weight_uphfstats1=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL_uphfstats1)
-                                df = df.assign(total_weight_downhfstats1=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL_downhfstats1)
-                                df = df.assign(total_weight_uphfstats2=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL_uphfstats2)
-                                df = df.assign(total_weight_downhfstats2=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL_downhfstats2)
-                                df = df.assign(total_weight_upcferr1=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL_upcferr1)
-                                df = df.assign(total_weight_downcferr1=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL_downcferr1)
-                                df = df.assign(total_weight_upcferr2=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL_upcferr2)
-                                df = df.assign(total_weight_downcferr2=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL_downcferr2)
+                                    total_weight=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL * x.btagfactor)
+                                df = df.assign(total_weight_uplf=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL_uplf * x.btagfactor_uplf)
+                                df = df.assign(total_weight_downlf=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL_downlf * x.btagfactor_downlf)
+                                df = df.assign(total_weight_uphf=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL_uphf * x.btagfactor_uphf)
+                                df = df.assign(total_weight_downhf=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL_downhf * x.btagfactor_downlf)
+                                df = df.assign(total_weight_uplfstats1=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL_uplfstats1 * x.btagfactor_uplfstats1)
+                                df = df.assign(total_weight_downlfstats1=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL_downlfstats1 * x.btagfactor_downlfstats1)
+                                df = df.assign(total_weight_uplfstats2=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL_uplfstats2 * x.btagfactor_uplfstats2)
+                                df = df.assign(total_weight_downlfstats2=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL_downlfstats2 * x.btagfactor_downlfstats2)
+                                df = df.assign(total_weight_uphfstats1=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL_uphfstats1 * x.btagfactor_uphfstats1)
+                                df = df.assign(total_weight_downhfstats1=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL_downhfstats1 * x.btagfactor_downhfstats2)
+                                df = df.assign(total_weight_uphfstats2=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL_uphfstats2 * x.btagfactor_uphfstats2)
+                                df = df.assign(total_weight_downhfstats2=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL_downhfstats2 * x.btagfactor_downhfstats2)
+                                df = df.assign(total_weight_upcferr1=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL_upcferr1 * x.btagfactor_upcferr1)
+                                df = df.assign(total_weight_downcferr1=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL_downcferr1 * x.btagfactor_downcferr1)
+                                df = df.assign(total_weight_upcferr2=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL_upcferr2 * x.btagfactor_upcferr2)
+                                df = df.assign(total_weight_downcferr2=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL_downcferr2 * x.btagfactor_downcferr2)
 
                                 print("Done with btagging SFs")
 
