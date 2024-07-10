@@ -492,6 +492,7 @@ class Dataset:
                                 # df.loc[:, "btagfactor"] = df_combine['ratio'].values
 
                                 # print(df[['N_Jets_for_bTag','btagfactor']].head(10))
+                                df.drop(['N_Jets_for_bTag'],axis=1)
                                 for syst in systs:
 
 
@@ -508,7 +509,7 @@ class Dataset:
                                     df_combine3 = pd.merge(df, this_btag3, left_on='N_Jets_for_bTag_down'+syst, right_on='bin', how='left')
                                     df.loc[:, 'btagfactor_down'+syst] = df_combine3['ratio'].values
 
-                                df.drop(['N_Jets_for_bTag','N_Jets_for_bTag_up'+syst, 'N_Jets_for_bTag_down'+syst],axis=1)
+                                    df.drop(['N_Jets_for_bTag_up'+syst, 'N_Jets_for_bTag_down'+syst],axis=1)
 
 
 
