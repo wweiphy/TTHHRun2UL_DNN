@@ -12,7 +12,7 @@ import preprocessing
 
 
 """
-USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/EL8/CMSSW_12_4_3/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_singleele_2018.py --outputdirectory=Eval_0308_UL_3_data --variableselection=variables --maxentries=20000 --cores=8 --dataEra=2017
+USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/EL8/CMSSW_12_4_3/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_singleele_2017.py --outputdirectory=Eval_0119_UL_4_data --variableselection=variables --maxentries=20000 --cores=4 --dataEra=2017
 """
 
 usage="usage=%prog [options] \n"
@@ -156,7 +156,7 @@ dataset.addBaseSelection(base_selection)
 dataset.addSample(
     sampleName="SingleElectronB",
     ntuples=ntuplesPath2 +
-    "/2017/ntuple/EGamma/sl_LEG_ntuple_2017/240607_005742/*/*nominal*.root",
+    "/2017/ntuple/SingleElectron/sl_LEG_ntuple_2017/240607_005742/*/*nominal*.root",
     #    ntuples     = ntuplesPath+"/ttH_220208.root",
     categories=eledata_categories,
     process = "data",
@@ -169,7 +169,7 @@ dataset.addSample(
 dataset.addSample(
     sampleName="SingleElectronC",
     ntuples=ntuplesPath2 +
-    "/2017/ntuple/EGamma/sl_LEG_ntuple_2017/240609_155841/*/*nominal*.root",
+    "/2017/ntuple/SingleElectron/sl_LEG_ntuple_2017/240609_155841/*/*nominal*.root",
     #    ntuples     = ntuplesPath+"/ttH_220208.root",
     categories=eledata_categories,
     process = "data",
@@ -182,7 +182,7 @@ dataset.addSample(
 dataset.addSample(
     sampleName="SingleElectronD",
     ntuples=ntuplesPath2 +
-    "/2017/ntuple/EGamma/sl_LEG_ntuple_2017/240612_054600/*/*nominal*.root",
+    "/2017/ntuple/SingleElectron/sl_LEG_ntuple_2017/240612_054600/*/*nominal*.root",
     #    ntuples     = ntuplesPath+"/ttH_220208.root",
     categories=eledata_categories,
     process = "data",
@@ -195,7 +195,7 @@ dataset.addSample(
 dataset.addSample(
     sampleName="SingleElectronE",
     ntuples=ntuplesPath2 +
-    "/2017/ntuple/EGamma/sl_LEG_ntuple_2017/240616_041921/*/*nominal*.root",
+    "/2017/ntuple/SingleElectron/sl_LEG_ntuple_2017/240616_041921/*/*nominal*.root",
     #    ntuples     = ntuplesPath+"/ttH_220208.root",
     categories=eledata_categories,
     process = "data",
@@ -208,7 +208,7 @@ dataset.addSample(
 dataset.addSample(
     sampleName="SingleElectronF",
     ntuples=ntuplesPath2 +
-    "/2017/ntuple/EGamma/sl_LEG_ntuple_2017/240619_052349/*/*nominal*.root",
+    "/2017/ntuple/SingleElectron/sl_LEG_ntuple_2017/240619_052349/*/*nominal*.root",
     #    ntuples     = ntuplesPath+"/ttH_220208.root",
     categories=eledata_categories,
     process = "data",
