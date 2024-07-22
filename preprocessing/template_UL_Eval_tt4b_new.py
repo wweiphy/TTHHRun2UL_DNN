@@ -12,7 +12,7 @@ import preprocessing
 
 
 """
-USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_tt4b_new.py --outputdirectory=Eval_0523_UL_3_nominal --variableselection=variables --maxentries=20000 --cores=8 --dataEra=2016postVFP
+USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_tt4b_new.py --outputdirectory=Eval_0515_UL_3_nominal --variableselection=variables --maxentries=20000 --cores=8 --dataEra=2016preVFP
 """
 
 usage="usage=%prog [options] \n"
@@ -91,6 +91,8 @@ else:
     # print("no file matches the dataEra " +dataEra)
     sys.exit("no file matches the dataEra " +options.dataEra)
 
+
+
 base_selection = "("+base+" and ("+single_mu_sel+" or "+single_el_sel+"))"
 
 ttHH_selection = "(Evt_Odd == 1)"  # Should I do this on ttHH
@@ -153,11 +155,14 @@ dataset.addBaseSelection(base_selection)
       
 dataset.addSample(
     sampleName="TT4b",
+    # ntuples=ntuplesPath2 +
+    # "/2016pre/ntuple/TT4b_TuneCP5_13TeV_madgraph_pythia8/sl_LEG_ntuple_2016preVFP/240407_043758/*/ntuples_nominal_Tree_33.root",
     ntuples=ntuplesPath2 +
-    "/2016post/ntuple/TT4b_TuneCP5_13TeV_madgraph_pythia8/sl_LEG_ntuple_2016postVFP/240405_210540/*/*nominal*.root",
+    "/2016pre/ntuple/TT4b_TuneCP5_13TeV_madgraph_pythia8/sl_LEG_ntuple_2016preVFP/240407_043758/*/*nominal*.root",
     categories=ttnb_categories,
     process="tt4b",
     #    lumiWeight  = 41.5,
+    # selections=None,  # ttbar_selection,
     selections=ttHH_selection,  # ttbar_selection,
     #    selections  = ttbar_selection,
     islocal=False
