@@ -5,7 +5,7 @@ import pandas as pd
 import ROOT
 
 
-# python mergeNode.py -c 6j4b_5 
+# python mergeNode.py -c 5j4b_5 
 
 
 usage = "usage=%prog [options] \n"
@@ -38,8 +38,8 @@ sys.path.append(basedir)
 
 folder_path = basedir + "/workdir/"
 
-# files = ['230220','230119','230515','230523']
-files = ['230220']
+files = ['230220','230119','230515','230523']
+# files = ['230220']
 histofile = "histo-name-merge.csv"
 decorrelated_systs = ['effTrigger_mu','effTrigger_e','eff_mu','eff_e','btag_hfstats1','btag_hfstats2','btag_lfstats1','btag_lfstats2','JER']
 
