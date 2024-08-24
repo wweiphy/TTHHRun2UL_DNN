@@ -408,7 +408,7 @@ class savenominalDiscriminators:
                             #                        color     = setup.GetPlotColor(truth_cls),
                             xtitle="ljets_ge4j_ge3t_" + \
                             str(node_cls)+"_node__"+str(truth_cls) + \
-                            "__PDF_Weight_pdf_variation_{}".format(x),
+                            "__CMS_PDF_Weight_pdf_variation_{}".format(x),
                             ytitle=setup.GetyTitle(),
                             filled=True)
                         bkgHists.append(histogram)
@@ -430,7 +430,7 @@ class savenominalDiscriminators:
                             #                        color     = setup.GetPlotColor(truth_cls),
                             xtitle="ljets_ge4j_ge3t_" + \
                             str(node_cls)+"_node__"+str(truth_cls) + \
-                            "__PDF_alphaS_Weight_pdf_variation_{}".format(x),
+                            "__CMS_PDF_alphaS_Weight_pdf_variation_{}".format(x),
                             ytitle=setup.GetyTitle(),
                             filled=True)
                         bkgHists.append(histogram)
@@ -477,7 +477,7 @@ class savenominalDiscriminators:
                             #                        color     = setup.GetPlotColor(truth_cls),
                             xtitle="ljets_ge4j_ge3t_" + \
                             str(node_cls)+"_node__"+str(truth_cls) + \
-                            "__PDF_Weight_pdf_variation_{}".format(x),
+                            "__CMS_PDF_Weight_pdf_variation_{}".format(x),
                             ytitle=setup.GetyTitle(),
                             filled=True)
                         bkgHists.append(histogram)
@@ -498,7 +498,7 @@ class savenominalDiscriminators:
                             #                        color     = setup.GetPlotColor(truth_cls),
                             xtitle="ljets_ge4j_ge3t_" + \
                             str(node_cls)+"_node__"+str(truth_cls) + \
-                            "__PDF_alphaS_Weight_pdf_variation_{}".format(x),
+                            "__CMS_PDF_alphaS_Weight_pdf_variation_{}".format(x),
                             ytitle=setup.GetyTitle(),
                             filled=True)
                         bkgHists.append(histogram)
@@ -545,7 +545,7 @@ class savenominalDiscriminators:
                             #                        color     = setup.GetPlotColor(truth_cls),
                             xtitle="ljets_ge4j_ge3t_" + \
                             str(node_cls)+"_node__"+str(truth_cls) + \
-                            "__PDF_ttbbNLO_Weight_pdf_variation_{}".format(x),
+                            "__CMS_PDF_ttbbNLO_Weight_pdf_variation_{}".format(x),
                             ytitle=setup.GetyTitle(),
                             filled=True)
                         bkgHists.append(histogram)
@@ -1025,14 +1025,14 @@ class saveJESJERDiscriminators:
                 #         modified_year = self.year
 
                 if "JERup" in self.syst:
-                    sys2 = self.syst.replace("up", "")+"_"+self.year+"Up"
+                    sys2 = self.syst.replace("JERup", "CMS_res_j")+"_"+self.year+"Up"
                 elif "JERdown" in self.syst:
-                    sys2 = self.syst.replace("down", "")+"_"+self.year+"Down"
+                    sys2 = self.syst.replace("JERdown", "CMS_res_j")+"_"+self.year+"Down"
 
                 elif "JESup" in self.syst:
-                    sys2 = self.syst.replace("up", "Up")
+                    sys2 = self.syst.replace("JESup", "CMS_scale_jUp")
                 elif "JESdown" in self.syst:
-                    sys2 = self.syst.replace("down", "Down")
+                    sys2 = self.syst.replace("JESdown", "CMS_scale_jDown")
 
                 histogram = setup.setupHistogram(
                     values=filtered_values,
