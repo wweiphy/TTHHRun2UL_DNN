@@ -5,7 +5,7 @@ import pandas as pd
 # import ROOT
 import array
 import math
-import generateJTcut as JTcut
+
 import data_frame
 import csv
 import json
@@ -14,7 +14,7 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
-from Derivatives import Inputs, Outputs, Derivatives
+
 import tensorflow as tf
 # from tensorflow import keras
 # from keras import optimizers
@@ -30,8 +30,12 @@ filedir = os.path.dirname(os.path.realpath(__file__))
 DRACOdir = os.path.dirname(filedir)
 basedir = os.path.dirname(DRACOdir)
 sys.path.append(basedir)
+sys.path.append(DRACOdir)
+sys.path.append(filedir)
 
+import generateJTcut as JTcut
 from evaluationScripts import plottingScripts
+from Derivatives import Inputs, Outputs, Derivatives
 # Limit gpu usage
 tf.compat.v1.disable_eager_execution()
 config = tf.compat.v1.ConfigProto()
