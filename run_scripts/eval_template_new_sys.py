@@ -139,7 +139,7 @@ parser.add_option("--evaluationEpoch", dest="evaluation_epoch_model", default = 
     
 (options, args) = parser.parse_args()
 
-basedir = '/work/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN'
+# basedir = '/work/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN'
 #get input directory path
 if not os.path.isabs(options.inputDir):
     inPath = basedir+"/workdir/"+options.inputDir
@@ -166,7 +166,7 @@ if options.binary:
 
 configFile = inPath+"/checkpoints/net_config.json"
   # TODO - modify this
-dfDirectory = "/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/workdir/"+options.dataset
+dfDirectory = basedir+"/workdir/"+options.dataset
    
 if not os.path.exists(configFile):
         sys.exit(

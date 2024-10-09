@@ -143,7 +143,7 @@ parser.add_option("--evaluationEpoch", dest="evaluation_epoch_model", default = 
     
 (options, args) = parser.parse_args()
 
-basedir = '/work/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN'
+# basedir = '/work/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN'
 #get input directory path
 if not os.path.isabs(options.inputDir):
     inPath = basedir+"/workdir/"+options.inputDir

@@ -17,9 +17,11 @@ import DNN_framework.data_frame as df
 # 2018 
 
 
-# python eval_template_new_data.py -o 230220_evaluation_new_6j4b_2_data -i 230220_50_2_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_3_data --notequalbin --lumi=1 -c 6j4b --year=2018 
+# python eval_template_new_data.py -o 230220_evaluation_new_6j4b_4_data -i 230220_50_2_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_3_data --notequalbin --lumi=1 -c 6j4b --year=2018 
 
-# python eval_template_new_data.py -o 230220_evaluation_new_5j4b_2_data -i 230220_50_2_ge5j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_3_data --notequalbin --lumi=1 -c 5j4b --year=2018
+# python eval_template_new_data.py -o 230220_evaluation_new_5j4b_5_data -i 230220_50_2_ge5j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_4_data --notequalbin --lumi=1 -c 5j4b --year=2018
+
+# python eval_template_new_data.py -o 230220_evaluation_new_4j3b_test -i 230220_50_2_ge4j_ge3t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_3_data --notequalbin --lumi=1 -c 5j4b --year=2018
 
 
 
@@ -108,7 +110,8 @@ if options.binary:
 
 configFile = inPath+"/checkpoints/net_config.json"
   # TODO - modify this
-dfDirectory = "/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/workdir/"+options.dataset+"/"
+# dfDirectory = "/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/workdir/"+options.dataset+"/"
+dfDirectory = basedir+"/workdir/"+options.dataset+"/"
    
 if not os.path.exists(configFile):
         sys.exit(
@@ -149,6 +152,7 @@ shuffle_seed=config["shuffleSeed"],
 addSampleSuffix=config["addSampleSuffix"],
 Do_Control = False,
 )
+
 
 
 dnn.load_trained_model(inPath, options.evaluation_epoch_model)
