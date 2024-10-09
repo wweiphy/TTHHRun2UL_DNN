@@ -80,6 +80,7 @@ for sys in syst:
     for file in allFiles:
         files += " " + file
 
+print(files)
 command = "hadd "+basedir+"workdir/{}/plots/output_limit.root ".format(options.folder) + files
 
 # command = "hadd /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/workdir/{}/plots/output_limit.root ".format(options.folder) + files
