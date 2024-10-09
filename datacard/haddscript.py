@@ -72,15 +72,17 @@ for file in allFiles:
 for sys in syst:
 
     print ("doing {} files".format(sys))
+
+    sys_filepath = basedir+"/workdir/{}/plots/*.root".format(options.folder + "_" + sys)
     
-    allFiles = sorted(
-        glob.glob('/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/workdir/{}/plots/*.root'.format(options.folder + "_" + sys)))
+    allFiles = sorted(glob.glob(sys_filepath))
 
     for file in allFiles:
         files += " " + file
 
+command = "hadd "+basedir+"workdir/{}/plots/output_limit.root ".format(options.folder) + files
 
-command = "hadd /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/workdir/{}/plots/output_limit.root ".format(options.folder) + files
+# command = "hadd /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/workdir/{}/plots/output_limit.root ".format(options.folder) + files
 
 print ("hadd files: ")
 # print (command)
