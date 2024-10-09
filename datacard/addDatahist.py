@@ -1,5 +1,10 @@
 import ROOT
 import optparse
+import os
+import sys
+
+filedir = os.path.dirname(os.path.realpath(__file__))
+basedir = os.path.dirname(filedir)
 
 # python addDatahist.py -f 221204_test_evaluation_new -n new
 
@@ -30,7 +35,7 @@ elif options.new == "old":
     classNames = ['ttHH','ttH','ttZ','ttZH','ttZZ','ttlf','ttcc','ttb','tt2b','ttbb','ttbbb','tt4b']
 # hadd -f output_limit.root 1 2 3
 
-filepath = '/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/workdir/{}/plots/output_limit.root'.format(options.folder)
+filepath = basedir+'/workdir/{}/plots/output_limit.root'.format(options.folder)
 
 
 print(classNames)
