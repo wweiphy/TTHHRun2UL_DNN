@@ -6,8 +6,8 @@ import glob
 # python haddscript.py -f 221204_evaluation_new
 
 filedir = os.path.dirname(os.path.realpath(__file__))
-DRACOdir = os.path.dirname(filedir)
-basedir = os.path.dirname(DRACOdir)
+basedir = os.path.dirname(filedir)
+# basedir = os.path.dirname(DRACOdir)
 
 usage = "usage=%prog [options] \n"
 usage += "USE: python cardmakingscript.py -n True "
@@ -59,6 +59,7 @@ syst = [
 
 filepath = basedir+"/workdir/{}/plots/*discriminator.root".format(options.folder)
 allFiles = sorted(glob.glob(filepath))
+print(filepath)
 
 
 
