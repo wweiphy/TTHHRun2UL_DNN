@@ -1,9 +1,13 @@
 import os
+import sys
 import optparse
 import glob
 
 # python haddscript.py -f 221204_evaluation_new
 
+filedir = os.path.dirname(os.path.realpath(__file__))
+DRACOdir = os.path.dirname(filedir)
+basedir = os.path.dirname(DRACOdir)
 
 usage = "usage=%prog [options] \n"
 usage += "USE: python cardmakingscript.py -n True "
@@ -53,8 +57,10 @@ syst = [
 #   'JESAbsoluteyeardown',
 ]
 
-allFiles = sorted(
-    glob.glob('/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/workdir/{}/plots/*discriminator.root'.format(options.folder)))
+filepath = basedir+"/workdir/{}/plots/*discriminator.root".format(options.folder)
+allFiles = sorted(glob.glob(filepath))
+
+
 
 files = ""
 
@@ -73,7 +79,6 @@ for sys in syst:
     for file in allFiles:
         files += " " + file
 
-print (files)
 
 command = "hadd /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/workdir/{}/plots/output_limit.root ".format(options.folder) + files
 
