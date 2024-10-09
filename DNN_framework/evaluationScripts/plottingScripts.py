@@ -1019,15 +1019,15 @@ class saveJESJERDiscriminators:
 
                 weightIntegral += sum(filtered_weights)
 
-                # if self.year == "2016postVFP" or self.year == '2016preVFP':
-                #         modified_year = "2016"
-                # else:
-                #         modified_year = self.year
+                if self.year == "2016postVFP" or self.year == '2016preVFP':
+                        modified_year = "2016"
+                else:
+                        modified_year = self.year
 
                 if "JERup" in self.syst:
-                    sys2 = self.syst.replace("JERup", "CMS_res_j")+"_"+self.year+"Up"
+                    sys2 = self.syst.replace("JERup", "CMS_res_j")+"_"+modified_year+"Up"
                 elif "JERdown" in self.syst:
-                    sys2 = self.syst.replace("JERdown", "CMS_res_j")+"_"+self.year+"Down"
+                    sys2 = self.syst.replace("JERdown", "CMS_res_j")+"_"+modified_year+"Down"
 
                 elif "JESup" in self.syst:
                     sys2 = self.syst.replace("JESup", "CMS_scale_jUp")

@@ -5,15 +5,25 @@ systs = {
 
     "total_weight_upcferr1": ["__CMS_btag_cferr1Up"],
     "total_weight_upcferr2": ["__CMS_btag_cferr2Up"],
-    "total_weight_upPU": ["__CMS_pileup_Up"],
-    "total_weight_upL1Fire": ["__CMS_L1PrefiringUp"],
+    "total_weight_upPU": ["__CMS_pileup_13TeVUp"],
+    "total_weight_upL1Fire": ["__CMS_l1_ecal_prefiringUp"],
 
     "total_weight_downlf": ["__CMS_btag_lfDown"],
     "total_weight_downhf": ["__CMS_btag_hfDown"],
     "total_weight_downcferr1": ["__CMS_btag_cferr1Down"],
     "total_weight_downcferr2": ["__CMS_btag_cferr2Down"],
-    "total_weight_downPU": ["__CMS_pileupDown"],
-    "total_weight_downL1Fire": ["__CMS_L1PrefiringDown"],
+    "total_weight_downPU": ["__CMS_pileup_13TeVDown"],
+    "total_weight_downL1Fire": ["__CMS_l1_ecal_prefiringDown"],
+
+    "total_weight_upEle": ["__CMS_eff_eUp"],
+    "total_weight_upMuon": ["_CMS_eff_mUp"],
+    "total_weight_upEleTrigger": ["__CMS_eff_e_triggerUp"],
+    "total_weight_upMuonTrigger": ["__CMS_eff_m_triggerUp"],
+
+    "total_weight_downEle": ["__CMS_eff_eDown"],
+    "total_weight_downMuon": ["__CMS_eff_mDown"],
+    "total_weight_downEleTrigger": ["__CMS_eff_e_triggerDown"],
+    "total_weight_downMuonTrigger": ["__CMS_eff_m_triggerDown"],
 
 }
 
@@ -26,22 +36,13 @@ syst_decorrelated = {
     "total_weight_uphfstats1": ["__CMS_btag_hfstats1Up"],
     "total_weight_uphfstats2": ["__CMS_btag_hfstats2Up"],
     
-    "total_weight_upEle": ["__CMS_eff_eUp"],
-    "total_weight_upMuon": ["_CMS_eff_muUp"],
-    "total_weight_upEleTrigger": ["__CMS_effTrigger_eUp"],
-    "total_weight_upMuonTrigger": ["__CMS_effTrigger_muUp"],
-
-
 
     "total_weight_downlfstats1": ["__CMS_btag_lfstats1Down"],
     "total_weight_downlfstats2": ["__CMS_btag_lfstats2Down"],
     "total_weight_downhfstats1": ["__CMS_btag_hfstats1Down"],
     "total_weight_downhfstats2": ["__CMS_btag_hfstats2Down"],
 
-    "total_weight_downEle": ["__CMS_eff_eDown"],
-    "total_weight_downMuon": ["__CMS_eff_muDown"],
-    "total_weight_downEleTrigger": ["__CMS_effTrigger_eDown"],
-    "total_weight_downMuonTrigger": ["__CMS_effTrigger_muDown"],
+
 
 
 }
