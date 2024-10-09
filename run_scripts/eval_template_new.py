@@ -18,12 +18,11 @@ import DNN_framework.data_frame as df
 
 # python eval_template_new.py -o 230220_evaluation_new_6j4b_8 -i 230220_50_2_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_3_nominal --ttmb=5.696962364 --ttnb=1.0 --notequalbin --lumi=119.66 --year=2018 --ttHH=1.0 -c 6j4b
 
-# python eval_template_new.py -o 230220_evaluation_new_5j4b_4 -i 230220_50_2_ge5j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_3_nominal --ttmb=2.007207567*5.975098412128998 --ttcc=2.084432718 --ttlf=2.091277069 --notequalbin --lumi=59.74 --year=2018 -c 5j4b
+# python eval_template_new.py -o 230220_evaluation_new_5j4b_5 -i 230220_50_2_ge5j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_4_nominal --ttHH=2. --ttmb=11.23889254 --ttcc=2.0 --ttlf=2.0 --ttnb=2. --ttH=2. --ttZH=2. --ttZZ=2. --ttZ=2. --notequalbin --lumi=59.8 --year=2018 -c 5j4b
+# -ttmb=2.0*5.61944626999348
 
 # python eval_template_new.py -o 230220_evaluation_new_4j3b_test -i 230220_50_2_ge4j_ge3t --signalclass=ttHH --plot --printroc -d Eval_0308_UL_3_nominal --ttmb=5.704889739467897  --ttnb=1.0 --notequalbin --lumi=119.66 --year=2018 --ttHH=1.0 -c 4j3b
 
-
-# --ttnb=1.212174627
 
 
 # 2017
@@ -31,13 +30,16 @@ import DNN_framework.data_frame as df
 # python eval_template_new.py -o 230119_evaluation_new_6j4b_test -i 230119_50_ge6j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0119_UL_3_nominal --ttmb=62.58449531 --ttnb=1.0 --notequalbin --lumi=83.0 --year=2017 --ttHH=1.0 -c 6j4b
 
 
-# python eval_template_new.py -o 230119_evaluation_new_5j4b_2 -i 230119_50_ge5j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0119_UL_3_nominal --ttmb=62.52235271 --ttnb=1.0 --notequalbin --lumi=83.0 --year=2017 --ttHH=1.0 -c 5j4b
+# python eval_template_new.py -o 230119_evaluation_new_5j4b_7 -i 230119_50_ge5j_ge4t --signalclass=ttHH --plot --printroc -d Eval_0119_UL_4_nominal --ttHH=2. --ttmb=123.5667701 --ttcc=2.0 --ttlf=2.0 --ttnb=2. --ttH=2. --ttZH=2. --ttZZ=2. --ttZ=2. --notequalbin --lumi=41.5 --year=2017 -c 5j4b 
+
 
 # 2016post
 
 # python eval_template_new.py -o 230523_evaluation_new_6j4b_test -i 230523_50_2_ge6j_ge4t  --signalclass=ttHH --plot --printroc -d Eval_0523_UL_3_nominal --ttmb=6.705125691 --ttnb=1.0 --lumi=33.62 -c 6j4b --notequalbin --year=2016postVFP --ttHH=1.0
 
-# python eval_template_new.py -o 230523_evaluation_new_5j4b_2 -i 230523_50_2_ge5j_ge4t  --signalclass=ttHH --plot --printroc -d Eval_0523_UL_3_nominal --ttmb=6.780838642 --ttnb=1.0 --lumi=33.62 -c 5j4b --notequalbin --year=2016postVFP --ttHH=1.0
+# python eval_template_new.py -o 230523_evaluation_new_5j4b_5 -i 230523_50_2_ge5j_ge4t  --signalclass=ttHH --plot --printroc -d Eval_0523_UL_4_nominal --ttHH=2. --ttmb=13.45424116 --ttcc=2.0 --ttlf=2.0 --ttnb=2. --ttH=2. --ttZH=2. --ttZZ=2. --ttZ=2. --notequalbin --lumi=16.81 --year=2016postVFP -c 5j4b 
+
+
 
 # python eval_template_new.py -o 230523_evaluation_new_4j3b -i 230523_50_2_ge4j_ge3t  --signalclass=ttHH --plot --printroc -d Eval_0523_UL_3_nominal --ttmb=6.861631179 --ttnb=1.0 --lumi=33.62 -c 4j3b --notequalbin --year=2016postVFP --ttHH=1.0
 
@@ -47,7 +49,10 @@ import DNN_framework.data_frame as df
 
 # python eval_template_new.py -o 230515_evaluation_new_6j4b_test -i 230515_50_2_ge6j_ge4t  --signalclass=ttHH --plot --printroc -d Eval_0515_UL_3_nominal --ttmb=6.414488975 --ttnb=1.0 --lumi=39.04 -c 6j4b --notequalbin --year=2016preVFP --ttHH=1.0
 
-# python eval_template_new.py -o 230515_evaluation_new_5j4b_3 -i 230515_50_2_ge5j_ge4t  --signalclass=ttHH --plot --printroc -d Eval_0515_UL_3_nominal --ttmb=6.412307499 --ttnb=1.0 --lumi=39.04 -c 5j4b --notequalbin --year=2016preVFP --ttHH=1.0
+# python eval_template_new.py -o 230515_evaluation_new_5j4b_5 -i 230515_50_2_ge5j_ge4t  --signalclass=ttHH --plot --printroc -d Eval_0515_UL_4_nominal --ttHH=2. --ttmb=12.69219617 --ttcc=2.0 --ttlf=2.0 --ttnb=2. --ttH=2. --ttZH=2. --ttZZ=2. --ttZ=2. --notequalbin --lumi=19.52 --year=2016preVFP -c 5j4b 
+
+
+
 
 
 
@@ -138,6 +143,7 @@ parser.add_option("--evaluationEpoch", dest="evaluation_epoch_model", default = 
     
 (options, args) = parser.parse_args()
 
+basedir = '/work/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN'
 #get input directory path
 if not os.path.isabs(options.inputDir):
     inPath = basedir+"/workdir/"+options.inputDir
