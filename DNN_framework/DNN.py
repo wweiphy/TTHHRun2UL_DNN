@@ -6,7 +6,6 @@ import pandas as pd
 import array
 import math
 
-import data_frame
 import csv
 import json
 import pickle
@@ -33,6 +32,7 @@ sys.path.append(basedir)
 sys.path.append(DRACOdir)
 sys.path.append(filedir)
 
+import data_frame
 import generateJTcut as JTcut
 from evaluationScripts import plottingScripts
 from Derivatives import Inputs, Outputs, Derivatives
