@@ -93,7 +93,7 @@ else:
     elif options.year == "2016":
     # and "230515" in options.folder:
         # systfile = "datacard_new_sys_reduce_2016-TwoEra.csv"
-        fullsystfile = "datacard_new_sys_2016-TwoEra.csv" 
+        fullsystfile = "datacard_new_sys_2016.csv" 
         
         systfile = "datacard_new_sys_reduce_2016-TwoEra.csv"
         systfile2 = "datacard_new_sys_2016-TwoEra-JERsplit.csv" 
