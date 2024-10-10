@@ -11,7 +11,7 @@ config = {
         "to_replace" : "PDF_RELIC",
         "construction" : "Hessian",
         "expand_with" : names,
-        "merge_with" : ["PDF_alphaS"]
+        "merge_with" : ["CMS_PDF_alphaS"]
     },
     "CMS_PDF_alphaS" : {
         "to_replace" : "PDF_RELIC",
