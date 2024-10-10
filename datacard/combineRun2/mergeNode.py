@@ -126,6 +126,7 @@ for file in files:
             uphistoname_ttnb = 'ljets_ge4j_ge3t_'+node+"_node__ttnb__"+decorrelate_syst+"_"+year +"Up"
             downhistoname_ttnb = 'ljets_ge4j_ge3t_'+node+"_node__ttnb__"+decorrelate_syst+"_"+year +"Down"
 
+            print(uphist_ttlf)
             uphist_ttlf = file.Get(uphistoname_ttlf)
             uphist_ttcc = file.Get(uphistoname_ttcc)
             uphist_ttmb = file.Get(uphistoname_ttmb)
