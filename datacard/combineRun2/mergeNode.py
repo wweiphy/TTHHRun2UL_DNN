@@ -38,8 +38,8 @@ sys.path.append(basedir)
 
 folder_path = basedir + "/workdir/"
 
-files = ['230119']
-# files = ['230515','230523']
+# files = ['230119']
+files = ['230515','230523']
 # files = ['230119','230515','230523']
 # files = ['230220']
 histofile = "histo-name-merge.csv"
