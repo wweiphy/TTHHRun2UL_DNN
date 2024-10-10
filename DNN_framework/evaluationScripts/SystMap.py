@@ -16,7 +16,7 @@ systs = {
     "total_weight_downL1Fire": ["__CMS_l1_ecal_prefiringDown"],
 
     "total_weight_upEle": ["__CMS_eff_eUp"],
-    "total_weight_upMuon": ["_CMS_eff_mUp"],
+    "total_weight_upMuon": ["__CMS_eff_mUp"],
     "total_weight_upEleTrigger": ["__CMS_eff_e_triggerUp"],
     "total_weight_upMuonTrigger": ["__CMS_eff_m_triggerUp"],
 
