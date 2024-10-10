@@ -5,7 +5,7 @@ import os
 filedir = os.path.dirname(os.path.realpath(__file__))
 basedir = os.path.dirname(filedir)
 
-# sys.path.append('/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/datacard')
+sys.path.append(basedir+'/datacard')
 import combine_intermid_systs
 filename     = os.getenv('INFILE')
 process      = os.getenv('ORIGNAME')
