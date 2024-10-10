@@ -7,13 +7,13 @@ names_alphaS = ["Weight_pdf_variation_{}".format(x)
 names_mcrelic = ["Weight_pdf_variation_{}".format(x)
             for x in range(320900, 321001)]
 config = {
-    "PDF" : {
+    "CMS_PDF" : {
         "to_replace" : "PDF_RELIC",
         "construction" : "Hessian",
         "expand_with" : names,
         "merge_with" : ["PDF_alphaS"]
     },
-    "PDF_alphaS" : {
+    "CMS_PDF_alphaS" : {
         "to_replace" : "PDF_RELIC",
         "construction" : "Hessian",
         "expand_with" : names_alphaS
@@ -40,7 +40,7 @@ config = {
     #     "construction" : "Hessian",
     #     "expand_with" : names_alphaS
     # },
-    "PDF_ttbbNLO" : {
+    "CMS_PDF_ttbbNLO" : {
         "to_replace" : "PDF_RELIC",
         "construction" : "MCrelic",
         "expand_with" : names_mcrelic,
