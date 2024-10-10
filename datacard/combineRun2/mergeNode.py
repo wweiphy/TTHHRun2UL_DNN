@@ -38,8 +38,8 @@ sys.path.append(basedir)
 
 folder_path = basedir + "/workdir/"
 
-# files = ['230220','230119','230515','230523']
-files = ['230220']
+files = ['230119','230515','230523']
+# files = ['230220']
 histofile = "histo-name-merge.csv"
 decorrelated_systs = ['CMS_btag_hfstats1','CMS_btag_hfstats2','CMS_btag_lfstats1','CMS_btag_lfstats2','CMS_res_j']
 
