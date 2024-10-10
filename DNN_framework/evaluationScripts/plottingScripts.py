@@ -336,15 +336,15 @@ class savenominalDiscriminators:
 
                 for syst in SystMap.syst_decorrelated:
 
-                    # if self.year == "2016postVFP" or self.year == '2016preVFP':
-                    #     modified_year = "2016"
-                    # else:
-                    #     modified_year = self.year
+                    if self.year == "2016postVFP" or self.year == '2016preVFP':
+                        modified_year = "2016"
+                    else:
+                        modified_year = self.year
 
                     if "total_weight_up" in syst:
-                        subtitle = SystMap.syst_decorrelated[syst][0].replace('Up','')+"_"+self.year+"Up"
+                        subtitle = SystMap.syst_decorrelated[syst][0].replace('Up','')+"_"+modified_year+"Up"
                     if "total_weight_down" in syst:
-                        subtitle = SystMap.syst_decorrelated[syst][0].replace('Down','')+"_"+self.year+"Down" 
+                        subtitle = SystMap.syst_decorrelated[syst][0].replace('Down','')+"_"+modified_year+"Down" 
 
                     
                     filtered_syst_weights = self.lumi * \
