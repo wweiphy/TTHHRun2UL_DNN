@@ -32,8 +32,6 @@ class Systematics:
         self.weightDictionary = weightDictionary
 
         self.replacing_config = None
-        print("check")
-        print(replacing_config)
         self.init_replace_config(replacing_config)
         
         self.__dict_weight_systs = self.construct_syst_dict("weight")

@@ -281,6 +281,8 @@ def combine_intermid_syst(**kwargs):
     print('check')
     print(replace_cfg_path)
     replace_cfg = load_config(replace_cfg_path)
+    print("check2")
+    print(replace_cfg)
     # load csv file with systematics. This is necessary in order to perform
     # a check whether a given systematic is relevant for a given process
     syst_csv_path = kwargs.get("syst_csvpath", "")
