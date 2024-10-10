@@ -12,6 +12,7 @@ process      = os.getenv('ORIGNAME')
 nom_key      = os.getenv('NOMHISTKEY')
 syst_key     = os.getenv('SYSTHISTKEY')
 separator    = os.getenv('SEPARATOR')
+print(basedir)
 syst_csvpath = basedir+"/datacard/systematics_full_4FS.csv"
 # syst_csvpath = "/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/datacard/systematics_full_5FS.csv"
 # syst_csvpath = "/uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_11_1_2/src/TTHHRun2UL_DNN/datacard/systematics_full.csv"
