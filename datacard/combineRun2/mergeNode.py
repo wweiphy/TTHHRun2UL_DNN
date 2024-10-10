@@ -57,6 +57,7 @@ for file in files:
     filepath = file+"_evaluation_new_"+options.category+"/plots/output_limit.root"
 
     file = ROOT.TFile.Open(folder_path+filepath, "UPDATE")
+    print(folder_path+filepath)
     print('file: '+filepath)
 
 
