@@ -41,7 +41,7 @@ folder_path = basedir + "/workdir/"
 # files = ['230220','230119','230515','230523']
 files = ['230220']
 histofile = "histo-name-merge.csv"
-decorrelated_systs = ['effTrigger_mu','effTrigger_e','eff_mu','eff_e','btag_hfstats1','btag_hfstats2','btag_lfstats1','btag_lfstats2','JER']
+decorrelated_systs = ['CMS_btag_hfstats1','CMS_btag_hfstats2','CMS_btag_lfstats1','CMS_btag_lfstats2','CMS_res_j']
 
 for file in files:
 
@@ -49,10 +49,10 @@ for file in files:
         year = "2018"
     if file == "230119":
         year = "2017"
-    if file == "230515":
-        year = "2016preVFP"
-    if file == "230523":
-        year = "2016postVFP"
+    if file == "230515" or file == "230525":
+        year = "2016"
+    # if file == "230523":
+    #     year = "2016postVFP"
 
     filepath = file+"_evaluation_new_"+options.category+"/plots/output_limit.root"
 
@@ -150,7 +150,7 @@ for file in files:
             
         for sys in systlist:
 
-            if sys == "L1Prefiring":
+            if sys == "CMS_l1_ecal_prefiring":
 
                 if files == "230220":
 
@@ -196,7 +196,7 @@ for file in files:
                     upcombined_hist.Write(uphistoname)
                     downcombined_hist.Write(downhistoname)
 
-            elif sys == "PDF":
+            elif sys == "CMS_PDF":
 
                 uphistoname = 'ljets_ge4j_ge3t_'+node+"_node__ttbar__"+sys+"Up"
                 downhistoname = 'ljets_ge4j_ge3t_'+node+"_node__ttbar__"+sys+"Down"
@@ -362,7 +362,7 @@ for file in files:
             
         for sys in systlist:
 
-            if sys == "L1Prefiring":
+            if sys == "CMS_l1_ecal_prefiring":
 
                 if year == "2018":
 
