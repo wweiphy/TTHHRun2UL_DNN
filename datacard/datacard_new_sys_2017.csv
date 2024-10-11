@@ -7,8 +7,8 @@ QCDscale_ttbar,lnN,-,0.965/1.024,-,0.900/1.052,0.932/1.019,0.887/1.096
 pdf_Higgs_ttH,lnN,-,-,1.036,-,-,-
 pdf_Higgs_ttHH,lnN,1.032,-,-,-,-,-
 pdf_gg,lnN,-,1.042,-,1.026,1.03,1.028
-CMS_eff_m_trigger,shape,1,1,1,1,1,1
-CMS_eff_e_trigger,shape,1,1,1,1,1,1
+CMS_eff_m_trigger_2017,shape,1,1,1,1,1,1
+CMS_eff_e_trigger_2017,shape,1,1,1,1,1,1
 CMS_eff_m,shape,1,1,1,1,1,1
 CMS_eff_e,shape,1,1,1,1,1,1
 CMS_btag_lf,shape,1,1,1,1,1,1

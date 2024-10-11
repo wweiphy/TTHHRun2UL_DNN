@@ -21,7 +21,5 @@ CMS_scaleMuR_ttH,-,-,-,-,-,1,-,-,-,-
 CMS_scaleMuF,-,1,1,-,1,-,-,-,-,1
 CMS_scaleMuF_ttbbNLO,-,1,1,-,1,-,-,-,-,1
 CMS_scaleMuF_ttH,-,-,-,-,-,1,-,-,-,-
-CMS_eff_m_trigger,1,1,1,1,1,1,1,1,1,1
-CMS_eff_e_trigger,1,1,1,1,1,1,1,1,1,1
 CMS_eff_m,1,1,1,1,1,1,1,1,1,1
 CMS_eff_e,1,1,1,1,1,1,1,1,1,1

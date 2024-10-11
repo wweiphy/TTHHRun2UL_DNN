@@ -17,13 +17,11 @@ systs = {
 
     "total_weight_upEle": ["__CMS_eff_eUp"],
     "total_weight_upMuon": ["__CMS_eff_mUp"],
-    "total_weight_upEleTrigger": ["__CMS_eff_e_triggerUp"],
-    "total_weight_upMuonTrigger": ["__CMS_eff_m_triggerUp"],
+
 
     "total_weight_downEle": ["__CMS_eff_eDown"],
     "total_weight_downMuon": ["__CMS_eff_mDown"],
-    "total_weight_downEleTrigger": ["__CMS_eff_e_triggerDown"],
-    "total_weight_downMuonTrigger": ["__CMS_eff_m_triggerDown"],
+  
 
 }
 
@@ -42,8 +40,10 @@ syst_decorrelated = {
     "total_weight_downhfstats1": ["__CMS_btag_hfstats1Down"],
     "total_weight_downhfstats2": ["__CMS_btag_hfstats2Down"],
 
-
-
+    "total_weight_upEleTrigger": ["__CMS_eff_e_triggerUp"],
+    "total_weight_upMuonTrigger": ["__CMS_eff_m_triggerUp"],
+    "total_weight_downEleTrigger": ["__CMS_eff_e_triggerDown"],
+    "total_weight_downMuonTrigger": ["__CMS_eff_m_triggerDown"],
 
 }
 
