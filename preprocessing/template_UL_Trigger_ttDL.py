@@ -12,7 +12,7 @@ import preprocessing
 
 
 """
-USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/EL8/CMSSW_12_4_3/src/TTHHRun2UL_DNN/preprocessing/template_UL_Trigger_ttDL.py --outputdirectory=Trigger_0308_UL_3_nominal --variableselection=variables_trigger --maxentries=20000 --cores=8 --dataEra=2018
+USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/EL8/CMSSW_12_4_3/src/TTHHRun2UL_DNN/preprocessing/template_UL_Trigger_ttDL.py --outputdirectory=Trigger_0308_UL_3_nominal --variableselection=variables_trigger --maxentries=20000 --cores=4 --dataEra=2018
 
 """
 
@@ -63,7 +63,7 @@ else:
 # select only events with GEN weight > 0 because training with negative weights is weird
 
 # base = "(N_Jets >= 4 and N_BTagsM >= 3 and Evt_MET > 20. and Weight_GEN_nom > 0.)"
-base = "(N_Jets >= 5 and N_BTagsM >= 4)"
+base = "(N_Jets >= 4 and N_BTagsM >= 3 and Evt_MET > 20.)"
 
 if options.dataEra == "2017" or options.dataEra == 2017:
 
@@ -93,7 +93,7 @@ else:
 
 base_selection = base
 
-ttHH_selection = "(Evt_Odd == 0)"  # Should I do this on ttHH
+# ttHH_selection = "(Evt_Odd == 0)"  # Should I do this on ttHH
 
 # define output classes
 ttHH_categories = preprocessing.EventCategories()
@@ -165,7 +165,7 @@ dataset2.addBaseSelection(base_selection)
 dataset2.addSample(
     sampleName="TTDL",
     ntuples=ntuplesPath2 +
-    "/2018/ntuple/TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2018/240526_052101/*/*nominal*.root",
+    "/2018/ntuple/TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2018/241008_232730/*/*nominal*.root",
     #    ntuples     = ntuplesPath+"/ttSL_220210.root",
     categories=ttbar_categories,
     process="ttDL",
