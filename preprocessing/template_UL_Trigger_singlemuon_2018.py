@@ -220,10 +220,14 @@ sys.path.append(basedir+"/variable_sets/")
 
 # print (basedir)
 import additional_variables_data as add_var
+import sf_variables as sf_var
 # import sf_variables as sf_var
 # import sf_variables as sf_var
 # add these variables to the variable list
+dataset.addVariables(sf_var.scalefactor_variables_data)
 dataset.addVariables(add_var.additional_variables)
+# print (basedir)
+
 
 # dataset.addVariables(sf_var.scalefactor_variables)
 
