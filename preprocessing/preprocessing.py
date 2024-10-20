@@ -883,15 +883,16 @@ class Dataset:
                     concat_df.loc[:,"lumiWeight"] = sample.lumiWeight
 
                     # add indexing
-                    concat_df.set_index([self.varName_Run, self.varName_LumiBlock, self.varName_Event], inplace=True, drop=True)
+                    if not self.do_Trigger:
+                        concat_df.set_index([self.varName_Run, self.varName_LumiBlock, self.varName_Event], inplace=True, drop=True)
 
                     # remove trigger variables
                     concat_df = self.removeTriggerVariables(concat_df)
-                    print("success 1") 
+                    # print("success 1") 
                     # write data to file
                     self.createDatasets(concat_df, sample.categories.categories, chunkNumber)
                     print("*"*50)
-                    print("success 2") 
+                    # print("success 2") 
 
                     # reset counters
                     n_entries = 0
