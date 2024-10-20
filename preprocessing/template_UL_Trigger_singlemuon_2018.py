@@ -155,7 +155,7 @@ dataset.addBaseSelection(base_selection)
 dataset.addSample(
     sampleName="SingleMuonA",
     ntuples=ntuplesPath2 +
-    "/2018/ntuple/SingleMuon/sl_LEG_ntuple_2018/241008_233420/*/*nominal*.root",
+    "/2018/ntuple/SingleMuon/sl_LEG_ntuple_2018/241019_074237/*/*nominal*.root",
     # "/2018/ntuple/SingleMuon/sl_LEG_ntuple_2018/230707_052925/*/*nominal*.root",
     #    ntuples     = ntuplesPath+"/ttH_220208.root",
     categories=mudata_categories,
@@ -170,7 +170,7 @@ dataset.addSample(
 dataset.addSample(
     sampleName="SingleMuonB",
     ntuples=ntuplesPath2 +
-    "/2018/ntuple/SingleMuon/sl_LEG_ntuple_2018/241010_062003/*/*nominal*.root",
+    "/2018/ntuple/SingleMuon/sl_LEG_ntuple_2018/241019_074905/*/*nominal*.root",
     # "/2018/ntuple/SingleMuon/sl_LEG_ntuple_2018/230708_155949/*/*nominal*.root",
     #    ntuples     = ntuplesPath+"/ttH_220208.root",
     categories=mudata_categories,
@@ -184,7 +184,7 @@ dataset.addSample(
 dataset.addSample(
     sampleName="SingleMuonC",
     ntuples=ntuplesPath2 +
-    "/2018/ntuple/SingleMuon/sl_LEG_ntuple_2018/241010_062551/*/*nominal*.root",
+    "/2018/ntuple/SingleMuon/sl_LEG_ntuple_2018/241020_071451/*/*nominal*.root",
     # "/2018/ntuple/SingleMuon/sl_LEG_ntuple_2018/230710_070951/*/*nominal*.root",
     #    ntuples     = ntuplesPath+"/ttH_220208.root",
     categories=mudata_categories,
@@ -198,7 +198,7 @@ dataset.addSample(
 dataset.addSample(
     sampleName="SingleMuonD",
     ntuples=ntuplesPath2 +
-    "/2018/ntuple/SingleMuon/sl_LEG_ntuple_2018/241014_232520/*/*nominal*.root",
+    "/2018/ntuple/SingleMuon/sl_LEG_ntuple_2018/241020_065507/*/*nominal*.root",
     # "/2018/ntuple/SingleMuon/sl_LEG_ntuple_2018/230708_155959/*/*nominal*.root",
     #    ntuples     = ntuplesPath+"/ttH_220208.root",
     categories=mudata_categories,

@@ -165,7 +165,7 @@ dataset2.addBaseSelection(base_selection)
 dataset2.addSample(
     sampleName="TTDL",
     ntuples=ntuplesPath2 +
-    "/2018/ntuple/TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2018/241008_232730/*/*nominal*.root",
+    "/2018/ntuple/TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8/sl_LEG_ntuple_2018/241019_050513/*/*nominal*.root",
     #    ntuples     = ntuplesPath+"/ttSL_220210.root",
     categories=ttbar_categories,
     process="ttDL",
