@@ -186,11 +186,11 @@ import additional_variables as add_var
 # import sf_variables as sf_var
 import sf_variables as sf_var
 # add these variables to the variable list
-dataset2.addVariables(add_var.additional_variables)
+# dataset2.addVariables(add_var.additional_variables)
 dataset2.addVariables(sf_var.scalefactor_variables)
 # dataset2.addVariables(sf_var.ttbar_variables)
-dataset2.addVariables(sf_var.ttbar_variables)
-dataset2.addVariables(sf_var.PDF_tt)
+# dataset2.addVariables(sf_var.ttbar_variables)
+# dataset2.addVariables(sf_var.PDF_tt)
 
 # run the preprocessing
 dataset2.runPreprocessing()
