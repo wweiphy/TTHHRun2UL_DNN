@@ -59,7 +59,7 @@ scalefactor_variables_trigger = [
     # 'Weight_ElectronTriggerSF',
     # 'Weight_ElectronTriggerSF_Up',
     # 'Weight_ElectronTriggerSF_Down',
-    'Weight_XS',
+    # 'Weight_XS',
     # 'Weight_pu69p2',
     # 'Weight_pu69p2Up',
     # 'Weight_pu69p2Down',
