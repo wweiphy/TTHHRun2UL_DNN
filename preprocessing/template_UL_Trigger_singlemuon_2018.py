@@ -145,7 +145,7 @@ dataset = preprocessing.Dataset(
     maxEntries  = options.maxEntries,
     ncores      = options.numCores,
     dataEra=options.dataEra,
-    do_BTagCorrection=True,
+    do_Trigger=True,
     )
 
 # add base event selection

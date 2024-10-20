@@ -83,7 +83,7 @@ class Sample:
 
 
 class Dataset:
-    def __init__(self, outputdir, tree=['MVATree'], naming='', maxEntries=50000, varName_Run='Evt_Run', varName_LumiBlock='Evt_Lumi', varName_Event='Evt_ID',ncores=1, dataEra = 2017, do_EvalSFs=False, do_BTagCorrection=False):
+    def __init__(self, outputdir, tree=['MVATree'], naming='', maxEntries=50000, varName_Run='Evt_Run', varName_LumiBlock='Evt_Lumi', varName_Event='Evt_ID',ncores=1, dataEra = 2017, do_EvalSFs=False, do_BTagCorrection=False,do_Trigger=False):
         # settings for paths
         self.outputdir = outputdir
         self.naming = naming
@@ -94,6 +94,7 @@ class Dataset:
         self.dataEra = dataEra
         self.do_EvalSFs = do_EvalSFs
         self.do_BTagCorrection = do_BTagCorrection
+        self.do_Trigger = do_Trigger
 
         genfile = genmap2018
         btagfile = btagcorrection2018
@@ -856,9 +857,11 @@ class Dataset:
                                 total_weight=lambda x: x.xs_weight * x.sf_weight * x.Weight_CSV_UL)
                             df = df.assign(total_preweight=lambda x: x.xs_weight * x.sf_weight) 
 
-                else:
-                    # for DNN, only Weight_CSV_UL is needed
+                elif not self.do_Trigger:
                     df = self.CalculateSFs(tree,df)
+                # else:
+                    # for DNN, only Weight_CSV_UL is needed
+                    
                     # print("df bTag SF: ")
                     # print(df["Weight_CSV_UL"])
                     # print(df["Weight_JetPUID"])
