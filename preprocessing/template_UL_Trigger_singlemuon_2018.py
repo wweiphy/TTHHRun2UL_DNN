@@ -225,7 +225,7 @@ import sf_variables as sf_var
 # import sf_variables as sf_var
 # add these variables to the variable list
 dataset.addVariables(sf_var.scalefactor_variables_trigger)
-dataset.addVariables(add_var.additional_variables)
+# dataset.addVariables(add_var.additional_variables)
 # print (basedir)
 
 
