@@ -49,12 +49,12 @@ variables["ge4j_ge3t"] = [
     'TightLepton_M[0]',
    'TightLepton_Phi[0]',
     'TightLepton_Pt[0]',
-    'LooseElectron_isMatched',
-    'LooseElectron_passesID',
-    'LooseElectron_isPrompt',
-    'Electron_isMatched',
-    'Electron_passesID',
-    'Electron_isPrompt',
+    'LooseElectron_isMatched[0]',
+    'LooseElectron_passesID[0]',
+    'LooseElectron_isPrompt[0]',
+    'Electron_isMatched[0]',
+    'Electron_passesID[0]',
+    'Electron_isPrompt[0]',
     ]
 
 
