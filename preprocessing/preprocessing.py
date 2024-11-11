@@ -1912,8 +1912,11 @@ class Dataset:
         electrons_PassesID = tree.pandas.df("ElectronDL_passesID")
 
         ele_Prompt_PassesID = []
+        levels = electrons_Prompt.index.levels
+        level_1_length = len(levels[0])
+
         # print(electrons_Prompt)
-        print(electrons_Prompt.get_level_values(0))
+        print(level_1_length)
 
         for i in range(electrons_Prompt.shape[0]):
 
