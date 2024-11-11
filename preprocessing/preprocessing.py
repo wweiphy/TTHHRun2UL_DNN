@@ -859,30 +859,11 @@ class Dataset:
 
                 elif not self.do_Trigger:
                     df = self.CalculateSFs(tree,df)
-                    
+
                 elif self.do_Trigger:
-                    electrons_Prompt = tree.pandas.df("ElectronDL_isPrompt")
-                    electrons_PassesID = tree.pandas.df("ElectronDL_passesID")
 
-                    ele_Prompt_PassesID = []
-
-                    for i in range(electrons_Prompt.size):
-
-                        electrons_Prompt_PassesID = 0
-
-                        if electrons_Prompt["ElectronDL_isPrompt"][i].size != 0: 
-
-                            for j in range(electrons_Prompt["ElectronDL_isPrompt"][i].size): 
-                                if electrons_Prompt["ElectronDL_isPrompt"][i][j] == 1. and electrons_PassesID['ElectronDL_passesID'][i][j] == 1.:
-                                    electrons_Prompt_PassesID += 1
-                        ele_Prompt_PassesID.append(electrons_Prompt_PassesID)
-
-                    df.loc[:, "N_Prompt_PassesID"] = 0
-
-                    Ele_Prompt_PassesID = pd.DataFrame(ele_Prompt_PassesID, columns=["N_Prompt_PassesID"])
-
-
-                    df.update(Ele_Prompt_PassesID)
+                    df = self.CalculatePromptPassesIDEle(tree,df)
+                    
 
 
                     
@@ -1923,7 +1904,35 @@ class Dataset:
         df.update(TriggerSFUp)
         df.update(TriggerSFDown)
 
-        return df  
+        return df 
+
+    def CalculatePromptPassesIDEle(self,tree,df):
+
+        electrons_Prompt = tree.pandas.df("ElectronDL_isPrompt")
+        electrons_PassesID = tree.pandas.df("ElectronDL_passesID")
+
+        ele_Prompt_PassesID = []
+
+        for i in range(electrons_Prompt.size):
+
+            electrons_Prompt_PassesID = 0
+
+            if electrons_Prompt["ElectronDL_isPrompt"][i].size != 0: 
+
+                for j in range(electrons_Prompt["ElectronDL_isPrompt"][i].size): 
+                    if electrons_Prompt["ElectronDL_isPrompt"][i][j] == 1. and electrons_PassesID['ElectronDL_passesID'][i][j] == 1.:
+                        electrons_Prompt_PassesID += 1
+            ele_Prompt_PassesID.append(electrons_Prompt_PassesID)
+
+        df.loc[:, "N_Prompt_PassesID"] = 0
+
+        Ele_Prompt_PassesID = pd.DataFrame(ele_Prompt_PassesID, columns=["N_Prompt_PassesID"])
+
+
+        df.update(Ele_Prompt_PassesID)
+
+        return df
+
     
     # def CalculatePUSFs(self, tree, df):
 
