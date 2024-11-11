@@ -861,7 +861,7 @@ class Dataset:
                     df = self.CalculateSFs(tree,df)
 
                 elif self.do_Trigger:
-
+                    print("Do Ele ID/Trigger Study")
                     df = self.CalculatePromptPassesIDEle(tree,df)
                     
 
