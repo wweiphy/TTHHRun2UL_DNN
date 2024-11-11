@@ -1912,6 +1912,7 @@ class Dataset:
         electrons_PassesID = tree.pandas.df("ElectronDL_passesID")
 
         ele_Prompt_PassesID = []
+        print(electrons_Prompt.size)
 
         for i in range(electrons_Prompt.size):
 
