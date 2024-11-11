@@ -1913,7 +1913,7 @@ class Dataset:
 
         ele_Prompt_PassesID = []
         print(electrons_Prompt)
-        print(len(electrons_Prompt))
+        print(electrons_Prompt['entry'])
 
         for i in range(electrons_Prompt.shape[0]):
 
