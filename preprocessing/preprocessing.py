@@ -1917,7 +1917,7 @@ class Dataset:
 
             electrons_Prompt_PassesID = 0
 
-            print(electrons_Prompt["ElectronDL_isPrompt"][i].size)
+            print("event ",i,", electron number is ", electrons_Prompt["ElectronDL_isPrompt"][i].size)
 
             if electrons_Prompt["ElectronDL_isPrompt"][i].size != 0: 
 
