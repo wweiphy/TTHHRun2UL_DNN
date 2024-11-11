@@ -1916,13 +1916,13 @@ class Dataset:
         level_1_length = len(levels[0])
 
         # print(electrons_Prompt)
-        print(level_1_length)
+        # print(level_1_length)
 
-        for i in range(electrons_Prompt.shape[0]):
+        for i in range(level_1_length):
 
             electrons_Prompt_PassesID = 0
 
-            print("event ",i,", electron number is ", electrons_Prompt["ElectronDL_isPrompt"][i].size)
+            # print("event ",i,", electron number is ", electrons_Prompt["ElectronDL_isPrompt"][i].size)
 
             if electrons_Prompt["ElectronDL_isPrompt"][i].size != 0: 
 
