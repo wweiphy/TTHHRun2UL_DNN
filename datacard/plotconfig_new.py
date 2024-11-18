@@ -77,7 +77,7 @@ plottingsamples = {   'ttbar': {   'addSamples': [   'ttmb'],
                 }
 
 #systematics to be plotted
-systematics = [   ]
+systematics = [ 'CMS_eff_e', 'CMS_btag_hfstats2_2017', 'CMS_eff_m', 'CMS_FSR_ttcc', 'CMS_res_j', 'CMS_btag_cferr1', 'CMS_ISR_ttlf', 'CMS_ISR_ttbb', 'CMS_scaleMuR_ttbbNLO', 'CMS_scale_j', 'CMS_btag_lf', 'CMS_btag_lfstats2_2017', 'CMS_PDF', 'CMS_scaleMuF_ttbbNLO', 'CMS_eff_e_trigger_2017', 'CMS_pileup_13TeV', 'CMS_l1_ecal_prefiring', 'CMS_scaleMuR', 'CMS_FSR_ttbb', 'CMS_FSR_ttlf', 'CMS_btag_lfstats1_2017', 'CMS_scaleMuF', 'CMS_eff_m_trigger_2017', 'CMS_btag_cferr2', 'CMS_btag_hf', 'CMS_btag_hfstats1_2017', 'CMS_ISR_ttcc'  ]
 
 # order of the stack processes, descending from top to bottom
 sortedprocesses = [   'ttHH',

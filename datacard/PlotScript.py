@@ -202,6 +202,7 @@ if not options.systfile is None:
     Systematics = importlib.import_module("Systematics")
     systClass = Systematics.Systematics(options.systfile)
     print("loading systematic csv file for systematic setup")
+    print(systClass)
 
 """
 creates emtpy Plotconfig
