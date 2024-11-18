@@ -172,6 +172,7 @@ def buildHistogramAndErrorBand(rootFile,sample,color,typ,label,systematics,nomin
     #Lists for error band values
     upErrors=None
     downErrors=None
+    print("systematics",systematics)
     """
     Loop over systematics to get Error band for sample
     """
