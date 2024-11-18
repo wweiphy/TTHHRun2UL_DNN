@@ -260,6 +260,7 @@ def buildHistogramAndErrorBand(rootFile,sample,color,typ,label,systematics,nomin
             errorband.SetPointEYhigh(i, upErrors[i])
             errorband.SetPointEXlow(i, rootHist.GetBinWidth(i+1)/2.)
             errorband.SetPointEXhigh(i, rootHist.GetBinWidth(i+1)/2.)
+            print("example down systematic error",downErrors[i])
 
     if addStatErrorband:
         statErrorband = ROOT.TGraphAsymmErrors(rootHist)
