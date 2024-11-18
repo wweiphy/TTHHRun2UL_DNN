@@ -201,7 +201,7 @@ if not options.systfile is None:
         sys.exit("path to systematic.csv {} does not exist".format(options.systfile))
     Systematics = importlib.import_module("Systematics")
     systClass = Systematics.Systematics(options.systfile)
-    print("loading systematic.csv for systematic setup")
+    print("loading systematic csv file for systematic setup")
 
 """
 creates emtpy Plotconfig
