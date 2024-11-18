@@ -649,7 +649,7 @@ if options.new == "new":
 
         script = filedir + "/PlotScript.py"
         plotconfig = filedir + "/plotconfig_new.py"
-        systematic = filedir + "/systematics.csv"
+        systematic = filedir + "/systematics_full.csv"
         
         if "TwoYear" in options.filefolder:
             rootfile = filedir + "/combineRun2/"+options.filefolder+"/output_limit.root"
