@@ -201,6 +201,8 @@ def buildHistogramAndErrorBand(rootFile,sample,color,typ,label,systematics,nomin
         up= rootFile.Get(upname)
         downname=sampleHistKey+"Down"
         down= rootFile.Get(downname)
+        print("downname",downname)
+        print("upname",upname)
         
         """
         check if histogram is TH1 type and integrals>0, else skip uncertainty
@@ -250,7 +252,7 @@ def buildHistogramAndErrorBand(rootFile,sample,color,typ,label,systematics,nomin
                 print("->type of down shape is: "+str(type(down)) )
             else:
                 continue
-
+    print("test", upErrors)
     errorband = None
     statErrorband = None
     if upErrors:
@@ -260,7 +262,7 @@ def buildHistogramAndErrorBand(rootFile,sample,color,typ,label,systematics,nomin
             errorband.SetPointEYhigh(i, upErrors[i])
             errorband.SetPointEXlow(i, rootHist.GetBinWidth(i+1)/2.)
             errorband.SetPointEXhigh(i, rootHist.GetBinWidth(i+1)/2.)
-            print("example down systematic error",downErrors[i])
+            # print("example down systematic error",downErrors[i])
 
     if addStatErrorband:
         statErrorband = ROOT.TGraphAsymmErrors(rootHist)
