@@ -18,7 +18,7 @@ import sf_variables as sf_var
 
 
 """
-USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/CMSSW_12_1_1/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_Syst.py --outputdirectory=Eval_0119_UL --variableselection=dnn_variables --maxentries=20000 --cores=8  --syst=JESup
+USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/EL8/CMSSW_12_4_3/src/TTHHRun2UL_DNN/preprocessing/template_UL_Eval_Syst.py --outputdirectory=Eval_0119_UL_4 --variableselection=variables --maxentries=20000 --cores=4  --syst=JESup --dataEra=2017
 """
 
 usage="usage=%prog [options] \n"
@@ -44,6 +44,9 @@ parser.add_option("-s", "--syst", dest="syst", default="JERup",
 
 parser.add_option("-c", "--cores", dest="numCores", default=1,
                   help="number of cores to run the preprocessing", metavar="NumCores")
+
+parser.add_option("-y", "--dataEra", dest="dataEra", default=2017,
+                  help="dataera", metavar="dataEra")
 
 # parser.add_option("-l", "--islocal", dest="islocal", default=False,
 #                   help="True if the ntuple files are stored in the eos space, False if the ntuple files are in local space", metavar="islocal")
@@ -71,9 +74,31 @@ else:
 # base = "(N_Jets >= 4 and N_BTagsM >= 3 and Evt_MET > 20. and Weight_GEN_nom > 0.)"
 base = "(N_Jets >= 4 and N_BTagsM >= 3 and Evt_MET > 20.)"
 
-# single lepton selections
-single_mu_sel = "(N_LooseElectrons == 0 and N_TightMuons == 1 and Muon_Pt > 29. and Triggered_HLT_IsoMu27_vX == 1)"
-single_el_sel = "(N_LooseMuons == 0 and N_TightElectrons == 1 and (Triggered_HLT_Ele35_WPTight_Gsf_vX == 1 or Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX == 1))"
+if options.dataEra == "2017" or options.dataEra == 2017:
+
+    # single lepton selections
+    single_mu_sel = "(N_LooseElectrons == 0 and N_TightMuons == 1 and Muon_Pt > 29. and Triggered_HLT_IsoMu27_vX == 1)"
+    single_el_sel = "((N_LooseMuons == 0 and N_TightElectrons == 1 and Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX == 1) or (N_LooseMuons == 0 and N_TightElectrons == 1 and Triggered_HLT_Ele32_WPTight_Gsf_L1DoubleEG_vX == 1 and Triggered_HLT_Ele32_WPTight_Gsf_2017SeedsX == 1))"
+
+elif options.dataEra == "2018" or options.dataEra == 2018:
+    # single lepton selections
+    single_mu_sel = "(N_LooseElectrons == 0 and N_TightMuons == 1 and Muon_Pt > 26. and Triggered_HLT_IsoMu24_vX == 1)"
+    single_el_sel = "(N_LooseMuons == 0 and N_TightElectrons == 1 and (Triggered_HLT_Ele28_eta2p1_WPTight_Gsf_HT150_vX == 1 or Triggered_HLT_Ele32_WPTight_Gsf_vX == 1))"
+
+elif options.dataEra == "2016postVFP":
+    # single lepton selections
+    single_mu_sel = "(N_LooseElectrons == 0 and N_TightMuons == 1 and Muon_Pt > 26. and (Triggered_HLT_IsoTkMu24_vX == 1 or Triggered_HLT_IsoMu24_vX == 1))"
+    single_el_sel = "(N_LooseMuons == 0 and N_TightElectrons == 1 and Triggered_HLT_Ele27_WPTight_Gsf_vX == 1)"
+
+elif options.dataEra == "2016preVFP":
+    
+    # single lepton selections
+    single_mu_sel = "(N_LooseElectrons == 0 and N_TightMuons == 1 and Muon_Pt > 26. and (Triggered_HLT_IsoTkMu24_vX == 1 or Triggered_HLT_IsoMu24_vX == 1))"
+    single_el_sel = "(N_LooseMuons == 0 and N_TightElectrons == 1 and Triggered_HLT_Ele27_WPTight_Gsf_vX == 1)"
+
+else:
+    # print("no file matches the dataEra " +dataEra)
+    sys.exit("no file matches the dataEra " +options.dataEra)
 
 base_selection = "("+base+" and ("+single_mu_sel+" or "+single_el_sel+"))"
 
@@ -156,6 +181,7 @@ dataset = preprocessing.Dataset(
     naming      = options.Name,
     maxEntries  = options.maxEntries,
     ncores      = options.numCores,
+    dataEra=options.dataEra,
     do_EvalSFs=True,
     )
 
@@ -165,10 +191,7 @@ dataset.addBaseSelection(base_selection)
 
 dataset.addSample(
     sampleName="TTHH",
-    ntuples=ntuplesPath2 + "/2017/ntuple/TTHHTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2017/221126_052019/*/*"+options.syst+"*.root",
-    # ntuples=ntuplesPath2 +
-    # "/2017/ntuple/TTHHTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2017/221126_052019/*/*"+sys+"*.root",
-    #    ntuples     = ntuplesPath+"/ttHH_4b.root",
+    ntuples=ntuplesPath2 + "/2017/ntuple/TTHHTo4b_TuneCP5_13TeV-madgraph-pythia8/sl_LEG_ntuple_2017/240405_204825/*/*"+options.syst+"*.root",
     categories=ttHH_categories,
     process = "ttHH",
     # lumiWeight  = 1.105,
@@ -303,7 +326,7 @@ dataset.addSample(
     # 221118_235008
     #    ntuples     = ntuplesPath+"/ttH_220208.root",
     categories=ttH_categories,
-    process="ttH",
+    process="ttHSL",
     #    lumiWeight  = 41.5,
     selections=ttHH_selection,  # ttbar_selection,
     #    selections  = ttH_selection,
@@ -317,7 +340,7 @@ dataset.addSample(
     # 221118_235008
     #    ntuples     = ntuplesPath+"/ttH_220208.root",
     categories=ttH_categories,
-    process="ttH",
+    process="ttHDL",
     #    lumiWeight  = 41.5,
     selections=ttHH_selection,  # ttbar_selection,
     #    selections  = ttH_selection,

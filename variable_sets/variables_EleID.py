@@ -19,7 +19,7 @@ variables["ge4j_ge3t"] = [
     'N_TightMuons',
     # 'N_promptElectrons',
     # 'N_passesIDElectrons',
-    # 'N_selectedElectronsDL',
+    'N_selectedElectronsDL',
     'N_promptElectrons',
     'N_passesIDElectrons',
     'N_prompt_passesID_Electrons',

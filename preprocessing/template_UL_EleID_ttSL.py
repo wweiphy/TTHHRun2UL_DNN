@@ -12,7 +12,7 @@ import preprocessing
 
 
 """
-USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/EL8/CMSSW_12_4_3/src/TTHHRun2UL_DNN/preprocessing/template_UL_EleID_ttSL.py --outputdirectory=EleID_0308_UL_nominal_5 --variableselection=variables_EleID --maxentries=20000 --cores=4 --dataEra=2018
+USE: python3 /uscms/home/wwei/nobackup/SM_TTHH/Summer20UL/EL8/CMSSW_12_4_3/src/TTHHRun2UL_DNN/preprocessing/template_UL_EleID_ttSL.py --outputdirectory=EleID_0308_UL_nominal_6 --variableselection=variables_EleID --maxentries=20000 --cores=4 --dataEra=2018
 
 """
 
